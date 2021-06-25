@@ -4,7 +4,6 @@
 <html>
   <head>
 	<%@include file="../commons/header.jsp" %>
-
   </head>
   <style>
       i{
@@ -51,35 +50,31 @@
         <div class="col-lg-7" style="margin: auto;">
           <div class="card mb-4" id="forms">
             <div class="card-body"><br>
-              <h4 class="mb-5">아이디찾기</h4>
+              <h4 class="mb-5" style="text-align: center;">아이디찾기</h4>
               <form>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorId">이름</label>
                   <div class="col-sm-12">
-                    <input class="form-control" id="tutorId" type="text" placeholder="이름">
+                    <input class="form-control" style="width: 420px;" id="tutorId" type="text" placeholder="이름">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">휴대폰번호</label>
-                  <div class="col-sm-12">
-                    <input class="form-control" type="text" placeholder="휴대폰번호">
+                  <div class="col-sm-12 form-inline" style="flex-wrap: nowrap; justify-content: space-between;">
+                    <input class="form-control" style="width: 420px;" type="text" placeholder="휴대폰번호를 입력하세요">
+                    <button class="btn btn-primary">인증번호 전송</button>
                   </div>
                 </div>
-                <br>
-                <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                  <button style="width:100%; height: 38px;">휴대폰 번호로 인증번호 전송</button>
-                </div>
-                <br>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">인증번호</label>
-                  <div class="col-sm-12 form-inline" >
-                    <input class="form-control"style="width: 440px;" type="text" placeholder="인증번호를 입력하세요">
-                    <button style="margin-left: 20px; height: 36px;">인증번호확인</button>
+                  <div class="col-sm-12 form-inline" style="flex-wrap: nowrap; justify-content: space-between;">
+                    <input class="form-control"style="width: 420px;" type="text" placeholder="인증번호를 입력하세요">
+                    <button class="btn btn-primary">인증번호 확인</button>
                   </div>
                 </div><br><br>
                 <div class="form-group row">
-                  <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                    <button style="width:100%; height: 38px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#idFind">아이디찾기</button>
+                  <div class="col-sm-12" text-align="center" style="padding: 0px 0px 0px 0px;">
+                    <button style="width: 95%; height: 38px; margin-left: 14px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#idFind">아이디찾기</button>
                   </div>
                 </div>
               </form>
@@ -98,22 +93,21 @@
             <div class="modal-body">
               <div class="container">
                 <div class="form-group">
-                  <h6>내 아이디</h6><br>
-                  <input type="text" class="form-control"  readonly>
+                  <br><h6>내 아이디</h6>
+                  <input type="text" class="form-control" readonly>
                 </div>
               </div>
             </div>
-            <div class="modal-footer" style="display: block;" align="center">
-              <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 200px; border: 1px solid rgba(0, 0, 0, 0.25);">닫기</button>
-              <button type="button" class="btn btn-primary" style="width: 200px;" onclick="location.href='t_login.html'">로그인하러가기</button>
-              <button type="button" class="btn btn-primary" style="width: 200px;" onclick="location.href='t_findPWD.html'">비밀번호찾기</button>
+            <div class="modal-footer" style="display: block; text-align: center;">
+              <button type="button" class="btn btn-primary" style="width: 145px;" onclick="location.href='t_login.html'">로그인하기</button><br>
+              <button type="button" class="btn btn-primary" style="width: 145px;" onclick="location.href='t_findPWD.html'">비밀번호찾기</button><br><br>
+              <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 145px; border: 1px solid rgba(0, 0, 0, 0.25);">닫기</button>
             </div>
           </div>
         </div>
-      </div>
+      </div>      
       
-      <!-- /아이디찾기 -->
-      	<%@include file="../commons/footer.jsp" %>
+      <%@include file="../commons/footer.jsp" %>
  </div>
   </body>
 </html>
