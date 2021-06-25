@@ -89,6 +89,7 @@
                 </div>
                   <a href="${ pageContext.servletContext.contextPath }/user/login/teacher" style="color: #adb5bd !important;">강사 페이지 </a></li><br>                  
                   <a href="${ pageContext.servletContext.contextPath }/user/login/admin" style="color: #adb5bd !important;">관리자 모드</a></li><br>
+                  <a href="${ pageContext.servletContext.contextPath }/user/login/classdetail" style="color: #adb5bd !important;">확인용버튼</a></li><br>
               </form>
             </div>
           </div>
@@ -152,4 +153,4 @@
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
   </body>
-</html>ml>
+</html>

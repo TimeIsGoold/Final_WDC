@@ -25,4 +25,10 @@ public class UserMainController {
 		
 		return "admin/adminMain";
 	}
+	
+	@GetMapping("/classdetail")
+	public String classdetail() {
+		
+		return "user/classList/class_detail";
+	}
 }
