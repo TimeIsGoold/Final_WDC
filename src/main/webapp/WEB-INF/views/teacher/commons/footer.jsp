@@ -49,7 +49,7 @@
   </style>
 </head>
 <body>
-	<div class="container py-4">
+
 	  <div class="row py-5">
 	    <div class="col-md-1 mb-3 mb-md-0">
 	      <h5 class="text-uppercase mb-3">
@@ -93,6 +93,6 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
+
 </body>
 </html>
