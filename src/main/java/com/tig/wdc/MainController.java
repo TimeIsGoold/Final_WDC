@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/*")
 public class MainController {
 
-	@GetMapping(value= {"/", "main"})
-	public String defaultLocation() {
+	@GetMapping(value= {"/"})
+	public String main() {
 		return "user/main/main";
+
+
 	}
 
 }
