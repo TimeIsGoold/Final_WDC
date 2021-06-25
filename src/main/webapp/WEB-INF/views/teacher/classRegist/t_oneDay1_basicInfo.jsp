@@ -44,8 +44,11 @@
 
 <body>
   <div class="page-holder">
+    
     <!-- navbar-->
-    <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
+    <jsp:include page="../commons/header.jsp"/>
+    
+    <!-- <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
       <div class="container px-0 px-lg-3">
         <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span
               class="font-weight-bold text-uppercase text-dark">
@@ -77,11 +80,13 @@
           </div>
         </nav>
       </div>
-    </header>
+    </header> -->
 
     <div class="hello" style="width: 90%; margin: 10% 10% 10% 10%; display: flex;">
       <!-- SIDEBAR-->
-      <div class="col-lg-2 order-1 order-lg-0" style="float: left; width: 15%;">
+      <jsp:include page="../commons/sidebar.jsp"/>
+      
+      <!-- <div class="col-lg-2 order-1 order-lg-0" style="float: left; width: 15%;">
         <h5 class="text-uppercase mb-4"><a class="nav-link" href="#" style="color: black;">
             <h2>홈</h1>
           </a></h5>
@@ -103,7 +108,7 @@
           <li class="mb-2"><a class="reset-anchor" href="#">자주 묻는 질문</a></li>
           <li class="mb-2" style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
         </ul>
-      </div>
+      </div> -->
       <!-- /SIDEBAR -->
 
       <!-- 본문 -->
