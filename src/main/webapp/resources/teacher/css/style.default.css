@@ -13,6 +13,15 @@
 * ==========================================
 *
 */
+
+/* font 추가 */
+@font-face {
+  font-family: 'Cafe24SsurroundAir';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .text-small {
   font-size: 0.85rem !important;
 }
@@ -258,13 +267,15 @@ button:focus, button:active {
 .footer-link {
   font-size: 0.85rem;
   position: relative;
-  color: #999;
+  /*color: #999;*/
+  color: #111111;
   transition: all 0.3s;
 }
 
 .footer-link:hover, .footer-link:focus {
   padding-left: 0.6rem;
-  color: #fff;
+  /*color: #fff;*/
+  color: #999;
   text-decoration: none;
 }
 
@@ -282,7 +293,8 @@ button:focus, button:active {
   left: 0;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  color: #fff;
+  /*color: #fff;*/
+  color: #999;
   transition: all 0.3s;
   opacity: 0;
 }
