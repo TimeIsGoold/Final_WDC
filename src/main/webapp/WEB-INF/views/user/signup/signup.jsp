@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>우리 동네 클래스 | 회원가입</title>
+    <title>우리 동네 클래스 | W.D.C </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -30,14 +30,74 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="img/favicon.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-      .sign-btn{
-        display: flex;
-        margin: auto;
-        justify-content: space-around;
-        width: 300px;
+      .class-link {
+        color: black;
+      } 
+
+      .class-link:hover {
+        color:black;
+      }
+
+      .card-body{
+        height: 400px;
+        margin-left: 100px;
+
+      }
+    
+      .justify-content-lg-end {
+        justify-content: normal !important;
+      }
+
+      .form-control-lg {
+        width: 450px;
+      }
+
+      .list-inline-item {
+        margin-left: 50px;
+      }
+
+      .currentPage{
+        font-weight: 600;
+        font-size: 26px;
+
+      }
+      .form-control{
+        border-radius: 5px;
+      }
+
+      .form-control {
+        display: inline-block;
+      }
+
+      *{  margin: 0; padding: 0; }
+      ul{list-style: none;}
+      .accordion-box{
+        width: 100%; max-width: 600px;
+        margin:  0 auto;
+      }
+      p.title{
+        width: 100%;  
+        line-height: 60px; 
+        background: #fef0ae; 
+        color: black; 
+        box-sizing: border-box;
+        padding: 0 10px;
+      }
+      .con{
+        padding: 20px; 
+        display:none;
+      }
+
+      .tr-hover:hover{
+        background-color: #f8f9fa !important;
+      }
+
+      td{
+        vertical-align: unset !important;
       }
 
       i{
@@ -48,7 +108,6 @@
     </style>
   </head>
   <body>
-    <!-- header -->
     <div class="page-holder">
       <!-- navbar-->
       <header class="header bg-white">
@@ -69,7 +128,7 @@
                     <a class="dropdown-item border-0 transition-link" href="class_revenue.html">재태크 · 창업</a>
                   </div>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="serviceCenter.html"> <i class="fas  mr-1 text-gray"></i>고객센터</a></li>
+                <li class="nav-item"><a class="nav-link text-warning" href="serviceCenter.html"> <i class="fas  mr-1 text-gray"></i>고객센터</a></li>
               </ul>
               <ul class="navbar-nav ml-auto">               
                 <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1"></i><small class="text-gray"></small></a></li>
@@ -80,85 +139,74 @@
           </nav>
         </div>
       </header>
-      <br><br>
-      <!-- body -->
-      <div class="container py-5">
-        <div class="col-lg-10" style="margin: auto;">
-          <div class="card mb-4" id="forms">
-            <div class="card-body"><br>
-              <h1 class="mb-5" style="text-align: center; padding-bottom: 20px; font-size: 1.9rem;">Sign Up</h1>
-              <form action="index.html">
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="tutorId">아이디</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="tutorId" type="text" placeholder="아이디를 입력하세요.">
-                  </div>
-                </div><br>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="tutorPwd">비밀번호</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호를 입력하세요.">
-                  </div>
-                </div><br>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="tutorPwd2">비밀번호 확인</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="tutorPwd2" type="password" placeholder="비밀번호를 다시 입력해주세요.">
-                  </div>
-                </div><br>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="tutorName">이름</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="tutorName" type="text" placeholder="이름을 입력해주세요.">
-                  </div>
-                </div><br>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="tutorName">생년월일</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="tutorName" type="date" placeholder="이름을 입력해주세요.">
-                  </div>
-                </div><br>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="tutorPhone">휴대폰 번호</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="tutorPhone" type="text" placeholder="특수문자(-) 없이 11자리를 입력해주세요.">
-                  </div>
-                  <div class="col-sm-2">
-                    <button style="margin-left: -15px;" class="btn btn-sm btn-primary" type="button" onclick="request_verNo()">인증번호 요청</button>
-                  </div>
-                </div><br>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label" for="verNo">인증번호</label>
-                  <div class="col-sm-8">
-                    <input class="form-control" id="verNo" type="text" placeholder="7인증번호를 입력하세요.">
-                  </div>
-                </div><br>
-                <div class="form-group row">                                   
-                  <div class="col-sm-2">회원 약관</div>
-                  <div class="col-sm-10">
-                    <div class="custom-control custom-checkbox">
-                      <input style="padding-top: 5px;" class="custom-control-input" id="serviceTerms" type="checkbox">
-                      <label class="custom-control-label" for="serviceTerms"><a href="#">[필수] 서비스 이용약관</a></label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                      <input class="custom-control-input" id="privacyTerms" type="checkbox">
-                      <label class="custom-control-label" for="privacyTerms"><a href="#">[필수] 개인정보 처리약관</a></label>
-                    </div>
-                  </div>
-                </div>
-                <br><br>
-                <div class="sign-btn">
-                  <button class="btn btn-primary" type="submit">회원가입</button>
-                  <button class="btn btn-primary" type="submit" onclick="location.href='index.html'">취소</button>
-                </div>
-              </form>
-                <br><br>
+      <div class="container">
+        <!-- HERO SECTION-->
+        <section class="py-5 bg-light">
+          <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+              <div class="col-lg-6">
+                <h1 class="h2 mb-0">고객 센터</h1>
+                <p class="text-muted small text-uppercase mb-2"></p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+        
+        <!-- 세부 메뉴 -->
+        <section class="py-5">
+          <div class="container p-0">
+            <div class="row">
+              <div class="col-lg-3 order-0 order-lg-0">
+                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="#">공지사항</a></strong></div>
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="frequentlyAskedQuestions.html">자주 묻는 질문</a></strong></div>
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mantomanInquiry.html">1대1 문의</a></strong></div>
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="reortList.html">나의 신고</a></strong></div>
+              </div> 
+              <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0" style="text-align: center;">
+                <div class="container p-0">
+                  <div class="row">
+                    <table class="table table-hover" style="width: 850px;">
+                      <thead>
+                          <tr>
+                          <th><b>번호</b></th>
+                          <th><b>공지 제목</b></th>
+                          <th><b>등록 일자</b></th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="tr-hover">
+                          <th>2</th>
+                          <td onclick="location.href='notice_detail.html'" style="cursor:pointer;">강의 나이 제한 안내</td>
+                          <td>21.05.13</th>
+                        </tr>   
+                        <tr>
+                          <tr class="tr-hover">
+                            <th>1</th>
+                            <td onclick="location.href='notice_detail.html'" style="cursor:pointer;">환불 처리 기간 안내</td>
+                            <td>21.04.18</th>
+                          </tr>   
+                        </tr>   
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- PAGINATION-->
+                  <nav aria-label="Page navigation example" style="margin-left: 300px; margin-top: 50px;">
+                    <ul class="pagination justify-content-center justify-content-lg-end">
+                      <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       <br><br><br><br>
-      <!-- footer -->
+      </div>
+      
       <footer class="bg-dark text-white">
         <div class="container py-4">
           <div class="row py-5">
@@ -211,8 +259,6 @@
       <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
       <script src="js/front.js"></script>
-      <script>
-      </script>
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
