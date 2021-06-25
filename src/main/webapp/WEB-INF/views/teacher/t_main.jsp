@@ -291,7 +291,7 @@
     </div>
     
  	<!-- footer -->
-	<%@ include file="commons/footer.jsp" %>
+	<%-- <%@ include file="commons/footer.jsp" %> --%>
   	
   </body>
 </html>

@@ -9,7 +9,6 @@ public class PageTestController {
 	@RequestMapping("/test")
 	public String pageMove() {
 
-		return "teacher/t_main";
-
+		return "teacher/classManage/t_classAttendance";
 	}
 }
