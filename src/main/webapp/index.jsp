@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="WEB-INF/views/user/classDeatil/class_all.jsp"/>
+	<jsp:forward page="/main"/>
 </body>
 </html>
