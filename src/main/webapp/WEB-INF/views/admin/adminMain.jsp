@@ -82,4 +82,3 @@
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>
 </html>
-
