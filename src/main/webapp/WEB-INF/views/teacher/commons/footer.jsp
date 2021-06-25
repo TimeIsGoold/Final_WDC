@@ -85,7 +85,7 @@
 	  <div class="border-top pt-4" style="border-color: #1d1d1d !important">
 	    <div class="row">
 	      <div class="col-lg-6">
-	        <p class="small text-muted mb-0">&copy; 2021 TimeIsGold All rights reserved.</p>
+	        <p class="small text-muted mb-0">WDC 2021 TimeIsGold All rights reserved.</p>
 	      </div>
 	      <div class="col-lg-6 text-lg-right">
 	        <p class="small text-muted mb-0"><a class="text-white reset-anchor"
