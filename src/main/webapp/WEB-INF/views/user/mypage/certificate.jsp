@@ -46,8 +46,6 @@
 
     *{font-family:'Cafe24SsurroundAir' !important;}
   </style>
-  
-
   </head>
   <body>
     <div class="page-holder bg-light">
@@ -120,76 +118,137 @@
           </div>
         </div>
       </div>
-      <section class="py-5">
-        <div class="container">
-          <div class="row mb-5">
-            <div class="col-lg-6">
-              <!-- PRODUCT SLIDER-->
-              <div class="row m-sm-0">
-                <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
-                  <div class="owl-thumbs d-flex flex-row flex-sm-column" data-slider-id="1">
-                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/class-sport.png" alt="..."></div>
-                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/class-sport2.png" alt="..."></div>
-                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/class-sport3.png" alt="..."></div>
-                  </div>
-                </div>
-                <div class="col-sm-10 order-1 order-sm-2">
-                  <div class="owl-carousel product-slider" data-slider-id="1">
-                    <a class="d-block" href="img/class-sport.png" data-lightbox="product" title="Product item 1">
-                      <img class="img-fluid" src="img/class-sport.png" alt="..." style="height: 350px">
-                    </a>
-                    <a class="d-block" href="img/class-sport2.png" data-lightbox="product" title="Product item 2">
-                      <img class="img-fluid" src="img/class-sport2.png" alt="..." style="height: 350px">
-                    </a>
-                    <a class="d-block" href="img/class-sport3.png" data-lightbox="product" title="Product item 3">
-                      <img class="img-fluid" src="img/class-sport3.png" alt="..." style="height: 350px">
-                    </a>
-                  </div>
-                </div>
+
+      <!-- 시작 -->
+      <div class="container" style="background-color: white;">
+        <!-- HERO SECTION-->
+        <section class="py-5 bg-light1">
+          <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+              <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">수료증</h1>
+              </div>
+              <div class="col-lg-6 text-lg-right">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                    <li class="breadcrumb-item"><a href="complateClassDetail.html">돌아가기</a></li>
+                  </ol>
+                </nav>
               </div>
             </div>
-            <!-- PRODUCT DETAILS-->
-            <div class="col-lg-6">
-              <form action="mypageComplateClass.html">
-                <button class="btn btn-outline-dark" style="margin-left: 450px; width: 120px; border-radius: 5px;">돌아가기</button>
-              </form>
-              <ul class="list-inline mb-2">
-                <li class="list-inline-item m-0"><i class="fas fa-user-alt small text-warning"> 강사 명</i></li> : 이해승
-                <br> <br>
-                <li class="list-inline-item m-0"> &nbsp;<i class="fas fa-caret-right small text-warning">  강의 명</i></li>
-                <br>
-
-
-              </ul>
-              <h1><a href="detail.html" style="color: black;">하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></h1>
-              <p class="text-small mb-4">
-                우동클 스포츠 클래스입니다. 
-                우동클 스포츠 클래스입니다.
-                우동클 스포츠 클래스입니다.<br>
-              </p>
-              <input class="infoInput"type="text" value=" 수업 진행 날짜 : 06/15" disabled >
-              <br>
-              <input class="infoInput"type="text" value=" 결제 날짜 : 06/05" disabled >
-              <br>
-              <input class="infoInput"type="text" value=" 신청 인원 : 1" disabled >
-              <br>
-              <input class="infoInput"type="text" value=" 결제 금액 : 39,000" disabled >
-              <br>
-              <br>
-
-              <form action="class_report.html">
-              <button class="infoInput" type="submit">클래스 신고 하기</button>
-              </form>
-              <form action="class_certificatesView.html">
-                <button class="infoInput" type="submit">수료증 보기</button>
-                </form>
-            </div>
           </div>
-          
+        </section>
+        <section class="py-5">
+          <div class="row">
+            <div class="col-lg-8 mb-4 mb-lg-0" style="margin-left: 17%;">
+                <h2>수료증</h2>
+
+                <div class="bg-light px-4 py-3">
+                    <div class="row align-items-center text-center">
+                      <div class="col-md-6 mb-3 mb-md-0 text-md-left">
+                          <i class="fas mr-2" style="display: flex;">
+                            <h5 style="width: 200px; margin-top: 7px; height: 10px;">성명 : 민연준
+                            </h5>
+                          </i>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="bg-light px-4 py-3">
+                    <div class="row align-items-center text-center">
+                      <div class="col-md-6 mb-3 mb-md-0 text-md-left">
+                          <i class="fas mr-2" style="display: flex;">
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 신청일 : 2021-06-03
+                            </h5>
+                          </i>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="bg-light px-4 py-3">
+                    <div class="row align-items-center text-center">
+                      <div class="col-md-6 mb-3 mb-md-0 text-md-left">
+                          <i class="fas mr-2" style="display: flex;">
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 기간 : 2021-06-30 ~ 2021-07-30
+                            </h5>
+                          </i>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="bg-light px-4 py-3">
+                    <div class="row align-items-center text-center">
+                      <div class="col-md-6 mb-3 mb-md-0 text-md-left">
+                          <i class="fas mr-2" style="display: flex;">
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 번호 : 55221123
+                            </h5>
+                          </i>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+              <div class="table-responsive mb-4">
+                <table class="table">
+                  <thead class="bg-light">
+                    <tr>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">강의 이름</strong></th>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase" style="margin-left: 15px;">강사 명</strong></th>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase"></strong></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th class="pl-0 border-0" scope="row">
+                        <div class="media align-items-center">
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></strong></div>
+                        </div>
+                      </th>
+                      <td class="align-middle border-0">
+                        <div class="quantity">
+                          <button class="dec-btn p-0"><i class="fas"></i></button>
+                          <p style="width: 80px; ">이해승</p>                         
+                           <button class="inc-btn p-0"><i class="fas"></i></button>
+                        </div>
+                    </td>
+
+                      <td class="align-middle border-0">
+                          <div class="quantity">
+                            <button class="dec-btn p-0"><i class="fas"></i></button>
+                            <button class="inc-btn p-0"><i class="fas"></i></button>
+                          </div>
+                      </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            
+
+            <table class="table">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="border-0" scope="col"> <strong class="text-small text-uppercase">2021-07-30</strong></th>
+                    <th class="border-0" scope="col"> <strong class="text-small text-uppercase" style="margin-left: 15px;"> </strong></th>
+                    <th class="border-0" scope="col"> <strong class="text-small text-uppercase" style="margin-left: 200px;">위 수강 현황은 사실과 같음을 증명합니다. (주)우동클</strong></th>
+                  </tr>
+                </thead>
+                <tbody>
+ 
+              </tbody>
+          </table>
+
+              <button style="margin-left: 41%;" onclick=writeComplate();>인쇄하기 </button>
 
 
-          
-      </section>
+
+            </div>
+
+          </div>
+        </section>
+      </div>
       <footer class="bg-dark text-white">
         <div class="container py-4">
           <div class="row py-5">
