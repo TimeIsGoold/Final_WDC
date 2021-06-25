@@ -7,6 +7,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="/test"/>
+
+	<!-- 강현우 -->
+	<jsp:forward page="WEB-INF/views/teacher/"/>
+	
+	<!-- 이해승 -->
+	<jsp:forward page="WEB-INF/views/teacher/"/>
+	
+	<!-- 김현빈 -->
+	<jsp:forward page="WEB-INF/views/admin/"/>
+	
+	<!-- 송아현 -->
+	<jsp:forward page="WEB-INF/views/admin/"/>
+	
+	<!-- 민연준 -->
+	<jsp:forward page="WEB-INF/views/user/"/>
+	
+	<!-- 김소라 -->
+	<jsp:forward page="WEB-INF/views/user/"/>
 </body>
 </html>
