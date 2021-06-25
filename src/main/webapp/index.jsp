@@ -9,21 +9,21 @@
 <body>
 
 	<!-- 강현우 -->
-	<jsp:forward page="WEB-INF/views/teacher/"/>
+	<%-- <jsp:forward page="WEB-INF/views/teacher/"/> --%>
 	
 	<!-- 이해승 -->
-	<jsp:forward page="WEB-INF/views/teacher/"/>
+	<jsp:forward page="/test"/>
 	
 	<!-- 김현빈 -->
-	<jsp:forward page="WEB-INF/views/admin/"/>
+	<%-- <jsp:forward page="WEB-INF/views/admin/"/> --%>
 	
 	<!-- 송아현 -->
-	<jsp:forward page="WEB-INF/views/admin/"/>
+	<%-- <jsp:forward page="WEB-INF/views/admin/"/> --%>
 	
 	<!-- 민연준 -->
-	<jsp:forward page="WEB-INF/views/user/"/>
+	<%-- <jsp:forward page="WEB-INF/views/user/"/> --%>
 	
 	<!-- 김소라 -->
-	<jsp:forward page="WEB-INF/views/user/"/>
+	<%-- <jsp:forward page="WEB-INF/views/user/"/> --%>
 </body>
 </html>
