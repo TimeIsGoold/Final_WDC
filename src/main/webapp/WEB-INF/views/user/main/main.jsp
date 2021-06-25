@@ -104,6 +104,12 @@
       .hover-btn:hover{
         color: #ffc107;
       }
+      
+      i{
+		font-family: "Font Awesome 5 Free" !important;
+	   }
+		
+	  *{font-family:'Cafe24SsurroundAir' !important;}
     </style>
   </head>
   <body>

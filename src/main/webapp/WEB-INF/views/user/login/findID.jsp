@@ -6,13 +6,22 @@
 	<%@include file="../commons/header.jsp" %>
   </head>
   <style>
-      i{
-        font-family: "Font Awesome 5 Free" !important;
-      }
+    .modal{
+      vertical-align: middle;
+      margin-top: 13%;
+    }
 
-    *{font-family:'Cafe24SsurroundAir' !important;}
+    .modal-sm{
+      max-width: 500px !important;
+    }
+
+    i{
+      font-family: "Font Awesome 5 Free" !important;
+    }
+
+  *{font-family:'Cafe24SsurroundAir' !important;}
   </style>
-  <body>
+    <body>
     <!-- header -->
     <div class="page-holder">
       <!-- navbar-->
@@ -45,6 +54,7 @@
           </nav>
         </div>
       </header>
+      <br><br>
       <!-- body -->
       <div class="container py-5">
         <div class="col-lg-7" style="margin: auto;">
@@ -74,7 +84,7 @@
                 </div><br><br>
                 <div class="form-group row">
                   <div class="col-sm-12" text-align="center" style="padding: 0px 0px 0px 0px;">
-                    <button style="width: 95%; height: 38px; margin-left: 14px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#idFind">아이디찾기</button>
+                    <button style="width: 95%; height: 38px; margin-left: 14px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#idFind">아이디 찾기</button>
                   </div>
                 </div>
               </form>
@@ -82,6 +92,7 @@
           </div>
         </div>
       </div>
+      <br><br><br>
       <!-- 아이디찾기팝업 -->
       <div id="idFind"class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
@@ -108,6 +119,6 @@
       </div>      
       
       <%@include file="../commons/footer.jsp" %>
- </div>
+ 	</div>
   </body>
 </html>
