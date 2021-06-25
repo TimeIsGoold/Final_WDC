@@ -58,57 +58,11 @@
 <body>
   <div class="page-holder">
     <!-- navbar-->
-    <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
-      <div class="container px-0 px-lg-3">
-        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark"><h1>우리동네 클래스</h1></span></a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-              </li>
-              <li class="nav-item">
-              </li>
-              <li class="nav-item"><a class="nav-link" href="t_main.html"><h3>강사 페이지</h3></a>
-              </li>
-              <li class="nav-item dropdown">
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">               
-              <li class="nav-item"></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <jsp:include page="../commons/header.jsp"/>
 
     <div class="container">
       <!-- sidebar -->
-      <div class="col-lg-2 order-1 order-lg-1" style="float: left; height: 100%;">
-        <h5 class="text-uppercase mb-4"><a class="nav-link" href="#" style="color: black;"><h2>홈</h1></a></h5>
-        <div class="py-2 px-4 bg-light mb-3"><strong class="text-uppercase font-weight-bold">클래스 관리</strong>
-        </div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-          <li class="mb-2"><a class="reset-anchor" href="#">클래스 관리</a></li>
-          <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-        <div class="py-2 px-4 bg-light mb-3"><strong class="text-uppercase font-weight-bold">매출/정산</strong>
-        </div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-          <li class="mb-2"><a class="reset-anchor" href="#">정산내역 관리</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="#"></a></li>
-          <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-        <div class="py-2 px-4 bg-light mb-3"><strong class="text-uppercase font-weight-bold">문의하기</strong>
-        </div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-          <li class="mb-2"><a class="reset-anchor" href="#">관리자 문의</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="#">문의내역 관리</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="#">자주 묻는 질문</a></li>
-          <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-      </div>   
+      <jsp:include page="../commons/sidebar.jsp"/>
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
@@ -224,5 +178,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
+  
+  <%-- <jsp:include page="../commons/footer.jsp"/> --%>
 </body>
 <html>
