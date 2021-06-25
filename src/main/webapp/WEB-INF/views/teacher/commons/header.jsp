@@ -56,5 +56,6 @@
       </div>
     </nav>
   </div>
+  <hr>
 </body>
 </html>
