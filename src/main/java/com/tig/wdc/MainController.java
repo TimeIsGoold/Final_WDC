@@ -1,16 +1,15 @@
-package com.tig.wdc.admin.controller;
+package com.tig.wdc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/*")
 public class MainController {
 
-	@GetMapping(value= {"/", "main"})
+	@GetMapping(value= {"/"})
 	public String main() {
-		
 		return "user/main/main";
 	}
 
