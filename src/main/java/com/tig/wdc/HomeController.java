@@ -33,7 +33,6 @@ public class HomeController {
 //		
 //		model.addAttribute("serverTime", formattedDate );
 //		
-//		return "0.t_header_login";
 //	}
-	
+	public void test() {}
 }
