@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Lightbox-->
     <link rel="stylesheet" href="vendor/lightbox2/css/lightbox.min.css">
     <!-- Range slider-->
