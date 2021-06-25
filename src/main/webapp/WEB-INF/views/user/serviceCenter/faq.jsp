@@ -42,7 +42,7 @@
       }
 
       .card-body{
-        height: 400px;
+        height: 500px;
         margin-left: 100px;
 
       }
