@@ -1,4 +1,9 @@
-<%@include="" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+  <head>
+	<%@include file="../commons/header.jsp" %>
     <style>
       .w-100 {
         width: 255px;
@@ -133,7 +138,8 @@
               <ul class="navbar-nav ml-auto">               
                 <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
                 <li class="nav-item"><a class="nav-link" href="mypageMain.html"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login/login">로그인</a></li>
+                
               </ul>
             </div>
           </nav>

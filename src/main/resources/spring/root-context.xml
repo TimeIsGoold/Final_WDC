@@ -53,6 +53,6 @@
 	<mybatis-spring:scan 
 		base-package="com.tig.wdc.teacher.model.dao, 
 					  com.tig.wdc.admin.model.dao, 
-					  com.tig.wdc.user.board.model.dao"/>
+					  com.tig.wdc.user.model.dao"/>
 		
 </beans>
