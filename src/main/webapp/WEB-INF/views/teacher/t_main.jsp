@@ -85,6 +85,9 @@
   </style>
   </head>
   <body>
+  
+  	<%@ include file="commons/header.jsp" %>
+  	
     <div class="page-holder">
       <!-- navbar-->
       <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
@@ -116,26 +119,8 @@
 
       <div class="container">
         <!-- sidebar -->
-        <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
-          <h5 class="text-uppercase mb-4"><a class="nav-link" href="#" style="color: black; text-align: center;"><h2>홈</h1></a></h5>
-          <div class="py-2 px-4 bg-light mb-3"><h5>클래스 관리</h5></div>
-          <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-            <li class="mb-2"><a class="reset-anchor" href="t_classManagement.html">클래스 관리</a></li>
-            <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-          </ul>
-          <div class="py-2 px-4 bg-light mb-3"><h5>매출/정산</h5></div>
-          <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-            <li class="mb-2"><a class="reset-anchor" href="t_balanceList.html">정산내역 관리</a></li>
-            <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-          </ul>
-          <div class="py-2 px-4 bg-light mb-3"><h5>문의하기</h5></div>
-          <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-            <li class="mb-2"><a class="reset-anchor" href="t_Inquiry.html">관리자 문의</a></li>
-            <li class="mb-2"><a class="reset-anchor" href="t_inquiryList.html">문의내역 관리</a></li>
-            <li class="mb-2"><a class="reset-anchor" href="t_FAQ.html">자주 묻는 질문</a></li>
-            <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-          </ul>
-        </div>
+		
+		<%@ include file="commons/sidebar.jsp" %>
 
         <!-- main page -->
         <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
