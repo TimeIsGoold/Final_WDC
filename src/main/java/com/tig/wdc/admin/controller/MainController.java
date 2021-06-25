@@ -11,7 +11,7 @@ public class MainController {
 	@GetMapping(value= {"/", "main"})
 	public String main() {
 		
-		return "admin/AdminMain";
+		return "user/main/main";
 	}
 
 }
