@@ -50,9 +50,9 @@
       color: black;
     }
     .btn {
-      border-radius: 5px;
-      background-color: #fef0ae;
-      border-color: #fef0ae;
+      border-radius: 5px !important;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
     }
     
     .btn-primary:hover {
@@ -99,7 +99,7 @@
               </div>
             </div>
             
-            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px;">
+            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; padding-bottom: 310px;">
               <table class="table table-hover" style="text-align: center;">
                 <thead>
                   <tr>

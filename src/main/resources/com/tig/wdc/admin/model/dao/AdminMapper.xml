@@ -4,20 +4,43 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tig.wdc.admin.model.dao.AdminMapper">
 	
-	<resultMap id="adminResultSet" type="StudentDTO">
+	<resultMap id="studentList" type="StudentDTO">
 		<id column="USER_NO" property="studentNo"/>
 		<result column="USER_ID" property="studentId"/>
 		<result column="USER_NAME" property="studentName"/>
 		<result column="ENROLLDATE" property="enrollDate"/>
 	</resultMap>
 	
-	<select id="selectAllStudentList" resultMap="adminResultSet" parameterType="StudentDTO">
+	<resultMap id="classLsit" type="ClassDTO">
+		<id column="CLS_NO" property="classNo"/>
+		<result column="CLS_TITLE" property="classTitle"/>
+		<result column="TE_NAME" property="teacherName"/>
+		<result column="CLS_PRICE" property="classPrice"/>
+		<result column="CLS_TYPE" property="classType"/>
+		<result column="CLS_STATUS" property="decisionStatus"/>
+		
+	</resultMap>
+	
+		
+	<select id="selectAllStudentList" resultMap="studentList" parameterType="StudentDTO">
 		SELECT
 		       USER_NO
 		     , USER_ID
 		     , USER_NAME
 		     , ENROLLDATE
 		  FROM USER_INFO  
+	</select>
+	
+	<select id="selectAllClassList" resultMap="classLsit" parameterType="ClassDTO">
+		SELECT 
+		       C.CLS_NO
+		     , C.CLS_TITLE
+		     , C.CLS_TYPE
+		     , C.CLS_PRICE
+		     , C.CLS_STATUS
+		     , TI.TE_NAME
+		  FROM CLASS C
+		  JOIN TEACHER_INFO TI ON (C.TE_NO = TI.TE_NO)
 	</select>
 	
 </mapper>
