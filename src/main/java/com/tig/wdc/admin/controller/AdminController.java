@@ -1,0 +1,46 @@
+package com.tig.wdc.admin.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tig.wdc.admin.model.service.AdminService;
+
+@Controller
+@RequestMapping("/admin/*")
+public class AdminController {
+	
+	private final AdminService adminService;
+	
+	@Autowired
+	public AdminController(AdminService adminService) {
+		
+		this.adminService = adminService;
+		
+	}
+	
+	// 로그인
+	@GetMapping("login")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
+	
+	@GetMapping("/memberManagement")
+	public String selectStudentList(Model model) {
+		
+		model.addAttribute("studentList", adminService.selectAllStudentList());
+		
+		
+		
+		return "admin/adminMemberManagement";
+	}
+	
+	// 문의게시판
+	@GetMapping("/questionManagement")
+	public String selectQustionList(Model model) {
+		
+		return "admin/adminQuestionManagement";
+	}
+}

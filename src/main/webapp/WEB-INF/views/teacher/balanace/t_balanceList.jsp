@@ -35,6 +35,13 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+  	html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
+		
     body {
       font-size: 15px;
     }
@@ -166,8 +173,6 @@
     </div>  
   
           
-
-
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

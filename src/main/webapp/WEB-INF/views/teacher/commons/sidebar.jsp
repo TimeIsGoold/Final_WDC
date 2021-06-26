@@ -57,19 +57,19 @@
   <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
     <div class="py-2 side-head"><p>클래스 관리</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_classManagement.html">클래스 관리</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherClassManagement">클래스 관리</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
     <div class="py-2 side-head"><p>매출/정산</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_balanceList.html">정산내역 관리</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherBalanceList">정산내역 관리</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
     <div class="py-2 side-head"><p>문의하기</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_Inquiry.html">관리자 문의</a></li>
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_inquiryList.html">문의내역 관리</a></li>
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_FAQ.html">자주 묻는 질문</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherinquiry">관리자 문의</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teaccherInquiry">문의내역 관리</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherFAQ">자주 묻는 질문</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
   </div>
