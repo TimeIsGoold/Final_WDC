@@ -45,7 +45,6 @@
         display: inline-block;
       }
       .couponList{
-          border: 1px solid black;
           height: 100px;
           border-radius: 5px;
           width: 400px;
@@ -54,6 +53,11 @@
           padding-top: 5px;
           text-align: left;
           font-size: 14px;
+          padding-left: 10px; 
+	      height: 150px; 
+	      margin: auto ;
+	      border: 1px solid white !important;
+	      background: white;
       }
 
       .modal{
@@ -82,6 +86,8 @@
       i{
         font-family: "Font Awesome 5 Free" !important;
       }
+      
+
 
     *{font-family:'Cafe24SsurroundAir' !important;}
     </style>
@@ -193,11 +199,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <div class="couponList" >
-                <h5>5% 할인 쿠폰</h5>
-                
-                응원 강좌 개설 축하쿠폰
+                <h4><i class="fas mr-2 fa-gift"> 5% 할인 쿠폰 </i></h4>
+
+                <h6>응원 강좌 개설 축하쿠폰</h6>
                 <br>
-                적용 강의명 : 반지수의 드로잉 클래스
+                	적용 강의명 : 반지수의 드로잉 클래스
                 <br>
                 2021-06-30 까지
             </div>

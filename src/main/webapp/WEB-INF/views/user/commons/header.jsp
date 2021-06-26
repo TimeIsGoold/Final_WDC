@@ -9,6 +9,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
+        <!-- 연준추가 CSS-->
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/css/custom2.css">
+    
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Lightbox-->

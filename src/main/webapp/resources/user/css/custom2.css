@@ -1,0 +1,12 @@
+@charset "UTF-8";
+.productNoneOpacity .badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 999;
+}
+.productNoneOpacity:hover img {
+  -webkit-filter: grayscale(40%);
+  filter: grayscale(40%);
+  transition: all 0.3s;
+}
