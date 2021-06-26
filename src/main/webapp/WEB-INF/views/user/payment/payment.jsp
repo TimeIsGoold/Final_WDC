@@ -5,8 +5,7 @@
   <head>
 	<%@include file="../commons/header.jsp" %>
 
-
-    <style>
+<style>
 .overlay {
   position: fixed;
   top: 0;
@@ -40,11 +39,26 @@
 }
 
 i{
-        font-family: "Font Awesome 5 Free" !important;
-      }
+  font-family: "Font Awesome 5 Free" !important;
+}
 
 *{font-family:'Cafe24SsurroundAir' !important;}
 
+.bg-light1 {
+  background-color: #f8f9fa !important;
+}
+
+a:hover{
+  color: #ffc107 !important;
+}
+
+.table {
+    font-size: 15px;
+}
+
+.text-small {
+    font-size: 15px !important;
+}
     </style>
   </head>
   <body>
@@ -79,45 +93,6 @@ i{
           </nav>
         </div>
       </header>
-      <!--  Modal -->
-      <div class="modal fade" id="productView" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body p-0">
-              <div class="row align-items-stretch">
-                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/product-5.jpg)" href="img/product-5.jpg" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/product-5-alt-1.jpg" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/product-5-alt-2.jpg" title="Red digital smartwatch" data-lightbox="productview"></a></div>
-                <div class="col-lg-6">
-                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                  <div class="p-5 my-md-4">
-                    <ul class="list-inline mb-2">
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                    </ul>
-                    <h2 class="h4">Red digital smartwatch</h2>
-                    <p class="text-muted">$250</p>
-                    <p class="text-small mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
-                    <div class="row align-items-stretch mb-4">
-                      <div class="col-sm-7 pr-sm-0">
-                        <div class="border d-flex align-items-center justify-content-between py-1 px-3"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
-                          <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
-                    </div><a class="btn btn-link text-dark p-0" href="#"><i class="far fa-heart mr-2"></i>Add to wish list</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="container">
         <!-- HERO SECTION-->
         <section class="py-5 bg-light1">
@@ -137,7 +112,6 @@ i{
           </div>
         </section>
         <section class="py-5">
-          <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
           <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
               <!-- CART TABLE-->
@@ -145,9 +119,9 @@ i{
                 <table class="table">
                   <thead class="bg-light">
                     <tr>
-                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">강의 이름</strong></th>
-                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">금액</strong></th>
-                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">신청 인원</strong></th>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">강의</strong></th>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">&nbsp;금액</strong></th>
+                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">&nbsp;&nbsp;인원</strong></th>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">Total</strong></th>
                       <th class="border-0" scope="col"> </th>
                     </tr>
@@ -165,7 +139,7 @@ i{
                       <td class="align-middle border-0">
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="1"/> 명
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="1"/>
                             <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
@@ -178,111 +152,122 @@ i{
                 </table>
               </div>
               <!-- 신청자 정보-->
-              <div class="bg-light px-4 py-3">
-                <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left"><i class="fas mr-2">신청자 정보 </i></div>
-                </div>
-              </div>
-              <li>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;이름 :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <input type="text" placeholder="신청자 이름을 입력해 주세요" style="margin-bottom: 10px; margin-top: 10px; width: 250px;" id="name"></li>
+              <table class="table">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="border-0" scope="col"> <strong class="text-small text-uppercase">신청자 정보</strong></th>
+                    <th class="border-0" scope="col"> </th>
+                    <th class="border-0" scope="col"> </th>
+                    <th class="border-0" scope="col"> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th class="pl-0 border-0" scope="row">
+                      &nbsp;&nbsp;&nbsp;&nbsp;이름
+                    </th>
+                    <td style="border-top: 0px !important">
+                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="pl-0 border-0" scope="row">
+                      &nbsp;&nbsp;&nbsp;&nbsp;휴대폰번호
+                    </th>
+                    <td style="border-top: 0px !important">
+                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <br>
-              <li>휴대폰 번호 :&nbsp;
-              <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone"> </li>
-              <br>
-              <br><br>
               <!-- 쿠폰 적용-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left"><i class="fas mr-2 fa-gift"> 쿠폰선택 </i>
-                
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b>
                     <select style="height: 25px;  margin-left: 45px;">
                         <option>선택</option>
                         <option>사용가능 쿠폰 1</option>
                         <option>사용가능 쿠폰 2</option>
                     </select>
                 </div>
-                <div style="margin-left: 20px;">  할인금액 : <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="0 원"></div>
+                <div style="margin-left: 20px;">할인금액 : <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="0 원"></div>
                 </div>
               </div>
-              <br><br>
-
+              <br>
               <!-- 결제 수단 선택-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left"><i class="fas mr-2">결제 수단 선택 </i>
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><b>결제 수단 선택</b>
                     <select style="height: 25px;  margin-left: 23px; width: 135px;" id="payment_method">
                         <option>선택</option>
                         <option>카카오 페이</option>
-                        <option></option>
                     </select>
                 </div>
                 </div>
              </div>
-             <br><br>
+             <br>
               <!-- 약관 동의 -->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left"><i class="fas mr-2">약관 </i></div>
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><b>약관</b></div>
                 </div>
             </div>
-            <textarea style="width: 500px; height: 230px; margin-top: 10px; font-size: 12px" >
-- **강좌 공통 안내**
-- 모든 상품은 정해진 수강기간 동안 신청하신 강좌를 반복하여 수강할 수 있습니다.
-- 수강기간이 종료 전 연장 상품, 종료된 후 재수강 상품을 구매할 수 있습니다 (일부상품 제외).
-- OS(윈도우,맥,리눅스)에 관계 없이 크롬브라우저에서 인강수강이 가능합니다.
-- 모바일 기기는 고객센터 > FAQ에 명시된 지원 기기일 때 정상 이용 가능합니다.
-- **일반강좌 구매 안내**
-- 일반 강좌(단과 강좌)는 결제일로부터 7일 이후에 자동 시작됩니다. (시작일 선택시 7일 이전 수강 가능)
-- **프리패스 및 패키지 상품 구매 안내 (프리패스, BIG3 등)**
-- 프리패스 및 패키지 상품은 아래 기기정보 수집 동의 시에 구매 가능합니다.
-- 프리패스 상품은 휴강 서비스가 지원되지 않습니다.
-- (자단기 프리패스 및 패키지 상품은 휴강 서비스가 지원되지 않습니다.)
-- **교재 구매 안내**
-- 해외 및 군부대 교재 배송 서비스는 제공되지 않습니다.
-- 프리패스(BIG3 포함) 구매 시 교재비는 별도이며 프리패스 구매 후 구매할 수 있습니다.
-- **캐시 결제 안내**
-- 캐시 결제는 각 상품별로 적용해 결제가 가능합니다.
-- 교재, 배송비, BIG3, 태블릿PC 결합상품,단기탭몰 상품은 캐시 사용이 불가합니다.
-- 단기학교에 따라 캐시 결제는 제한 될 수 있습니다.
-- 학원프리패스, 스펙업프리패스 등 전체 학원 강좌는 한도 5만원까지 캐시사용이 가능합니다.
-- **할인권(쿠폰) 이용 안내**
-- 쿠폰을 지급 받은 단기학교 상품에만 적용이 가능합니다.
-- 쿠폰을 적용한 상품 환불 및 취소 시 쿠폰은 반환되지 않습니다.
-- 쿠폰은 유효기간내에만 이용이 가능합니다.
-- **환불안내**
-- 프리패스 상품은 결제일로부터 7일 이내 2강 이하로 수강했을 경우 전액 환불 신청이 가능합니다.
-- (한 ID 당 전액환불은 동일한 상품에 한하여 1회만 가능합니다.)
-- 단과강좌 상품은 실제 수강한 강좌 수를 공제하여 환불 금액이 책정됩니다.
-- 온라인 교재는 배송 완료 후 10일 이내(사용한 흔적이 없는 경우, 랩핑이 제거되지 않은 상태)에 환불 신청이 가능합니다.
-- 테블릿PC 등 지급기기가 포함된 상품 환불 시 환불 금액은 지급기기 금액과 수강한 강좌의 정가가 차감됩니다.
-- **학원 강좌 구매 안내**
-- 학원강좌 환불사유 발생 시, 수강 이전에는 수강료 전액이 환불되며 수강 이후에는 경과 기간에 따라 부분환불이 가능합니다.
-- **미성년자 고객 고지사항**
-- 전자상거래 등에서의 소비자보호에 관한 법률 제 13조 제 3항에 따라 미성년자 고객의 계약에 대해 안내드립니다.
-- 미성년자의 법정대리인이 본 구매 계약에 대하여 동의를 하지 아니하면 미성년자 본인 또는 법정대리인이 그 계약을 취소할 수 있습니다.
-- 법정대리인의 동의 없이 진행된 계약에 대해 취소를 원하는 경우에는 당사 고객센터 혹은 1:1 게시판으로 연락하시기 바랍니다.
+            <textarea style="width: 730px; height: 230px; margin-top: 10px; font-size: 12px" >
+              - **강좌 공통 안내**
+              - 모든 상품은 정해진 수강기간 동안 신청하신 강좌를 반복하여 수강할 수 있습니다.
+              - 수강기간이 종료 전 연장 상품, 종료된 후 재수강 상품을 구매할 수 있습니다 (일부상품 제외).
+              - OS(윈도우,맥,리눅스)에 관계 없이 크롬브라우저에서 인강수강이 가능합니다.
+              - 모바일 기기는 고객센터 > FAQ에 명시된 지원 기기일 때 정상 이용 가능합니다.
+              - **일반강좌 구매 안내**
+              - 일반 강좌(단과 강좌)는 결제일로부터 7일 이후에 자동 시작됩니다. (시작일 선택시 7일 이전 수강 가능)
+              - **프리패스 및 패키지 상품 구매 안내 (프리패스, BIG3 등)**
+              - 프리패스 및 패키지 상품은 아래 기기정보 수집 동의 시에 구매 가능합니다.
+              - 프리패스 상품은 휴강 서비스가 지원되지 않습니다.
+              - (자단기 프리패스 및 패키지 상품은 휴강 서비스가 지원되지 않습니다.)
+              - **교재 구매 안내**
+              - 해외 및 군부대 교재 배송 서비스는 제공되지 않습니다.
+              - 프리패스(BIG3 포함) 구매 시 교재비는 별도이며 프리패스 구매 후 구매할 수 있습니다.
+              - **캐시 결제 안내**
+              - 캐시 결제는 각 상품별로 적용해 결제가 가능합니다.
+              - 교재, 배송비, BIG3, 태블릿PC 결합상품,단기탭몰 상품은 캐시 사용이 불가합니다.
+              - 단기학교에 따라 캐시 결제는 제한 될 수 있습니다.
+              - 학원프리패스, 스펙업프리패스 등 전체 학원 강좌는 한도 5만원까지 캐시사용이 가능합니다.
+              - **할인권(쿠폰) 이용 안내**
+              - 쿠폰을 지급 받은 단기학교 상품에만 적용이 가능합니다.
+              - 쿠폰을 적용한 상품 환불 및 취소 시 쿠폰은 반환되지 않습니다.
+              - 쿠폰은 유효기간내에만 이용이 가능합니다.
+              - **환불안내**
+              - 프리패스 상품은 결제일로부터 7일 이내 2강 이하로 수강했을 경우 전액 환불 신청이 가능합니다.
+              - (한 ID 당 전액환불은 동일한 상품에 한하여 1회만 가능합니다.)
+              - 단과강좌 상품은 실제 수강한 강좌 수를 공제하여 환불 금액이 책정됩니다.
+              - 온라인 교재는 배송 완료 후 10일 이내(사용한 흔적이 없는 경우, 랩핑이 제거되지 않은 상태)에 환불 신청이 가능합니다.
+              - 테블릿PC 등 지급기기가 포함된 상품 환불 시 환불 금액은 지급기기 금액과 수강한 강좌의 정가가 차감됩니다.
+              - **학원 강좌 구매 안내**
+              - 학원강좌 환불사유 발생 시, 수강 이전에는 수강료 전액이 환불되며 수강 이후에는 경과 기간에 따라 부분환불이 가능합니다.
+              - **미성년자 고객 고지사항**
+              - 전자상거래 등에서의 소비자보호에 관한 법률 제 13조 제 3항에 따라 미성년자 고객의 계약에 대해 안내드립니다.
+              - 미성년자의 법정대리인이 본 구매 계약에 대하여 동의를 하지 아니하면 미성년자 본인 또는 법정대리인이 그 계약을 취소할 수 있습니다.
+              - 법정대리인의 동의 없이 진행된 계약에 대해 취소를 원하는 경우에는 당사 고객센터 혹은 1:1 게시판으로 연락하시기 바랍니다.
             </textarea>
             <div class="bg-light px-4 py-3">
-
-                    <div class="col-md-6 text-md-right" style="margin-left: 300px;">약관에 동의 합니다.&nbsp; <input type="checkbox" id="checkagree"></div>
-
+              <div class="col-md-6 text-md-right" style="margin-left: 350px;">
+                <input type="checkbox" id="checkagree">&nbsp;&nbsp;약관에 동의합니다.
+              </div>            
             </div>
-
-
-            </div>
+          </div>
             <!-- ORDER TOTAL-->
             <div class="col-lg-4">
                 <div class="card border-0 rounded-0 p-lg-4 bg-light">
                   <div class="card-body">
-                    <h5 class="text-uppercase mb-4">최종 결제 금액결제</h5>
+                    <h5 class="text-uppercase mb-4">최종 결제 금액</h5>
                     <ul class="list-unstyled mb-0">
                       <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">42,500 원</span></li>
                       <li class="border-bottom my-2"></li>
                       <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>42,500 원</span></li>
                       <li>
-
                           <div class="form-group mb-0">
-                            <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal"> <i class="fas fa-gift mr-2"></i>결제하기</button>
+                            <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal"><b>결제하기</b></button>
                           </div>
 
                       </li>
@@ -307,7 +292,6 @@ i{
                         <div class="col-lg-6">
                           <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><a href="#none" class="close">x</a></span></button>
                           <div class="p-5 my-md-4">
-
                             <h4>
                             강의명
                             </h4>
@@ -366,9 +350,8 @@ i{
             location.href="mypageScheduledClass.html";
         }
     </script>
-
-
-      	<%@include file="../commons/footer.jsp" %>
+    
+    <%@include file="../commons/footer.jsp" %>
  </div>
   </body>
 </html>

@@ -114,7 +114,7 @@
                 <div class="row">
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.20 ~ 06.30</div>
                       <div class="position-relative mb-3">
                       <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron.jpg" alt="..."></a>
@@ -126,10 +126,10 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">06.21 / 16:00</div>
                       <div class="position-relative mb-3">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/dance.jpg" alt="..."></a>
+                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/resources/user/img/dance.jpg" alt="..."></a>
 
                       </div>
                       <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]아이돌 댄스 배우기</a></h6>
