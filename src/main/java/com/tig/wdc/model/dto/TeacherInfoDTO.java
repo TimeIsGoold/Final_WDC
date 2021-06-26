@@ -45,118 +45,120 @@ public class TeacherInfoDTO {
 		this.teacherPicture = teacherPicture;
 	}
 
+
+	
 	public int getTeacherNo() {
 		return teacherNo;
 	}
-	
+
 	public void setTeacherNo(int teacherNo) {
 		this.teacherNo = teacherNo;
 	}
-	
+
 	public String getTeacherId() {
 		return teacherId;
 	}
-	
+
 	public void setTeacherId(String teacherId) {
 		this.teacherId = teacherId;
 	}
-	
+
 	public String getTeacherPwd() {
 		return teacherPwd;
 	}
-	
+
 	public void setTeacherPwd(String teacherPwd) {
 		this.teacherPwd = teacherPwd;
 	}
-	
+
 	public String getTeacherType() {
 		return teacherType;
 	}
-	
+
 	public void setTeacherType(String teacherType) {
 		this.teacherType = teacherType;
 	}
-	
+
 	public String getTeacherIdNo() {
 		return teacherIdNo;
 	}
-	
+
 	public void setTeacherIdNo(String teacherIdNo) {
 		this.teacherIdNo = teacherIdNo;
 	}
-	
+
 	public String getTeacherName() {
 		return teacherName;
 	}
-	
+
 	public void setTeacherName(String teacherName) {
 		this.teacherName = teacherName;
 	}
-	
+
 	public String getTeacherPhone() {
 		return teacherPhone;
 	}
-	
+
 	public void setTeacherPhone(String teacherPhone) {
 		this.teacherPhone = teacherPhone;
 	}
-	
+
 	public String getTeacherAccountNo() {
 		return teacherAccountNo;
 	}
-	
+
 	public void setTeacherAccountNo(String teacherAccountNo) {
 		this.teacherAccountNo = teacherAccountNo;
 	}
-	
+
 	public String getTeacherAccountName() {
 		return teacherAccountName;
 	}
-	
+
 	public void setTeacherAccountName(String teacherAccountName) {
 		this.teacherAccountName = teacherAccountName;
 	}
-	
+
 	public String getTeacherAccountBANK() {
 		return teacherAccountBANK;
 	}
-	
+
 	public void setTeacherAccountBANK(String teacherAccountBANK) {
 		this.teacherAccountBANK = teacherAccountBANK;
 	}
-	
+
 	public String getTeacherIntro() {
 		return teacherIntro;
 	}
-	
+
 	public void setTeacherIntro(String teacherIntro) {
 		this.teacherIntro = teacherIntro;
 	}
-	
+
 	public String getTeacherQuitStatus() {
 		return teacherQuitStatus;
 	}
-	
+
 	public void setTeacherQuitStatus(String teacherQuitStatus) {
 		this.teacherQuitStatus = teacherQuitStatus;
 	}
-	
+
 	public String getTeacherBlockStatus() {
 		return teacherBlockStatus;
 	}
-	
+
 	public void setTeacherBlockStatus(String teacherBlockStatus) {
 		this.teacherBlockStatus = teacherBlockStatus;
 	}
-	
+
 	public String getTeacherPicture() {
 		return teacherPicture;
 	}
-	
+
 	public void setTeacherPicture(String teacherPicture) {
 		this.teacherPicture = teacherPicture;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "TeacherInfoDTO [teacherNo=" + teacherNo + ", teacherId=" + teacherId + ", teacherPwd=" + teacherPwd
