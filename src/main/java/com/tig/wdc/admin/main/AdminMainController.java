@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminMainController {
 
 	// admin main controller에서 adminController로 연결해주는 핸들러 메소드
-	@GetMapping("adminPage")
+	@GetMapping("/adminPage")
 	public String adminPage() {
 		
 		return "/admin";
@@ -27,11 +27,7 @@ public class AdminMainController {
 //		return "admin/adminMemberReportManagement";
 //	}
 //	
-//	@GetMapping("questionManagement")
-//	public String questionManagement() {
-//		
-//		return "admin/adminQuestionManagement";
-//	}
+
 //	
 //	@GetMapping("couponManagement")
 //	public String couponManagement() {

@@ -20,12 +20,12 @@ public class AdminController {
 		this.adminService = adminService;
 		
 	}
-
-//	@GetMapping("/memberManagement")
-//	public String memberManagement() {
-//		
-//		return "admin/adminMemberManagement";
-//	}
+	
+	// 로그인
+	@GetMapping("login")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
 	
 	@GetMapping("/memberManagement")
 	public String selectStudentList(Model model) {
@@ -35,5 +35,12 @@ public class AdminController {
 		
 		
 		return "admin/adminMemberManagement";
+	}
+	
+	// 문의게시판
+	@GetMapping("/questionManagement")
+	public String selectQustionList(Model model) {
+		
+		return "admin/adminQuestionManagement";
 	}
 }
