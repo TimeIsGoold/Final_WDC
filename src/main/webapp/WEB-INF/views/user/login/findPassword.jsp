@@ -7,11 +7,20 @@
 
   </head>
   <style>
-      i{
-        font-family: "Font Awesome 5 Free" !important;
-      }
+    .modal{
+      vertical-align: middle;
+      margin-top: 13%;
+    }
 
-    *{font-family:'Cafe24SsurroundAir' !important;}
+    .modal-sm{
+      max-width: 500px !important;
+    }
+
+    i{
+      font-family: "Font Awesome 5 Free" !important;
+    }
+
+  *{font-family:'Cafe24SsurroundAir' !important;}
   </style>
   <body>
     <!-- header -->
@@ -46,40 +55,37 @@
           </nav>
         </div>
       </header>
+      <br><br>
       <!-- body -->
       <div class="container py-5">
         <div class="col-lg-7" style="margin: auto;">
           <div class="card mb-4" id="forms">
             <div class="card-body"><br>
-              <h4 class="mb-5">비밀번호재설정</h4>
+              <h4 class="mb-5" style="text-align: center;">비밀번호 찾기</h4>
               <form>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
                   <div class="col-sm-12">
-                    <input class="form-control" id="tutorId" type="text" placeholder="아이디">
+                    <input class="form-control" style="width: 420px;" id="tutorId" type="text" placeholder="아이디">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">휴대폰번호</label>
-                  <div class="col-sm-12">
-                    <input class="form-control" type="text" placeholder="휴대폰번호">
+                  <div class="col-sm-12 form-inline" style="flex-wrap: nowrap; justify-content: space-between;">
+                    <input class="form-control" style="width: 420px;" type="text" placeholder="휴대폰번호를 입력하세요">
+                    <button class="btn btn-primary">인증번호 전송</button>
                   </div>
                 </div>
-                <br>
-                <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                  <button style="width:100%; height: 38px;">휴대폰 번호로 인증번호 전송</button>
-                </div>
-                <br>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">인증번호</label>
-                  <div class="col-sm-12 form-inline" >
-                    <input class="form-control"style="width: 440px;" type="text" placeholder="인증번호를 입력하세요">
-                    <button style="margin-left: 20px; height: 36px;">인증번호확인</button>
+                  <div class="col-sm-12 form-inline" style="flex-wrap: nowrap; justify-content: space-between;">
+                    <input class="form-control"style="width: 420px;" type="text" placeholder="인증번호를 입력하세요">
+                    <button class="btn btn-primary">인증번호 확인</button>
                   </div>
                 </div><br><br>
                 <div class="form-group row">
-                  <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                    <button style="width:100%; height: 38px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#idFind">비밀번호 재설정하러 가기</button>
+                  <div class="col-sm-12" text-align="center" style="padding: 0px 0px 0px 0px;">
+                    <button style="width: 95%; height: 38px; margin-left: 14px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#idFind">비밀번호 재설정하기</button>
                   </div>
                 </div>
               </form>
@@ -87,12 +93,13 @@
           </div>
         </div>
       </div>
-      <!-- 아이디찾기팝업 -->
+      <br><br><br>
+      <!-- 비밀번호 찾기 팝업 -->
       <div id="idFind"class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title" id="gridSystemModalLabel">비밀번호 입력</h4>
+              <h4 class="modal-title" id="gridSystemModalLabel">비밀번호 재설정</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
@@ -101,82 +108,25 @@
                   <h6 style="margin-bottom: -20px;">비밀번호 입력</h6><br>
                   <input type="text" class="form-control" style="margin-bottom: 20px;" >
                   <h6 style="margin-bottom: -20px;">비밀번호 확인</h6><br>
-                  <input type="text" class="form-control"  >
+                  <input type="text" class="form-control" >
                 </div>
               </div>
             </div>
-            <div class="modal-footer" style="display: block;" align="center">
-              <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 200px; border: 1px solid rgba(0, 0, 0, 0.25);">닫기</button>
-              <button type="button" class="btn btn-primary" style="width: 200px;" onclick="pwdRepalce();">비밀번호 재 설정</button>
+            <div class="modal-footer" style="display: block; margin: auto;" text-align="center">
+              <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 180px; border: 1px solid rgba(0, 0, 0, 0.25);">닫기</button>
+              <button type="button" class="btn btn-primary" style="width: 180px;" onclick="pwdRepalce();">비밀번호 재설정</button>
             </div>
           </div>
         </div>
       </div>
       <script>
           function pwdRepalce(){
-              alert("비밀번호 재 설정 되었습니다.")
+              alert("비밀번호가 변경 되었습니다.")
               location.href="login.html"
           }
       </script>
-      <!-- /아이디찾기 -->
-      <!-- footer -->
-      <footer class="bg-dark text-white">
-        <div class="container py-4">
-          <div class="row py-5">
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h6 class="text-uppercase mb-3">Customer services</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">Help &amp; Contact Us</a></li>
-                <li><a class="footer-link" href="#">Returns &amp; Refunds</a></li>
-                <li><a class="footer-link" href="#">Online Stores</a></li>
-                <li><a class="footer-link" href="#">Terms &amp; Conditions</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h6 class="text-uppercase mb-3">Company</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">What We Do</a></li>
-                <li><a class="footer-link" href="#">Available Services</a></li>
-                <li><a class="footer-link" href="#">Latest Posts</a></li>
-                <li><a class="footer-link" href="#">FAQs</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h6 class="text-uppercase mb-3">Social media</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">Twitter</a></li>
-                <li><a class="footer-link" href="#">Instagram</a></li>
-                <li><a class="footer-link" href="#">Tumblr</a></li>
-                <li><a class="footer-link" href="#">Pinterest</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="border-top pt-4" style="border-color: #1d1d1d !important">
-            <div class="row">
-              <div class="col-lg-6">
-                <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
-              </div>
-              <div class="col-lg-6 text-lg-right">
-                <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <!-- JavaScript files-->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="vendor/lightbox2/js/lightbox.min.js"></script>
-      <script src="vendor/nouislider/nouislider.min.js"></script>
-      <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
-      <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
-      <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-      <script src="js/front.js"></script>
-      <script>
-
-      </script>
-      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    </div>
+      
+      <%@include file="../commons/footer.jsp" %>
+	</div>
   </body>
 </html>

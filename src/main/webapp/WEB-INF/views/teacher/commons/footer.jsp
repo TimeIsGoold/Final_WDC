@@ -36,12 +36,14 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <style>
-    footer {
+    .footer {
       background: #fef0ae !important;
-      color: #1d1d1d;
+      color: #1d1d1d;  
+      position: absolute;
+      left: 0;
+      bottom: 0;
       width: 100%;
-      height: 300px;
-      min-height: calc(100vh - 300px);
+      text-align: center;
     }
 
     .footer-link {
@@ -52,7 +54,7 @@
   </style>
 </head>
 <body>
-	<footer class="text-white">
+	<div class="footer">
 		<div class="container py-4">
 		  <div class="row py-5">
 		    <div class="col-md-1 mb-3 mb-md-0">
@@ -96,6 +98,6 @@
 		    </div>
 		  </div>
 		</div>
-	</footer>
+	</div>
 </body>
 </html>

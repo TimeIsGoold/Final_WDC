@@ -179,6 +179,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   
-  <%-- <jsp:include page="../commons/footer.jsp"/> --%>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

@@ -33,9 +33,16 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   <style>
+      html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+		}
+		
     body {
         font-size: 15px;
-		margin: 0;
+		min-height: 100%;
     }
     container {
     	height: 100%;
@@ -88,7 +95,7 @@
   </head>
   <body>
   	
-    <div class="page-holder">
+    <div class="wrapper">
 		
 		<!-- header -->
 		<%@ include file="commons/header.jsp" %>
@@ -220,7 +227,7 @@
 	          <div class="col-sm-4" style="float: left; margin-left: 3%">
 	            <div class="card-header" id="totalClass">클래스 정보         
 	            </div>
-	            <div class="card-body">
+	            <div class="card-body" style="margin-bottom: 300px">
 	              <b>운영중인 클래스 수</b><br>
 	              <p>3 개</p>
 	            <div class="card-body"></div>
