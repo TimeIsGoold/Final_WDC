@@ -13,11 +13,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            function questionDetail(){
-                location.href="questionDetail.html";
-            }
-        </script>
         <style>
         	.container-fluid{
         		 margin-top: 30px;
@@ -60,7 +55,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="questionDetail();">
+                                        <tr>
                                             <td>1</td>
                                             <td>강사</td>
                                             <td>이해승</td>

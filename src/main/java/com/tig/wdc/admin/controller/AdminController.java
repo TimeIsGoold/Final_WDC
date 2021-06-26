@@ -27,7 +27,8 @@ public class AdminController {
 		return "admin/adminLogin";
 	}
 	
-	@GetMapping("/memberManagement")
+	// 회원 관리 -> 고객 리스트 조회
+	@GetMapping("memberManagement")
 	public String selectStudentList(Model model) {
 		
 		model.addAttribute("studentList", adminService.selectAllStudentList());
@@ -37,10 +38,44 @@ public class AdminController {
 		return "admin/adminMemberManagement";
 	}
 	
-	// 문의게시판
-	@GetMapping("/questionManagement")
-	public String selectQustionList(Model model) {
+	// 클래스 관리
+	@GetMapping("classManagement")
+	public String classManagement() {
 		
+		return "admin/adminClassManagement";
+	}
+	
+	// 신고관리
+	@GetMapping("reportManagement")
+	public String reportManagement() {
+		
+		return "admin/adminReportManagement";
+	}
+	
+	// 문의게시판
+	@GetMapping("questionManagement")
+	public String selectQustionList() {
 		return "admin/adminQuestionManagement";
+	}
+	
+	// 쿠폰
+	@GetMapping("couponManagement")
+	public String couponManagement() {
+		
+		return "admin/adminCouponManagement";
+	}
+	
+	// 공지사항
+	@GetMapping("noticeManagement")
+	public String noticeManagement() {
+		
+		return "admin/adminNoticeManagement";
+	}
+	
+	// 정산
+	@GetMapping("calculateManagement")
+	public String calculateManagement() {
+		
+		return "admin/adminCalculateManagement";
 	}
 }
