@@ -20,30 +20,31 @@ public class AdminController {
 		this.adminService = adminService;
 		
 	}
-	
+
 	// 로그인
 	@GetMapping("login")
 	public String adminLogin() {
 		return "admin/adminLogin";
 	}
 	
-	// 회원 관리 -> 고객 리스트 조회
+	// 회원관리
 	@GetMapping("memberManagement")
 	public String selectStudentList(Model model) {
 		
 		model.addAttribute("studentList", adminService.selectAllStudentList());
-		
-		
-		
+				
 		return "admin/adminMemberManagement";
 	}
 	
 	// 클래스 관리
 	@GetMapping("classManagement")
-	public String classManagement() {
+	public String selectClassList(Model model) {
+		
+		model.addAttribute("classList", adminService.selectAllClassList());
 		
 		return "admin/adminClassManagement";
 	}
+	
 	
 	// 신고관리
 	@GetMapping("reportManagement")
@@ -78,4 +79,5 @@ public class AdminController {
 		
 		return "admin/adminCalculateManagement";
 	}
+
 }

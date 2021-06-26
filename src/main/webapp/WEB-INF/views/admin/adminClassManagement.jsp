@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -70,70 +71,13 @@
         </style>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="CustomerMain.html" style="width: 180px;">우리동네 클래스</a>
-            <!-- Sidebar Toggle-->
-            <button
-                class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-                id="sidebarToggle"
-                href="#!">
-                <i class="fas fa-bars"></i>
-            </button>
-            <!-- Navbar-->
-            <ul style="padding: 20px 0px 0px 1260px;">
-                <a
-                    class="sb-nav-link-icon"
-                    id="navbarDropdown"
-                    href="CustomerLogin.html"
-                    role="button"
-                    style="background-color: gray; width: 50px; height: 50px;">
-                    <img src="./pic/log-in.png" style="width: 30px; height: 30px;">
-                </a>
-            </ul>
-        </nav>
+        	<!-- header -->
+		<%@ include file="commons/header.jsp" %>
+		
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link collapsed" href="CustomerMemberManagement.html">
-                                회원관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerClassManagement.html" style="color: #fef0ae;">
-                                클래스관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerMemberReportManagement.html">
-                                신고관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerQuestionManagement.html">
-                                문의
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCouponManagement.html">
-                                쿠폰
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerNoticeManagement.html">
-                                공지사항
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCalculateManagement.html">
-                                정산
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">
-                            Copyright &copy; 우리동네 클래스
-                        </div>
-                    </div>
-                </nav>
-            </div>
+        
+        	<!-- sideBar & footer -->
+			<%@ include file="commons/sideBarAndFooter.jsp" %>
 
             <div id="layoutSidenav_content">
                 <main>
@@ -156,128 +100,40 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>회원번호</th>
-                                            <th>분류</th>
-                                            <th>성명</th>
-                                            <th>아이디</th>
-                                            <th>강의 제목</th>
-                                            <th>강의 가격</th>
-                                            <th>강의 진행 날짜</th>
+                                            <th>클래스 번호</th>
+                                            <th>클래스 제목</th>
+                                            <th>강사 이름</th>
+                                            <th>강사 아이디</th>
+                                            <th>클래스 가격</th>
+                                            <th>클래스 타입</th>
+                                            <th>심사상태</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="detailcopy();">
-                                            <td>1</td>
-                                            <td>스포츠/원데이</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>쉽고 재미있는 댄스 스포츠</td>
-                                            <td>50,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr onclick="detail();">
-                                            <td>2</td>
-                                            <td>뷰티/원데이</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>현빈쌤의 메이크업 강의</td>
-                                            <td>50,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr onclick="denyClass();">
-                                            <td>3</td>
-                                            <td>베이킹/원데이</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>수제 마카롱 만들기</td>
-                                            <td>100,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr onclick="denClassycopy();">
-                                            <td>4</td>
-                                            <td>IT/정기</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>3일만에 자바 마스터하기</td>
-                                            <td>100,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>IT/원데이</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>포토샵 하루 마스터하기</td>
-                                            <td>150,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>스포츠/정기</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>방송댄스</td>
-                                            <td>150,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>뷰티/원데이</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>해승쌤의 네일 교실</td>
-                                            <td>200,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>스포츠/원데이</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>쉽고 재미있는 댄스스포츠</td>
-                                            <td>200,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>베이킹/정기</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>제과제빵 마스터하기</td>
-                                            <td>250,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>스포츠/원데이</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>자전거 왕초보 교실</td>
-                                            <td>50,000</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                        </tr>
+                     				<c:forEach items="${classList}" var="ClassDTO">
+				                            <tr>
+				                                <td>${ClassDTO.classNo}</td>
+				                                <td>${ClassDTO.classTitle}</td>
+				                                <td>${ClassDTO.teacherName}</td>
+				                                <td>${ClassDTO.classPrice}</td>
+				                                <td>${ClassDTO.classType}</td>
+				                                <td>${ClassDTO.decisionStatus}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </main>
             </div>
-
         </div>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>
 </html>

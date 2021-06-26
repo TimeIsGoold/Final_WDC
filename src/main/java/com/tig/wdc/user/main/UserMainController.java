@@ -17,7 +17,7 @@ public class UserMainController {
 	@GetMapping("/teacher")
 	public String teacher() {
 		
-		return "teacher/teacherInfo/t_login";
+		return "redirect:teacher";
 	}
 	
 	@GetMapping("/admin")
