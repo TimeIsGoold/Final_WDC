@@ -21,13 +21,7 @@ public class AdminController {
 		
 	}
 
-//	@GetMapping("/memberManagement")
-//	public String memberManagement() {
-//		
-//		return "admin/adminMemberManagement";
-//	}
-	
-	@GetMapping("/memberManagement")
+	@GetMapping("memberManagement")
 	public String selectStudentList(Model model) {
 		
 		model.addAttribute("studentList", adminService.selectAllStudentList());
@@ -36,4 +30,20 @@ public class AdminController {
 		
 		return "admin/adminMemberManagement";
 	}
+	
+	@GetMapping("classManagement")
+	public String selectClassList(Model model) {
+		
+		model.addAttribute("classList", adminService.selectAllClassList());
+		
+		return "admin/adminClassManagement";
+	}
+	
+//	@GetMapping("reportManagement")
+//	public String  selectReportList(Model model) {
+//		
+//		model.addAttribute("reportList", adminService.selectAllReportList());
+//		
+//		return "admin/adminMemberReportManagement";
+//	}
 }
