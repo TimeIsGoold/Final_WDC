@@ -27,11 +27,7 @@ public class AdminMainController {
 //		return "admin/adminMemberReportManagement";
 //	}
 //	
-//	@GetMapping("questionManagement")
-//	public String questionManagement() {
-//		
-//		return "admin/adminQuestionManagement";
-//	}
+
 //	
 //	@GetMapping("couponManagement")
 //	public String couponManagement() {
