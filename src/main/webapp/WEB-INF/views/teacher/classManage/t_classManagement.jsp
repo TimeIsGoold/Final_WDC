@@ -35,6 +35,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+  	 html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     
     body {
       font-size: 15px;
@@ -50,13 +56,14 @@
     }
 
     .btn {
-      border-radius: 5px;
-      background-color: #fef0ae;
-      border-color: #fef0ae;
+      border-radius: 5px !important;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
     }
+    
     .btn-primary:hover {
-      background-color: #fef0ae;
-      border-color: #fef0ae;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
     }
   </style>
 </head>
@@ -151,7 +158,7 @@
               </div>
               
               <!-- 결과 게시판 -->
-              <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 30px;">
+              <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 30px; padding-bottom: 280px">
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -244,5 +251,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

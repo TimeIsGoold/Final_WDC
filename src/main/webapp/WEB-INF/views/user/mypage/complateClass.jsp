@@ -114,7 +114,7 @@
                 <div class="row">
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.20 / 15:00</div>
                       <div class="position-relative mb-3">
                        <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron.jpg" alt="..."></a>
@@ -126,7 +126,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.21 / 16:00</div>
                       <div class="position-relative mb-3">
                         <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/dance.jpg" alt="..."></a>
@@ -138,7 +138,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.22 / 16:00</div>
                       <div class="position-relative mb-3">
                         <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/baking.jpg" alt="..."></a>
@@ -150,7 +150,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.23 ~ 07.30</div>
                       <div class="position-relative mb-3">
                         <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron2.jpg" alt="..."></a>
@@ -162,7 +162,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <!-- <div class="badge text-white badge-danger">Sold</div> -->
                       <div class="badge text-white badge-primary">05.24 / 16:00</div>
                       <div class="position-relative mb-3">
@@ -175,7 +175,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.25 / 16:00</div>
                       <div class="position-relative mb-3">
                         <div class="badge text-white badge-"></div><a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron4.jpg" alt="..."></a>
@@ -187,7 +187,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">05.26 / 16:00</div>
                       <div class="position-relative mb-3">
                         <div class="badge text-white badge-"></div><a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron5.jpg" alt="..."></a>
@@ -198,7 +198,7 @@
                   </div>
                   <!-- PRODUCT-->
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
+                    <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">04.27 ~ 05.27</div>
                       <div class="position-relative mb-3">
                         <div class="badge text-white badge-"></div><a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron6.jpg" alt="..."></a>

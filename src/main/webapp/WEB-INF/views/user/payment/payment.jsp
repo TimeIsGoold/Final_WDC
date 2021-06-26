@@ -59,6 +59,20 @@ a:hover{
 .text-small {
     font-size: 15px !important;
 }
+
+.mb-4, .my-4 {
+    margin-bottom: 0.5rem!important;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+h5, .h5 {
+    font-size: 18px;
+    margin-bottom: 1.2rem;
+}
     </style>
   </head>
   <body>
@@ -267,6 +281,7 @@ a:hover{
                       <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>42,500 원</span></li>
                       <li>
                           <div class="form-group mb-0">
+                          <br>
                             <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal"><b>결제하기</b></button>
                           </div>
 
@@ -292,9 +307,6 @@ a:hover{
                         <div class="col-lg-6">
                           <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><a href="#none" class="close">x</a></span></button>
                           <div class="p-5 my-md-4">
-                            <h4>
-                            강의명
-                            </h4>
                             <h2 class="h5"> 리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</h2>
                             <h2 class="h5">강사 : 이해승</h2>
                             <p class="text-small mb-4">
@@ -304,15 +316,15 @@ a:hover{
                                 <p class="text-muted">결제 금액 : 42,500 원</p>
                             </p>
                             <hr>
-                            <ul>
+                            <ul style="font-size: 15px;">
 								<li>14세 미만의 청소년은 강의를 들을 수 없으며, 통보없이 취소 및 환불 될 수 있습니다.</li>
 								<li><b>취소 및 환불 규정</b>에 따라 취소수수료 부과 및 취소불가 될 수 있습니다.</li>
 							</ul>
                             <hr>
                             <div>
-								<button onclick="location.href='#none';" style="border-radius: 10px;padding: 5px; box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2); border:1px solid rgba(0, 0, 0, 0.1);"></a>취소</button>
+								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;"></a>취소</button>
                                 <!-- 카카오 페이 연결 -->
-								<button id = "doPay"type = "button" class="payAgree" style="margin-left: 50px;" onclick="paymentSuccess();">동의 후 결제</button>
+								<button id = "doPay"type = "button" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">결제하기</button>
                             </div>
                           </div>
                         </div>
@@ -320,8 +332,8 @@ a:hover{
                     </div>
                   </div>
                 </div>
-    </div>
-</div>
+    		</div>
+		</div>
             <!-- 결제 스크립트 -->
      <script>
          function checkContent(){
