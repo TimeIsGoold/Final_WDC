@@ -21,6 +21,12 @@
   font-style: normal;
 }
 
+i{
+  font-family: "Font Awesome 5 Free" !important;
+}
+
+*{font-family:'Cafe24SsurroundAir' !important;}
+
 .review-img{
   padding: 5px;
   width: 90px;
