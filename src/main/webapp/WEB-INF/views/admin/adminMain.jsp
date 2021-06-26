@@ -21,15 +21,15 @@
     		.mainIcon {
     			width: 100px; 
     			height: 100px; 
-    			margin-top: 220px; 
-    			margin-left: 540px;
+    			margin-top: 17%; 
+    			margin-left: 45%;
     		}
     		
     		.mainTitle {
     			font-weight: bolder; 
     			font-size: x-large; 
-    			margin-bottom: 340px; 
-    			margin-left: 500px;
+    			margin-left: 42%;
+    			margin-bottom: 26%
     		}
     	</style>
     </head>
