@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -40,12 +39,12 @@
 <body>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
        <!-- Navbar Brand-->
-       <a class="navbar-brand ps-3" id="navbar-brand" href="CustomerMain.html">우리동네 클래스</a>
+       <a class="navbar-brand ps-3" id="navbar-brand" href="${ pageContext.servletContext.contextPath }/user/admin">우리동네 클래스</a>
        <!-- Sidebar Toggle-->
        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
        <!-- Navbar-->
        <ul>
-           <a class="sb-nav-link-icon" id="navbarDropdown" href="CustomerLogin.html" role="button">
+           <a class="sb-nav-link-icon" id="navbarDropdown" href="${ pageContext.servletContext.contextPath }/admin/login" role="button">
                <img src="${ pageContext.servletContext.contextPath }/resources/admin/img/log-in.png">
            </a>
        </ul>

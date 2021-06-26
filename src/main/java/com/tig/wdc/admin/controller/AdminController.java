@@ -21,6 +21,12 @@ public class AdminController {
 		
 	}
 	
+	// 로그인
+	@GetMapping("login")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
+	
 	@GetMapping("/memberManagement")
 	public String selectStudentList(Model model) {
 		
