@@ -29,6 +29,6 @@ public class UserMainController {
 	@GetMapping("/classdetail")
 	public String classdetail() {
 		
-		return "user/mypage/participatingClass";
+		return "user/mypage/coupon";
 	}
 }
