@@ -17,7 +17,7 @@ public class UserMainController {
 	@GetMapping("/teacher")
 	public String teacher() {
 		
-		return "teacher/t_main";
+		return "teacher/teacherInfo/t_login";
 	}
 	
 	@GetMapping("/admin")

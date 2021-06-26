@@ -59,8 +59,8 @@
               </ul>
               <ul class="navbar-nav ml-auto">               
                 <li class="nav-item"></li>
-                <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-                <li class="nav-item"><a class="nav-link" href="t_login.html"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/teacher/registTeacher"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/teacher"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
               </ul>
             </div>
           </nav>
@@ -89,7 +89,7 @@
                 <div class="form-group row">
                   <div class="col-sm-4" style="margin-right: 40px;"></div>
                   <div class="col-sm-3">
-                    <button class="btn btn-primary" type="button" onclick="location.href='t_main.html'">로그인</button>
+                    <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/teacher/teacherSignIn'">로그인</button>
                   </div>
                   <div class="col-sm-2" style="font-size: 12px; text-align: right; padding: 0px;"><a href="t_findID.html" style="color: black;">아이디찾기</a></div>
                   <div class="col-sm-2" style="font-size: 12px; text-align: center; padding: 0px;"><a href="t_findPWD.html" style="color: black;">비밀번호찾기</a></div>
