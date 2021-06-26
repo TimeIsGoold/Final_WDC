@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user/login/*")
+@RequestMapping("/user/*")
 public class UserMainController {
 
 	@GetMapping("/login")
@@ -17,7 +17,7 @@ public class UserMainController {
 	@GetMapping("/teacher")
 	public String teacher() {
 		
-		return "teacher/t_main";
+		return "redirect:teacher";
 	}
 	
 	@GetMapping("/admin")

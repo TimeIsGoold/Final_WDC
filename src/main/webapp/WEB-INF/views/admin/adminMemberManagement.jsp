@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -26,70 +27,14 @@
         
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="CustomerMain.html" style="width: 180px;">우리동네 클래스</a>
-            <!-- Sidebar Toggle-->
-            <button
-                class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-                id="sidebarToggle"
-                href="#!">
-                <i class="fas fa-bars"></i>
-            </button>
-            <!-- Navbar-->
-            <ul style="padding: 20px 0px 0px 1260px;">
-                <a
-                    class="sb-nav-link-icon"
-                    id="navbarDropdown"
-                    href="CustomerLogin.html"
-                    role="button"
-                    style="background-color: gray; width: 50px; height: 50px;">
-                    <img src="./pic/log-in.png" style="width: 30px; height: 30px;">
-                </a>
-            </ul>
-        </nav>
+        
+           	<!-- header -->
+		<%@ include file="commons/header.jsp" %>
+		
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link collapsed" href="CustomerMemberManagement.html" style="color: #fef0ae;">
-                                회원관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerClassManagement.html">
-                                클래스관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerMemberReportManagement.html">
-                                신고관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerQuestionManagement.html">
-                                문의
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCouponManagement.html">
-                                쿠폰
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerNoticeManagement.html">
-                                공지사항
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCalculateManagement.html">
-                                정산
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">
-                            Copyright &copy; 우리동네 클래스
-                        </div>
-                    </div>
-                </nav>
-            </div>
+        
+        	<!-- sideBar & footer -->
+			<%@ include file="commons/sideBarAndFooter.jsp" %>
 
             <div id="layoutSidenav_content">
                 <main>
@@ -106,116 +51,20 @@
                                     <thead>
                                         <tr>
                                             <th>회원번호</th>
-                                            <th>분류</th>
                                             <th>성명</th>
                                             <th>아이디</th>
-                                            <th>이메일</th>
-                                            <th>전화번호</th>
                                             <th>가입일</th>
-                                            <th>신고 횟수</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="detailPage();">
-                                            <td>1</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>lee@greedy.com</td>
-                                            <td>010-1234-5678</td>
-                                            <td>2021/06/07</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>kim@greedy.com</td>
-                                            <td>010-9876-5432</td>
-                                            <td>2021/06/17</td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>lee@greedy.com</td>
-                                            <td>010-1234-5678</td>
-                                            <td>2021/06/07</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>kim@greedy.com</td>
-                                            <td>010-9876-5432</td>
-                                            <td>2021/06/17</td>
-                                            <td>2</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>lee@greedy.com</td>
-                                            <td>010-1234-5678</td>
-                                            <td>2021/06/07</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>kim@greedy.com</td>
-                                            <td>010-9876-5432</td>
-                                            <td>2021/06/17</td>
-                                            <td>3</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>lee@greedy.com</td>
-                                            <td>010-1234-5678</td>
-                                            <td>2021/06/07</td>
-                                            <td>4</td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>kim@greedy.com</td>
-                                            <td>010-9876-5432</td>
-                                            <td>2021/06/17</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>lee@greedy.com</td>
-                                            <td>010-1234-5678</td>
-                                            <td>2021/06/07</td>
-                                            <td>1</td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>kim@greedy.com</td>
-                                            <td>010-9876-5432</td>
-                                            <td>2021/06/17</td>
-                                            <td>5</td>
-                                        </tr>
+                         				<c:forEach items="${studentList}" var="StudentDTO">
+				                            <tr>
+				                                <td>${StudentDTO.studentNo}</td>
+				                                <td>${StudentDTO.studentName}</td>
+				                                <td>${StudentDTO.studentId}</td>
+				                                <td>${StudentDTO.enrollDate}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

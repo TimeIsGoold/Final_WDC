@@ -4,17 +4,7 @@
 <html>
   <head>
 	<%@include file="../commons/header.jsp" %>
-    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/resources/user/js/jsTest/jquery.datetimepicker.css"/>
-    <script src="${pageContext.servletContext.contextPath }/resources/user/js/jsTest/jquery.js"></script>
-    <script src="${pageContext.servletContext.contextPath }/resources/user/js/jsTest/jquery.datetimepicker.full.min.js"></script>
-    <script>
-      function onDisplay() {
-          $('#noneDiv').show();
-      }
-      function offDisplay() {
-          $('#noneDiv').hide();
-      }
-    </script>
+
     <style>
       .text-small {
         font-size: 15px !important;

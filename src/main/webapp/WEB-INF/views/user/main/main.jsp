@@ -104,12 +104,12 @@
       .hover-btn:hover{
         color: #ffc107;
       }
-
+      
       i{
-        font-family: "Font Awesome 5 Free" !important;
-      }
-
-      *{font-family:'Cafe24SsurroundAir' !important;}
+		font-family: "Font Awesome 5 Free" !important;
+	   }
+		
+	  *{font-family:'Cafe24SsurroundAir' !important;}
     </style>
   </head>
   <body>
@@ -138,7 +138,7 @@
               <ul class="navbar-nav ml-auto">               
                 <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
                 <li class="nav-item"><a class="nav-link" href="mypageMain.html"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login/login">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
                 
               </ul>
             </div>
