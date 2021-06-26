@@ -29,6 +29,6 @@ public class UserMainController {
 	@GetMapping("/classdetail")
 	public String classdetail() {
 		
-		return "user/classList/class_detail";
+		return "user/login/findPassword";
 	}
 }
