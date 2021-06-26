@@ -81,3 +81,13 @@
     width: 90px; float: right; margin-top: 8px; border: 1px solid lightgray; border-radius: 5px; font-size: 5px;
     height: 25px;
 }
+
+.feedbackArea{
+
+    width: 500px; 
+    height: 100px;
+    resize: none;
+    margin-bottom: 50px;
+    margin-left: 110px;
+    display: flex;
+}

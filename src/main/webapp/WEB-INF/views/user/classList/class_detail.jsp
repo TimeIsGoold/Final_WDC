@@ -3,46 +3,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Boutique | Ecommerce bootstrap template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Lightbox-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/lightbox2/css/lightbox.min.css">
-    <!-- Range slider-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/nouislider/nouislider.min.css">
-    <!-- Bootstrap select-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/bootstrap-select/css/bootstrap-select.min.css">
-    <!-- Owl Carousel-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/owl.carousel2/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/owl.carousel2/assets/owl.theme.default.css">
-    <!-- Google fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/css/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/css/custom.css">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.servletContext.contextPath }/resources/user/js/jsTest/jquery.datetimepicker.css"/>
-    <script src="${pageContext.servletContext.contextPath }/resources/user/js/jsTest/jquery.js"></script>
-    <script src="${pageContext.servletContext.contextPath }/resources/user/js/jsTest/jquery.datetimepicker.full.min.js"></script>
-    <script>
-      function onDisplay() {
-          $('#noneDiv').show();
-      }
-      function offDisplay() {
-          $('#noneDiv').hide();
-      }
-      </script>
+	<%@include file="../commons/header.jsp" %>
+
     <style>
       .text-small {
         font-size: 15px !important;
@@ -205,6 +167,16 @@
       }
 
       *{font-family:'Cafe24SsurroundAir' !important;}
+      
+      .feedbackArea{
+
+	    width: 500px; 
+	    height: 100px;
+	    resize: none;
+	    margin-bottom: 50px;
+	    margin-left: 110px;
+	    display: flex;
+	}
     </style>
   </head>
   <body>
@@ -496,15 +468,25 @@
             <!-- 리뷰 탭 -->
             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
               <div class="p-4 p-lg-5 bg-white">
-                <button type="submit" class="btn btn-dark" style="float: right; width: 120px;" onclick="reviewWrite()">리뷰작성</button>
+   
+                <button onclick="reviewWrite1();" class="btn btn-dark" style="margin-left: 85%; width: 120px;">리뷰 작성</button>
 
-                <div id="reviewWrite"  style="width: 200px; height: 100px; display: none;" >
-                  <textarea></textarea>
+                <div id="reviewWrite"  style="width: 200px; height: 180px; display: none;" >
+                  <form action="detail.html">
+                    <input type="file" style="margin-left: 55%; margin-bottom: 10px;">
+                    <textarea class="feedbackArea" placeholder="리뷰를 작성해 주세요"></textarea>
+                    <button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 620px;">작성</button>
+                  </form>
                 </div>
+
                 <!-- 리뷰 작성 눌렀을 시-->
                 <script>
-                  function reviewWrite(){
-                    document.getElementById("reviewWrite").style.display=="block";
+                  function reviewWrite1(){
+                    if( document.getElementById("reviewWrite").style.display=="none"){
+                      document.getElementById("reviewWrite").style.display="block";
+                    } else if( document.getElementById("reviewWrite").style.display=="block"){
+                      document.getElementById("reviewWrite").style.display="none";
+                    }
                   }
                 </script>
 
@@ -642,6 +624,28 @@
             <!-- 문의 탭 -->
             <div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="reviews-tab">
               <div class="p-4 p-lg-5 bg-white">
+              
+              <button onclick="inquiryWrite1();" class="btn btn-dark" style="margin-left: 85%; width: 120px;">문의 작성</button>
+
+                <div id="inquiryWrite"  style="width: 200px; height: 180px; display: none;" >
+                  <form action="detail.html">
+                    <textarea class="feedbackArea" placeholder="강사님께 궁금하신 점을 작성해 주세요"></textarea>
+                    <button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 620px;">작성</button>
+                  </form>
+                </div>
+
+                <!-- 문의 작성 눌렀을 시-->
+                <script>
+                  function inquiryWrite1(){
+                    if( document.getElementById("inquiryWrite").style.display=="none"){
+                      document.getElementById("inquiryWrite").style.display="block";
+                    } else if( document.getElementById("inquiryWrite").style.display=="block"){
+                      document.getElementById("inquiryWrite").style.display="none";
+                    }
+                  }
+                </script>
+                
+                
                 <div class="row">
                   <div class="col-lg-8">
                     <!-- 문의1 -->
@@ -690,127 +694,9 @@
         </div>
       </section>
       <br><br><br>
-      <footer class="bg-dark text-white">
-        <div class="container py-4">
-          <div class="row py-5">
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h6 class="text-uppercase mb-3">Customer services</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">Help &amp; Contact Us</a></li>
-                <li><a class="footer-link" href="#">Returns &amp; Refunds</a></li>
-                <li><a class="footer-link" href="#">Online Stores</a></li>
-                <li><a class="footer-link" href="#">Terms &amp; Conditions</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h6 class="text-uppercase mb-3">Company</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">What We Do</a></li>
-                <li><a class="footer-link" href="#">Available Services</a></li>
-                <li><a class="footer-link" href="#">Latest Posts</a></li>
-                <li><a class="footer-link" href="#">FAQs</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h6 class="text-uppercase mb-3">Social media</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">Twitter</a></li>
-                <li><a class="footer-link" href="#">Instagram</a></li>
-                <li><a class="footer-link" href="#">Tumblr</a></li>
-                <li><a class="footer-link" href="#">Pinterest</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="border-top pt-4" style="border-color: #1d1d1d !important">
-            <div class="row">
-              <div class="col-lg-6">
-                <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
-              </div>
-              <div class="col-lg-6 text-lg-right">
-                <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-      <!-- JavaScript files-->
-      <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="vendor/lightbox2/js/lightbox.min.js"></script>
-      <script src="vendor/nouislider/nouislider.min.js"></script>
-      <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
-      <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
-      <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-      <script src="js/front.js"></script>
-      <script>
-        // ------------------------------------------------------- //
-        //   Inject SVG Sprite - 
-        //   see more here 
-        //   https://css-tricks.com/ajaxing-svg-sprite/
-        // ------------------------------------------------------ //
-        function injectSvgSprite(path) {
-        
-            var ajax = new XMLHttpRequest();
-            ajax.open("GET", path, true);
-            ajax.send();
-            ajax.onload = function(e) {
-            var div = document.createElement("div");
-            div.className = 'd-none';
-            div.innerHTML = ajax.responseText;
-            document.body.insertBefore(div, document.body.childNodes[0]);
-            }
-        }
-        // this is set to BootstrapTemple website as you cannot 
-        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-        // while using file:// protocol
-        // pls don't forget to change to your domain :)
-        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
-      </script>
+      
+      	<%@include file="../commons/footer.jsp" %>
 
-      <script>
-      // Modal을 가져옵니다.
-      var modals = document.getElementsByClassName("modal");
-      // Modal을 띄우는 클래스 이름을 가져옵니다.
-      var btns = document.getElementsByClassName("btn-img");
-      // Modal을 닫는 close 클래스를 가져옵니다.
-      var spanes = document.getElementsByClassName("close");
-      var funcs = [];
-      
-      // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
-      function Modal(num) {
-        return function() {
-          // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
-          btns[num].onclick =  function() {
-              modals[num].style.display = "block";
-              console.log(num);
-          };
-      
-          // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
-          spanes[num].onclick = function() {
-              modals[num].style.display = "none";
-          };
-        };
-      }
-        
-      // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
-      for(var i = 0; i < btns.length; i++) {
-        funcs[i] = Modal(i);
-      }
-      
-      // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
-      for(var j = 0; j < btns.length; j++) {
-        funcs[j]();
-      }
-      
-      // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
-      window.onclick = function(event) {
-        if (event.target.className == "modal") {
-            event.target.style.display = "none";
-        }
-      };
-      </script>
-      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    </div>
+ </div>
   </body>
 </html>

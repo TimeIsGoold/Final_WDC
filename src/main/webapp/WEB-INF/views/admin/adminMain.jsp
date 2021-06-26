@@ -31,31 +31,31 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <a class="nav-link collapsed" href="CustomerMemberManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/memberManagement">
                                 회원관리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="CustomerClassManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/classManagement">
                                 클래스관리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="CustomerMemberReportManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/reportManagement">
                                 신고관리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="CustomerQuestionManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/questionManagement">
                                 문의
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="CustomerCouponManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/couponManagement">
                                 쿠폰
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="CustomerNoticeManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/noticeManagement">
                                 공지사항
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <a class="nav-link collapsed" href="CustomerCalculateManagement.html">
+                            <a class="nav-link collapsed" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement">
                                 정산
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
