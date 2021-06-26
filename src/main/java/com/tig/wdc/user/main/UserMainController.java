@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user/login/*")
+@RequestMapping("/user/*")
 public class UserMainController {
 
 	@GetMapping("/login")
@@ -17,7 +17,7 @@ public class UserMainController {
 	@GetMapping("/teacher")
 	public String teacher() {
 		
-		return "teacher/t_main";
+		return "teacher/teacherInfo/t_login";
 	}
 	
 	@GetMapping("/admin")
@@ -29,6 +29,6 @@ public class UserMainController {
 	@GetMapping("/classdetail")
 	public String classdetail() {
 		
-		return "user/classList/class_detail";
+		return "user/login/findPassword";
 	}
 }

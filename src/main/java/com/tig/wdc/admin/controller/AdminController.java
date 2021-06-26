@@ -21,16 +21,22 @@ public class AdminController {
 		
 	}
 
+
+	// 로그인
+	@GetMapping("login")
+	public String adminLogin() {
+		return "admin/adminLogin";
+	}
+	
 	@GetMapping("memberManagement")
 	public String selectStudentList(Model model) {
 		
 		model.addAttribute("studentList", adminService.selectAllStudentList());
-		
-		
-		
+				
 		return "admin/adminMemberManagement";
 	}
 	
+
 	@GetMapping("classManagement")
 	public String selectClassList(Model model) {
 		
@@ -46,4 +52,11 @@ public class AdminController {
 //		
 //		return "admin/adminMemberReportManagement";
 //	}
+	// 문의게시판
+	@GetMapping("/questionManagement")
+	public String selectQustionList(Model model) {
+		
+		return "admin/adminQuestionManagement";
+	}
+
 }
