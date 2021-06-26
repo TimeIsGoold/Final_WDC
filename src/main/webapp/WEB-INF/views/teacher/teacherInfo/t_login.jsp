@@ -73,23 +73,24 @@
           <div class="card mb-4" id="forms">
             <div class="card-body"><br>
               <h4 class="mb-5">로그인</h4>
-              <form>
+              <form method="post" action="teacher/teacherSignIn">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
                   <div class="col-sm-12">
-                    <input class="form-control" id="tutorId" type="text" placeholder="아이디">
+                    <input class="form-control" id="tutorId" type="text" placeholder="아이디" name="teacherId">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">비밀번호</label>
                   <div class="col-sm-12">
-                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호">
+                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호" name="teacherPwd">
                   </div>
                 </div><br><br>
                 <div class="form-group row">
                   <div class="col-sm-4" style="margin-right: 40px;"></div>
                   <div class="col-sm-3">
-                    <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/teacher/teacherSignIn'">로그인</button>
+                    <%-- <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/teacher/teacherSignIn'">로그인</button> --%>
+                    <button class="btn btn-primary" type="submit">로그인</button>
                   </div>
                   <div class="col-sm-2" style="font-size: 12px; text-align: right; padding: 0px;"><a href="t_findID.html" style="color: black;">아이디찾기</a></div>
                   <div class="col-sm-2" style="font-size: 12px; text-align: center; padding: 0px;"><a href="t_findPWD.html" style="color: black;">비밀번호찾기</a></div>
