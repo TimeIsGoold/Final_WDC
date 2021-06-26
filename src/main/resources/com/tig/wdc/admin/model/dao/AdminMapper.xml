@@ -1,1 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.admin.model.dao.AdminMapper">
+	
+	<resultMap id="adminResultSet" type="StudentDTO">
+		<id column="USER_NO" property="studentNo"/>
+		<result column="USER_ID" property="studentId"/>
+		<result column="USER_NAME" property="studentName"/>
+		<result column="ENROLLDATE" property="enrollDate"/>
+	</resultMap>
+	
+	<select id="selectAllStudentList" resultMap="adminResultSet" parameterType="StudentDTO">
+		SELECT
+		       USER_NO
+		     , USER_ID
+		     , USER_NAME
+		     , ENROLLDATE
+		  FROM USER_INFO  
+	</select>
+	
+</mapper>
