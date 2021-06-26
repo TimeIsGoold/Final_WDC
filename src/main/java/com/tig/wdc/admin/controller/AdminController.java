@@ -20,27 +20,43 @@ public class AdminController {
 		this.adminService = adminService;
 		
 	}
-	
+
+
 	// 로그인
 	@GetMapping("login")
 	public String adminLogin() {
 		return "admin/adminLogin";
 	}
 	
-	@GetMapping("/memberManagement")
+	@GetMapping("memberManagement")
 	public String selectStudentList(Model model) {
 		
 		model.addAttribute("studentList", adminService.selectAllStudentList());
-		
-		
-		
+				
 		return "admin/adminMemberManagement";
 	}
 	
+
+	@GetMapping("classManagement")
+	public String selectClassList(Model model) {
+		
+		model.addAttribute("classList", adminService.selectAllClassList());
+		
+		return "admin/adminClassManagement";
+	}
+	
+//	@GetMapping("reportManagement")
+//	public String  selectReportList(Model model) {
+//		
+//		model.addAttribute("reportList", adminService.selectAllReportList());
+//		
+//		return "admin/adminMemberReportManagement";
+//	}
 	// 문의게시판
 	@GetMapping("/questionManagement")
 	public String selectQustionList(Model model) {
 		
 		return "admin/adminQuestionManagement";
 	}
+
 }

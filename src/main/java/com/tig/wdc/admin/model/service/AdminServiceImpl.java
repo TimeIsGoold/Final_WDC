@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tig.wdc.admin.model.dao.AdminMapper;
+import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.admin.model.dto.ReportDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 
 @Service
@@ -26,5 +28,17 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.selectAllStudentList();
 	}
+
+	@Override
+	public List<ClassDTO> selectAllClassList() {
+		
+		return mapper.selectAllClassList();
+	}
+
+//	@Override
+//	public List<ReportDTO> selectAllReportList() {
+//		
+//		return mapper;
+//	}
 
 }
