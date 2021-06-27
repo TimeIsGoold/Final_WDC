@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.teacher.model.dao.TeacherInfoMapper">
+
+    <resultMap type="TeacherInfoDTO" id="teacherInfoResult">
+        <id column="TE_NO" property="teacherNo"/>
+        <result column="TE_ID" property="teacherId"/>
+        <result column="TE_PWD" property="teacherPwd"/>
+        <result column="TE_TYPE" property="teacherType"/>
+        <result column="TE_ID_NO" property="teacherIdNo"/>
+        <result column="TE_NAME" property="teacherName"/>
+        <result column="TE_PHONE" property="teacherPhone"/>
+        <result column="TE_ACNT_NO" property="teacherAccountNo"/>
+        <result column="TE_ACNT_HOLDER" property="teacherAccountName"/>
+        <result column="BANK" property="teacherAccountBANK"/>
+        <result column="TE_INTRO" property="teacherIntro"/>
+        <result column="TE_QUIT_YN" property="teacherQuitStatus"/>
+        <result column="TE_BLOCK_YN" property="teacherBlockStatus"/>
+        <result column="TE_PIC" property="teacherPicture"/>
+    </resultMap>
+
+	<select id="findTeacherInfo" parameterType="TeacherInfoDTO" resultMap="teacherInfoResult">
+		SELECT
+	           A.TE_NO
+		     , A.TE_ID
+		     , A.TE_PWD
+		     , A.TE_TYPE
+		     , A.TE_ID_NO
+		     , A.TE_NAME
+		     , A.TE_PHONE
+		     , A.TE_ACNT_NO
+		     , A.TE_ACNT_HOLDER
+		     , A.BANK
+		     , A.TE_INTRO
+		     , A.TE_QUIT_YN
+		     , A.TE_BLOCK_YN
+		     , A.TE_PIC
+		  FROM TEACHER_INFO A
+		 WHERE A.TE_ID = #{teacherId}
+	</select>
+
+</mapper>

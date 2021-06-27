@@ -8,10 +8,6 @@
     border-radius: 5px !important;
 }
 
-.breadcrumb{
-    background-color: #fef0ae !important;
-}
-
 .py-2{
     border-radius: 7px;
 }
@@ -19,7 +15,7 @@
 .refunderInfo{
     border-radius: 5px;
     text-align: center;
-    width: 200px !important
+    width: 230px !important
 }
 
 .refundReasonInput{
@@ -30,8 +26,7 @@
 }
 
 .refundBackground{
-    background-color: lightgray; 
-    height: 30px; 
+    height: 15px; 
     width: 300px;
     margin-top: -5px;
     border-radius: 5px;
