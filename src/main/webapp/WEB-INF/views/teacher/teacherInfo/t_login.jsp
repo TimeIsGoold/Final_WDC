@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -64,6 +65,11 @@
       <jsp:include page="../commons/header.jsp"/>
 
       <!-- body -->
+      <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if>
       <div class="container py-5" style="margin-bottom: 330px;">
         <div class="col-lg-7" style="margin: auto;">
           <div class="card mb-4" id="forms">

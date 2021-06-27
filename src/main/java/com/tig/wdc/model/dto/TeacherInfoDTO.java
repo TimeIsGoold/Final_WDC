@@ -44,8 +44,6 @@ public class TeacherInfoDTO {
 		this.teacherBlockStatus = teacherBlockStatus;
 		this.teacherPicture = teacherPicture;
 	}
-
-
 	
 	public int getTeacherNo() {
 		return teacherNo;
