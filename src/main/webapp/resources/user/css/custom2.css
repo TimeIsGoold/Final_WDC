@@ -10,3 +10,17 @@
   filter: grayscale(40%);
   transition: all 0.3s;
 }
+
+.refunderInfo{
+    border-radius: 5px;
+    text-align: center;
+    width: 230px !important
+}
+
+.refundBackground{
+    padding-top: 10px;
+    height: 15px !important; 
+    width: 300px;
+    margin-top: -5px;
+    border-radius: 5px;
+}

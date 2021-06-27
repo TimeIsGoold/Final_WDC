@@ -26,7 +26,7 @@ public class UserMainController {
 		return "admin/adminMain";
 	}
 	
-	@GetMapping("/classdetail")
+	@GetMapping("/login/classdetail")
 	public String classdetail() {
 		
 		return "user/mypage/complateClass_detail";
