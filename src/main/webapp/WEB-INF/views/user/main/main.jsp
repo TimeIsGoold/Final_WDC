@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 	<%@include file="../commons/header.jsp" %>
+	
     <style>
       .w-100 {
         width: 255px;
@@ -84,20 +85,6 @@
                 transform: translate(-50px, 0);
         -webkit-transition-duration: 0.3s;
                 transition-duration: 0.3s;
-      }
-
-      .fa-search {
-        font-size: 1.4rem;
-        color: #29abe2;
-        z-index: 3;
-        top: 25%;
-        -webkit-transform: translate(-490px, 0);
-            -ms-transform: translate(-490px, 0);
-                transform: translate(-490px, 0);
-        -webkit-transition-duration: 0.3s;
-                transition-duration: 0.3s;
-        -webkit-transition: all 0.1s ease-in-out;
-                transition: all 0.1s ease-in-out;
       }
 
       .hover-btn:hover{
@@ -225,16 +212,9 @@
           </div>
         </div>
       </div>
-	  <!-- 검색 -->
-      <div class="container h-100">
-        <div class="d-flex justify-content-center h-100">
-          <div class="searchbar">
-            <input class="search_input" type="text" name="" placeholder="우리 동네 클래스를 검색해보세요!">
-            <a href="#" class="search_icon" style="text-decoration:none"><i class="fas fa-search"></i></a>
-          </div>
-        </div>
-      </div>
-      <br>
+
+	 <%@include file="../commons/search.jsp" %>
+		
       <!-- HERO SECTION-->
       <div class="container">
         <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(img/hero-banner-alt.jpg)">
