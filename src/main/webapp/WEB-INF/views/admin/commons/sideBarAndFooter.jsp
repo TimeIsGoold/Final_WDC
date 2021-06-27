@@ -18,7 +18,7 @@
     		function choiceMenu(area){
     			var menu = document.getElementById(area);
     			
-    			menu.style.color = #fef0ae;
+    			menu.style.color = "#fef0ae";
     		}
     	</script>
     </head>

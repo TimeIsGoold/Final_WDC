@@ -43,6 +43,12 @@
     body {
       font-size: 15px;
     }
+    .btn {
+      border-radius: 5px !important;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
+    }
+    
 
   </style>
 

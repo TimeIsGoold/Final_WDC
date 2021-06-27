@@ -192,11 +192,14 @@
                     </div>
                 </div>
             </div>
-            <input type="file" style="margin-left: 500px; margin-top: 10px;">
-              <textarea style="resize: none; width: 550px; height: 250px; margin-top: 10px; border-radius: 5px; margin-left: 12%;" placeholder="신고 내용을 작성 해 주세요"></textarea>
-              
-              <br>
-              <button style="margin-left: 41%;" onclick=writeComplate();>신고 작성하기 </button>
+            <textarea style="resize: none; width: 725px; height: 220px; margin-top: 10px; border-radius: 5px; margin-left: 3px; padding: 15px;" placeholder="신고 내용을 작성 해 주세요"></textarea>
+      
+            <label for="input-file" style="margin-left: 10px;">
+              <input id="input-file" type="file" style="margin-left: 500px; margin-top: 10px; display: none;">
+              첨부 파일
+            </label>
+            <br>  
+            <button style="margin-left: 40%; margin-top: -5px;" onclick=writeComplate(); class="btn btn-dark submitbtn">신고 작성하기 </button>
 
 
 

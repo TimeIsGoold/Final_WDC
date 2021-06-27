@@ -1,9 +1,15 @@
 package com.tig.wdc.teacher.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tig.wdc.model.dto.TeacherInfoDTO;
+import com.tig.wdc.teacher.model.service.TeacherInfoService;
 
 /**
  * @author 이해승
@@ -12,6 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/teacher/*")
 public class TeacherInfoController {
+	
+	private final TeacherInfoService infoService;
+	
+    @Autowired	
+	public TeacherInfoController(TeacherInfoService infoService) {
+		this.infoService = infoService;
+	}
 
 	@GetMapping("registTeacher")
 	public String registTeacher() {
@@ -20,8 +33,13 @@ public class TeacherInfoController {
 	}
 	
 	@PostMapping("teacherSignIn")
-	public String teacherSignIn() {
+	public String teacherSignIn(Model model,@ModelAttribute TeacherInfoDTO loginInfo) {
 		
+		TeacherInfoDTO teacherInfo = infoService.findteacherInfo(loginInfo);
+		System.out.println(teacherInfo);
+		
+		model.addAttribute("teacherInfo",teacherInfo);
 		return "teacher/t_main";
 	}
+	
 }

@@ -36,6 +36,17 @@
     body {
       font-size: 15px;
     }
+    
+    .btn {
+      border-radius: 5px !important;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
+    }
+    
+    .btn-primary:hover {
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
+    }
   </style>
   </head>
   <body>

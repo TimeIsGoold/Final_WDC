@@ -10,23 +10,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
   <!-- Bootstrap CSS-->
-  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/css/bootstrap.min.css">
   <!-- Lightbox-->
-  <link rel="stylesheet" href="vendor/lightbox2/css/lightbox.min.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/lightbox2/css/lightbox.min.css">
   <!-- Range slider-->
-  <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/nouislider/nouislider.min.css">
   <!-- Bootstrap select-->
-  <link rel="stylesheet" href="vendor/bootstrap-select/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap-select/css/bootstrap-select.min.css">
   <!-- Owl Carousel-->
-  <link rel="stylesheet" href="vendor/owl.carousel2/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="vendor/owl.carousel2/assets/owl.theme.default.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/assets/owl.theme.default.css">
   <!-- Google fonts-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
   <!-- theme stylesheet-->
-  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/style.default.css" id="theme-stylesheet">
   <!-- Custom stylesheet - for your changes-->
-  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
   <!-- Favicon-->
   <link rel="shortcut icon" href="img/favicon.png">
   <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
@@ -57,19 +57,19 @@
   <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
     <div class="py-2 side-head"><p>클래스 관리</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_classManagement.html">클래스 관리</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherClassManagement">클래스 관리</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
     <div class="py-2 side-head"><p>매출/정산</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_balanceList.html">정산내역 관리</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherBalanceList">정산내역 관리</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
     <div class="py-2 side-head"><p>문의하기</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_Inquiry.html">관리자 문의</a></li>
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_inquiryList.html">문의내역 관리</a></li>
-      <li class="mb-2 side-body"><a class="reset-anchor" href="t_FAQ.html">자주 묻는 질문</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherinquiry">관리자 문의</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teaccherInquiry">문의내역 관리</a></li>
+      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherFAQ">자주 묻는 질문</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
   </div>

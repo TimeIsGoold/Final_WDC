@@ -57,9 +57,9 @@
       width: 100%;
     }
     .btn {
-      border-radius: 5px;
-      background-color: #fef0ae;
-      border-color: #fef0ae;
+      border-radius: 5px !important;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
     }
     
     .btn-primary:hover {
