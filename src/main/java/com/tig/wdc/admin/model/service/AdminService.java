@@ -15,7 +15,7 @@ public interface AdminService {
 	
 //	List<ReportDTO> selectAllReportList();
 
-//	List<QuestionDTO> selectAllQuestionList();
+	List<QuestionDTO> selectAllQuestionList();
 
 
 }

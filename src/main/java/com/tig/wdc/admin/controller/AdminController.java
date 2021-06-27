@@ -57,7 +57,7 @@ public class AdminController {
 	@GetMapping("questionManagement")
 	public String selectQustionList(Model model) {
 		
-		//model.addAttribute("questionList", adminService.selectAllQuestionList());
+		model.addAttribute("questionList", adminService.selectAllQuestionList());
 		
 		return "admin/adminQuestionManagement";
 	}

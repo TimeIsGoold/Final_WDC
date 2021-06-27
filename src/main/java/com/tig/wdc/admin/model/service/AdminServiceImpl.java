@@ -41,10 +41,10 @@ public class AdminServiceImpl implements AdminService {
 //		return mapper;
 //	}
 	
-//	@Override
-//	public List<QuestionDTO> selectAllQuestionList() {
-//		
-//		return mapper.selectAllQuestionList();
-//	}
+	@Override
+	public List<QuestionDTO> selectAllQuestionList() {
+		
+		return mapper.selectAllQuestionList();
+	}
 
 }

@@ -3,6 +3,7 @@ package com.tig.wdc.admin.model.dao;
 import java.util.List;
 
 import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 
 public interface AdminMapper {
@@ -11,5 +12,5 @@ public interface AdminMapper {
 	
 	List<ClassDTO> selectAllClassList();
 
-	List<ClassDTO> selectAllQuestionList();
+	List<QuestionDTO> selectAllQuestionList();
 }
