@@ -35,6 +35,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+     html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     table {
       text-align: center;
     }
@@ -99,11 +105,13 @@
           <div class="form-group">
             <div class="row">
               <div class="col-sm-3" style="margin-left: 10px;">
-                <h5>키워드 검색</h5>
+                <h5>답변 상태 검색</h5>
               </div>
-              <div class='col-sm-5'>
-                <label class="mr-sm-3 sr-only" for="inlineFormCustomSelect"></label>
-                <input type="text" class="form-control" id="search">
+              <div class='col-sm-3'>
+                <select class="form-control" name="답변 상태" id="reply">
+                	<option value="notyet">답변 대기중</option>
+                	<option value="completed">답변 완료</option>
+                </select>
               </div>
               <div class='col-sm-3'>
                 <button type="submit" class="btn btn-primary">검색</button>   
@@ -188,5 +196,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
+  
+  <jsp:forward page="../commons/footer.jsp"/>
 </body>
 <html>
