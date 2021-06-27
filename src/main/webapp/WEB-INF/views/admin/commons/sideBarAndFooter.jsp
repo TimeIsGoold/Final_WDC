@@ -16,9 +16,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     	<script>
     		function choiceMenu(area){
-    			var menu = document.getElementById(area);
+    			var menu = document.getElementById('area');
     			
-    			menu.style.color = "#fef0ae";
+    			var sideBar = document.getElementsByClassName('nav-link');
+    			
+    			for(int i = 0; i < sideBar.length; i++) {
+    				sideBar[i].style.removeAttribute('color');
+    			}
+    			
+    			menu.style.color = '#fef0ae';
     		}
     	</script>
     </head>
