@@ -29,6 +29,6 @@ public class UserMainController {
 	@GetMapping("/login/classdetail")
 	public String classdetail() {
 		
-		return "user/payment/refund";
+		return "user/mypage/complateClass_detail";
 	}
 }
