@@ -110,6 +110,10 @@
 	   }
 		
 	  *{font-family:'Cafe24SsurroundAir' !important;}
+	  
+	  a:hover{
+	  	color: #ffc107 !important;
+	  }
     </style>
   </head>
   <body>
@@ -214,7 +218,16 @@
           </div>
         </div>
       </div>
-
+	  <!-- 검색 -->
+      <div class="container h-100">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
+            <input class="search_input" type="text" name="" placeholder="우리 동네 클래스를 검색해보세요!">
+            <a href="#" class="search_icon" style="text-decoration:none"><i class="fas fa-search"></i></a>
+          </div>
+        </div>
+      </div>
+      <br>
       <!-- HERO SECTION-->
       <div class="container">
         <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(img/hero-banner-alt.jpg)">
@@ -227,30 +240,6 @@
             </div>
           </div>
         </section>
-
-        <!-- 검색 -->
-        <div style="margin-left: 280px;">
-          <br>
-          <!-- <fieldset>
-            
-            <input type="search" placeholder="찾으시는 클래스가 있으신가요?" value="" style="width:500px; border: 1px solid black;">
-              <button type="submit">
-        
-            
-            검색
-          </button>
-        </fieldset> -->
-        <form>
-          <fieldset>
-            <input type="search" style="border: 1px solid black; border-radius: 5px;" placeholder=" 찾으시는 클래스가 있으신가요?" />
-            <button type="submit">
-              <i class="fa fa-search" style="">
-              </i>
-
-          </button>
-          </fieldset>
-        </form>          
-        </div>
 
         <!-- 신규 클래스 -->
         <section class="py-5">

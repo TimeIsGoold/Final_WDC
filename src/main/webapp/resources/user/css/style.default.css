@@ -1917,6 +1917,9 @@ STYLE SWITCHER FOR DEMO
 
 .btn-dark:focus, .btn-dark.focus {
   box-shadow: 0 0 0 0.2rem #fef0ae(17, 17, 17, 0.5);
+  background-color: #fef0ae;
+  border: none;
+  color: black;
   box-shadow: none;
 }
 
@@ -1940,6 +1943,9 @@ STYLE SWITCHER FOR DEMO
 
 .btn-dark:Focus {
   text-decoration: none;
+  backgroun-color: #fef0ae !important;
+  color: black !important;
+  border-color: #fef0ae !important;
 }
 
 .btn-outline-primary {
