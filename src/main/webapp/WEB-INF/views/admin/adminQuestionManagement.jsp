@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,6 +22,33 @@
         	.card-header {
         		 font-size: x-large;
         	}
+        	
+        	.totalQuestion {
+                width: 33%;
+            }
+
+            .studentQuestion {
+                width: 33%;
+            }
+
+            .teacherQuestion {
+                width: 33%;
+            }
+
+            .totalQuestion:hover {
+                background : #fef0ae;
+    			color: black;
+            }
+
+            .studentQuestion:hover {
+                background : #fef0ae;
+    			color: black;
+            }
+
+            .teacherQuestion:hover {
+                background : #fef0ae;
+    			color: black;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -41,6 +69,12 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>문의내역
                             </div>
+                            
+                            <div class="subMenuBar">
+                                <button class="totalQuestion">전체</button>
+                                <button class="studentQuestion">학생</button>
+                                <button class="teacherQuestion">강사</button>
+                            </div>
 
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -55,14 +89,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>문의합니다!</td>
-                                            <td>2021/06/07</td>
-                                        </tr>
+                     					<c:forEach items="${questionList}" var="QuestionDTO">
+				                            <tr>
+				                                <td>${QuestionDTO.questionNo}</td>
+				                                <td>${QuestionDTO.questionType}</td>
+				                                <td>${QuestionDTO.questionName}</td>
+				                                <td>${QuestionDTO.questionId}</td>
+				                                <td>${QuestionDTO.questionTitle}</td>
+				                                <td>${QuestionDTO.questionDate}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

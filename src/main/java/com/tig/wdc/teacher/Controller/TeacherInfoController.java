@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.Controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -78,48 +79,107 @@ public class TeacherInfoController {
 	}
 	
 	@PostMapping("updateProfile")
-	public String updateProfile(@RequestParam("thumbnailImg1") MultipartFile teacherPic,HttpServletRequest request, Model model) {
+	public String updateProfile(@RequestParam("thumbnailImg1") MultipartFile teacherPic,HttpServletRequest request, RedirectAttributes rttr) {
 		
+//		//강사 소개글
+//		String intro = request.getParameter("teacherIntro");
+//		String root = request.getSession().getServletContext().getRealPath("resources");
+//		
+//		String filePath = root + "\\upload";
+//		File mkdir = new File(filePath);
+//		
+//		if(!mkdir.exists()) {
+//			mkdir.mkdirs();
+//		}
+//		String saveName = null;
+//		String originFileName = teacherPic.getOriginalFilename();
+//		
+//		if(originFileName != null && originFileName.length() != 0) {
+//			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+//			saveName = UUID.randomUUID().toString().replace("-", "") + ext;
+//		} else if(model.getAttribute("beforePic") != null) {
+//			System.out.println(model.getAttribute("beforePic").toString());
+//			saveName = (String) model.getAttribute("beforePic");
+//		}
+//		try {
+//			teacherPic.transferTo(new File(filePath + "\\" + saveName));
+//			
+//			TeacherInfoDTO profileInfo = new TeacherInfoDTO();
+//			profileInfo.setTeacherPicture(saveName);
+//			profileInfo.setTeacherIntro(intro);
+//			profileInfo.setTeacherNo((Integer)request.getSession().getAttribute("teacherNo"));
+//			
+//			int result = infoService.updateTeacherProfile(profileInfo);
+//			
+//			if(result > 0) {
+//				rttr.addFlashAttribute("profileMessage", "회원정보 수정 성공!");
+//			} else {
+//				rttr.addFlashAttribute("profileMessage", "회원정보 수정 실패!");
+//			}
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			
+//			new File(filePath + "\\" + saveName).delete();
+//			rttr.addFlashAttribute("profileMessage", "회원정보 수정 실패!");
+//		}
 		//강사 소개글
-		String intro = request.getParameter("teacherIntro");
-		System.out.println(intro);
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		
-		String filePath = root + "\\upload";
-		
-		File mkdir = new File(filePath);
-		
-		if(!mkdir.exists()) {
-			mkdir.mkdirs();
-		}
 		String saveName = null;
 		String originFileName = teacherPic.getOriginalFilename();
 		
+		String intro = request.getParameter("teacherIntro");
+		//업로드 된 사진이 있으면 새로 저장
 		if(originFileName != null && originFileName.length() != 0) {
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\upload";
+			File mkdir = new File(filePath);
+			
+			if(!mkdir.exists()) {
+				mkdir.mkdirs();
+			}
+			
 			String ext = originFileName.substring(originFileName.lastIndexOf("."));
 			saveName = UUID.randomUUID().toString().replace("-", "") + ext;
-		}
-		try {
-			teacherPic.transferTo(new File(filePath + "\\" + saveName));
+
+			try {
+				teacherPic.transferTo(new File(filePath + "\\" + saveName));
+
+				TeacherInfoDTO profileInfo = new TeacherInfoDTO();
+				profileInfo.setTeacherPicture(saveName);
+				profileInfo.setTeacherIntro(intro);
+				profileInfo.setTeacherNo((Integer)request.getSession().getAttribute("teacherNo"));
+				
+				int result = infoService.updateTeacherProfile(profileInfo);
+				
+				if(result > 0) {
+					rttr.addFlashAttribute("profileMessage", "회원정보 수정 성공!");
+				} else {
+					rttr.addFlashAttribute("profileMessage", "회원정보 수정 실패!");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(request.getParameter("beforePic") != null) {
+			//기존 사진이 있는 경우 기존사진 그대로 유지
+			saveName = request.getParameter("beforePic");
 			
 			TeacherInfoDTO profileInfo = new TeacherInfoDTO();
 			profileInfo.setTeacherPicture(saveName);
+			profileInfo.setTeacherIntro(intro);
 			profileInfo.setTeacherNo((Integer)request.getSession().getAttribute("teacherNo"));
-			
+
 			int result = infoService.updateTeacherProfile(profileInfo);
 			
 			if(result > 0) {
-				model.addAttribute("message", "회원정보 수정 성공!");
+				rttr.addFlashAttribute("profileMessage", "회원정보 수정 성공!");
 			} else {
-				model.addAttribute("message", "회원정보 수정 실패!");
+				rttr.addFlashAttribute("profileMessage", "회원정보 수정 실패!");
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-			new File(filePath + "\\" + saveName).delete();
 		}
-		
+
 		return "redirect:main";
 		
 	}

@@ -92,7 +92,11 @@
     .card-body {
       	text-align: center;
     }
-
+    .pagingArea button {
+	background-color: #fef0ae;
+	border: 1px solid #fef0ae;
+	border-radius: 5px;
+}
   </style>
   </head>
   <body>
@@ -115,18 +119,32 @@
 	                <table class="table table-hover">
 	                  <thead>
 	                    <tr>
-	                      <th>번호</th>
+	                      <th>중요여부</th>
 	                      <th>제목</th>
 	                      <th>등록일</th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>
+	                  <c:forEach var="notice" items="${ noticeList }">
+	                  <tr>
+	                  <c:choose>
+	                      <c:when test="${ notice.important eq 'Y'}">
+	                          <td><b style="color: red">[중요]</b></td>  
+	                      </c:when>
+	                      <c:otherwise>
+	                          <td>[일반]</td>  
+	                      </c:otherwise>
+	                  </c:choose>
+	                      <td><c:out value="${ notice.title }"/></td>  
+	                      <td><c:out value="${ notice.writeDate }"/></td>  
+	                  </tr>
+	                  </c:forEach>
 	                    <tr>
-	                      <td>1</td>
+<!-- 	                      <td>1</td>
 	                      <td>[모집] 2021 신규 일정 작가 혜택 안내</td>
 	                      <td>2021-06-18</td>
-	                    </tr>
-	                    <tr>
+	                    </tr> -->
+<!-- 	                    <tr>
 	                      <td>2</td>
 	                      <td>개인정보 이용약관 변경 안내</td>
 	                      <td>2021-06-10</td>
@@ -145,21 +163,88 @@
 	                      <td>5</td>
 	                      <td>결제정보 변경안내</td>
 	                      <td>2021-05-20</td>
-	                    </tr>
+	                    </tr> -->
 	                  </tbody>
 	                </table>
-	                <nav aria-label="...">
-	                  <ul class="pagination" style="justify-content: center;">
-	                    <li class="page-item"><span class="page-link"><</span></li>
-	                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-	                    <li class="page-item"><a class="page-link" href="#">></a></li>
-	                  </ul>
-	                </nav>
-	              </div>
+					<nav aria-label="...">
+						<div class="pagingArea" align="center">
+							<c:choose>
+								<c:when test="${ empty requestScope.searchValue }">
+									<button id="startPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled ><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="prevPage"><</button>
+									</c:if>
+
+									<c:forEach var="p"
+										begin="${ requestScope.pageInfo.startPage }"
+										end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button onclick="pageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if
+										test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled >></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="nextPage">></button>
+									</c:if>
+
+									<button id="maxPage">>></button>
+								</c:when>
+								<c:otherwise>
+									<button id="searchStartPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="searchPrevPage" ><</button>
+									</c:if>
+
+									<c:forEach var="p"
+										begin="${ requestScope.pageInfo.startPage }"
+										end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button  onclick="seachPageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if
+										test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled>></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="searchNextPage" >></button>
+									</c:if>
+
+									<button id="searchMaxPage" >>></button>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</nav>
+					</div>
 	            </div>
 	          </div>        
 	          
@@ -167,13 +252,13 @@
 	          <div class="col-sm-4" id="content-formatting" style="float: left; margin-left: 6%;">
 	            <div class="card-header">강사 프로필
 	            </div>
-	            <div class="card-body">
+	            <div class="card-body" >
 	            <c:choose>
 	            	<c:when test="${empty teacherInfo.teacherPicture }">
-	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png" alt="Card image"><br><br>
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png" alt="Card image" style="height: 200px"><br><br>
 	            	</c:when>
 	            	<c:otherwise>
-	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/upload/${ teacherInfo.teacherPicture }" alt="Card image"><br><br>
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/upload/${ teacherInfo.teacherPicture }" alt="Card image" style="height: 200px"><br><br>
 	            	</c:otherwise>
 	            </c:choose>
 	              <h5>${ teacherInfo.teacherName}</h5>
@@ -196,6 +281,7 @@
 	
 	          <!-- 프로필편집 팝업 -->
 
+              <form method="post" action="updateProfile" enctype="multipart/form-data">       			  
 	          <div id="editProfile"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	            <div class="modal-dialog">
 	              <div class="modal-content" >
@@ -206,7 +292,6 @@
 	                <div class="modal-body">
 	                  <div class="container">
 	                    <h6>프로필사진 편집</h6><br>
-                        <form method="post" action="updateProfile" enctype="multipart/form-data">
 	                    <div class="row">
 	                      <div class="col-md-3"></div>
 	                      <div class="content-img-area1 col-md-6" id="contentImgArea1" align="center">
@@ -216,9 +301,10 @@
 	                          </c:when>
 	                          <c:otherwise>
         	                      <img id="contentImg1" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/upload/${teacherInfo.teacherPicture}">
+                                  <input type="hidden" value="${ teacherInfo.teacherPicture }" name="beforePic">
 	                          </c:otherwise>
 	                      </c:choose>
-	                      <button  style="margin-top: 10px;">사진등록</button>
+	                      <button  style="margin-top: 10px;" type="button">사진등록</button>
 	                      </div>
 
 	                      <div class="thumbnail-file-area">
@@ -231,7 +317,7 @@
 	                      <p>소개글 작성</p>
 	                      <textarea class="form-control" rows="7" name="teacherIntro">${ teacherInfo.teacherIntro }</textarea>
 	                    </div>
-	       			   <!-- </form> -->
+	
 	                  </div>
 	                </div>
 	                <div class="modal-footer" style="display: block;" align="center">
@@ -241,8 +327,15 @@
 	              </div>
 	            </div>
 	          </div>
+	          </form>
 	          <!-- /프로필편집 팝업 -->
-	
+	          <!-- 프로필편집 안내 -->
+           	  <c:if test="${ not empty profileMessage }">
+        	      <script>
+        	          alert("${profileMessage}");
+        	      </script>
+        	  </c:if>			  
+	          <!-- /프로필편집 안내 -->
 	          <div class="col-sm-4" style="float: left; margin-bottom: 30px; margin-left: 3%;">
 	            <div class="card-header" id="profile">정산 정보
 	            </div>
@@ -327,13 +420,102 @@
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
+      <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/t_WDC.js"></script>
 
       		<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
     
  	<!-- footer -->
-	<!-- <%@ include file="commons/footer.jsp" %> -->
-  	
+	<%@ include file="commons/footer.jsp" %> 
+	<script>
+	const link = "/wdc/teacher/main";
+		
+	if(document.getElementById("startPage")) {
+		const $startPage = document.getElementById("startPage");
+		$startPage.onclick = function() {
+			location.href = link + "?currentPage=1";
+		}
+	}
+	
+	if(document.getElementById("prevPage")) {
+		const $prevPage = document.getElementById("prevPage");
+		$prevPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+		}
+	}
+	
+	if(document.getElementById("nextPage")) {
+		const $nextPage = document.getElementById("nextPage");
+		$nextPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+		}
+	}
+	
+	if(document.getElementById("maxPage")) {
+		const $maxPage = document.getElementById("maxPage");
+		$maxPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
+		}
+	}
+	
+	if(document.getElementById("searchStartPage")) {
+		const $searchStartPage = document.getElementById("searchStartPage");
+		$searchStartPage.onclick = function() {
+			location.href = searchLink + "?currentPage=1&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchPrevPage")) {
+		const $searchPrevPage = document.getElementById("searchPrevPage");
+		$searchPrevPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchNextPage")) {
+		const $searchNextPage = document.getElementById("searchNextPage");
+		$searchNextPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchMaxPage")) {
+		const $searchMaxPage = document.getElementById("searchMaxPage");
+		$searchMaxPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+//	if(document.getElementsByTagName("td")) {
+		
+//		const $tds = document.getElementsByTagName("td");
+//		for(let i = 0; i < $tds.length; i++) {
+			
+//			$tds[i].onmouseenter = function() {
+//				this.parentNode.style.backgroundColor = "orangered";
+//				this.parentNode.style.cursor = "pointer";
+//			}
+//			
+//			$tds[i].onmouseout = function() {
+//				this.parentNode.style.backgroundColor = "black";
+//			}
+			
+//			$tds[i].onclick = function() {
+//				/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
+//				alert(this.parentNode.children[0].innerText);
+//			}
+			
+//		}
+//		
+//	}
+	
+	function pageButtonAction(text) {
+		location.href = link + "?currentPage=" + text;
+	}
+	function seachPageButtonAction(text) {
+		location.href = searchLink + "?currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+	}
+	</script>  	
   </body>
 </html>

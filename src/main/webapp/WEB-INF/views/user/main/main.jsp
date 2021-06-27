@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <head>
 	<%@include file="../commons/header.jsp" %>
 	
     <style>
@@ -98,6 +97,17 @@
 		
 	  *{font-family:'Cafe24SsurroundAir' !important;}
 	  
+	  a:hover{
+	  	color: #ffc107 !important;
+	  }
+	  
+	   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 900 !important;
+    line-height: 1.2;
+    color: inherit;
+}
     </style>
   </head>
   <body>
