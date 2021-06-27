@@ -2,7 +2,7 @@ package com.tig.wdc.admin.model.dto;
 
 import java.sql.Date;
 
-public class StudentDTO {
+public class TeacherDTO {
 
 	private int studentnNo;      		  // 회원 번호
 	private String type;        		  // 회원타입
@@ -12,13 +12,13 @@ public class StudentDTO {
 	private String birth;        		  // 회원 생년 월일
 	private java.sql.Date enrollDate;     // 가입일
 	private int reportedCnt;              // 누적 신고일
+	private String imgPath;               // 이미지 경로
+	private String teacherIntro;          // 강사 소개
 	
+	public TeacherDTO() {}
 	
-	public StudentDTO() {}
-	
-	
-	public StudentDTO(int studentnNo, String type, String id, String email, String phone, String birth, Date enrollDate,
-			int reportedCnt) {
+	public TeacherDTO(int studentnNo, String type, String id, String email, String phone, String birth, Date enrollDate,
+			int reportedCnt, String imgPath, String teacherIntro) {
 		super();
 		this.studentnNo = studentnNo;
 		this.type = type;
@@ -28,8 +28,9 @@ public class StudentDTO {
 		this.birth = birth;
 		this.enrollDate = enrollDate;
 		this.reportedCnt = reportedCnt;
+		this.imgPath = imgPath;
+		this.teacherIntro = teacherIntro;
 	}
-	
 	
 	public int getStudentnNo() {
 		return studentnNo;
@@ -79,13 +80,23 @@ public class StudentDTO {
 	public void setReportedCnt(int reportedCnt) {
 		this.reportedCnt = reportedCnt;
 	}
-	
-	
+	public String getImgPath() {
+		return imgPath;
+	}
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
+	}
+	public String getTeacherIntro() {
+		return teacherIntro;
+	}
+	public void setTeacherIntro(String teacherIntro) {
+		this.teacherIntro = teacherIntro;
+	}
 	@Override
 	public String toString() {
-		return "StudentDTO [studentnNo=" + studentnNo + ", type=" + type + ", id=" + id + ", email=" + email
+		return "TeacherDTO [studentnNo=" + studentnNo + ", type=" + type + ", id=" + id + ", email=" + email
 				+ ", phone=" + phone + ", birth=" + birth + ", enrollDate=" + enrollDate + ", reportedCnt="
-				+ reportedCnt + "]";
+				+ reportedCnt + ", imgPath=" + imgPath + ", teacherIntro=" + teacherIntro + "]";
 	}
 
 }
