@@ -1,11 +1,16 @@
 package com.tig.wdc.admin.controller;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
 
 @Controller
@@ -29,9 +34,23 @@ public class AdminController {
 	
 	// 회원관리
 	@GetMapping("memberManagement")
-	public String selectStudentList(Model model) {
+	public String selectTotalUsertList(Model model) {
+
+		List<TotalDTO> realtotalList = adminService.selectTeacherList();
+		List<TotalDTO> totalList = adminService.selectTotalUsertList();
+		 
+		for(int i = 0; i < totalList.size(); i++) {
+			
+			
+			
+			realtotalList.add(totalList.get(i));
+			
+		}
 		
-		model.addAttribute("studentList", adminService.selectAllStudentList());
+		
+		Collections.sort(realtotalList, new DateSortDesc());
+		
+		model.addAttribute("totalList", realtotalList);
 				
 		return "admin/adminMemberManagement";
 	}
@@ -48,9 +67,11 @@ public class AdminController {
 	
 	// 신고관리
 	@GetMapping("reportManagement")
-	public String reportManagement() {
+	public String reportManagement(Model model) {
 		
-		return "admin/adminReportManagement";
+		model.addAttribute("reportList", adminService.selectAllReportList());
+		
+		return "admin/adminMemberReportManagement";
 	}
 	
 	// 문의게시판

@@ -6,8 +6,9 @@
  
  	<typeAliases>
  	
- 		<typeAlias alias="StudentDTO" type="com.tig.wdc.admin.model.dto.StudentDTO"/>
+ 		<typeAlias alias="TotalDTO" type="com.tig.wdc.admin.model.dto.TotalDTO"/>
  		<typeAlias alias="ClassDTO" type="com.tig.wdc.admin.model.dto.ClassDTO"/>
+ 		<typeAlias alias="ReportDTO" type="com.tig.wdc.admin.model.dto.ReportDTO"/>
  		<typeAlias alias="TeacherInfoDTO" type="com.tig.wdc.model.dto.TeacherInfoDTO"/>
  		
  	</typeAliases>

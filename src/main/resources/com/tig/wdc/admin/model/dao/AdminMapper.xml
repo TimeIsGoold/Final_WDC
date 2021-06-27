@@ -4,11 +4,21 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tig.wdc.admin.model.dao.AdminMapper">
 	
-	<resultMap id="studentList" type="StudentDTO">
-		<id column="USER_NO" property="studentNo"/>
-		<result column="USER_ID" property="studentId"/>
-		<result column="USER_NAME" property="studentName"/>
+	<resultMap id="totalDTO1" type="TotalDTO">
+		<id column="TE_NO" property="userNo"/>
+		<result column="TE_ID" property="userId"/>
+		<result column="TE_NAME" property="userName"/>
 		<result column="ENROLLDATE" property="enrollDate"/>
+		<result column="TYPE" property="userType"/>
+		<result column="누적신고"  property="reportedCnt"/>
+	</resultMap>
+	<resultMap id="totalDTO2" type="TotalDTO">
+		<id column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="ENROLLDATE" property="enrollDate"/>
+		<result column="TYPE" property="userType"/>
+		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
 	
 	<resultMap id="classLsit" type="ClassDTO">
@@ -18,20 +28,54 @@
 		<result column="CLS_PRICE" property="classPrice"/>
 		<result column="CLS_TYPE" property="classType"/>
 		<result column="CLS_STATUS" property="decisionStatus"/>
-		
+	</resultMap>
+	
+	<resultMap id="reportList" type="ReportDTO">
+		<id column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="REPORT_TYPE" property="reportType"/>
+		<result column="REPORT_FROM_NO" property="reportId"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="PROCS_STATUS" property="reportStatus"/>
 	</resultMap>
 	
 		
-	<select id="selectAllStudentList" resultMap="studentList" parameterType="StudentDTO">
-		SELECT
-		       USER_NO
-		     , USER_ID
-		     , USER_NAME
-		     , ENROLLDATE
-		  FROM USER_INFO  
+	<select id="selectTotalUsertList" resultMap="totalDTO1">
+		SELECT 
+		       T.TE_NO
+		     , T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.ENROLLDATE
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM TEACHER_INFO T
+		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
+		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
+		 GROUP BY T.TE_NO
+		     , T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.ENROLLDATE
+	</select>
+	<select id="selectTeacherList" resultMap="totalDTO2">
+		 SELECT 
+		        U.USER_NO
+		      , U.TYPE
+		      , U.USER_ID
+		      , U.USER_NAME
+		      , U.ENROLLDATE
+		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		    FROM USER_INFO U
+		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
+		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 GROUP BY U.USER_NO
+		      , U.TYPE
+		      , U.USER_ID
+		      , U.USER_NAME
+		      , U.ENROLLDATE
 	</select>
 	
-	<select id="selectAllClassList" resultMap="classLsit" parameterType="ClassDTO">
+	<select id="selectAllClassList" resultMap="classLsit">
 		SELECT 
 		       C.CLS_NO
 		     , C.CLS_TITLE
@@ -41,6 +85,17 @@
 		     , TI.TE_NAME
 		  FROM CLASS C
 		  JOIN TEACHER_INFO TI ON (C.TE_NO = TI.TE_NO)
+	</select>
+	
+	<select id="selectAllReportList" resultMap="reportList">
+		SELECT 
+		       R.REPORT_NO
+		     , R.REPORT_TITLE
+		     , R.REPORT_TYPE
+		     , R.REPORT_FROM_NO
+		     , R.REPORT_DATE
+		     , R.PROCS_STATUS
+		  FROM REPORT R
 	</select>
 	
 </mapper>

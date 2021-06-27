@@ -45,24 +45,34 @@
                                 <i class="fas fa-table me-1"></i>
                                 회원관리
                             </div>
+                            <div class="btn-group btn-group-justified">
+						        <a id="total" onclick="MyFunction(); return false;" href="#" class="btn btn-warning">전체 ( 총 n명 )</a>
+						        <a id="teacher" onclick="MyFunction(); return false;" href="#" class="btn btn-warning">강사 ( n명 )</a>
+						        <a id="student" onclick="MyFunction(); return false;" href="#" class="btn btn-warning">수강생 ( n명 )</a>
+      						</div>
 
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>회원번호</th>
-                                            <th>성명</th>
+                                            <th>분류</th>
                                             <th>아이디</th>
-                                            <th>가입일</th>
+                                            <th>성명</th>
+                                            <th>가입 날짜</th>
+                                            <th>누적신고 횟수</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                         				<c:forEach items="${studentList}" var="StudentDTO">
-				                            <tr>
-				                                <td>${StudentDTO.studentNo}</td>
-				                                <td>${StudentDTO.studentName}</td>
-				                                <td>${StudentDTO.studentId}</td>
-				                                <td>${StudentDTO.enrollDate}</td>
+                         				<c:forEach items="${totalList}" var="totalList">
+				                            <tr onclick="showdetail()">
+				                                <td><c:choose>
+				                                	<c:when test="${ totalList.userType eq 'T'}">강사</c:when>
+				                                	<c:when test="${ totalList.userType eq 'U'}">수강생</c:when>
+				                                </c:choose></td>
+				                                <td>${totalList.userId}</td>
+				                                <td>${totalList.userName}</td>
+				                                <td>${totalList.enrollDate}</td>
+				                                <td>${totalList.reportedCnt}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
@@ -75,18 +85,19 @@
             </div>
 
         </div>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
+        <script>
+        	function showdetail(){
+        		
+        		
+        	}
+        
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>
 </html>
