@@ -15,16 +15,19 @@
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     	<script>
-    		function choiceMenu(area){
-    			var menu = document.getElementById('area');
+    		function drawColor(){
+    			var documentUrl = document.URL; 
+    			var NdocumentUrl = new URL(documentUrl);  
+    			var currentMenu = NdocumentUrl .searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
+    			 
+    			console.log(NdocumentUrl);
+    			console.log(currentMenu);
     			
-    			var sideBar = document.getElementsByClassName('nav-link');
+    			const sideBar = document.getElementsByClassName('nav-link');
     			
-    			for(int i = 0; i < sideBar.length; i++) {
-    				sideBar[i].style.removeAttribute('color');
-    			}
-    			
-    			menu.style.color = '#fef0ae';
+    			const currentMenuBar = document.getElementById(currentMenu);
+    			currentMenuBar.style.color = '#fef0ae';
+
     		}
     	</script>
     </head>
@@ -34,39 +37,39 @@
 
            <div class="sb-sidenav-menu">
                <div class="nav">
-                   <a class="nav-link collapsed" id="member" href="${ pageContext.servletContext.contextPath }/admin/memberManagement" onclick="choiceMenu(this.id);">
-
+                   <a class="nav-link collapsed" id="member" href="${ pageContext.servletContext.contextPath }/admin/memberManagement?currentMenu=member">
                    	     회원관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/classManagement" onclick="choiceMenu(this.id);">
-
+                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/classManagement?currentMenu=class">
                                           클래스관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/reportManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/reportManagement?currentMenu=report">
                                            신고관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="question" href="${ pageContext.servletContext.contextPath }/admin/questionManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="question" href="${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question">
                                            문의
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="coupon" href="${ pageContext.servletContext.contextPath }/admin/couponManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="coupon" href="${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon">
                                            쿠폰
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="notice" href="${ pageContext.servletContext.contextPath }/admin/noticeManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="notice" href="${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice">
                                            공지사항
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="calculate" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="calculate" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate">
                                            정산
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-               </div>ㄴ
+               </div>
            </div>
-           
+           <script>
+            drawColor();
+           </script>
            <div class="sb-sidenav-footer">
                <div class="small">
                	Copyright &copy; 우리동네 클래스

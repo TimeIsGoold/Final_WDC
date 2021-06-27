@@ -10,4 +10,6 @@ public interface AdminMapper {
 	List<StudentDTO> selectAllStudentList();
 	
 	List<ClassDTO> selectAllClassList();
+
+	List<ClassDTO> selectAllQuestionList();
 }
