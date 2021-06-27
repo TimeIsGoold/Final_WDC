@@ -35,7 +35,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
-     html {
+    html {
 
 		position: relative;
 		margin: 0;
@@ -93,7 +93,7 @@
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-        <h4>초코식빵 만들기 클래스 (2회차)</h4><h6 style="float: right;">진행일자 : 2021년 6월 1일</h6>
+        <p style="font-size: 20px;">초코식빵 만들기 클래스</p><p style="font-size: 18px; float: right;">진행일자 : 2021년 6월 1일</p>
       </div>
       <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px;">
         <table class="table table-hover" style="text-align: center;">
@@ -183,5 +183,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
+  
+  <jsp:forward page="../commons/footer.jsp"/>
 </body>
 <html>

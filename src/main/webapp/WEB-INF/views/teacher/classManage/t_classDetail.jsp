@@ -35,6 +35,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+     html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     table {
       text-align: center;
       font-size: 13px;
@@ -333,5 +339,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
+  <jsp:forward page="../commons/footer.jsp"/>
 </body>
 <html>

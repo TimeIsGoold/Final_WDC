@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,78 +51,24 @@
                                     <thead>
                                         <tr>
                                             <th>신고 번호</th>
-                                            <th>분류</th>
-                                            <th>성명</th>
+                                            <th>신고 제목</th>
+                                            <th>신고자 분류</th>
                                             <th>아이디</th>
-                                            <th>제목</th>
+                                            <th>신고 날짜</th>
                                             <th>처리여부</th>
-                                            <th>신고일</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="detailPage();">
-                                            <td>1</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>신고합니다!</td>
-                                            <td>대기중</td>
-                                            <td>2021/06/07</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>신고합니다!!</td>
-                                            <td>대기중</td>
-                                            <td>2021/06/17</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>신고합니다!!!</td>
-                                            <td>처리 완료</td>
-                                            <td>2021/06/07</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>신고합니다!!!!</td>
-                                            <td>처리 완료</td>
-                                            <td>2021/06/17</td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>신고합니다!!!!!</td>
-                                            <td>처리 완료</td>
-                                            <td>2021/06/07</td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>일반 회원</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>신고합니다!!!!</td>
-                                            <td>처리 완료</td>
-                                            <td>2021/06/17</td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>강사</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>신고합니다!!!</td>
-                                            <td>처리 완료</td>
-                                            <td>2021/06/07</td>
-                                        </tr>
+                                        <c:forEach items="${reportList}" var="reportDTO">
+				                            <tr>
+				                                <td>${reportDTO.reportNo}</td>
+				                                <td>${reportDTO.reportTitle}</td>
+				                                <td>${reportDTO.reportType}</td>
+				                                <td>${reportDTO.reportId}</td>
+				                                <td>${reportDTO.reportDate}</td>
+				                                <td>${reportDTO.reportStatus}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

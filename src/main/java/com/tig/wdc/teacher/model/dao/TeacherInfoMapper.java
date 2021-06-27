@@ -22,4 +22,7 @@ public interface TeacherInfoMapper {
 
 	//강사프로필 수정
 	int updateTeacherProfile(TeacherInfoDTO profileInfo);
+
+	//공지사항 전체 조회
+	int selectNoticeCount();
 }

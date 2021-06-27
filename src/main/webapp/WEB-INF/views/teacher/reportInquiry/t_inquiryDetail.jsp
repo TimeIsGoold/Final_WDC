@@ -35,7 +35,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+   html {
 
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     table {
       margin: auto;
       font-size: 13px;
@@ -197,5 +202,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
+  
+  <jsp:forward page="../commons/footer.jsp"/>
 </body>
 <html>
