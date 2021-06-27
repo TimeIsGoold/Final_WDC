@@ -28,4 +28,25 @@ public class TeacherInfoServiceImpl implements TeacherInfoService {
 		return mapper.findTeacherInfo(loginInfo);
 	}
 
+	@Override
+	public int selectRegisteredClassCount(int teacherNo) {
+		
+		return mapper.selectRegisteredClassCount(teacherNo);
+	}
+
+	@Override
+	public String selectSumClassCalculate(int teacherNo) {
+		return mapper.selectSumClassCalculate(teacherNo);
+	}
+
+	@Override
+	public TeacherInfoDTO selectTeacherInfo(int teacherNo) {
+		return mapper.searchTeacherInfo(teacherNo);
+	}
+
+	@Override
+	public int updateTeacherProfile(TeacherInfoDTO profileInfo) {
+		return mapper.updateTeacherProfile(profileInfo);
+	}
+
 }

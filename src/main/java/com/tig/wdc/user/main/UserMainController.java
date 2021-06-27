@@ -10,25 +10,26 @@ public class UserMainController {
 
 	@GetMapping("/login")
 	public String login() {
-		
+
 		return "user/login/login";
 	}
-	
+
 	@GetMapping("/teacher")
 	public String teacher() {
-		
+
 		return "redirect:teacher";
 	}
-	
+
 	@GetMapping("/admin")
 	public String admin() {
-		
+
 		return "admin/adminMain";
 	}
-	
+
 	@GetMapping("/classdetail")
 	public String classdetail() {
-		
+
 		return "user/classList/class_detail";
+
 	}
 }

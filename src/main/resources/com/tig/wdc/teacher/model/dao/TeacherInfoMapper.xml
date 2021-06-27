@@ -26,6 +26,28 @@
 	           A.TE_NO
 		     , A.TE_ID
 		     , A.TE_PWD
+		     , A.TE_QUIT_YN
+		     , A.TE_BLOCK_YN
+		  FROM TEACHER_INFO A
+		 WHERE A.TE_ID = #{teacherId}
+	</select>
+	<select id="selectRegisteredClassCount" resultType="_int">
+		SELECT 
+		       COUNT(A.TE_NO) 
+		  FROM CLASS A
+		 WHERE TE_NO = #{teacherNo}
+	</select>
+	<select id="selectSumClassCalculate" resultType="string">
+	    SELECT 
+	           SUM(A.CALC_AMOUNT) 
+	      FROM CALCULATE A
+	     WHERE TE_NO = #{teacherNo}
+	</select>
+	<select id="searchTeacherInfo" resultMap="teacherInfoResult">
+			SELECT
+	           A.TE_NO
+		     , A.TE_ID
+		     , A.TE_PWD
 		     , A.TE_TYPE
 		     , A.TE_ID_NO
 		     , A.TE_NAME
@@ -38,7 +60,14 @@
 		     , A.TE_BLOCK_YN
 		     , A.TE_PIC
 		  FROM TEACHER_INFO A
-		 WHERE A.TE_ID = #{teacherId}
+		 WHERE A.TE_NO = #{teacherNo}
 	</select>
-
+	
+	<update id="updateTeacherProfile" parameterType="TeacherInfoDTO">
+	    UPDATE
+	           TEACHER_INFO A
+	       SET A.TE_INTRO = #{ teacherIntro }
+	         , A.TE_PIC = #{ teacherPicture }
+	     WHERE A.A.TE_NO = #{ teacherNo }
+	</update>
 </mapper>
