@@ -11,9 +11,11 @@
  		<typeAlias alias="ReportDTO" type="com.tig.wdc.admin.model.dto.ReportDTO"/>
  		<typeAlias alias="QuestionDTO" type="com.tig.wdc.admin.model.dto.QuestionDTO"/>
  		<typeAlias alias="TeacherInfoDTO" type="com.tig.wdc.model.dto.TeacherInfoDTO"/>
- 		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
  		<typeAlias alias="notice" type="com.tig.wdc.model.dto.NoticeDTO"/>
  		<typeAlias alias="paging" type="com.tig.wdc.model.dto.PageInfoDTO"/>
+ 		
+ 		<!-- user -->
+ 		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
  		
  	</typeAliases>
  </configuration>
