@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,15 +14,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-	    <script type="text/javascript">
-            function couponIssue() {
-                location.href="couponIssue.html";
-            }
-
-            function moveDetail() {
-                location.href="couponDetail.html";
-            }
-        </script>
 	    <style>
 	    	.container-fluid{
         		 margin-top: 30px;
@@ -61,7 +53,7 @@
                                 <i class="fas fa-table me-1"></i>쿠폰 관리
 
                                 <div class="subMenuBar">
-                                    <button class="issue" onclick="couponIssue();">발급하기</button>
+                                    <button class="issue">발급하기</button>
                                 </div>
                             </div>
 
@@ -79,15 +71,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="moveDetail();">
-                                            <td>1</td>
-                                            <td>전체</td>
-                                            <td>쿠폰1</td>
-                                            <td>5,000</td>
-                                            <td>2021/06/20</td>
-                                            <td>2021/07/01 ~ 2021/07/31</td>
-                                            <td>N</td>
-                                        </tr>
+                     					<c:forEach items="${couponList}" var="CouponDTO">
+				                            <tr>
+				                                <td>${CouponDTO.couponNo}</td>
+				                                <td>${CouponDTO.couponType}</td>
+				                                <td>${CouponDTO.couponName}</td>
+				                                <td>${CouponDTO.discount}</td>
+				                                <td>${CouponDTO.issueDate}</td>
+				                                <td>${CouponDTO.startDate} ~ ${CouponDTO.endDate}</td>
+				                                <td>${CouponDTO.useStatus}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
