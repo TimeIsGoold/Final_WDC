@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <head>
 	<%@include file="../commons/header.jsp" %>
+	
     <style>
       .w-100 {
         width: 255px;
@@ -87,20 +87,6 @@
                 transition-duration: 0.3s;
       }
 
-      .fa-search {
-        font-size: 1.4rem;
-        color: #29abe2;
-        z-index: 3;
-        top: 25%;
-        -webkit-transform: translate(-490px, 0);
-            -ms-transform: translate(-490px, 0);
-                transform: translate(-490px, 0);
-        -webkit-transition-duration: 0.3s;
-                transition-duration: 0.3s;
-        -webkit-transition: all 0.1s ease-in-out;
-                transition: all 0.1s ease-in-out;
-      }
-
       .hover-btn:hover{
         color: #ffc107;
       }
@@ -110,6 +96,18 @@
 	   }
 		
 	  *{font-family:'Cafe24SsurroundAir' !important;}
+	  
+	  a:hover{
+	  	color: #ffc107 !important;
+	  }
+	  
+	   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 900 !important;
+    line-height: 1.2;
+    color: inherit;
+}
     </style>
   </head>
   <body>
@@ -215,6 +213,8 @@
         </div>
       </div>
 
+	 <%@include file="../commons/search.jsp" %>
+		
       <!-- HERO SECTION-->
       <div class="container">
         <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(img/hero-banner-alt.jpg)">
@@ -227,30 +227,6 @@
             </div>
           </div>
         </section>
-
-        <!-- 검색 -->
-        <div style="margin-left: 280px;">
-          <br>
-          <!-- <fieldset>
-            
-            <input type="search" placeholder="찾으시는 클래스가 있으신가요?" value="" style="width:500px; border: 1px solid black;">
-              <button type="submit">
-        
-            
-            검색
-          </button>
-        </fieldset> -->
-        <form>
-          <fieldset>
-            <input type="search" style="border: 1px solid black; border-radius: 5px;" placeholder=" 찾으시는 클래스가 있으신가요?" />
-            <button type="submit">
-              <i class="fa fa-search" style="">
-              </i>
-
-          </button>
-          </fieldset>
-        </form>          
-        </div>
 
         <!-- 신규 클래스 -->
         <section class="py-5">

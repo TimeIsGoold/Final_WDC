@@ -14,6 +14,65 @@
 *
 */
 
+.text-gray:hover{
+	color: #ffc107 !important;
+}
+
+ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 900 !important;
+    line-height: 1.2;
+    color: inherit;
+}
+
+.searchbar{
+  margin-bottom: auto;
+  margin-top: auto;
+  height: 60px;
+  background-color: #fef0ae;
+  border-radius: 30px;
+  padding: 10px;
+  }
+
+  .search_input{
+  color: black;
+  border: 0;
+  outline: 0;
+  background: none;
+  width: 500px;
+  caret-color:black;
+  line-height: 40px;
+  transition: width 0.4s linear;
+  margin-top: -3px;
+  margin-left: 15px;
+  }
+
+  /* .searchbar:hover > .search_input{
+  padding: 0 10px;
+  width: 450px;
+  caret-color:black;
+  transition: width 0.4s linear;
+  } */
+
+  /* .searchbar:hover > .search_icon{
+  background: white;
+  color: #e74c3c;
+  } */
+
+  .search_icon{
+  height: 40px;
+  width: 40px;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color:#e74c3c;
+  text-decoration:none;
+  background: white;
+  }
+  
 @font-face {
   font-family: 'Cafe24SsurroundAir';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
@@ -39,7 +98,7 @@ i{
 }
 
 .text-gray {
-  color: #aaa !important;
+  color: rgba(17, 17, 17, 0.99) !important;
 }
 
 strong {
@@ -1505,14 +1564,14 @@ STYLE SWITCHER FOR DEMO
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: rgba(17, 17, 17, 0.99);
+  color: rgba(17, 17, 17, 0.99) !important;
   font-weight: 800;
   font-size: 0.95rem;
   transition: all 0.3s;
 }
 
 .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:focus {
-  color: #ffc107;
+  color: #ffc107 !important;
 }
 
 .navbar-light .navbar-nav .nav-link.disabled {
@@ -1917,6 +1976,9 @@ STYLE SWITCHER FOR DEMO
 
 .btn-dark:focus, .btn-dark.focus {
   box-shadow: 0 0 0 0.2rem #fef0ae(17, 17, 17, 0.5);
+  background-color: #fef0ae;
+  border: none;
+  color: black;
   box-shadow: none;
 }
 
@@ -1940,6 +2002,9 @@ STYLE SWITCHER FOR DEMO
 
 .btn-dark:Focus {
   text-decoration: none;
+  backgroun-color: #fef0ae !important;
+  color: black !important;
+  border-color: #fef0ae !important;
 }
 
 .btn-outline-primary {

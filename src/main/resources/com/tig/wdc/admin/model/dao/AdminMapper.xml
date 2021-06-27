@@ -12,6 +12,7 @@
 		<result column="TYPE" property="userType"/>
 		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
+	
 	<resultMap id="totalDTO2" type="TotalDTO">
 		<id column="USER_NO" property="userNo"/>
 		<result column="USER_ID" property="userId"/>
@@ -37,6 +38,15 @@
 		<result column="REPORT_FROM_NO" property="reportId"/>
 		<result column="REPORT_DATE" property="reportDate"/>
 		<result column="PROCS_STATUS" property="reportStatus"/>
+	</resultMap>
+	
+	<resultMap id="questionList" type="QuestionDTO" >
+		<id column="Q_NO" property="questionNo"/>
+		<result column="MEMBER_TYPE" property="questionType"/>
+		<result column="USER_NAME" property="questionName"/>
+		<result column="USER_ID" property="questionId"/>
+		<result column="Q_TITLE" property="questionTitle"/>
+		<result column="Q_DATE" property="questionDate"/>
 	</resultMap>
 	
 		
@@ -96,6 +106,18 @@
 		     , R.REPORT_DATE
 		     , R.PROCS_STATUS
 		  FROM REPORT R
+    </select>
+	<select id="selectAllQuestionList" resultMap="questionList">
+		SELECT 
+			   A.Q_NO
+			 , A.MEMBER_TYPE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.Q_TITLE
+			 , A.Q_DATE
+		  FROM ADMIN_Q A
+		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 	</select>
 	
 </mapper>

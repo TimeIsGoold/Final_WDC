@@ -76,7 +76,10 @@ public class AdminController {
 	
 	// 문의게시판
 	@GetMapping("questionManagement")
-	public String selectQustionList() {
+	public String selectQustionList(Model model) {
+		
+		model.addAttribute("questionList", adminService.selectAllQuestionList());
+		
 		return "admin/adminQuestionManagement";
 	}
 	

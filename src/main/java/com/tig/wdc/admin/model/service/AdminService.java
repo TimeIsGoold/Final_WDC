@@ -3,6 +3,7 @@ package com.tig.wdc.admin.model.service;
 import java.util.List;
 
 import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 
@@ -15,5 +16,10 @@ public interface AdminService {
 	List<ReportDTO> selectAllReportList();
 
 	List<TotalDTO> selectTeacherList();
+
+
+	List<QuestionDTO> selectAllQuestionList();
+
+
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -167,12 +168,26 @@
 	            <div class="card-header">강사 프로필
 	            </div>
 	            <div class="card-body">
-	              <img class="card-img-top" src="img/customer-2.png" alt="Card image"><br><br>
-	              <h5>김민규</h5>
+	            <c:choose>
+	            	<c:when test="${empty teacherInfo.teacherPicture }">
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png" alt="Card image"><br><br>
+	            	</c:when>
+	            	<c:otherwise>
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/upload/${ teacherInfo.teacherPicture }" alt="Card image"><br><br>
+	            	</c:otherwise>
+	            </c:choose>
+	              <h5>${ teacherInfo.teacherName}</h5>
 	              <p class="text-muted"></p>
 	              <p class="text-warning"></p>
 	              <p class="text-danger"></p>
-	              <p class="text">기타 클래스<br>test123@</p>
+	              <c:choose>
+	                  <c:when test="${ empty teacherInfo.teacherIntro}">
+			              <p class="text">등록된 소개글이 없습니다.</p>
+	                  </c:when>
+	                  <c:otherwise>
+			              <p class="text">${ teacherInfo.teacherIntro }</p>
+	                  </c:otherwise>
+	              </c:choose>
 	              <p class="text-primary"></p>
 	              <p><button class="btn btn-primary" type="button" class="btn btn-primary" data-toggle="modal" data-target="#editProfile">편집</button></p>
 	              <p style="padding-top: 50px;"></p>
@@ -180,6 +195,7 @@
 	          </div>
 	
 	          <!-- 프로필편집 팝업 -->
+
 	          <div id="editProfile"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	            <div class="modal-dialog">
 	              <div class="modal-content" >
@@ -190,12 +206,21 @@
 	                <div class="modal-body">
 	                  <div class="container">
 	                    <h6>프로필사진 편집</h6><br>
+                        <form method="post" action="updateProfile" enctype="multipart/form-data">
 	                    <div class="row">
 	                      <div class="col-md-3"></div>
 	                      <div class="content-img-area1 col-md-6" id="contentImgArea1" align="center">
-	                        <img id="contentImg1" width="150" height="120">
-	                        <button style="margin-top: 10px;">사진등록</button>
+	                      <c:choose>
+	                          <c:when test="${empty teacherInfo.teacherPicture }">
+        	                      <img id="contentImg1" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png"">
+	                          </c:when>
+	                          <c:otherwise>
+        	                      <img id="contentImg1" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/upload/${teacherInfo.teacherPicture}">
+	                          </c:otherwise>
+	                      </c:choose>
+	                      <button  style="margin-top: 10px;">사진등록</button>
 	                      </div>
+
 	                      <div class="thumbnail-file-area">
 	                        <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
 	                      </div>
@@ -204,13 +229,14 @@
 	                    <hr>
 	                    <div class="form-group">
 	                      <p>소개글 작성</p>
-	                      <textarea class="form-control" rows="7"></textarea>
+	                      <textarea class="form-control" rows="7" name="teacherIntro">${ teacherInfo.teacherIntro }</textarea>
 	                    </div>
+	       			   <!-- </form> -->
 	                  </div>
 	                </div>
 	                <div class="modal-footer" style="display: block;" align="center">
 	                  <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 200px; border: 1px solid rgba(0, 0, 0, 0.25);">작성취소</button>
-	                  <button type="button" class="btn btn-primary" style="width: 200px;">작성완료</button>
+	                  <button type="submit" class="btn btn-primary" style="width: 200px;">작성완료</button>
 	                </div>
 	              </div>
 	            </div>
@@ -221,7 +247,11 @@
 	            <div class="card-header" id="profile">정산 정보
 	            </div>
 	            <div class="card-body" style="vertical-align: auto; height: 150px;">
-	              <b>누적 정산 금액 : </b><br>10,000,000 원
+	              <b>누적 정산 금액 : </b><br>
+	              <c:choose>
+	                  <c:when test="${ empty SumClassCalculate }">0 원</c:when>
+	                  <c:otherwise>${ SumClassCalculate } 원</c:otherwise>
+	              </c:choose>
 	            </div>
 	          </div>
 	
@@ -230,7 +260,7 @@
 	            </div>
 	            <div class="card-body" style="margin-bottom: 300px">
 	              <b>운영중인 클래스 수</b><br>
-	              <p>3 개</p>
+	              <p>${ RegistedClassCount }</p>
 	            <div class="card-body"></div>
 	              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#classRegist">클래스 등록</button>
 	            </div>
