@@ -48,5 +48,4 @@ public class TeacherInfoServiceImpl implements TeacherInfoService {
 	public int updateTeacherProfile(TeacherInfoDTO profileInfo) {
 		return mapper.updateTeacherProfile(profileInfo);
 	}
-
 }

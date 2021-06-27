@@ -9,6 +9,8 @@
  		<typeAlias alias="StudentDTO" type="com.tig.wdc.admin.model.dto.StudentDTO"/>
  		<typeAlias alias="ClassDTO" type="com.tig.wdc.admin.model.dto.ClassDTO"/>
  		<typeAlias alias="TeacherInfoDTO" type="com.tig.wdc.model.dto.TeacherInfoDTO"/>
+ 		<typeAlias alias="notice" type="com.tig.wdc.model.dto.NoticeDTO"/>
+ 		<typeAlias alias="paging" type="com.tig.wdc.model.dto.PageInfoDTO"/>
  		
  	</typeAliases>
  </configuration>
