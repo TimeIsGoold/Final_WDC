@@ -31,37 +31,40 @@
 <body>
     <div id="layoutSidenav_nav">
        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+
            <div class="sb-sidenav-menu">
                <div class="nav">
-                   <a class="nav-link collapsed" id="member" href="${ pageContext.servletContext.contextPath }/admin/adminMemberManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="member" href="${ pageContext.servletContext.contextPath }/admin/memberManagement" onclick="choiceMenu(this.id);">
+
                    	     회원관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/adminClassManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/classManagement" onclick="choiceMenu(this.id);">
+
                                           클래스관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/adminMemberReportManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/reportManagement" onclick="choiceMenu(this.id);">
                                            신고관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="question" href="${ pageContext.servletContext.contextPath }/admin/adminQuestionManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="question" href="${ pageContext.servletContext.contextPath }/admin/questionManagement" onclick="choiceMenu(this.id);">
                                            문의
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="coupon" href="${ pageContext.servletContext.contextPath }/admin/adminCouponManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="coupon" href="${ pageContext.servletContext.contextPath }/admin/couponManagement" onclick="choiceMenu(this.id);">
                                            쿠폰
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="notice" href="${ pageContext.servletContext.contextPath }/admin/adminNoticeManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="notice" href="${ pageContext.servletContext.contextPath }/admin/noticeManagement" onclick="choiceMenu(this.id);">
                                            공지사항
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="calculate" href="${ pageContext.servletContext.contextPath }/admin/adminCalculateManagement" onclick="choiceMenu(this.id);">
+                   <a class="nav-link collapsed" id="calculate" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement" onclick="choiceMenu(this.id);">
                                            정산
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-               </div>
+               </div>ㄴ
            </div>
            
            <div class="sb-sidenav-footer">
