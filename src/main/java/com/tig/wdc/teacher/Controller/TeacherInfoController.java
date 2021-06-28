@@ -179,6 +179,5 @@ public class TeacherInfoController {
 		}
 
 		return "redirect:main";
-		
 	}
 }

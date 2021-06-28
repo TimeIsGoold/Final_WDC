@@ -54,4 +54,14 @@ public class TeacherMainController {
 		
 		return "teacher/t_main";
 	}
+	
+	@GetMapping("teacher/logout")
+	public String teacherLogout(HttpSession session) {
+		
+		 System.out.println("들어오나용");
+		session.invalidate();
+		
+		
+		return "redirect:/teacher";
+	}
 }
