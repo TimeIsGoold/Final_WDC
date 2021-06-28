@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tig.wdc.user.model.dao.UserCategoryMapper">
+<mapper namespace="com.tig.wdc.user.model.dao.UserClassMapper">
 
-    <resultMap type="ClassDTO" id="UserCategoryResult">
+    <resultMap type="ClassDTO" id="ClassResult">
         <id column="CLS_NO" property="clsNo"/>
         <result column="CLS_TITLE" property="title"/>
         <result column="CLS_ADDRESS" property="address"/>
@@ -25,7 +25,7 @@
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
     </resultMap>
 
-	<select id="selectClassCategory" parameterType="UserClassDTO" resultMap="UserCategoryResult">
+	<select id="selectClass" parameterType="ClassDTO" resultMap="ClassResult">
 		SELECT
 	           *
 		  FROM CLASS A
