@@ -194,7 +194,7 @@
                     <li class="list-inline-item">
                       <div class="col-lg-8 form-group">
                         <label class="text-small text-uppercase" for="firstName">이름 </label>
-                        <input class="form-control form-control-lg" id="firstName" type="text" value="김이름" disabled>
+                        <input class="form-control form-control-lg" id="firstName" type="text" value="${ requestScope.userInfoDTO.userName }" disabled>
                       </div>
                       <div class="col-lg-8 form-group">
                         <label class="text-small" for="email">Email (ID)</label>

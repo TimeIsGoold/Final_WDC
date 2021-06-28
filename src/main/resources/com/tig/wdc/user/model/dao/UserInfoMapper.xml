@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.user.model.dao.UserInfoMapper">
+
+    <resultMap type="UserInfoDTO" id="UserInfoResult">
+        <id column="USER_NO" property="userNo"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="USER_PWD" property="userPwd"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="USER_PHONE" property="phone"/>
+        <result column="USER_BIRTH" property="birthDate"/>
+        <result column="USER_BLOCK_YN" property="blockYn"/>
+        <result column="USER_QUIT_YN" property="quitYn"/>
+        <result column="USER_ENROLL_DATE" property="enrollDate"/>
+    </resultMap>
+
+	<select id="selectUser" parameterType="UserInfoDTO" resultMap="UserInfoResult">
+		SELECT
+	           *
+		  FROM USER_INFO A
+		 WHERE A.USER_NO = #{userNo}
+	</select>
+
+</mapper>

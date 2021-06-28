@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-  <head>
 	<%@include file="../commons/header.jsp" %>
 	
     <style>
@@ -98,6 +97,17 @@
 		
 	  *{font-family:'Cafe24SsurroundAir' !important;}
 	  
+	  a:hover{
+	  	color: #ffc107 !important;
+	  }
+	  
+	   h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 900 !important;
+    line-height: 1.2;
+    color: inherit;
+}
     </style>
   </head>
   <body>
@@ -125,7 +135,7 @@
               </ul>
               <ul class="navbar-nav ml-auto">               
                 <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="mypageMain.html"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
                 
               </ul>
