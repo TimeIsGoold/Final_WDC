@@ -1,8 +1,6 @@
 package com.tig.wdc.teacher.Controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +62,7 @@ public class TeacherInfoController {
 			
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if("Y".equals(teacherInfo.getTeacherQuitStatus())) {
-			
+			System.out.println("해승 수정수정");
 			rttr.addFlashAttribute("message", "탈퇴된 아이디입니다.");
 		} else if("Y".equals(teacherInfo.getTeacherBlockStatus())) {
 			

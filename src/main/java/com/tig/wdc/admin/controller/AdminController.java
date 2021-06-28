@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.TotalDTO;
@@ -36,18 +37,8 @@ public class AdminController {
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
 
-		List<TotalDTO> realtotalList = adminService.selectTeacherList();
-		List<TotalDTO> totalList = adminService.selectTotalUsertList();
-		 
-		for(int i = 0; i < totalList.size(); i++) {
-			
-			
-			
-			realtotalList.add(totalList.get(i));
-			
-		}
-		
-		
+		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
+
 		Collections.sort(realtotalList, new DateSortDesc());
 		
 		model.addAttribute("totalList", realtotalList);
@@ -102,6 +93,14 @@ public class AdminController {
 	public String calculateManagement() {
 		
 		return "admin/adminCalculateManagement";
+	}
+	
+	@GetMapping("memberInfoDetail")
+	public String memberInfoDetail(@RequestParam("")Model model) {
+		
+		model.addAttribute("memberInfo", adminService.selectOneStudent());
+		
+		return "admin/MemberManager-admin";
 	}
 
 }

@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tig.wdc.admin.model.dao.AdminMapper">
 	
-	<resultMap id="totalDTO1" type="TotalDTO">
+	<resultMap id="totalDTO" type="TotalDTO">
 		<id column="TE_NO" property="userNo"/>
 		<result column="TE_ID" property="userId"/>
 		<result column="TE_NAME" property="userName"/>
@@ -12,16 +12,7 @@
 		<result column="TYPE" property="userType"/>
 		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
-	
-	<resultMap id="totalDTO2" type="TotalDTO">
-		<id column="USER_NO" property="userNo"/>
-		<result column="USER_ID" property="userId"/>
-		<result column="USER_NAME" property="userName"/>
-		<result column="ENROLLDATE" property="enrollDate"/>
-		<result column="TYPE" property="userType"/>
-		<result column="누적신고"  property="reportedCnt"/>
-	</resultMap>
-	
+		
 	<resultMap id="classLsit" type="ClassDTO">
 		<id column="CLS_NO" property="classNo"/>
 		<result column="CLS_TITLE" property="classTitle"/>
@@ -50,7 +41,7 @@
 	</resultMap>
 	
 		
-	<select id="selectTotalUsertList" resultMap="totalDTO1">
+	<select id="selectTotalUsertList" resultMap="totalDTO">
 		SELECT 
 		       T.TE_NO
 		     , T.TYPE
@@ -66,8 +57,7 @@
 		     , T.TE_ID
 		     , T.TE_NAME
 		     , T.ENROLLDATE
-	</select>
-	<select id="selectTeacherList" resultMap="totalDTO2">
+		  UNION ALL
 		 SELECT 
 		        U.USER_NO
 		      , U.TYPE
