@@ -1,4 +1,4 @@
-package com.tig.wdc.user.main;
+package com.tig.wdc.user.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
