@@ -197,16 +197,16 @@
                         <input class="form-control form-control-lg" id="firstName" type="text" value="${ requestScope.userInfoDTO.userName }" disabled>
                       </div>
                       <div class="col-lg-8 form-group">
-                        <label class="text-small" for="email">Email (ID)</label>
-                        <input class="form-control form-control-lg" id="email" type="email" value="email123@gail.com" disabled  >
+                        <label class="text-small" for="email">아이디</label>
+                        <input class="form-control form-control-lg" id="email" type="email" value="${ requestScope.userInfoDTO.userId }" disabled  >
                       </div>
                       <div class="col-lg-8 form-group">
-                        <label class="text-small text-uppercase" for="phone">휴대전화 번호</label>
-                        <input class="form-control form-control-lg" id="phone" type="tel"  value="010-1234-5678" disabled>
+                        <label class="text-small text-uppercase" for="phone">휴대폰 번호</label>
+                        <input class="form-control form-control-lg" id="phone" type="tel"  value="${ requestScope.userInfoDTO.phone }" disabled>
                       </div>
                       <div class="col-lg-8 form-group">
                         <form>
-                          <label class="text-small text-uppercase" for="company">변경할 휴대전화 번호</label>
+                          <label class="text-small text-uppercase" for="company">변경할 휴대폰  번호</label>
                           <div class="btn-left">
                             <input class="form-control form-control-lg" id="company" type="text" placeholder="변경할 휴대전화 번호를 입력해 주세요">
                             &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-dark"style="float: right;">변경</button>
