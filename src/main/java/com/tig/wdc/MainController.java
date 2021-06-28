@@ -26,7 +26,6 @@ public class MainController {
 	@GetMapping(value= {"/"})
 	public String main() {
 		
-		ClassDTO classDTO = new ClassDTO();
 
 		return "user/main/main";
 	}
