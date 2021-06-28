@@ -42,8 +42,6 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectAllReportList();
 	}
 
-
-	
 	@Override
 	public List<QuestionDTO> selectAllQuestionList() {
 		
@@ -52,7 +50,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public StudentDTO selectOneStudent() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
