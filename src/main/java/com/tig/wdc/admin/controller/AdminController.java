@@ -17,89 +17,140 @@ import com.tig.wdc.admin.model.service.AdminService;
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
-	
+
 	private final AdminService adminService;
-	
+
 	@Autowired
 	public AdminController(AdminService adminService) {
-		
+
 		this.adminService = adminService;
-		
+
 	}
 
-	// 로그인
+	/**
+	 * 로그인 - 아현
+	 * 
+	 * @return
+	 */
 	@GetMapping("login")
 	public String adminLogin() {
 		return "admin/adminLogin";
 	}
-	
-	// 회원관리
+
+	/**
+	 * 회원관리 - 현빈
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
 
 		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
 
 		Collections.sort(realtotalList, new DateSortDesc());
-		
+
 		model.addAttribute("totalList", realtotalList);
-				
+
 		return "admin/adminMemberManagement";
 	}
-	
-	// 클래스 관리
+
+	/**
+	 * 클래스 관리 - 현빈
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("classManagement")
 	public String selectClassList(Model model) {
-		
+
 		model.addAttribute("classList", adminService.selectAllClassList());
-		
+
 		return "admin/adminClassManagement";
 	}
-	
-	
-	// 신고관리
+
+	/**
+	 * 신고관리 - 현빈
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("reportManagement")
 	public String reportManagement(Model model) {
-		
+
 		model.addAttribute("reportList", adminService.selectAllReportList());
-		
+
 		return "admin/adminMemberReportManagement";
 	}
-	
-	// 문의게시판
+
+	/**
+	 * 문의관리 - 아현
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("questionManagement")
 	public String selectQustionList(Model model) {
-		
+
 		model.addAttribute("questionList", adminService.selectAllQuestionList());
-		
+
 		return "admin/adminQuestionManagement";
 	}
-	
-	// 쿠폰
+
+	/**
+	 * 쿠폰 관리 - 아현
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("couponManagement")
-	public String couponManagement() {
-		
+	public String couponManagement(Model model) {
+
+		model.addAttribute("couponList", adminService.selectAllCouponList());
+
 		return "admin/adminCouponManagement";
 	}
-	
-	// 공지사항
+
+	/**
+	 * 공지 관리 - 아현
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("noticeManagement")
-	public String noticeManagement() {
-		
+	public String noticeManagement(Model model) {
+
+		model.addAttribute("noticeList", adminService.selectAllNoticeList());
+
 		return "admin/adminNoticeManagement";
 	}
-	
-	// 정산
-	@GetMapping("calculateManagement")
-	public String calculateManagement() {
-		
-		return "admin/adminCalculateManagement";
-	}
-	
+
+	/**
+	 * 정산 관리 - 아현
+	 * 
+	 * @param model
+	 * @return
+	 */
+	 @GetMapping("calculateManagement") 
+	 public String calculateManagement(Model model) {
+	  
+		 model.addAttribute("calculateList", adminService.selectAllCalculateList());
+	  
+		 return "admin/adminCalculateManagement"; 
+	 }
+	 
+
+	/**
+	 * 회원 상세 - 현빈
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("memberInfoDetail")
-	public String memberInfoDetail(@RequestParam("")Model model) {
-		
+	public String memberInfoDetail(@RequestParam("") Model model) {
+
 		model.addAttribute("memberInfo", adminService.selectOneStudent());
-		
+
 		return "admin/MemberManager-admin";
 	}
 
