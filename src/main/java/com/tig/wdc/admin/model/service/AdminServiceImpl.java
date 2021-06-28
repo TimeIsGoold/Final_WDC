@@ -41,10 +41,6 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectAllReportList();
 	}
 
-	@Override
-	public List<TotalDTO> selectTeacherList() {
-		return  mapper.selectTeacherList();
-	}
 
 	
 	@Override

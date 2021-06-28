@@ -36,18 +36,8 @@ public class AdminController {
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
 
-		List<TotalDTO> realtotalList = adminService.selectTeacherList();
-		List<TotalDTO> totalList = adminService.selectTotalUsertList();
-		 
-		for(int i = 0; i < totalList.size(); i++) {
-			
-			
-			
-			realtotalList.add(totalList.get(i));
-			
-		}
-		
-		
+		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
+
 		Collections.sort(realtotalList, new DateSortDesc());
 		
 		model.addAttribute("totalList", realtotalList);
@@ -102,6 +92,14 @@ public class AdminController {
 	public String calculateManagement() {
 		
 		return "admin/adminCalculateManagement";
+	}
+	
+	@GetMapping("memberInfoDetail")
+	public String memberInfoDetail(@RequestParam("")Model model) {
+		
+		model.addAttribute("memberInfo", adminService.selectOneStudent());
+		
+		return "admin/MemberManager-admin";
 	}
 
 }
