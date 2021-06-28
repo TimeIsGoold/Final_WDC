@@ -1,6 +1,10 @@
 package com.tig.wdc.user.model.dto;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.tig.wdc.model.dto.AttachMentDTO;
+import com.tig.wdc.model.dto.ClassPieceDTO;
 
 public class ClassDTO {
 
@@ -23,13 +27,15 @@ public class ClassDTO {
 	private int categoryNo;
 	private String simpleIntro;
 
-	public ClassDTO() {
-		super();
-	}
+	private List<AttachMentDTO> titlePictue;  //대표사진
+	private List<ClassPieceDTO> completePiece; //완성작
+
+	public ClassDTO() {}
 
 	public ClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType,
-			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro) {
+			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
+			List<AttachMentDTO> titlePictue, List<ClassPieceDTO> completePiece) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -49,6 +55,8 @@ public class ClassDTO {
 		this.teNo = teNo;
 		this.categoryNo = categoryNo;
 		this.simpleIntro = simpleIntro;
+		this.titlePictue = titlePictue;
+		this.completePiece = completePiece;
 	}
 
 	public int getClsNo() {
@@ -195,13 +203,33 @@ public class ClassDTO {
 		this.simpleIntro = simpleIntro;
 	}
 
+	public List<AttachMentDTO> getTitlePictue() {
+		return titlePictue;
+	}
+
+	public void setTitlePictue(List<AttachMentDTO> titlePictue) {
+		this.titlePictue = titlePictue;
+	}
+
+	public List<ClassPieceDTO> getCompletePiece() {
+		return completePiece;
+	}
+
+	public void setCompletePiece(List<ClassPieceDTO> completePiece) {
+		this.completePiece = completePiece;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassDTO [clsNo=" + clsNo + ", title=" + title + ", address=" + address + ", intro=" + intro
 				+ ", cExpl=" + cExpl + ", time=" + time + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", price=" + price + ", addInfo=" + addInfo + ", addSup=" + addSup + ", dicsionStatus="
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
-				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + "]";
+				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", titlePictue=" + titlePictue
+				+ ", completePiece=" + completePiece + "]";
 	}
-
+	
+	
+	
+	
 }
