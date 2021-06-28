@@ -41,16 +41,9 @@ public class ClassRegistController {
 	@GetMapping("step1/{classType}")
 	public String registStep1(RedirectAttributes rttr, @PathVariable("classType") String type) {
 		
-//		String pageName = "";
-		
-//		if(type.equals("O")) {
-//			pageName = "teacher/classRegist/t_oneDay1_basicInfo";
-//		} else {
-//			pageName = "teacher/classRegist/t_regCourse1_basicInfo";
-//		}
 		rttr.addFlashAttribute("classType", type);
 		
-		return "teacher/classRegist/registStep1_basicInfo"; 
+		return "teacher/classRegist/step1_basicInfo"; 
 	}
 
 	

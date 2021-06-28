@@ -263,7 +263,7 @@
             <div>
 
             </div>
-            <input type="hidden" value="${ classInfo }" name="classInfo1">
+            <input type="hidden" value="${ firstInfo }" name="classInfo1">
             <button type = "button" onclick="location.href='t_oneDay1_basicInfo.html'">이전</button>
             <button type = "submit" >다음</button>
         </form>

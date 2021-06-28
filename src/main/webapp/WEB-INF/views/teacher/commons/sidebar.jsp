@@ -54,7 +54,7 @@
   </style>
 </head>
 <body>
-  <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
+  <div class="col-lg-2 order-1 order-lg-0" style="float: left;">
     <div class="py-2 side-head"><p>클래스 관리</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
       <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherClassManagement">클래스 관리</a></li>

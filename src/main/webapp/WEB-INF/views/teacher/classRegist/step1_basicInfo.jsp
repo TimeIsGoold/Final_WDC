@@ -60,72 +60,13 @@
 		<!-- navbar-->
 		<jsp:include page="../commons/header.jsp" />
 
-		<!-- <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
-      <div class="container px-0 px-lg-3">
-        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span
-              class="font-weight-bold text-uppercase text-dark">
-              <h1>우리동네 클래스</h1>
-            </span></a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-              </li>
-              <li class="nav-item">
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#">
-                  <h3>강사 페이지</h3>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item"></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header> -->
 
-		<div class="hello"
-			style="width: 90%; margin: 10% 10% 10% 10%; display: flex;">
+		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;" id="top">
 			<!-- SIDEBAR-->
-			<jsp:include page="../commons/sidebar.jsp" />
-
-			<!-- <div class="col-lg-2 order-1 order-lg-0" style="float: left; width: 15%;">
-        <h5 class="text-uppercase mb-4"><a class="nav-link" href="#" style="color: black;">
-            <h2>홈</h1>
-          </a></h5>
-        <div class="py-2 px-4 bg-light mb-3"><strong class="text-uppercase font-weight-bold">클래스 관리</strong></div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-          <li class="mb-2"><a class="reset-anchor" href="#">클래스 관리</a></li>
-          <li class="mb-2" style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-        <div class="py-2 px-4 bg-light mb-3"><strong class="text-uppercase font-weight-bold">매출/정산</strong></div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-          <li class="mb-2"><a class="reset-anchor" href="#">정산내역 관리</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="#">세금계산서 관리</a></li>
-          <li class="mb-2" style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-        <div class="py-2 px-4 bg-light mb-3"><strong class="text-uppercase font-weight-bold">문의하기</strong></div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-          <li class="mb-2"><a class="reset-anchor" href="#">관리자 문의</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="#">문의내역 관리</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="#">자주 묻는 질문</a></li>
-          <li class="mb-2" style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-      </div> -->
-			<!-- /SIDEBAR -->
+			<jsp:include page="../commons/sidebar.jsp" /> 
 
 			<!-- 본문 -->
-			<div class="container" style="width: 80%; margin-left: 10px;" id="test1">
+			<div class="container" style="width: 80%; margin-left: 10px; max-height: 5000px"  id="registPage1">
 				<!-- 정규클래스등록1-->
 				<div class="row">
 					<div class="col-md-2 nowStep">클래스 기본정보</div>
@@ -138,9 +79,7 @@
 				<br>
 				<br>
 				<h6>카테고리 선택</h6>
-				<form method="post"
-					action="${pageContext.servletContext.contextPath }/classRegist/step2"
-					enctype="multipart/form-data">
+				<form method="post"	action="${pageContext.servletContext.contextPath }/classRegist/step2" enctype="multipart/form-data">
 					<div class="form-inline">
 
 						<c:if test="${requestScope.classType eq  'O' }">
@@ -167,15 +106,10 @@
 						</select>
 
 					</div>
-					<br>
-					<hr>
-					<br>
-					<h6>
-						클래스 타이틀
-						<h6>
-							<div class="form-group">
-								<input style="width: 80%;" type="text" name="title"
-									required="required">
+					<br><hr><br>
+					<h6>클래스 타이틀<h6>
+						 <div class="form-group">
+							<input style="width: 80%;" type="text" name="title"	required="required">
 							</div>
 							<br>
 							<hr>
@@ -237,16 +171,10 @@
 									<h6>클래스주소</h6>
 									<div class="form-horizontal">
 										<div class="form-group">
-											<input id="zipCode" type="text" class="select-nomalsize"
-												style="margin-bottom: 8px;" name="zipCode"
-												required="required" placeholder="우편번호">
-											<button id="searchZipCode" class="submit-btn" type="button"
-												style="margin-left: 10px;">주소 검색</button>
-											<input id="address1" type="text" class="form-control"
-												style="width: 50%; margin-bottom: 8px;" placeholder="주소"
-												name="address"> <input type="text"
-												class="form-control" style="width: 50%; margin-bottom: 8px;"
-												placeholder="상세주소" name="address">
+											<input id="zipCode" type="text" class="select-nomalsize" style="margin-bottom: 8px;" name="zipCode" required="required" placeholder="우편번호">
+											<button id="searchZipCode" class="submit-btn" type="button"	style="margin-left: 10px;">주소 검색</button>
+											<input id="address1" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="주소" name="address"> 
+											<input id="address2" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="상세주소" name="address">
 										</div>
 
 									</div>
@@ -255,32 +183,24 @@
 									<br>
 
 									<button type="button" onclick="goMain();">메인으로</button>
-									<button type="button" onclick="goStep2();">다음></button>
-				</form>
-				<script>
-                  function goMain(){
-                	  if(confirm("메인으로 돌아가시겠습니까?<br> 작성중인 내용은 유지되지 않습니다.")){
-                		  location.href = "${pageContext.servletContext.contextPath }/teacher/main";
-                	  } else {
-                		  location.href = "#";
-                	  }
-                  };
-                  function goStep2(){
-                	  document.getElementById("test1").style.display="none";
-                	  document.getElementById("test2").style.display="";
-                  }
-              </script>
+									<button type="button" onclick="movePage(1);">다음></button>
+
 			</div>
-			
+			<jsp:include page="step2_classInfo.jsp" />
+			<jsp:include page="step3_oneday.jsp" />
+			<jsp:include page="step5_terms.jsp" />
+			<jsp:include page="step4_optionalInfo.jsp" />
+			<jsp:include page="step3_regular.jsp" />
 			
 		</div>
 		<br> <br>
 		<!-- 주소검색 -->
 		<script>
-			src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+		</script>
 		<script>
 		const $searchZipCode = document.getElementById("searchZipCode");
-		const $goMain = document.getElementById("goMain");
+		/* const $goMain = document.getElementById("goMain"); */
 		
 		$searchZipCode.onclick = function() {
 		
@@ -295,14 +215,45 @@
 			}).open();
 		}
 		
-		$goMain.onclick = function() {
+/* 		$goMain.onclick = function() {
 			location.href = "${ pageContext.servletContext.contextPath }";
-		}
+		} */
 	</script>
 		<!-- /주소검색 -->
 		<!-- //정규클래스등록1-->
 	</div>
 	<!-- //본문 -->
+	<script>
+	    function movePage(n){
+	    	var page1 = document.getElementById("registPage1").style;
+	    	var page2 = document.getElementById("registPage2").style;
+
+	    	if( "${requestScope.classType}" == "O"){
+	    	    var page3 = document.getElementById("oneday").style;
+	    	} else {
+	    	    var page3 = document.getElementById("regular").style;
+	    	}
+	    	var page4 = document.getElementById("registPage4").style;
+	    	var page5 = document.getElementById("registPage5").style;
+	    	
+ 	    	switch(n){
+ 	    	    case 0 : page1.display=""; page2.display="none"; location.href="#top";break; 
+	    	    case 1 : page1.display="none"; page2.display=""; page3.display="none"; location.href="#top";break;
+	    	    case 2 : page2.display="none"; page3.display=""; page4.display="none"; location.href="#top";break;
+	    	    case 3 : page3.display="none"; page4.display=""; page5.display="none"; location.href="#top";break;
+	    	    case 4 : page4.display="none"; page5.display=""; location.href="#top";break;
+	    	}
+	    }
+	</script>
+	<script>
+		function goMain() {
+			if (confirm("메인으로 돌아가시겠습니까?<br> 작성중인 내용은 유지되지 않습니다.")) {
+				location.href = "${pageContext.servletContext.contextPath }/teacher/main";
+			} else {
+				location.href = "#";
+			}
+		}
+	</script>
 
 	<footer class="bg-dark text-white">
 		<div class="container py-4">
@@ -319,8 +270,7 @@
 				</div>
 				<div class="col-md-2 mb-3 mb-md-0">
 					<h3 class="text-uppercase mb-3">
-						<a class="footer-link" href="#" style="font-size: 25px;"> 서비스
-							약관</a>
+						<a class="footer-link" href="#" style="font-size: 25px;"> 서비스약관</a>
 					</h3>
 				</div>
 				<div class="col-md-2 mb-3 mb-md-0">
@@ -331,8 +281,7 @@
 				</div>
 				<div class="col-md-2 mb-3 mb-md-0">
 					<h3 class="text-uppercase mb-3">
-						<a class="footer-link" href="#" style="font-size: 25px;"> 자주
-							묻는<br>질문
+						<a class="footer-link" href="#" style="font-size: 25px;"> 자주묻는<br>질문
 						</a>
 					</h3>
 				</div>
@@ -355,34 +304,24 @@
 					</div>
 					<div class="col-lg-6 text-lg-right">
 						<p class="small text-muted mb-0">
-							Template designed by <a class="text-white reset-anchor"
-								href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap
-								Temple</a>
+							Template designed by <a class="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">BootstrapTemple</a>
 						</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
+	
 	<!-- JavaScript files-->
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/lightbox2/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/nouislider/nouislider.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
-	<script
-		src="${pageContext.servletContext.contextPath }/resources/teacher/js/t_WDC.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/lightbox2/js/lightbox.min.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/nouislider/nouislider.min.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
+	<script	src="${pageContext.servletContext.contextPath }/resources/teacher/js/t_WDC.js"></script>
 	<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 

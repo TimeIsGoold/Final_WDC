@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-      <div class="container" style="width: 80%; margin-left: 10px; display: none;" id="test2">
+      <div class="container" style="width: 80%; margin-left: 10px; display: none;" id="registPage2">
         <!-- 정규클래스등록1-->
         <div class="row">
           <div class="col-md-2 step" >클래스 기본정보</div>
@@ -18,7 +18,6 @@
           <div class="col-md-3 step">클래스 등록 및 약관동의</div>
         </div>
         <br><br><br>
-        <form method="post" action="${pageContext.servletContext.contextPath }/classRegist/step3" enctype="multipart/form-data">
     
         <h6>클래스 소개 입력</h6>
         <div style="font-size: 15px; opacity: .7">
@@ -46,20 +45,20 @@
               <div class="col-md-3" >
                 <input type="text" placeholder="완성작제목" style="width: 70%;">
                 <br><br>
-                <div class="content-img-area1" id="contentImgArea1" style="width: 70%;">
-                  <img id="contentImg1" style="width: 100%;" height="120">
+                <div class="content-img-area4" id="contentImgArea4" style="width: 70%;">
+                  <img id="contentImg4" style="width: 100%;" height="120">
                 </div>
               </div>
               <div class="col-md-3">
                 <input type="text" placeholder="완성작제목" style="width: 70%;">
                 <br><br>
-                <div class="content-img-area2" id="contentImgArea2" style="width: 70%;">
-                  <img id="contentImg2" style="width: 100%;" height="120">
+                <div class="content-img-area5" id="contentImgArea5" style="width: 70%;">
+                  <img id="contentImg5" style="width: 100%;" height="120">
                 </div>
               </div>
               <div class="thumbnail-file-area">
-                <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
-                <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
+                <input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this,4)">
+                <input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this,5)">
               </div>
             </div>
             <br><br>
@@ -161,11 +160,8 @@
             <div>
 
             </div>
-            <input type="hidden" value="${ classInfo }" name="classInfo">
-            <input type="hidden" value="${ titlePicture }" name= "titlePicture">
-            <button type = "button" onclick="location.href='t_oneDay1_basicInfo.html'">이전</button>
-            <button type = "submit" >다음</button>
-        </form>
+            <button type = "button" onclick="movePage(0);">이전</button>
+            <button type = "button" onclick="movePage(2);" >다음</button>
       </div>
 </body>
 </html>
