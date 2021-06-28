@@ -11,7 +11,7 @@ import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.service.UserInfoService;
 
 /**
- * @author ADMIN
+ * @author 민연준
  * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 강사정보수정용 컨트롤러
  */
 @Controller
@@ -32,8 +32,6 @@ public class UserInfoController {
 		userInfoDTO.setUserNo(1);
 		
 		userInfoDTO = infoService.selectUser(userInfoDTO.getUserNo());
-		
-		
 		
 		model.addAttribute("userInfoDTO",userInfoDTO);
 		

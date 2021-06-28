@@ -73,6 +73,33 @@
 		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
 	
+	<resultMap id="couponList" type="CouponDTO">
+		<id column="CPN_NO" property="couponNo"/>
+		<result column="USER_ID" property="couponType"/>
+		<result column="CPN_NAME" property="couponName"/>
+		<result column="DIS_AMOUNT" property="discount"/>
+		<result column="CPN_ISSUE_DATE" property="issueDate"/>
+		<result column="CPN_START" property="startDate"/>
+		<result column="CPN_END" property="endDate"/>
+		<result column="CPN_USE_YN" property="useStatus"/>
+	</resultMap>
+	
+	<resultMap id="noticeList" type="NoticeDTO">
+		<id column="NOTICE_NO" property="noticeNo"/>
+		<result column="NOTICE_TYPE" property="noticeType"/>
+		<result column="IMPORTANT_YN" property="importantYN"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="WRITE_DATE" property="writeDate"/>
+	</resultMap>
+	
+	<resultMap id="calculateList" type="CalculateDTO">
+		<id column="CALC_NO" property="calcNo"/>
+		<result column="TE_TYPE" property="teType"/>
+		<result column="TE_NAME" property="teName"/>
+		<result column="TE_ID" property="teId"/>
+		<result column="CALC_MONTH" property="calcMonth"/>
+		<result column="정산여부" property="calcYN"/>
+	</resultMap>
 		
 	<select id="selectTotalUsertList" resultMap="totalDTO">
 		SELECT 
@@ -130,6 +157,7 @@
 		     , R.PROCS_STATUS
 		  FROM REPORT R
     </select>
+	
 	<select id="selectAllQuestionList" resultMap="questionList">
 		SELECT 
 			   A.Q_NO
@@ -228,5 +256,43 @@
 		      , U.USER_ID
 		      , U.USER_NAME
 		      , U.ENROLLDATE
+	</select>      
+	<select id="selectAllCouponList" resultMap="couponList">
+		SELECT 
+			   A.CPN_NO
+			 , B.USER_ID
+			 , A.CPN_NAME
+			 , A.DIS_AMOUNT
+			 , A.CPN_ISSUE_DATE
+			 , A.CPN_START
+			 , A.CPN_END
+			 , A.CPN_USE_YN 
+		  FROM COUPON A
+          JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
+         ORDER BY A.CPN_NO
+	</select>
+	
+	<select id="selectAllNoticeList" resultMap="noticeList">
+		SELECT 
+			   NOTICE_NO
+			 , NOTICE_TYPE
+			 , IMPORTANT_YN
+			 , NOTICE_TITLE
+			 , WRITE_DATE
+		  FROM NOTICE
+	</select>
+	
+	<select id="selectAllCalculateList" resultMap="calculateList">
+		SELECT 
+			   A.CALC_NO
+			 , B.TE_TYPE
+			 , B.TE_NAME
+			 , B.TE_ID
+			 , A.CALC_MONTH
+			 , 'Y' AS 정산여부
+		  FROM CALCULATE A
+		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
+         ORDER BY A.CALC_NO
+>>>>>>> refs/heads/master
 	</select>
 </mapper>
