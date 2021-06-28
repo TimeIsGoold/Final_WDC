@@ -72,7 +72,7 @@
                             
                             <div class="subMenuBar">
                                 <button class="totalQuestion">전체</button>
-                                <button class="studentQuestion">학생</button>
+                                <button class="studentQuestion">수강생</button>
                                 <button class="teacherQuestion">강사</button>
                             </div>
 
