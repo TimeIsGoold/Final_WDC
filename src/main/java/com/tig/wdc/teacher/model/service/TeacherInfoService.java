@@ -42,4 +42,6 @@ public interface TeacherInfoService {
 	 * @return 성공 : 1, 실패 0;
 	 */
 	public int updateTeacherProfile(TeacherInfoDTO profileInfo);
+
+
 }
