@@ -125,7 +125,7 @@ public class AdminController {
 
 		return "admin/adminNoticeManagement";
 	}
-<<<<<<< HEAD
+
 	
 	// 정산
 	@GetMapping("calculateManagement")
@@ -134,13 +134,6 @@ public class AdminController {
 		return "admin/adminCalculateManagement";
 	}
 	
-	/**
-	 * @author 김현빈
-	 * <pre>
-	 * 	회원 관리 상세 디테일
-	 * </pre>
-=======
-
 	/**
 	 * 정산 관리 - 아현
 	 * 
@@ -160,11 +153,9 @@ public class AdminController {
 	 * 회원 상세 - 현빈
 	 * 
 	 * @param model
->>>>>>> refs/heads/master
 	 * @return
 	 */
 	@GetMapping("memberInfoDetail")
-<<<<<<< HEAD
 	public String memberInfoDetail(@RequestParam("memberType")String type, @RequestParam("memberNo")int no, Model model) {
 		TotalDTO total = new TotalDTO();
 		total.setUserType(type);
@@ -203,13 +194,7 @@ public class AdminController {
 		}
 		
 		return "admin/adminMemberManagement";
-=======
-	public String memberInfoDetail(@RequestParam("") Model model) {
 
-		model.addAttribute("memberInfo", adminService.selectOneStudent());
-
-		return "admin/MemberManager-admin";
->>>>>>> refs/heads/master
 	}
 
 }
