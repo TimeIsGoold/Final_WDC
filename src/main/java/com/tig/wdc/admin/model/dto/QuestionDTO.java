@@ -9,14 +9,14 @@ public class QuestionDTO {
 	private String questionName;
 	private String questionId;
 	private String questionTitle;
-	private java.util.Date questionDate;
+	private java.sql.Date questionDate;
 	
 	public QuestionDTO() {
 		super();
 	}
 
 	public QuestionDTO(int questionNo, String questionType, String questionName, String questionId,
-			String questionTitle, Date questionDate) {
+			String questionTitle, java.sql.Date questionDate) {
 		super();
 		this.questionNo = questionNo;
 		this.questionType = questionType;
@@ -66,11 +66,11 @@ public class QuestionDTO {
 		this.questionTitle = questionTitle;
 	}
 
-	public java.util.Date getQuestionDate() {
+	public java.sql.Date getQuestionDate() {
 		return questionDate;
 	}
 
-	public void setQuestionDate(java.util.Date questionDate) {
+	public void setQuestionDate(java.sql.Date questionDate) {
 		this.questionDate = questionDate;
 	}
 

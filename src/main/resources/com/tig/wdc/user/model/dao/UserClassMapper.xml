@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tig.wdc.user.model.dao.UserCategoryMapper">
+<mapper namespace="com.tig.wdc.user.model.dao.UserClassMapper">
 
-    <resultMap type="ClassDTO" id="UserCategoryResult">
+    <resultMap type="UserClassDTO" id="ClassResult">
         <id column="CLS_NO" property="clsNo"/>
         <result column="CLS_TITLE" property="title"/>
         <result column="CLS_ADDRESS" property="address"/>
@@ -24,16 +24,12 @@
         <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
         <result column="SAVE_PATH" property="titlePic"/>
-        
     </resultMap>
 
-	<select id="selectClassCategory" parameterType="UserClassDTO" resultMap="UserCategoryResult">
+	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
 		SELECT
 	           *
 		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE A.CLS_DICSION_STATUS = 'S'
-           AND T.TYPE = 'TITLE'	
-    </select>
+	</select>
 
 </mapper>

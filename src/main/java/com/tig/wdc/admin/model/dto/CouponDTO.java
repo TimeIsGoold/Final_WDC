@@ -8,17 +8,17 @@ public class CouponDTO {
 	private String couponType;
 	private String couponName;
 	private int discount;
-	private java.util.Date issueDate;
-	private java.util.Date startDate;
-	private java.util.Date endDate;
+	private java.sql.Date issueDate;
+	private java.sql.Date startDate;
+	private java.sql.Date endDate;
 	private String useStatus;
 	
 	public CouponDTO() {
 		super();
 	}
 
-	public CouponDTO(int couponNo, String couponType, String couponName, int discount, Date issueDate, Date startDate,
-			Date endDate, String useStatus) {
+	public CouponDTO(int couponNo, String couponType, String couponName, int discount, java.sql.Date issueDate,
+			java.sql.Date startDate, java.sql.Date endDate, String useStatus) {
 		super();
 		this.couponNo = couponNo;
 		this.couponType = couponType;
@@ -62,27 +62,27 @@ public class CouponDTO {
 		this.discount = discount;
 	}
 
-	public java.util.Date getIssueDate() {
+	public java.sql.Date getIssueDate() {
 		return issueDate;
 	}
 
-	public void setIssueDate(java.util.Date issueDate) {
+	public void setIssueDate(java.sql.Date issueDate) {
 		this.issueDate = issueDate;
 	}
 
-	public java.util.Date getStartDate() {
+	public java.sql.Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(java.util.Date startDate) {
+	public void setStartDate(java.sql.Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public java.util.Date getEndDate() {
+	public java.sql.Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(java.util.Date endDate) {
+	public void setEndDate(java.sql.Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -100,5 +100,5 @@ public class CouponDTO {
 				+ ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", useStatus=" + useStatus + "]";
 	}
-	
+
 }

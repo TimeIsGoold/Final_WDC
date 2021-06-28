@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,15 +14,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            function noticeWrite() {
-                location.href="noticeWrite.html";
-            }
-
-            function moveDetail() {
-                location.href="noticeDetail.html";
-            }
-        </script>
         <style>
         	.container-fluid{
         		 margin-top: 30px;
@@ -62,7 +54,7 @@
                                 <i class="fas fa-table me-1"></i>공지사항 목록
 
                                 <div class="subMenuBar">
-                                    <button class="write" onclick="noticeWrite();">작성하기</button>
+                                    <button class="write">작성하기</button>
                                 </div>
                             </div>
 
@@ -78,13 +70,32 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="moveDetail();">
-                                            <td>1</td>
-                                            <td>강사</td>
-                                            <td>중요</td>
-                                            <td>공지사항 입니다.</td>
-                                            <td>2021/06/19</td>
-                                        </tr>
+                     					<c:forEach items="${noticeList}" var="NoticeDTO">
+				                            <tr>
+				                                <td>${NoticeDTO.noticeNo}</td>
+				                                <c:choose>
+				                                	<c:when test="${NoticeDTO.noticeType eq 'A'}">
+				                                		<td>전체</td>
+				                                	</c:when>
+				                                	<c:when test="${NoticeDTO.noticeType eq 'T'}">
+				                                		<td>강사</td>
+				                                	</c:when>
+				                                	<c:when test="${NoticeDTO.noticeType eq 'C'}">
+				                                		<td>고객</td>
+				                                	</c:when>
+				                                </c:choose>
+				                                <c:choose>
+				                                	<c:when test="${NoticeDTO.importantYN eq 'Y'}">
+				                                		<td>중요</td>
+				                                	</c:when>
+				                                	<c:when test="${NoticeDTO.importantYN eq 'N'}">
+				                                		<td>일반</td>
+				                                	</c:when>
+				                                </c:choose>
+				                                <td>${NoticeDTO.noticeTitle}</td>
+				                                <td>${NoticeDTO.writeDate}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
