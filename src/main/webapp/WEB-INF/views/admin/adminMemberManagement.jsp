@@ -64,7 +64,7 @@
                                     </thead>
                                     <tbody>
                          				<c:forEach items="${totalList}" var="totalList">
-				                            <tr onclick="showdetail()">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }admin/memberInfoDetail?memberType=' +  ${totalList.userType} + '&memberNo=' + ${totalList.userNo}">
 				                                <td><c:choose>
 				                                	<c:when test="${ totalList.userType eq 'T'}">강사</c:when>
 				                                	<c:when test="${ totalList.userType eq 'U'}">수강생</c:when>
@@ -83,15 +83,7 @@
                     </div>
                 </main>
             </div>
-
         </div>
-        <script>
-        	function showdetail(){
-        		
-        		
-        	}
-        
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
