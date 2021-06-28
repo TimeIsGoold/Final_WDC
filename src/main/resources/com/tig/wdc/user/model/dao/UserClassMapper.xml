@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tig.wdc.user.model.dao.UserClassMapper">
 
-    <resultMap type="ClassDTO" id="ClassResult">
+    <resultMap type="UserClassDTO" id="ClassResult">
         <id column="CLS_NO" property="clsNo"/>
         <result column="CLS_TITLE" property="title"/>
         <result column="CLS_ADDRESS" property="address"/>
@@ -21,11 +21,12 @@
         <result column="DATE_APLCT" property="dateAplct"/>
         <result column="CLS_STATUS" property="status"/>
         <result column="TE_NO" property="teNo"/>
-        <result column="CATEGORY_NO" property="CategoryNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <result column="SAVE_PATH" property="titlePic"/>
     </resultMap>
 
-	<select id="selectClass" parameterType="ClassDTO" resultMap="ClassResult">
+	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
 		SELECT
 	           *
 		  FROM CLASS A

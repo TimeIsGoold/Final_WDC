@@ -20,7 +20,7 @@
  		
  		<!-- user -->
  		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
- 		<typeAlias alias="UserClassDTO" type="com.tig.wdc.user.model.dto.ClassDTO"/>
+ 		<typeAlias alias="UserClassDTO" type="com.tig.wdc.user.model.dto.UserClassDTO"/>
  		
  	</typeAliases>
  </configuration>

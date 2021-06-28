@@ -30,7 +30,6 @@ public class UserCategoryController {
 	
 	@GetMapping("all")
 	public String ClassCategorySelect(Model model) {
-		
 
 		List<ClassDTO> dicsionStatusIsSClassList = new ArrayList<ClassDTO>();
 		

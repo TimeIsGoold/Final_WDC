@@ -2,7 +2,7 @@ package com.tig.wdc.user.model.dto;
 
 import java.sql.Date;
 
-public class ClassDTO {
+public class UserClassDTO {
 
 	private int clsNo;
 	private String title;
@@ -26,11 +26,11 @@ public class ClassDTO {
 	private String bodyPic1;
 	private String bodyPic2;
 
-	public ClassDTO() {
+	public UserClassDTO() {
 		super();
 	}
 
-	public ClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
+	public UserClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType,
 			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro, String titlePic,
 			String bodyPic1, String bodyPic2) {
