@@ -1,9 +1,11 @@
 package com.tig.wdc.user.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,10 +28,17 @@ public class UserCategoryController {
 		this.categoryService = categoryService;
 	}
 	
-	@GetMapping("whole")
-	public String ClassCategorySelect() {
+	@GetMapping("all")
+	public String ClassCategorySelect(Model model) {
 		
-		return null;
+
+		List<ClassDTO> dicsionStatusIsSClassList = new ArrayList<ClassDTO>();
+		
+		dicsionStatusIsSClassList = categoryService.selectClassCategory();
+		
+		model.addAttribute("dicsionStatusIsSClassList",dicsionStatusIsSClassList);
+		
+		return "user/classList/class_all";
 	}
 	
 }
