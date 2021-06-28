@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -124,9 +125,17 @@
         <br><br><br>
         <h6>카테고리 선택</h6>
         <div class="form-inline">
-          <select class="form-group" style="width: 200px; margin-right: 20px;">
-            <option>원데이</option>
+        
+          <c:if test="${requestScope.classType eq  'O' }">
+          <select class="form-group" style="width: 200px; margin-right: 20px;" name="clsType">
+            <option value="O">원데이</option>
           </select>
+          </c:if>
+          <c:if test="${requestScope.classType eq 'R' }">
+          <select class="form-group" style="width: 200px; margin-right: 20px;" name="clsType">
+            <option value="R">정규과정</option>
+          </select>
+          </c:if>
           <select class="form-group" style="width: 200px; margin-right: 20px;">
             <option>스포츠</option>
             <option>요리/베이킹</option>
