@@ -121,7 +121,7 @@
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item border-0 transition-link" href="class_all.html">전체보기</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/whole">전체보기</a>
                     <a class="dropdown-item border-0 transition-link" href="class_sport.html">스포츠</a>
                     <a class="dropdown-item border-0 transition-link" href="class_beauty.html">뷰티</a>
                     <a class="dropdown-item border-0 transition-link" href="class_art.html">미술 · 공예 · 공연전시</a>
@@ -137,7 +137,6 @@
                 <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
-                
               </ul>
             </div>
           </nav>
