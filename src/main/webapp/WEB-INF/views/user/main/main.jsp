@@ -121,7 +121,7 @@
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item border-0 transition-link" href="class_all.html">전체보기</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/whole">전체보기</a>
                     <a class="dropdown-item border-0 transition-link" href="class_sport.html">스포츠</a>
                     <a class="dropdown-item border-0 transition-link" href="class_beauty.html">뷰티</a>
                     <a class="dropdown-item border-0 transition-link" href="class_art.html">미술 · 공예 · 공연전시</a>
