@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tig.wdc.user.model.dao.UserClassDTO">
+<mapper namespace="com.tig.wdc.user.model.dao.UserCategoryMapper">
 
     <resultMap type="UserClassDTO" id="UserCategoryResult">
         <id column="CLS_NO" property="clsNo"/>
