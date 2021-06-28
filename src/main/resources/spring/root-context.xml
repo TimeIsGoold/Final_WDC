@@ -23,23 +23,23 @@
    
    
     <!-- 직접 연결 설정(통합계정) -->
-<!-- 	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@tjoeunkn.iptime.org:1521:xe" />
 		<property name="username" value="FINAL_503_TEAM_WDC" />
 		<property name="password" value="WDC1234" />
 		<property name="defaultAutoCommit" value="false" />
-	 </bean> -->
-	
-	<!-- 직접 연결 설정(개인로컬) -->
+	 </bean> 
+	 
+ 	<!-- 직접 연결 설정(개인로컬) -->
 <!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
-		<property name="username" value="T6" />
-		<property name="password" value="T6" />
+		<property name="username" value="WDC2" />
+		<property name="password" value="WDC2" />
 		<property name="defaultAutoCommit" value="false" />
-	</bean> 
- -->
+	</bean> -->
+
 
 	
 <!-- 	properties 연결 설정 -->

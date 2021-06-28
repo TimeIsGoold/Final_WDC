@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.user.model.dao.UserCategoryMapper">
+
+    <resultMap type="ClassDTO" id="UserCategoryResult">
+        <id column="CLS_NO" property="clsNo"/>
+        <result column="CLS_TITLE" property="title"/>
+        <result column="CLS_ADDRESS" property="address"/>
+        <result column="CLS_INTRO" property="intro"/>
+        <result column="CLS_C_EXPL" property="cExpl"/>
+        <result column="CLS_TIME" property="time"/>
+        <result column="CLS_START_D" property="startDate"/>
+        <result column="CLS_END_D" property="endDate"/>
+        <result column="CLS_PRICE" property="price"/>
+        <result column="CLS_ADD_INFO" property="addInfo"/>
+        <result column="CLS_ADD_SUP" property="addSup"/>
+        <result column="CLS_DICSION_STATUS" property="dicsionStatus"/>
+        <result column="CLS_TYPE" property="clsType"/>
+        <result column="DATE_APLCT" property="dateAplct"/>
+        <result column="CLS_STATUS" property="status"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <result column="SAVE_PATH" property="titlePic"/>
+        
+    </resultMap>
+
+	<select id="selectClassCategory" parameterType="UserClassDTO" resultMap="UserCategoryResult">
+		SELECT
+	           *
+		  FROM CLASS A
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+           AND T.TYPE = 'TITLE'	
+    </select>
+
+</mapper>
