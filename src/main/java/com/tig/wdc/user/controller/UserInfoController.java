@@ -12,7 +12,7 @@ import com.tig.wdc.user.model.service.UserInfoService;
 
 /**
  * @author ADMIN
- * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 강사정보수정용 컨트롤러
+ * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 고객정보수정용 컨트롤러
  */
 @Controller
 @RequestMapping("/user/mypage/*")
