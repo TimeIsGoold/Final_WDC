@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<%@include file="../commons/header.jsp" %>
@@ -235,6 +237,7 @@
           </header>
           <div class="row">
             <!-- PRODUCT-->
+            <c:forEach  var="newClassList" items="${ requestScope.newClassList }">
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
                 <div class="position-relative mb-3">
@@ -246,10 +249,12 @@
                     </ul>
                   </div>
                 </div>
-                <h6> <a class="reset-anchor" href="detail.html">반지수와 함께하는 아이패드 드로잉</a></h6>
-                <p class="small text-muted">35,000 원</p>
+                <h6> <a class="reset-anchor" href="detail.html">${ newClassList.title }</a></h6>
+                <p class="small text-muted">${ newClassList.price } 원</p>
               </div>
             </div>
+            </c:forEach>
+            
             <!-- PRODUCT-->
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">

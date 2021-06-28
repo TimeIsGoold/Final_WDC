@@ -236,4 +236,6 @@ public class UserClassDTO {
             + ", bodyPic1=" + bodyPic1 + ", bodyPic2=" + bodyPic2 + "]";
    }
 
+	
+
 }
