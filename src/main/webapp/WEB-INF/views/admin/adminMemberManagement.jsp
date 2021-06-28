@@ -46,9 +46,9 @@
                                 회원관리
                             </div>
                             <div class="btn-group btn-group-justified">
-						        <a id="total" onclick="MyFunction(); return false;" href="#" class="btn btn-warning">전체 ( 총 n명 )</a>
-						        <a id="teacher" onclick="MyFunction(); return false;" href="#" class="btn btn-warning">강사 ( n명 )</a>
-						        <a id="student" onclick="MyFunction(); return false;" href="#" class="btn btn-warning">수강생 ( n명 )</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/memberManagement" class="btn btn-warning">전체 </a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?ut=tc" class="btn btn-warning">강사</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?ut=st" class="btn btn-warning">수강생</a>
       						</div>
 
                             <div class="card-body">
@@ -64,7 +64,7 @@
                                     </thead>
                                     <tbody>
                          				<c:forEach items="${totalList}" var="totalList">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }admin/memberInfoDetail?memberType=' +  ${totalList.userType} + '&memberNo=' + ${totalList.userNo}">
+				                            <tr style="cursor:pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/memberInfoDetail?memberType=${totalList.userType}&memberNo=${totalList.userNo}'">
 				                                <td><c:choose>
 				                                	<c:when test="${ totalList.userType eq 'T'}">강사</c:when>
 				                                	<c:when test="${ totalList.userType eq 'U'}">수강생</c:when>

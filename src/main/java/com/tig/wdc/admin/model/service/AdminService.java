@@ -6,6 +6,7 @@ import com.tig.wdc.admin.model.dto.ClassDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
+import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 
 public interface AdminService {
@@ -18,7 +19,14 @@ public interface AdminService {
 
 	List<QuestionDTO> selectAllQuestionList();
 
-	StudentDTO selectOneStudent();
+	StudentDTO selectOneStudent(TotalDTO total);
+
+	TeacherDTO selectOneTeacher(int no);
+
+	List<TotalDTO> selectTeacherList();
+
+	List<TotalDTO> selectStudentList();
+
 
 
 

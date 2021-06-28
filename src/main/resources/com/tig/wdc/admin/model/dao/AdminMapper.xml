@@ -12,6 +12,26 @@
 		<result column="TYPE" property="userType"/>
 		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
+	
+	<resultMap id="userDTO" type="TotalDTO">
+		<id column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="ENROLLDATE" property="enrollDate"/>
+		<result column="TYPE" property="userType"/>
+		<result column="누적신고"  property="reportedCnt"/>
+	</resultMap>
+	
+	<resultMap type="StudentDTO" id="studentDTO">
+		<id column="USER_NO" property="studentnNo"/>
+		<result column="USER_ID" property="id"/>
+		<result column="TYPE" property="type"/>
+		<result column="USER_NAME" property="studentName"/>
+		<result column="USER_PHONE" property="phone"/>
+		<result column="USER_BIRTH"  property="birth"/>
+		<result column="ENROLLDATE"  property="enrollDate"/>
+		<result column="누적신고"  property="reportedCnt"/>
+	</resultMap>
 		
 	<resultMap id="classLsit" type="ClassDTO">
 		<id column="CLS_NO" property="classNo"/>
@@ -38,6 +58,19 @@
 		<result column="USER_ID" property="questionId"/>
 		<result column="Q_TITLE" property="questionTitle"/>
 		<result column="Q_DATE" property="questionDate"/>
+	</resultMap>
+	
+	<resultMap id="teacherDTO" type="TeacherDTO" >
+		<id column="TE_NO" property="teNo"/>
+		<result column="TE_ID" property="id"/>
+		<result column="TE_NAME" property="name"/>
+		<result column="TYPE" property="usertype"/>
+		<result column="TE_PHONE"  property="phone"/>
+		<result column="TE_TYPE"  property="teacherType"/>
+		<result column="ENROLLDATE"  property="enrollDate"/>
+		<result column="TE_INTRO"  property="teacherIntro"/>
+		<result column="TE_PIC"  property="imgPath"/>
+		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
 	
 		
@@ -110,4 +143,90 @@
 		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 	</select>
 	
+	<select id="selectOneStudent" resultMap="studentDTO" parameterType="TotalDTO">
+		SELECT 
+		       U.USER_NO
+		     , U.USER_ID
+		     , U.USER_NAME
+		     , U.TYPE
+		     , U.USER_PHONE
+		     , U.USER_BIRTH
+		     , U.ENROLLDATE
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM USER_INFO U
+		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
+		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 WHERE U.USER_NO = #{userNo}
+		 GROUP BY 
+		          U.USER_NO
+		        , U.USER_ID
+		        , U.USER_NAME
+		        , U.TYPE
+		        , U.USER_PHONE
+		        , U.USER_BIRTH
+		        , U.ENROLLDATE
+	</select>
+	
+	<select id="selectOneTeacher" resultMap="teacherDTO" parameterType="_int">
+		SELECT 
+		       T.TE_NO
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.TYPE
+		     , T.TE_PHONE
+             , T.TE_TYPE
+		     , T.ENROLLDATE
+             , T.TE_INTRO
+             , T.TE_PIC
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM TEACHER_INFO T
+		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
+		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
+		 WHERE T.TE_NO = #{no}
+		 GROUP BY 
+                   T.TE_NO
+                 , T.TE_ID
+                 , T.TE_NAME
+                 , T.TYPE
+                 , T.TE_PHONE
+                 , T.TE_TYPE
+                 , T.ENROLLDATE
+                 , T.TE_INTRO
+                 , T.TE_PIC
+	</select>
+	
+	<select id="selectTeacherList" resultMap="totalDTO" >
+		SELECT 
+		       T.TE_NO
+		     , T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.ENROLLDATE
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM TEACHER_INFO T
+		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
+		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
+		 GROUP BY T.TE_NO
+		     , T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.ENROLLDATE
+	</select>
+	<select id="selectStudentList" resultMap="userDTO" >
+		 SELECT 
+		        U.USER_NO
+		      , U.TYPE
+		      , U.USER_ID
+		      , U.USER_NAME
+		      , U.ENROLLDATE
+		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		    FROM USER_INFO U
+		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
+		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 GROUP BY U.USER_NO
+		      , U.TYPE
+		      , U.USER_ID
+		      , U.USER_NAME
+		      , U.ENROLLDATE
+	</select>
 </mapper>
