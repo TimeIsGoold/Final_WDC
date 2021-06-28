@@ -27,12 +27,22 @@
         
     </resultMap>
 
-	<select id="selectClassCategory" parameterType="UserClassDTO" resultMap="UserCategoryResult">
+	<select id="selectClassCategory" parameterType="java.util.List" resultMap="UserCategoryResult">
 		SELECT
 	           *
 		  FROM CLASS A
 		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
 		 WHERE A.CLS_DICSION_STATUS = 'S'
+           AND T.TYPE = 'TITLE'	
+    </select>
+    
+    <select id="selectSportsClassCategory" parameterMap="UserClassDTO" resultMap="UserCategoryResult">
+    	SELECT
+	           *
+		  FROM CLASS A
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+		   AND A.CATEGORY_NO = 1
            AND T.TYPE = 'TITLE'	
     </select>
 

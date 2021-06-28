@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
   <head>
@@ -165,11 +167,14 @@
                   </div>
                 </div>
                 <div class="row">
+                
                   <!-- PRODUCT-->
+                  <c:forEach  var="classList" items="${ requestScope.sportsClassList }">
+                  
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
                       <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/class-sport.png" alt="..."></a>
+                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                         <div class="product-overlay">
                           <ul class="mb-0 list-inline">
                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
@@ -177,58 +182,13 @@
                           </ul>
                         </div>
                       </div>
-                      <h6> <a class="reset-anchor" href="detail.html">스포츠클래스</a></h6>
-                      <p class="small text-muted">42,500 원</p>
+                      <h6> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                      <p class="small text-muted">${classList.price}</p>
                     </div>
                   </div>
-                  <!-- PRODUCT-->
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/class-sport.png" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></h6>
-                      <p class="small text-muted">42,500 원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/class-sport.png" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></h6>
-                      <p class="small text-muted">42,500 원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/class-sport.png" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></h6>
-                      <p class="small text-muted">42,500 원</p>
-                    </div>
-                  </div>
+                  </c:forEach>
+                  
+                  
                   </div>
                 
                 <!-- PAGINATION-->

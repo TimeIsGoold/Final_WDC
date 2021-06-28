@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.service.UserCategoryService;
 
 /**
@@ -18,7 +18,7 @@ import com.tig.wdc.user.model.service.UserCategoryService;
  *
  */
 @Controller
-@RequestMapping("user/category/*")
+@RequestMapping("/user/category/*")
 public class UserCategoryController {
 
 	private final UserCategoryService categoryService;
@@ -28,17 +28,39 @@ public class UserCategoryController {
 		this.categoryService = categoryService;
 	}
 	
+	/**
+	 * 전체 카테고리 조회용 메소드
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("all")
-	public String ClassCategorySelect(Model model) {
+	public String ClassCategoryAllSelect(Model model) {
 		
 
-		List<ClassDTO> dicsionStatusIsSClassList = new ArrayList<ClassDTO>();
+		List<UserClassDTO> allClassList = new ArrayList<UserClassDTO>();
 		
-		dicsionStatusIsSClassList = categoryService.selectClassCategory();
+		allClassList = categoryService.selectClassCategory();
 		
-		model.addAttribute("dicsionStatusIsSClassList",dicsionStatusIsSClassList);
+		model.addAttribute("allClassList",allClassList);
 		
 		return "user/classList/class_all";
 	}
 	
+	/**
+	 * 스포츠 카테고리 조회용 메소드
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("sports")
+	public String ClassCategorySportsSelect(Model model) {
+		
+		List<UserClassDTO> sportsClassList = new ArrayList<>();
+		
+		sportsClassList = categoryService.selectClassSportsCategory();
+		
+		model.addAttribute("sportsClassList",sportsClassList);
+		
+		
+		return "user/classList/class_sports";
+	}
 }

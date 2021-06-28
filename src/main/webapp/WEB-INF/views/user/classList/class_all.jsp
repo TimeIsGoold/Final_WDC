@@ -168,7 +168,7 @@
                 <div class="row">
                   
                   <!-- PRODUCT-->
-                  <c:forEach  var="classList" items="${ requestScope.dicsionStatusIsSClassList }">
+                  <c:forEach  var="classList" items="${ requestScope.allClassList }">
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
                       <div class="mb-3 position-relative">
