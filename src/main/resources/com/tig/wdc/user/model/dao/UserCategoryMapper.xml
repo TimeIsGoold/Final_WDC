@@ -21,14 +21,19 @@
         <result column="DATE_APLCT" property="dateAplct"/>
         <result column="CLS_STATUS" property="status"/>
         <result column="TE_NO" property="teNo"/>
-        <result column="CATEGORY_NO" property="CategoryNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <result column="SAVE_PATH" property="titlePic"/>
+        
     </resultMap>
 
 	<select id="selectClassCategory" parameterType="UserClassDTO" resultMap="UserCategoryResult">
 		SELECT
 	           *
 		  FROM CLASS A
-	</select>
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+           AND T.TYPE = 'TITLE'	
+    </select>
 
 </mapper>
