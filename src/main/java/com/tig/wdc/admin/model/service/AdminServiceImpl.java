@@ -9,7 +9,7 @@ import com.tig.wdc.admin.model.dao.AdminMapper;
 import com.tig.wdc.admin.model.dto.ClassDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
-import com.tig.wdc.admin.model.dto.StudentDTO;
+import com.tig.wdc.admin.model.dto.TotalDTO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -24,9 +24,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<StudentDTO> selectAllStudentList() {
+	public List<TotalDTO> selectTotalUsertList() {
 		
-		return mapper.selectAllStudentList();
+		return mapper.selectTotalUsertList();
 	}
 
 	@Override
@@ -35,11 +35,17 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectAllClassList();
 	}
 
-//	@Override
-//	public List<ReportDTO> selectAllReportList() {
-//		
-//		return mapper;
-//	}
+	@Override
+	public List<ReportDTO> selectAllReportList() {
+		
+		return mapper.selectAllReportList();
+	}
+
+	@Override
+	public List<TotalDTO> selectTeacherList() {
+		return  mapper.selectTeacherList();
+	}
+
 	
 	@Override
 	public List<QuestionDTO> selectAllQuestionList() {

@@ -35,6 +35,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+     html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     table {
       font-size: 13px;
     }
@@ -124,7 +130,10 @@
               </div>
               <div class='col-sm-3'>
                 <div class="form-group">
-                  <input type="date" id="EndDate" class="form-control">
+                  <select id="inquiryReply">
+                  	<option value="notyet">처리 중</option>
+                  	<option value="completed">답변완료</option>
+                  </select>
                 </div>
               </div>
               <div class='col-sm-6'>
@@ -209,5 +218,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
+  
+  <jsp:forward page="../commons/footer.jsp"/>
 </body>
 <html>

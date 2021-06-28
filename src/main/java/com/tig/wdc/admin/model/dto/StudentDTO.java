@@ -4,40 +4,68 @@ import java.sql.Date;
 
 public class StudentDTO {
 
-	private int studentNo;
-	private String studentName;
-	private String studentId;
-	private java.sql.Date enrollDate;
-	private int reportedCnt;
+	private int studentnNo;      		  // 회원 번호
+	private String type;        		  // 회원타입
+	private String id;         		      // 회원 아이디
+	private String email;      		      // 회원 이메일
+	private String phone;       		  // 회원 휴대폰 번호
+	private String birth;        		  // 회원 생년 월일
+	private java.sql.Date enrollDate;     // 가입일
+	private int reportedCnt;              // 누적 신고일
+	
 	
 	public StudentDTO() {}
 	
-	public StudentDTO(int studentNo, String studentName, String studentId, Date enrollDate, int reportedCnt) {
+	
+	public StudentDTO(int studentnNo, String type, String id, String email, String phone, String birth, Date enrollDate,
+			int reportedCnt) {
 		super();
-		this.studentNo = studentNo;
-		this.studentName = studentName;
-		this.studentId = studentId;
+		this.studentnNo = studentnNo;
+		this.type = type;
+		this.id = id;
+		this.email = email;
+		this.phone = phone;
+		this.birth = birth;
 		this.enrollDate = enrollDate;
 		this.reportedCnt = reportedCnt;
 	}
 	
-	public int getStudentNo() {
-		return studentNo;
+	
+	public int getStudentnNo() {
+		return studentnNo;
 	}
-	public void setStudentNo(int studentNo) {
-		this.studentNo = studentNo;
+	public void setStudentnNo(int studentnNo) {
+		this.studentnNo = studentnNo;
 	}
-	public String getStudentName() {
-		return studentName;
+	public String getType() {
+		return type;
 	}
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
+	public void setType(String type) {
+		this.type = type;
 	}
-	public String getStudentId() {
-		return studentId;
+	public String getId() {
+		return id;
 	}
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 	public java.sql.Date getEnrollDate() {
 		return enrollDate;
@@ -52,11 +80,12 @@ public class StudentDTO {
 		this.reportedCnt = reportedCnt;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "StudentDTO [studentNo=" + studentNo + ", studentName=" + studentName + ", studentId=" + studentId
-				+ ", enrollDate=" + enrollDate + ", reportedCnt=" + reportedCnt + "]";
+		return "StudentDTO [studentnNo=" + studentnNo + ", type=" + type + ", id=" + id + ", email=" + email
+				+ ", phone=" + phone + ", birth=" + birth + ", enrollDate=" + enrollDate + ", reportedCnt="
+				+ reportedCnt + "]";
 	}
-	
-	
+
 }

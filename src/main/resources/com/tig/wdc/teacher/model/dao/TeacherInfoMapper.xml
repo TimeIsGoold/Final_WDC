@@ -66,8 +66,8 @@
 	<update id="updateTeacherProfile" parameterType="TeacherInfoDTO">
 	    UPDATE
 	           TEACHER_INFO A
-	       SET A.TE_INTRO = #{ teacherIntro }
-	         , A.TE_PIC = #{ teacherPicture }
-	     WHERE A.A.TE_NO = #{ teacherNo }
+	       SET A.TE_INTRO = #{ teacherIntro, jdbcType=VARCHAR }
+	         , A.TE_PIC = #{ teacherPicture, jdbcType=VARCHAR }
+	     WHERE A.TE_NO = #{ teacherNo }
 	</update>
 </mapper>

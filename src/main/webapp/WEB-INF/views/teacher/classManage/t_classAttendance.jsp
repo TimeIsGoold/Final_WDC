@@ -35,6 +35,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+    html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     table {
       text-align: center;
     }
@@ -104,9 +110,11 @@
               <div class="col-sm-3" style="margin-left: 10px;">
                 <h5>클래스 검색</h5>
               </div>
-              <div class='col-sm-5'>
-                <label class="mr-sm-3 sr-only" for="inlineFormCustomSelect"></label>
-                <input type="text" class="form-control" id="search">
+              <div class='col-sm-3'>
+                <select class="form-control" id="classStatus">상태검색
+                  <option value="todo">강의 전</option>
+                  <option value="done">완료</option>
+                </select>
               </div>
               <div class='col-sm-3'>
                 <button type="submit" class="btn btn-primary">검색</button>   
@@ -192,6 +200,6 @@
   </div>
   </div>
   
-  <%-- <jsp:include page="../commons/footer.jsp"/> --%>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>
