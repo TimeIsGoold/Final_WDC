@@ -48,7 +48,7 @@
 </head>
 
 <body>
-      <div class="container" style="width: 80%; margin-left: 10px; display:none;" id="regular">
+      <div class="container" style="width: 90%; margin :0 auto; display:none;" id="regular">
         <!-- 정규클래스등록1-->
         <div class="row">
           <div class="col-md-2 step" >클래스 기본정보</div>

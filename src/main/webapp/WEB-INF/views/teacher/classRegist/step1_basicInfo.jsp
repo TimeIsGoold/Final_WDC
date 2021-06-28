@@ -63,10 +63,10 @@
 
 		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;" id="top">
 			<!-- SIDEBAR-->
-			<jsp:include page="../commons/sidebar.jsp" /> 
-
+		<%-- 	<jsp:include page="../commons/sidebar.jsp" /> 
+ --%>
 			<!-- 본문 -->
-			<div class="container" style="width: 80%; margin-left: 10px; max-height: 5000px"  id="registPage1">
+			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px"  id="registPage1" >
 				<!-- 정규클래스등록1-->
 				<div class="row">
 					<div class="col-md-2 nowStep">클래스 기본정보</div>
@@ -156,11 +156,8 @@
 											</td>
 										</table>
 										<div class="thumbnail-file-area">
-											<input type="file" id="thumbnailImg1" name="thumbnailImg1"
-												onchange="loadImg(this,1)" required="required"> <input
-												type="file" id="thumbnailImg2" name="thumbnailImg2"
-												onchange="loadImg(this,2)"> <input type="file"
-												id="thumbnailImg3" name="thumbnailImg3"
+											<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)" required="required"> 
+											<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)"> <input type="file" id="thumbnailImg3" name="thumbnailImg3"
 												onchange="loadImg(this,3)">
 										</div>
 									</div>
@@ -186,12 +183,18 @@
 									<button type="button" onclick="movePage(1);">다음></button>
 
 			</div>
-			<jsp:include page="step2_classInfo.jsp" />
-			<jsp:include page="step3_oneday.jsp" />
-			<jsp:include page="step5_terms.jsp" />
+
 			<jsp:include page="step4_optionalInfo.jsp" />
-			<jsp:include page="step3_regular.jsp" />
-			
+			<jsp:include page="step5_terms.jsp" />
+						<c:choose>
+			    <c:when test="${requestScope.classType eq  'O' }">
+	        		<jsp:include page="step3_oneday.jsp" />
+			    </c:when>
+			    <c:otherwise>
+	        		<jsp:include page="step3_regular.jsp" />
+			    </c:otherwise>
+			</c:choose>
+			<jsp:include page="step2_classInfo.jsp" />
 		</div>
 		<br> <br>
 		<!-- 주소검색 -->

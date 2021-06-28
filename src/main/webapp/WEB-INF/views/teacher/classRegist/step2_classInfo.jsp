@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-      <div class="container" style="width: 80%; margin-left: 10px; display: none;" id="registPage2">
+      <div class="container" style="width: 90%;margin :0 auto; display: none;" id="registPage2">
         <!-- 정규클래스등록1-->
         <div class="row">
           <div class="col-md-2 step" >클래스 기본정보</div>
@@ -76,25 +76,6 @@
             <h6>커리큘럼 상세등록<b>*</b></h6>
             <!-- /커리큘럼추가 -->
             <div class="row" style="border : 1px solid rgba(0, 0, 0, 0.2)">
-              <div class="col-md-3" style="text-align: center;">
-                <br>
-                <p style="text-align: left;">사진등록</p>
-                <div class="content-img-area3" id="contentImgArea3" style="width: 70%;">
-                  <img id="contentImg3" style="width: 100%;" height="140" >
-                </div>
-                <div class="thumbnail-file-area">
-                  <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)">
-                </div>
-              </div>
-              <div class="col-md-9" style="text-align: center; vertical-align: middle;">
-                <div style="font-size: 15px; text-align: left; opacity: .7; margin-top: 95px;">
-                  - 커리큘럼은 수업 과정을 작성하는 부분입니다.<br>
-                  - 단계별 수업 관련 사진을 2개 이상 등록해주세요.<br>
-                  - 가로형 사진을 권장합니다.<br>
-                  - 사진 용량은 사진 한 장당 10MB까지 등록이 가능합니다.<br>
-                </div>
-              </div>
-
               <div class="col-md-3" style="margin-top: 20px;">
                 <div style="font-size: 15px; margin-bottom: 10px;"><br></div>
                 <div class="form-group">
