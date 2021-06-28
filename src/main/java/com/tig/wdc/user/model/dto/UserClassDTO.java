@@ -2,7 +2,7 @@ package com.tig.wdc.user.model.dto;
 
 import java.sql.Date;
 
-public class ClassDTO {
+public class UserClassDTO {
 
 	private int clsNo;
 	private String title;
@@ -22,14 +22,18 @@ public class ClassDTO {
 	private int teNo;
 	private int categoryNo;
 	private String simpleIntro;
+	private String titlePic;
+	private String bodyPic1;
+	private String bodyPic2;
 
-	public ClassDTO() {
+	public UserClassDTO() {
 		super();
 	}
 
-	public ClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
+	public UserClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType,
-			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro) {
+			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro, String titlePic,
+			String bodyPic1, String bodyPic2) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -49,6 +53,9 @@ public class ClassDTO {
 		this.teNo = teNo;
 		this.categoryNo = categoryNo;
 		this.simpleIntro = simpleIntro;
+		this.titlePic = titlePic;
+		this.bodyPic1 = bodyPic1;
+		this.bodyPic2 = bodyPic2;
 	}
 
 	public int getClsNo() {
@@ -195,13 +202,38 @@ public class ClassDTO {
 		this.simpleIntro = simpleIntro;
 	}
 
+	public String getTitlePic() {
+		return titlePic;
+	}
+
+	public void setTitlePic(String titlePic) {
+		this.titlePic = titlePic;
+	}
+
+	public String getBodyPic1() {
+		return bodyPic1;
+	}
+
+	public void setBodyPic1(String bodyPic1) {
+		this.bodyPic1 = bodyPic1;
+	}
+
+	public String getBodyPic2() {
+		return bodyPic2;
+	}
+
+	public void setBodyPic2(String bodyPic2) {
+		this.bodyPic2 = bodyPic2;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassDTO [clsNo=" + clsNo + ", title=" + title + ", address=" + address + ", intro=" + intro
 				+ ", cExpl=" + cExpl + ", time=" + time + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", price=" + price + ", addInfo=" + addInfo + ", addSup=" + addSup + ", dicsionStatus="
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
-				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + "]";
+				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", titlePic=" + titlePic
+				+ ", bodyPic1=" + bodyPic1 + ", bodyPic2=" + bodyPic2 + "]";
 	}
 
 }

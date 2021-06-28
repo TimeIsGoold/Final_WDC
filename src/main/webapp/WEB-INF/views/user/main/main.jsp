@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<%@include file="../commons/header.jsp" %>
@@ -121,7 +123,7 @@
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/whole">전체보기</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/all">전체보기</a>
                     <a class="dropdown-item border-0 transition-link" href="class_sport.html">스포츠</a>
                     <a class="dropdown-item border-0 transition-link" href="class_beauty.html">뷰티</a>
                     <a class="dropdown-item border-0 transition-link" href="class_art.html">미술 · 공예 · 공연전시</a>
@@ -235,6 +237,7 @@
           </header>
           <div class="row">
             <!-- PRODUCT-->
+            <c:forEach  var="newClassList" items="${ requestScope.newClassList }">
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
                 <div class="position-relative mb-3">
@@ -246,10 +249,12 @@
                     </ul>
                   </div>
                 </div>
-                <h6> <a class="reset-anchor" href="detail.html">반지수와 함께하는 아이패드 드로잉</a></h6>
-                <p class="small text-muted">35,000 원</p>
+                <h6> <a class="reset-anchor" href="detail.html">${ newClassList.title }</a></h6>
+                <p class="small text-muted">${ newClassList.price } 원</p>
               </div>
             </div>
+            </c:forEach>
+            
             <!-- PRODUCT-->
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
