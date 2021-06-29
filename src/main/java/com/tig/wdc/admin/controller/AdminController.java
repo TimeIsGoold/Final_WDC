@@ -188,6 +188,13 @@ public class AdminController {
 
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 *  신고관리 디테일
+	 * </pre>
+	 * @return
+	 */
 	@GetMapping("reportDetail")
 	public String selectReportDetail() {
 		
