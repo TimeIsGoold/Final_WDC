@@ -70,5 +70,14 @@
 		        ORDER BY C.CLS_NO DESC)
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
+	
+<!-- 	<select id="selectCheerClassList" parameterType="UserClassDTO" resultMap="ClassResult">
+		SELECT
+		       *
+		  FROM CLASS C
+		  JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		 WHERE A.TYPE = 'TITLE'
+           AND C.CLS_NO = ${}
+	</select> -->
 
 </mapper>

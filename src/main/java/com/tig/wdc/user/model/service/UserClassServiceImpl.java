@@ -38,4 +38,10 @@ public class UserClassServiceImpl implements UserClassService{
 
 		return mapper.selectCheerClassList();
 	}
+
+	@Override
+	public List<UserClassDTO> selectClassDtail() {
+		
+		return mapper.selectClassDeatil();
+	}
 }

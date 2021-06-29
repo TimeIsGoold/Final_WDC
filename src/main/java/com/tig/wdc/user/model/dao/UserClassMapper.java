@@ -16,4 +16,6 @@ public interface UserClassMapper {
 
 	public List<UserClassDTO> selectCheerClassList();
 
+	public List<UserClassDTO> selectClassDeatil();
+
 }

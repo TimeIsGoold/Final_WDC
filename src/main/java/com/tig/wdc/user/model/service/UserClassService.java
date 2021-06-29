@@ -15,4 +15,6 @@ public interface UserClassService {
 	List<UserClassDTO> selectTopClassList();
 	
 	List<UserClassDTO> selectCheerClassList();
+
+	List<UserClassDTO> selectClassDtail();
 }
