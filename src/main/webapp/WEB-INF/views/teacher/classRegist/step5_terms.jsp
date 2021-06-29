@@ -109,8 +109,8 @@
 		</div>
 		<br><br><hr><br><br>
 
-		<button onclick="movePage(3);">이전</button>
-		<button onclick="location.href='t_classManagement.html'">클래스 검수 요청하기</button>
+		<button type="button"onclick="movePage(3);">이전</button>
+		<button>클래스 검수 요청하기</button>
 	</div>
 
 </body>

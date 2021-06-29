@@ -104,7 +104,7 @@
                 <textarea class="form-control" rows="5"></textarea>
               </div>
               <div class="col-md-12" align="center">
-                <button style="margin: 15px 0 15px 0;"> +입력</button>
+                <button type="button" style="margin: 15px 0 15px 0;"> +입력</button>
               </div>
             </div>
             <br>
@@ -141,8 +141,8 @@
             <div>
 
             </div>
-            <button type = "button" onclick="movePage(0);">이전</button>
-            <button type = "button" onclick="movePage(2);" >다음</button>
+            <button type="button" onclick="movePage(0);">이전</button>
+            <button type="button" onclick="movePage(2);" >다음</button>
       </div>
 </body>
 </html>

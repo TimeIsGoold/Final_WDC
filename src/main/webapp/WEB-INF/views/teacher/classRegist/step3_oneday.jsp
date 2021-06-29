@@ -117,55 +117,51 @@ input[name="dayName"] {
 			<div class="col-md-2 step">클래스 부가정보</div>
 			<div class="col-md-3 step">클래스 등록 및 약관동의</div>
 		</div>
-		<br>
-		<br>
-		<br>
+		<br><br><br>
 		<h6>스케쥴 등록</h6>
 		<div style="font-size: 15px; opacity: .7">
-			- 개별일정 : 반복되지 않는 일정을 개별로 등록할 경우<br> - 요일반복 : 특정 기간 매주 같은 요일의 일정을
-			등록할 경우<br> - 상시모집 : 날짜를 지정하지 않고 상시로 모집하는 경우<br> - 정규모집 :
-			원데이가 아닌 주, 월 단위 정규 과정을 모집하는 경우<br> (정규모집의 경우 정규모집 또는 상시모집으로
-			등록해주세요)
+			- 개별일정 : 반복되지 않는 일정을 개별로 등록할 경우<br>
+			- 요일반복 : 특정 기간 매주 같은 요일의 일정을	등록할 경우<br>
+			- 상시모집 : 날짜를 지정하지 않고 상시로 모집하는 경우<br>
+			- 정규모집 : 원데이가 아닌 주, 월 단위 정규 과정을 모집하는 경우<br> (정규모집의 경우 정규모집 또는 상시모집으로 등록해주세요)
 		</div>
-		<br>
-		<br>
-		<div class="row"
-			style="border: 1px solid rgba(0, 0, 0, 0.2); padding: 20px 20px 20px 20px;">
-			<div class="col-md-4" align="center">
-				스케쥴선택<br>
-				<button id="individual" onclick="scheduleChange(this);">개별일정</button>
-				<button id="repeat" onclick="scheduleChange(this)">요일반복</button>
-				<button id="always" onclick="scheduleChange(this)">상시모집</button>
+		<br><br>
+		<div class="row" style="border: 1px solid rgba(0, 0, 0, 0.2); padding: 20px 20px 20px 20px;">
+			<div class="col-md-4" align="center">스케쥴선택<br>
+				<button type="button" id="individual" onclick="scheduleChange(this);">개별일정</button>
+				<button type="button" id="repeat" onclick="scheduleChange(this)">요일반복</button>
+				<!-- <button id="always" onclick="scheduleChange(this)">상시모집</button> -->
 				<input type="hidden" id="scheduleType" value="">
 			</div>
-			<div class="col-md-3" align="center">
-				수업소요시간<br>
+			<div class="col-md-3" align="center">수업소요시간<br>
 				<div class="form-inline" style="margin-left: 10px;">
 					<div class="form-group">
-						<select class="form-control">
-							<option>1시간</option>
-							<option>2시간</option>
-							<option>3시간</option>
-							<option>4시간</option>
-						</select> <select class="form-control"
-							style="margin-left: 10px; width: 91px;">
-							<option>10분</option>
-							<option>20분</option>
-							<option>30분</option>
-							<option>40분</option>
+						<select class="form-control" name="time">
+							<option value = "01">1시간</option>
+							<option value = "02">2시간</option>
+							<option value = "03">3시간</option>
+							<option value = "04">4시간</option>
+							<option value = "05">5시간</option>
+						</select> 
+						<select class="form-control" style="margin-left: 10px; width: 91px;" name="time">
+							<option value = "00">00분</option>
+							<option value = "10">10분</option>
+							<option value = "20">20분</option>
+							<option value = "30">30분</option>
+							<option value = "40">40분</option>
+							<option value = "50">50분</option>
 						</select>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5" align="center">
-				시작일과 종료일을 입력해주세요<br> <input type="date"> - <input
-					type="date">
+			<div class="col-md-5" align="center">시작일과 종료일을 입력해주세요<br> 
+				<input type="date" name="stardDay"> - <input type="date" name="endDay">
 			</div>
-			<div class="col-md-11" style="margin: 20px 0 20px 42px; height: 350px; background-color: #f5f5f5;">여기
-				입력이 될거야</div>
+			<div class="col-md-11" style="margin: 20px 0 20px 42px; height: 350px; background-color: #f5f5f5;">
+			여기 입력이 될거야
+			</div>
 			<div class="col-md-3">
-				<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">날짜/시간 설정하기</button> -->
-				<button id="dateTimeSetting" type="button" class="btn btn-primary" data-toggle="modal" onclick="doPopUP();" data-target=""	style="margin-left: 30px;">날짜/시간 설정하기</button>
+				<button type="button" id="dateTimeSetting" type="button" class="btn btn-primary" data-toggle="modal" onclick="doPopUP();" data-target=""	style="margin-left: 30px;">날짜/시간 설정하기</button>
 			</div>
 		</div>
 		<!-- 개별일정 -->
@@ -174,9 +170,7 @@ input[name="dayName"] {
 				<div class="modal-content">
 					<div class="modal-header">
 						<h4 class="modal-title" id="gridSystemModalLabel" style="margin-top: 20px;">스케쥴등록(개별일정)</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
 						<div class="container">
@@ -220,7 +214,7 @@ input[name="dayName"] {
 											</div>
 										</div>
 										<div class="col-md-2">
-											<button>추가</button>
+											<button type="button">추가</button>
 										</div>
 									</div>
 									<!-- /스케쥴정보입력 -->
@@ -238,32 +232,32 @@ input[name="dayName"] {
 										<tr>
 											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
 											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
+											<td><button type="button">삭제</button></td>
 										</tr>
 										<tr>
 											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
 											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
+											<td><button type="button">삭제</button></td>
 										</tr>
 										<tr>
 											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
 											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
+											<td><button type="button">삭제</button></td>
 										</tr>
 										<tr>
 											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
 											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
+											<td><button type="button">삭제</button></td>
 										</tr>
 										<tr>
 											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
 											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
+											<td><button type="button">삭제</button></td>
 										</tr>
 										<tr>
 											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
 											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
+											<td><button type="button">삭제</button></td>
 										</tr>
 									</tbody>
 								</table>
@@ -417,12 +411,12 @@ input[name="dayName"] {
 		<h6>클래스정가<b> *</b></h6>
 		<br>
 		<div class="form-group">
-			<input class="form-control" style="width: 20%" ;type="number" placeholder="금액입력(원)">
+			<input class="form-control" style="width: 20%" type="number" placeholder="금액입력(원)"  name="price">
 		</div>
 		<br><br><hr><br>
 		<div></div>
-		<button onclick="movePage(1)">이전</button>
-		<button onclick="movePage(3)">다음</button>
+		<button type="button" onclick="movePage(1)">이전</button>
+		<button type="button" onclick="movePage(3)">다음</button>
 	</div>
 </body>
 

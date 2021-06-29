@@ -61,7 +61,8 @@
 		<jsp:include page="../commons/header.jsp" />
 
 
-		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;" id="top">
+		<form method="post"	action="${pageContext.servletContext.contextPath }/classRegist/classInsert" enctype="multipart/form-data">
+		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;" >
 			<!-- SIDEBAR-->
 		<%-- 	<jsp:include page="../commons/sidebar.jsp" /> 
  --%>
@@ -79,18 +80,16 @@
 				<br>
 				<br>
 				<h6>카테고리 선택</h6>
-				<form method="post"	action="${pageContext.servletContext.contextPath }/classRegist/step2" enctype="multipart/form-data">
+				
 					<div class="form-inline">
 
 						<c:if test="${requestScope.classType eq  'O' }">
-							<select class="form-group"
-								style="width: 200px; margin-right: 20px;" name="clsType">
+							<select class="form-group"	style="width: 200px; margin-right: 20px;" name="clsType">
 								<option value="O">원데이</option>
 							</select>
 						</c:if>
 						<c:if test="${requestScope.classType eq 'R' }">
-							<select class="form-group"
-								style="width: 200px; margin-right: 20px;" name="clsType">
+							<select class="form-group" style="width: 200px; margin-right: 20px;" name="clsType">
 								<option value="R">정규과정</option>
 							</select>
 						</c:if>
@@ -106,96 +105,85 @@
 						</select>
 
 					</div>
-					<br><hr><br>
-					<h6>클래스 타이틀<h6>
-						 <div class="form-group">
-							<input style="width: 80%;" type="text" name="title"	required="required">
+				<br><hr><br>
+				<h6>클래스 타이틀</h6>
+				<div class="form-group">
+				<input style="width: 80%;" type="text" name="title"	>
+				</div>
+				<br>
+				<hr>
+				<br>
+				<h6>클래스 간략소개</h6>
+				<div class="form-group">
+				    <input style="width: 80%;" type="text" name="simpleIntro" >
+				</div>
+				<br><hr><br>
+				<h6>대표사진등록<b>*</b></h6>
+				<div style="font-size: 15px; opacity: .7">
+				- 분할사진 사진내에 텍스트가 포함된 사진, 클래스와 관련없는 사진은 클래스 승인 반려 사유가 되니	주의해주세요.<br> 
+				- 사진은 대표이미지 포함 최대 3장까지 첨부 할 수 있습니다.<br>
+				- 1:1 배율사진을 권장합니다.
+				</div>
+				<br>
+				<div>
+					<button>전체삭제(되나?)</button>
+				</div>
+				<br>
+				<div>
+					<table>
+					    <tr>
+					  
+					        <td>
+							<div class="content-img-area1" id="contentImgArea1">
+								<img id="contentImg1" width="150" height="120">
 							</div>
-							<br>
-							<hr>
-							<br>
-							<h6>
-								클래스 간략소개
-								<h6>
-									<div class="form-group">
-										<input style="width: 80%;" type="text" name="simpleIntro"
-											required="required">
-									</div>
-									<br>
-									<hr>
-									<br>
-									<h6>
-										대표사진등록<b>*</b>
-									</h6>
-									<div style="font-size: 15px; opacity: .7">
-										- 분할사진 사진내에 텍스트가 포함된 사진, 클래스와 관련없는 사진은 클래스 승인 반려 사유가 되니
-										주의해주세요.<br> - 사진은 대표이미지 포함 최대 3장까지 첨부 할 수 있습니다.<br>
-										- 1:1 배율사진을 권장합니다.
-									</div>
-									<br>
-									<div>
-										<button>전체삭제(되나?)</button>
-									</div>
-									<br>
-									<div>
-										<table>
-											<td>
-												<div class="content-img-area1" id="contentImgArea1">
-													<img id="contentImg1" width="150" height="120">
-												</div>
-											</td>
-											<td>
-												<div class="content-img-area2" id="contentImgArea2">
-													<img id="contentImg2" width="150" height="120">
-												</div>
-											</td>
-											<td>
-												<div class="content-img-area3" id="contentImgArea3">
-													<img id="contentImg3" width="150" height="120">
-												</div>
-											</td>
-										</table>
-										<div class="thumbnail-file-area">
-											<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)" required="required"> 
-											<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)"> <input type="file" id="thumbnailImg3" name="thumbnailImg3"
-												onchange="loadImg(this,3)">
-										</div>
-									</div>
-
-									<br>
-									<hr>
-									<br>
-									<h6>클래스주소</h6>
-									<div class="form-horizontal">
-										<div class="form-group">
-											<input id="zipCode" type="text" class="select-nomalsize" style="margin-bottom: 8px;" name="zipCode" required="required" placeholder="우편번호">
-											<button id="searchZipCode" class="submit-btn" type="button"	style="margin-left: 10px;">주소 검색</button>
-											<input id="address1" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="주소" name="address"> 
-											<input id="address2" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="상세주소" name="address">
-										</div>
-
-									</div>
-									<br>
-									<hr>
-									<br>
-
-									<button type="button" onclick="goMain();">메인으로</button>
-									<button type="button" onclick="movePage(1);">다음></button>
-
-			</div>
-
-			<jsp:include page="step4_optionalInfo.jsp" />
-			<jsp:include page="step5_terms.jsp" />
-						<c:choose>
-			    <c:when test="${requestScope.classType eq  'O' }">
-	        		<jsp:include page="step3_oneday.jsp" />
-			    </c:when>
-			    <c:otherwise>
-	        		<jsp:include page="step3_regular.jsp" />
-			    </c:otherwise>
-			</c:choose>
-			<jsp:include page="step2_classInfo.jsp" />
+						</td>
+						<td>
+							<div class="content-img-area2" id="contentImgArea2">
+								<img id="contentImg2" width="150" height="120">
+							</div>
+						</td>
+						<td>
+							<div class="content-img-area3" id="contentImgArea3">
+								<img id="contentImg3" width="150" height="120">
+							</div>
+						</td>
+						</tr>
+					</table>
+					<div class="thumbnail-file-area">
+						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)"> 
+						<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)"> 
+						<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)">
+					</div>
+				</div>
+				<br><hr><br>
+				<h6>클래스주소</h6>
+				<div class="form-horizontal">
+					<div class="form-group">
+						<input id="zipCode" type="text" class="select-nomalsize" style="margin-bottom: 8px;" name="zipCode" placeholder="우편번호">
+						<button id="searchZipCode" class="submit-btn" type="button"	style="margin-left: 10px;">주소 검색</button>
+						<input id="address1" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="주소" name="address"> 
+						<input id="address2" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="상세주소" name="address">
+					</div>
+				</div>
+				<br><hr><br>
+				<button type="button" onclick="goMain();">메인으로</button>
+				<button type="button" onclick="movePage(1);">다음></button>
+				</div>
+				<jsp:include page="step2_classInfo.jsp" />
+			    <c:choose>
+		    	    <c:when test="${requestScope.classType eq  'O' }">
+	   		     		<jsp:include page="step3_oneday.jsp" />
+				    </c:when>
+				    <c:otherwise>
+		        		<jsp:include page="step3_regular.jsp" />
+				    </c:otherwise>
+				</c:choose>
+				<jsp:include page="step4_optionalInfo.jsp" />
+				<jsp:include page="step5_terms.jsp" />
 		</div>
+	   </form>
+		
 		<br> <br>
 		<!-- 주소검색 -->
 		<script>
