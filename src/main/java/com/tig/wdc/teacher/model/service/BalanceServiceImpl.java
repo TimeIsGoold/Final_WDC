@@ -1,6 +1,7 @@
 package com.tig.wdc.teacher.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.model.dto.BalanceDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
@@ -17,9 +18,9 @@ public class BalanceServiceImpl implements BalanceService {
 	}
 
 	@Override
-	public List<BalanceDTO> selectBalanceList(PageInfoDTO pageInfo) {
+	public List<BalanceDTO> selectBalanceList(Map<String, Object> map) {
 
-		return mapper.selectBalanceList(pageInfo);
+		return mapper.selectBalanceList(map);
 	}
 
 }

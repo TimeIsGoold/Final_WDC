@@ -50,10 +50,10 @@ public class TeacherMyPageController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("teacherNo", teacherNo);
-		//map.put("")
+		map.put("pageInfo", pageInfo);
 		
 		/* 정산내역 조회 */
-		//model.addAttribute("balanceList", balanceService.selectBalanceList(pageInfo, teacherNo));
+		model.addAttribute("balanceList", balanceService.selectBalanceList(map));
 		
 		
 		return "teacher/balanace/t_balanceList";
