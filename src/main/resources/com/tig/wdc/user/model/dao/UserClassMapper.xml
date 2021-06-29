@@ -37,6 +37,7 @@
 		          AND A.TYPE = 'TITLE'
 		        ORDER BY C.CLS_NO DESC)
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
+
 	</select>
 	
 	
