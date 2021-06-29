@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<%@include file="../commons/header.jsp" %>
@@ -121,11 +123,11 @@
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item border-0 transition-link" href="class_all.html">전체보기</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_sport.html">스포츠</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_beauty.html">뷰티</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_art.html">미술 · 공예 · 공연전시</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_cook.html">요리 · 베이킹</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/all">전체보기</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/sports">스포츠</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/beauty">뷰티</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/art">미술 · 공예 · 공연전시</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/cook">요리 · 베이킹</a>
                     <a class="dropdown-item border-0 transition-link" href="class_it.html">컴퓨터 · IT</a>
                     <a class="dropdown-item border-0 transition-link" href="class_language.html">언어 · 스피치</a>
                     <a class="dropdown-item border-0 transition-link" href="class_revenue.html">재태크 · 창업</a>
@@ -137,7 +139,6 @@
                 <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
-                
               </ul>
             </div>
           </nav>
@@ -235,11 +236,13 @@
             <h2 class="h5 text-uppercase mb-4">따끈따끈 신규 클래스</h2>
           </header>
           <div class="row">
+          
             <!-- PRODUCT-->
+            <c:forEach  var="newClassList" items="${ requestScope.newClassList }">
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
                 <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/resources/user/img/product-class.png" alt="..."></a>
+                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
@@ -247,59 +250,12 @@
                     </ul>
                   </div>
                 </div>
-                <h6> <a class="reset-anchor" href="detail.html">반지수와 함께하는 아이패드 드로잉</a></h6>
-                <p class="small text-muted">35,000 원</p>
+                <h6> <a class="reset-anchor" href="detail.html">${ newClassList.title }</a></h6>
+                <p class="small text-muted">${ newClassList.price } 원</p>
               </div>
             </div>
-            <!-- PRODUCT-->
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="product text-center">
-                <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class2.png" alt="..."></a>
-                  <div class="product-overlay">
-                    <ul class="mb-0 list-inline">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <h6> <a class="reset-anchor" href="detail.html">시선을 사로잡는 브랜드 디자인</a></h6>
-                <p class="small text-muted">35,360 원</p>
-              </div>
-            </div>
-            <!-- PRODUCT-->
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="product text-center">
-                <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class3.png" alt="..."></a>
-                  <div class="product-overlay">
-                    <ul class="mb-0 list-inline">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <h6> <a class="reset-anchor" href="detail.html">파이썬을 이용한 비트코인 자동매매 봇 만들기 풀 패키지</a></h6>
-                <p class="small text-muted">44,000 원</p>
-              </div>
-            </div>
-            <!-- PRODUCT-->
-            <div class="col-xl-3 col-lg-4 col-sm-6">
-              <div class="product text-center">
-                <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class4.png" alt="..."></a>
-                  <div class="product-overlay">
-                    <ul class="mb-0 list-inline">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <h6> <a class="reset-anchor" href="detail.html">세계 명작 독후 만들기 활동으로 우리 아이 심리 파악하기</a></h6>
-                <p class="small text-muted">25,600 원</p>
-              </div>
-            </div>
-            </div>
+            </c:forEach>
+           </div>
           </section>
 
           <!-- 리뷰 많은 클래스  -->

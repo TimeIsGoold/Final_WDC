@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,11 +14,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            function moveDetail() {
-                location.href="calculateDetail.html";
-            }
-        </script>
         <style>
         	.container-fluid{
         		 margin-top: 30px;
@@ -29,11 +25,24 @@
         
             .calculateNo {
                 width: 49.8%;
+                border-radius: 5px;
+            }
+            
+            .calculateNo:hover {
+            	background : #fef0ae;
+    			color: black;
             }
 
             .calculateYes {
                 width: 49.8%;
+                border-radius: 5px;
             }
+            
+            .calculateYes:hover {
+				background : #fef0ae;
+    			color: black;
+    			border: 1px solid #fef0ae;
+			}
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -54,12 +63,12 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>정산 내역
                             </div>
-
-                            <div class="subMenuBar">
-                                <button class="calculateNo">정산 미완료 목록</button>
-                                <button class="calculateYes">정산 완료 목록</button>
-                            </div>
-
+                            
+                            <div class="sideMenu">
+                            	<input type="button" class="calculateNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                            	<input type="button" class="calculateYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y'">
+      						</div>
+                            
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
@@ -68,30 +77,28 @@
                                             <th>분류</th>
                                             <th>성명</th>
                                             <th>아이디</th>
-                                            <th>이메일</th>
-                                            <th>정산 금액</th>
                                             <th>정산 날짜</th>
+                                            <th>정산여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr onclick="moveDetail();">
-                                            <td>1</td>
-                                            <td>개인</td>
-                                            <td>이해승</td>
-                                            <td>id1</td>
-                                            <td>lee@greedy.com</td>
-                                            <td>500,000</td>
-                                            <td>2021/07/03</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>법인</td>
-                                            <td>김현빈</td>
-                                            <td>id2</td>
-                                            <td>kim@greedy.com</td>
-                                            <td>500,000</td>
-                                            <td>2021/07/03</td>
-                                        </tr>
+                     					<c:forEach items="${calculateList}" var="CalculateDTO">
+				                            <tr>
+				                                <td>${CalculateDTO.calcNo}</td>
+				                                <c:choose>
+				                                	<c:when test="${CalculateDTO.teType eq 'FREE'}">
+				                                		<td>프리랜서</td>
+				                                	</c:when>
+				                                	<c:when test="${CalculateDTO.teType eq 'INDI'}">
+				                                		<td>사업자</td>
+				                                	</c:when>
+				                                </c:choose>
+				                                <td>${CalculateDTO.teName}</td>
+				                                <td>${CalculateDTO.teId}</td>
+				                                <td>${CalculateDTO.calcMonth}</td>
+				                                <td>${CalculateDTO.calcYN}</td>
+				                            </tr>
+				                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
