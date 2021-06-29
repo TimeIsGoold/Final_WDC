@@ -27,9 +27,18 @@
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
-		SELECT
-	           *
-		  FROM CLASS A
+		SELECT 
+		       *
+		  FROM (SELECT
+		              *
+		         FROM CLASS C
+		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		        WHERE C.CLS_DICSION_STATUS = 'S'
+		          AND A.TYPE = 'TITLE'
+		        ORDER BY C.CLS_NO DESC)
+		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
+	
+	
 
 </mapper>

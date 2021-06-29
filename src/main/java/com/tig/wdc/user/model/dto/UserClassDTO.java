@@ -2,6 +2,10 @@ package com.tig.wdc.user.model.dto;
 
 import java.sql.Date;
 
+/**
+ * @author SORA
+ * 클래스 정보 DTO
+ */
 public class UserClassDTO {
 
 	private int clsNo;
