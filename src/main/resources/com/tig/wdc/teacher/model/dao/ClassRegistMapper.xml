@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.teacher.model.dao.ClassRegistMapper">
+
+    <insert id="insertClassInfo" parameterType="ClassDTO">
+        INSERT 
+          INTO CLASS
+        VALUES
+             (
+               SEQ_CLS_NO.NEXTVAL
+             , #{ title }
+             , #{ address }
+             , #{ intro }
+             , #{ cExpl }
+             , #{ time }
+             , #{ startDate }
+             , #{ endDate }
+             , #{ price }
+             , #{ addInfo }
+             , #{ addSup, jdbcType=VARCHAR }
+             , #{ dicsionStatus }
+             , #{ clsType }
+             , SYSDATE
+             , #{ status }
+             , #{ teNo }
+             , #{ categoryNo }
+             , #{ simpleIntro }
+             )
+    </insert>
+    <insert id="insertTitlePicture" parameterType="attachment">
+        <selectKey keyProperty="classNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        INSERT 
+          INTO ATTACHMENT
+        VALUES 
+             (
+               SEQ_ATTACH_NO.NEXTVAL
+             , #{ originName }
+             , #{ saveName }
+             , #{ savePath }
+             , #{ type }
+             , #{ thumbnailPath }
+             , #{ attachStatus }
+             , #{ classNo }
+             )
+    </insert>
+</mapper>

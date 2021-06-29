@@ -29,9 +29,9 @@ public class ClassDTO {
 	private int categoryNo;
 	private String simpleIntro;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private java.util.Date stardDay;
+	private java.util.Date startDay;  //매개변수 받기 위한 필드
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private java.util.Date endDay;
+	private java.util.Date endDay; //매개변수 받기 위한 필드
 
 	private List<AttachMentDTO> titlePictue;  //대표사진
 	private List<ClassPieceDTO> completePiece; //완성작
@@ -42,7 +42,7 @@ public class ClassDTO {
 	
 	public ClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType,
-			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro, java.util.Date stardDay,
+			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro, java.util.Date startDay,
 			java.util.Date endDay, List<AttachMentDTO> titlePictue, List<ClassPieceDTO> completePiece) {
 		super();
 		this.clsNo = clsNo;
@@ -63,7 +63,7 @@ public class ClassDTO {
 		this.teNo = teNo;
 		this.categoryNo = categoryNo;
 		this.simpleIntro = simpleIntro;
-		this.stardDay = stardDay;
+		this.startDay = startDay;
 		this.endDay = endDay;
 		this.titlePictue = titlePictue;
 		this.completePiece = completePiece;
@@ -209,11 +209,11 @@ public class ClassDTO {
 	public void setSimpleIntro(String simpleIntro) {
 		this.simpleIntro = simpleIntro;
 	}
-	public java.util.Date getStardDay() {
-		return stardDay;
+	public java.util.Date getStartDay() {
+		return startDay;
 	}
-	public void setStardDay(java.util.Date stardDay) {
-		this.stardDay = stardDay;
+	public void setStartDay(java.util.Date startDay) {
+		this.startDay = startDay;
 	}
 	public java.util.Date getEndDay() {
 		return endDay;
@@ -240,7 +240,7 @@ public class ClassDTO {
 				+ ", cExpl=" + cExpl + ", time=" + time + ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", price=" + price + ", addInfo=" + addInfo + ", addSup=" + addSup + ", dicsionStatus="
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
-				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", stardDay=" + stardDay
+				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", startDay=" + startDay
 				+ ", endDay=" + endDay + ", titlePictue=" + titlePictue + ", completePiece=" + completePiece + "]";
 	}
 }

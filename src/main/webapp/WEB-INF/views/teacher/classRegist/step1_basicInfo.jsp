@@ -126,13 +126,12 @@
 				</div>
 				<br>
 				<div>
-					<button>전체삭제(되나?)</button>
+					<button type="button">전체삭제(되나?)</button>
 				</div>
 				<br>
 				<div>
 					<table>
 					    <tr>
-					  
 					        <td>
 							<div class="content-img-area1" id="contentImgArea1">
 								<img id="contentImg1" width="150" height="120">

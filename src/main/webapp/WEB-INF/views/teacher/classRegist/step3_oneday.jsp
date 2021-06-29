@@ -155,7 +155,7 @@ input[name="dayName"] {
 				</div>
 			</div>
 			<div class="col-md-5" align="center">시작일과 종료일을 입력해주세요<br> 
-				<input type="date" name="stardDay"> - <input type="date" name="endDay">
+				<input type="date" name="startDay"> - <input type="date" name="endDay">
 			</div>
 			<div class="col-md-11" style="margin: 20px 0 20px 42px; height: 350px; background-color: #f5f5f5;">
 			여기 입력이 될거야

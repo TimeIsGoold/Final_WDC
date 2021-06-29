@@ -1,7 +1,5 @@
 package com.tig.wdc.model.dto;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,14 +14,13 @@ public class ClassPieceDTO {
 	private String pieceTitle;					//완성작제목
 	private String piecePicture;				//완성작사진
 	private int classNo;						//클래스번호
-	Map<String, MultipartFile> pictureInfo;		//사진정보
+	MultipartFile pictureInfo;		//사진정보
 
 	public ClassPieceDTO() {
 		super();
 	}
 
-	public ClassPieceDTO(int pieceNo, String pieceTitle, String piecePicture, int classNo,
-			Map<String, MultipartFile> pictureInfo) {
+	public ClassPieceDTO(int pieceNo, String pieceTitle, String piecePicture, int classNo, MultipartFile pictureInfo) {
 		super();
 		this.pieceNo = pieceNo;
 		this.pieceTitle = pieceTitle;
@@ -64,11 +61,11 @@ public class ClassPieceDTO {
 		this.classNo = classNo;
 	}
 
-	public Map<String, MultipartFile> getPictureInfo() {
+	public MultipartFile getPictureInfo() {
 		return pictureInfo;
 	}
 
-	public void setPictureInfo(Map<String, MultipartFile> pictureInfo) {
+	public void setPictureInfo(MultipartFile pictureInfo) {
 		this.pictureInfo = pictureInfo;
 	}
 
@@ -76,5 +73,5 @@ public class ClassPieceDTO {
 	public String toString() {
 		return "ClassPieceDTO [pieceNo=" + pieceNo + ", pieceTitle=" + pieceTitle + ", piecePicture=" + piecePicture
 				+ ", classNo=" + classNo + ", pictureInfo=" + pictureInfo + "]";
-	} 
+	}
 }
