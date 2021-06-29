@@ -48,6 +48,7 @@ public class TeacherMyPageController {
 		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, balanceService.selectBalanceCount(), 5, 5);
 		model.addAttribute("pageInfo", pageInfo);
 		
+		/* 문의사항 목록 검색 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("teacherNo", teacherNo);
 		map.put("pageInfo", pageInfo);

@@ -95,12 +95,29 @@ public class AdminController {
 		return "admin/adminCalculateManagement";
 	}
 	
-	@GetMapping("memberInfoDetail")
-	public String memberInfoDetail(@RequestParam("")Model model) {
-		
-		model.addAttribute("memberInfo", adminService.selectOneStudent());
-		
-		return "admin/MemberManager-admin";
-	}
+	/*
+    * 회원 상세 - 현빈
+    * 
+    * @param model
+    * @return
+    */
+   @GetMapping("memberInfoDetail")
+   public String memberInfoDetail(@RequestParam("memberType")String type, @RequestParam("memberNo")int no, Model model) {
+
+      String path = "";
+      
+      if(type.equals("T")) {
+         
+         //model.addAttribute("memberInfo", adminService.selectOneTeacher(no));
+         
+         path = "admin/MemberManager-Teacher";
+      } else {
+         //model.addAttribute("memberInfo", adminService.selectOneStudent(no));
+         
+         path = "admin/MemberManager-Student";
+      }
+      return path;
+   }
+
 
 }

@@ -14,11 +14,12 @@ public class BalanceDTO {
 	private int cardFee;		// 카드 수수료
 	private int teNo;			// 강사 번호
 	private int tuitionMNo;		// 수업료 관리번호
+	private int rowNum;			// ROWNUM 사용 용도
 	
 	public BalanceDTO() {}
 
 	public BalanceDTO(int calcNo, String calcMonth, int calcAmount, int useFee, int tax, int cardFee, int teNo,
-			int tuitionMNo) {
+			int tuitionMNo, int rowNum) {
 		super();
 		this.calcNo = calcNo;
 		this.calcMonth = calcMonth;
@@ -28,6 +29,7 @@ public class BalanceDTO {
 		this.cardFee = cardFee;
 		this.teNo = teNo;
 		this.tuitionMNo = tuitionMNo;
+		this.rowNum = rowNum;
 	}
 
 	public int getCalcNo() {
@@ -94,11 +96,19 @@ public class BalanceDTO {
 		this.tuitionMNo = tuitionMNo;
 	}
 
+	public int getRowNum() {
+		return rowNum;
+	}
+
+	public void setRowNum(int rowNum) {
+		this.rowNum = rowNum;
+	}
+
 	@Override
 	public String toString() {
 		return "BalanceDTO [calcNo=" + calcNo + ", calcMonth=" + calcMonth + ", calcAmount=" + calcAmount + ", useFee="
 				+ useFee + ", tax=" + tax + ", cardFee=" + cardFee + ", teNo=" + teNo + ", tuitionMNo=" + tuitionMNo
-				+ "]";
+				+ ", rowNum=" + rowNum + "]";
 	}
 
 }
