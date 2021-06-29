@@ -1,9 +1,20 @@
 package com.tig.wdc.teacher.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.tig.wdc.common.PageNation;
+import com.tig.wdc.model.dto.PageInfoDTO;
+import com.tig.wdc.teacher.model.service.BalanceService;
 
 /**
  * @author 강현우
@@ -12,6 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/teacher/*")
 public class TeacherMyPageController {
+	
+	private BalanceService balanceService;
+	
+	@Autowired
+	public TeacherMyPageController(BalanceService balanceService) {
+		this.balanceService = balanceService;
+	}
 	
 	/* 클래스 관리 */
 	@GetMapping("/teacherClassManagement")
@@ -22,13 +40,26 @@ public class TeacherMyPageController {
 	
 	/* 정산관리 */
 	@GetMapping("/teacherBalanceList")
-	public String teacherBalanceList() {
+	public String teacherBalanceList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
+		
+		int teacherNo = (Integer) session.getAttribute("teacherNo");
+		
+		/* 페이징 처리 */
+		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, balanceService.selectBalanceCount(), 5, 5);
+		model.addAttribute("pageInfo", pageInfo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		
+		/* 정산내역 조회 */
+		//model.addAttribute("balanceList", balanceService.selectBalanceList(pageInfo, teacherNo));
+		
 		
 		return "teacher/balanace/t_balanceList";
 	}
 	
 	/* 문의하기 */
-	@GetMapping("/teacherinquiry")
+	@GetMapping("/teaccherInquiry")
 	public String teacherInquiry() {
 		
 		return "teacher/reportInquiry/t_inquiry";
