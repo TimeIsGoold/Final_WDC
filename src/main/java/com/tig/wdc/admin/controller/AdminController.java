@@ -176,11 +176,9 @@ public class AdminController {
 	public String selectMemberBycategory(@RequestParam("ut")String type, Model model) {
 		System.out.println("type : " + type);
 		if(type.equals("tc")) {
-			
-			
 			model.addAttribute("totalList", adminService.selectTeacherList());
-		} else if (type.equals("st")) {
 			
+		} else if (type.equals("st")) {
 			model.addAttribute("totalList", adminService.selectStudentList());
 		}
 		
@@ -189,9 +187,21 @@ public class AdminController {
 	}
 	
 	@GetMapping("reportDetail")
-	public String selectReportDetail() {
+	public String selectReportDetail(@RequestParam("no")int no,@RequestParam("type")String type,Model model) {
 		
-		return "admin/admin";
+		
+//		if(type.equals("수강생")) {
+			// 수강생
+			System.out.println("타임이 뭔데  ? : " + type);
+			System.out.println("맞쥬? 맞쥬? 내말 맞주?"+ no);
+			model.addAttribute("reportDetail", adminService.selectStudentReportList(no));
+//		}
+			
+//		} else {
+//			// 학생
+//			model.addAttribute("reportDetail", adminService.selectTeacherReportList(no));
+//		}
+		return "admin/reportPage";
 	}
 
 }

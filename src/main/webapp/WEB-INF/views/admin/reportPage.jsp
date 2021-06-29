@@ -5,20 +5,30 @@
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta  name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>우리동네 클래스</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-            rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         
+            <style type="text/css">
+        #wrap {
+            width: 800px;
+            margin: 0 auto 0 auto;
+        }
+    
+        #detailBoard{
+            text-align :center;
+        }
+        
+        #title{
+            height : 16;
+            font-size : 12;
+            text-align :left;
+        }
+    </style>
     </head>
     <body class="sb-nav-fixed">
 
@@ -38,36 +48,39 @@
                         <div class="card md-4" ></div>
                         <div class="card mb-4" align="center">
                             <div class="card-header" style="font-size: x-large;">
-                                <i class="fas fa-table me-1"></i>
-                                신고 상세 페이지
-                            </div>
-                            
-                            <div style="width: 700px;" id="hb">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>제목</th>
-                                            <td>신고합니다!</td>
-                                            <th>작성 시간</th>
-                                            <td>2021-06-20</td>
-                                        </tr>
-                                        <tr>
-                                            <th>작성자</th>
-                                            <td>이해승</td>
-                                            <th>작성자 타입</th>
-                                            <td>강사</td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <th>내용</th>
-                                            <td colspan="3">
-                                                <img src="../startbootstrap-sb-admin-gh-pages/pic/color.jpg" alt="콜라" width="400px" height="400px" >
-                                                <br>
-                                                김현빈 회원이 그릇을 깨고 도망갔습니다.
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <i class="fas fa-table me-1"></i>신고 상세 페이지</div>
+		                          <div id="wrap">
+								    <br><br>
+								    <div id="board">
+								        <table id="detailBoard" width="800" border="3" bordercolor="lightgray" class="table">
+								        
+								            <tr>
+								                <th id="title">글번호</th>
+								                <td>${reportDetail.reportNo}</td>
+								                <th id="title">신고 날짜</th>
+								                <td>${reportDetail.reportDate}</td>
+								            <tr>
+								                <th id="title">신고 대상 아이디</th>
+								                <td>${reportDetail.reportTitle}</td>        
+								                <th id="title">신고 대상 이름 </th>
+								                <td>${reportDetail.reportedNmae}</td>        
+								            </tr>
+								            <tr>
+								                <th id="title">신고 제목</th>
+								                <td>${reportDetail.reportStatua}</td>        
+								                <th id="title">신고 처리 상태 </th>
+								                <td>${reportDetail.reportStatua}</td>        
+								            </tr>
+								            <tr>
+								                <th id="title">내 용 </th>
+								                <td>
+								                	<img src="${ pageContext.servletContext.contextPath }/resources/teacher/img/user.png"/>
+								                <p>${reportDetail.reason}<p></td>      
+								                  
+								            </tr>
+								        </table>
+								    </div>
+								 </div>    
                             </div>
                             <div class="row" align="center">
                                 <div class=col-sm-5>
@@ -80,26 +93,18 @@
                                 </div>
                                 <div class="col-sm-5">
                                 </div>
-                            </div>
-                        </div>
+                     		 </div>
                         <div class="card md-4"></div>
                     </div>
                 </main>
             </div>
-            
         </div>
-        <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-            crossorigin="anonymous"></script>
+        <script  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>
 </html>

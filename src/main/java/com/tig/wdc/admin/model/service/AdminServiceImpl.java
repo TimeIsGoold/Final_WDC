@@ -12,6 +12,7 @@ import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
+import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
@@ -91,6 +92,13 @@ public class AdminServiceImpl implements AdminService {
 	 
 		 return mapper.selectAllCalculateList(); 
 	}
+
+	@Override
+	public ReportDetailDTO selectStudentReportList(int no) {
+		
+		return mapper.selectStudentReportList(no);
+	}
+
 	 
 
 }
