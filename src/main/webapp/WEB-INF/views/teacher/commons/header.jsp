@@ -49,7 +49,7 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" id="top">
     <c:choose>
         <c:when test="${ sessionScope.teacherNo gt 0 }">
         <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="t_main.html"><span class=" text-uppercase text-dark" style="font-size: 35px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png" width="35px" height="35px">우리 동네 클래스</span></a>
@@ -61,6 +61,8 @@
             <ul class="navbar-nav ml-auto">               
               <li class="nav-item"><a class="nav-link" href="t_InfoEdit.html"><i class="fas fa-user-alt mr-1 text-gray"></i>마이 페이지</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
               <li class="nav-item"><a class="nav-link" onclick="logoutCheck();"><i class="fas fa-user-alt mr-1 text-gray"></i>로그아웃</a></li>
+            </ul>
+          </div>
               <script>
                   function logoutCheck(){
                 	  if(confirm("로그아웃 하시겠습니까?")){
@@ -70,8 +72,6 @@
                 	  }
                   }
               </script>
-            </ul>
-          </div>
         </nav>
         </c:when>
         <c:otherwise>

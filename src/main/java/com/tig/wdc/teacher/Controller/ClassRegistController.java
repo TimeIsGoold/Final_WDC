@@ -1,8 +1,13 @@
 package com.tig.wdc.teacher.Controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,28 +21,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
+import com.tig.wdc.teacher.model.service.ClassRegistService;
 import com.tig.wdc.user.model.dto.ClassDTO;
 
+/**
+ * @author 이해승
+ * 클래스 등록
+ *
+ */
 @Controller
 @RequestMapping("classRegist/*")
 public class ClassRegistController {
 
+	private final ClassRegistService classService;
 	private AttachMentDTO titlePicture;
 	private	ClassPieceDTO classPiece;
 	
 	@Autowired
-	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece) {
+	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistService classService) {
 		super();
 		this.titlePicture = titlePicture;
 		this.classPiece = classPiece;
+		this.classService = classService;
 	}
 
-
+	//클래스 타입(원데이, 정규 입력)
 	@GetMapping("step1/{classType}")
 	public String registStep1(RedirectAttributes rttr, @PathVariable("classType") String type) {
 		
@@ -46,33 +56,75 @@ public class ClassRegistController {
 		return "teacher/classRegist/step1_basicInfo"; 
 	}
 
-	
-	@PostMapping("step2")
-	public String registStep2(@ModelAttribute ClassDTO classInfo, Model model, @RequestParam Map<String, MultipartFile> pictures) {
+	//클래스 정보 insert
+	@PostMapping("classInsert")
+	public String registStep2(@ModelAttribute ClassDTO classInfo, Model model, @RequestParam Map<String, MultipartFile> pictures, HttpServletRequest request) {
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm:ss:SSS").setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls().disableHtmlEscaping().create();
-
-		List<AttachMentDTO> pictureList = new ArrayList<>();
-		for(int i = 0; i < pictures.size(); i++) {
-			if(pictures.get("thumbnailImg"+(i+1)).getOriginalFilename() != null && pictures.get("thumbnailImg"+(i+1)).getOriginalFilename().length() > 0) {
-				titlePicture.setPictureInfo(pictures.get("thumbnailImg"+(i+1)));
-				pictureList.add(titlePicture);
+		/* 1. 클래스 정보 INSERT */
+		//날짜 ,시간 변환
+		if(classInfo.getEndDay() != null) {
+			classInfo.setEndDate(new java.sql.Date(classInfo.getEndDay().getTime()));
+		}
+		if(classInfo.getStartDay() != null) {
+			classInfo.setStartDate(new java.sql.Date(classInfo.getStartDay().getTime()));
+		}
+		
+		String[] timeSplit = classInfo.getTime().split(",");
+		classInfo.setTime(timeSplit[0] + ":" + timeSplit[1]);
+		classInfo.setTeNo((Integer)request.getSession().getAttribute("teacherNo"));
+		classInfo.setDicsionStatus("W");
+		classInfo.setStatus("Y");
+		
+		/* 사진 추가할 경로 */
+		//루트 경로
+		String root = request.getServletContext().getRealPath("resources");
+		
+		//파일저장할 경로(없을 경우 생성)
+		String filePath = root + "\\upload";
+		File mkdir = new File(filePath);
+		if(!mkdir.exists()) {
+			mkdir.mkdirs();
+		}
+		int classInsertResult = classService.insertClassInfo(classInfo);
+		
+		/* 2. 클래스 대표사진 INSERT */
+		int totalCount = 0; //전체 사진 수
+		int insertCount = 0; //사진 insert 카운투
+		for(int i = 1; i < 4; i++) {
+			
+			if(!pictures.get("thumbnailImg" + i).isEmpty()) {
+				totalCount++;
+				MultipartFile img = pictures.get("thumbnailImg" + i);
+				String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
+				titlePicture.setOriginName(img.getOriginalFilename());
+				titlePicture.setSaveName(UUID.randomUUID().toString().replace("-", "") + ext);
+				titlePicture.setSavePath(filePath);
+				titlePicture.setThumbnailPath(filePath);
+				titlePicture.setAttachStatus("Y");
+				titlePicture.setPictureInfo(img);
+				if(i == 1) {
+					titlePicture.setType("TITLE");
+				} else {
+					titlePicture.setType("BODY");
+				}
+				
+				try {
+					System.out.println(titlePicture);
+					img.transferTo(new File(filePath + "\\" + titlePicture.getSaveName()));
+					insertCount += classService.insertTitlePicture(titlePicture);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		};
+		}
+
+		//클래스 대표사진 출력
+
 		
-		classInfo.setTitlePictue(pictureList);
+		/* 3. 완성작 INSERT*/
+		List<ClassPieceDTO> pieceList = new ArrayList<>();
 		
-		String firstInfo = gson.toJson(classInfo);
-		model.addAttribute("classInfo", firstInfo);
-		return "teacher/classRegist/registStep2_classIntro";
-	}
-	
-	@PostMapping("step3")
-	public String registStep3(Model model, @ModelAttribute ClassDTO classInfo, @RequestParam String classInfo1) {
-		
-		System.out.println(classInfo1);
-		System.out.println(classInfo);
 		return "";
 	}
-	
 }
