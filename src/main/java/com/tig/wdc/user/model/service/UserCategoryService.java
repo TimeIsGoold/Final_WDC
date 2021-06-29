@@ -18,4 +18,8 @@ public interface UserCategoryService {
 	public List<UserClassDTO> selectClassCookCategory();
 	
 	public List<UserClassDTO> selectClassComputerCategory();
+
+	public List<UserClassDTO> selectClassLanguageCategoty();
+
+	public List<UserClassDTO> selectClassRevenuCategoty();
 }

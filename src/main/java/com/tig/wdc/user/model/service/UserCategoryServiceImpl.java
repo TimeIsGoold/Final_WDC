@@ -47,4 +47,14 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 		return mapper.selectClassComputerCategory();
 	}
 
+	@Override
+	public List<UserClassDTO> selectClassLanguageCategoty() {
+		return mapper.selectClassLanguageCategory();
+	}
+
+	@Override
+	public List<UserClassDTO> selectClassRevenuCategoty() {
+		return mapper.selectClassRevenuCategory();
+	}
+
 }
