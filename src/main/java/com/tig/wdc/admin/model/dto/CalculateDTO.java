@@ -1,5 +1,7 @@
 package com.tig.wdc.admin.model.dto;
 
+import java.sql.Date;
+
 public class CalculateDTO {
 
 	private int calcNo;
@@ -76,6 +78,6 @@ public class CalculateDTO {
 		return "CalculateDTO [calcNo=" + calcNo + ", teType=" + teType + ", teName=" + teName + ", teId=" + teId
 				+ ", calcMonth=" + calcMonth + ", calcYN=" + calcYN + "]";
 	}
-	
+
 	
 }

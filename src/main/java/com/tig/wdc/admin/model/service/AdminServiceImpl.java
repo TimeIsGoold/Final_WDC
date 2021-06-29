@@ -47,8 +47,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	/**
+	 * @author 송아현
 	 * 전체 문의 사항
-	 * 아현
+	 * 
 	 */
 	@Override
 	public List<QuestionDTO> selectAllQuestionList() {
@@ -57,8 +58,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	/**
+	 * @author 송아현
 	 * 강사 문의 사항
-	 * -아현-
+	 * 
 	 */
 	@Override
 	public List<QuestionDTO> selectTeacherQuestionList() {
@@ -68,8 +70,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	
 	/**
+	 * @author 송아현
 	 * 학생 문의 사항
-	 * -아현-
+	 * 
 	 */
 	@Override
 	public List<QuestionDTO> selectStudentQuestionList() {
@@ -101,8 +104,9 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 	/**
+	 * @author 송아현
 	 * 쿠폰
-	 * -아현-
+	 * 
 	 */
 	@Override
 	public List<CouponDTO> selectAllCouponList() {
@@ -111,8 +115,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	/**
+	 * @author 송아현
 	 * 공지
-	 * -아현-
+	 * 
 	 */
 	@Override
 	public List<NoticeDTO> selectAllNoticeList() {
@@ -121,8 +126,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	 /**
+	 * @author 송아현
 	 * 미정산
-	 * -아현-
+	 * 
 	 */
 	@Override 
 	 public List<CalculateDTO> selectNoCalculateList() {
@@ -131,8 +137,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 	 
 	 /**
+	 * @author 송아현
 	 * 정산완료
-	 * -아현-
+	 * 
 	 */
 	@Override 
 	 public List<CalculateDTO> selectYesCalculateList() {

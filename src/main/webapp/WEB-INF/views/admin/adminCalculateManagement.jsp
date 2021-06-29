@@ -25,6 +25,7 @@
         
             .calculateNo {
                 width: 49.8%;
+                border-radius: 5px;
             }
             
             .calculateNo:hover {
@@ -34,11 +35,13 @@
 
             .calculateYes {
                 width: 49.8%;
+                border-radius: 5px;
             }
             
             .calculateYes:hover {
 				background : #fef0ae;
     			color: black;
+    			border: 1px solid #fef0ae;
 			}
         </style>
     </head>
@@ -61,11 +64,11 @@
                                 <i class="fas fa-table me-1"></i>정산 내역
                             </div>
                             
-                            <div class="btn-group btn-group-justified">
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N" class="btn btn-warning">정산 미완료</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y" class="btn btn-warning">정산 완료</a>
+                            <div class="sideMenu">
+                            	<input type="button" class="calculateNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                            	<input type="button" class="calculateYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y'">
       						</div>
-
+                            
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>

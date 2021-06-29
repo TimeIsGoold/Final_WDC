@@ -28,7 +28,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 로그인 - 아현
+	 * @author 송아현
+	 * 로그인
 	 * 
 	 * @return
 	 */
@@ -38,14 +39,14 @@ public class AdminController {
 	}
 
 	/**
-	 * 회원관리 - 현빈
+	 * @author 김현빈
+	 * 회원관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
-
 
 		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
 
@@ -57,7 +58,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 클래스 관리 - 현빈
+	 * @author 김현빈
+	 * 클래스 관리
 	 * 
 	 * @param model
 	 * @return
@@ -71,7 +73,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 신고관리 - 현빈
+	 * @author 김현빈
+	 * 신고관리
 	 * 
 	 * @param model
 	 * @return
@@ -85,13 +88,14 @@ public class AdminController {
 	}
 
 	/**
-	 * 문의관리 - 아현
+	 * @author 송아현
+	 * 문의관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("questionManagement")
-	public String selectQustionList(@RequestParam("mt")String type , Model model) {
+	public String selectQustionList(@RequestParam("mt")String type, Model model) {
 
 		if(type.equals("to")) {
 			model.addAttribute("questionList", adminService.selectAllQuestionList());
@@ -103,9 +107,35 @@ public class AdminController {
 
 		return "admin/adminQuestionManagement";
 	}
+	
+	
+	/**
+	 * @author 송아현
+	 * @param type
+	 * @param no
+	 * @param model
+	 * @return
+	 */
+	/*
+	 * @GetMapping("questionInfoDetail") public String
+	 * questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String
+	 * id, Model model) {
+	 * 
+	 * String path = "";
+	 * 
+	 * if(type.equals("tc")) {
+	 * 
+	 * model.addAttribute("", adminService.selectDetail());
+	 * 
+	 * path = ""; } else if(type.equals("st")) {
+	 * model.addAttribute("", adminService.selectDetail());
+	 * 
+	 * path = ""; } return path; }
+	 */
 
 	/**
-	 * 쿠폰 관리 - 아현
+	 * @author 송아현
+	 * 쿠폰 관리
 	 * 
 	 * @param model
 	 * @return
@@ -119,7 +149,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 공지 관리 - 아현
+	 * @author 송아현
+	 * 공지 관리
 	 * 
 	 * @param model
 	 * @return
@@ -133,7 +164,8 @@ public class AdminController {
 	}
 	
 	/**
-	 * 정산 관리 - 아현
+	 * @author 송아현
+	 * 정산 관리
 	 * 
 	 * @param model
 	 * @return
@@ -203,5 +235,7 @@ public class AdminController {
 		
 		return "admin/admin";
 	}
+	
+	
 
 }

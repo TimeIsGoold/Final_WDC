@@ -24,50 +24,57 @@ public interface AdminMapper {
 	List<TotalDTO> selectTeacherList();
 
 	/**
+	 * @author 송아현
 	 * 전체 문의
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<QuestionDTO> selectAllQuestionList();
 	
 	/**
+	 * @author 송아현
 	 * 강사문의
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<QuestionDTO> selectTeacherQuestionList();
 
 	/**
+	 * @author 송아현
 	 * 고객문의
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<QuestionDTO> selectStudentQuestionList();
 	
 	/**
+	 * @author 송아현
 	 * 쿠폰
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<CouponDTO> selectAllCouponList();
 
 	/**
+	 * @author 송아현
 	 * 공지
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<NoticeDTO> selectAllNoticeList();
 	
 	/**
+	 * @author 송아현
 	 * 미정산
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<CalculateDTO> selectNoCalculateList();
 	
 	/**
+	 * @author 송아현
 	 * 정산완료
-	 * 아현
+	 * 
 	 * @return
 	 */
 	List<CalculateDTO> selectYesCalculateList();
