@@ -1,5 +1,7 @@
 package com.tig.wdc.model.dto;
 
+import java.util.List;
+
 /**
  * @author 이해승
  * 강사정보 DTO
@@ -21,7 +23,6 @@ public class TeacherInfoDTO {
 	private String teacherBlockStatus;	//블랙리스트여부
 	private String teacherPicture;		//강사사진
 	
-
 	public TeacherInfoDTO() {}
 		
 	public TeacherInfoDTO(int teacherNo, String teacherId, String teacherPwd, String teacherType, String teacherIdNo,

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -123,17 +124,27 @@
         </div>
         <br><br><br>
         <h6>카테고리 선택</h6>
+        <form method="post" action="${pageContext.servletContext.contextPath }/classRegist/step2" enctype="multipart/form-data">
         <div class="form-inline">
-          <select class="form-group" style="width: 200px; margin-right: 20px;">
-            <option>원데이</option>
+        
+          <c:if test="${requestScope.classType eq  'O' }">
+          <select class="form-group" style="width: 200px; margin-right: 20px;" name="clsType">
+            <option value="O">원데이</option>
           </select>
-          <select class="form-group" style="width: 200px; margin-right: 20px;">
-            <option>스포츠</option>
-            <option>요리/베이킹</option>
-            <option>미술/공예/공연전시</option>
-            <option>뷰티</option>
-            <option>컴퓨터/IT</option>
-            <option>재테크/창업</option>
+          </c:if>
+          <c:if test="${requestScope.classType eq 'R' }">
+          <select class="form-group" style="width: 200px; margin-right: 20px;" name="clsType">
+            <option value="R">정규과정</option>
+          </select>
+          </c:if>
+          <select class="form-group" style="width: 200px; margin-right: 20px;" name="categoryNo">
+            <option value="1">스포츠</option>
+            <option value="2">요리/베이킹</option>
+            <option value="3">미술/공예/공연전시</option>
+            <option value="4">뷰티</option>
+            <option value="5">컴퓨터/IT</option>
+            <option value="6">언어/스피치</option>
+            <option value="7">재테크/창업</option>
           </select>
 
         </div>
@@ -142,13 +153,13 @@
         <br>
         <h6>클래스 타이틀<h6>
             <div class="form-group">
-              <input style="width: 80%;" type="text">
+              <input style="width: 80%;" type="text" name="title" required="required">
             </div>
             <br>
             <hr><br>
         <h6>클래스 간략소개<h6>
             <div class="form-group">
-              <input style="width: 80%;" type="text">
+              <input style="width: 80%;" type="text" name="simpleIntro" required="required">
             </div>
             <br>
             <hr><br>
@@ -178,13 +189,13 @@
                 <td>
                   <div class="content-img-area3" id="contentImgArea3">
                     <img id="contentImg3" width="150" height="120">
-                  </divㅠ>
+                  </div>
                 </td>
               </table>
               <div class="thumbnail-file-area">
-                <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)">
-                <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)">
-                <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)">
+                <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this,1)" required="required">
+                <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this,2)" >
+                <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this,3)" >
               </div>
             </div>
             
@@ -193,22 +204,56 @@
               <h6>클래스주소</h6>
               <div class="form-horizontal">
                 <div class="form-group">
-                  <input type="text" class="select-nomalsize"  style="margin-bottom: 8px;"  name="address" value="" required="required" placeholder="우편번호">
-                  <button class="submit-btn" type="button" style="margin-left: 10px;" onclick="openZipSearch()" >주소 검색</button>
-                  <input type="text" class="form-control"style="width: 50%; margin-bottom: 8px;" placeholder="주소">
-                  <input type="text" class="form-control"style="width: 50%; margin-bottom: 8px;" placeholder="상세주소">
+                  <input id="zipCode" type="text" class="select-nomalsize"  style="margin-bottom: 8px;"  name="zipCode"  required="required" placeholder="우편번호">
+                  <button id="searchZipCode" class="submit-btn" type="button" style="margin-left: 10px;" >주소 검색</button>
+                  <input id="address1"type="text" class="form-control"style="width: 50%; margin-bottom: 8px;" placeholder="주소" name="address">
+                  <input type="text" class="form-control"style="width: 50%; margin-bottom: 8px;" placeholder="상세주소" name="address">
                 </div>
 
               </div>
               <br>
               <hr><br>
 
-              <button onclick="location.href='t_main.html'">메인으로</button>
-              <button onclick="location.href='t_oneDay2_classIntro.html'">다음></button>
+              <button type="button" onclick="goMain();">메인으로</button>
+              <button type="submit">다음></button>
+              </form>
+              <script>
+                  function goMain(){
+                	  if(confirm("메인으로 돌아가시겠습니까?<br> 작성중인 내용은 유지되지 않습니다.")){
+                		  location.href = "${pageContext.servletContext.contextPath }/teacher/main";
+                	  } else {
+                		  location.href = "#";
+                	  }
+                  }
+              </script>
       </div>
     </div>
     <br>
     <br>
+    <!-- 주소검색 -->
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		const $searchZipCode = document.getElementById("searchZipCode");
+		const $goMain = document.getElementById("goMain");
+		
+		$searchZipCode.onclick = function() {
+		
+			//다음 우편번호 검색 창을 오픈하면서 동작할 콜백 메소드를 포함한 객체를 매개변수로 전달한다.
+			new daum.Postcode({
+				oncomplete: function(data){
+					//팝업에서 검색결과 항목을 클릭했을 시 실행할 코드를 작성하는 부분
+					document.getElementById("zipCode").value = data.zonecode;
+					document.getElementById("address1").value = data.address;
+					document.getElementById("address2").focus();
+				}
+			}).open();
+		}
+		
+		$goMain.onclick = function() {
+			location.href = "${ pageContext.servletContext.contextPath }";
+		}
+	</script>    
+    <!-- /주소검색 -->
     <!-- //정규클래스등록1-->
   </div>
   <!-- //본문 -->

@@ -120,6 +120,8 @@
           <div class="col-md-3 step">클래스 등록 및 약관동의</div>
         </div>
         <br><br><br>
+        <form method="post" action="${pageContext.servletContext.contextPath }/classRegist/step3" enctype="multipart/form-data">
+    
         <h6>클래스 소개 입력</h6>
         <div style="font-size: 15px; opacity: .7">
           - 클래스 소개를 자세히 작성해주세요.(이력 및 경력 사항은 프로필에 작성)<br>
@@ -132,7 +134,7 @@
           <div class="col-md-12" align="right" style="font-size: small;">0/1000</div>
         </div>
         <div class="form-group">
-          <textarea class="form-control" rows="10"></textarea>
+          <textarea class="form-control" rows="10" name="intro"></textarea>
         </div>
         <br><br><hr><br><br>
         <h6>클래스 완성작 등록<b> *</b></h6>
@@ -170,7 +172,7 @@
             </div>
             <br>
             <div class="form-group">
-              <textarea class="form-control" rows="5"></textarea>
+              <textarea class="form-control" rows="5" name="cExpl"></textarea>
             </div>
             <br><br><hr><br><br>
 
@@ -261,8 +263,10 @@
             <div>
 
             </div>
-            <button onclick="location.href='t_oneDay1_basicInfo.html'">이전</button>
-            <button onclick="location.href='t_oneDay3_scheduleAndPrice.html'">다음</button>
+            <input type="hidden" value="${ firstInfo }" name="classInfo1">
+            <button type = "button" onclick="location.href='t_oneDay1_basicInfo.html'">이전</button>
+            <button type = "submit" >다음</button>
+        </form>
       </div>
     </div>
     <br>
