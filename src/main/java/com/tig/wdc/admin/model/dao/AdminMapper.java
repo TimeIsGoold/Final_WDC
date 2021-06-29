@@ -16,6 +16,8 @@ import com.tig.wdc.admin.model.dto.QuestionDTO;
 
 public interface AdminMapper {
 
+
+
 	List<TotalDTO> selectTotalUsertList();
 	
 	List<ClassDTO> selectAllClassList();
@@ -88,5 +90,6 @@ public interface AdminMapper {
 
 	
 	ReportDetailDTO selectStudentReportList(int no);
+
 
 }

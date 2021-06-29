@@ -155,10 +155,6 @@ public class AdminServiceImpl implements AdminService {
 		 return mapper.selectYesCalculateList(); 
 	}
 
-	@Override
-	public List<CalculateDTO> selectAllCalculateList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }
