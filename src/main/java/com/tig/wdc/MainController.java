@@ -31,10 +31,16 @@ public class MainController {
 	public String main(Model model) {
 
 		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
-		
 		newClassList = classService.selectNewClassList();
-		
 		model.addAttribute("newClassList",newClassList);
+		
+		List<UserClassDTO> topClassList = new ArrayList<UserClassDTO>();
+		topClassList = classService.selectTopClassList();
+		model.addAttribute("topClassList",topClassList);
+		
+		List<UserClassDTO> cheerClassList = new ArrayList<UserClassDTO>();
+		cheerClassList = classService.selectCheerClassList();
+		model.addAttribute("cheerClassList",cheerClassList);
 		
 		return "user/main/main";
 	}

@@ -1,6 +1,7 @@
 package com.tig.wdc.teacher.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.model.dto.BalanceDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
@@ -14,6 +15,6 @@ public interface TeacherBalanceMapper {
 
 	int selectBalanceCount();
 
-	List<BalanceDTO> selectBalanceList(PageInfoDTO pageInfo);
+	List<BalanceDTO> selectBalanceList(Map<String, Object> map);
 	
 }

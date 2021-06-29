@@ -20,12 +20,23 @@
 		  FROM CALCULATE A
 	</select>
 
-	<select id="selectBalanceList" parameterType="paging" resultMap="calculateInfo">
-		SELECT A.CALC_NO
-		     , A.CALC_MONTH
-		     , A.CALC_AMOUNT
-		  FROM CALCULATE A
-		 WHERE A.TE_NO = ?
-		 ORDER BY A.CALC_MONTH DESC
+	<select id="selectBalanceList" parameterType="hashmap" resultMap="calculateInfo">
+		SELECT C.ROWNUM
+			   C.CALC_NO
+		     , C.CALC_MONTH
+		     , C.CALC_AMOUNT
+		  FROM (SELECT ROWNUM
+			           B.CALC_NO
+		     		 , B.CALC_MONTH
+		             , B.CALC_AMOUNT
+		          FROM ( SELECT A.CALC_NO
+		     		          , A.CALC_MONTH
+		     		          , A.CALC_AMOUNT
+		  		           FROM CALCULATE A
+		 		          WHERE A.TE_NO = #{ teacherNo }
+		 		          ORDER BY A.CALC_MONTH DESC
+		 	           ) B
+		 	   ) C
+		 WHERE C.ROWNUM BETWEEN #{ startRow } AND #{ endRow }
 	</select>
 </mapper>

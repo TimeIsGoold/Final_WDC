@@ -112,11 +112,11 @@
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/all">전체보기</a></strong></div>
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/sports">스포츠</a></strong></div>
                 <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/beauty">뷰티</a></strong></div>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_art.html">미술 · 공예 · 공연전시</a></strong></div>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_cook.html">요리 · 베이킹</a></strong></div>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_it.html">컴퓨터 · IT</a></strong></div>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_language.html">언어 · 스피치</a></strong></div>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_revenue.html">재태크 · 창업</a></strong></div>
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/art">미술 · 공예 · 공연전시</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/cook">요리 · 베이킹</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/computer">컴퓨터 · IT</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/language">언어 · 스피치</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/revenu">재태크 · 창업</a></strong></div>
                 <br><br>
                 <h6 class="text-uppercase mb-4">Price range</h6>
                 <div class="price-range pt-4 mb-5">
@@ -162,20 +162,38 @@
                 </div>
                 <div class="row">
                   <!-- PRODUCT-->
-                <c:forEach  var="classList" items="${ requestScope.beautyClassList }">
-                  
+                  <c:forEach  var="classList" items="${ requestScope.beautyClassList }">
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
+                     <c:choose>
+                     <c:when test="${ classList.dicsionStatus eq 'S' }">
+                     <div class="bottom_badgeDicsionS text-white badge-primary">클래스 종료일 : ${fn:substring(classList.endDate, 2, 10)}</div>
+                     </c:when>
+                     <c:when test="${ classList.dicsionStatus eq 'F' }">
+                     <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+                     <div class="bottom_badgeCheer text-white badge-primary" style="color: black !important;">현재 응원 수 : 2</div>
+                     </c:when>
+                     </c:choose>
                       <div class="mb-3 position-relative">
                         <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                         <div class="product-overlay">
+                          <c:choose>
+                           <c:when test="${ classList.dicsionStatus eq 'S' }">
                           <ul class="mb-0 list-inline">
                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
                             <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                           </ul>
+                           </c:when>
+                           <c:when test="${ classList.dicsionStatus eq 'F' }">
+                           <ul class="mb-0 list-inline">
+                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="cart.html">응원하기</a></li>
+                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                            </ul>
+                           </c:when>
+                          </c:choose>
                         </div>
                       </div>
-                      <h6> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                      <h6 style="margin-top: 42px;"> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
                       <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원</p>
                     </div>
                   </div>

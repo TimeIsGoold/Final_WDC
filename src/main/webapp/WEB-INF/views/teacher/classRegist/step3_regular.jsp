@@ -48,14 +48,14 @@
 </head>
 
 <body>
-      <div class="container" style="width: 90%; margin :0 auto; display:none;" id="regular">
+    <div class="container" style="width: 90%; margin :0 auto; display:none;" id="regular">
         <!-- 정규클래스등록1-->
         <div class="row">
-          <div class="col-md-2 step" >클래스 기본정보</div>
-          <div class="col-md-2 step" >클래스 소개</div>
-          <div class="col-md-3 nowStep" >클래스 일정 및 가격</div>
-          <div class="col-md-2 step">클래스 부가정보</div>
-          <div class="col-md-3 step">클래스 등록 및 약관동의</div>
+            <div class="col-md-2 step" >클래스 기본정보</div>
+            <div class="col-md-2 step" >클래스 소개</div>
+            <div class="col-md-3 nowStep" >클래스 일정 및 가격</div>
+            <div class="col-md-2 step">클래스 부가정보</div>
+            <div class="col-md-3 step">클래스 등록 및 약관동의</div>
         </div>
         <br><br><br>
         <h6>스케쥴 등록</h6>
@@ -69,32 +69,35 @@
         <br><br>
         <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.2); padding: 20px 20px 20px 20px;">
           <div class="col-md-1"></div>
-          <div class="col-md-2">
-            스케쥴선택<br>
-            <button>정규모집</button></div>
+          <div class="col-md-2">스케쥴선택<br>
+            <button>정규모집</button>
+          </div>
           <div class="col-md-3">
             수업소요시간<br>
             <div class="form-inline">
               <div class="form-group">
-                <select class="form-control">
-                  <option>1시간</option>
-                  <option>2시간</option>
-                  <option>3시간</option>
-                  <option>4시간</option>
+                <select class="form-control" name="hour">
+					<option value = "01">1시간</option>
+					<option value = "02">2시간</option>
+					<option value = "03">3시간</option>
+					<option value = "04">4시간</option>
+					<option value = "05">5시간</option>
                 </select>
-                <select class="form-control">
-                  <option>10분</option>
-                  <option>20분</option>
-                  <option>30분</option>
-                  <option>40분</option>
+                <select class="form-control" name="minute">
+					<option value = "00">00분</option>
+					<option value = "10">10분</option>
+					<option value = "20">20분</option>
+					<option value = "30">30분</option>
+					<option value = "40">40분</option>
+					<option value = "50">50분</option>
                 </select>
               </div>
             </div>
           </div>
           <div class="col-md-6">
             시작일과 종료일을 입력해주세요<br>
-            <input type="date"> - 
-            <input type="date">
+            <input type="date" name="startDate"> - 
+            <input type="date" name="endDate">
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-10" style="margin: 20px 0 20px 0px ; height: 350px; background-color: #f5f5f5;">여기 입력이 될거야
@@ -201,7 +204,7 @@
         <h6>클래스정가<b> *</b></h6>
         <br>
             <div class="form-group">
-              <input class="form-control" style="width:20%";type="number" placeholder="금액입력(원)">
+              <input class="form-control" style="width:20%" type="number" placeholder="금액입력(원)" name="price">
             </div>
             
             <br><br><hr><br>
@@ -211,15 +214,12 @@
             <div>
 
             </div>
-            <button onclick="movePage(1)">이전</button>
-            <button onclick="movePage(3)">다음</button>
+            <button type="button" onclick="movePage(1)">이전</button>
+            <button type="button" onclick="movePage(3)">다음</button>
       </div>
-    </div>
     <br>
     <br>
     <!-- //정규클래스등록1-->
-  </div>
-
 </body>
 
 </html>

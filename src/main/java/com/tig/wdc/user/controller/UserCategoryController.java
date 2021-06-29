@@ -69,8 +69,26 @@ public class UserCategoryController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("art")
+	@GetMapping("beauty")
 	public String ClassCategorybeautySelect(Model model) {
+		
+		List<UserClassDTO> beautyClassList = new ArrayList<>();
+		
+		beautyClassList = categoryService.selectClassBeautyCategory();
+		
+		model.addAttribute("beautyClassList",beautyClassList);
+		
+		return "user/classList/class_beauty";
+
+	}
+	
+	/**
+	 * 아트 카테고리 조회용 메소드
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("art")
+	public String ClassCategoryArtSelect(Model model) {
 		
 		List<UserClassDTO> artClassList = new ArrayList<>();
 		
@@ -100,6 +118,11 @@ public class UserCategoryController {
 
 	}
 	
+	/**
+	 * it/computer 카테고리 조회용 메소드
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("computer")
 	public String ClassCategoryComputerSelect(Model model) {
 		
@@ -110,5 +133,36 @@ public class UserCategoryController {
 		model.addAttribute("computerClassList",computerClassList);
 		
 		return "user/classList/class_it";
+	}
+	
+	/**
+	 * 언어 카테고리 클래스 조회용 메소드
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("language")
+	public String ClassCategoryLanguageSelect(Model model) {
+		
+		List<UserClassDTO> languageClassList = new ArrayList<>();
+		
+		languageClassList = categoryService.selectClassLanguageCategoty();
+		
+		model.addAttribute("languageClassList",languageClassList);
+		
+		return "user/classList/class_language";
+		
+	}
+	
+	@GetMapping("revenu")
+	public String ClassCategoryRevenuSelect(Model model) {
+		
+		List<UserClassDTO> revenuClassList = new ArrayList<>();
+		
+		revenuClassList = categoryService.selectClassRevenuCategoty();
+		
+		model.addAttribute("revenuClassList",revenuClassList);
+		
+		return "user/classList/class_revenu";
+		
 	}
 }

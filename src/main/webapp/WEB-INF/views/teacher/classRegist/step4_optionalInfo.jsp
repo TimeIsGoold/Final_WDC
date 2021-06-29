@@ -65,48 +65,38 @@
 			<div class="col-md-2 nowStep">클래스 부가정보</div>
 			<div class="col-md-3 step">클래스 등록 및 약관동의</div>
 		</div>
-		<br>
-		<br>
-		<br>
+		<br><br><br>
 		<h6>기타 제공사항 선택</h6>
 		<br>
 		<div class="row" style="background-color: #f5f5f5; padding: 20px 10px 10px 10px;">
 			<div class="col-md-3">
-				<label> <input type="checkbox" value=""> 주차공간
-				</label>
+				<label> <input type="checkbox" value="주차공간" name="addInfo"> 주차공간</label>
 			</div>
 			<div class="col-md-3">
-				<label> <input type="checkbox" value=""> 와이파이
-				</label>
+				<label> <input type="checkbox" value="와이파이" name="addInfo"> 와이파이</label>
 			</div>
 			<div class="col-md-3">
-				<label> <input type="checkbox" value=""> 커피 별도 구매
-				</label>
+				<label> <input type="checkbox" value="커피 별도구매" name="addInfo"> 커피 별도구매</label>
 			</div>
 			<div class="col-md-3">
-				<label> <input type="checkbox" value=""> 대중교통 용이
-				</label>
+				<label> <input type="checkbox" value="대중교통 용이" name="addInfo"> 대중교통 용이</label>
 			</div>
 			<div class="col-md-3">
-				<label> <input type="checkbox" value=""> 택시/자가용 추천
-				</label>
+				<label> <input type="checkbox" value="택시/자가용 추천" name="addInfo"> 택시/자가용 추천</label>
 			</div>
 			<div class="col-md-3">
-				<label> <input type="checkbox" value=""> 음료/간식 제공
-				</label>
+				<label> <input type="checkbox" value="음료/간식 제공" name="addInfo"> 음료/간식 제공</label>
 			</div>
 		</div>
 		<br><br><hr><br><br>
 		<h6>추가 제공 사항 및 유의사항<b style="font-weight: lighter; color: #f5f5f5;">선택항목</b></h6>
 		<br>
 		<div class="form-group"	style="background-color: #f5f5f5; padding: 15px 15px 15px 15px">
-			<input class="form-control" style="border-radius: 5px;"placeholder="ex) 근처 공용주차장을 이용해주세요">
+			<input class="form-control" style="border-radius: 5px;"placeholder="ex) 근처 공용주차장을 이용해주세요" name="addSup">
 		</div>
 		<br><br><hr><br>
-		<button onclick="movePage(2)">이전</button>
-		<button onclick="movePage(4)">다음</button>
-		
-	</div>
+		<button type="button" onclick="movePage(2)">이전</button>
+		<button type="button" onclick="movePage(4)">다음</button>
 	</div>
 </body>
 

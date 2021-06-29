@@ -19,6 +19,10 @@ public interface UserCategoryMapper {
 	public List<UserClassDTO> selectClassCookCategory();
 	
 	public List<UserClassDTO> selectClassComputerCategory();
+
+	public List<UserClassDTO> selectClassLanguageCategory();
+
+	public List<UserClassDTO> selectClassRevenuCategory();
 	
 
 }

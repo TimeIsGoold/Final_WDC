@@ -1,12 +1,12 @@
 package com.tig.wdc.teacher.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tig.wdc.model.dto.BalanceDTO;
-import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.dao.TeacherBalanceMapper;
 
 @Service
@@ -28,9 +28,9 @@ public class BalanceServiceImpl implements BalanceService {
 	}
 
 	@Override
-	public List<BalanceDTO> selectBalanceList(PageInfoDTO pageInfo) {
+	public List<BalanceDTO> selectBalanceList(Map<String, Object> map) {
 
-		return mapper.selectBalanceList(pageInfo);
+		return mapper.selectBalanceList(map);
 	}
 
 }

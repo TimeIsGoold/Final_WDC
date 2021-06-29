@@ -19,6 +19,8 @@
  		<typeAlias alias="paging" type="com.tig.wdc.model.dto.PageInfoDTO"/>
  		<typeAlias alias="StudentDTO" type="com.tig.wdc.admin.model.dto.StudentDTO"/>
  		<typeAlias alias="TeacherDTO" type="com.tig.wdc.admin.model.dto.TeacherDTO"/>
+ 		<typeAlias alias="reportDetailDTO" type="com.tig.wdc.admin.model.dto.ReportDetailDTO"/>
+ 		
  		
  		
  		<!-- user -->
@@ -27,6 +29,7 @@
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
+ 		<typeAlias alias="attachment" type="com.tig.wdc.model.dto.AttachMentDTO"/>
  		
  	</typeAliases>
  </configuration>

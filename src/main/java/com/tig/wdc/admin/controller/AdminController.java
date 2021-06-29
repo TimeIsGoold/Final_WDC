@@ -28,7 +28,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 로그인 - 아현
+	 * @author 송아현
+	 * 로그인
 	 * 
 	 * @return
 	 */
@@ -38,14 +39,14 @@ public class AdminController {
 	}
 
 	/**
-	 * 회원관리 - 현빈
+	 * @author 김현빈
+	 * 회원관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
-
 
 		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
 
@@ -57,7 +58,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 클래스 관리 - 현빈
+	 * @author 김현빈
+	 * 클래스 관리
 	 * 
 	 * @param model
 	 * @return
@@ -71,7 +73,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 신고관리 - 현빈
+	 * @author 김현빈
+	 * 신고관리
 	 * 
 	 * @param model
 	 * @return
@@ -85,21 +88,54 @@ public class AdminController {
 	}
 
 	/**
-	 * 문의관리 - 아현
+	 * @author 송아현
+	 * 문의관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("questionManagement")
-	public String selectQustionList(Model model) {
+	public String selectQustionList(@RequestParam("mt")String type, Model model) {
 
-		model.addAttribute("questionList", adminService.selectAllQuestionList());
+		if(type.equals("to")) {
+			model.addAttribute("questionList", adminService.selectAllQuestionList());
+		} else if(type.equals("tc")) {
+			model.addAttribute("questionList", adminService.selectTeacherQuestionList());			
+		} else if(type.equals("st")) {			
+			model.addAttribute("questionList", adminService.selectStudentQuestionList());			
+		}
 
 		return "admin/adminQuestionManagement";
 	}
+	
+	
+	/**
+	 * @author 송아현
+	 * @param type
+	 * @param no
+	 * @param model
+	 * @return
+	 */
+	/*
+	 * @GetMapping("questionInfoDetail") public String
+	 * questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String
+	 * id, Model model) {
+	 * 
+	 * String path = "";
+	 * 
+	 * if(type.equals("tc")) {
+	 * 
+	 * model.addAttribute("", adminService.selectDetail());
+	 * 
+	 * path = ""; } else if(type.equals("st")) {
+	 * model.addAttribute("", adminService.selectDetail());
+	 * 
+	 * path = ""; } return path; }
+	 */
 
 	/**
-	 * 쿠폰 관리 - 아현
+	 * @author 송아현
+	 * 쿠폰 관리
 	 * 
 	 * @param model
 	 * @return
@@ -113,7 +149,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 공지 관리 - 아현
+	 * @author 송아현
+	 * 공지 관리
 	 * 
 	 * @param model
 	 * @return
@@ -127,15 +164,20 @@ public class AdminController {
 	}
 	
 	/**
-	 * 정산 관리 - 아현
+	 * @author 송아현
+	 * 정산 관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	 @GetMapping("calculateManagement") 
-	 public String calculateManagement(Model model) {
+	 public String calculateManagement(@RequestParam("YN")String type, Model model) {
 	  
-		 model.addAttribute("calculateList", adminService.selectAllCalculateList());
+		 if(type.equals("N")) {
+			 model.addAttribute("calculateList", adminService.selectNoCalculateList());
+		 } else if(type.equals("Y")) {
+			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
+		 }
 	  
 		 return "admin/adminCalculateManagement"; 
 	 }
@@ -176,11 +218,9 @@ public class AdminController {
 	public String selectMemberBycategory(@RequestParam("ut")String type, Model model) {
 		System.out.println("type : " + type);
 		if(type.equals("tc")) {
-			
-			
 			model.addAttribute("totalList", adminService.selectTeacherList());
-		} else if (type.equals("st")) {
 			
+		} else if (type.equals("st")) {
 			model.addAttribute("totalList", adminService.selectStudentList());
 		}
 		
@@ -196,9 +236,23 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("reportDetail")
-	public String selectReportDetail() {
+	public String selectReportDetail(@RequestParam("no")int no,@RequestParam("type")String type,Model model) {
 		
-		return "admin/admin";
+		
+//		if(type.equals("수강생")) {
+			// 수강생
+			System.out.println("타임이 뭔데  ? : " + type);
+			System.out.println("맞쥬? 맞쥬? 내말 맞주?"+ no);
+			model.addAttribute("reportDetail", adminService.selectStudentReportList(no));
+//		}
+			
+//		} else {
+//			// 학생
+//			model.addAttribute("reportDetail", adminService.selectTeacherReportList(no));
+//		}
+		return "admin/reportPage";
 	}
+	
+	
 
 }

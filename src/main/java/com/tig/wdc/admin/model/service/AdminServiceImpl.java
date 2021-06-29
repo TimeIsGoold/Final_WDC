@@ -12,6 +12,7 @@ import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
+import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
@@ -46,11 +47,40 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectAllReportList();
 	}
 
+	/**
+	 * @author 송아현
+	 * 전체 문의 사항
+	 * 
+	 */
 	@Override
 	public List<QuestionDTO> selectAllQuestionList() {
 
 		return mapper.selectAllQuestionList();
 	}
+	
+	/**
+	 * @author 송아현
+	 * 강사 문의 사항
+	 * 
+	 */
+	@Override
+	public List<QuestionDTO> selectTeacherQuestionList() {
+		
+		return mapper.selectTeacherQuestionList();
+	}
+	
+	
+	/**
+	 * @author 송아현
+	 * 학생 문의 사항
+	 * 
+	 */
+	@Override
+	public List<QuestionDTO> selectStudentQuestionList() {
+		
+		return mapper.selectStudentQuestionList();
+	}
+	 
 
 	@Override
 	public StudentDTO selectOneStudent(int no) {
@@ -74,23 +104,57 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectStudentList();
 		
 	}
+	/**
+	 * @author 송아현
+	 * 쿠폰
+	 * 
+	 */
 	@Override
 	public List<CouponDTO> selectAllCouponList() {
 
 		return mapper.selectAllCouponList();
 	}
 
+	/**
+	 * @author 송아현
+	 * 공지
+	 * 
+	 */
 	@Override
 	public List<NoticeDTO> selectAllNoticeList() {
 
 		return mapper.selectAllNoticeList();
 	}
 
-	 @Override 
-	 public List<CalculateDTO> selectAllCalculateList() {
+	 /**
+	 * @author 송아현
+	 * 미정산
+	 * 
+	 */
+	@Override 
+	 public List<CalculateDTO> selectNoCalculateList() {
 	 
-		 return mapper.selectAllCalculateList(); 
+		 return mapper.selectNoCalculateList(); 
 	}
+
+	@Override
+	public ReportDetailDTO selectStudentReportList(int no) {
+		
+		return mapper.selectStudentReportList(no);
+	}
+
 	 
+	 /**
+	 * @author 송아현
+	 * 정산완료
+	 * 
+	 */
+	@Override 
+	 public List<CalculateDTO> selectYesCalculateList() {
+	 
+		 return mapper.selectYesCalculateList(); 
+	}
+
+
 
 }
