@@ -218,7 +218,7 @@
 		
       <!-- HERO SECTION-->
       <div class="container">
-        <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(img/hero-banner-alt.jpg)">
+        <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(${pageContext.servletContext.contextPath }/resources/user/img/hero-banner-alt.jpg)">
           <div class="container py-5">
             <div class="row px-4 px-lg-5">
               <div class="col-lg-6">
@@ -251,7 +251,7 @@
                   </div>
                 </div>
                 <h6> <a class="reset-anchor" href="detail.html">${ newClassList.title }</a></h6>
-                <p class="small text-muted">${ newClassList.price } 원</p>
+                <p class="small text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>
             </c:forEach>
@@ -265,72 +265,27 @@
               <h2 class="h5 text-uppercase mb-4">우동클 인기 클래스</h2>
             </header>
             <div class="row">
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class.png" alt="..."></a>
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                      </ul>
-                    </div>
+            
+            <!-- PRODUCT-->
+            <c:forEach  var="topClassList" items="${ requestScope.topClassList }">
+            <div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="product text-center">
+                <div class="position-relative mb-3">
+                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" alt="..."></a>
+                  <div class="product-overlay">
+                    <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
+                    </ul>
                   </div>
-                  <h6> <a class="reset-anchor" href="detail.html">반지수와 함께하는 아이패드 드로잉</a></h6>
-                  <p class="small text-muted">35,000 원</p>
                 </div>
+                <h6> <a class="reset-anchor" href="detail.html">${ topClassList.title }</a></h6>
+                <p class="small text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
               </div>
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class2.png" alt="..."></a>
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6> <a class="reset-anchor" href="detail.html">시선을 사로잡는 브랜드 디자인</a></h6>
-                  <p class="small text-muted">35,360 원</p>
-                </div>
-              </div>
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class3.png" alt="..."></a>
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6> <a class="reset-anchor" href="detail.html">파이썬을 이용한 비트코인 자동매매 봇 만들기 풀 패키지</a></h6>
-                  <p class="small text-muted">44,000 원</p>
-                </div>
-              </div>
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/product-class4.png" alt="..."></a>
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6> <a class="reset-anchor" href="detail.html">세계 명작 독후 만들기 활동으로 우리 아이 심리 파악하기</a></h6>
-                  <p class="small text-muted">25,600 원</p>
-                </div>
-              </div>
-              </div>
-            </section>
+            </div>
+            </c:forEach>
+           </div>
+          </section>
 
             <!-- 오픈 예정 클래스  -->
           <section class="py-5">
@@ -339,73 +294,36 @@
               <h2 class="h5 text-uppercase mb-4">오픈 예정 클래스</h2>
             </header>
             <div class="row">
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <div class="badge text-white badge-"></div><img class="img-fluid w-100" src="img/product-class.png" alt="...">
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="cart.html">응원하기</a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                      </ul>
-                    </div>
+
+            <!-- PRODUCT-->
+            <c:forEach  var="cheerClassList" items="${ requestScope.cheerClassList }">         
+			<div class="col-xl-3 col-lg-4 col-sm-6">
+              <div class="product text-center">
+                <div class="position-relative mb-3">
+                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
+                  <div class="product-overlay">
+                    <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
+                    </ul>
                   </div>
-                  <h6> <a class="reset-anchor"  href="#classView" data-toggle="modal">반지수와 함께하는 아이패드 드로잉</a></h6>
-                  <p class="small text-muted">35,000 원</p>
                 </div>
+                <h6> <a class="reset-anchor" href="detail.html">${ cheerClassList.title }</a></h6>
+                <p class="small text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
               </div>
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <img class="img-fluid w-100" src="img/product-class2.png" alt="...">
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="cart.html">응원하기</a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6> <a class="reset-anchor" href="#classView" data-toggle="modal">시선을 사로잡는 브랜드 디자인</a></h6>
-                  <p class="small text-muted">35,360 원</p>
-                </div>
-              </div>
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <div class="badge text-white badge-"></div><img class="img-fluid w-100" src="img/product-class3.png" alt="...">
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="cart.html">응원하기</a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6> <a class="reset-anchor" href="#classView" data-toggle="modal">파이썬을 이용한 비트코인 자동매매 봇 만들기 풀 패키지</a></h6>
-                  <p class="small text-muted">44,000 원</p>
-                </div>
-              </div>
-              <!-- PRODUCT-->
-              <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="product text-center">
-                  <div class="position-relative mb-3">
-                    <img class="img-fluid w-100" src="img/product-class4.png" alt="...">
-                    <div class="product-overlay">
-                      <ul class="mb-0 list-inline">
-                        <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="cart.html">응원하기</a></li>
-                        <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <h6> <a class="reset-anchor" href="#classView" data-toggle="modal">세계 명작 독후 만들기 활동으로 우리 아이 심리 파악하기</a></h6>
-                  <p class="small text-muted">25,600 원</p>
-                </div>
-              </div>
-              </div>
-            </section>
+            </div>
+          	
+            </c:forEach>
+           </div>
+          </section>
           <br><br>
+          
+
+            
+            <!-- 클래스가 없을 경우  -->
+        	<c:if test="${ empty requestScope.cheerClassList }">
+            	<b>응원하기 진행 중인 클래스가 없어요</b>
+          	</c:if>
 
         <!-- SERVICES-->
         <section class="py-5 bg-light" style="padding-bottom: 3rem!important;">

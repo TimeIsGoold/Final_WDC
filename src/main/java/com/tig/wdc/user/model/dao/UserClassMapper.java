@@ -12,4 +12,8 @@ public interface UserClassMapper {
 
 	public List<UserClassDTO> selectNewClassList();
 
+	public List<UserClassDTO> selectTopClassList();
+
+	public List<UserClassDTO> selectCheerClassList();
+
 }
