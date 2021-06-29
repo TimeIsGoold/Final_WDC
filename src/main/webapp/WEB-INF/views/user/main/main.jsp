@@ -128,9 +128,9 @@
                     <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/beauty">뷰티</a>
                     <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/art">미술 · 공예 · 공연전시</a>
                     <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/cook">요리 · 베이킹</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_it.html">컴퓨터 · IT</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_language.html">언어 · 스피치</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_revenue.html">재태크 · 창업</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/computer">컴퓨터 · IT</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/language">언어 · 스피치</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/revenu">재태크 · 창업</a>
                   </div>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="serviceCenter.html"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
