@@ -49,7 +49,8 @@ public class TeacherMyPageController {
 		model.addAttribute("pageInfo", pageInfo);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		map.put("teacherNo", teacherNo);
+		//map.put("")
 		
 		/* 정산내역 조회 */
 		//model.addAttribute("balanceList", balanceService.selectBalanceList(pageInfo, teacherNo));
