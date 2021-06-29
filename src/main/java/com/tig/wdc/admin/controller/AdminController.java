@@ -125,14 +125,6 @@ public class AdminController {
 
 		return "admin/adminNoticeManagement";
 	}
-
-	
-	// 정산
-	@GetMapping("calculateManagement")
-	public String calculateManagement() {
-		
-		return "admin/adminCalculateManagement";
-	}
 	
 	/**
 	 * 정산 관리 - 아현
@@ -157,9 +149,7 @@ public class AdminController {
 	 */
 	@GetMapping("memberInfoDetail")
 	public String memberInfoDetail(@RequestParam("memberType")String type, @RequestParam("memberNo")int no, Model model) {
-		TotalDTO total = new TotalDTO();
-		total.setUserType(type);
-		total.setUserNo(no);
+
 		String path = "";
 		
 		if(type.equals("T")) {
@@ -168,7 +158,7 @@ public class AdminController {
 			
 			path = "admin/MemberManager-Teacher";
 		} else {
-			model.addAttribute("memberInfo", adminService.selectOneStudent(total));
+			model.addAttribute("memberInfo", adminService.selectOneStudent(no));
 			
 			path = "admin/MemberManager-Student";
 		}
@@ -187,6 +177,7 @@ public class AdminController {
 		System.out.println("type : " + type);
 		if(type.equals("tc")) {
 			
+			
 			model.addAttribute("totalList", adminService.selectTeacherList());
 		} else if (type.equals("st")) {
 			
@@ -195,6 +186,12 @@ public class AdminController {
 		
 		return "admin/adminMemberManagement";
 
+	}
+	
+	@GetMapping("reportDetail")
+	public String selectReportDetail() {
+		
+		return "admin/admin";
 	}
 
 }

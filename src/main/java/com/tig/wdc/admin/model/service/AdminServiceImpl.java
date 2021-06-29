@@ -53,9 +53,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public StudentDTO selectOneStudent(TotalDTO total) {
+	public StudentDTO selectOneStudent(int no) {
 		
-		return mapper.selectOneStudent(total);
+		return mapper.selectOneStudent(no);
 	}
 
 	@Override

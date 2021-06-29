@@ -22,7 +22,7 @@ public interface AdminService {
 
 	List<QuestionDTO> selectAllQuestionList();
 
-	StudentDTO selectOneStudent(TotalDTO total);
+	StudentDTO selectOneStudent(int no);
 
 	TeacherDTO selectOneTeacher(int no);
 

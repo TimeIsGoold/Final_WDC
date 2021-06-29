@@ -31,7 +31,7 @@ public interface AdminMapper {
 
 	List<CalculateDTO> selectAllCalculateList();
 
-	StudentDTO selectOneStudent(TotalDTO total);
+	StudentDTO selectOneStudent(int no);
 
 	TeacherDTO selectOneTeacher(int no);
 

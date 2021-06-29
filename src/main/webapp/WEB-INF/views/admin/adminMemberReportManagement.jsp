@@ -60,7 +60,7 @@
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${reportList}" var="reportDTO">
-				                            <tr>
+				                            <tr style="cursor:pointer;" onclick="location.href'${ pageContext.servletContext.contextPath }/admin/reportDetail?memberNo=${ reportDTO.reportNo }">
 				                                <td>${reportDTO.reportNo}</td>
 				                                <td>${reportDTO.reportTitle}</td>
 				                                <td>${reportDTO.reportType}</td>
