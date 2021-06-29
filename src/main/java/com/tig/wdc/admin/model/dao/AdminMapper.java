@@ -52,6 +52,15 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 강사 문의 상세
+	 * 
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectTeacherQuestionInfoDetail(String id);
+	
+	/**
+	 * @author 송아현
 	 * 쿠폰
 	 * 
 	 * @return
@@ -90,6 +99,8 @@ public interface AdminMapper {
 
 	
 	ReportDetailDTO selectStudentReportList(int no);
+
+
 
 
 }

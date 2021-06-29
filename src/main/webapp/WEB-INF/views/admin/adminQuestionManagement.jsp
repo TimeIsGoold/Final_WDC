@@ -93,7 +93,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${questionList}" var="QuestionDTO">
-				                            <tr>
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionDetail?currentMenu=question&mt=${QuestionDTO.questionType}&id=${QuestionDTO.questionId}'">
 				                                <td>${QuestionDTO.questionNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${QuestionDTO.questionType eq 'USER'}">

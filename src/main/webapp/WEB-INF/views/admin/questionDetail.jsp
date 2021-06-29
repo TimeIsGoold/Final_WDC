@@ -24,12 +24,8 @@
         	font-size: x-large;
         }
         
-        .table {
-        	 border: 1px solid;
-        }
-    
         th {
-            text-align: center;
+            text-align: center !important;
             width: 200px !important;
             border: 1px solid lightgrey !important;
             background: #fef0ae !important;
@@ -67,6 +63,7 @@
         	width: 100px; 
         	background: #fef0ae; 
         	border: 1px solid lightgrey;
+        	margin-left: 48%;
         }
 
         .returnBtn:hover {
@@ -110,27 +107,27 @@
                                     <tbody>
                                         <tr>
                                             <th>회원번호</th>
-                                            <td></td>
+                                            <td>${ questionDetail.questionNo }</td>
                                             <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
-                                            <td></td>
+                                            <td>${ questionDetail.questionType }</td>
                                         </tr>
                                         <tr>
                                             <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-                                            <td></td>
+                                            <td>${ questionDetail.questionName }</td>
                                             <th>아&nbsp;&nbsp;이&nbsp;&nbsp;디</th>
-                                            <td></td>
+                                            <td>${ questionDetail.questionId }</td>
                                         </tr>
                                         <tr>
                                             <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
                                             <td colspan="3">
-                                            
+                                            	${ questionDetail.questionTitle }
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
                                             <td colspan="3" id="questionContextArea">
                                                 <div class="questionContext">
-                                                
+                                                	${ questionDetail.questionContent }
                                                 </div>
                                             </td>
                                         </tr>
@@ -151,8 +148,8 @@
                                 </table>
                                 
                                 <div class="submitBtn">
-                                    <input type="button" class="returnBtn" value="리스트보기">
-                                    <input type="button" class="answerBtn" value="답변달기">
+                                    <input type="button" class="returnBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="리스트보기">
+                                    <input type="button" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="답변달기">
                                 </div>
                             </div>
 

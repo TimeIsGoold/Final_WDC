@@ -111,27 +111,26 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
+	 * 문의 상세
 	 * @param type
-	 * @param no
+	 * @param id
 	 * @param model
 	 * @return
 	 */
-	/*
-	 * @GetMapping("questionInfoDetail") public String
-	 * questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String
-	 * id, Model model) {
-	 * 
-	 * String path = "";
-	 * 
-	 * if(type.equals("tc")) {
-	 * 
-	 * model.addAttribute("", adminService.selectDetail());
-	 * 
-	 * path = ""; } else if(type.equals("st")) {
-	 * model.addAttribute("", adminService.selectDetail());
-	 * 
-	 * path = ""; } return path; }
-	 */
+	@GetMapping("questionDetail") 
+	public String questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String id, Model model) {
+		
+		if(type.equals("tc")) {
+			model.addAttribute("questionDetail", adminService.selectTeacherQuestionInfoDetail(id));			
+		} else if(type.equals("st")) {
+			//model.addAttribute("questionDetail", adminService.selectStudentQuestionInfoDetail(id));			
+		}
+		
+		System.out.println("id : " + id);
+		
+		return "admin/questionDetail"; 
+	}
+	 
 
 	/**
 	 * @author 송아현

@@ -69,7 +69,6 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectTeacherQuestionList();
 	}
 	
-	
 	/**
 	 * @author 송아현
 	 * 학생 문의 사항
@@ -80,7 +79,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.selectStudentQuestionList();
 	}
-	 
+	
+	/**
+	 * @author 송아현
+	 * 강사 문의 상세
+	 */
+	@Override
+	public QuestionDTO selectTeacherQuestionInfoDetail(String id) {
+
+		return mapper.selectTeacherQuestionInfoDetail(id);
+	}
 
 	@Override
 	public StudentDTO selectOneStudent(int no) {

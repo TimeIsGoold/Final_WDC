@@ -81,6 +81,18 @@
 		<result column="Q_DATE" property="questionDate"/>
 	</resultMap>
 	
+	<!-- 강사문의상세 -->
+	<resultMap id="teacherQuestionInfoDetail" type="QuestionDTO">
+		<id column="TE_NO" property="questionNo"/>
+		<result column="MEMBER_TYPE" property="questionType"/>
+		<result column="TE_NAME" property="questionName"/>
+		<result column="TE_ID" property="questionId"/>
+		<result column="Q_TITLE" property="questionTitle"/>
+		<result column="Q_CONTENT" property="questionContent"/>
+	</resultMap>
+	
+	<!-- 수강생문의상세 -->
+	
 	<resultMap id="teacherDTO" type="TeacherDTO" >
 		<id column="TE_NO" property="teNo"/>
 		<result column="TE_ID" property="id"/>
@@ -269,6 +281,24 @@
 		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 	</select>
+	
+	<!-- 강사문의상세 -->
+	<select id="selectTeacherQuestionInfoDetail" resultMap="teacherQuestionInfoDetail" parameterType="String">
+		SELECT 
+			   C.TE_NO
+			 , A.MEMBER_TYPE
+			 , C.TE_NAME
+			 , C.TE_ID
+			 , A.Q_TITLE
+			 , A.Q_CONTENT
+		  FROM ADMIN_Q A
+		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+		 WHERE A.MEMBER_TYPE = 'TEACHER'
+	       AND TE_ID = #{id}
+	</select>
+	
+	<!-- 수강생문의상세 -->
 	
 	<select id="selectOneStudent" resultMap="studentDTO" parameterType="_int">
 		SELECT 
