@@ -49,4 +49,38 @@
              , #{ classNo }
              )
     </insert>
+    <insert id="insertCompletePiece" parameterType="completePiece">
+        <selectKey keyProperty="classNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>     
+        INSERT 
+          INTO CLASS_PIECE
+        VALUES 
+             (
+               SEQ_PIECE_NO.NEXTVAL
+             , #{ pieceTitle }
+             , #{ piecePicture }
+             , #{ classNo }
+             )
+    </insert>
+    <update id="insertCurriculum" parameterType="java.util.List">
+        <selectKey keyProperty="curriList.clsNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        <foreach collection="curriList" item="curri" open="INSERT ALL">
+            INTO CURRICULUM
+           VALUE
+               (
+                 SEQ_CRCLM_NO.NEXTVAL
+               , #{ curriList.curriStep } 
+               , #{ curriList.curriTitle }
+               , #{ curriList.curriContent }
+               , #{ curriList.clsNo }
+               ) 
+        </foreach>
+    </update>
 </mapper>
