@@ -7,6 +7,8 @@ import com.tig.wdc.admin.model.dto.ClassDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
+import com.tig.wdc.admin.model.dto.StudentDTO;
+import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 
@@ -28,5 +30,11 @@ public interface AdminMapper {
 	List<NoticeDTO> selectAllNoticeList();
 
 	List<CalculateDTO> selectAllCalculateList();
+
+	StudentDTO selectOneStudent(int no);
+
+	TeacherDTO selectOneTeacher(int no);
+
+	List<TotalDTO> selectStudentList();
 
 }

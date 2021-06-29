@@ -13,6 +13,7 @@ import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
+import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 
 @Service
@@ -52,6 +53,28 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public StudentDTO selectOneStudent(int no) {
+		
+		return mapper.selectOneStudent(no);
+	}
+
+	@Override
+	public TeacherDTO selectOneTeacher(int no) {
+		
+		return mapper.selectOneTeacher(no);
+	}
+
+	@Override
+	public List<TotalDTO> selectTeacherList() {
+		return mapper.selectTeacherList();
+	}
+
+	@Override
+	public List<TotalDTO> selectStudentList() {
+		return mapper.selectStudentList();
+		
+	}
+	@Override
 	public List<CouponDTO> selectAllCouponList() {
 
 		return mapper.selectAllCouponList();
@@ -69,11 +92,5 @@ public class AdminServiceImpl implements AdminService {
 		 return mapper.selectAllCalculateList(); 
 	}
 	 
-
-	@Override
-	public StudentDTO selectOneStudent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

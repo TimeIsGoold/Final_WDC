@@ -8,8 +8,28 @@
 		<id column="TE_NO" property="userNo"/>
 		<result column="TE_ID" property="userId"/>
 		<result column="TE_NAME" property="userName"/>
-		<result column="ENROLLDATE" property="enrollDate"/>
+		<result column="TE_ENROLL_DATE" property="enrollDate"/>
 		<result column="TYPE" property="userType"/>
+		<result column="누적신고"  property="reportedCnt"/>
+	</resultMap>
+	
+	<resultMap id="userDTO" type="TotalDTO">
+		<id column="USER_NO" property="userNo"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="USER_ENROLL_DATE" property="enrollDate"/>
+		<result column="TYPE" property="userType"/>
+		<result column="누적신고"  property="reportedCnt"/>
+	</resultMap>
+	
+	<resultMap type="StudentDTO" id="studentDTO">
+		<id column="USER_NO" property="studentnNo"/>
+		<result column="USER_ID" property="id"/>
+		<result column="TYPE" property="type"/>
+		<result column="USER_NAME" property="studentName"/>
+		<result column="USER_PHONE" property="phone"/>
+		<result column="USER_BIRTH"  property="birth"/>
+		<result column="USER_ENROLL_DATE"  property="enrollDate"/>
 		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
 		
@@ -26,7 +46,7 @@
 		<id column="REPORT_NO" property="reportNo"/>
 		<result column="REPORT_TITLE" property="reportTitle"/>
 		<result column="REPORT_TYPE" property="reportType"/>
-		<result column="REPORT_FROM_NO" property="reportId"/>
+		<result column="TE_ID" property="reportId"/>
 		<result column="REPORT_DATE" property="reportDate"/>
 		<result column="PROCS_STATUS" property="reportStatus"/>
 	</resultMap>
@@ -62,6 +82,19 @@
 	</resultMap> -->
 	
 	<!-- 쿠폰 -->
+	<resultMap id="teacherDTO" type="TeacherDTO" >
+		<id column="TE_NO" property="teNo"/>
+		<result column="TE_ID" property="id"/>
+		<result column="TE_NAME" property="name"/>
+		<result column="TYPE" property="usertype"/>
+		<result column="TE_PHONE"  property="phone"/>
+		<result column="TE_TYPE"  property="teacherType"/>
+		<result column="TE_ENROLL_DATE"  property="enrollDate"/>
+		<result column="TE_INTRO"  property="teacherIntro"/>
+		<result column="TE_PIC"  property="imgPath"/>
+		<result column="누적신고"  property="reportedCnt"/>
+	</resultMap>
+	
 	<resultMap id="couponList" type="CouponDTO">
 		<id column="CPN_NO" property="couponNo"/>
 		<result column="USER_ID" property="couponType"/>
@@ -107,7 +140,7 @@
 		     , T.TYPE
 		     , T.TE_ID
 		     , T.TE_NAME
-		     , T.ENROLLDATE
+		     , T.TE_ENROLL_DATE
 		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
 		  FROM TEACHER_INFO T
 		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
@@ -116,14 +149,14 @@
 		     , T.TYPE
 		     , T.TE_ID
 		     , T.TE_NAME
-		     , T.ENROLLDATE
+		     , T.TE_ENROLL_DATE
 		  UNION ALL
 		 SELECT 
 		        U.USER_NO
 		      , U.TYPE
 		      , U.USER_ID
 		      , U.USER_NAME
-		      , U.ENROLLDATE
+		      , U.USER_ENROLL_DATE
 		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
 		    FROM USER_INFO U
 		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
@@ -132,7 +165,7 @@
 		      , U.TYPE
 		      , U.USER_ID
 		      , U.USER_NAME
-		      , U.ENROLLDATE
+		      , U.USER_ENROLL_DATE
 	</select>
 	
 	<select id="selectAllClassList" resultMap="classLsit">
@@ -148,14 +181,28 @@
 	</select>
 	
 	<select id="selectAllReportList" resultMap="reportList">
-		SELECT 
+		  SELECT
 		       R.REPORT_NO
 		     , R.REPORT_TITLE
 		     , R.REPORT_TYPE
-		     , R.REPORT_FROM_NO
+		     , T.TE_ID
 		     , R.REPORT_DATE
 		     , R.PROCS_STATUS
 		  FROM REPORT R
+		  JOIN TEACHER_INFO T ON (R.REPORT_FROM_NO = T.TE_NO)
+		 WHERE REPORT_TYPE = '강사'
+		 UNION ALL
+		   SELECT
+		       R.REPORT_NO
+		     , R.REPORT_TITLE
+		     , R.REPORT_TYPE
+		     , T.USER_ID
+		     , R.REPORT_DATE
+		     , R.PROCS_STATUS
+		  FROM REPORT R
+		  JOIN USER_INFO T ON (R.REPORT_FROM_NO = T.USER_NO)
+		 WHERE REPORT_TYPE = '수강생'
+		 ORDER BY REPORT_NO DESC
     </select>
 	
 	<!-- 전체 문의 -->
@@ -212,6 +259,94 @@
 	</select> -->
 	
 	<!-- 쿠폰 -->
+	<select id="selectOneStudent" resultMap="studentDTO" parameterType="_int">
+		SELECT 
+		       U.USER_NO
+		     , U.USER_ID
+		     , U.USER_NAME
+		     , U.TYPE
+		     , U.USER_PHONE
+		     , U.USER_BIRTH
+		     , U.USER_ENROLL_DATE
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM USER_INFO U
+		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
+		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 WHERE U.USER_NO = #{no}
+		 GROUP BY 
+		          U.USER_NO
+		        , U.USER_ID
+		        , U.USER_NAME
+		        , U.TYPE
+		        , U.USER_PHONE
+		        , U.USER_BIRTH
+		        , U.USER_ENROLL_DATE
+	</select>
+	
+	<select id="selectOneTeacher" resultMap="teacherDTO" parameterType="_int">
+		SELECT 
+		       T.TE_NO
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.TYPE
+		     , T.TE_PHONE
+             , T.TE_TYPE
+		     , T.TE_ENROLL_DATE
+             , T.TE_INTRO
+             , T.TE_PIC
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM TEACHER_INFO T
+		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
+		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
+		 WHERE T.TE_NO = #{no}
+		 GROUP BY 
+                   T.TE_NO
+                 , T.TE_ID
+                 , T.TE_NAME
+                 , T.TYPE
+                 , T.TE_PHONE
+                 , T.TE_TYPE
+                 , T.TE_ENROLL_DATE
+                 , T.TE_INTRO
+                 , T.TE_PIC
+	</select>
+	
+	<select id="selectTeacherList" resultMap="totalDTO" >
+		SELECT 
+		       T.TE_NO
+		     , T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.TE_ENROLL_DATE
+		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM TEACHER_INFO T
+		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
+		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
+		 GROUP BY T.TE_NO
+		     , T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , T.TE_ENROLL_DATE
+	</select>
+
+	<select id="selectStudentList" resultMap="userDTO" >
+		 SELECT 
+		        U.USER_NO
+		      , U.TYPE
+		      , U.USER_ID
+		      , U.USER_NAME
+		      , U.USER_ENROLL_DATE
+		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		    FROM USER_INFO U
+		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
+		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 GROUP BY U.USER_NO
+		      , U.TYPE
+		      , U.USER_ID
+		      , U.USER_NAME
+		      , U.USER_ENROLL_DATE
+	</select>      
+
 	<select id="selectAllCouponList" resultMap="couponList">
 		SELECT 
 			   A.CPN_NO

@@ -46,6 +46,7 @@ public class AdminController {
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
 
+
 		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
 
 		Collections.sort(realtotalList, new DateSortDesc());
@@ -124,7 +125,7 @@ public class AdminController {
 
 		return "admin/adminNoticeManagement";
 	}
-
+	
 	/**
 	 * 정산 관리 - 아현
 	 * 
@@ -147,11 +148,50 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("memberInfoDetail")
-	public String memberInfoDetail(@RequestParam("") Model model) {
+	public String memberInfoDetail(@RequestParam("memberType")String type, @RequestParam("memberNo")int no, Model model) {
 
-		model.addAttribute("memberInfo", adminService.selectOneStudent());
+		String path = "";
+		
+		if(type.equals("T")) {
+			
+			model.addAttribute("memberInfo", adminService.selectOneTeacher(no));
+			
+			path = "admin/MemberManager-Teacher";
+		} else {
+			model.addAttribute("memberInfo", adminService.selectOneStudent(no));
+			
+			path = "admin/MemberManager-Student";
+		}
+		return path;
+	}
+	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 	회원 관리 카테고리 별로 셀렉해오는 메소드
+	 * </pre>
+	 * @return
+	 */
+	@GetMapping("selectMemberBycategory")
+	public String selectMemberBycategory(@RequestParam("ut")String type, Model model) {
+		System.out.println("type : " + type);
+		if(type.equals("tc")) {
+			
+			
+			model.addAttribute("totalList", adminService.selectTeacherList());
+		} else if (type.equals("st")) {
+			
+			model.addAttribute("totalList", adminService.selectStudentList());
+		}
+		
+		return "admin/adminMemberManagement";
 
-		return "admin/MemberManager-admin";
+	}
+	
+	@GetMapping("reportDetail")
+	public String selectReportDetail() {
+		
+		return "admin/admin";
 	}
 
 }

@@ -29,8 +29,8 @@
 		<property name="username" value="FINAL_503_TEAM_WDC" />
 		<property name="password" value="WDC1234" />
 		<property name="defaultAutoCommit" value="false" />
-	</bean>
-	
+	 </bean> 
+	 
  	<!-- 직접 연결 설정(개인로컬) -->
 <!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -38,7 +38,7 @@
 		<property name="username" value="WDC2" />
 		<property name="password" value="WDC2" />
 		<property name="defaultAutoCommit" value="false" />
-	</bean>  -->
+	</bean> -->
 
 
 	
