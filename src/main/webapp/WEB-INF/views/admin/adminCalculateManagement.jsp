@@ -60,11 +60,11 @@
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>정산 내역
                             </div>
-
-                            <div class="subMenuBar">
-                                <button class="calculateNo">정산 미완료 목록</button>
-                                <button class="calculateYes">정산 완료 목록</button>
-                            </div>
+                            
+                            <div class="btn-group btn-group-justified">
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N" class="btn btn-warning">정산 미완료</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y" class="btn btn-warning">정산 완료</a>
+      						</div>
 
                             <div class="card-body">
                                 <table id="datatablesSimple">

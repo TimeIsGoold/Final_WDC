@@ -70,11 +70,11 @@
                                 <i class="fas fa-table me-1"></i>문의내역
                             </div>
                             
-                            <div class="subMenuBar">
-                                <button class="totalQuestion">전체</button>
-                                <button class="studentQuestion">수강생</button>
-                                <button class="teacherQuestion">강사</button>
-                            </div>
+                             <div class="btn-group btn-group-justified">
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to" class="btn btn-warning">전체 </a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc" class="btn btn-warning">강사</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st" class="btn btn-warning">수강생</a>
+      						</div>
 
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -92,7 +92,14 @@
                      					<c:forEach items="${questionList}" var="QuestionDTO">
 				                            <tr>
 				                                <td>${QuestionDTO.questionNo}</td>
-				                                <td>${QuestionDTO.questionType}</td>
+				                                <c:choose>
+				                                	<c:when test="${QuestionDTO.questionType eq 'USER'}">
+				                                		<td>수강생</td>
+				                                	</c:when>
+				                                	<c:when test="${QuestionDTO.questionType eq 'TEACHER'}">
+				                                		<td>강사</td>
+				                                	</c:when>
+				                                </c:choose>
 				                                <td>${QuestionDTO.questionName}</td>
 				                                <td>${QuestionDTO.questionId}</td>
 				                                <td>${QuestionDTO.questionTitle}</td>

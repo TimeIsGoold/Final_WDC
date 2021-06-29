@@ -20,7 +20,26 @@ public interface AdminService {
 
 	List<ReportDTO> selectAllReportList();
 
+	/**
+	 * 전체문의
+	 * 아현
+	 * @return
+	 */
 	List<QuestionDTO> selectAllQuestionList();
+	
+	/**
+	 * 강사문의
+	 * 아현
+	 * @return
+	 */
+	List<QuestionDTO> selectTeacherQuestionList();
+
+	/**
+	 * 학생문의
+	 * 아현
+	 * @return
+	 */
+	List<QuestionDTO> selectStudentQuestionList();
 
 	StudentDTO selectOneStudent(int no);
 
@@ -30,10 +49,31 @@ public interface AdminService {
 
 	List<TotalDTO> selectStudentList();
 	
+	/**
+	 * 쿠폰
+	 * 아현
+	 * @return
+	 */
 	List<CouponDTO> selectAllCouponList();
 
+	/**
+	 * 공지
+	 * 아현
+	 * @return
+	 */
 	List<NoticeDTO> selectAllNoticeList();
 
-	List<CalculateDTO> selectAllCalculateList();
-
+	/**
+	 * 미정산
+	 * 아현
+	 * @return
+	 */
+	List<CalculateDTO> selectNoCalculateList();
+	
+	/**
+	 * 정산완료
+	 * 아현
+	 * @return
+	 */
+	List<CalculateDTO> selectYesCalculateList();
 }

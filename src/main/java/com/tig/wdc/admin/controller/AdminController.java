@@ -91,9 +91,15 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("questionManagement")
-	public String selectQustionList(Model model) {
+	public String selectQustionList(@RequestParam("mt")String type , Model model) {
 
-		model.addAttribute("questionList", adminService.selectAllQuestionList());
+		if(type.equals("to")) {
+			model.addAttribute("questionList", adminService.selectAllQuestionList());
+		} else if(type.equals("tc")) {
+			model.addAttribute("questionList", adminService.selectTeacherQuestionList());			
+		} else if(type.equals("st")) {			
+			model.addAttribute("questionList", adminService.selectStudentQuestionList());			
+		}
 
 		return "admin/adminQuestionManagement";
 	}
@@ -133,9 +139,13 @@ public class AdminController {
 	 * @return
 	 */
 	 @GetMapping("calculateManagement") 
-	 public String calculateManagement(Model model) {
+	 public String calculateManagement(@RequestParam("YN")String type, Model model) {
 	  
-		 model.addAttribute("calculateList", adminService.selectAllCalculateList());
+		 if(type.equals("N")) {
+			 model.addAttribute("calculateList", adminService.selectNoCalculateList());
+		 } else if(type.equals("Y")) {
+			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
+		 }
 	  
 		 return "admin/adminCalculateManagement"; 
 	 }

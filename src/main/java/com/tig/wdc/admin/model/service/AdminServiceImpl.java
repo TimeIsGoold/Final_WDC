@@ -46,11 +46,37 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectAllReportList();
 	}
 
+	/**
+	 * 전체 문의 사항
+	 * 아현
+	 */
 	@Override
 	public List<QuestionDTO> selectAllQuestionList() {
 
 		return mapper.selectAllQuestionList();
 	}
+	
+	/**
+	 * 강사 문의 사항
+	 * -아현-
+	 */
+	@Override
+	public List<QuestionDTO> selectTeacherQuestionList() {
+		
+		return mapper.selectTeacherQuestionList();
+	}
+	
+	
+	/**
+	 * 학생 문의 사항
+	 * -아현-
+	 */
+	@Override
+	public List<QuestionDTO> selectStudentQuestionList() {
+		
+		return mapper.selectStudentQuestionList();
+	}
+	 
 
 	@Override
 	public StudentDTO selectOneStudent(int no) {
@@ -74,23 +100,44 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectStudentList();
 		
 	}
+	/**
+	 * 쿠폰
+	 * -아현-
+	 */
 	@Override
 	public List<CouponDTO> selectAllCouponList() {
 
 		return mapper.selectAllCouponList();
 	}
 
+	/**
+	 * 공지
+	 * -아현-
+	 */
 	@Override
 	public List<NoticeDTO> selectAllNoticeList() {
 
 		return mapper.selectAllNoticeList();
 	}
 
-	 @Override 
-	 public List<CalculateDTO> selectAllCalculateList() {
+	 /**
+	 * 미정산
+	 * -아현-
+	 */
+	@Override 
+	 public List<CalculateDTO> selectNoCalculateList() {
 	 
-		 return mapper.selectAllCalculateList(); 
+		 return mapper.selectNoCalculateList(); 
 	}
 	 
+	 /**
+	 * 정산완료
+	 * -아현-
+	 */
+	@Override 
+	 public List<CalculateDTO> selectYesCalculateList() {
+	 
+		 return mapper.selectYesCalculateList(); 
+	}
 
 }
