@@ -26,7 +26,7 @@
         <result column="SAVE_PATH" property="titlePic"/>
     </resultMap>
 
-	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
+	<select id="selectNewClassList" resultMap="ClassResult">
 		SELECT
 	           *
 		  FROM CLASS A

@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tig.wdc.user.model.dao.UserCategoryMapper">
 
-    <resultMap type="ClassDTO" id="UserCategoryResult">
+    <resultMap type="UserClassDTO" id="UserCategoryResult">
         <id column="CLS_NO" property="clsNo"/>
         <result column="CLS_TITLE" property="title"/>
         <result column="CLS_ADDRESS" property="address"/>
@@ -27,7 +27,7 @@
         
     </resultMap>
 
-	<select id="selectClassCategory" parameterType="java.util.List" resultMap="UserCategoryResult">
+	<select id="selectClassCategory" resultMap="UserCategoryResult">
 		SELECT
 	           *
 		  FROM CLASS A
@@ -36,7 +36,7 @@
            AND T.TYPE = 'TITLE'	
     </select>
     
-    <select id="selectSportsClassCategory" parameterMap="UserClassDTO" resultMap="UserCategoryResult">
+    <select id="selectSportsClassCategory" resultMap="UserCategoryResult">
     	SELECT
 	           *
 		  FROM CLASS A
@@ -46,4 +46,43 @@
            AND T.TYPE = 'TITLE'	
     </select>
 
+    <select id="selectClassBeautyCategory" resultMap="UserCategoryResult">
+    	SELECT
+	           *
+		  FROM CLASS A
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+		   AND A.CATEGORY_NO = 4
+           AND T.TYPE = 'TITLE'	
+    </select>
+    
+    <select id="selectClassArtCategory" resultMap="UserCategoryResult">
+        SELECT
+	           *
+		  FROM CLASS A
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+		   AND A.CATEGORY_NO = 3
+           AND T.TYPE = 'TITLE'	
+    </select>
+    
+    <select id="selectClassCookCategory" resultMap="UserCategoryResult">
+        SELECT
+	           *
+		  FROM CLASS A
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+		   AND A.CATEGORY_NO = 2
+           AND T.TYPE = 'TITLE'	
+    </select>
+    
+    <select id="selectClassComputerCategory" resultMap="UserCategoryResult">
+        SELECT
+	           *
+		  FROM CLASS A
+		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+		 WHERE A.CLS_DICSION_STATUS = 'S'
+		   AND A.CATEGORY_NO = 5
+           AND T.TYPE = 'TITLE'	
+    </select>
 </mapper>

@@ -10,4 +10,12 @@ public interface UserCategoryService {
 	public List<UserClassDTO> selectClassCategory();
 	
 	public List<UserClassDTO> selectClassSportsCategory();
+	
+	public List<UserClassDTO> selectClassBeautyCategory();
+	
+	public List<UserClassDTO> selectClassArtCategory();
+	
+	public List<UserClassDTO> selectClassCookCategory();
+	
+	public List<UserClassDTO> selectClassComputerCategory();
 }

@@ -63,4 +63,52 @@ public class UserCategoryController {
 		
 		return "user/classList/class_sports";
 	}
+	
+	/**
+	 * 뷰티 카테고리 조회용 메소드
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("art")
+	public String ClassCategorybeautySelect(Model model) {
+		
+		List<UserClassDTO> artClassList = new ArrayList<>();
+		
+		artClassList = categoryService.selectClassArtCategory();
+		
+		model.addAttribute("artClassList",artClassList);
+		
+		return "user/classList/class_art";
+
+	}
+	
+	/**
+	 * 요리/베이킹 카테고리 조회용 메소드
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("cook")
+	public String ClassCategoryCookSelect(Model model) {
+		
+		List<UserClassDTO> cookClassList = new ArrayList<>();
+		
+		cookClassList = categoryService.selectClassCookCategory();
+		
+		model.addAttribute("cookClassList",cookClassList);
+		
+		return "user/classList/class_cook";
+
+	}
+	
+	@GetMapping("computer")
+	public String ClassCategoryComputerSelect(Model model) {
+		
+		List<UserClassDTO> computerClassList = new ArrayList<>();
+		
+		computerClassList = categoryService.selectClassComputerCategory();
+		
+		model.addAttribute("computerClassList",computerClassList);
+		
+		return "user/classList/class_it";
+	}
 }

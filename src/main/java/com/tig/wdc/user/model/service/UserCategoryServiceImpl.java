@@ -27,4 +27,24 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 		return mapper.selectSportsClassCategory();
 	}
 
+	@Override
+	public List<UserClassDTO> selectClassBeautyCategory() {
+		return mapper.selectClassBeautyCategory();
+	}
+
+	@Override
+	public List<UserClassDTO> selectClassArtCategory() {
+		return mapper.selectClassArtCategory();
+	}
+
+	@Override
+	public List<UserClassDTO> selectClassCookCategory() {
+		return mapper.selectClassCookCategory();
+	}
+	
+	@Override
+	public List<UserClassDTO> selectClassComputerCategory() {
+		return mapper.selectClassComputerCategory();
+	}
+
 }

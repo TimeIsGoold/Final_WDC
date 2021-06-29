@@ -44,9 +44,9 @@
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-warning" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item border-0 transition-link" href="class_all.html">전체보기</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_sport.html">스포츠</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_beauty.html">뷰티</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/all">전체보기</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/sports">스포츠</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/beauty">뷰티</a>
                     <a class="dropdown-item border-0 transition-link" href="class_art.html">미술 · 공예 · 공연전시</a>
                     <a class="dropdown-item border-0 transition-link" href="class_cook.html">요리 · 베이킹</a>
                     <a class="dropdown-item border-0 transition-link" href="class_it.html">컴퓨터 · IT</a>
@@ -114,9 +114,9 @@
               <!-- SHOP SIDEBAR-->
               <div class="col-lg-3 order-2 order-lg-1">
                 <h5 class="text-uppercase mb-4">Category</h5>
-                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_all.html">전체보기</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_sport.html">스포츠</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_beauty.html">뷰티</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/all">전체보기</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/sports">스포츠</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/beauty">뷰티</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_art.html">미술 · 공예 · 공연전시</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_cook.html">요리 · 베이킹</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="class_it.html">컴퓨터 · IT</a></strong></div>
@@ -181,10 +181,11 @@
                         </div>
                       </div>
                       <h6> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
-                      <p class="small text-muted">${classList.price}</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원</p>
                     </div>
                   </div>
                   </c:forEach>
+                  
                 </div>
                 
                 <!-- PAGINATION-->
