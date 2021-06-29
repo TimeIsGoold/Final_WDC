@@ -48,11 +48,13 @@ public class TeacherMyPageController {
 		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, balanceService.selectBalanceCount(), 5, 5);
 		model.addAttribute("pageInfo", pageInfo);
 		
+		/* 문의사항 목록 검색 */
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		map.put("teacherNo", teacherNo);
+		map.put("pageInfo", pageInfo);
 		
 		/* 정산내역 조회 */
-		//model.addAttribute("balanceList", balanceService.selectBalanceList(pageInfo, teacherNo));
+		model.addAttribute("balanceList", balanceService.selectBalanceList(map));
 		
 		
 		return "teacher/balanace/t_balanceList";
