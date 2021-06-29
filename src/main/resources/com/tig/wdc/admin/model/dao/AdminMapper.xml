@@ -133,6 +133,18 @@
 		<result column="정산예정달" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
 	</resultMap>
+	
+	<resultMap id="reportDetailDTO" type="ReportDetailDTO">
+		<id column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="USER_ID" property="reportedId"/>
+		<result column="USER_NAME" property="reportedNmae"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="REPORT_REASON" property="reason"/>
+		<result column="REPORT_PIC" property="imgPath"/>
+		<result column="PROCS_STATUS" property="reportStatus"/>
+	</resultMap>
+	
 		
 	<select id="selectTotalUsertList" resultMap="totalDTO">
 		SELECT 
@@ -402,6 +414,22 @@
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
          ORDER BY A.CALC_NO
+	</select>
+	
+	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="_int">
+		SELECT
+	       REPORT_NO
+	     , REPORT_TITLE
+	     , USER_ID
+	     , USER_NAME
+	     , REPORT_DATE
+	     , REPORT_REASON
+	     , REPORT_PIC
+	     , PROCS_STATUS
+	  FROM REPORT R 
+	  JOIN USER_INFO U ON (R.REPORT_TO_NO = U.USER_NO)
+	 WHERE REPORT_TYPE = '강사'
+	   AND REPORT_NO = #{no}
 	</select>
 	
 </mapper>

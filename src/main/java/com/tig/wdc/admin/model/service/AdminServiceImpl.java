@@ -12,6 +12,7 @@ import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
+import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
@@ -135,6 +136,13 @@ public class AdminServiceImpl implements AdminService {
 	 
 		 return mapper.selectNoCalculateList(); 
 	}
+
+	@Override
+	public ReportDetailDTO selectStudentReportList(int no) {
+		
+		return mapper.selectStudentReportList(no);
+	}
+
 	 
 	 /**
 	 * @author 송아현
@@ -145,6 +153,12 @@ public class AdminServiceImpl implements AdminService {
 	 public List<CalculateDTO> selectYesCalculateList() {
 	 
 		 return mapper.selectYesCalculateList(); 
+	}
+
+	@Override
+	public List<CalculateDTO> selectAllCalculateList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
