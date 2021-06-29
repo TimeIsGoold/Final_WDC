@@ -25,5 +25,8 @@
  		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
  		<typeAlias alias="UserClassDTO" type="com.tig.wdc.user.model.dto.UserClassDTO"/>
  		
+ 		<!-- teacher  -->
+ 		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
+ 		
  	</typeAliases>
  </configuration>
