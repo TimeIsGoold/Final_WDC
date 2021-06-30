@@ -120,13 +120,11 @@ public class AdminController {
 	@GetMapping("questionDetail") 
 	public String questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String id, Model model) {
 		
-		if(type.equals("tc")) {
+		if(type.equals("TEACHER")) {
 			model.addAttribute("questionDetail", adminService.selectTeacherQuestionInfoDetail(id));			
-		} else if(type.equals("st")) {
+		} else if(type.equals("USER")) {
 			//model.addAttribute("questionDetail", adminService.selectStudentQuestionInfoDetail(id));			
 		}
-		
-		System.out.println("id : " + id);
 		
 		return "admin/questionDetail"; 
 	}
