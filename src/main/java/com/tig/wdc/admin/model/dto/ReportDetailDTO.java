@@ -6,28 +6,35 @@ public class ReportDetailDTO {
 
 	private int reportNo;
 	private String reportTitle;
-	private String reportedId;
-	private String reportedNmae;
+	private String reportedId1;
+	private String reportedId2;
+	private String reportedNmae1;
+	private String reportedNmae2;
 	private java.sql.Date reportDate;
+	private String type;
 	private String reason;
 	private String imgPath;
-	private String reportStatua;
-	public ReportDetailDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public ReportDetailDTO(int reportNo, String reportTitle, String reportedId, String reportedNmae, Date reportDate,
-			String reason, String imgPath, String reportStatua) {
+	private String reportStatus;
+	
+	public ReportDetailDTO() {}
+	
+	public ReportDetailDTO(int reportNo, String reportTitle, String reportedId1, String reportedId2,
+			String reportedNmae1, String reportedNmae2, Date reportDate, String type, String reason, String imgPath,
+			String reportStatus) {
 		super();
 		this.reportNo = reportNo;
 		this.reportTitle = reportTitle;
-		this.reportedId = reportedId;
-		this.reportedNmae = reportedNmae;
+		this.reportedId1 = reportedId1;
+		this.reportedId2 = reportedId2;
+		this.reportedNmae1 = reportedNmae1;
+		this.reportedNmae2 = reportedNmae2;
 		this.reportDate = reportDate;
+		this.type = type;
 		this.reason = reason;
 		this.imgPath = imgPath;
-		this.reportStatua = reportStatua;
+		this.reportStatus = reportStatus;
 	}
+	
 	public int getReportNo() {
 		return reportNo;
 	}
@@ -40,23 +47,41 @@ public class ReportDetailDTO {
 	public void setReportTitle(String reportTitle) {
 		this.reportTitle = reportTitle;
 	}
-	public String getReportedId() {
-		return reportedId;
+	public String getReportedId1() {
+		return reportedId1;
 	}
-	public void setReportedId(String reportedId) {
-		this.reportedId = reportedId;
+	public void setReportedId1(String reportedId1) {
+		this.reportedId1 = reportedId1;
 	}
-	public String getReportedNmae() {
-		return reportedNmae;
+	public String getReportedId2() {
+		return reportedId2;
 	}
-	public void setReportedNmae(String reportedNmae) {
-		this.reportedNmae = reportedNmae;
+	public void setReportedId2(String reportedId2) {
+		this.reportedId2 = reportedId2;
+	}
+	public String getReportedNmae1() {
+		return reportedNmae1;
+	}
+	public void setReportedNmae1(String reportedNmae1) {
+		this.reportedNmae1 = reportedNmae1;
+	}
+	public String getReportedNmae2() {
+		return reportedNmae2;
+	}
+	public void setReportedNmae2(String reportedNmae2) {
+		this.reportedNmae2 = reportedNmae2;
 	}
 	public java.sql.Date getReportDate() {
 		return reportDate;
 	}
 	public void setReportDate(java.sql.Date reportDate) {
 		this.reportDate = reportDate;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getReason() {
 		return reason;
@@ -70,17 +95,19 @@ public class ReportDetailDTO {
 	public void setImgPath(String imgPath) {
 		this.imgPath = imgPath;
 	}
-	public String getReportStatua() {
-		return reportStatua;
+	public String getReportStatus() {
+		return reportStatus;
 	}
-	public void setReportStatua(String reportStatua) {
-		this.reportStatua = reportStatua;
+	public void setReportStatus(String reportStatus) {
+		this.reportStatus = reportStatus;
 	}
+	
 	@Override
 	public String toString() {
-		return "ReportDetailDTO [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportedId=" + reportedId
-				+ ", reportedNmae=" + reportedNmae + ", reportDate=" + reportDate + ", reason=" + reason + ", imgPath="
-				+ imgPath + ", reportStatua=" + reportStatua + "]";
+		return "ReportDetailDTO [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportedId1=" + reportedId1
+				+ ", reportedId2=" + reportedId2 + ", reportedNmae1=" + reportedNmae1 + ", reportedNmae2="
+				+ reportedNmae2 + ", reportDate=" + reportDate + ", type=" + type + ", reason=" + reason + ", imgPath="
+				+ imgPath + ", reportStatus=" + reportStatus + "]";
 	}
 	
 	

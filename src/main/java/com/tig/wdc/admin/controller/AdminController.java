@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
 
@@ -187,20 +188,27 @@ public class AdminController {
 	}
 	
 	@GetMapping("reportDetail")
-	public String selectReportDetail(@RequestParam("no")int no,@RequestParam("type")String type,Model model) {
+	public String selectReportDetail(@RequestParam("no")int no ,@RequestParam("type")String type,Model model) {
 		
+		ReportDetailDTO rd = new ReportDetailDTO();
 		
-//		if(type.equals("수강생")) {
+		System.out.println(no);
+		System.out.println(type);
+		
+		rd.setReportNo(no);
+		
+		if(type.equals("수강생")) {
 			// 수강생
-			System.out.println("타임이 뭔데  ? : " + type);
-			System.out.println("맞쥬? 맞쥬? 내말 맞주?"+ no);
-			model.addAttribute("reportDetail", adminService.selectStudentReportList(no));
-//		}
+			rd.setType("T");
+		} else {
+			rd.setType("U");
+		}
+		ReportDetailDTO report = adminService.selectStudentReportList(rd);
+		System.out.println(report);
+			model.addAttribute("reportDetail", adminService.selectStudentReportList(rd));
 			
-//		} else {
-//			// 학생
+			// 학생
 //			model.addAttribute("reportDetail", adminService.selectTeacherReportList(no));
-//		}
 		return "admin/reportPage";
 	}
 

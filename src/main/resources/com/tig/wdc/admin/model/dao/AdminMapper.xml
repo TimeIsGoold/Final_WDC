@@ -104,12 +104,15 @@
 	<resultMap id="reportDetailDTO" type="ReportDetailDTO">
 		<id column="REPORT_NO" property="reportNo"/>
 		<result column="REPORT_TITLE" property="reportTitle"/>
-		<result column="USER_ID" property="reportedId"/>
-		<result column="USER_NAME" property="reportedNmae"/>
+		<result column="USER_ID" property="reportedId1"/>
+		<result column="TE_ID" property="reportedId2"/>
+		<result column="USER_NAME" property="reportedNmae1"/>
+		<result column="TE_NAME" property="reportedNmae2"/>
 		<result column="REPORT_DATE" property="reportDate"/>
 		<result column="REPORT_REASON" property="reason"/>
 		<result column="REPORT_PIC" property="imgPath"/>
 		<result column="PROCS_STATUS" property="reportStatus"/>
+		<result column="type" property="type"/>
 	</resultMap>
 	
 		
@@ -323,20 +326,52 @@
          ORDER BY A.CALC_NO
 	</select>
 	
-	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="_int">
+	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="ReportDetailDTO">
 		SELECT
 	       REPORT_NO
 	     , REPORT_TITLE
+	     <if test='type == "U"'>
 	     , USER_ID
 	     , USER_NAME
+	     </if>
+	     <if test='type == "T"'>
+	     , TE_ID
+	     , TE_NAME
+	     </if>
+	     , TYPE
 	     , REPORT_DATE
 	     , REPORT_REASON
 	     , REPORT_PIC
 	     , PROCS_STATUS
 	  FROM REPORT R 
+	  <if test='type == "U"'>
 	  JOIN USER_INFO U ON (R.REPORT_TO_NO = U.USER_NO)
+	 WHERE REPORT_TYPE = '수강생'
+	 </if>
+	  <if test='type == "T"'>
+	  JOIN TEACHER_INFO U ON (R.REPORT_TO_NO = U.TE_NO)
 	 WHERE REPORT_TYPE = '강사'
-	   AND REPORT_NO = #{no}
+	 </if>
+	   AND REPORT_NO = #{reportNo}
 	</select>
+	
+<!-- 	<select id="selectTeacherReportList" resultMap="reportDetailDTO" parameterType="_int">
+		SELECT
+	       REPORT_NO
+	     , REPORT_TITLE
+	     , TE_ID
+	     , TYPE
+	     , TE_NAME
+	     , REPORT_DATE
+	     , REPORT_REASON
+	     , REPORT_PIC
+	     , PROCS_STATUS
+	  FROM REPORT R 
+	  JOIN TEACHER_INFO U ON (R.REPORT_TO_NO = U.TE_NO)
+	 WHERE REPORT_TYPE = '수강생'
+	   AND REPORT_NO = #{no}
+	</select> -->
+	
+
 	
 </mapper>

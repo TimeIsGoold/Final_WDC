@@ -37,6 +37,8 @@ public interface AdminService {
 
 	List<CalculateDTO> selectAllCalculateList();
 
-	ReportDetailDTO selectStudentReportList(int no);
+	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
+
+//	ReportDetailDTO selectTeacherReportList(int no);
 
 }
