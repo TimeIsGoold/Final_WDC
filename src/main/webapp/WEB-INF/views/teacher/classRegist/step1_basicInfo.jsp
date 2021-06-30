@@ -68,7 +68,7 @@
 		<%-- 	<jsp:include page="../commons/sidebar.jsp" /> 
  --%>
 			<!-- 본문 -->
-			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px"  id="registPage1" >
+			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px;"  id="registPage1" >
 				<!-- 정규클래스등록1-->
 				<div class="row">
 					<div class="col-md-2 nowStep">클래스 기본정보</div>

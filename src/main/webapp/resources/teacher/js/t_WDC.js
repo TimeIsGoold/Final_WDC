@@ -64,11 +64,15 @@ function loadImg(value, num) {
 function scheduleChange(t){
     let type = t.id;
     switch(type){
-        case "individual" : document.getElementById("scheduleType").value = type; 
+        case "individual" : document.getElementById("scheduleType").value = "I"; 
                             document.getElementById("dateTimeSetting").style.cursor="";
+                            document.getElementById("individual").class="schedule-select";
+                            document.getElementById("repeat").class="schedule-none";
                             break;
-        case "repeat" : document.getElementById("scheduleType").value = type; 
+        case "repeat" : document.getElementById("scheduleType").value = "D"; 
                         document.getElementById("dateTimeSetting").style.cursor="";
+                        document.getElementById("individual").class="schedule-none";       
+                        document.getElementById("repeat").class="schedule-select";
                         break;
         case "always" : document.getElementById("scheduleType").value = type; 
                         document.getElementById("dateTimeSetting").style.cursor="not-allowed";
@@ -80,11 +84,26 @@ function doPopUP(){
     let type = document.getElementById("scheduleType").value;
     console.dir(document.getElementById("dateTimeSetting"));
     switch(type){
-        case "individual" : document.getElementById("dateTimeSetting").dataset.target="#individualSetting";break;
-        case "repeat" : document.getElementById("dateTimeSetting").dataset.target="#repeatSetting";break;
+        case "I" : document.getElementById("dateTimeSetting").dataset.target="#individualSetting";break;
+        case "D" : document.getElementById("dateTimeSetting").dataset.target="#repeatSetting";break;
         default : alert("클래스타입을 선택해주세요"); break;
     }
 };
+
+function addSchedule(){
+    let addInfo = document.getElementsByName("lectureSchedule");
+    let scheduleTable = document.getElementById("scheduleDetail");
+    let week = ['일','월','화','수','목','금','토'];
+    let dayOfWeek = week[new Date(addInfo[0].value).getDay()]; 
+    let hiddenDay = "<input type='hidden' value='" + addInfo[0].value + "' name='inputDate'>";
+    let hiddenStartT = "<input type='hidden' value='" + addInfo[1].value+":"+ addInfo[2].value + "' name='ScheduleStart'>";
+    let minP = "<input type='hidden' value='" + addInfo[3].value + "' name='inputMin'>";
+    let maxP = "<input type='hidden' value='" + addInfo[4].value + "' name='inputMax'>";
+    scheduleTable.innerHTML += "<tr><td>"+addInfo[0].value + "(" + dayOfWeek + ")"
+                             + "</td><td>"+addInfo[1].value + " : "+ addInfo[2].value 
+                             + "</td><td> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>"
+                             + hiddenDay + hiddenStartT + minP + maxP
+}
 
 function setCurriculum(){
 

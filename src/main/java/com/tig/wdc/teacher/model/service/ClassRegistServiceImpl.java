@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,11 @@ public class ClassRegistServiceImpl implements ClassRegistService {
 	}
 
 	/**
-	 * 클래스 커리큘럼 insert
+	 * 커리큘럼 insert
 	 */
 	@Override
-	public int insertCurriculum(List<CurriculumDTO> curriList) {
-		return mapper.insertCurriculum(curriList);
+	public int insertCurriculum(CurriculumDTO curriculum) {
+		return  mapper.insertCurriculum(curriculum);
 	}
 
 }

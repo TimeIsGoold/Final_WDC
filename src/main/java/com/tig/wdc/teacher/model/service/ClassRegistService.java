@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
@@ -23,7 +24,7 @@ public interface ClassRegistService {
 	int insertCompletePiece(ClassPieceDTO classPiece);
 
 	//클래스 커리큘럼 insert
-	int insertCurriculum(List<CurriculumDTO> curriList);
+	int insertCurriculum(CurriculumDTO curriculum);
 
 	
 }

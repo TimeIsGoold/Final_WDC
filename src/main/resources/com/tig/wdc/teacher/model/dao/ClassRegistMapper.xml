@@ -65,22 +65,21 @@
              , #{ classNo }
              )
     </insert>
-    <update id="insertCurriculum" parameterType="java.util.List">
-        <selectKey keyProperty="curriList.clsNo" order="BEFORE" resultType="_int">
+    <insert id="insertCurriculum" parameterType="curriculum">
+        <selectKey keyProperty="clsNo" order="BEFORE" resultType="_int">
             SELECT
                    SEQ_CLS_NO.CURRVAL
               FROM DUAL
         </selectKey>
-        <foreach collection="curriList" item="curri" open="INSERT ALL">
+          INSERT
             INTO CURRICULUM
-           VALUE
+          VALUES
                (
                  SEQ_CRCLM_NO.NEXTVAL
-               , #{ curri.curriStep } 
-               , #{ curri.curriTitle }
-               , #{ curri.curriContent }
-               , #{ curri.clsNo }
+               , #{ curriStep } 
+               , #{ curriTitle }
+               , #{ curriContent }
+               , #{ clsNo }
                ) 
-        </foreach>
-    </update>
+    </insert>
 </mapper>

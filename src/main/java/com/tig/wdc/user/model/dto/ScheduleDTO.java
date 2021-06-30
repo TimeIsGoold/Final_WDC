@@ -2,10 +2,13 @@ package com.tig.wdc.user.model.dto;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author SORA
  * 클래스 스케쥴 DTO
  */
+@Component
 public class ScheduleDTO {
 
 	private int ScheduleNo;
@@ -16,13 +19,15 @@ public class ScheduleDTO {
 	private int maxPeople;
 	private int clsNo;
 	private int ScheduleCount;
-
-	public ScheduleDTO() {
-		super();
-	}
+	
+	private String inputDate;
+	private String inputMin;
+	private String inputMax;
+	
+	public ScheduleDTO() {}
 
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
-			int maxPeople, int clsNo, int scheduleCount) {
+			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax) {
 		super();
 		ScheduleNo = scheduleNo;
 		ScheduleType = scheduleType;
@@ -32,6 +37,9 @@ public class ScheduleDTO {
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
 		ScheduleCount = scheduleCount;
+		this.inputDate = inputDate;
+		this.inputMin = inputMin;
+		this.inputMax = inputMax;
 	}
 
 	public int getScheduleNo() {
@@ -98,11 +106,35 @@ public class ScheduleDTO {
 		ScheduleCount = scheduleCount;
 	}
 
+	public String getInputDate() {
+		return inputDate;
+	}
+
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
+	}
+
+	public String getInputMin() {
+		return inputMin;
+	}
+
+	public void setInputMin(String inputMin) {
+		this.inputMin = inputMin;
+	}
+
+	public String getInputMax() {
+		return inputMax;
+	}
+
+	public void setInputMax(String inputMax) {
+		this.inputMax = inputMax;
+	}
+
 	@Override
 	public String toString() {
 		return "ScheduleDTO [ScheduleNo=" + ScheduleNo + ", ScheduleType=" + ScheduleType + ", ScheduleDate="
 				+ ScheduleDate + ", ScheduleStart=" + ScheduleStart + ", minPeople=" + minPeople + ", maxPeople="
-				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + ScheduleCount + "]";
+				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + ScheduleCount + ", inputDate=" + inputDate
+				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + "]";
 	}
-
 }
