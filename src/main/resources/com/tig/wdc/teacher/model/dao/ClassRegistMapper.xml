@@ -71,15 +71,35 @@
                    SEQ_CLS_NO.CURRVAL
               FROM DUAL
         </selectKey>
-          INSERT
-            INTO CURRICULUM
-          VALUES
-               (
-                 SEQ_CRCLM_NO.NEXTVAL
-               , #{ curriStep } 
-               , #{ curriTitle }
-               , #{ curriContent }
-               , #{ clsNo }
-               ) 
+        INSERT
+          INTO CURRICULUM
+        VALUES
+             (
+               SEQ_CRCLM_NO.NEXTVAL
+             , #{ curriStep } 
+             , #{ curriTitle }
+             , #{ curriContent }
+             , #{ clsNo }
+             ) 
+    </insert>
+    <insert id="insertSchedule" parameterType="schedule">
+        <selectKey keyProperty="clsNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        INSERT
+          INTO SCHEDULE
+        VALUES 
+             (
+               SEQ_SCHEDULE_NO.NEXTVAL
+             , #{ scheduleType }
+             , #{ inputDate }
+             , #{ scheduleStart }
+             , #{ inputMin }
+             , #{ inputMax }
+             , #{ clsNo }
+             , #{ ScheduleCount }
+             )
     </insert>
 </mapper>

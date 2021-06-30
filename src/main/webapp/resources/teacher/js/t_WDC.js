@@ -63,6 +63,41 @@ function loadImg(value, num) {
 
 function scheduleChange(t){
     let type = t.id;
+    alert("기존에 등록된 스케쥴이 모두 삭제됩니다. 변경하시겠습니까?");
+    let repeatTable = document.getElementById("repeatTable");
+    let scheduleTable = document.getElementById("scheduleDetail");
+
+    repeatTable.innerHTML = "";
+    scheduleTable.innerHTML = "";
+    
+    let inputDate = document.getElementsByName("inputDate");
+    let scheduleStart =  document.getElementsByName("scheduleStart");
+    let inputMin = document.getElementsByName("inputMin");
+    let inputMax = document.getElementsByName("inputMax");
+    
+    if(inputDate.length > 0){
+        for(var i = 0; i < inputDate.length; i++){
+            inputDate.value="";
+        }
+    }
+    if(scheduleStart.length > 0){
+        for(var i = 0; i < scheduleStart.length; i++){
+            scheduleStart.value="";
+        }
+    }
+    if(inputMin.length > 0){
+        for(var i = 0; i < inputMin.length; i++){
+            inputMins.value="";
+        }
+    }
+    if(inputMax.length > 0){
+        for(var i = 0; i < inputMax.length; i++){
+            inputMax.value="";
+        }
+    }
+    
+    repeatTable.innerHTML += "<tr><th>강의날짜</th><th>시작 시간</th><th>참여가능인원</th><th>삭제</th></tr>"; 
+    scheduleTable.innerHTML += "<tr><th>강의날짜</th><th>시작 시간</th><th>참여가능인원</th><th>삭제</th></tr>"; 
     switch(type){
         case "individual" : document.getElementById("scheduleType").value = "I"; 
                             document.getElementById("dateTimeSetting").style.cursor="";
@@ -96,14 +131,14 @@ function addSchedule(){
     let week = ['일','월','화','수','목','금','토'];
     let dayOfWeek = week[new Date(addInfo[0].value).getDay()]; 
     let hiddenDay = "<input type='hidden' value='" + addInfo[0].value + "' name='inputDate'>";
-    let hiddenStartT = "<input type='hidden' value='" + addInfo[1].value+":"+ addInfo[2].value + "' name='ScheduleStart'>";
+    let hiddenStartT = "<input type='hidden' value='" + addInfo[1].value+":"+ addInfo[2].value + "' name='scheduleStart'>";
     let minP = "<input type='hidden' value='" + addInfo[3].value + "' name='inputMin'>";
     let maxP = "<input type='hidden' value='" + addInfo[4].value + "' name='inputMax'>";
     scheduleTable.innerHTML += "<tr><td>"+addInfo[0].value + "(" + dayOfWeek + ")"
                              + "</td><td>"+addInfo[1].value + " : "+ addInfo[2].value 
                              + "</td><td> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP
-}
+};
 
 function setCurriculum(){
 
@@ -128,11 +163,49 @@ function setCurriculum(){
     document.getElementById("curriName").value = "";   
     document.getElementById("curriContent").value ="";                  
     document.getElementById("selectStep").value = Number(step)+1;                    
+};
+
+function addDayRepeat(){
+    let inputData = document.getElementsByName("lectureSchedule2");
+    let startDate = new Date(document.getElementById("start").value);
+    let endDate = new Date(document.getElementById("end").value);
+
+    let selectWeek = document.getElementsByName("dayName");
+    let weekArr = [];
+    let weekList = ['일','월','화','수','목','금','토'];
+    
+    let repeatTable = document.getElementById("repeatTable");
+    
+    for(var i = 0; i < selectWeek.length; i++){
+        if(selectWeek[i].checked){
+            weekArr.push(selectWeek[i].value);
+        }
+    }
+    
+    let dayMinus = (endDate.getTime() - startDate.getTime())/(1000*60*60*24) +1 ;
+    
+    for(var i = 0; i < dayMinus; i++){
+    	let date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+    	
+            for(var j = 0; j < weekArr.length; j ++){
+        	
+            if(date.getDay() == weekArr[j]){
+  				let year = date.getFullYear()
+                let month = date.getMonth() + 1
+                month = month >= 10 ? month : '0' + month
+                let day = date.getDate();
+                day = day >= 10 ? day : '0' + day
+                let purchaseDay = year + '-' + month + '-' + day;
+                let dayOfWeek = weekList[weekArr[j]];             
+                repeatTable.innerHTML += "<tr><td>"+ purchaseDay + "(" + dayOfWeek + ")"
+                             + "</td><td>"+inputData[0].value + " : "+ inputData[1].value 
+                             + "</td><td> 최소 "+ inputData[2].value + "명 ~ 최대 " + inputData[3].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>";
+            }
+        }
+    }
+   
 }
-
-
-
-
 
 
 

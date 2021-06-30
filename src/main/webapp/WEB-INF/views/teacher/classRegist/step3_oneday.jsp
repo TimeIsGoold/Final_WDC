@@ -116,7 +116,7 @@ input[name="dayName"] {
 
 <body>
 	<!-- 본문 -->
-	<div class="container" style="width: 90%; margin :0 auto; display: none;" id="oneday">
+	<div class="container" style="width: 90%; margin :0 auto;" id="oneday">
 		<!-- 정규클래스등록1-->
 		<div class="row">
 			<div class="col-md-2 step">클래스 기본정보</div>
@@ -139,7 +139,7 @@ input[name="dayName"] {
 				<button type="button" id="individual" class="schedule-none" onclick="scheduleChange(this);" >개별일정</button>
 				<button type="button" id="repeat" class="schedule-none" onclick="scheduleChange(this)">요일반복</button>
 				<!-- <button id="always" onclick="scheduleChange(this)">상시모집</button> -->
-				<input type="hidden" id="scheduleType" value="" name="ScheduleType">
+				<input type="hidden" id="scheduleType" value="" name="scheduleType">
 			</div>
 			<div class="col-md-3" align="center">수업소요시간<br>
 				<div class="form-inline" style="margin-left: 10px;">
@@ -163,7 +163,7 @@ input[name="dayName"] {
 				</div>
 			</div>
 			<div class="col-md-5" align="center">시작일과 종료일을 입력해주세요<br> 
-				<input type="date" name="startDay"> - <input type="date" name="endDay">
+				<input type="date" name="startDay" id="start"> - <input type="date" name="endDay" id="end">
 			</div>
 			<div class="col-md-11" style="margin: 20px 0 20px 42px; height: 350px; background-color: #f5f5f5;">
 			여기 입력이 될거야
@@ -296,64 +296,78 @@ input[name="dayName"] {
 							<p style="font-size: 13px;">정기적으로 진행되는 클래스의 경우 요일과 강의 시간을 선택해
 								일괄등록 할 수 있습니다.</p>
 							<div style="border: 1px solid #f5f5f5; padding: 20px;">
-								<p style="font-size: 13px;">요일과 운영 시간을 선택해주세요.(입력한 횟수만큼
-									지정가능)</p>
+								<p style="font-size: 13px;">요일과 운영 시간을 선택해주세요.(입력한 횟수만큼 지정가능)</p>
 								<div style="background-color: #f5f5f5; padding: 20px;">
 									<!-- 스케쥴정보입력 -->
 									<div class="row">
 										<div class="col-md-12">
 											<p>강의요일</p>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="0" /> 일
-												</label> <label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="1" /> 월
-												</label> <label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="2" /> 화
-												</label> <label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="3" /> 수
-												</label> <label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="4" /> 목
-												</label> <label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="5" /> 금
-												</label> <label class="btn btn-default day"> <input
-													type="checkbox" name="dayName" value="6" /> 토
-												</label>
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="0" />일</label> 
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="1" />월</label>
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="2" />화</label> 
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="3" />수</label> 
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="4" />목</label> 
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="5" />금</label> 
+												<label class="btn btn-default day"> 
+												<input type="checkbox" name="dayName" value="6" />토</label>
 											</div>
 										</div>
-										<div class="col-md-5"
-											style="font-size: 14px; margin: 15px 0 10px 0;">강의시작시간</div>
-										<div class="col-md-5"
-											style="font-size: 14px; margin: 15px 0 10px 0;">참여가능인원</div>
+										<div class="col-md-5" style="font-size: 14px; margin: 15px 0 10px 0;">강의시작시간</div>
+										<div class="col-md-5" style="font-size: 14px; margin: 15px 0 10px 0;">참여가능인원</div>
 										<div class="col-md-2"></div>
 
 										<div class="col-md-5">
 											<div class="form-inline">
-												<select class="form-group" style="margin-right: 10px; width: 90px; font-size: 14px; height: 30px; text-align: center;">
-													<option>오전 00시</option>
-													<option>오전 01시</option>
-													<option>오전 02시</option>
-													<option>오전 03시</option>
-													<option>오전 04시</option>
-													<option>오전 05시</option>
-													<option>오전 06시</option>
-												</select> : <select class="form-group" style="margin-left: 10px; width: 90px; font-size: 14px; height: 30px; padding-left: 15px;">
-													<option>10분</option>
-													<option>20분</option>
-													<option>30분</option>
-													<option>40분</option>
-													<option>50분</option>
+												<select name="lectureSchedule2" class="form-group"  style="margin-right: 10px; width: 90px; font-size: 14px; height: 30px; text-align: center;">
+													<option value="00">오전 00시</option>
+													<option value="01">오전 01시</option>
+													<option value="02">오전 02시</option>
+													<option value="03">오전 03시</option>
+													<option value="04">오전 04시</option>
+													<option value="05">오전 05시</option>
+													<option value="06">오전 06시</option>
+													<option value="07">오전 07시</option>
+													<option value="08">오전 08시</option>
+													<option value="09">오전 09시</option>
+													<option value="10">오전 10시</option>
+													<option value="11">오전 11시</option>
+													<option value="12">오후 12시</option>
+													<option value="13">오후 01시</option>
+													<option value="14">오후 02시</option>
+													<option value="15">오후 03시</option>
+													<option value="16">오후 04시</option>
+													<option value="17">오후 05시</option>
+													<option value="18">오후 06시</option>
+													<option value="19">오후 07시</option>
+													<option value="20">오후 08시</option>
+													<option value="21">오후 09시</option>
+													<option value="22">오후 10시</option>
+													<option value="23">오후 11시</option>
+												</select> : 
+												<select name="lectureSchedule2" class="form-group" style="margin-left: 10px; width: 90px; font-size: 14px; height: 30px; padding-left: 15px;">
+													<option value="10">10분</option>
+													<option value="20">20분</option>
+													<option value="30">30분</option>
+													<option value="40">40분</option>
+													<option value="50">50분</option>
 												</select>
 											</div>
 										</div>
 										<div class="col-md-5">
 											<div class="form-inline">
-												<input type="number" style="margin-right: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
-												~ <input type="number" style="margin-left: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
+												<input name="lectureSchedule2" type="number" style="margin-right: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
+												~ <input name="lectureSchedule2" type="number" style="margin-left: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
 											</div>
 										</div>
 										<div class="col-md-2">
-											<button>추가</button>
+											<button onclick="addDayRepeat();" type="button">추가</button>
 										</div>
 									</div>
 									<!-- /스케쥴정보입력 -->
@@ -362,42 +376,14 @@ input[name="dayName"] {
 							<br>
 							<div style="overflow: auto; height: 300px;">
 								<table class="table">
-									<tbody style="text-align: center;">
+									<tbody style="text-align: center;" id="repeatTable">
 										<tr style="background-color: #f5f5f5;">
 											<th>강의날짜</th>
+											<th>시작 시간</th>
 											<th>참여가능인원</th>
 											<th>삭제</th>
 										</tr>
-										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
-										</tr>
-										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
-										</tr>
-										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
-										</tr>
-										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
-										</tr>
-										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
-										</tr>
-										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button>삭제</button></td>
-										</tr>
+
 									</tbody>
 								</table>
 							</div>

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ScheduleDTO {
 
-	private int ScheduleNo;
-	private String ScheduleType;
-	private Date ScheduleDate;
-	private String ScheduleStart;
+	private int scheduleNo;
+	private String scheduleType;
+	private Date scheduleDate;
+	private String scheduleStart;
 	private int minPeople;
 	private int maxPeople;
 	private int clsNo;
@@ -29,10 +29,10 @@ public class ScheduleDTO {
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
 			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax) {
 		super();
-		ScheduleNo = scheduleNo;
-		ScheduleType = scheduleType;
-		ScheduleDate = scheduleDate;
-		ScheduleStart = scheduleStart;
+		this.scheduleNo = scheduleNo;
+		this.scheduleType = scheduleType;
+		this.scheduleDate = scheduleDate;
+		this.scheduleStart = scheduleStart;
 		this.minPeople = minPeople;
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
@@ -43,35 +43,35 @@ public class ScheduleDTO {
 	}
 
 	public int getScheduleNo() {
-		return ScheduleNo;
+		return scheduleNo;
 	}
 
 	public void setScheduleNo(int scheduleNo) {
-		ScheduleNo = scheduleNo;
+		this.scheduleNo = scheduleNo;
 	}
 
 	public String getScheduleType() {
-		return ScheduleType;
+		return scheduleType;
 	}
 
 	public void setScheduleType(String scheduleType) {
-		ScheduleType = scheduleType;
+		this.scheduleType = scheduleType;
 	}
 
 	public Date getScheduleDate() {
-		return ScheduleDate;
+		return scheduleDate;
 	}
 
 	public void setScheduleDate(Date scheduleDate) {
-		ScheduleDate = scheduleDate;
+		this.scheduleDate = scheduleDate;
 	}
 
 	public String getScheduleStart() {
-		return ScheduleStart;
+		return scheduleStart;
 	}
 
 	public void setScheduleStart(String scheduleStart) {
-		ScheduleStart = scheduleStart;
+		this.scheduleStart = scheduleStart;
 	}
 
 	public int getMinPeople() {
@@ -132,8 +132,8 @@ public class ScheduleDTO {
 
 	@Override
 	public String toString() {
-		return "ScheduleDTO [ScheduleNo=" + ScheduleNo + ", ScheduleType=" + ScheduleType + ", ScheduleDate="
-				+ ScheduleDate + ", ScheduleStart=" + ScheduleStart + ", minPeople=" + minPeople + ", maxPeople="
+		return "ScheduleDTO [scheduleNo=" + scheduleNo + ", scheduleType=" + scheduleType + ", scheduleDate="
+				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
 				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + ScheduleCount + ", inputDate=" + inputDate
 				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + "]";
 	}

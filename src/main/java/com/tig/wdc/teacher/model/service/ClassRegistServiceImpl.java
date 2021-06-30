@@ -11,6 +11,7 @@ import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistMapper;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 
 /**
  * @author 이해승
@@ -57,5 +58,15 @@ public class ClassRegistServiceImpl implements ClassRegistService {
 	public int insertCurriculum(CurriculumDTO curriculum) {
 		return  mapper.insertCurriculum(curriculum);
 	}
+
+	/**
+	 * 스케쥴 insert
+	 */
+	@Override
+	public int insertSchedule(ScheduleDTO schedule) {
+		return mapper.insertSchedule(schedule);
+	}
+	
+	
 
 }

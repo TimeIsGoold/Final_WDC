@@ -1,6 +1,7 @@
 package com.tig.wdc.teacher.Controller;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -162,6 +163,18 @@ public class ClassRegistController {
 		String[] minList = scheduleInfo.getInputMin().split(",");
 		String[] maxList = scheduleInfo.getInputMax().split(",");
 		String[] timeList = scheduleInfo.getScheduleStart().split(",");
+		
+		for(int i = 0; i < dayList.length; i++) {
+			
+			schedule.setScheduleType(scheduleInfo.getScheduleType());
+			schedule.setInputDate(dayList[i]);
+			schedule.setInputMin(minList[i]);
+			schedule.setInputMax(maxList[i]);
+			schedule.setScheduleStart(timeList[i]);
+			schedule.setScheduleCount(dayList.length);
+			
+			int reusult = classService.insertSchedule(schedule);
+		}
 		return "";
 	}
 }
