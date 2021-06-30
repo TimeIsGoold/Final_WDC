@@ -53,6 +53,11 @@
           </nav>
         </div>
       </header>
+      <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if>
       <br><br>
       <!-- body -->
       <div class="container py-5">
@@ -60,17 +65,17 @@
           <div class="card mb-4" id="forms">
             <div class="card-body"><br>
               <h4 class="mb-5" style="text-align: center; font-size: 1.9rem;">Log In</h4>
-              <form action="index.html">
+              <form action="${ pageContext.servletContext.contextPath }/user/mypage/login" method="post">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
                   <div class="col-sm-12">
-                      <input class="form-control" id="tutorId" type="text" placeholder="아이디">
+                      <input class="form-control" id="tutorId" type="text" placeholder="아이디" name="userId">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">비밀번호</label>
                   <div class="col-sm-12">
-                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호">
+                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호" name="userPwd">
                   </div>
                 </div><br><br>
                 <div class="form-group row">

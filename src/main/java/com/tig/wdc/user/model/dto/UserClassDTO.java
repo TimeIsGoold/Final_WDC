@@ -31,13 +31,16 @@ public class UserClassDTO {
    private String bodyPic2;
 //   연준 추가
    private String dDay; // 시작시간-현재시간 일자
+   private Date scheduleDate; //스케줄 시작 날짜
+   private String scheduleStart; //스케줄 시작 시간
+   private int clsPplAmount; // 강의 신청 인원
 
    public UserClassDTO() {}
 
 	public UserClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType, Date dateAplct,
 			String status, int teNo, int categoryNo, String simpleIntro, String titlePic, String bodyPic1, String bodyPic2,
-			String dDay) {
+			String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -61,6 +64,9 @@ public class UserClassDTO {
 		this.bodyPic1 = bodyPic1;
 		this.bodyPic2 = bodyPic2;
 		this.dDay = dDay;
+		this.scheduleDate = scheduleDate;
+		this.scheduleStart = scheduleStart;
+		this.clsPplAmount = clsPplAmount;
 	}
 	
 	public int getClsNo() {
@@ -239,6 +245,30 @@ public class UserClassDTO {
 		this.dDay = dDay;
 	}
 	
+	public Date getScheduleDate() {
+		return scheduleDate;
+	}
+	
+	public void setScheduleDate(Date scheduleDate) {
+		this.scheduleDate = scheduleDate;
+	}
+	
+	public String getScheduleStart() {
+		return scheduleStart;
+	}
+	
+	public void setScheduleStart(String scheduleStart) {
+		this.scheduleStart = scheduleStart;
+	}
+	
+	public int getClsPplAmount() {
+		return clsPplAmount;
+	}
+	
+	public void setClsPplAmount(int clsPplAmount) {
+		this.clsPplAmount = clsPplAmount;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserClassDTO [clsNo=" + clsNo + ", title=" + title + ", address=" + address + ", intro=" + intro
@@ -246,7 +276,10 @@ public class UserClassDTO {
 				+ price + ", addInfo=" + addInfo + ", addSup=" + addSup + ", dicsionStatus=" + dicsionStatus + ", clsType="
 				+ clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo=" + teNo + ", categoryNo="
 				+ categoryNo + ", simpleIntro=" + simpleIntro + ", titlePic=" + titlePic + ", bodyPic1=" + bodyPic1
-				+ ", bodyPic2=" + bodyPic2 + ", dDay=" + dDay + "]";
+				+ ", bodyPic2=" + bodyPic2 + ", dDay=" + dDay + ", scheduleDate=" + scheduleDate + ", scheduleStart="
+				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + "]";
 	}
+
+
 
 }
