@@ -1,5 +1,6 @@
 package com.tig.wdc.user.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,6 +101,12 @@ public interface UserClassService {
 	List<UserClassDTO> selectMyLikeClassList(PageInfoDTO pageInfo);
 
 	int updateUserWithdraw(int userNo);
+
+	String selectClassUpdate(HashMap<String, String> searchDate);
+
+	int updateClass(HashMap<String, String> searchDate);
+
+	int insertUpdateClass(HashMap<String, String> searchDate);
 
 
 }

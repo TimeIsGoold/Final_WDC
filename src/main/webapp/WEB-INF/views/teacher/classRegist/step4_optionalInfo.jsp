@@ -95,8 +95,8 @@
 			<input class="form-control" style="border-radius: 5px;"placeholder="ex) 근처 공용주차장을 이용해주세요" name="addSup">
 		</div>
 		<br><br><hr><br>
-		<button type="button" onclick="movePage(2)">이전</button>
-		<button type="button" onclick="movePage(4)">다음</button>
+		<button type="button" onclick="movePage(2)" class="btnBack btn-primary">이전</button>
+		<button type="button" onclick="movePage(4)" class="btn btn-primary">다음</button>
 	</div>
 </body>
 

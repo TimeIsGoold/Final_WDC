@@ -131,8 +131,8 @@
             <div>
 
             </div>
-            <button type="button" onclick="movePage(0);">이전</button>
-            <button type="button" onclick="movePage(2);" >다음</button>
+            <button type="button" onclick="movePage(0);" class="btnBack btn-primary">이전</button>
+            <button type="button" onclick="movePage(2);" class="btn btn-primary" >다음</button>
       </div>
 </body>
 </html>

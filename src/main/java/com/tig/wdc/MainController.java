@@ -1,6 +1,9 @@
 package com.tig.wdc;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,6 +35,20 @@ public class MainController {
 	@GetMapping(value= {"/"})
 	public String main(Model model, HttpSession session) {
 
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		String date = dateFormat.format(new Date(System.currentTimeMillis()));
+		
+		System.out.println(date);
+		HashMap<String, String> searchDate = new HashMap<>();
+		searchDate.put("searchDate", date);
+		if(classService.selectClassUpdate(searchDate) != null) {
+			
+			classService.updateClass(searchDate);
+			classService.insertUpdateClass(searchDate);
+		}
+		
 		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
 		newClassList = classService.selectNewClassList();
 		model.addAttribute("newClassList",newClassList);

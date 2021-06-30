@@ -1,5 +1,6 @@
 package com.tig.wdc.user.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -107,6 +108,12 @@ public interface UserClassMapper {
 	public int updateUserWithdraw(int userNo);
 
 	public String selectRejectReason(int clsNo);
+
+	public String selectClassUpdate(HashMap<String, String> searchDate);
+
+	public int updateClass(HashMap<String, String> searchDate);
+
+	public int insertUpdateClass(HashMap<String, String> searchDate);
 
 
 

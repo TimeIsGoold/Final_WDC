@@ -52,6 +52,24 @@
   .thumbnail-file-area input[type=file] {
 	  /* display: none; */
   }
+
+  .btnBack{
+    border-radius: 5px !important;
+    background-color: white !important;
+    border-color: black !important;
+    width: 80.4px;
+    height: 38px;
+  }  
+  .btn {
+    border-radius: 5px !important;
+    background-color: #fef0ae !important;
+    border-color: #fef0ae !important;
+  }
+    
+  .btn-primary:hover {
+    background-color: #fef0ae !important;
+    border-color: #fef0ae !important;
+  }
 </style>
 </head>
 
@@ -68,7 +86,7 @@
 		<%-- 	<jsp:include page="../commons/sidebar.jsp" /> 
  --%>
 			<!-- 본문 -->
-			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px;" id="registPage1" >
+			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px; display: none;" id="registPage1" >
 				<!-- 정규클래스등록1-->
 				<div class="row">
 					<div class="col-md-2 nowStep">클래스 기본정보</div>
@@ -90,7 +108,7 @@
 							</select>
 						</c:if>
 						<c:if test="${requestScope.classType eq 'R' }">
-							<select class="form-group" style="width: 200px; margin-right: 20px;" name="clsType">
+							<select class="form-group" style="width: 200px; margin-right: 20px; " name="clsType">
 								<option value="R">정규과정</option>
 							</select>
 						</c:if>
@@ -168,7 +186,7 @@
 				</div>
 				<br><hr><br>
 				<button type="button" onclick="goMain();">메인으로</button>
-				<button type="button" onclick="movePage(1);">다음></button>
+				<button type="button" onclick="movePage(1);" class="btn btn-primary">다음</button>
 				</div>
 				<jsp:include page="step2_classInfo.jsp" />
 			    <c:choose>

@@ -109,8 +109,8 @@
 		</div>
 		<br><br><hr><br><br>
 
-		<button type="button"onclick="movePage(3);">이전</button>
-		<button>클래스 검수 요청하기</button>
+		<button type="button"onclick="movePage(3);" class="btnBack btn-primary">이전</button>
+		<button class="btn btn-primary">클래스 검수 요청하기</button>
 	</div>
 
 </body>

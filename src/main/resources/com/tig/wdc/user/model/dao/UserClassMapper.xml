@@ -650,4 +650,26 @@
         WHERE USER_NO = #{ userNo }
 	</update>
 
+	<select id="selectClassUpdate" parameterType="hashmap" resultType="string">
+        SELECT
+               UPDATE_NO
+          FROM CLASS_UPDATE
+         WHERE UPDATE_DATE = #{ searchDate }      	
+	</select>
+	<update id="updateClass" parameterType="hashmap">
+	    UPDATE CLASS
+           SET CLS_STATUS = 'E'
+         WHERE CLS_DICSION_STATUS = 'S'
+           AND CLS_STATUS = 'P'
+           AND CLS_END_D = #{ searchDate }
+	</update>
+	<insert id="insertUpdateClass" parameterType="hashmap">
+	  INSERT
+	    INTO CLASS_UPDATE
+	  VALUES
+	       (
+	         SEQ_UPDATE_NO.NEXTVAL
+	       , #{ searchDate }  
+	       )  
+	</insert>
 </mapper>

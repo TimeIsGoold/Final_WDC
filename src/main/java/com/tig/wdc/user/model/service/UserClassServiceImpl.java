@@ -1,5 +1,6 @@
 package com.tig.wdc.user.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -274,6 +275,21 @@ public class UserClassServiceImpl implements UserClassService{
 	@Override
 	public int updateUserWithdraw(int userNo) {
 		return mapper.updateUserWithdraw(userNo);
+	}
+
+	@Override
+	public String selectClassUpdate(HashMap<String, String> searchDate) {
+		return mapper.selectClassUpdate(searchDate);
+	}
+
+	@Override
+	public int updateClass(HashMap<String, String> searchDate) {
+		return mapper.updateClass(searchDate);
+	}
+
+	@Override
+	public int insertUpdateClass(HashMap<String, String> searchDate) {
+		return mapper.insertUpdateClass(searchDate);
 	}
 
 

@@ -402,8 +402,8 @@ input[name="dayName"] {
 		</div>
 		<br><br><hr><br>
 		<div></div>
-		<button type="button" onclick="movePage(1)">이전</button>
-		<button type="button" onclick="movePage(3)">다음</button>
+		<button type="button" onclick="movePage(1)" class="btnBack btn-primary">이전</button>
+		<button type="button" onclick="movePage(3)" class="btn btn-primary">다음</button>
 	</div>
 </body>
 

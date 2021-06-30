@@ -254,7 +254,7 @@ function regularScheduleAdd(){
     let regurlaScheduleInfo = document.getElementsByName("regularInputInfo");
     let regulsrScheduleTable = document.getElementById("regularTable");
 
-    regulsrScheduleTable.innerHTML = "<tr style='background-color: #f5f5f5;'><th>강의날짜</th><th>시작 시간</th><th>참여가능인원</th><th>예정횟수</th><th>삭제</th></tr>";;
+    regulsrScheduleTable.innerHTML = "<tr style='background-color: #f5f5f5;'><th style='width:35%'>강의날짜</th><th style='width:15%'>시작 시간</th><th style='width:25%;'>참여가능인원</th><th style='width:15%'>예정횟수</th><th style='width:10%'>삭제</th></tr>";;
     let week = ['일','월','화','수','목','금','토'];
     let dayOfWeekStart = week[new Date(startDate).getDay()]; 
     let dayOfWeekEnd = week[new Date(endDate).getDay()]; 
@@ -263,11 +263,10 @@ function regularScheduleAdd(){
     let minP = "<input type='hidden' value='" + regurlaScheduleInfo[2].value + "' name='inputMin'>";
     let maxP = "<input type='hidden' value='" + regurlaScheduleInfo[3].value + "' name='inputMax'>";
     let expectCount = "<input type='hidden' value='" + regurlaScheduleInfo[4].value + "' name='ScheduleCount'>";
-    alert(regurlaScheduleInfo[4].value);
     regulsrScheduleTable.innerHTML += "<tr><td name='regularTable1'>"+startDate + "(" + dayOfWeekStart + ")  ~  " + endDate +"(" + dayOfWeekEnd + ")" 
                              + "</td><td name='regularTable2'>"+regurlaScheduleInfo[0].value + " : "+ regurlaScheduleInfo[1].value 
-                             + "</td><td name='regularTable3'> 최소 "+ regurlaScheduleInfo[2].value + "명 ~ 최대 " + regurlaScheduleInfo[3].value + 
-                             "명 </td><td name='regularTable4>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button'>삭제</button></td></tr>"
+                             + "</td><td name='regularTable3'> 최소 "+ regurlaScheduleInfo[2].value + "명 ~ 최대 " + regurlaScheduleInfo[3].value 
+                             + "명 </td><td name='regularTable4'>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button' onclick='deleteSchedule();' style='background-color: red; color : white;border-color : red;border-radius:5px;'>삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP + expectCount;
 
 }
@@ -283,7 +282,14 @@ function regularRegist(){
     document.getElementById("regularList").innerHTML += "강의날짜  :  " + writeDate[0].innerHTML + "    ||  시작시간  :  " + writeTime[0].innerHTML + "   ||   " + writePeople[0].innerHTML + "  ||  예정횟수  :  " + expectCount[0].innerHTML+"<br>";
 }
 
+function deleteSchedule(){
 
+    if(confirm("입력한 스케쥴이 초기화 됩니다. 삭제하시겠습니까??")){
+        document.getElementById("regularTable").innerHTML = "<tr style='background-color: #f5f5f5;'><th style='width:35%'>강의날짜</th><th style='width:15%'>시작 시간</th><th style='width:25%;'>참여가능인원</th><th style='width:15%'>예정횟수</th><th style='width:10%'>삭제</th></tr>";
+    } else {
+        return;
+    }
+}
 
 
 

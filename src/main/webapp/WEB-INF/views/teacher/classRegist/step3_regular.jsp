@@ -48,7 +48,7 @@
 </head>
 
 <body>
-    <div class="container" style="width: 90%; margin :0 auto; display: none;" id="regular">
+    <div class="container" style="width: 90%; margin :0 auto; ;" id="regular">
         <!-- 정규클래스등록1-->
         <div class="row">
             <div class="col-md-2 step" >클래스 기본정보</div>
@@ -70,7 +70,7 @@
         <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.2); padding: 20px 20px 20px 20px;">
           <div class="col-md-1"></div>
           <div class="col-md-2">스케쥴선택<br>
-            <button>정규모집</button>
+            <div class="btn">정규모집</div>
           </div>
           <div class="col-md-3">
             수업소요시간<br>
@@ -100,7 +100,7 @@
             <input type="date" name="endDay" id="regularEnd">
           </div>
           <div class="col-md-1"></div>
-          <div class="col-md-10" style="margin: 20px 0 20px 0px ; height: 350px; background-color: #f5f5f5;" id="regularList">여기 입력이 될거야
+          <div class="col-md-10" style="margin: 20px 0 20px 0px ; height: 350px; background-color: #f5f5f5;" id="regularList">스케쥴을 등록해주세요.
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-1"></div>
@@ -181,7 +181,7 @@
                             <input type="number" name="regularInputInfo" class="form-inline" style="width: 50px; padding-left: 10px; margin-right: 10px; font-size: 14px;">
                             <div>회</div>
                           </div>
-                          <div class="col-md-2"><button type="button" onclick="regularScheduleAdd();">추가</button></div>
+                          <div class="col-md-2"><button type="button" onclick="regularScheduleAdd();"class="btn btn-primary">추가</button></div>
                         </div>
                         <br>
                         <!-- /스케쥴정보입력 -->       
@@ -192,11 +192,11 @@
                       <table class="table">
                         <tbody style="text-align: center;" id="regularTable">
                           <tr style="background-color: #f5f5f5;">
-                            <th>강의날짜</th>
-                            <th>시작 시간</th>
-                            <th>참여가능인원</th>
-                            <th>예정횟수</th>
-                            <th>삭제</th>
+                            <th style="width:35%;">강의날짜</th>
+                            <th style="width:15%;">시작 시간</th>
+                            <th style="width:25%;">참여가능인원</th>
+                            <th style="width:15%;">예정횟수</th>
+                            <th style="width:10%;">삭제</th>
                           </tr>
                           <tr>
                             <td colspan="5">등록된 스케쥴이 없습니다</td>
@@ -211,7 +211,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                <button type="button" class="btnBack btn-default" data-dismiss="modal">닫기</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="regularRegist();">스케줄등록</button>
               </div>
             </div>
@@ -232,8 +232,8 @@
             <div>
 
             </div>
-            <button type="button" onclick="movePage(1)">이전</button>
-            <button type="button" onclick="movePage(3)">다음</button>
+            <button type="button" onclick="movePage(1)" class="btnBack btn-primary">이전</button>
+            <button type="button" onclick="movePage(3)" class="btn btn-primary">다음</button>
       </div>
     <br>
     <br>
