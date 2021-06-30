@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dao.UserClassMapper;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
@@ -71,6 +72,11 @@ public class UserClassServiceImpl implements UserClassService{
 	@Override
 	public UserClassDTO selectClassStar(int clsNo) {
 		return mapper.selectClassStar(clsNo);
+	}
+
+	@Override
+	public List<ReviewAnswerDTO> selectReviewAnswer(int clsNo) {
+		return mapper.selectReviewAnswer(clsNo);
 	}
 
 }

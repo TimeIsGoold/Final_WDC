@@ -490,8 +490,8 @@ i {
                       <div style="font-size: 18px;">클래스 후기<br><div style="font-size: 22px;">3</div></div>
                       <div>클래스 후기<br>3</div>
                     </div> -->
-									<!-- 리뷰1 -->
-									<c:forEach var="review" items="${ requestScope.review }">
+								<!-- 리뷰1 -->
+								<c:forEach var="review" items="${ requestScope.review }">
 									<div style="padding-bottom: 15px;">
 										<div class="media mb-3">
 											<img id="myImg" class="btn-img" src="${ pageContext.servletContext.contextPath }/${ review.reviewPic }">
@@ -514,11 +514,11 @@ i {
 										</div>
 										<!-- 답변 -->
 										<div class="media mb-3 answer">
-											<img class="rounded-circle" src="img/user.png" alt="" width="50">
+											<img class="rounded-circle" src="${ requestScope.reviewAnswer.tePic }" alt="" width="50">
 											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">강사</h6>
-												<p class="small text-muted mb-0 text-uppercase">2021-06-11</p>
-												<p class="text-small mb-0 text-muted">답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.답변드려요.</p>
+												<h6 class="mb-0 text-uppercase">${ requestScope.reviewAnswer.teName }</h6>
+												<p class="small text-muted mb-0 text-uppercase">${ requestScope.reviewAnswer.ansDate }</p>
+												<p class="text-small mb-0 text-muted">${ requestScope.reviewAnswer.ansContent }</p>
 												<br>
 											</div>
 										</div>

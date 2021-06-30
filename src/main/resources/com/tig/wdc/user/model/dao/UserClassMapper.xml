@@ -151,5 +151,30 @@
 		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
+    
+    <resultMap type="ReviewAnswerDTO" id="ReviewAnswerResult">
+        <id column="RE_ANS_NO" property="ansNo"/>
+        <result column="RE_ANS_DATE" property="ansDate"/>
+        <result column="RE_ANS_CONTENT" property="ansContent"/>
+        <result column="REVIEW_NO" property="reviewNo"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="TE_NAME" property="teName"/>
+        <result column="TE_PIC" property="tePic"/>
+    </resultMap>
+    
+    <select id="selectReviewAnswer" parameterType="_int" resultMap="ReviewAnswerResult">
+		SELECT
+		       A.*
+		     , T.TE_NAME
+		     , T.TE_PIC
+		     , U.USER_NAME
+		  FROM REVIEW_ANSWER A
+		  JOIN REVIEW R ON (R.REVIEW_NO = A.REVIEW_NO)
+		  JOIN TEACHER_INFO T ON (T.TE_NO = A.TE_NO)
+		  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
+		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
 
 </mapper>

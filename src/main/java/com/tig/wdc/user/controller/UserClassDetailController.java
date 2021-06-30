@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
@@ -69,6 +70,11 @@ public class UserClassDetailController {
 		List<UserReviewDTO> review = new ArrayList<UserReviewDTO>();
 		review = classService.selectReview(clsNo);
 		model.addAttribute("review",review);
+		
+		//리뷰 답변 select
+		List<ReviewAnswerDTO> reviewAnswer = new ArrayList<ReviewAnswerDTO>();
+		reviewAnswer = classService.selectReviewAnswer(clsNo);
+		model.addAttribute("reviewAnswer",reviewAnswer);
 		
 		return "user/classList/class_detail";
 	}
