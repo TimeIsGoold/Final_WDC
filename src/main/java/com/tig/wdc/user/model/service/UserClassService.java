@@ -16,5 +16,7 @@ public interface UserClassService {
 	
 	List<UserClassDTO> selectCheerClassList();
 
-	List<UserClassDTO> selectClassDtail();
+	UserClassDTO selectClassDtail(int clsNo);
+
+
 }

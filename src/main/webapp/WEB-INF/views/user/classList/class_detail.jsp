@@ -316,21 +316,21 @@ i {
 							<li class="list-inline-item m-0"><i
 								class="fas fa-star small text-warning"></i></li>
 						</ul>
-						<h1>리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</h1>
-						<p class="text-muted lead">42,500 원</p>
+						<h1>${ requestScope.classDetail.title }</h1>
+						<p class="text-muted lead"><fmt:formatNumber value="${ requestScope.classDetail.price }" pattern="#,###"/> 원</p>
 						<ul class="list-unstyled small d-inline-block"
 							style="font-size: 16px; display: flex !important; padding-top: 15px;">
 							<div class="class-icon">
 								<div>
-									<img src="img/calendar.png" width="20px">&nbsp;&nbsp;원데이클래스
+									<img src="img/calendar.png" width="20px">&nbsp;&nbsp;${ requestScope.classDetail.clsType }
 								</div>
 								<div style="padding-top: 15px">
-									<img src="img/pin.png" width="22px">&nbsp;&nbsp;00동
+									<img src="img/pin.png" width="22px">&nbsp;&nbsp;${ requestScope.classDetail.address }
 								</div>
 							</div>
 							<div class="class-icon" style="padding-inline: 30px;">
 								<div>
-									<img src="img/clock.png" width="20px">&nbsp;&nbsp;2시간 소요
+									<img src="img/clock.png" width="20px">&nbsp;&nbsp;${ requestScope.classDetail.time } 소요
 								</div>
 								<div style="padding-top: 15px">
 									<img src="img/users.png" width="20px">&nbsp;&nbsp;최대 4명
@@ -405,74 +405,15 @@ i {
 										<h3>※ 상세 정보</h3>
 									</div>
 									<pre style="font-size: 16px;">
-                      야호 상세 페이지 인데요
-                      쓸게 많다 아닙니까?? 그런데 이게 
-                      무슨일일지 모르겠는데 
-                      전혀 글이 자연스럽게 내려오지를 않
-                      네요? br을  넣어야 하는걸까요??
-                      이거는 아닌거 같스빈다
-                      여기디아아아아!
-
-                      ------------------------------------------------------------------
-
-                      클래스 신청하시면
-                      제가 개인적으로 솜씨당 어플 내에 있는 1:1 채팅으로
-                      맛 선택과 오시는 길을 자세히 설명 드립니다 !!
-
-                      신청하신 분은
-
-                      꼭!!! 1:1채팅 확인 부탁 드립니다 ^^
-
-                      안녕하세요 마카롱 원데이 클래스를 진행합니다 ^ ^
-
-                      곰미커피를 운영하며 8년동안
-                      마카롱 집으로 인기를 얻은 비결!
-
-                      취미 , 창업을 원하시는 분들도 상담 주세요!
-
-                      현재 과정은 체험 과정으로 저렴한 가격으로
-                      마카롱이 만들어지는 과정을 간단하게!
-                      체험하는 교육입니다.
-
-                      더 자세한 교육을 원하시는 분들은
-                      전문가 클래스를 통해 교육을 신청해주세요 ^^
-
-                      마카롱을 만들기 위해 대부분의 사람들이
-                      고가의 오븐이 필요하다고 느끼지만
-                      집에서 사용하는 저가오븐으로
-                      고급스러운 마카롱을 만들수 있도록 도와드려요 ^^
-
-                      **공지**
-                      *마카롱 1가지를 배워 가실 수 있습니다.
-                      체험 과정으로 레시피가 제공되지 않아요.
-
-                      *맛은
-                      순수우유, 딸기요거트, 블루베리, 누텔라 중
-                      인당 택1 입니다.
-
-                      *머랭치는 법을 시연하고 마카로나쥬 작업과
-                      필링을 짜는 작업을 직접 하게 됩니다.
-
-                      레시피가 제공이 안되고 저희가 만드는 부분이
-                      꽤 있지만 체험이라는 부분을 꼭 기억해주세요 ^^
-                      제대로 자세히 배우고 싶다면
-                      전문가 클래스를 추천해드려요 ^^
-
-                      #이런점이 좋아요.
-                      마카롱에대해궁금했던분
-                      집에 오븐이있으신분
-                      선물하려고하시는분
-                      #이런분들께 추천해요.
-                      데이트 체험하시려는분
-                      관련직업에관심있으신분
-                    </pre>
+										${ requestScope.classDetail.intro }
+				                    </pre>
 									<br>
 									<br>
 									<hr>
 									<br>
 									<!-- 완성작 사진 -->
 									<h3 style="padding-bottom: 20px;">※ 클래스 완성작</h3>
-									<br>
+									<br>${ requestScope.classDetail.cExpl }<br>
 									<div
 										style="width: 550px; display: flex; margin: auto; text-align: center; justify-content: space-between; font-size: 16px;">
 										<div>
@@ -559,12 +500,11 @@ i {
 									<hr>
 									<!-- 추가 제공사항 및 유의사항 -->
 									<div style="font-size: large;">
-										<h3>※ 추가 제공사항 및 유의사항</h3>
-										<br> 1. 주차는 불가하며 근처 공영 주차장 이용 부탁드립니다.<br> 2. 여러분들과
-										함께 하는 수업으로 시작을 꼭 지켜주세요.<br> 3. 10분전 입실 부탁드립니다.<br>
-										4. 최소인원 1인 최대 6인 입니다.<br> <br>
+									<h3>※ 추가 제공사항 및 유의사항</h3>
 										<br>
+										${ requestScope.classDetail.addInfo }
 									</div>
+									<br>
 									<hr>
 									<br>
 									<h3>※ 편의사항</h3>

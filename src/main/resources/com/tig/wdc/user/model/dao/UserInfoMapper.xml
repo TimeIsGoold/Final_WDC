@@ -15,12 +15,82 @@
         <result column="USER_QUIT_YN" property="quitYn"/>
         <result column="USER_ENROLL_DATE" property="enrollDate"/>
     </resultMap>
+    
+    <resultMap type="UserCouponDTO" id="CouponResult">
+    	<id column="CPN_NO" property="cpnNo"/>
+    	<result column="CPN_NAME" property="cpnName"/>
+        <result column="DIS_AMOUNT" property="disAmount"/>
+        <result column="DIS_CONDITION" property="disCondition"/>
+        <result column="CPN_START" property="cpnStart"/>
+        <result column="CPN_END" property="cpnEnd"/>
+        <result column="CPN_USE_YN" property="cpnUseYn"/>
+        <result column="CHEERING_NO" property="cheeringNo"/>
+        <result column="USER_NO" property="userNo"/>
+        <result column="CPN_ISSUE_DATE" property="issuedDate"/>
+        <result column="CLS_TITLE" property="couponClassName"/>
+    </resultMap>
+    
+    <resultMap type="UserClassDTO" id="UserClassResult">
+        <id column="CLS_NO" property="clsNo"/>
+        <result column="CLS_TITLE" property="title"/>
+        <result column="CLS_ADDRESS" property="address"/>
+        <result column="CLS_INTRO" property="intro"/>
+        <result column="CLS_C_EXPL" property="cExpl"/>
+        <result column="CLS_TIME" property="time"/>
+        <result column="CLS_START_D" property="startDate"/>
+        <result column="CLS_END_D" property="endDate"/>
+        <result column="CLS_PRICE" property="price"/>
+        <result column="CLS_ADD_INFO" property="addInfo"/>
+        <result column="CLS_ADD_SUP" property="addSup"/>
+        <result column="CLS_DICSION_STATUS" property="dicsionStatus"/>
+        <result column="CLS_TYPE" property="clsType"/>
+        <result column="DATE_APLCT" property="dateAplct"/>
+        <result column="CLS_STATUS" property="status"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <result column="SAVE_PATH" property="titlePic"/>
+        <result column="D_DAY" property="dDay"/>
+        <result column="SCHEDULE_DATE" property="scheduleDate"/>
+        <result column="SCHEDULE_START" property="scheduleStart"/>
+        <result column="CLS_PPL" property="clsPplAmount"/>
+    </resultMap>
 
 	<select id="selectUser" parameterType="UserInfoDTO" resultMap="UserInfoResult">
 		SELECT
 	           *
 		  FROM USER_INFO A
 		 WHERE A.USER_NO = #{userNo}
+	</select>
+	
+	<select id="findfindUserInfo" parameterType="UserInfoDTO" resultMap="UserInfoResult">
+       SELECT
+              *
+         FROM USER_INFO A
+        WHERE A.USER_ID = #{userId}
+	</select>
+	
+	<select id="selectCouponList" parameterType="UserCouponDTO" resultMap="CouponResult">
+		SELECT 
+		       *
+		  FROM COUPON A
+		  JOIN CHEERING_HISTORY H ON(A.CHEERING_NO = H.CHEERING_NO)
+		  JOIN CLASS C ON(H.CLS_NO = C.CLS_NO)
+		 WHERE A.USER_NO = #{userNo}
+	</select>
+	
+	<select id="selectScheduledClassList" parameterType="UserClassDTO" resultMap="UserClassResult">
+		SELECT 
+		       *
+		  FROM CLASS_APPLY C
+		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+		 WHERE C.USER_NO = #{userNo}
+		   AND (S.SCHEDULE_DATE - SYSDATE > 0)
+		   AND A.TYPE = 'TITLE'
+		 ORDER BY SCHEDULE_DATE
+		   
 	</select>
 
 </mapper>

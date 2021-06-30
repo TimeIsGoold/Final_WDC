@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +21,7 @@
         }
     
         #detailBoard{
-            text-align :center;
+            text-align :left;
         }
         
         #title{
@@ -61,15 +62,20 @@
 								                <td>${reportDetail.reportDate}</td>
 								            <tr>
 								                <th id="title">신고 대상 아이디</th>
-								                <td>${reportDetail.reportTitle}</td>        
+								                <td>${reportDetail.reportedId}</td>        
 								                <th id="title">신고 대상 이름 </th>
-								                <td>${reportDetail.reportedNmae}</td>        
+								                <td>${reportDetail.reportedNmae2}(
+								                
+								                <c:choose>
+									                <c:when test="${reportDetail.type eq 'U'}">수강생님</c:when>
+									                <c:when test="${reportDetail.type eq 'T'}">강사님</c:when>
+								                </c:choose>)</td>        
 								            </tr>
 								            <tr>
 								                <th id="title">신고 제목</th>
-								                <td>${reportDetail.reportStatua}</td>        
+								                <td>${reportDetail.reportTitle}</td>        
 								                <th id="title">신고 처리 상태 </th>
-								                <td>${reportDetail.reportStatua}</td>        
+								                <td>${reportDetail.reportStatus}</td>        
 								            </tr>
 								            <tr>
 								                <th id="title">내 용 </th>

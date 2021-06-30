@@ -160,7 +160,6 @@
           </div>
         </section>
 
-		<form action="${ pageContext.servletContext.contextPath }/class/classDetail" method="post">
         <!-- 신규 클래스 -->
         <section class="py-5">
           <header>
@@ -168,17 +167,17 @@
             <h2 class="h5 text-uppercase mb-4">따끈따끈 신규 클래스</h2>
           </header>
           <div class="row">
-          
             <!-- PRODUCT-->
             <c:forEach  var="newClassList" items="${ requestScope.newClassList }">
-             <!-- Modal -->
-		      <div class="modal fade" id="classView" tabindex="-1" role="dialog" aria-hidden="true">
+            <c:set value="${ i+1 }" var="i"></c:set>
+              <!-- Modal -->
+		      <div class="modal fade" id="classView${i}" tabindex="-1" role="dialog" aria-hidden="true">
 		        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
 		              <div class="row align-items-stretch">
-		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: ${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" href="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
-		                <div class="col-lg-6">
+		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ newClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+ 		                <div class="col-lg-6">
 		                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
 		                    <ul class="list-inline mb-2">
@@ -191,7 +190,7 @@
 		                    <h2 class="h4">${ newClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ newClassList.simpleIntro }</p>
-		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 보기</a></div>
+		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/class/classDetail">클래스 보기</a></div>
 		                  </div>
 		                </div>
 		              </div>
@@ -202,11 +201,11 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
                 <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" alt="..."></a>
+                  <div class="badge text-white badge-info">New</div><a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ newClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#classView${i}"><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -225,16 +224,16 @@
               <h2 class="h5 text-uppercase mb-4">우동클 인기 클래스</h2>
             </header>
             <div class="row">
-            
             <!-- PRODUCT-->
             <c:forEach  var="topClassList" items="${ requestScope.topClassList }">
+            <c:set value="${ j+5 }" var="j"></c:set>
              <!-- Modal -->
-		      <div class="modal fade" id="classView" tabindex="-1" role="dialog" aria-hidden="true">
+		      <div class="modal fade" id="classView${j}" tabindex="-1" role="dialog" aria-hidden="true">
 		        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
 		              <div class="row align-items-stretch">
-		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ topClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
 		                <div class="col-lg-6">
 		                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
@@ -245,15 +244,9 @@
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
 		                    </ul>
-		                    <h2 class="h4">스포츠 클래스</h2>
-		                    <p class="text-muted">42,500 원</p>
-		                    <p class="text-small mb-4">
-		                      이런 분들을 위한 클래스예요<br>
-		                      내몸의 상태 점검이 필요한 분들<br>
-		                      어깨와 목이 항상 뻐근한 분들<br>
-		                      고관절, 골반통, 허리통증을 달고 사시는 분<br>
-		                      체중감량이 필요한 분, 몸에 탄력을 찾고 싶은 분들<br>
-		                    </p>
+		                    <h2 class="h4">${ topClassList.title }</h2>
+		                    <p class="text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
+		                    <p class="text-small mb-4">${ topClassList.simpleIntro }</p>
 		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 보기</a></div>
 		                  </div>
 		                </div>
@@ -265,11 +258,11 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
                 <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" alt="..."></a>
+                  <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${j}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -288,35 +281,29 @@
               <h2 class="h5 text-uppercase mb-4">오픈 예정 클래스</h2>
             </header>
             <div class="row">
-
             <!-- PRODUCT-->
             <c:forEach  var="cheerClassList" items="${ requestScope.cheerClassList }">
-             <!-- Modal (오픈 예정 클래스) -->
-		      <div class="modal fade" id="classPreview" tabindex="-1" role="dialog" aria-hidden="true">
+            <c:set value="${ k+9 }" var="k"></c:set>
+             <!-- Modal -->
+		      <div class="modal fade" id="classView${k}" tabindex="-1" role="dialog" aria-hidden="true">
 		        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
 		              <div class="row align-items-stretch">
-		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
 		                <div class="col-lg-6">
 		                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
-		                    <!-- <ul class="list-inline mb-2">
+		                    <ul class="list-inline mb-2">
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
 		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                    </ul> -->
-		                    <h2 class="h4">스포츠 클래스</h2>
-		                    <p class="text-muted">42,500 원</p>
-		                    <p class="text-small mb-4">
-		                      이런 분들을 위한 클래스예요<br>
-		                      내몸의 상태 점검이 필요한 분들<br>
-		                      어깨와 목이 항상 뻐근한 분들<br>
-		                      고관절, 골반통, 허리통증을 달고 사시는 분<br>
-		                      체중감량이 필요한 분, 몸에 탄력을 찾고 싶은 분들<br>
-		                    </p>
+		                    </ul>
+		                    <h2 class="h4">${ cheerClassList.title }</h2>
+		                    <p class="text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
+		                    <p class="text-small mb-4">${ cheerClassList.simpleIntro }</p>
 		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 응원하기</a></div>
 		                  </div>
 		                </div>
@@ -328,11 +315,11 @@
 			<div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
                 <div class="position-relative mb-3">
-                  <div class="badge text-white badge-info">New</div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
+                  <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${k}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -344,7 +331,7 @@
           </div>
          </section>
          <br><br>
-		</form>
+ 		
 
         <!-- SERVICES-->
         <section class="py-5 bg-light" style="padding-bottom: 3rem!important;">

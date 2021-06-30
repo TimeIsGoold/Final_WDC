@@ -1,9 +1,13 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
+import com.tig.wdc.model.dto.ClassPieceDTO;
+import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistMapper;
 import com.tig.wdc.user.model.dto.ClassDTO;
 
@@ -35,6 +39,22 @@ public class ClassRegistServiceImpl implements ClassRegistService {
 	@Override
 	public int insertTitlePicture(AttachMentDTO titlePicture) {
 		return mapper.insertTitlePicture(titlePicture);
+	}
+
+	/**
+	 * 클래스 완성작 insert
+	 */
+	@Override
+	public int insertCompletePiece(ClassPieceDTO classPiece) {
+		return mapper.insertCompletePiece(classPiece);
+	}
+
+	/**
+	 * 클래스 커리큘럼 insert
+	 */
+	@Override
+	public int insertCurriculum(List<CurriculumDTO> curriList) {
+		return mapper.insertCurriculum(curriList);
 	}
 
 }

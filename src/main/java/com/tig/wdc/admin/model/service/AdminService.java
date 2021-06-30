@@ -44,6 +44,14 @@ public interface AdminService {
 	 * @return
 	 */
 	List<QuestionDTO> selectStudentQuestionList();
+	
+	/**
+	 * @author 송아현
+	 * 강사문의상세
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectTeacherQuestionInfoDetail(String id);
 
 	StudentDTO selectOneStudent(int no);
 
@@ -86,6 +94,10 @@ public interface AdminService {
 	List<CalculateDTO> selectYesCalculateList();
 	
 
-	ReportDetailDTO selectStudentReportList(int no);
+	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
+
+//	ReportDetailDTO selectTeacherReportList(int no);
+
+
 
 }

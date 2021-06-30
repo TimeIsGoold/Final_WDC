@@ -174,9 +174,7 @@
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
                      <c:choose>
-                     <c:when test="${ classList.dicsionStatus eq 'S' }">
-                     <div class="bottom_badgeDicsionS text-white badge-primary">클래스 종료일 : ${fn:substring(classList.endDate, 2, 10)}</div>
-                     </c:when>
+
                      <c:when test="${ classList.dicsionStatus eq 'F' }">
                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
                      <div class="bottom_badgeCheer text-white badge-primary" style="color: black !important;">현재 응원 수 : 2</div>
@@ -201,7 +199,14 @@
                           </c:choose>
                         </div>
                       </div>
-                      <h6 style="margin-top: 42px;"> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                      <c:choose>
+                      <c:when test="${ classList.dicsionStatus eq 'S' }">                      
+                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                      </c:when>
+                      <c:when test="${ classList.dicsionStatus eq 'F' }">
+                        <h6 style="margin-top: 42px;"> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                      </c:when>
+                      </c:choose>                      
                       <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원</p>
                     </div>
                   </div>
