@@ -62,14 +62,32 @@
 								                <td>${reportDetail.reportDate}</td>
 								            <tr>
 								                <th id="title">신고 대상 아이디</th>
-								                <td>${reportDetail.reportedId}</td>        
+								                <td>
+													<c:choose>
+														<c:when test="${ reportDetail.type eq 'U' }">
+															${ reportDetail.reportedId1 }
+														</c:when>
+														<c:when test="${ reportDetail.type eq 'T' }">
+															${ reportDetail.reportedId2 }
+														</c:when>
+													</c:choose>								                
+								                </td>        
 								                <th id="title">신고 대상 이름 </th>
-								                <td>${reportDetail.reportedNmae2}(
-								                
+								                <td>
+													<c:choose>
+														<c:when test="${ reportDetail.type eq 'U' }">
+															${ reportDetail.reportedNmae1 }
+														</c:when>
+														<c:when test="${ reportDetail.type eq 'T' }">
+															${ reportDetail.reportedNmae2 }
+														</c:when>
+													</c:choose>									                
+								                (
 								                <c:choose>
 									                <c:when test="${reportDetail.type eq 'U'}">수강생님</c:when>
 									                <c:when test="${reportDetail.type eq 'T'}">강사님</c:when>
-								                </c:choose>)</td>        
+								                </c:choose>)
+								                </td>        
 								            </tr>
 								            <tr>
 								                <th id="title">신고 제목</th>

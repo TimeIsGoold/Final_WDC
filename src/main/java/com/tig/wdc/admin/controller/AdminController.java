@@ -199,9 +199,9 @@ public class AdminController {
 		
 		if(type.equals("수강생")) {
 			// 수강생
-			rd.setType("T");
-		} else {
 			rd.setType("U");
+		} else {
+			rd.setType("T");
 		}
 		ReportDetailDTO report = adminService.selectStudentReportList(rd);
 		System.out.println(report);

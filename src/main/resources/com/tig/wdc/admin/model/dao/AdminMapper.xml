@@ -331,12 +331,12 @@
 	       REPORT_NO
 	     , REPORT_TITLE
 	     <if test='type == "U"'>
-	     , USER_ID
-	     , USER_NAME
-	     </if>
-	     <if test='type == "T"'>
 	     , TE_ID
 	     , TE_NAME
+	     </if>
+	     <if test='type == "T"'>
+	     , USER_ID
+	     , USER_NAME
 	     </if>
 	     , TYPE
 	     , REPORT_DATE
@@ -344,13 +344,13 @@
 	     , REPORT_PIC
 	     , PROCS_STATUS
 	  FROM REPORT R 
-	  <if test='type == "U"'>
-	  JOIN USER_INFO U ON (R.REPORT_TO_NO = U.USER_NO)
-	 WHERE REPORT_TYPE = '수강생'
-	 </if>
 	  <if test='type == "T"'>
-	  JOIN TEACHER_INFO U ON (R.REPORT_TO_NO = U.TE_NO)
+	  JOIN USER_INFO U ON (R.REPORT_TO_NO = U.USER_NO)
 	 WHERE REPORT_TYPE = '강사'
+	 </if>
+	  <if test='type == "U"'>
+	  JOIN TEACHER_INFO U ON (R.REPORT_TO_NO = U.TE_NO)
+	 WHERE REPORT_TYPE = '수강생'
 	 </if>
 	   AND REPORT_NO = #{reportNo}
 	</select>
