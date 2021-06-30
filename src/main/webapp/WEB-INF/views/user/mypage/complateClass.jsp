@@ -46,6 +46,10 @@
       i{
         font-family: "Font Awesome 5 Free" !important;
       }
+      
+	.refundImg{
+		opacity: 0.21 !important;
+	}
 
     *{font-family:'Cafe24SsurroundAir' !important;}
     </style>
@@ -55,7 +59,7 @@
       <!-- navbar-->
       <header class="header bg-white">
         <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="../User_View/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/user/mypage/userLoginSuccessMain"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
@@ -100,114 +104,75 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageMain.html">내 정보</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageScheduledClass.html">참여 예정 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageParticipatingClass.html">참여 중인 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageComplateClass.html">참여 완료 클래스</a></strong></div>
-  
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageCouponList.html">내 쿠폰</a></strong></div>
-
-
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain">내 정보</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/scheduledClassList">참여 예정 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/complateClassList">참여 완료 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
               </div>
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
+                   <c:choose>
+                  	<c:when test="${ empty requestScope.complateClassList}">
+                  		완료한 클래스가 없습니다.
+                  	</c:when>
+                  </c:choose>
                   <!-- PRODUCT-->
+                 <c:forEach  var="classList" items="${ requestScope.complateClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.20 / 15:00</div>
+                    <c:if test="${classList.clsType eq 'O' }">                    
+                      <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
+                    </c:if>
+                    <c:if test="${classList.clsType eq 'R' }">                    
+                      <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
+                    </c:if>
                       <div class="position-relative mb-3">
-                       <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron.jpg" alt="..."></a>
- 
+                       <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[원데이]마카롱 만들기 체험</a></h6>
-                      <p class="small text-muted">30000원 / 1명 </p>
+                      <h6> 
+                       <a class="reset-anchor" href="complateClassDetail.html">
+                        <c:if test="${ classList.clsType eq 'O' }">
+                        [원데이] ${classList.title}
+                        </c:if>
+                        <c:if test="${ classList.clsType eq 'R' }">
+                        [정규] ${classList.title}
+                        </c:if>
+                       </a>
+                      </h6>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
-                  <!-- PRODUCT-->
+                  </c:forEach>
+				<!-- 취소 클래스 -->
+				<c:forEach  var="classList" items="${ requestScope.refundClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.21 / 16:00</div>
+                    <c:if test="${classList.clsType eq 'O' }">                    
+                      <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
+                    </c:if>
+                    <c:if test="${classList.clsType eq 'R' }">                    
+                      <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
+                    </c:if>
                       <div class="position-relative mb-3">
-                        <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/dance.jpg" alt="..."></a>
-
+                       <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[원데이]아이돌 댄스 배우기</a></h6>
-                      <p class="small text-muted">40000원 / 1명</p>
+                      <h6> 
+                       <a class="reset-anchor" href="complateClassDetail.html">
+                        <c:if test="${ classList.clsType eq 'O' }">
+                        [취소][원데이] ${classList.title}
+                        </c:if>
+                        <c:if test="${ classList.clsType eq 'R' }">
+                        [취소][정규] ${classList.title}
+                        </c:if>
+                       </a>
+                      </h6>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.22 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/baking.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[원데이]백종원의 베이킹 수업</a></h6>
-                      <p class="small text-muted">30000원 / 2명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.23 ~ 07.30</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron2.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[정규]마카롱 만들기 체험2</a></h6>
-                      <p class="small text-muted">100000원 / 1명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <!-- <div class="badge text-white badge-danger">Sold</div> -->
-                      <div class="badge text-white badge-primary">05.24 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron3.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[원데이]마카롱 만들기 체험3</a></h6>
-                      <p class="small text-muted">50000원 / 1명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.25 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron4.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[원데이]마카롱 만들기 체험4</a></h6>
-                      <p class="small text-muted">50000원 / 1명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.26 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron5.jpg" alt="..."></a>
-                      </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[원데이]마카롱 만들기 체험5</a></h6>
-                      <p class="small text-muted">100000원 / 2명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">04.27 ~ 05.27</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="img/macaron6.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="complateClassDetail.html">[정규]마카롱 만들기 체험6</a></h6>
-                      <p class="small text-muted">500000원 / 1명</p>
-                    </div>
-                  </div>
+                  </c:forEach>
+                  
                 </div>
                 <br><br>
                 <!-- PAGINATION-->

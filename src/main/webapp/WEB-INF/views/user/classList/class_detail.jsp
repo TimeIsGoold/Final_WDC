@@ -363,7 +363,7 @@ i {
 						class="datetimepicker">&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<li class="list-inline-item m-0 p-0"><a
-						class="btn btn-sm btn-outline-dark" href="class_payment.html"
+						class="btn btn-sm btn-outline-dark" href="${ pageContext.servletContext.contextPath }/user/payment"
 						style="height: 40px; width: 170px; font-size: 16px;">신청하기</a></li>
 				</div>
 				<script>

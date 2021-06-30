@@ -3,6 +3,8 @@ package com.tig.wdc.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,7 @@ import com.tig.wdc.user.model.service.UserClassService;
 
 /**
  * @author SORA
- * 클래스 상세보기 컨트롤러
+ * 클래스 상세보기 컨트롤러 / 신청 / 결제 / 신고 용 컨트롤러
  */
 @Controller
 @RequestMapping("/user/*")
@@ -46,6 +48,19 @@ public class UserClassDetailController {
 		model.addAttribute("classDetail",classDetail);
 		
 		return "user/classList/class_detail";
+	}
+	
+	/**
+	 * 결제페이지 이동용 메소드
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("payment")
+	public String payment(HttpSession session) {
+		int userNo= (Integer) session.getAttribute("userNo");
+
+		
+		return "user/payment/payment";
 	}
 	
 }
