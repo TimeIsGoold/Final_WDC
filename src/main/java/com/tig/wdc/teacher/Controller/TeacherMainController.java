@@ -38,7 +38,6 @@ public class TeacherMainController {
 	public String teacherMain(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		
 		int teacherNo= (Integer) session.getAttribute("teacherNo");
-		
 		//공지사항 페이징처리
 		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, noticeService.selectNoticeCount(), 5, 5);
 		//페이징처리정보

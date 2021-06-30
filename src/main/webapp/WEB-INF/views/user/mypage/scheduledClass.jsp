@@ -112,102 +112,30 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
                   <!-- PRODUCT-->
+                  <c:forEach  var="classList" items="${ requestScope.scheduledClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.21 / 16:00</div>
+                      <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,7)}.${fn:substring(classList.scheduleDate,8,10)} / ${classList.scheduleStart} </div>
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/dance.jpg" alt="..."></a>
+                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}"alt="..."></a>
 
                       </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]아이돌 댄스 배우기</a></h6>
-                      <p class="small text-muted">40000원 / 1명</p>
+                      <h6> 
+                      <a class="reset-anchor" href="scheduledClassDetail.html">
+                        <c:if test="${ classList.clsType eq 'O' }">
+                        [원데이] ${classList.title}
+                        </c:if>
+                        <c:if test="${ classList.clsType eq 'R' }">
+                        [정규] ${classList.title}
+                        </c:if>
+                      </a>
+                      </h6>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.22 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/baking.jpg" alt="..."></a>
+                  </c:forEach>
 
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]백종원의 베이킹 수업</a></h6>
-                      <p class="small text-muted">30000원 / 2명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.23 ~ 07.30</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron2.jpg" alt="..."></a>
 
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[정규]마카롱 만들기 체험2</a></h6>
-                      <p class="small text-muted">100000원 / 1명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <!-- <div class="badge text-white badge-danger">Sold</div> -->
-                      <div class="badge text-white badge-primary">06.24 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron3.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]마카롱 만들기 체험3</a></h6>
-                      <p class="small text-muted">50000원 / 1명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.25 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron4.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]마카롱 만들기 체험4</a></h6>
-                      <p class="small text-muted">50000원 / 1명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.26 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron5.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]마카롱 만들기 체험5</a></h6>
-                      <p class="small text-muted">100000원 / 2명</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.27 ~ 08.27</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron6.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[정규]마카롱 만들기 체험6</a></h6>
-                      <p class="small text-muted">500000원 / 1명</p>
-                    </div>
-                  </div>         
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.20 / 15:00</div>
-                      <div class="position-relative mb-3">
-                      <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron.jpg" alt="..."></a>
-
-                      </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]마카롱 만들기 체험</a></h6>
-                      <p class="small text-muted">30000원 / 1명 </p>
-                    </div>
-                  </div>
                 </div>
                 <br><br>
                 <!-- PAGINATION-->

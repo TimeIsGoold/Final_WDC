@@ -25,7 +25,6 @@
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
         <result column="SAVE_PATH" property="titlePic"/>
         <result column="D_DAY" property="dDay"/>
-        
     </resultMap>
 
 	<select id="selectClassCategory" resultMap="UserCategoryResult">

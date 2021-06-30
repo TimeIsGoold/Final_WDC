@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
+import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.teacher.model.service.ClassRegistService;
 import com.tig.wdc.user.model.dto.ClassDTO;
 
@@ -38,13 +39,15 @@ public class ClassRegistController {
 	private final ClassRegistService classService;
 	private AttachMentDTO titlePicture;
 	private	ClassPieceDTO classPiece;
+	private CurriculumDTO curriculum;
 	
 	@Autowired
-	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistService classService) {
+	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistService classService, CurriculumDTO curriculum) {
 		super();
 		this.titlePicture = titlePicture;
 		this.classPiece = classPiece;
 		this.classService = classService;
+		this.curriculum = curriculum;
 	}
 
 	//클래스 타입(원데이, 정규 입력)
@@ -58,8 +61,7 @@ public class ClassRegistController {
 
 	//클래스 정보 insert
 	@PostMapping("classInsert")
-	public String registStep2(@ModelAttribute ClassDTO classInfo, Model model, @RequestParam Map<String, MultipartFile> pictures, HttpServletRequest request) {
-		
+	public String registStep2(@ModelAttribute ClassDTO classInfo, @ModelAttribute ClassPieceDTO pieceInfo, @ModelAttribute CurriculumDTO curriInfo, Model model, @RequestParam Map<String, MultipartFile> pictures, HttpServletRequest request) {
 		/* 1. 클래스 정보 INSERT */
 		//날짜 ,시간 변환
 		if(classInfo.getEndDay() != null) {
@@ -109,7 +111,6 @@ public class ClassRegistController {
 				}
 				
 				try {
-					System.out.println(titlePicture);
 					img.transferTo(new File(filePath + "\\" + titlePicture.getSaveName()));
 					insertCount += classService.insertTitlePicture(titlePicture);
 					
@@ -118,13 +119,48 @@ public class ClassRegistController {
 				}
 			}
 		}
-
 		//클래스 대표사진 출력
-
-		
 		/* 3. 완성작 INSERT*/
-		List<ClassPieceDTO> pieceList = new ArrayList<>();
+		String[] pieceTitle = pieceInfo.getPieceTitle().split(",");
+		int pieceTitleIndex = 0;
+		for(int i = 4; i < 6; i++) {
+			
+			if(!pictures.get("thumbnailImg" + i).isEmpty()) {
+				totalCount++;
+				
+				MultipartFile img = pictures.get("thumbnailImg" + i);
+				String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
+				classPiece.setPiecePicture(UUID.randomUUID().toString().replace("-", "") + ext);
+				classPiece.setPieceTitle(pieceTitle[0]);
+				pieceTitleIndex++;
+
+				try {
+					img.transferTo(new File(filePath + "\\" + titlePicture.getSaveName()));
+					insertCount += classService.insertCompletePiece(classPiece);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
+		/* 4. 커리큘럼 등록 */
+		String[] curriTitle = curriInfo.getCurriTitle().split(",");
+		String[] curriContent = curriInfo.getCurriContent().split(","); 
+		
+		List<CurriculumDTO> curriList = new ArrayList<>();
+		
+		for(int i = 0; i < curriTitle.length; i++) {
+			
+			curriculum.setCurriStep(i + 1);
+			curriculum.setCurriTitle(curriTitle[i]);
+			curriculum.setCurriContent(curriContent[i]);
+			
+			curriList.add(curriculum);
+		}
+		
+		int result = classService.insertCurriculum(curriList);
+		/**/
 		return "";
 	}
 }

@@ -1,6 +1,10 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.List;
+
 import com.tig.wdc.model.dto.AttachMentDTO;
+import com.tig.wdc.model.dto.ClassPieceDTO;
+import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
 
 /**
@@ -14,6 +18,12 @@ public interface ClassRegistService {
 	
 	//클래스 대표사진 insert
 	int insertTitlePicture(AttachMentDTO titlePicture);
+
+	//클래스 완성작 insert
+	int insertCompletePiece(ClassPieceDTO classPiece);
+
+	//클래스 커리큘럼 insert
+	int insertCurriculum(List<CurriculumDTO> curriList);
 
 	
 }
