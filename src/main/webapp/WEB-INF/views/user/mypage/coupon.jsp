@@ -141,11 +141,11 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageMain.html">내 정보</a></strong></div>
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain">내 정보</a></strong></div>
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageScheduledClass.html">참여 예정 클래스</a></strong></div>
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageParticipatingClass.html">참여 중인 클래스</a></strong></div>
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageComplateClass.html">참여 완료 클래스</a></strong></div>
-                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageCouponList.html">내 쿠폰</a></strong></div>
+                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
               </div>
               <!-- BILLING ADDRESS-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0" style="text-align: center;">
@@ -161,18 +161,34 @@
                         </tr>
                       </thead>
                       <tbody>
+                       <c:forEach  var="couponList" items="${ requestScope.couponList }">
+                       <c:set value="${i+1 }" var="i"></c:set>
                         <tr class="tr-hover">
-                          <th>2</th>
-                          <th><button class="coupon-modal" type="button" data-toggle="modal" data-target="#coupon_detail">5% 할인 쿠폰</button></th>
-                          <td onclick="location.href='detail.html'" style="cursor:pointer;">반지수의 드로잉 클래스2</td>
-                          <td>2021-06-30</th>
+                          <th>${i}</th>
+                          <th><button class="coupon-modal" type="button" data-toggle="modal" data-target="#coupon_detail${i}">${couponList.cpnName}</button></th>
+                          <td onclick="location.href='detail.html'" style="cursor:pointer;">${couponList.couponClassName}</td>
+                          <td>${couponList.cpnEnd}</td>
                         </tr>   
-                        <tr class="tr-hover">
-                          <th>1</th>
-                          <th><button class="coupon-modal" type="button" data-toggle="modal" data-target="#coupon_detail">5% 할인 쿠폰</button></th>
-                          <td onclick="location.href='detail.html'" style="cursor:pointer;">반지수의 드로잉 클래스2</td>
-                          <td>2021-06-30</td>
-                        </tr>   
+                              <!-- 쿠폰팝업 -->
+				      <div id="coupon_detail${i}"class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+				        <div class="modal-dialog modal-sm">
+				          <div class="modal-content">
+				            <div class="modal-header">
+				              <div class="couponList" >
+				                <h4><i class="fas mr-2 fa-gift"> 5% 할인 쿠폰 </i></h4>
+				
+				                <h6>${couponList.cpnName}</h6>
+				                <br>
+				                	적용 강좌명 : ${couponList.couponClassName}
+				                <br>
+				                ${couponList.cpnEnd} 까지
+				            </div>
+				            </div>
+				          </div>
+				        </div>
+				      </div>
+                        </c:forEach>
+ 
                       </tbody>
                     </table>
                   </div>
@@ -193,24 +209,7 @@
         </section>
       </div>
 
-      <!-- 쿠폰팝업 -->
-      <div id="coupon_detail"class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <div class="couponList" >
-                <h4><i class="fas mr-2 fa-gift"> 5% 할인 쿠폰 </i></h4>
 
-                <h6>응원 강좌 개설 축하쿠폰</h6>
-                <br>
-                	적용 강의명 : 반지수의 드로잉 클래스
-                <br>
-                2021-06-30 까지
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       	<%@include file="../commons/footer.jsp" %>
  </div>

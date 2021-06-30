@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import com.tig.wdc.user.model.dao.UserClassMapper;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 
+/**
+ * @author SORA
+ *
+ */
 @Service
 public class UserClassServiceImpl implements UserClassService{
 
@@ -22,4 +26,26 @@ public class UserClassServiceImpl implements UserClassService{
 
 		return mapper.selectNewClassList();
 	}
+
+	@Override
+	public List<UserClassDTO> selectTopClassList() {
+		
+		return mapper.selectTopClassList();
+	}
+
+	@Override
+	public List<UserClassDTO> selectCheerClassList() {
+
+		return mapper.selectCheerClassList();
+	}
+
+	@Override
+	public UserClassDTO selectClassDtail(int clsNo) {
+
+		return mapper.selectClassDetail(clsNo);
+	}
+
+
+
+
 }

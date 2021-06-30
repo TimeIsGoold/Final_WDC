@@ -118,30 +118,24 @@
         <form>
           <div class="col-sm-12" id="content-formatting" style="float: left;">
             <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-              <h3>문의내역 확인</h3>
+              <P style="font-size: 20px; font-weight: bold;" >문의내역<P>
             </div>
             <div class="row" style="margin-left: 40px;">
-              <div class='col-sm-12'><h5>문의 기간조회</h5>
-              </div><br>
-              <div class='col-sm-3'>
-                <div class="form-group">
-                  <input type="date" id="startDate" class="form-control">
-                </div>
+              <div class='col-sm-3'><P style="font-size: 15px; font-weight: bold;" >문의내역 확인<P>
               </div>
-              <div class='col-sm-3'>
-                <div class="form-group">
-                  <select id="inquiryReply">
-                  	<option value="notyet">처리 중</option>
-                  	<option value="completed">답변완료</option>
-                  </select>
-                </div>
+              <div class='col-sm-2'>
+                <select class="form-group" id="inquiryReply">
+                	<option value="" selected disable hidden>선택하세요</option>
+                	<option value="notyet">처리 중</option>
+                	<option value="completed">답변완료</option>
+                </select>
               </div>
-              <div class='col-sm-6'>
+         <!-- <div class='col-sm-6'>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">검색</button>
                   <button type="reset" class="btn btn-primary">초기화</button>                  
                 </div>
-              </div>
+              </div> -->
             </div>
             
             <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px;">
@@ -198,8 +192,8 @@
                   <li class="page-item"><a class="page-link" href="#">></a></li>
                 </ul>
               </nav>
+            
             </div>
-
           </div>
         </form>
       </div>

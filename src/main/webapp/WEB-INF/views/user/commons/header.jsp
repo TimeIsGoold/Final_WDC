@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+    
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,6 +17,7 @@
     
     <!-- 연준추가 CSS-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/css/custom.plus.css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/css/custom4.css">
     
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/user/vendor/bootstrap/css/bootstrap.min.css">

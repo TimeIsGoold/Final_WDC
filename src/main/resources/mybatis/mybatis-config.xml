@@ -21,11 +21,15 @@
  		<typeAlias alias="TeacherDTO" type="com.tig.wdc.admin.model.dto.TeacherDTO"/>
  		<typeAlias alias="reportDetailDTO" type="com.tig.wdc.admin.model.dto.ReportDetailDTO"/>
  		
- 		
- 		
  		<!-- user -->
  		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
  		<typeAlias alias="UserClassDTO" type="com.tig.wdc.user.model.dto.UserClassDTO"/>
+ 		<typeAlias alias="UserCouponDTO" type="com.tig.wdc.user.model.dto.UserCouponDTO"/>
+ 		
+ 		<!-- teacher  -->
+ 		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
+ 		<typeAlias alias="attachment" type="com.tig.wdc.model.dto.AttachMentDTO"/>
+ 		<typeAlias alias="completePiece" type="com.tig.wdc.model.dto.ClassPieceDTO"/>
  		
  	</typeAliases>
  </configuration>

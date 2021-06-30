@@ -29,7 +29,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 로그인 - 아현
+	 * @author 송아현
+	 * 로그인
 	 * 
 	 * @return
 	 */
@@ -39,14 +40,14 @@ public class AdminController {
 	}
 
 	/**
-	 * 회원관리 - 현빈
+	 * @author 김현빈
+	 * 회원관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("memberManagement")
 	public String selectTotalUsertList(Model model) {
-
 
 		List<TotalDTO> realtotalList = adminService.selectTotalUsertList();
 
@@ -58,7 +59,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 클래스 관리 - 현빈
+	 * @author 김현빈
+	 * 클래스 관리
 	 * 
 	 * @param model
 	 * @return
@@ -72,7 +74,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 신고관리 - 현빈
+	 * @author 김현빈
+	 * 신고관리
 	 * 
 	 * @param model
 	 * @return
@@ -86,21 +89,53 @@ public class AdminController {
 	}
 
 	/**
-	 * 문의관리 - 아현
+	 * @author 송아현
+	 * 문의관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("questionManagement")
-	public String selectQustionList(Model model) {
+	public String selectQustionList(@RequestParam("mt")String type, Model model) {
 
-		model.addAttribute("questionList", adminService.selectAllQuestionList());
+		if(type.equals("to")) {
+			model.addAttribute("questionList", adminService.selectAllQuestionList());
+		} else if(type.equals("tc")) {
+			model.addAttribute("questionList", adminService.selectTeacherQuestionList());			
+		} else if(type.equals("st")) {			
+			model.addAttribute("questionList", adminService.selectStudentQuestionList());			
+		}
 
 		return "admin/adminQuestionManagement";
 	}
+	
+	
+	/**
+	 * @author 송아현
+	 * 문의 상세
+	 * @param type
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("questionDetail") 
+	public String questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String id, Model model) {
+		
+		if(type.equals("tc")) {
+			model.addAttribute("questionDetail", adminService.selectTeacherQuestionInfoDetail(id));			
+		} else if(type.equals("st")) {
+			//model.addAttribute("questionDetail", adminService.selectStudentQuestionInfoDetail(id));			
+		}
+		
+		System.out.println("id : " + id);
+		
+		return "admin/questionDetail"; 
+	}
+	 
 
 	/**
-	 * 쿠폰 관리 - 아현
+	 * @author 송아현
+	 * 쿠폰 관리
 	 * 
 	 * @param model
 	 * @return
@@ -114,7 +149,8 @@ public class AdminController {
 	}
 
 	/**
-	 * 공지 관리 - 아현
+	 * @author 송아현
+	 * 공지 관리
 	 * 
 	 * @param model
 	 * @return
@@ -128,15 +164,20 @@ public class AdminController {
 	}
 	
 	/**
-	 * 정산 관리 - 아현
+	 * @author 송아현
+	 * 정산 관리
 	 * 
 	 * @param model
 	 * @return
 	 */
 	 @GetMapping("calculateManagement") 
-	 public String calculateManagement(Model model) {
+	 public String calculateManagement(@RequestParam("YN")String type, Model model) {
 	  
-		 model.addAttribute("calculateList", adminService.selectAllCalculateList());
+		 if(type.equals("N")) {
+			 model.addAttribute("calculateList", adminService.selectNoCalculateList());
+		 } else if(type.equals("Y")) {
+			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
+		 }
 	  
 		 return "admin/adminCalculateManagement"; 
 	 }
@@ -187,6 +228,13 @@ public class AdminController {
 
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 *  신고관리 디테일
+	 * </pre>
+	 * @return
+	 */
 	@GetMapping("reportDetail")
 	public String selectReportDetail(@RequestParam("no")int no ,@RequestParam("type")String type,Model model) {
 		
@@ -211,5 +259,7 @@ public class AdminController {
 //			model.addAttribute("reportDetail", adminService.selectTeacherReportList(no));
 		return "admin/reportPage";
 	}
+	
+	
 
 }

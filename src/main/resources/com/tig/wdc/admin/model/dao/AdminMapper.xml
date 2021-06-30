@@ -51,7 +51,28 @@
 		<result column="PROCS_STATUS" property="reportStatus"/>
 	</resultMap>
 	
-	<resultMap id="questionList" type="QuestionDTO" >
+	<!-- 전체문의 -->
+	<resultMap id="totalQuestionList" type="QuestionDTO" >
+		<id column="Q_NO" property="questionNo"/>
+		<result column="유형" property="questionType"/>
+		<result column="이름" property="questionName"/>
+		<result column="아이디" property="questionId"/>
+		<result column="제목" property="questionTitle"/>
+		<result column="날짜" property="questionDate"/>
+	</resultMap>
+	
+	<!-- 강사문의 -->
+	<resultMap id="teacherQestionList" type="QuestionDTO" >
+		<id column="Q_NO" property="questionNo"/>
+		<result column="MEMBER_TYPE" property="questionType"/>
+		<result column="TE_NAME" property="questionName"/>
+		<result column="TE_ID" property="questionId"/>
+		<result column="Q_TITLE" property="questionTitle"/>
+		<result column="Q_DATE" property="questionDate"/>
+	</resultMap>
+	
+	<!-- 수강생문의 -->
+	<resultMap id="studentQuestionList" type="QuestionDTO" >
 		<id column="Q_NO" property="questionNo"/>
 		<result column="MEMBER_TYPE" property="questionType"/>
 		<result column="USER_NAME" property="questionName"/>
@@ -59,6 +80,18 @@
 		<result column="Q_TITLE" property="questionTitle"/>
 		<result column="Q_DATE" property="questionDate"/>
 	</resultMap>
+	
+	<!-- 강사문의상세 -->
+	<resultMap id="teacherQuestionInfoDetail" type="QuestionDTO">
+		<id column="TE_NO" property="questionNo"/>
+		<result column="MEMBER_TYPE" property="questionType"/>
+		<result column="TE_NAME" property="questionName"/>
+		<result column="TE_ID" property="questionId"/>
+		<result column="Q_TITLE" property="questionTitle"/>
+		<result column="Q_CONTENT" property="questionContent"/>
+	</resultMap>
+	
+	<!-- 수강생문의상세 -->
 	
 	<resultMap id="teacherDTO" type="TeacherDTO" >
 		<id column="TE_NO" property="teNo"/>
@@ -73,6 +106,7 @@
 		<result column="누적신고"  property="reportedCnt"/>
 	</resultMap>
 	
+	<!-- 쿠폰 -->
 	<resultMap id="couponList" type="CouponDTO">
 		<id column="CPN_NO" property="couponNo"/>
 		<result column="USER_ID" property="couponType"/>
@@ -84,6 +118,7 @@
 		<result column="CPN_USE_YN" property="useStatus"/>
 	</resultMap>
 	
+	<!-- 공지 -->
 	<resultMap id="noticeList" type="NoticeDTO">
 		<id column="NOTICE_NO" property="noticeNo"/>
 		<result column="NOTICE_TYPE" property="noticeType"/>
@@ -92,12 +127,22 @@
 		<result column="WRITE_DATE" property="writeDate"/>
 	</resultMap>
 	
-	<resultMap id="calculateList" type="CalculateDTO">
+	<!-- 정산 미완료 -->
+	<resultMap id="calculateLNoList" type="CalculateDTO">
 		<id column="CALC_NO" property="calcNo"/>
 		<result column="TE_TYPE" property="teType"/>
 		<result column="TE_NAME" property="teName"/>
 		<result column="TE_ID" property="teId"/>
-		<result column="CALC_MONTH" property="calcMonth"/>
+		<result column="정산날짜" property="calcMonth"/>
+		<result column="정산여부" property="calcYN"/>
+	</resultMap>
+	
+	<!-- 정산 완료 -->
+	<resultMap id="calculateLYesList" type="CalculateDTO">
+		<id column="TE_TYPE" property="teType"/>
+		<result column="TE_NAME" property="teName"/>
+		<result column="TE_ID" property="teId"/>
+		<result column="정산예정달" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
 	</resultMap>
 	
@@ -187,7 +232,47 @@
 		 ORDER BY REPORT_NO DESC
     </select>
 	
-	<select id="selectAllQuestionList" resultMap="questionList">
+	<!-- 전체 문의 -->
+	<select id="selectAllQuestionList" resultMap="totalQuestionList">
+	    SELECT 
+			   A.Q_NO
+			 , A.MEMBER_TYPE 유형
+			 , C.USER_NAME 이름
+			 , C.USER_ID 아이디
+			 , A.Q_TITLE 제목
+			 , A.Q_DATE 날짜
+		  FROM ADMIN_Q A
+		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
+         UNION ALL
+        SELECT 
+			   A.Q_NO
+			 , A.MEMBER_TYPE 유형
+			 , C.TE_NAME 이름
+			 , C.TE_ID 아이디
+			 , A.Q_TITLE 제목
+			 , A.Q_DATE 날짜
+		  FROM ADMIN_Q A
+		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+	</select>
+	
+	<!-- 강사문의 -->
+	<select id="selectTeacherQuestionList" resultMap="teacherQestionList">
+		SELECT 
+			   A.Q_NO
+			 , A.MEMBER_TYPE
+			 , C.TE_NAME
+			 , C.TE_ID
+			 , A.Q_TITLE
+			 , A.Q_DATE
+		  FROM ADMIN_Q A
+		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+	</select>
+	
+	<!-- 수강생문의 -->
+	<select id="selectStudentQuestionList" resultMap="studentQuestionList">
 		SELECT 
 			   A.Q_NO
 			 , A.MEMBER_TYPE
@@ -199,6 +284,24 @@
 		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 	</select>
+	
+	<!-- 강사문의상세 -->
+	<select id="selectTeacherQuestionInfoDetail" resultMap="teacherQuestionInfoDetail" parameterType="String">
+		SELECT 
+			   C.TE_NO
+			 , A.MEMBER_TYPE
+			 , C.TE_NAME
+			 , C.TE_ID
+			 , A.Q_TITLE
+			 , A.Q_CONTENT
+		  FROM ADMIN_Q A
+		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+		 WHERE A.MEMBER_TYPE = 'TEACHER'
+	       AND TE_ID = #{id}
+	</select>
+	
+	<!-- 수강생문의상세 -->
 	
 	<select id="selectOneStudent" resultMap="studentDTO" parameterType="_int">
 		SELECT 
@@ -288,6 +391,7 @@
 		      , U.USER_ENROLL_DATE
 	</select>      
 
+	<!-- 쿠폰 -->
 	<select id="selectAllCouponList" resultMap="couponList">
 		SELECT 
 			   A.CPN_NO
@@ -303,6 +407,7 @@
          ORDER BY A.CPN_NO
 	</select>
 	
+	<!-- 공지 -->
 	<select id="selectAllNoticeList" resultMap="noticeList">
 		SELECT 
 			   NOTICE_NO
@@ -313,13 +418,31 @@
 		  FROM NOTICE
 	</select>
 	
-	<select id="selectAllCalculateList" resultMap="calculateList">
+	<!-- 정산 미완료 -->
+	<select id="selectNoCalculateList" resultMap="calculateLNoList">
+	    SELECT 
+			   C.TE_TYPE
+			 , C.TE_NAME
+			 , C.TE_ID
+             , EXTRACT(month FROM ADD_MONTHS(B.CLS_START_D,1)) AS 정산예정달
+			 , A.CALCUL_STATUS AS 정산여부
+		  FROM TUITION_MANAGEMENT A
+		  JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
+          JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+         WHERE EXTRACT(month FROM SYSDATE) <![CDATA[ < ]]> EXTRACT(month FROM ADD_MONTHS(B.CLS_START_D,1))
+           AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
+                                    FROM TUITION_MANAGEMENT
+                                    GROUP BY CLS_NO)
+	</select>
+	
+	<!-- 정산 완료 -->
+	<select id="selectYesCalculateList" resultMap="calculateLYesList">
 		SELECT 
 			   A.CALC_NO
 			 , B.TE_TYPE
 			 , B.TE_NAME
 			 , B.TE_ID
-			 , A.CALC_MONTH
+			 , TO_CHAR(A.CALC_MONTH) 정산날짜
 			 , 'Y' AS 정산여부
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
@@ -354,6 +477,7 @@
 	 </if>
 	   AND REPORT_NO = #{reportNo}
 	</select>
+	
 	
 <!-- 	<select id="selectTeacherReportList" resultMap="reportDetailDTO" parameterType="_int">
 		SELECT

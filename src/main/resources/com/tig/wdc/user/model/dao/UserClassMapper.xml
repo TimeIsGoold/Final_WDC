@@ -27,9 +27,57 @@
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
+		SELECT 
+		       *
+		  FROM (SELECT
+		              *
+		         FROM CLASS C
+		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		        WHERE C.CLS_DICSION_STATUS = 'S'
+		          AND A.TYPE = 'TITLE'
+		        ORDER BY C.CLS_NO DESC)
+		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
+	</select>
+	
+	<select id="selectTopClassList" parameterType="UserClassDTO" resultMap="ClassResult">
 		SELECT
-	           *
-		  FROM CLASS A
+		       *
+		  FROM (SELECT
+		               A.SAVE_PATH
+		             , L.*
+		          FROM (SELECT 
+		                       AVG(R.REVIEW_SCORE)
+		                     , S.CLS_NO
+		                  FROM REVIEW R
+		                  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
+		                  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
+		                 GROUP BY S.CLS_NO) P
+		          JOIN ATTACHMENT A ON(P.CLS_NO = A.CLS_NO)
+		          JOIN CLASS L ON(L.CLS_NO = A.CLS_NO)
+		         WHERE A.TYPE = 'TITLE')
+		 WHERE ROWNUM <![CDATA[ <= ]]>4 
+	</select>
+	
+	<select id="selectCheerClassList" parameterType="UserClassDTO" resultMap="ClassResult">
+		SELECT 
+		       *
+		  FROM (SELECT
+		              *
+		         FROM CLASS C
+		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		        WHERE C.CLS_DICSION_STATUS = 'F'
+		          AND A.TYPE = 'TITLE'
+		        ORDER BY C.CLS_NO DESC)
+		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
+	</select>
+	
+ 	<select id="selectClassDetail" parameterType="_int" resultMap="ClassResult">
+		SELECT
+		       *
+		  FROM CLASS C
+		  JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		 WHERE A.TYPE = 'TITLE'
+           AND C.CLS_NO = #{ clsNo }
 	</select>
 
 </mapper>

@@ -21,7 +21,37 @@ public interface AdminService {
 
 	List<ReportDTO> selectAllReportList();
 
+	/**
+	 * @author 송아현
+	 * 전체문의
+	 * 
+	 * @return
+	 */
 	List<QuestionDTO> selectAllQuestionList();
+	
+	/**
+	 * @author 송아현
+	 * 강사문의
+	 * 
+	 * @return
+	 */
+	List<QuestionDTO> selectTeacherQuestionList();
+
+	/**
+	 * @author 송아현
+	 * 학생문의
+	 * 
+	 * @return
+	 */
+	List<QuestionDTO> selectStudentQuestionList();
+	
+	/**
+	 * @author 송아현
+	 * 강사문의상세
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectTeacherQuestionInfoDetail(String id);
 
 	StudentDTO selectOneStudent(int no);
 
@@ -31,14 +61,43 @@ public interface AdminService {
 
 	List<TotalDTO> selectStudentList();
 	
+	/**
+	 * @author 송아현
+	 * 쿠폰
+	 * 
+	 * @return
+	 */
 	List<CouponDTO> selectAllCouponList();
 
+	/**
+	 * @author 송아현
+	 * 공지
+	 * 
+	 * @return
+	 */
 	List<NoticeDTO> selectAllNoticeList();
 
-	List<CalculateDTO> selectAllCalculateList();
+	/**
+	 * @author 송아현
+	 * 미정산
+	 * 
+	 * @return
+	 */
+	List<CalculateDTO> selectNoCalculateList();
+	
+	/**
+	 * @author 송아현
+	 * 정산완료
+	 * 
+	 * @return
+	 */
+	List<CalculateDTO> selectYesCalculateList();
+	
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
 //	ReportDetailDTO selectTeacherReportList(int no);
+
+
 
 }

@@ -16,6 +16,8 @@ import com.tig.wdc.admin.model.dto.QuestionDTO;
 
 public interface AdminMapper {
 
+
+
 	List<TotalDTO> selectTotalUsertList();
 	
 	List<ClassDTO> selectAllClassList();
@@ -24,13 +26,70 @@ public interface AdminMapper {
 
 	List<TotalDTO> selectTeacherList();
 
+	/**
+	 * @author 송아현
+	 * 전체 문의
+	 * 
+	 * @return
+	 */
 	List<QuestionDTO> selectAllQuestionList();
 	
+	/**
+	 * @author 송아현
+	 * 강사문의
+	 * 
+	 * @return
+	 */
+	List<QuestionDTO> selectTeacherQuestionList();
+
+	/**
+	 * @author 송아현
+	 * 고객문의
+	 * 
+	 * @return
+	 */
+	List<QuestionDTO> selectStudentQuestionList();
+	
+	/**
+	 * @author 송아현
+	 * 강사 문의 상세
+	 * 
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectTeacherQuestionInfoDetail(String id);
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰
+	 * 
+	 * @return
+	 */
 	List<CouponDTO> selectAllCouponList();
 
+	/**
+	 * @author 송아현
+	 * 공지
+	 * 
+	 * @return
+	 */
 	List<NoticeDTO> selectAllNoticeList();
-
-	List<CalculateDTO> selectAllCalculateList();
+	
+	/**
+	 * @author 송아현
+	 * 미정산
+	 * 
+	 * @return
+	 */
+	List<CalculateDTO> selectNoCalculateList();
+	
+	/**
+	 * @author 송아현
+	 * 정산완료
+	 * 
+	 * @return
+	 */
+	List<CalculateDTO> selectYesCalculateList();
 
 	StudentDTO selectOneStudent(int no);
 
@@ -38,8 +97,12 @@ public interface AdminMapper {
 
 	List<TotalDTO> selectStudentList();
 
+	
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
 //	ReportDetailDTO selectTeacherReportList(int no);
+
+
+
 
 }

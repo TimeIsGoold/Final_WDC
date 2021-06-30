@@ -25,14 +25,7 @@
         	
         	.totalQuestion {
                 width: 33%;
-            }
-
-            .studentQuestion {
-                width: 33%;
-            }
-
-            .teacherQuestion {
-                width: 33%;
+                border-radius: 5px;
             }
 
             .totalQuestion:hover {
@@ -40,12 +33,22 @@
     			color: black;
             }
 
-            .studentQuestion:hover {
-                background : #fef0ae;
-    			color: black;
+			.teacherQuestion {
+                width: 33%;
+                border-radius: 5px;
             }
 
             .teacherQuestion:hover {
+                background : #fef0ae;
+    			color: black;
+            }
+            
+            .studentQuestion {
+                width: 33%;
+                border-radius: 5px;
+            }
+            
+            .studentQuestion:hover {
                 background : #fef0ae;
     			color: black;
             }
@@ -70,11 +73,11 @@
                                 <i class="fas fa-table me-1"></i>문의내역
                             </div>
                             
-                            <div class="subMenuBar">
-                                <button class="totalQuestion">전체</button>
-                                <button class="studentQuestion">학생</button>
-                                <button class="teacherQuestion">강사</button>
-                            </div>
+                            <div class="sideMenu">
+                            	<input type="button" class="totalQuestion" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'">
+                            	<input type="button" class="teacherQuestion" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc'">
+                            	<input type="button" class="studentQuestion" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st'">
+      						</div>
 
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -90,9 +93,16 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${questionList}" var="QuestionDTO">
-				                            <tr>
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionDetail?currentMenu=question&mt=${QuestionDTO.questionType}&id=${QuestionDTO.questionId}'">
 				                                <td>${QuestionDTO.questionNo}</td>
-				                                <td>${QuestionDTO.questionType}</td>
+				                                <c:choose>
+				                                	<c:when test="${QuestionDTO.questionType eq 'USER'}">
+				                                		<td>수강생</td>
+				                                	</c:when>
+				                                	<c:when test="${QuestionDTO.questionType eq 'TEACHER'}">
+				                                		<td>강사</td>
+				                                	</c:when>
+				                                </c:choose>
 				                                <td>${QuestionDTO.questionName}</td>
 				                                <td>${QuestionDTO.questionId}</td>
 				                                <td>${QuestionDTO.questionTitle}</td>

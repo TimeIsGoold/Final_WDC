@@ -30,7 +30,7 @@ if($contentImgArea4 != null){
 
 if($contentImgArea5 != null){
     $contentImgArea5.onclick = function () {
-        document.getElementById("thumbnailImg4").click();
+        document.getElementById("thumbnailImg5").click();
     };
 }
 
@@ -52,7 +52,7 @@ function loadImg(value, num) {
                     document.getElementById("contentImg4").src = e.target.result;
                     break;
                 case 5:
-                    document.getElementById("contentImg4").src = e.target.result;
+                    document.getElementById("contentImg5").src = e.target.result;
                     break;
             }
         }
@@ -85,5 +85,38 @@ function doPopUP(){
         default : alert("클래스타입을 선택해주세요"); break;
     }
 };
+
+function setCurriculum(){
+
+    let curriName = document.getElementById("curriName").value;
+    let curriContent = document.getElementById("curriContent").value;
+    let step = document.getElementById("selectStep").value;
+    
+    let curriTable = document.getElementById("curriculum");
+    
+    if(document.getElementById("noneCurri") != null){
+    
+        document.getElementById("noneCurri").remove();
+    }
+    let hiddeName = "<input type='hidden' value='" +curriName + "'name='curriTitle'>";
+    let hiddeContent = "<input type='hidden' value='" +curriContent + "'name='curriContent'>";
+    let hiddeStep = "<input type='hidden' value='" +step + "'name='curriStep'>";
+    curriTable.innerHTML += "<tr><td>" 
+                         + step +"단계</td><td>" 
+                         + curriName + "</td><td>" 
+                         + curriContent +"</td><td><button type='button'>수정</button></td></tr>"
+                         + hiddeName + hiddeContent + hiddeStep;
+    document.getElementById("curriName").value = "";   
+    document.getElementById("curriContent").value ="";                  
+    document.getElementById("selectStep").value = Number(step)+1;                    
+}
+
+
+
+
+
+
+
+
 
 

@@ -16,7 +16,6 @@ public class PageInfoDTO {
 
 	public PageInfoDTO(int pageNo, int totalCount, int limit, int buttonAmount, int maxPage, int startPage, int endPage,
 			int startRow, int endRow) {
-		super();
 		this.pageNo = pageNo;
 		this.totalCount = totalCount;
 		this.limit = limit;
