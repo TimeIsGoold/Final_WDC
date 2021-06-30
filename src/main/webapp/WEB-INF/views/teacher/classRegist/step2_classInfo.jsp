@@ -43,14 +43,14 @@
             <br>
             <div class="row">
               <div class="col-md-3" >
-                <input type="text" placeholder="완성작제목" style="width: 70%;">
+                <input type="text" placeholder="완성작제목" style="width: 70%;" name="pieceTitle">
                 <br><br>
                 <div class="content-img-area4" id="contentImgArea4" style="width: 70%;">
                   <img id="contentImg4" style="width: 100%;" height="120">
                 </div>
               </div>
               <div class="col-md-3">
-                <input type="text" placeholder="완성작제목" style="width: 70%;">
+                <input type="text" placeholder="완성작제목" style="width: 70%;" name="pieceTitle">
                 <br><br>
                 <div class="content-img-area5" id="contentImgArea5" style="width: 70%;">
                   <img id="contentImg5" style="width: 100%;" height="120">
@@ -80,7 +80,7 @@
                 <div style="font-size: 15px; margin-bottom: 10px;"><br></div>
                 <div class="form-group">
                   <select class="form-control">
-                    <option>단계</option>
+                    <option value="1" id="selectStep">단계</option>
                   </select>
                 </div>
               </div>
@@ -89,7 +89,7 @@
                   - 수업 순서의 제목을 입력해주세요. ex) 재료소개, 도안 고르기 등
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" id="curriName">
                 </div>
               </div>
               
@@ -101,40 +101,30 @@
                 - ex) 재료소개, 도안 고르기 등
               </div>
               <div class="col-md-12">
-                <textarea class="form-control" rows="5"></textarea>
+                <textarea class="form-control" rows="5" id="curriContent"></textarea>
               </div>
               <div class="col-md-12" align="center">
-                <button type="button" style="margin: 15px 0 15px 0;"> +입력</button>
+                <button type="button" style="margin: 15px 0 15px 0;" onclick="setCurriculum();"> +입력</button>
               </div>
             </div>
             <br>
             <!-- /커리큘럼추가 -->
             <!-- 커리큘럼목록 -->
-            <table class="table table-bordered">
-              <tbody>
+            <table class="table table-bordered" >
+              <tbody id="curriculum">
                 <tr>
                   <th>순서</th>
-                  <th>사진</th>
                   <th>제목</th>
                   <th style="width: 60%;">내용</th>
-                  <th>  </th>
+                  <th> 수정삭제버튼 </th>
                 </tr>
                 <tr>
-                  <td></td>
-                  <td> </td>
-                  <td>둘회</td>
-                  <td>쌀불리기</td>
-                  <td>수정삭제</td>
+                  <td colspan="4" align="center" id="noneCurri" value="0" name="curriStep">등록된 커리큘럼이 없습니다.</td>
                 </tr>
-                <tr>
-                  <td></td>
-                  <td> </td>
-                  <td>첫회</td>
-                  <td>쌀씻기</td>
-                  <td>수정삭제</td>
-                </tr>
+
               </tbody>
             </table>
+
             <!-- /커리큘럼목록 -->
             <br>
             <hr><br>

@@ -47,10 +47,11 @@
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-.thumbnail-file-area input[type=file] {
-	display: none;
-}
+  .thumbnail-file-area input[type=file] {
+	  /* display: none; */
+  }
 </style>
 </head>
 
