@@ -76,10 +76,10 @@
            VALUE
                (
                  SEQ_CRCLM_NO.NEXTVAL
-               , #{ curriList.curriStep } 
-               , #{ curriList.curriTitle }
-               , #{ curriList.curriContent }
-               , #{ curriList.clsNo }
+               , #{ curri.curriStep } 
+               , #{ curri.curriTitle }
+               , #{ curri.curriContent }
+               , #{ curri.clsNo }
                ) 
         </foreach>
     </update>
