@@ -71,13 +71,13 @@
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
 	
-<!-- 	<select id="selectCheerClassList" parameterType="UserClassDTO" resultMap="ClassResult">
+ 	<select id="selectClassDetail" parameterType="_int" resultMap="ClassResult">
 		SELECT
 		       *
 		  FROM CLASS C
 		  JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
 		 WHERE A.TYPE = 'TITLE'
-           AND C.CLS_NO = ${}
-	</select> -->
+           AND C.CLS_NO = #{ clsNo }
+	</select>
 
 </mapper>

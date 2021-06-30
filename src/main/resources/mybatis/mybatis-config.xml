@@ -21,8 +21,6 @@
  		<typeAlias alias="TeacherDTO" type="com.tig.wdc.admin.model.dto.TeacherDTO"/>
  		<typeAlias alias="reportDetailDTO" type="com.tig.wdc.admin.model.dto.ReportDetailDTO"/>
  		
- 		
- 		
  		<!-- user -->
  		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
  		<typeAlias alias="UserClassDTO" type="com.tig.wdc.user.model.dto.UserClassDTO"/>

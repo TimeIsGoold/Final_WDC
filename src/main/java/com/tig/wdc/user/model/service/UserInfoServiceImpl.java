@@ -14,12 +14,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfoServiceImpl(UserInfoMapper mapper) {
 		this.mapper = mapper;
 	}
-	//	private TeacherInfoMapper mapper;
 
 	
 	@Override
 	public UserInfoDTO selectUser(int userNo) {
-		
 		
 		return mapper.selectUser(userNo);
 	}
