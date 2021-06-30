@@ -37,6 +37,10 @@ public class MainController {
 		newClassList = classService.selectNewClassList();
 		model.addAttribute("newClassList",newClassList);
 		
+		for (UserClassDTO userClassDTO : newClassList) {
+			System.out.println(userClassDTO);
+		}
+		
 		List<UserClassDTO> topClassList = new ArrayList<UserClassDTO>();
 		topClassList = classService.selectTopClassList();
 		model.addAttribute("topClassList",topClassList);

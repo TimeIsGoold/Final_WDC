@@ -40,8 +40,12 @@ public class UserClassServiceImpl implements UserClassService{
 	}
 
 	@Override
-	public List<UserClassDTO> selectClassDtail() {
-		
-		return mapper.selectClassDeatil();
+	public UserClassDTO selectClassDtail(int clsNo) {
+
+		return mapper.selectClassDetail(clsNo);
 	}
+
+
+
+
 }

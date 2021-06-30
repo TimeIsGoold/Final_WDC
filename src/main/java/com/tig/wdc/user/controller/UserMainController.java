@@ -26,8 +26,8 @@ public class UserMainController {
 		return "admin/adminMain";
 	}
 
-	@GetMapping("/classdetail")
-	public String classdetail() {
+	@GetMapping("/check")
+	public String check() {
 
 		return "user/classList/class_detail";
 

@@ -29,7 +29,8 @@ public class UserClassDTO {
    private String titlePic;
    private String bodyPic1;
    private String bodyPic2;
-//   연준 추가
+
+   //연준 추가
    private String dDay; // 시작시간-현재시간 일자
    private Date scheduleDate; //스케줄 시작 날짜
    private String scheduleStart; //스케줄 시작 시간

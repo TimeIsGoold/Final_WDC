@@ -18,7 +18,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfoServiceImpl(UserInfoMapper mapper) {
 		this.mapper = mapper;
 	}
-	//	private TeacherInfoMapper mapper;
 
 	
 	@Override
