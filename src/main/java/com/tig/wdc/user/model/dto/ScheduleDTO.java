@@ -36,7 +36,7 @@ public class ScheduleDTO {
 		this.minPeople = minPeople;
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
-		ScheduleCount = scheduleCount;
+		this.ScheduleCount = scheduleCount;
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;

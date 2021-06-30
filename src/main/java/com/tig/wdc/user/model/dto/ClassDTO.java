@@ -32,9 +32,6 @@ public class ClassDTO {
 	private java.util.Date startDay;  //매개변수 받기 위한 필드
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private java.util.Date endDay; //매개변수 받기 위한 필드
-
-	private List<AttachMentDTO> titlePictue;  //대표사진
-	private List<ClassPieceDTO> completePiece; //완성작
 	
 	public ClassDTO() {
 		super();
@@ -43,7 +40,7 @@ public class ClassDTO {
 	public ClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType,
 			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro, java.util.Date startDay,
-			java.util.Date endDay, List<AttachMentDTO> titlePictue, List<ClassPieceDTO> completePiece) {
+			java.util.Date endDay) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -65,8 +62,6 @@ public class ClassDTO {
 		this.simpleIntro = simpleIntro;
 		this.startDay = startDay;
 		this.endDay = endDay;
-		this.titlePictue = titlePictue;
-		this.completePiece = completePiece;
 	}
 	
 	public int getClsNo() {
@@ -221,18 +216,6 @@ public class ClassDTO {
 	public void setEndDay(java.util.Date endDay) {
 		this.endDay = endDay;
 	}
-	public List<AttachMentDTO> getTitlePictue() {
-		return titlePictue;
-	}
-	public void setTitlePictue(List<AttachMentDTO> titlePictue) {
-		this.titlePictue = titlePictue;
-	}
-	public List<ClassPieceDTO> getCompletePiece() {
-		return completePiece;
-	}
-	public void setCompletePiece(List<ClassPieceDTO> completePiece) {
-		this.completePiece = completePiece;
-	}
 	
 	@Override
 	public String toString() {
@@ -241,6 +224,6 @@ public class ClassDTO {
 				+ ", price=" + price + ", addInfo=" + addInfo + ", addSup=" + addSup + ", dicsionStatus="
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
 				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", startDay=" + startDay
-				+ ", endDay=" + endDay + ", titlePictue=" + titlePictue + ", completePiece=" + completePiece + "]";
+				+ ", endDay=" + endDay + "]";
 	}
 }

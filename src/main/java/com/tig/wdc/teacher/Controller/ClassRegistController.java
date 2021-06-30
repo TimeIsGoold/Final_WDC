@@ -63,7 +63,7 @@ public class ClassRegistController {
 	//클래스 정보 insert
 	@PostMapping("classInsert")
 	public String registStep2(@ModelAttribute ClassDTO classInfo, @ModelAttribute ClassPieceDTO pieceInfo, @ModelAttribute CurriculumDTO curriInfo, @ModelAttribute ScheduleDTO scheduleInfo, Model model, @RequestParam Map<String, MultipartFile> pictures, HttpServletRequest request) {
-		System.out.println(scheduleInfo);
+		System.out.println(classInfo);
 		/* 1. 클래스 정보 INSERT */
 		//날짜 ,시간 변환
 		if(classInfo.getEndDay() != null) {
@@ -159,22 +159,31 @@ public class ClassRegistController {
 			int result = classService.insertCurriculum(curriculum);
 		}
 		/* 5. 스케쥴 등록 */
-		String[] dayList = scheduleInfo.getInputDate().split(",");
-		String[] minList = scheduleInfo.getInputMin().split(",");
-		String[] maxList = scheduleInfo.getInputMax().split(",");
-		String[] timeList = scheduleInfo.getScheduleStart().split(",");
-		
-		for(int i = 0; i < dayList.length; i++) {
+		int scheduleInsert = 0;
+		if(classInfo.getClsType().equals("O")) {
 			
-			schedule.setScheduleType(scheduleInfo.getScheduleType());
-			schedule.setInputDate(dayList[i]);
-			schedule.setInputMin(minList[i]);
-			schedule.setInputMax(maxList[i]);
-			schedule.setScheduleStart(timeList[i]);
-			schedule.setScheduleCount(dayList.length);
+			String[] dayList = scheduleInfo.getInputDate().split(",");
+			String[] minList = scheduleInfo.getInputMin().split(",");
+			String[] maxList = scheduleInfo.getInputMax().split(",");
+			String[] timeList = scheduleInfo.getScheduleStart().split(",");
 			
-			int reusult = classService.insertSchedule(schedule);
+			for(int i = 0; i < dayList.length; i++) {
+				
+				schedule.setScheduleType(scheduleInfo.getScheduleType());
+				schedule.setInputDate(dayList[i]);
+				schedule.setInputMin(minList[i]);
+				schedule.setInputMax(maxList[i]);
+				schedule.setScheduleStart(timeList[i]);
+				schedule.setScheduleCount(dayList.length);
+				
+				scheduleInsert = classService.insertSchedule(schedule);
+			}
+		} else {
+			
+			scheduleInfo.setScheduleType("R");
+			scheduleInsert = classService.insertSchedule(scheduleInfo);
 		}
+		
 		return "";
 	}
 }

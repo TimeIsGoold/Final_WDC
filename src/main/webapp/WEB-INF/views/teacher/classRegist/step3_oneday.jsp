@@ -116,7 +116,7 @@ input[name="dayName"] {
 
 <body>
 	<!-- 본문 -->
-	<div class="container" style="width: 90%; margin :0 auto;" id="oneday">
+	<div class="container" style="width: 90%; margin :0 auto; display: none" id="oneday">
 		<!-- 정규클래스등록1-->
 		<div class="row">
 			<div class="col-md-2 step">클래스 기본정보</div>
@@ -165,8 +165,8 @@ input[name="dayName"] {
 			<div class="col-md-5" align="center">시작일과 종료일을 입력해주세요<br> 
 				<input type="date" name="startDay" id="start"> - <input type="date" name="endDay" id="end">
 			</div>
-			<div class="col-md-11" style="margin: 20px 0 20px 42px; height: 350px; background-color: #f5f5f5;">
-			여기 입력이 될거야
+			<div class="col-md-11" style="margin: 20px 0 20px 42px; height: 350px; background-color: #f5f5f5; overflow: auto; " id="scheduleList" >
+			스케쥴을 등록해주세요
 			</div>
 			<div class="col-md-3">
 				<button type="button" id="dateTimeSetting" type="button" class="btn btn-primary" data-toggle="modal" onclick="doPopUP();" data-target=""	style="margin-left: 30px;">날짜/시간 설정하기</button>
@@ -224,6 +224,7 @@ input[name="dayName"] {
 													<option value="23">오후 11시</option>
 												</select> : 
 												<select name="lectureSchedule" class="form-group" style="margin-left: 10px; width: 90px; font-size: 14px; height: 30px; padding-left: 15px;">
+													<option value="00">00분</option>
 													<option value="10">10분</option>
 													<option value="20">20분</option>
 													<option value="30">30분</option>
@@ -256,12 +257,6 @@ input[name="dayName"] {
 											<th>삭제</th>
 										</tr>
 										<tr>
-											<td>2021-06-26(토) ~ 2021-07-25(수)</td>
-											<td>13:00</td>
-											<td>최소 1명 ~ 최대 4명</td>
-											<td><button type="button">삭제</button></td>
-										</tr>
-										<tr>
 											<td colspan="4">등록된 스케쥴이 없습니다.</td>
 										</tr>
 									</tbody>
@@ -271,7 +266,7 @@ input[name="dayName"] {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary">스케줄등록</button>
+						<button type="button" class="btn btn-primary" onclick="scheduleWrite();" data-dismiss="modal">스케줄등록</button>
 					</div>
 				</div>
 			</div>
@@ -352,6 +347,7 @@ input[name="dayName"] {
 													<option value="23">오후 11시</option>
 												</select> : 
 												<select name="lectureSchedule2" class="form-group" style="margin-left: 10px; width: 90px; font-size: 14px; height: 30px; padding-left: 15px;">
+													<option value="00">00분</option>
 													<option value="10">10분</option>
 													<option value="20">20분</option>
 													<option value="30">30분</option>
@@ -378,7 +374,7 @@ input[name="dayName"] {
 								<table class="table">
 									<tbody style="text-align: center;" id="repeatTable">
 										<tr style="background-color: #f5f5f5;">
-											<th>강의날짜</th>
+											<th name='b'>강의날짜</th>
 											<th>시작 시간</th>
 											<th>참여가능인원</th>
 											<th>삭제</th>
@@ -391,7 +387,7 @@ input[name="dayName"] {
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary">스케줄등록</button>
+						<button type="button" class="btn btn-primary" onclick="scheduleWrite();" data-dismiss="modal">스케줄등록</button>
 					</div>
 				</div>
 			</div>
