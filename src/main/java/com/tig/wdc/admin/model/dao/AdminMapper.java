@@ -98,7 +98,9 @@ public interface AdminMapper {
 	List<TotalDTO> selectStudentList();
 
 	
-	ReportDetailDTO selectStudentReportList(int no);
+	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
+
+//	ReportDetailDTO selectTeacherReportList(int no);
 
 
 

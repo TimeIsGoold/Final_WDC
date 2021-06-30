@@ -146,10 +146,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public ReportDetailDTO selectStudentReportList(int no) {
+	public ReportDetailDTO selectStudentReportList(ReportDetailDTO rd) {
 		
-		return mapper.selectStudentReportList(no);
+		
+		System.out.println(rd);
+		
+		System.out.println(mapper.selectStudentReportList(rd));
+		
+		return mapper.selectStudentReportList(rd);
 	}
+
+//	@Override
+//	public ReportDetailDTO selectTeacherReportList(int no) {
+//		
+//		return mapper.selectTeacherReportList(no);
+//	}
 
 	 
 	 /**
