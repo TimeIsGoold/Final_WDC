@@ -89,9 +89,19 @@
 		<result column="TE_ID" property="questionId"/>
 		<result column="Q_TITLE" property="questionTitle"/>
 		<result column="Q_CONTENT" property="questionContent"/>
+		<result column="ANSWER_CONTENT" property="questionReContent"/>
 	</resultMap>
 	
 	<!-- 수강생문의상세 -->
+	<resultMap id="studentQuestionInfoDetail" type="QuestionDTO">
+		<id column="USER_NO" property="questionNo"/>
+		<result column="MEMBER_TYPE" property="questionType"/>
+		<result column="USER_NAME" property="questionName"/>
+		<result column="USER_ID" property="questionId"/>
+		<result column="Q_TITLE" property="questionTitle"/>
+		<result column="Q_CONTENT" property="questionContent"/>
+		<result column="ANSWER_CONTENT" property="questionReContent"/>
+	</resultMap>
 	
 	<resultMap id="teacherDTO" type="TeacherDTO" >
 		<id column="TE_NO" property="teNo"/>
@@ -118,6 +128,18 @@
 		<result column="CPN_USE_YN" property="useStatus"/>
 	</resultMap>
 	
+	<!-- 쿠폰 상세 -->
+	<resultMap id="couponInfoDetail" type="CouponDTO">
+		<id column="USER_ID" property="couponType"/>
+		<result column="CPN_NAME" property="couponName"/>
+		<result column="CPN_START" property="startDate"/>
+		<result column="CPN_END" property="endDate"/>
+		<result column="DIS_AMOUNT" property="discount"/>
+		<result column="DIS_CONDITION" property="discountCondition"/>
+	</resultMap>
+	
+	<!-- 쿠폰 발급 -->
+	
 	<!-- 공지 -->
 	<resultMap id="noticeList" type="NoticeDTO">
 		<id column="NOTICE_NO" property="noticeNo"/>
@@ -126,6 +148,15 @@
 		<result column="NOTICE_TITLE" property="noticeTitle"/>
 		<result column="WRITE_DATE" property="writeDate"/>
 	</resultMap>
+	
+	<!-- 공지 상세 -->
+	<resultMap id="noticeInfoDetail" type="NoticeDTO">
+		<id column="NOTICE_TYPE" property="noticeType"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" property="noticeContent"/>
+	</resultMap>
+	
+	<!-- 공지 등록 -->
 	
 	<!-- 정산 미완료 -->
 	<resultMap id="calculateLNoList" type="CalculateDTO">
@@ -234,7 +265,10 @@
 	
 	<!-- 전체 문의 -->
 	<select id="selectAllQuestionList" resultMap="totalQuestionList">
-	    SELECT 
+        SELECT
+               *
+          FROM(
+        SELECT 
 			   A.Q_NO
 			 , A.MEMBER_TYPE 유형
 			 , C.USER_NAME 이름
@@ -255,6 +289,8 @@
 		  FROM ADMIN_Q A
 		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+        )
+         ORDER BY Q_NO
 	</select>
 	
 	<!-- 강사문의 -->
@@ -269,11 +305,12 @@
 		  FROM ADMIN_Q A
 		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+		 ORDER BY A.Q_NO
 	</select>
 	
 	<!-- 수강생문의 -->
 	<select id="selectStudentQuestionList" resultMap="studentQuestionList">
-		SELECT 
+        SELECT 
 			   A.Q_NO
 			 , A.MEMBER_TYPE
 			 , C.USER_NAME
@@ -283,10 +320,11 @@
 		  FROM ADMIN_Q A
 		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
+         ORDER BY A.Q_NO
 	</select>
 	
 	<!-- 강사문의상세 -->
-	<select id="selectTeacherQuestionInfoDetail" resultMap="teacherQuestionInfoDetail" parameterType="String">
+	<select id="selectTeacherQuestionInfoDetail" resultMap="teacherQuestionInfoDetail" parameterType="_int">
 		SELECT 
 			   C.TE_NO
 			 , A.MEMBER_TYPE
@@ -294,14 +332,36 @@
 			 , C.TE_ID
 			 , A.Q_TITLE
 			 , A.Q_CONTENT
+             , D.ANSWER_CONTENT
 		  FROM ADMIN_Q A
 		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+          LEFT JOIN ADMIN_Q_ANSWER D ON (A.Q_NO = D.Q_NO)
 		 WHERE A.MEMBER_TYPE = 'TEACHER'
-	       AND TE_ID = #{id}
+	       AND A.Q_NO = #{no}
 	</select>
 	
 	<!-- 수강생문의상세 -->
+	<select id="selectStudentQuestionInfoDetail" resultMap="studentQuestionInfoDetail" parameterType="_int">
+        SELECT 
+			   C.USER_NO
+			 , A.MEMBER_TYPE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.Q_TITLE
+			 , A.Q_CONTENT
+             , D.ANSWER_CONTENT
+		  FROM ADMIN_Q A
+          JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
+		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
+          LEFT JOIN ADMIN_Q_ANSWER D ON (A.Q_NO = D.Q_NO)
+         WHERE A.MEMBER_TYPE = 'USER'
+           AND A.Q_NO = #{no}
+	</select>
+	
+	<!-- 문의답변달기 - insert -->
+	
+	<!-- 문의답변달기 - update -->
 	
 	<select id="selectOneStudent" resultMap="studentDTO" parameterType="_int">
 		SELECT 
@@ -407,6 +467,22 @@
          ORDER BY A.CPN_NO
 	</select>
 	
+	<!-- 쿠폰 상세 -->
+	<select id="selectCouponInfoDetail" resultMap="couponInfoDetail" parameterType="_int">
+	    SELECT 
+			   B.USER_ID
+			 , A.CPN_NAME
+			 , A.CPN_START
+			 , A.CPN_END
+			 , A.DIS_AMOUNT
+             , A.DIS_CONDITION
+		  FROM COUPON A
+          JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
+         WHERE A.CPN_NO = #{no}
+	</select>
+	
+	<!-- 쿠폰 발급 -->
+	
 	<!-- 공지 -->
 	<select id="selectAllNoticeList" resultMap="noticeList">
 		SELECT 
@@ -417,6 +493,18 @@
 			 , WRITE_DATE
 		  FROM NOTICE
 	</select>
+	
+	<!-- 공지 상세 -->
+	<select id="selectNoticeInfoDetail" resultMap="noticeInfoDetail" parameterType="_int">
+		SELECT
+			   NOTICE_TYPE
+			 , NOTICE_TITLE
+			 , NOTICE_CONTENT
+		  FROM NOTICE
+         WHERE NOTICE_NO = #{no}
+	</select>
+	
+	<!-- 공지 등록 -->
 	
 	<!-- 정산 미완료 -->
 	<select id="selectNoCalculateList" resultMap="calculateLNoList">

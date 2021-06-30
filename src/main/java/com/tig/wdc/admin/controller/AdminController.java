@@ -109,7 +109,6 @@ public class AdminController {
 		return "admin/adminQuestionManagement";
 	}
 	
-	
 	/**
 	 * @author 송아현
 	 * 문의 상세
@@ -119,18 +118,17 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("questionDetail") 
-	public String questionInfoDetail(@RequestParam("mt")String type, @RequestParam("id")String id, Model model) {
+	public String questionInfoDetail(@RequestParam("mt")String type, @RequestParam("no")int no, Model model) {
 		
 		if(type.equals("TEACHER")) {
-			model.addAttribute("questionDetail", adminService.selectTeacherQuestionInfoDetail(id));			
+			model.addAttribute("questionDetail", adminService.selectTeacherQuestionInfoDetail(no));			
 		} else if(type.equals("USER")) {
-			//model.addAttribute("questionDetail", adminService.selectStudentQuestionInfoDetail(id));			
+			model.addAttribute("questionDetail", adminService.selectStudentQuestionInfoDetail(no));			
 		}
 		
 		return "admin/questionDetail"; 
 	}
 	 
-
 	/**
 	 * @author 송아현
 	 * 쿠폰 관리
@@ -144,6 +142,22 @@ public class AdminController {
 		model.addAttribute("couponList", adminService.selectAllCouponList());
 
 		return "admin/adminCouponManagement";
+	}
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 상세
+	 * 
+	 * @param no
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("couponDetail")
+	public String couponInfoDetail(@RequestParam("no")int no, Model model) {
+		
+		model.addAttribute("couponDetail", adminService.selectCouponInfoDetail(no));
+		
+		return "admin/couponDetail";
 	}
 
 	/**
@@ -159,6 +173,22 @@ public class AdminController {
 		model.addAttribute("noticeList", adminService.selectAllNoticeList());
 
 		return "admin/adminNoticeManagement";
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 * 
+	 * @param no
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("noticeDetail")
+	public String noticeInfoDetail(@RequestParam("no")int no, Model model) {
+		
+		model.addAttribute("noticeDetail", adminService.selectNoticeInfoDetail(no));
+		
+		return "admin/noticeDetail";
 	}
 	
 	/**

@@ -85,9 +85,19 @@ public class AdminServiceImpl implements AdminService {
 	 * 강사 문의 상세
 	 */
 	@Override
-	public QuestionDTO selectTeacherQuestionInfoDetail(String id) {
+	public QuestionDTO selectTeacherQuestionInfoDetail(int no) {
 
-		return mapper.selectTeacherQuestionInfoDetail(id);
+		return mapper.selectTeacherQuestionInfoDetail(no);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 학생 상세 문의
+	 */
+	@Override
+	public QuestionDTO selectStudentQuestionInfoDetail(int no) {
+
+		return mapper.selectStudentQuestionInfoDetail(no);
 	}
 
 	@Override
@@ -122,6 +132,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectAllCouponList();
 	}
+	
+	/**
+	 *@author 송아현
+	 *쿠폰 상세
+	 */
+	@Override
+	public CouponDTO selectCouponInfoDetail(int no) {
+		
+		return mapper.selectCouponInfoDetail(no);
+	}
 
 	/**
 	 * @author 송아현
@@ -133,6 +153,17 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectAllNoticeList();
 	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 *
+	 */
+	@Override
+	public NoticeDTO selectNoticeInfoDetail(int no) {
+
+		return mapper.selectNoticeInfoDetail(no);
+	}
 
 	 /**
 	 * @author 송아현
@@ -143,6 +174,17 @@ public class AdminServiceImpl implements AdminService {
 	 public List<CalculateDTO> selectNoCalculateList() {
 	 
 		 return mapper.selectNoCalculateList(); 
+	}
+	
+	 /**
+	 * @author 송아현
+	 * 정산완료
+	 * 
+	 */
+	@Override 
+	 public List<CalculateDTO> selectYesCalculateList() {
+	 
+		 return mapper.selectYesCalculateList(); 
 	}
 
 	@Override
@@ -161,19 +203,5 @@ public class AdminServiceImpl implements AdminService {
 //		
 //		return mapper.selectTeacherReportList(no);
 //	}
-
-	 
-	 /**
-	 * @author 송아현
-	 * 정산완료
-	 * 
-	 */
-	@Override 
-	 public List<CalculateDTO> selectYesCalculateList() {
-	 
-		 return mapper.selectYesCalculateList(); 
-	}
-
-
 
 }

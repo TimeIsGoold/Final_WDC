@@ -1,5 +1,7 @@
 package com.tig.wdc.admin.model.dto;
 
+import java.sql.Date;
+
 public class QuestionDTO {
 
 	private int questionNo;
@@ -9,13 +11,14 @@ public class QuestionDTO {
 	private String questionTitle;
 	private java.sql.Date questionDate;
 	private String questionContent;
+	private String questionReContent;
 	
 	public QuestionDTO() {
 		super();
 	}
 
 	public QuestionDTO(int questionNo, String questionType, String questionName, String questionId,
-			String questionTitle, java.sql.Date questionDate, String questionContent) {
+			String questionTitle, Date questionDate, String questionContent, String questionReContent) {
 		super();
 		this.questionNo = questionNo;
 		this.questionType = questionType;
@@ -24,6 +27,7 @@ public class QuestionDTO {
 		this.questionTitle = questionTitle;
 		this.questionDate = questionDate;
 		this.questionContent = questionContent;
+		this.questionReContent = questionReContent;
 	}
 
 	public int getQuestionNo() {
@@ -82,11 +86,20 @@ public class QuestionDTO {
 		this.questionContent = questionContent;
 	}
 
+	public String getQuestionReContent() {
+		return questionReContent;
+	}
+
+	public void setQuestionReContent(String questionReContent) {
+		this.questionReContent = questionReContent;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionDTO [questionNo=" + questionNo + ", questionType=" + questionType + ", questionName="
 				+ questionName + ", questionId=" + questionId + ", questionTitle=" + questionTitle + ", questionDate="
-				+ questionDate + ", questionContent=" + questionContent + "]";
+				+ questionDate + ", questionContent=" + questionContent + ", questionReContent=" + questionReContent
+				+ "]";
 	}
-
+	
 }

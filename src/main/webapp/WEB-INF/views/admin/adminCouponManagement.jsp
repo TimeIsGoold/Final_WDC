@@ -72,7 +72,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${couponList}" var="CouponDTO">
-				                            <tr>
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponDetail?currentMenu=coupon&no=${ CouponDTO.couponNo }'">
 				                                <td>${CouponDTO.couponNo}</td>
 				                                <td>${CouponDTO.couponType}</td>
 				                                <td>${CouponDTO.couponName}</td>

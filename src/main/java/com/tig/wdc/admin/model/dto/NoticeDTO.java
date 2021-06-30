@@ -9,18 +9,21 @@ public class NoticeDTO {
 	private String importantYN;
 	private String noticeTitle;
 	private java.sql.Date writeDate;
+	private String noticeContent;
 	
 	public NoticeDTO() {
 		super();
 	}
 
-	public NoticeDTO(int noticeNo, String noticeType, String importantYN, String noticeTitle, Date writeDate) {
+	public NoticeDTO(int noticeNo, String noticeType, String importantYN, String noticeTitle, Date writeDate,
+			String noticeContent) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeType = noticeType;
 		this.importantYN = importantYN;
 		this.noticeTitle = noticeTitle;
 		this.writeDate = writeDate;
+		this.noticeContent = noticeContent;
 	}
 
 	public int getNoticeNo() {
@@ -63,10 +66,19 @@ public class NoticeDTO {
 		this.writeDate = writeDate;
 	}
 
+	public String getNoticeContent() {
+		return noticeContent;
+	}
+
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
+	}
+
 	@Override
 	public String toString() {
 		return "NoticeDTO [noticeNo=" + noticeNo + ", noticeType=" + noticeType + ", importantYN=" + importantYN
-				+ ", noticeTitle=" + noticeTitle + ", writeDate=" + writeDate + "]";
+				+ ", noticeTitle=" + noticeTitle + ", writeDate=" + writeDate + ", noticeContent=" + noticeContent
+				+ "]";
 	}
-	
+
 }

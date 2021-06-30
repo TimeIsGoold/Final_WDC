@@ -71,7 +71,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${noticeList}" var="NoticeDTO">
-				                            <tr>
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeDetail?currentMenu=notice&no=${ NoticeDTO.noticeNo }'">
 				                                <td>${NoticeDTO.noticeNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${NoticeDTO.noticeType eq 'A'}">
