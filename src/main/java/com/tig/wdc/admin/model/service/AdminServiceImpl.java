@@ -144,6 +144,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.selectCouponInfoDetail(no);
 	}
+	
+	/**
+	 *@author 송아현
+	 *쿠폰 발급
+	 */
+	@Override
+	public int insertCouponIssue(CouponDTO coupon) {
+		
+		return mapper.insertCouponIssue(coupon);
+	}
 
 	/**
 	 * @author 송아현

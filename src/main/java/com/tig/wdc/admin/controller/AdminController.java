@@ -9,13 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
+import com.tig.wdc.user.model.dto.ClassDTO;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -164,12 +168,22 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
+	 * 쿠폰 발급을 위한 매핑
+	 */
+	@GetMapping("couponIssue")
+	public void couponIssue() {}
+	
+	/**
+	 * @author 송아현
 	 * 쿠폰 발급
 	 * 
 	 * @return
 	 */
-	@GetMapping("couponIssue")
-	public String couponIssue() {
+	@PostMapping("couponIssue")
+	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
+		
+		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
+		
 		return "admin/couponIssue";
 	}
 
@@ -202,6 +216,18 @@ public class AdminController {
 		model.addAttribute("noticeDetail", adminService.selectNoticeInfoDetail(no));
 		
 		return "admin/noticeDetail";
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 작성
+	 * 
+	 * @return
+	 */
+	@GetMapping("noticeWrite")
+	public String noticeIssue() {
+		
+		return "admin/noticeWrite";
 	}
 	
 	/**

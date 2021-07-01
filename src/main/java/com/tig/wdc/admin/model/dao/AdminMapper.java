@@ -78,7 +78,6 @@ public interface AdminMapper {
 	 */
 	List<CouponDTO> selectAllCouponList();
 	
-	
 	/**
 	 * @author 송아현
 	 * 쿠폰 상세
@@ -86,6 +85,15 @@ public interface AdminMapper {
 	 * @return
 	 */
 	CouponDTO selectCouponInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * 
+	 * @param coupon 
+	 * @return
+	 */
+	int insertCouponIssue(CouponDTO coupon);
 
 	/**
 	 * @author 송아현
@@ -125,7 +133,6 @@ public interface AdminMapper {
 	TeacherDTO selectOneTeacher(int no);
 
 	List<TotalDTO> selectStudentList();
-
 	
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
@@ -144,6 +151,7 @@ public interface AdminMapper {
 	int insertBlackList(Map<String, Object> blackMap);
 
 	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
+
 
 
 }

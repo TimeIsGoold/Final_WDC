@@ -1,5 +1,7 @@
 package com.tig.wdc.admin.model.dto;
 
+import java.sql.Date;
+
 public class CouponDTO {
 
 	private int couponNo;
@@ -16,8 +18,8 @@ public class CouponDTO {
 		super();
 	}
 
-	public CouponDTO(int couponNo, String couponType, String couponName, int discount, java.sql.Date issueDate,
-			java.sql.Date startDate, java.sql.Date endDate, String useStatus, int discountCondition) {
+	public CouponDTO(int couponNo, String couponType, String couponName, int discount, Date issueDate,
+			Date startDate, Date endDate, String useStatus, int discountCondition) {
 		super();
 		this.couponNo = couponNo;
 		this.couponType = couponType;
@@ -104,9 +106,10 @@ public class CouponDTO {
 
 	@Override
 	public String toString() {
-		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName=" + couponName
-				+ ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", useStatus=" + useStatus + ", discountCondition=" + discountCondition + "]";
+		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName="
+				+ couponName + ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", useStatus=" + useStatus + ", discountCondition=" + discountCondition
+				+ "]";
 	}
 
 }

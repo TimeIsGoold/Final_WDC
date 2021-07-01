@@ -499,10 +499,30 @@
          WHERE A.CPN_NO = #{no}
 	</select>
 	
-	<!-- 쿠폰 발급 -->
-	<!-- <insert id="insertCouponIssue">
-	
-	</insert> -->
+ 	<!-- 쿠폰 발급 -->
+	<insert id="insertCouponIssue" parameterType="CouponDTO">
+		<selectKey keyProperty="userNo" order="BEFORE" resultType="_int">
+			SELECT 
+				   USER_NO
+         	  FROM USER_INFO
+         	 WHERE USER_ID = #{ couponType }
+		</selectKey>
+		INSERT
+          INTO COUPON
+        VALUES
+        	(
+          	  SEQ_CPN_NO.NEXTVAL
+        	, #{ couponNo }
+        	, #{ couponName }
+        	, #{ discount }
+        	, #{ startDate }
+        	, #{ endDate }
+        	, 'N'
+        	, NULL
+        	, #{ userNo }
+        	, SYSDATE
+        )
+	</insert>
 	
 	<!-- 공지 -->
 	<select id="selectAllNoticeList" resultMap="noticeList">

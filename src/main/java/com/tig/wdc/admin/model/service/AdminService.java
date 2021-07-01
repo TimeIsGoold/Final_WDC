@@ -90,6 +90,15 @@ public interface AdminService {
 	 * @return
 	 */
 	CouponDTO selectCouponInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * @param coupon 
+	 * 
+	 * @return
+	 */
+	int insertCouponIssue(CouponDTO coupon);
 
 	/**
 	 * @author 송아현

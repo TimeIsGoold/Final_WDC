@@ -91,41 +91,43 @@
 
 							<div class="card-body">
                                 <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-                                            <td colspan="4">
-                                                <input type="radio" class="radioBtn">전체 회원
-                                                <input type="radio" class="radioBtn">특정 회원
-                                                <input type="text" id="certainArea" placeholder="ID를 입력하세요.">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>쿠 &nbsp;폰 &nbsp;명</th>
-                                            <td colspan="4">
-                                            	<input type="text" class="couponInfoArea">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>사용 기한</th>
-                                            <td class="day">시작일</td>
-                                            <td><input type="date"></td>
-                                            <td class="day">종료일</td>
-                                            <td><input type="date"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>제한 조건</th>
-                                            <td colspan="4">
-                                            	<input type="text" class="couponInfoArea">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>할인 금액</th>
-                                            <td colspan="4">
-                                            	<input type="text" class="couponInfoArea">
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    <form method="post" action="couponIssue">
+	                                    <tbody>
+	                                        <tr>
+	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
+	                                            <td colspan="4">
+	                                                <input type="radio" class="radioBtn">전체 회원
+	                                                <input type="radio" class="radioBtn">특정 회원
+	                                                <input type="text" id="certainArea" placeholder="ID를 입력하세요.">
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>쿠 &nbsp;폰 &nbsp;명</th>
+	                                            <td colspan="4">
+	                                            	<input type="text" class="couponInfoArea">
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>사용 기한</th>
+	                                            <td class="day">시작일</td>
+	                                            <td><input type="date"></td>
+	                                            <td class="day">종료일</td>
+	                                            <td><input type="date"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>제한 조건</th>
+	                                            <td colspan="4">
+	                                            	<input type="text" class="couponInfoArea">
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>할인 금액</th>
+	                                            <td colspan="4">
+	                                            	<input type="text" class="couponInfoArea">
+	                                            </td>
+	                                        </tr>
+	                                    </tbody>
+                                    </from>
                                 </table>
 
                                 <div class="couponIssueBtnArea">

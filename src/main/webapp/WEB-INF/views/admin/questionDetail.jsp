@@ -34,15 +34,18 @@
 
         td {
             border: 1px solid lightgrey !important;
-            width: 410px !important;
         }
         
         #questionContextArea {
-        	 height: 200px;
+        	height: 200px;
         }
         
         .questionContext {
-        	 overflow: auto;
+        	overflow: auto;
+        }
+        
+        #requestTitle {
+        	width: 200px !important;
         }
         
         #requestContextArea {
@@ -50,13 +53,13 @@
         }
         
         #requestContext {
-        	 width: 990px; 
-        	 height: 150px; 
-        	 border: none;
+        	width: 2000px !important; 
+        	height: 150px; 
+        	border: none;
         }
         
         .submitBtn {
-        	 margin-left: 1000px;
+        	margin-left: 1000px;
         }
         
         .returnBtn {
@@ -138,9 +141,9 @@
                             <div class="card-body">
                                 <table class="table">
                                     <tr>
-                                        <th>답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변</th>
-                                        <td>
-                                            <div id="requestContextArea">
+                                        <th id="requestTitle">답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변</th>
+                                        <td id="requestContextArea">
+                                            <div>
                                             	<c:choose>
                                             		<c:when test="${empty questionDetail.questionReContent }">
                                             			<input type="text" id="requestContext">
