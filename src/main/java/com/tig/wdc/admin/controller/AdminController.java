@@ -1,7 +1,9 @@
 package com.tig.wdc.admin.controller;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -232,15 +234,11 @@ public class AdminController {
 	public String memberInfoDetail(@RequestParam("memberType")String type, @RequestParam("memberNo")int no, Model model) {
 
 		String path = "";
-		
 		if(type.equals("T")) {
-			
 			model.addAttribute("memberInfo", adminService.selectOneTeacher(no));
-			
 			path = "admin/MemberManager-Teacher";
 		} else {
 			model.addAttribute("memberInfo", adminService.selectOneStudent(no));
-			
 			path = "admin/MemberManager-Student";
 		}
 		return path;
@@ -258,40 +256,78 @@ public class AdminController {
 		System.out.println("type : " + type);
 		if(type.equals("tc")) {
 			model.addAttribute("totalList", adminService.selectTeacherList());
-			
 		} else if (type.equals("st")) {
 			model.addAttribute("totalList", adminService.selectStudentList());
 		}
-		
 		return "admin/adminMemberManagement";
 
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 *  신고관리 디테일
+	 * </pre>
+	 * @return
+	 */
 	@GetMapping("reportDetail")
-	public String selectReportDetail(@RequestParam("no")int no ,@RequestParam("type")String type,Model model) {
-		
+	public String selectReportDetail(@RequestParam("no")int no ,@RequestParam("type")String type, @RequestParam(value="chkCnt", defaultValue="0")int chkCnt, Model model) {
 		ReportDetailDTO rd = new ReportDetailDTO();
-		
-		System.out.println(no);
-		System.out.println(type);
-		
 		rd.setReportNo(no);
-		
-		if(type.equals("수강생")) {
+		if(type.equals("수강생") || type.equals("T")) {
 			// 수강생
-			rd.setType("T");
-		} else {
 			rd.setType("U");
+		} else {
+			rd.setType("T");
 		}
-		ReportDetailDTO report = adminService.selectStudentReportList(rd);
-		System.out.println(report);
 			model.addAttribute("reportDetail", adminService.selectStudentReportList(rd));
-			
-			// 학생
-//			model.addAttribute("reportDetail", adminService.selectTeacherReportList(no));
+			if(chkCnt == 1) {
+			model.addAttribute("message", "해당 유저는 누적 신고 3회로  블랙리스트가 되었습니다.");
+			}
 		return "admin/reportPage";
 	}
+
+	@GetMapping("procsAcceptStatus")
+	public String procsAcceptStatus(@RequestParam("rn")int no, @RequestParam("type")String type, @RequestParam("un")int userNo, Model model) {
+		
+		Map<String, Object> blackMap = new HashMap<>();
+		blackMap.put("type", type);
+		blackMap.put("userNo", userNo);
+		adminService.updateReportStatus(no);
+		int i = adminService.selectReportCnt(userNo);
+		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
+		int chkCnt = 0;
+		if(i > 2) {
+			adminService.insertBlackList(blackMap);
+			adminService.updateBlackListOnUSerTable(blackMap);
+			chkCnt= 1;
+			return "redirect:reportDetail?no="+no+"&type="+ type + "&chkCnt="+chkCnt;
+		} else {
+			return "redirect:reportDetail?no="+no+"&type="+ type;
+		}
+	}
 	
+	@GetMapping("procsDenyStatus")
+	public String procsDenyStatus(@RequestParam("rn")int no, @RequestParam("type")String type, Model model) {
+
+		
+
+		adminService.updateReportStatus2(no);
+
+		
+		return "redirect:reportDetail?no="+no+"&type="+ type;
+	}
 	
+	@GetMapping("blackListMenagement")
+	public String blackListMenagement(@RequestParam("ut")String type, Model model) {
+		if(type.equals("to")) {
+			model.addAttribute("allBlackList", adminService.selectAllBlackList());
+		} else if(type.equals("tc")) {
+			model.addAttribute("allBlackList", adminService.selectBlockedTeacherList());
+		} else if(type.equals("st")) {
+			model.addAttribute("allBlackList", adminService.selectBlockedStudentList());
+		}
+		return "admin/BlackListManagement";
+	}
 
 }

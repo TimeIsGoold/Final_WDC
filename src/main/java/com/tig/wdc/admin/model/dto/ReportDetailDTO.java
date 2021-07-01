@@ -5,6 +5,8 @@ import java.sql.Date;
 public class ReportDetailDTO {
 
 	private int reportNo;
+	private int userNo;            // 1
+	private int teNo;              // 2
 	private String reportTitle;
 	private String reportedId1;
 	private String reportedId2;
@@ -15,14 +17,17 @@ public class ReportDetailDTO {
 	private String reason;
 	private String imgPath;
 	private String reportStatus;
-	
-	public ReportDetailDTO() {}
-	
-	public ReportDetailDTO(int reportNo, String reportTitle, String reportedId1, String reportedId2,
-			String reportedNmae1, String reportedNmae2, Date reportDate, String type, String reason, String imgPath,
-			String reportStatus) {
+	public ReportDetailDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public ReportDetailDTO(int reportNo, int teNo, int userNo, String reportTitle, String reportedId1,
+			String reportedId2, String reportedNmae1, String reportedNmae2, Date reportDate, String type, String reason,
+			String imgPath, String reportStatus) {
 		super();
 		this.reportNo = reportNo;
+		this.teNo = teNo;
+		this.userNo = userNo;
 		this.reportTitle = reportTitle;
 		this.reportedId1 = reportedId1;
 		this.reportedId2 = reportedId2;
@@ -34,12 +39,23 @@ public class ReportDetailDTO {
 		this.imgPath = imgPath;
 		this.reportStatus = reportStatus;
 	}
-	
 	public int getReportNo() {
 		return reportNo;
 	}
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
+	}
+	public int getTeNo() {
+		return teNo;
+	}
+	public void setTeNo(int teNo) {
+		this.teNo = teNo;
+	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 	public String getReportTitle() {
 		return reportTitle;
@@ -101,15 +117,13 @@ public class ReportDetailDTO {
 	public void setReportStatus(String reportStatus) {
 		this.reportStatus = reportStatus;
 	}
-	
 	@Override
 	public String toString() {
-		return "ReportDetailDTO [reportNo=" + reportNo + ", reportTitle=" + reportTitle + ", reportedId1=" + reportedId1
-				+ ", reportedId2=" + reportedId2 + ", reportedNmae1=" + reportedNmae1 + ", reportedNmae2="
-				+ reportedNmae2 + ", reportDate=" + reportDate + ", type=" + type + ", reason=" + reason + ", imgPath="
-				+ imgPath + ", reportStatus=" + reportStatus + "]";
+		return "ReportDetailDTO [reportNo=" + reportNo + ", teNo=" + teNo + ", userNo=" + userNo + ", reportTitle="
+				+ reportTitle + ", reportedId1=" + reportedId1 + ", reportedId2=" + reportedId2 + ", reportedNmae1="
+				+ reportedNmae1 + ", reportedNmae2=" + reportedNmae2 + ", reportDate=" + reportDate + ", type=" + type
+				+ ", reason=" + reason + ", imgPath=" + imgPath + ", reportStatus=" + reportStatus + "]";
 	}
-	
 	
 	
 }

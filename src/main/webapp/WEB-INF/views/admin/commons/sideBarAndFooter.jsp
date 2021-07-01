@@ -46,6 +46,10 @@
                                            신고관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
+                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/blackListMenagement?currentMenu=blacklist&ut=to">
+                                          블랙리스트 관리
+                       <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                   </a>
                    <a class="nav-link collapsed" id="question" href="${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to">
                                            문의
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
