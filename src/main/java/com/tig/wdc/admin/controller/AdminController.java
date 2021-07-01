@@ -249,6 +249,17 @@ public class AdminController {
 		 return "admin/adminCalculateManagement"; 
 	 }
 	 
+   /**
+	* @author 송아현
+	* 정산 상세
+	*  
+	* @return
+	*/
+	@GetMapping("calculateDetail")
+	 public String calculateInfoDetail() {
+		 return "admin/calculateDetail";
+	 }
+	 
 
 	/**
 	 * 회원 상세 - 현빈
