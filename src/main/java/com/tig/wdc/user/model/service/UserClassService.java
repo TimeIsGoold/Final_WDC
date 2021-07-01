@@ -2,7 +2,11 @@ package com.tig.wdc.user.model.service;
 
 import java.util.List;
 
+import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
  * @author SORA
@@ -17,6 +21,18 @@ public interface UserClassService {
 	List<UserClassDTO> selectCheerClassList();
 
 	UserClassDTO selectClassDtail(int clsNo);
+
+	List<ClassPieceDTO> selectClassPiece(int clsNo);
+
+	List<CurriculumDTO> selectCurriculum(int clsNo);
+
+	List<UserClassDTO> selectClassPic(int clsNo);
+
+	List<UserReviewDTO> selectReview(int clsNo);
+
+	UserClassDTO selectClassStar(int clsNo);
+
+	List<ReviewAnswerDTO> selectReviewAnswer(int clsNo);
 
 
 }
