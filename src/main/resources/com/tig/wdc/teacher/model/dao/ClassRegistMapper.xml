@@ -65,22 +65,41 @@
              , #{ classNo }
              )
     </insert>
-    <update id="insertCurriculum" parameterType="java.util.List">
-        <selectKey keyProperty="curriList.clsNo" order="BEFORE" resultType="_int">
+    <insert id="insertCurriculum" parameterType="curriculum">
+        <selectKey keyProperty="clsNo" order="BEFORE" resultType="_int">
             SELECT
                    SEQ_CLS_NO.CURRVAL
               FROM DUAL
         </selectKey>
-        <foreach collection="curriList" item="curri" open="INSERT ALL">
-            INTO CURRICULUM
-           VALUE
-               (
-                 SEQ_CRCLM_NO.NEXTVAL
-               , #{ curri.curriStep } 
-               , #{ curri.curriTitle }
-               , #{ curri.curriContent }
-               , #{ curri.clsNo }
-               ) 
-        </foreach>
-    </update>
+        INSERT
+          INTO CURRICULUM
+        VALUES
+             (
+               SEQ_CRCLM_NO.NEXTVAL
+             , #{ curriStep } 
+             , #{ curriTitle }
+             , #{ curriContent }
+             , #{ clsNo }
+             ) 
+    </insert>
+    <insert id="insertSchedule" parameterType="schedule">
+        <selectKey keyProperty="clsNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        INSERT
+          INTO SCHEDULE
+        VALUES 
+             (
+               SEQ_SCHEDULE_NO.NEXTVAL
+             , #{ scheduleType }
+             , #{ inputDate }
+             , #{ scheduleStart }
+             , #{ inputMin }
+             , #{ inputMax }
+             , #{ clsNo }
+             , #{ ScheduleCount }
+             )
+    </insert>
 </mapper>

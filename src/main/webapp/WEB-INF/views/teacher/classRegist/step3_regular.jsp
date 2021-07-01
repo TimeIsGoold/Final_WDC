@@ -48,7 +48,7 @@
 </head>
 
 <body>
-    <div class="container" style="width: 90%; margin :0 auto; display:none;" id="regular">
+    <div class="container" style="width: 90%; margin :0 auto; display: none;" id="regular">
         <!-- 정규클래스등록1-->
         <div class="row">
             <div class="col-md-2 step" >클래스 기본정보</div>
@@ -76,14 +76,14 @@
             수업소요시간<br>
             <div class="form-inline">
               <div class="form-group">
-                <select class="form-control" name="hour">
+                <select class="form-control" name="time">
 					<option value = "01">1시간</option>
 					<option value = "02">2시간</option>
 					<option value = "03">3시간</option>
 					<option value = "04">4시간</option>
 					<option value = "05">5시간</option>
                 </select>
-                <select class="form-control" name="minute">
+                <select class="form-control" name="time">
 					<option value = "00">00분</option>
 					<option value = "10">10분</option>
 					<option value = "20">20분</option>
@@ -96,11 +96,11 @@
           </div>
           <div class="col-md-6">
             시작일과 종료일을 입력해주세요<br>
-            <input type="date" name="startDate"> - 
-            <input type="date" name="endDate">
+            <input type="date" name="startDay" id="regularStart"> - 
+            <input type="date" name="endDay" id="regularEnd">
           </div>
           <div class="col-md-1"></div>
-          <div class="col-md-10" style="margin: 20px 0 20px 0px ; height: 350px; background-color: #f5f5f5;">여기 입력이 될거야
+          <div class="col-md-10" style="margin: 20px 0 20px 0px ; height: 350px; background-color: #f5f5f5;" id="regularList">여기 입력이 될거야
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-1"></div>
@@ -126,44 +126,62 @@
                         <!-- 스케쥴정보입력 -->
                         <div class="row">
                           <div class="col-md-4" style="font-size: 14px;">강의시작시간</div>
-                          <div class="col-md-3"style="font-size: 14px;">참여가능인원</div>
+                          <div class="col-md-3" style="font-size: 14px;">참여가능인원</div>
                           <div class="col-md-3" style="font-size: 14px;">예정횟수</div>
                           <div class="col-md-2"></div>
 
                           <div class="col-md-4">
                               <div class="form-inline">
-                                <select class="form-group" style="margin-right: 10px; width: 90px; font-size: 14px; height: 30px; text-align: center;">
-                                  <option>오전 00시</option>
-                                  <option>오전 01시</option>
-                                  <option>오전 02시</option>
-                                  <option>오전 03시</option>
-                                  <option>오전 04시</option>
-                                  <option>오전 05시</option>
-                                  <option>오전 06시</option>
+                                <select class="form-group" name="regularInputInfo" style="margin-right: 10px; width: 90px; font-size: 14px; height: 30px; text-align: center;">
+									<option value="00">오전 00시</option>
+									<option value="01">오전 01시</option>
+									<option value="02">오전 02시</option>
+									<option value="03">오전 03시</option>
+									<option value="04">오전 04시</option>
+									<option value="05">오전 05시</option>
+									<option value="06">오전 06시</option>
+									<option value="07">오전 07시</option>
+									<option value="08">오전 08시</option>
+									<option value="09">오전 09시</option>
+									<option value="10">오전 10시</option>
+									<option value="11">오전 11시</option>
+									<option value="12">오후 12시</option>
+									<option value="13">오후 01시</option>
+									<option value="14">오후 02시</option>
+									<option value="15">오후 03시</option>
+									<option value="16">오후 04시</option>
+									<option value="17">오후 05시</option>
+									<option value="18">오후 06시</option>
+									<option value="19">오후 07시</option>
+									<option value="20">오후 08시</option>
+									<option value="21">오후 09시</option>
+									<option value="22">오후 10시</option>
+									<option value="23">오후 11시</option>
                                 </select>
                                  : 
-                                <select class="form-group" style="margin-left: 10px; width: 90px; font-size: 14px; height: 30px; padding-left: 15px;" >
-                                  <option>10분</option>
-                                  <option>20분</option>
-                                  <option>30분</option>
-                                  <option>40분</option>
-                                  <option>50분</option>
+                                <select class="form-group" name="regularInputInfo" style="margin-left: 10px; width: 90px; font-size: 14px; height: 30px; padding-left: 15px;" >
+                                    <option value="00">00분</option>
+	    							<option value="10">10분</option>
+	    							<option value="20">20분</option>
+	    							<option value="30">30분</option>
+	    							<option value="40">40분</option>
+	    							<option value="50">50분</option>
                                 </select>
                               </div>
                           </div>
                           <div class="col-md-3" align="center">
                             <div class="form-inline">
-                              <input type="number" style="margin-right: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
+                              <input name="regularInputInfo" type="number" style="margin-right: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
                               ~
-                              <input type="number" style="margin-left: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
+                              <input name="regularInputInfo" type="number" style="margin-left: 10px; width: 60px; font-size: 14px; height: 30px; text-align: center;">
     
                             </div>
                           </div>
                           <div class="col-md-3 form-group" style="display: flex;">
-                            <input type="number" class="form-inline" style="width: 50px; padding-left: 10px; margin-right: 10px; font-size: 14px;">
+                            <input type="number" name="regularInputInfo" class="form-inline" style="width: 50px; padding-left: 10px; margin-right: 10px; font-size: 14px;">
                             <div>회</div>
                           </div>
-                          <div class="col-md-2"><button>추가</button></div>
+                          <div class="col-md-2"><button type="button" onclick="regularScheduleAdd();">추가</button></div>
                         </div>
                         <br>
                         <!-- /스케쥴정보입력 -->       
@@ -172,16 +190,16 @@
                     </div>
                     <div style="height: 200px;">
                       <table class="table">
-                        <tbody style="text-align: center;">
+                        <tbody style="text-align: center;" id="regularTable">
                           <tr style="background-color: #f5f5f5;">
                             <th>강의날짜</th>
+                            <th>시작 시간</th>
                             <th>참여가능인원</th>
+                            <th>예정횟수</th>
                             <th>삭제</th>
                           </tr>
                           <tr>
-                            <td>2021-06-26(토) ~ 2021-07-25(수)</td>
-                            <td>최소 1명 ~ 최대 4명</td>
-                            <td><button>삭제</button></td>
+                            <td colspan="5">등록된 스케쥴이 없습니다</td>
                           </tr>
                         </tbody>
                       </table>
@@ -194,7 +212,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">스케줄등록</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="regularRegist();">스케줄등록</button>
               </div>
             </div>
           </div>

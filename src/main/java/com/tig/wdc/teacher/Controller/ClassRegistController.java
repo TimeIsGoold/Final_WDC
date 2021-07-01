@@ -1,9 +1,7 @@
 package com.tig.wdc.teacher.Controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,6 +24,7 @@ import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.teacher.model.service.ClassRegistService;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 
 /**
  * @author 이해승
@@ -40,14 +39,16 @@ public class ClassRegistController {
 	private AttachMentDTO titlePicture;
 	private	ClassPieceDTO classPiece;
 	private CurriculumDTO curriculum;
+	private ScheduleDTO schedule;
 	
 	@Autowired
-	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistService classService, CurriculumDTO curriculum) {
+	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistService classService, CurriculumDTO curriculum, ScheduleDTO schedule) {
 		super();
 		this.titlePicture = titlePicture;
 		this.classPiece = classPiece;
 		this.classService = classService;
 		this.curriculum = curriculum;
+		this.schedule = schedule;
 	}
 
 	//클래스 타입(원데이, 정규 입력)
@@ -61,7 +62,8 @@ public class ClassRegistController {
 
 	//클래스 정보 insert
 	@PostMapping("classInsert")
-	public String registStep2(@ModelAttribute ClassDTO classInfo, @ModelAttribute ClassPieceDTO pieceInfo, @ModelAttribute CurriculumDTO curriInfo, Model model, @RequestParam Map<String, MultipartFile> pictures, HttpServletRequest request) {
+	public String registStep2(@ModelAttribute ClassDTO classInfo, @ModelAttribute ClassPieceDTO pieceInfo, @ModelAttribute CurriculumDTO curriInfo, @ModelAttribute ScheduleDTO scheduleInfo, Model model, @RequestParam Map<String, MultipartFile> pictures, HttpServletRequest request) {
+		System.out.println(classInfo);
 		/* 1. 클래스 정보 INSERT */
 		//날짜 ,시간 변환
 		if(classInfo.getEndDay() != null) {
@@ -148,19 +150,40 @@ public class ClassRegistController {
 		String[] curriTitle = curriInfo.getCurriTitle().split(",");
 		String[] curriContent = curriInfo.getCurriContent().split(","); 
 		
-		List<CurriculumDTO> curriList = new ArrayList<>();
-		
 		for(int i = 0; i < curriTitle.length; i++) {
 			
 			curriculum.setCurriStep(i + 1);
 			curriculum.setCurriTitle(curriTitle[i]);
 			curriculum.setCurriContent(curriContent[i]);
 			
-			curriList.add(curriculum);
+			int result = classService.insertCurriculum(curriculum);
+		}
+		/* 5. 스케쥴 등록 */
+		int scheduleInsert = 0;
+		if(classInfo.getClsType().equals("O")) {
+			
+			String[] dayList = scheduleInfo.getInputDate().split(",");
+			String[] minList = scheduleInfo.getInputMin().split(",");
+			String[] maxList = scheduleInfo.getInputMax().split(",");
+			String[] timeList = scheduleInfo.getScheduleStart().split(",");
+			
+			for(int i = 0; i < dayList.length; i++) {
+				
+				schedule.setScheduleType(scheduleInfo.getScheduleType());
+				schedule.setInputDate(dayList[i]);
+				schedule.setInputMin(minList[i]);
+				schedule.setInputMax(maxList[i]);
+				schedule.setScheduleStart(timeList[i]);
+				schedule.setScheduleCount(dayList.length);
+				
+				scheduleInsert = classService.insertSchedule(schedule);
+			}
+		} else {
+			
+			scheduleInfo.setScheduleType("R");
+			scheduleInsert = classService.insertSchedule(scheduleInfo);
 		}
 		
-		int result = classService.insertCurriculum(curriList);
-		/**/
 		return "";
 	}
 }

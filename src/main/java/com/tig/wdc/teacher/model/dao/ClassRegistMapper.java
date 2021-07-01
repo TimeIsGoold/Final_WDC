@@ -1,11 +1,13 @@
 package com.tig.wdc.teacher.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 
 /**
  * @author 이해승
@@ -19,6 +21,8 @@ public interface ClassRegistMapper {
 
 	int insertCompletePiece(ClassPieceDTO classPiece);
 
-	int insertCurriculum(List<CurriculumDTO> curriList);
+	int insertCurriculum(CurriculumDTO curriculum);
+
+	int insertSchedule(ScheduleDTO schedule);
 
 }
