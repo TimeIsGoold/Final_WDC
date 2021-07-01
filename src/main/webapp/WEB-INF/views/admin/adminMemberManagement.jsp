@@ -60,6 +60,7 @@
                                             <th>성명</th>
                                             <th>가입 날짜</th>
                                             <th>누적신고 횟수</th>
+                                            <th>블랙리스트 여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,6 +74,8 @@
 				                                <td>${totalList.userName}</td>
 				                                <td>${totalList.enrollDate}</td>
 				                                <td>${totalList.reportedCnt}</td>
+				                                <td><c:choose><c:when test="${ totalList.blackYn eq 'Y' }"><label style="color : red; align-text:right">BlackList</label></c:when></c:choose></td>
+				                                
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

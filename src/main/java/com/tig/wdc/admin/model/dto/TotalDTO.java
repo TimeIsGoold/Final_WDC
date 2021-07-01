@@ -10,10 +10,13 @@ public class TotalDTO {
 	private String userName;
 	private java.sql.Date enrollDate;
 	private int reportedCnt;
-	
-	public TotalDTO() {}
-	
-	public TotalDTO(int userNo, String userType, String userId, String userName, Date enrollDate, int reportedCnt) {
+	private String blackYn;
+	public TotalDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public TotalDTO(int userNo, String userType, String userId, String userName, Date enrollDate, int reportedCnt,
+			String blackYn) {
 		super();
 		this.userNo = userNo;
 		this.userType = userType;
@@ -21,8 +24,8 @@ public class TotalDTO {
 		this.userName = userName;
 		this.enrollDate = enrollDate;
 		this.reportedCnt = reportedCnt;
+		this.blackYn = blackYn;
 	}
-	
 	public int getUserNo() {
 		return userNo;
 	}
@@ -59,10 +62,18 @@ public class TotalDTO {
 	public void setReportedCnt(int reportedCnt) {
 		this.reportedCnt = reportedCnt;
 	}
+	public String getBlackYn() {
+		return blackYn;
+	}
+	public void setBlackYn(String blackYn) {
+		this.blackYn = blackYn;
+	}
 	@Override
 	public String toString() {
 		return "TotalDTO [userNo=" + userNo + ", userType=" + userType + ", userId=" + userId + ", userName=" + userName
-				+ ", enrollDate=" + enrollDate + ", reportedCnt=" + reportedCnt + "]";
+				+ ", enrollDate=" + enrollDate + ", reportedCnt=" + reportedCnt + ", blackYn=" + blackYn + "]";
 	}
-
+	
+	
+	
 }

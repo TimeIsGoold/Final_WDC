@@ -242,6 +242,7 @@ public class AdminController {
 			rd.setType("T");
 		}
 			model.addAttribute("reportDetail", adminService.selectStudentReportList(rd));
+			
 			if(chkCnt == 1) {
 			model.addAttribute("message", "해당 유저는 누적 신고 3회로  블랙리스트가 되었습니다.");
 			}

@@ -129,9 +129,9 @@
                                 <div class=col-sm-5>
                                 </div>
                                 <c:choose>
-	                                <c:when test="${not empty message }">	
+	                                <c:when test="${reportDetail.blackListYN eq 'Y'}">	
 										<div class=col-sm-1>
-		                                    <button class="btn btn-danger" disabled>블랙리스트 유저</button>
+		                                    <button class="btn btn-danger" disabled>BlackList</button>
 		                                </div>
 		                            </c:when>
 		                            <c:otherwise>
