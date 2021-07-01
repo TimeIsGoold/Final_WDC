@@ -1,6 +1,7 @@
 package com.tig.wdc.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
@@ -12,6 +13,7 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 
 public interface AdminService {
 
@@ -94,9 +96,44 @@ public interface AdminService {
 	List<CalculateDTO> selectYesCalculateList();
 	
 
+	/**
+	 * @author 김현빈
+	 * 신고 상세 디테일
+	 * 
+	 * @return
+	 */
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
-//	ReportDetailDTO selectTeacherReportList(int no);
+	/**
+	 * @author 김현빈
+	 * 신고 승인 
+	 * 
+	 * @return
+	 */
+	int updateReportStatus(int no);
+
+	/**
+	 * @author 김현빈
+	 * 신고 거부
+	 * 
+	 * @param no
+	 */
+	int updateReportStatus2(int no);
+
+	List<BlackListDTO> selectAllBlackList();
+
+	List<BlackListDTO> selectBlockedTeacherList();
+
+	List<BlackListDTO> selectBlockedStudentList();
+
+	int selectReportCnt(int no);
+
+	int insertBlackList(Map<String, Object> blackMap);
+
+	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
+
+
+
 
 
 

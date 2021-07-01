@@ -66,7 +66,19 @@
 				                                <td>${reportDTO.reportType}</td>
 				                                <td>${reportDTO.reportId}</td>
 				                                <td>${reportDTO.reportDate}</td>
-				                                <td>${reportDTO.reportStatus}</td>
+				                                <td>
+                                                  	 <c:choose>
+														<c:when test="${ reportDTO.reportStatus eq 'N' }">
+															대기
+														</c:when>
+														<c:when test="${ reportDTO.reportStatus eq 'S' }">
+															거절
+														</c:when>
+														<c:otherwise>
+															승인
+														</c:otherwise>
+													</c:choose>	
+												</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

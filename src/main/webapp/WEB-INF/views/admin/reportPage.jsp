@@ -11,6 +11,7 @@
         <meta name="author" content=""/>
         <title>우리동네 클래스</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         
@@ -32,6 +33,12 @@
     </style>
     </head>
     <body class="sb-nav-fixed">
+    
+      <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if>
 
     
         	<!-- header -->
@@ -40,7 +47,7 @@
         <div id="layoutSidenav">
         
         	<!-- sideBar & footer -->
-			<%@ include file="commons/sideBarAndFooter.jsp" %>
+ 			<%@ include file="commons/sideBarAndFooter.jsp" %>
 
 
             <div id="layoutSidenav_content">
@@ -93,7 +100,19 @@
 								                <th id="title">신고 제목</th>
 								                <td>${reportDetail.reportTitle}</td>        
 								                <th id="title">신고 처리 상태 </th>
-								                <td>${reportDetail.reportStatus}</td>        
+								                <td>
+													<c:choose>
+														<c:when test="${ reportDetail.reportStatus eq 'N' }">
+															대기
+														</c:when>
+														<c:when test="${ reportDetail.reportStatus eq 'S' }">
+															거절
+														</c:when>
+														<c:otherwise>
+															승인
+														</c:otherwise>
+													</c:choose>										                
+								                </td>        
 								            </tr>
 								            <tr>
 								                <th id="title">내 용 </th>
@@ -109,12 +128,25 @@
                             <div class="row" align="center">
                                 <div class=col-sm-5>
                                 </div>
-                                <div class=col-sm-1>
-                                    <button class="btn btn-danger">신고 승인</button>
-                                </div>
-                                <div class="col-sm-1">
-                                    <button class="btn btn-danger">신고 거절</button>
-                                </div>
+                                <c:choose>
+	                                <c:when test="${not empty message }">	
+										<div class=col-sm-1>
+		                                    <button class="btn btn-danger" disabled>블랙리스트 유저</button>
+		                                </div>
+		                            </c:when>
+		                            <c:otherwise>
+		                            	 <div class=col-sm-1>
+		                                    <button class="btn btn-danger" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/procsAcceptStatus?rn=${reportDetail.reportNo}&type=${reportDetail.type}&un=<c:choose><c:when test="${ reportDetail.type eq 'U' }">${ reportDetail.userNo }</c:when><c:when test="${ reportDetail.type eq 'T' }">${ reportDetail.teNo }</c:when></c:choose>'">신고 승인</button>
+		                                </div>
+		                                <div class="col-sm-1">
+		                                    <button class="btn btn-danger"  onclick="location.href='${ pageContext.servletContext.contextPath }/admin/procsDenyStatus?rn=${reportDetail.reportNo}&type=${reportDetail.type}'">신고 거절</button>
+		                                </div>
+		                            </c:otherwise>
+	                             </c:choose>
+	                                 <div class="col-sm-1">
+	                                    <button class="btn btn-primary" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/reportManagement'">뒤로 가기</button>
+	                                </div>
+ 
                                 <div class="col-sm-5">
                                 </div>
                      		 </div>
@@ -123,6 +155,8 @@
                 </main>
             </div>
         </div>
+        
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

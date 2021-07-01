@@ -1,6 +1,7 @@
 package com.tig.wdc.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
@@ -11,6 +12,7 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 
 
@@ -100,9 +102,21 @@ public interface AdminMapper {
 	
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
-//	ReportDetailDTO selectTeacherReportList(int no);
+	int updateReportStatus(int no);
 
+	int updateReportStatus2(int no);
 
+	List<BlackListDTO> selectAllBlackList();
+
+	List<BlackListDTO> selectBlockedTeacherList();
+
+	List<BlackListDTO> selectBlockedStudentList();
+
+	int selectReportCnt(int no);
+
+	int insertBlackList(Map<String, Object> blackMap);
+
+	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
 
 
 }

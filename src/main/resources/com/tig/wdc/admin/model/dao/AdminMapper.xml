@@ -151,6 +151,8 @@
 		<result column="REPORT_TITLE" property="reportTitle"/>
 		<result column="USER_ID" property="reportedId1"/>
 		<result column="TE_ID" property="reportedId2"/>
+		<result column="TE_NO" property="teNo"/>
+		<result column="USER_NO" property="usetNo"/>
 		<result column="USER_NAME" property="reportedNmae1"/>
 		<result column="TE_NAME" property="reportedNmae2"/>
 		<result column="REPORT_DATE" property="reportDate"/>
@@ -158,6 +160,22 @@
 		<result column="REPORT_PIC" property="imgPath"/>
 		<result column="PROCS_STATUS" property="reportStatus"/>
 		<result column="type" property="type"/>
+	</resultMap>
+	
+	<resultMap id="blackListDTO" type="blackListDTO" >
+			<id column="USER_NO" property="blackNo"/>
+			<result column="TYPE" property="type"/>
+			<result column="USER_ID" property="blackId"/>
+			<result column="USER_NAME" property="blackName"/>
+			<result column="USER_BLOCK_D" property="enrollDate"/>
+	</resultMap>
+	
+	<resultMap id="BlockedTeacherDTO" type="blackListDTO" >
+			<id column="TE_NO" property="blackNo"/>
+			<result column="TYPE" property="type"/>
+			<result column="TE_ID" property="blackId"/>
+			<result column="TE_NAME" property="blackName"/>
+			<result column="TE_BLOCK_D" property="enrollDate"/>
 	</resultMap>
 	
 		
@@ -456,10 +474,13 @@
 	     <if test='type == "U"'>
 	     , TE_ID
 	     , TE_NAME
+	     , TE_NO
+	     , type
 	     </if>
 	     <if test='type == "T"'>
 	     , USER_ID
 	     , USER_NAME
+	     , USER_NO
 	     </if>
 	     , TYPE
 	     , REPORT_DATE
@@ -478,24 +499,101 @@
 	   AND REPORT_NO = #{reportNo}
 	</select>
 	
+		
+	<update id="updateReportStatus" parameterType="_int">
+		UPDATE REPORT 
+		   SET PROCS_STATUS = 'Y'
+		 WHERE REPORT_NO = #{no}
+		
+	</update>
 	
-<!-- 	<select id="selectTeacherReportList" resultMap="reportDetailDTO" parameterType="_int">
+	<update id="updateReportStatus2" parameterType="_int">
+		UPDATE REPORT 
+		   SET PROCS_STATUS = 'S'
+		 WHERE REPORT_NO = #{no}
+	</update>
+	
+	<select id="selectAllBlackList" resultMap="blackListDTO">
 		SELECT
-	       REPORT_NO
-	     , REPORT_TITLE
-	     , TE_ID
-	     , TYPE
-	     , TE_NAME
-	     , REPORT_DATE
-	     , REPORT_REASON
-	     , REPORT_PIC
-	     , PROCS_STATUS
-	  FROM REPORT R 
-	  JOIN TEACHER_INFO U ON (R.REPORT_TO_NO = U.TE_NO)
-	 WHERE REPORT_TYPE = '수강생'
-	   AND REPORT_NO = #{no}
-	</select> -->
+		       U.TYPE
+		     , U.USER_ID
+		     , U.USER_NAME
+		     , UB.USER_BLOCK_D
+		  FROM USER_BLOCK_LIST UB
+		  JOIN USER_INFO U ON (UB.USER_NO = U.USER_NO)
+		 UNION ALL
+		SELECT 
+		       T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , TB.TE_BLOCK_D
+		  FROM TE_BLOCK_LIST TB
+		  JOIN TEACHER_INFO T ON (TB.TE_NO = T.TE_NO)
+	</select>
 	
+	<select id="selectBlockedTeacherList" resultMap="BlockedTeacherDTO">
+		SELECT 
+		       T.TYPE
+		     , T.TE_ID
+		     , T.TE_NAME
+		     , TB.TE_BLOCK_D
+		  FROM TE_BLOCK_LIST TB
+		  JOIN TEACHER_INFO T ON (TB.TE_NO = T.TE_NO)
+	</select>
+	
+	<select id="selectBlockedStudentList" resultMap="blackListDTO">
+		SELECT
+		       U.TYPE
+		     , U.USER_ID
+		     , U.USER_NAME
+		     , UB.USER_BLOCK_D
+		  FROM USER_BLOCK_LIST UB
+		  JOIN USER_INFO U ON (UB.USER_NO = U.USER_NO)
+	</select>
+	
+	<select id="selectReportCnt"  resultType="_int">
+		SELECT 
+               COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM TEACHER_INFO T
+		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
+		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
+         where T.TE_NO = #{no}
+	</select>
+	
+	<insert id="insertBlackList" parameterType="hashmap">
+		INSERT 
+	     <if test='type == "T"'>
+		  INTO TE_BLOCK_LIST
+		  </if>
+	     <if test='type == "U"'>
+		  INTO USER_BLOCK_LIST
+		  </if>
+		VALUES
+		(
+	     <if test='type == "T"'>
+		  SEQ_TE_BLOCK_NO.NEXTVAL
+		  </if>
+	     <if test='type == "U"'>
+		  SEQ_USER_BLOCK_NO.NEXTVAL
+		  </if>
+		, #{userNo}
+		, '누적 신고 3회로 블랙리스트 추가'
+		, SYSDATE
+		)
+	</insert>
+	
+	<update id="updateBlackListOnUSerTable" parameterType="hashmap">
+	    <if test='type == "T"'>
+		UPDATE TEACHER_INFO
+		   SET TE_BLOCK_YN = 'Y'
+		 WHERE TE_NO = #{userNO} 
+		</if>
+	    <if test='type == "U"'>
+		UPDATE USER_INFO
+		   SET USER_BLOCK_YN = 'Y'
+		 WHERE USER_NO = #{userNO} 
+		</if>
+	</update>
 
 	
 </mapper>
