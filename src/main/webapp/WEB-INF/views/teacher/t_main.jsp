@@ -119,7 +119,7 @@
 	                <table class="table table-hover">
 	                  <thead>
 	                    <tr>
-	                      <th>번호${pageInfo }</th>
+	                      <th>번호</th>
 	                      <th>중요여부</th>
 	                      <th>제목</th>
 	                      <th>등록일</th>
@@ -338,7 +338,7 @@
 	        </div>
 
         	<!-- 클래스1단계 등록 팝업 -->
-	        <div id="classRegist"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	        <div id="classRegist"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
 	          <div class="modal-dialog modal-lg">
 	            <div class="modal-content">
 	              <!-- <div class="modal-header">
@@ -488,7 +488,6 @@
 //	}
 	
 	function pageButtonAction(text) {
-		alert(link);
 		
 		location.href = link + "?currentPage=" + text;
 	}

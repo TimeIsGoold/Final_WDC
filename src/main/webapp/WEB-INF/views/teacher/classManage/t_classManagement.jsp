@@ -66,6 +66,11 @@
       background-color: #fef0ae !important;
       border-color: #fef0ae !important;
     }
+        .pagingArea button {
+	background-color: #fef0ae;
+	border: 1px solid #fef0ae;
+	border-radius: 5px;
+}
   </style>
 </head>
 
@@ -80,9 +85,9 @@
         <jsp:include page="../commons/sidebar.jsp"/>
       
       <!-- main page -->
-      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
+<!--       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
-        <!-- 상단 메뉴바 -->
+        상단 메뉴바
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classDetail.html" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
@@ -95,59 +100,56 @@
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
-      </div>  
+      </div>  --> 
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
-        <form>
           <div class="col-sm-12" id="content-formatting" style="float: left;">
-            <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-              <p style="font-size: 20px; font-weight: bold;">클래스 관리하기 ${ pageInfo }</p>
+            <div class="page-header" ; margin-left: 40px;">
+              <p style="font-size: 20px; font-weight: bold;">클래스 관리하기 </p>
             </div>
+            <hr>
             <div class="row" style="margin-left: 40px;">
               
-              <div class="row">     
-                <div class='col-sm-3' style="padding-top: 20px; float: left;">
+              <form>
+              <div class="row">   
+                <div class='col-sm-3'  float: left;">
                   <a style="margin-left: 15px;">클래스 타입</a>
                   <div class="col-auto my-1">
-                    <select class="custom-select mr-sm-2" id="classType">
+                    <select class="custom-select mr-sm-2" id="classType" style="width:120px" name="">
                       <option selected>선택</option>
-                      <option value="1">개별일정</option>
-                      <option value="2">요일반복</option>
-                      <option value="3">상시모집</option>
-                      <option value="4">정규모집</option>
+                      <option value="I">개별일정</option>
+                      <option value="D">요일반복</option>
+                      <option value="R">정규모집</option>
                     </select>
                   </div>
                 </div>
 
-                <div class='col-sm-3' style="padding-top: 20px; float: left;">
+                <div class='col-sm-3' style="float: left;">
                   <a style="margin-left: 15px;">클래스 상태</a>              
                   <div class="col-auto my-1">
-                    <label class="mr-sm-3 sr-only" for="classStatus"></label>
-                      <select class="custom-select mr-sm-2" id="classStatus">
+                      <select class="custom-select mr-sm-2" id="classStatus" style="width:100px">
                         <option selected>선택</option>
-                        <option value="1">모집중</option>
-                        <option value="2">마감</option>
-                        <option value="3">완료</option>
-                        <option value="4">미달</option>
+                        <option value="Y">진행전</option>
+                        <option value="P">진행중</option>
+                        <option value="E">종료</option>
                       </select>  
                   </div>
                 </div>
-                <div class='col-sm-5' style="padding-top: 20px; float: left;">
+                <div class='col-sm-6' style="float: left;">
                   <h5 style="margin-left: 15px;"></h5>
-                  <div class="col-auto my-1" style="padding-top: 15px;">
-                    <label class="mr-sm-3 sr-only" for="inlineFormCustomSelect"></label>
+                  <div class="col-auto my-3" style="padding-top: 15px;">
                     <!-- <input type="text" class="form-control" id="search"> -->
                     <button type="submit" class="btn btn-primary">검색</button>
-                    <button type="reset" class="btn btn-primary">초기화</button>
+                    <button type="reset" class="btn btn-primary" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/teacherClassManagement'">초기화</button>
                   </div>
                 </div>
-                <div class='col-sm-5' style="padding-top: 30px; margin: auto;">
-                </div>
+
               </div>
+               </form>  
               
               <!-- 결과 게시판 -->
-              <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 30px; padding-bottom: 280px">
+              <div class="col-sm-12" id="content-formatting" style="float: left; padding-bottom: 280px">
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -163,7 +165,7 @@
                   <c:forEach items="${ classList }" var="classList"  varStatus="status">
                     <tr>
                       <td><c:out value="${ pageInfo.startRow + status.index }"/></td>
-                      <td><a href="t_classDetail.html">${ classList.title }</a></td>
+                      <td><a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${classList.clsNo}">${ classList.title }</a></td>
                       <c:choose>
                           <c:when test="${ classList.schedule.scheduleType == 'I'}">
                               <td> 원데이(개별일정)</td>
@@ -205,9 +207,7 @@
 										<button id="prevPage"><</button>
 									</c:if>
 
-									<c:forEach var="p"
-										begin="${ requestScope.pageInfo.startPage }"
-										end="${ requestScope.pageInfo.endPage }" step="1">
+									<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }"	end="${ requestScope.pageInfo.endPage }" step="1">
 										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
 											<button disabled>
 												<c:out value="${ p }" />
@@ -271,7 +271,6 @@
               <!-- 결과 게시판 끝 -->
             </div>
           </div>
-        </form>
       </div>
 
     </div>
@@ -287,11 +286,11 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
+    
   
   <jsp:include page="../commons/footer.jsp"/>
   <script>
-	let link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";
-		
+    const link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";	
 	if(document.getElementById("startPage")) {
 		const $startPage = document.getElementById("startPage");
 		$startPage.onclick = function() {
@@ -350,14 +349,11 @@
 	
 	
 	function pageButtonAction(text) {
-		alert(text);
-		var a = link + "?currentPage=" + text;
-		alert(a);
-		location.href = a;
+		location.href = link + "?currentPage=" + text;
 	}
 	function seachPageButtonAction(text) {
-		location.href = searchLink + "?currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		location.href = searchLink + "currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
 	}
 	</script>  	
 </body>
-<html>
+</html>

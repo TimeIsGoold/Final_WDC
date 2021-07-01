@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -44,12 +45,11 @@ public class TeacherMyPageController {
 	 * @return 클래스 리스트
 	 */
 	@GetMapping("/teacherClassManagement")
-	public String teacherClassManagement(HttpSession session, Model model, @RequestParam(defaultValue = "1",value="currentPage") int currentPage ) {
+	public String teacherClassManagement(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage ) {
 		
+
 		int teacherNo = (Integer) session.getAttribute("teacherNo");
-		System.out.println("여기는 클래스 번호에요 : " + currentPage);
-		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectClassCount(teacherNo), 5, 5);
-		System.out.println("페이지 인포에요 : " + pageInfo);
+		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectClassCount(teacherNo), 10, 5);
 		classInfo.setTeNo(teacherNo);
 		classInfo.setPageInfo(pageInfo);
 		
@@ -57,6 +57,21 @@ public class TeacherMyPageController {
 		model.addAttribute("classList",boardService.selectClassList(classInfo));
 	
 		return "teacher/classManage/t_classManagement";
+	}
+	
+	@GetMapping("/classDetail/{clsNo}")
+	public String classDetail(HttpSession session, Model model, @PathVariable("clsNo") int clsNo) {
+		
+		classInfo.setTeNo((Integer) session.getAttribute("teacherNo"));
+		classInfo.setClsNo(clsNo);
+		
+		model.addAttribute("clsNo", clsNo);
+		
+//		model.addAttribute("classInfo", );
+//		model.addAttribute(attributeValue);
+//		model.addAttribute(attributeValue);
+//		model.addAttribute(attributeValue);
+		return "teacher/classManage/t_classDetail";
 	}
 	
 	/* 정산관리 */
