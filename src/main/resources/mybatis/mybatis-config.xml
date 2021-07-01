@@ -32,6 +32,8 @@
  		<typeAlias alias="completePiece" type="com.tig.wdc.model.dto.ClassPieceDTO"/>
  		<typeAlias alias="curriculum" type="com.tig.wdc.model.dto.CurriculumDTO"/>
  		<typeAlias alias="schedule" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
+ 		<typeAlias alias="classInfo" type="com.tig.wdc.user.model.dto.ClassDTO"/>
+ 		<typeAlias alias="scheduleInfo" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
  		
  	</typeAliases>
  </configuration>

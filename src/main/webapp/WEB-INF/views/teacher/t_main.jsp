@@ -119,14 +119,16 @@
 	                <table class="table table-hover">
 	                  <thead>
 	                    <tr>
+	                      <th>번호${pageInfo }</th>
 	                      <th>중요여부</th>
 	                      <th>제목</th>
 	                      <th>등록일</th>
 	                    </tr>
 	                  </thead>
 	                  <tbody>
-	                  <c:forEach var="notice" items="${ noticeList }">
+	                  <c:forEach var="notice" items="${ noticeList }" varStatus="status">
 	                  <tr>
+	                  <td><c:out value="${ status.index + pageInfo.startRow}"/></td>
 	                  <c:choose>
 	                      <c:when test="${ notice.important eq 'Y'}">
 	                          <td><b style="color: red">[중요]</b></td>  
@@ -139,31 +141,6 @@
 	                      <td><c:out value="${ notice.writeDate }"/></td>  
 	                  </tr>
 	                  </c:forEach>
-	                    <tr>
-<!-- 	                      <td>1</td>
-	                      <td>[모집] 2021 신규 일정 작가 혜택 안내</td>
-	                      <td>2021-06-18</td>
-	                    </tr> -->
-<!-- 	                    <tr>
-	                      <td>2</td>
-	                      <td>개인정보 이용약관 변경 안내</td>
-	                      <td>2021-06-10</td>
-	                    </tr>
-	                    <tr>
-	                      <td>3</td>
-	                      <td>코로나19 사태로 인한 클래스 인원 정책 업데이트</td>
-	                      <td>2021-06-08</td>
-	                    </tr>
-	                    <tr>
-	                      <td>4</td>
-	                      <td>개인정보 이용약관 변경 안내</td>
-	                      <td>2021-06-03</td>
-	                    </tr>
-	                    <tr>
-	                      <td>5</td>
-	                      <td>결제정보 변경안내</td>
-	                      <td>2021-05-20</td>
-	                    </tr> -->
 	                  </tbody>
 	                </table>
 					<nav aria-label="...">
@@ -511,6 +488,8 @@
 //	}
 	
 	function pageButtonAction(text) {
+		alert(link);
+		
 		location.href = link + "?currentPage=" + text;
 	}
 	function seachPageButtonAction(text) {

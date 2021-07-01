@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,21 +102,9 @@
         <form>
           <div class="col-sm-12" id="content-formatting" style="float: left;">
             <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-              <p style="font-size: 20px; font-weight: bold;">클래스 관리하기</p>
+              <p style="font-size: 20px; font-weight: bold;">클래스 관리하기 ${ pageInfo }</p>
             </div>
             <div class="row" style="margin-left: 40px;">
-              <div class='col-sm-12'><a>모집기간 검색</a>
-              </div><br>
-              <div class='col-sm-3'>
-                <div class="form-group">
-                  <input type="date" id="startDate" class="form-control">
-                </div>
-              </div>
-              <div class='col-sm-3'>
-                <div class="form-group">
-                  <input type="date" id="EndDate" class="form-control">
-                </div>
-              </div>
               
               <div class="row">     
                 <div class='col-sm-3' style="padding-top: 20px; float: left;">
@@ -164,72 +153,120 @@
                     <tr>
                       <th>번호</th>
                       <th>클래스 이름</th>
-                      <th>인원</th>
                       <th>타입</th>
                       <th>가격</th>
                       <th>상태</th>
-                      <th>심사상태</th>
+                      <th>심사상태 </th>
                     </tr>
                   </thead>
                   <tbody>
+                  <c:forEach items="${ classList }" var="classList"  varStatus="status">
                     <tr>
-                      <td>1</td>
-                      <td><a href="t_classDetail.html">6가지맛 마카롱 클래스</a></td>
-                      <td>2/4</td>
-                      <td>개별일정</td>
-                      <td>60,000원</td>
-                      <td>모집중</td>
-                      <td>승인</td>
+                      <td><c:out value="${ pageInfo.startRow + status.index }"/></td>
+                      <td><a href="t_classDetail.html">${ classList.title }</a></td>
+                      <c:choose>
+                          <c:when test="${ classList.schedule.scheduleType == 'I'}">
+                              <td> 원데이(개별일정)</td>
+                          </c:when>
+                          <c:when test="${ classList.schedule.scheduleType == 'D'}">
+                              <td> 원데이(요일반복)</td>
+                          </c:when>
+                          <c:when test="${ classList.schedule.scheduleType == 'R'}">
+                              <td> 정규과정</td>
+                          </c:when>
+                      </c:choose>
+                      <td>${ classList.price }</td>
+                      <c:choose>
+                          <c:when test="${ classList.status eq 'Y' }"><td>진행전</td></c:when>
+                          <c:when test="${ classList.status eq 'P' }"><td>진행중</td></c:when>
+                          <c:when test="${ classList.status eq 'E' }"><td>종료</td></c:when>
+                      </c:choose>
+                      <c:choose>
+                          <c:when test="${ classList.dicsionStatus eq 'W' }"><td>대기</td></c:when>
+                          <c:when test="${ classList.dicsionStatus eq 'R' }"><td>거절</td></c:when>
+                          <c:when test="${ classList.dicsionStatus eq 'F' }"><td>1차승인</td></c:when>
+                          <c:when test="${ classList.dicsionStatus eq 'S' }"><td>승인완료</td></c:when>
+                          <c:when test="${ classList.dicsionStatus eq 'L' }"><td>응원수미달</td></c:when>
+                      </c:choose>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><a href="t_classDetail.html">호두, 초코 쿠키 클래스</a></td>
-                      <td>4/4</td>
-                      <td>요일반복</td>
-                      <td>50,000원</td>
-                      <td>마감</td>
-                      <td>승인</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td><a href="t_classDetail.html">정규 제빵 클래스</a></td>
-                      <td>4/4</td>
-                      <td>정규모집</td>
-                      <td>240,000원</td>
-                      <td>완료</td>
-                      <td>승인</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td><a href="t_classDetail.html">컵케익 만들기 클래스</a></td>
-                      <td>0/4</td>
-                      <td>개별일정</td>
-                      <td>80,000원</td>
-                      <td>미달</td>
-                      <td>승인</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td><a href="t_classDetail.html">6가지 맛 마카롱 클래스</a></td>
-                      <td>0/4</td>
-                      <td>개별일정</td>
-                      <td>100,000원</td>
-                      <td></td>
-                      <td>반려</td>
-                    </tr>
+                  </c:forEach>
                   </tbody>
                 </table>
                 <nav aria-label="...">
-                  <ul class="pagination" style="justify-content: center;">
-                    <li class="page-item"><span class="page-link"><</span></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">></a></li>
-                  </ul>
-                </nav>
+						<div class="pagingArea" align="center">
+							<c:choose>
+								<c:when test="${ empty requestScope.searchValue }">
+									<button id="startPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled ><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="prevPage"><</button>
+									</c:if>
+
+									<c:forEach var="p"
+										begin="${ requestScope.pageInfo.startPage }"
+										end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button onclick="pageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if
+										test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled >></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="nextPage">></button>
+									</c:if>
+
+									<button id="maxPage">>></button>
+								</c:when>
+								<c:otherwise>
+									<button id="searchStartPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="searchPrevPage" ><</button>
+									</c:if>
+
+									<c:forEach var="p"	begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button  onclick="seachPageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled>></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="searchNextPage" >></button>
+									</c:if>
+
+									<button id="searchMaxPage" >>></button>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</nav>
               </div>
               <!-- 결과 게시판 끝 -->
             </div>
@@ -252,5 +289,75 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   
   <jsp:include page="../commons/footer.jsp"/>
+  <script>
+	let link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";
+		
+	if(document.getElementById("startPage")) {
+		const $startPage = document.getElementById("startPage");
+		$startPage.onclick = function() {
+			location.href = link + "?currentPage=1";
+		}
+	}
+	
+	if(document.getElementById("prevPage")) {
+		const $prevPage = document.getElementById("prevPage");
+		$prevPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+		}
+	}
+	
+	if(document.getElementById("nextPage")) {
+		const $nextPage = document.getElementById("nextPage");
+		$nextPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+		}
+	}
+	
+	if(document.getElementById("maxPage")) {
+		const $maxPage = document.getElementById("maxPage");
+		$maxPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
+		}
+	}
+	
+	if(document.getElementById("searchStartPage")) {
+		const $searchStartPage = document.getElementById("searchStartPage");
+		$searchStartPage.onclick = function() {
+			location.href = searchLink + "?currentPage=1&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchPrevPage")) {
+		const $searchPrevPage = document.getElementById("searchPrevPage");
+		$searchPrevPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchNextPage")) {
+		const $searchNextPage = document.getElementById("searchNextPage");
+		$searchNextPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchMaxPage")) {
+		const $searchMaxPage = document.getElementById("searchMaxPage");
+		$searchMaxPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	
+	function pageButtonAction(text) {
+		alert(text);
+		var a = link + "?currentPage=" + text;
+		alert(a);
+		location.href = a;
+	}
+	function seachPageButtonAction(text) {
+		location.href = searchLink + "?currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+	}
+	</script>  	
 </body>
 <html>

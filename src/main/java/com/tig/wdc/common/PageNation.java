@@ -12,6 +12,7 @@ public class PageNation {
 		int startRow;
 		int endRow;
 		
+		System.out.println("페이지네이션1111 : " + pageNo);
 		maxPage = (int)Math.ceil((double)totalCount/limit);
 		
 		startPage = (int)(Math.ceil((double) pageNo / buttonAmount) -1) * buttonAmount + 1;
@@ -31,7 +32,7 @@ public class PageNation {
 		endRow = startRow + limit -1;
 		 
 		PageInfoDTO pageInfo = new PageInfoDTO(pageNo,totalCount,limit,buttonAmount,maxPage,startPage,endPage,startRow,endRow);
-		
+		System.out.println("페이지네이션 555555 : " + pageInfo );
 		return pageInfo;
 	}
 }

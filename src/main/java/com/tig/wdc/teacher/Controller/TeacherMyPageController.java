@@ -15,26 +15,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tig.wdc.common.PageNation;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.service.BalanceService;
+import com.tig.wdc.teacher.model.service.BoardAndQnAService;
+import com.tig.wdc.user.model.dto.ClassDTO;
 
 /**
- * @author 강현우
+ * @author 강현우, 이해승
  * 강사  마이페이지용 컨트롤러
  */
 @Controller
 @RequestMapping("/teacher/*")
 public class TeacherMyPageController {
 	
-	private BalanceService balanceService;
+	private BalanceService myPageService;
+	private BoardAndQnAService boardService;
+	private PageInfoDTO pageInfo;
+	private ClassDTO classInfo;
 	
 	@Autowired
-	public TeacherMyPageController(BalanceService balanceService) {
-		this.balanceService = balanceService;
+	public TeacherMyPageController(BalanceService myPageService, BoardAndQnAService boardService, PageInfoDTO pageInfo, ClassDTO classInfo) {
+		this.myPageService = myPageService;
+		this.boardService = boardService;
+	    this.pageInfo = pageInfo;
+	    this.classInfo = classInfo;
 	}
 	
-	/* 클래스 관리 */
+	/**
+	 * 강사가 보유한 클래스 리스트 조회(이해승)
+	 * @return 클래스 리스트
+	 */
 	@GetMapping("/teacherClassManagement")
-	public String teacherClassManagement() {
+	public String teacherClassManagement(HttpSession session, Model model, @RequestParam(defaultValue = "1",value="currentPage") int currentPage ) {
 		
+		int teacherNo = (Integer) session.getAttribute("teacherNo");
+		System.out.println("여기는 클래스 번호에요 : " + currentPage);
+		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectClassCount(teacherNo), 5, 5);
+		System.out.println("페이지 인포에요 : " + pageInfo);
+		classInfo.setTeNo(teacherNo);
+		classInfo.setPageInfo(pageInfo);
+		
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("classList",boardService.selectClassList(classInfo));
+	
 		return "teacher/classManage/t_classManagement";
 	}
 	
@@ -45,7 +66,7 @@ public class TeacherMyPageController {
 		int teacherNo = (Integer) session.getAttribute("teacherNo");
 		
 		/* 페이징 처리 */
-		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, balanceService.selectBalanceCount(), 5, 5);
+		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, myPageService.selectBalanceCount(), 5, 5);
 		model.addAttribute("pageInfo", pageInfo);
 		
 		/* 문의사항 목록 검색 */
@@ -54,7 +75,7 @@ public class TeacherMyPageController {
 		map.put("pageInfo", pageInfo);
 		
 		/* 정산내역 조회 */
-		model.addAttribute("balanceList", balanceService.selectBalanceList(map));
+		model.addAttribute("balanceList", myPageService.selectBalanceList(map));
 		
 		
 		return "teacher/balanace/t_balanceList";
