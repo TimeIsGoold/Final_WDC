@@ -132,7 +132,7 @@
 
                                 <div class="couponIssueBtnArea">
                                     <input type="submit" class="couponIssueBtn" value="발급하기">
-                                    <input type="submit" class="couponIssueBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon'" value="리스트보기">
+                                    <input type="button" class="couponIssueBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon'" value="리스트보기">
                                 </div>
                             </div>
 

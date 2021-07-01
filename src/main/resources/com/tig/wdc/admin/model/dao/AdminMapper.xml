@@ -378,6 +378,16 @@
 	</select>
 	
 	<!-- 문의답변달기 - insert -->
+<!--	<insert id="insertAnswer" parameterType="">
+		INSERT
+  		  INTO ADMIN_Q_ANSWER
+  		VALUES
+  		(
+   		  #{}
+  		, SYSDATE
+  		, #{}
+  		)
+	</insert> -->
 	
 	<!-- 문의답변달기 - update -->
 	
