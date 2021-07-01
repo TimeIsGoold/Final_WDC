@@ -482,6 +482,9 @@
 	</select>
 	
 	<!-- 쿠폰 발급 -->
+	<!-- <insert id="insertCouponIssue">
+	
+	</insert> -->
 	
 	<!-- 공지 -->
 	<select id="selectAllNoticeList" resultMap="noticeList">

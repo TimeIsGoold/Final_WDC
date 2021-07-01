@@ -159,6 +159,17 @@ public class AdminController {
 		
 		return "admin/couponDetail";
 	}
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * 
+	 * @return
+	 */
+	@GetMapping("couponIssue")
+	public String couponIssue() {
+		return "admin/couponIssue";
+	}
 
 	/**
 	 * @author 송아현

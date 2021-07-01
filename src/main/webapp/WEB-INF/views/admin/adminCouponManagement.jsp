@@ -53,7 +53,7 @@
                                 <i class="fas fa-table me-1"></i>쿠폰 관리
 
                                 <div class="subMenuBar">
-                                    <button class="issue">발급하기</button>
+                                    <button class="issue" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponIssue?currentMenu=coupon'">발급하기</button>
                                 </div>
                             </div>
 
