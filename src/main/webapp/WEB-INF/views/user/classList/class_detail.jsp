@@ -241,6 +241,8 @@ i {
           </nav>
         </div>
       </header>
+
+		<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
 		<section class="py-5">
 			<div class="container">
 				<div class="row mb-5">
@@ -270,7 +272,6 @@ i {
 							</div>
 						</div>
 					</div>
-
 					<!-- PRODUCT DETAILS-->
 					<div class="col-lg-6">
 					
@@ -283,9 +284,10 @@ i {
 								<li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
 							</c:if>
 						</ul>
-						
+						<input type="hidden" name="title" value="${ requestScope.classDetail.title }"/>
 						<h1>${ requestScope.classDetail.title }</h1>
 						<p class="text-muted lead"><fmt:formatNumber value="${ requestScope.classDetail.price }" pattern="#,###"/> 원</p>
+						<input type="hidden" name="price" value="${ requestScope.classDetail.price }"/>
 						<ul class="list-unstyled small d-inline-block"
 							style="font-size: 16px; display: flex !important; padding-top: 15px;">
 							<div class="class-icon">
@@ -326,30 +328,46 @@ i {
 						</ul>
 					</div>
 				</div>
-				<div
-					style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 					<!-- 날짜, 시간 선택 -->
 					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
-					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">&nbsp;&nbsp;<input
-						class="datetimepicker" id="datetimepicker" type="text">&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png"
-						style="width: 30px;">&nbsp;&nbsp;<input type="number"
-						class="datetimepicker">&nbsp;&nbsp;&nbsp;
+					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+					&nbsp;&nbsp;
+					<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
+					&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+					<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+					&nbsp;&nbsp;
+					<input type="number" class="datetimepicker" name="ppl">
+					&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<li class="list-inline-item m-0 p-0"><a
-						class="btn btn-sm btn-outline-dark" href="${ pageContext.servletContext.contextPath }/user/payment"
-						style="height: 40px; width: 170px; font-size: 16px;">신청하기</a></li>
+					<li class="list-inline-item m-0 p-0">
+					<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+					<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>
+					신청하기 
+					</button>
+					
+					</li>
+					</form>
 				</div>
 				<script>
 					let timeValues = [ '12:00', '13:00', '15:00', '15:30' ];
+					// 
+					let dateValues = true;
 					jQuery('#datetimepicker').datetimepicker({
-						datepicker : true,
+						datepicker : dateValues,
 						allowTimes : timeValues,
 						onChangeDateTime : function(dp, $input) {
 							console.log($input.val());
+							$.ajax({
+								url:"",
+								
+							})
 						}
 					});
+					
 				</script>
+				
 
 				<br>
 				<br>

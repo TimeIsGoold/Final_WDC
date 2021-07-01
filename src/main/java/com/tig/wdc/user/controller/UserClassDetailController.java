@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
@@ -86,10 +89,14 @@ public class UserClassDetailController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("payment")
-	public String payment(HttpSession session) {
+	@PostMapping("payment")
+	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model, UserClassDTO userClassDTO) {
 		int userNo= (Integer) session.getAttribute("userNo");
 
+		
+		model.addAttribute("classApplyDTO",classApplyDTO);
+		model.addAttribute("scheduleDTO", scheduleDTO);
+		model.addAttribute("userClassDTO", userClassDTO);
 		
 		return "user/payment/payment";
 	}

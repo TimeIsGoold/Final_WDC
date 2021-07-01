@@ -24,10 +24,13 @@ public class ScheduleDTO {
 	private String inputMin;
 	private String inputMax;
 	
+	private String stringScheduleDate; // 페이먼트용
+	
 	public ScheduleDTO() {}
 
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
-			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax) {
+			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax,
+			String stringScheduleDate) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.scheduleType = scheduleType;
@@ -36,10 +39,11 @@ public class ScheduleDTO {
 		this.minPeople = minPeople;
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
-		this.ScheduleCount = scheduleCount;
+		ScheduleCount = scheduleCount;
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;
+		this.stringScheduleDate = stringScheduleDate;
 	}
 
 	public int getScheduleNo() {
@@ -130,11 +134,23 @@ public class ScheduleDTO {
 		this.inputMax = inputMax;
 	}
 
+	public String getStringScheduleDate() {
+		return stringScheduleDate;
+	}
+
+	public void setStringScheduleDate(String stringScheduleDate) {
+		this.stringScheduleDate = stringScheduleDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ScheduleDTO [scheduleNo=" + scheduleNo + ", scheduleType=" + scheduleType + ", scheduleDate="
 				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
 				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + ScheduleCount + ", inputDate=" + inputDate
-				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + "]";
+				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + ", stringScheduleDate=" + stringScheduleDate
+				+ "]";
 	}
+
+
+	
 }
