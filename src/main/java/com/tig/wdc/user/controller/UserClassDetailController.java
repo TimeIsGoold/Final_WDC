@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -80,6 +79,13 @@ public class UserClassDetailController {
 		List<ReviewAnswerDTO> reviewAnswer = new ArrayList<ReviewAnswerDTO>();
 		reviewAnswer = classService.selectReviewAnswer(clsNo);
 		model.addAttribute("reviewAnswer",reviewAnswer);
+		
+		//클래스 스케줄 select
+		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+		schedule = classService.selectSchedule(clsNo);
+		model.addAttribute("schedule",schedule);
+		
+		System.out.println(schedule);
 		
 		return "user/classList/class_detail";
 	}

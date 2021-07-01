@@ -9,6 +9,7 @@ import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dao.UserClassMapper;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
@@ -77,6 +78,11 @@ public class UserClassServiceImpl implements UserClassService{
 	@Override
 	public List<ReviewAnswerDTO> selectReviewAnswer(int clsNo) {
 		return mapper.selectReviewAnswer(clsNo);
+	}
+
+	@Override
+	public List<ScheduleDTO> selectSchedule(int clsNo) {
+		return mapper.selectSchedule(clsNo);
 	}
 
 }

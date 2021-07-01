@@ -350,24 +350,53 @@ i {
 					</li>
 					</form>
 				</div>
-				<script>
-					let timeValues = [ '12:00', '13:00', '15:00', '15:30' ];
-					// 
-					let dateValues = true;
-					jQuery('#datetimepicker').datetimepicker({
-						datepicker : dateValues,
-						allowTimes : timeValues,
-						onChangeDateTime : function(dp, $input) {
-							console.log($input.val());
-							$.ajax({
-								url:"",
-								
-							})
-						}
-					});
-					
-				</script>
 				
+				<c:forEach var="schedule" items="${ requestScope.schedule }">
+               ${ schedule.scheduleStart }
+               ${ schedule.scheduleDate }
+            </c:forEach>
+            
+             <script>
+                let times = new Array();
+               let days = new Array();
+               
+                <c:forEach var="schedule" items="${ requestScope.schedule }">
+                  times.push("${schedule.scheduleStart}");
+                  days.push("${schedule.scheduleDate}");
+               </c:forEach>
+
+               let timeValues = times;
+               let dayValues = days;
+               
+               jQuery('#datetimepicker').datetimepicker({               
+                  datepicker : true,
+                  allowTimes : timeValues,
+                  //minDate : 0,
+                  onChangeDateTime : function(dp, $input) {
+                     console.log($input.val());
+                  },
+                  beforeShowDay: disableAllTheseDays
+               });
+               
+               // 일요일만 선택 막기 
+               function noSundays(date) { 
+                 return [date.getDay() = days, '']; 
+               }
+               
+               var disabledDays = dayValues;
+
+               function disableAllTheseDays(date) { 
+                     var m = date.getMonth(), d = date.getDate(), y = date.getFullYear(); 
+                     for (i = 0; i < disabledDays.length; i++) { 
+                         if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) { 
+                             return [false]; 
+                         } 
+                     } 
+                     return [true]; 
+                  }
+               
+
+            </script>
 
 				<br>
 				<br>
@@ -396,9 +425,7 @@ i {
 									<div style="width: 550px; height: 70px; margin-top: 20px;">
 										<h3>※ 상세 정보</h3>
 									</div>
-									<pre style="font-size: 16px; margin-left: -335px;">
-									${ requestScope.classDetail.intro }
-				                    </pre>
+									<pre style="font-size: 16px;">${ requestScope.classDetail.intro }</pre>
 									<br>
 									<hr>
 									<br>

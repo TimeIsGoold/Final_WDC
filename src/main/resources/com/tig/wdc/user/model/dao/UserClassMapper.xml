@@ -176,5 +176,23 @@
 		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
+    
+    <resultMap type="ScheduleDTO" id="ScheduleResult">
+        <id column="SCHEDULE_NO" property="scheduleNo"/>
+        <result column="SCHEDULE_TYPE" property="scheduleType"/>
+        <result column="SCHEDULE_DATE" property="scheduleDate"/>
+        <result column="SCHEDULE_START" property="scheduleStart"/>
+        <result column="MIN_PEOPLE" property="minPeople"/>
+        <result column="MAX_PEOPLE" property="maxPeople"/>
+        <result column="CLS_NO" property="clsNo"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+    </resultMap>
+    
+    <select id="selectSchedule" parameterType="_int" resultMap="ScheduleResult">
+		SELECT 
+		       * 
+		  FROM SCHEDULE S
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
 
 </mapper>
