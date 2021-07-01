@@ -5,6 +5,7 @@ import java.util.List;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
@@ -33,6 +34,8 @@ public interface UserClassService {
 	UserClassDTO selectClassStar(int clsNo);
 
 	List<ReviewAnswerDTO> selectReviewAnswer(int clsNo);
+
+	List<ScheduleDTO> selectSchedule(int clsNo);
 
 
 }

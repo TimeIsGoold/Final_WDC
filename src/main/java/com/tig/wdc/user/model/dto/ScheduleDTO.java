@@ -18,7 +18,7 @@ public class ScheduleDTO {
 	private int minPeople;
 	private int maxPeople;
 	private int clsNo;
-	private int ScheduleCount;
+	private int scheduleCount;
 	
 	private String inputDate;
 	private String inputMin;
@@ -36,7 +36,7 @@ public class ScheduleDTO {
 		this.minPeople = minPeople;
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
-		this.ScheduleCount = scheduleCount;
+		this.scheduleCount = scheduleCount;
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;
@@ -99,11 +99,11 @@ public class ScheduleDTO {
 	}
 
 	public int getScheduleCount() {
-		return ScheduleCount;
+		return scheduleCount;
 	}
 
 	public void setScheduleCount(int scheduleCount) {
-		ScheduleCount = scheduleCount;
+		scheduleCount = scheduleCount;
 	}
 
 	public String getInputDate() {
@@ -134,7 +134,7 @@ public class ScheduleDTO {
 	public String toString() {
 		return "ScheduleDTO [scheduleNo=" + scheduleNo + ", scheduleType=" + scheduleType + ", scheduleDate="
 				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
-				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + ScheduleCount + ", inputDate=" + inputDate
+				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + scheduleCount + ", inputDate=" + inputDate
 				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + "]";
 	}
 }

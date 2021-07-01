@@ -11,11 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
@@ -77,6 +77,13 @@ public class UserClassDetailController {
 		List<ReviewAnswerDTO> reviewAnswer = new ArrayList<ReviewAnswerDTO>();
 		reviewAnswer = classService.selectReviewAnswer(clsNo);
 		model.addAttribute("reviewAnswer",reviewAnswer);
+		
+		//클래스 스케줄 select
+		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+		schedule = classService.selectSchedule(clsNo);
+		model.addAttribute("schedule",schedule);
+		
+		System.out.println(schedule);
 		
 		return "user/classList/class_detail";
 	}
