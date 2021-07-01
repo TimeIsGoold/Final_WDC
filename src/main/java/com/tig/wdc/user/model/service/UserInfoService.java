@@ -14,5 +14,15 @@ public interface UserInfoService {
 
 	public List<UserCouponDTO> selectCouponList(int userNo);
 
-	public List<UserClassDTO> selectScheduledClassList(int userNo);
+	public List<UserClassDTO> selectScheduledOneDayClassList(int userNo);
+
+	public List<UserClassDTO> selectScheduledRegularClassList(int userNo);
+	
+	public List<UserClassDTO> selectparticipatingOneDayClassList(int userNo);
+
+	public List<UserClassDTO> selectparticipatingRegularClassList(int userNo);
+
+	public List<UserClassDTO> selectComplateClassList(int userNo);
+
+	public List<UserClassDTO> selectRefundClassList(int userNo);
 }

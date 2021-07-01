@@ -59,7 +59,16 @@ public interface AdminMapper {
 	 * @param id
 	 * @return
 	 */
-	QuestionDTO selectTeacherQuestionInfoDetail(String id);
+	QuestionDTO selectTeacherQuestionInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 학생 문의 상세
+	 * 
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectStudentQuestionInfoDetail(int no);
 	
 	/**
 	 * @author 송아현
@@ -68,6 +77,15 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<CouponDTO> selectAllCouponList();
+	
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 상세
+	 * @param no
+	 * @return
+	 */
+	CouponDTO selectCouponInfoDetail(int no);
 
 	/**
 	 * @author 송아현
@@ -76,6 +94,15 @@ public interface AdminMapper {
 	 * @return
 	 */
 	List<NoticeDTO> selectAllNoticeList();
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	NoticeDTO selectNoticeInfoDetail(int no);
 	
 	/**
 	 * @author 송아현

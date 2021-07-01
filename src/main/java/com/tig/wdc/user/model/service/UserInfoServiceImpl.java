@@ -39,8 +39,36 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
 	@Override
-	public List<UserClassDTO> selectScheduledClassList(int userNo) {
-		return mapper.selectScheduledClassList(userNo);
+	public List<UserClassDTO> selectScheduledOneDayClassList(int userNo) {
+		return mapper.selectScheduledOneDayClassList(userNo);
+	}
+
+	@Override
+	public List<UserClassDTO> selectScheduledRegularClassList(int userNo) {
+		return mapper.selectScheduledRegularClassList(userNo);
+	}
+	
+	@Override
+	public List<UserClassDTO> selectparticipatingOneDayClassList(int userNo) {
+		return mapper.selectparticipatingOneDayClassList(userNo);
+	}
+
+
+	@Override
+	public List<UserClassDTO> selectparticipatingRegularClassList(int userNo) {
+		return mapper.selectparticipatingRegularClassList(userNo);
+	}
+
+
+	@Override
+	public List<UserClassDTO> selectComplateClassList(int userNo) {
+		return mapper.selectComplateClassList(userNo);
+	}
+
+
+	@Override
+	public List<UserClassDTO> selectRefundClassList(int userNo) {
+		return mapper.selectRefundClassList(userNo);
 	}
 
 }

@@ -3,7 +3,7 @@ package com.tig.wdc.user.model.dto;
 import java.sql.Date;
 
 /**
- * @author SORA
+ * @author SORA 
  * 리뷰 DTO
  */
 public class UserReviewDTO {
@@ -15,13 +15,14 @@ public class UserReviewDTO {
 	private int reviewScore;
 	private Date reviewEnrollDate;
 	private int aplNo;
+	private String userName;
 
 	public UserReviewDTO() {
 		super();
 	}
 
 	public UserReviewDTO(int reviewNo, String reviewTitle, String reviewContent, String reviewPic, int reviewScore,
-			Date reviewEnrollDate, int aplNo) {
+			Date reviewEnrollDate, int aplNo, String userName) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
@@ -30,6 +31,7 @@ public class UserReviewDTO {
 		this.reviewScore = reviewScore;
 		this.reviewEnrollDate = reviewEnrollDate;
 		this.aplNo = aplNo;
+		this.userName = userName;
 	}
 
 	public int getReviewNo() {
@@ -88,11 +90,19 @@ public class UserReviewDTO {
 		this.aplNo = aplNo;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
 		return "UserReviewDTO [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent="
 				+ reviewContent + ", reviewPic=" + reviewPic + ", reviewScore=" + reviewScore + ", reviewEnrollDate="
-				+ reviewEnrollDate + ", aplNo=" + aplNo + "]";
+				+ reviewEnrollDate + ", aplNo=" + aplNo + ", userName=" + userName + "]";
 	}
 
 }

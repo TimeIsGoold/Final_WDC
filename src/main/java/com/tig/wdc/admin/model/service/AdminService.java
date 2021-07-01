@@ -49,11 +49,21 @@ public interface AdminService {
 	
 	/**
 	 * @author 송아현
-	 * 강사문의상세
+	 * 학생 문의상세
 	 * @param id
 	 * @return
 	 */
-	QuestionDTO selectTeacherQuestionInfoDetail(String id);
+	QuestionDTO selectStudentQuestionInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 강사문의상세
+	 * 
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectTeacherQuestionInfoDetail(int no);
+	
 
 	StudentDTO selectOneStudent(int no);
 
@@ -70,6 +80,16 @@ public interface AdminService {
 	 * @return
 	 */
 	List<CouponDTO> selectAllCouponList();
+	
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	CouponDTO selectCouponInfoDetail(int no);
 
 	/**
 	 * @author 송아현
@@ -78,6 +98,15 @@ public interface AdminService {
 	 * @return
 	 */
 	List<NoticeDTO> selectAllNoticeList();
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	NoticeDTO selectNoticeInfoDetail(int no);
 
 	/**
 	 * @author 송아현
@@ -96,13 +125,8 @@ public interface AdminService {
 	List<CalculateDTO> selectYesCalculateList();
 	
 
-	/**
-	 * @author 김현빈
-	 * 신고 상세 디테일
-	 * 
-	 * @return
-	 */
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
+
 
 	/**
 	 * @author 김현빈
@@ -131,10 +155,6 @@ public interface AdminService {
 	int insertBlackList(Map<String, Object> blackMap);
 
 	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
-
-
-
-
 
 
 }

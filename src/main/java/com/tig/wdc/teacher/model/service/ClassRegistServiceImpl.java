@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistMapper;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 
 /**
  * @author 이해승
@@ -50,11 +52,21 @@ public class ClassRegistServiceImpl implements ClassRegistService {
 	}
 
 	/**
-	 * 클래스 커리큘럼 insert
+	 * 커리큘럼 insert
 	 */
 	@Override
-	public int insertCurriculum(List<CurriculumDTO> curriList) {
-		return mapper.insertCurriculum(curriList);
+	public int insertCurriculum(CurriculumDTO curriculum) {
+		return  mapper.insertCurriculum(curriculum);
 	}
+
+	/**
+	 * 스케쥴 insert
+	 */
+	@Override
+	public int insertSchedule(ScheduleDTO schedule) {
+		return mapper.insertSchedule(schedule);
+	}
+	
+	
 
 }

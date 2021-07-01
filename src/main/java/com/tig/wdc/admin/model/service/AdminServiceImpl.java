@@ -87,9 +87,19 @@ public class AdminServiceImpl implements AdminService {
 	 * 강사 문의 상세
 	 */
 	@Override
-	public QuestionDTO selectTeacherQuestionInfoDetail(String id) {
+	public QuestionDTO selectTeacherQuestionInfoDetail(int no) {
 
-		return mapper.selectTeacherQuestionInfoDetail(id);
+		return mapper.selectTeacherQuestionInfoDetail(no);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 학생 상세 문의
+	 */
+	@Override
+	public QuestionDTO selectStudentQuestionInfoDetail(int no) {
+
+		return mapper.selectStudentQuestionInfoDetail(no);
 	}
 
 	@Override
@@ -124,6 +134,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectAllCouponList();
 	}
+	
+	/**
+	 *@author 송아현
+	 *쿠폰 상세
+	 */
+	@Override
+	public CouponDTO selectCouponInfoDetail(int no) {
+		
+		return mapper.selectCouponInfoDetail(no);
+	}
 
 	/**
 	 * @author 송아현
@@ -134,6 +154,17 @@ public class AdminServiceImpl implements AdminService {
 	public List<NoticeDTO> selectAllNoticeList() {
 
 		return mapper.selectAllNoticeList();
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 *
+	 */
+	@Override
+	public NoticeDTO selectNoticeInfoDetail(int no) {
+
+		return mapper.selectNoticeInfoDetail(no);
 	}
 
 	 /**
@@ -146,14 +177,7 @@ public class AdminServiceImpl implements AdminService {
 	 
 		 return mapper.selectNoCalculateList(); 
 	}
-
-	@Override
-	public ReportDetailDTO selectStudentReportList(ReportDetailDTO rd) {
-
-		
-		return mapper.selectStudentReportList(rd);
-	}
-	 
+	
 	 /**
 	 * @author 송아현
 	 * 정산완료
@@ -164,6 +188,22 @@ public class AdminServiceImpl implements AdminService {
 	 
 		 return mapper.selectYesCalculateList(); 
 	}
+
+	@Override
+	public ReportDetailDTO selectStudentReportList(ReportDetailDTO rd) {
+
+		
+		return mapper.selectStudentReportList(rd);
+	}
+
+
+//	@Override
+//	public ReportDetailDTO selectTeacherReportList(int no) {
+//		
+//		return mapper.selectTeacherReportList(no);
+//	}
+
+	
 
 	@Override
 	public  int updateReportStatus(int no) {
@@ -212,8 +252,6 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.updateBlackListOnUSerTable(blackMap);
 	}
-
-
 
 
 

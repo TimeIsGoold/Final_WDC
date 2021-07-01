@@ -14,6 +14,16 @@ public interface UserInfoMapper {
 
 	List<UserCouponDTO> selectCouponList(int userNo);
 
-	List<UserClassDTO> selectScheduledClassList(int userNo);
+	List<UserClassDTO> selectScheduledOneDayClassList(int userNo);
+
+	List<UserClassDTO> selectScheduledRegularClassList(int userNo);
+
+	List<UserClassDTO> selectparticipatingOneDayClassList(int userNo);
+
+	List<UserClassDTO> selectparticipatingRegularClassList(int userNo);
+
+	List<UserClassDTO> selectComplateClassList(int userNo);
+
+	List<UserClassDTO> selectRefundClassList(int userNo);
 
 }

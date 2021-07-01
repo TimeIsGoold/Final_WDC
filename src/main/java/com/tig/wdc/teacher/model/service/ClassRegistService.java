@@ -1,11 +1,13 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 
 /**
  * @author 이해승
@@ -23,7 +25,10 @@ public interface ClassRegistService {
 	int insertCompletePiece(ClassPieceDTO classPiece);
 
 	//클래스 커리큘럼 insert
-	int insertCurriculum(List<CurriculumDTO> curriList);
+	int insertCurriculum(CurriculumDTO curriculum);
+
+	//클래스 스케쥴 
+	int insertSchedule(ScheduleDTO schedule);
 
 	
 }

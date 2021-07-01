@@ -63,12 +63,66 @@ function loadImg(value, num) {
 
 function scheduleChange(t){
     let type = t.id;
+    var a = "";
+    if(document.getElementById("scheduleType").value.length > 0){
+        
+        switch(document.getElementById("scheduleType").value){
+            
+            case "I" : a = "individual"; break;
+            case "D" : a = "repeat"; break;
+        }
+        
+        if(a==type){
+            return;
+        }
+        alert("기존에 등록된 스케쥴이 모두 삭제됩니다. 변경하시겠습니까?");
+    }
+    
+    document.getElementById("scheduleList").innerHTML = "스케쥴을 등록해주세요";
+    let repeatTable = document.getElementById("repeatTable");
+    let scheduleTable = document.getElementById("scheduleDetail");
+
+    repeatTable.innerHTML = "";
+    scheduleTable.innerHTML = "";
+    
+    let inputDate = document.getElementsByName("inputDate");
+    let scheduleStart =  document.getElementsByName("scheduleStart");
+    let inputMin = document.getElementsByName("inputMin");
+    let inputMax = document.getElementsByName("inputMax");
+    
+    if(inputDate.length > 0){
+        for(var i = 0; i < inputDate.length; i++){
+            inputDate.remove();
+        }
+    }
+    if(scheduleStart.length > 0){
+        for(var i = 0; i < scheduleStart.length; i++){
+            scheduleStart.remove();
+        }
+    }
+    if(inputMin.length > 0){
+        for(var i = 0; i < inputMin.length; i++){
+            inputMins.remove();
+        }
+    }
+    if(inputMax.length > 0){
+        for(var i = 0; i < inputMax.length; i++){
+            inputMax.remove();
+        }
+    }
+    
+    repeatTable.innerHTML += "<tr style='background-color: #f5f5f5;'><th>강의날짜</th><th>시작 시간</th><th>참여가능인원</th><th>삭제</th></tr>"; 
+    scheduleTable.innerHTML += "<tr style='background-color: #f5f5f5;'><th>강의날짜</th><th>시작 시간</th><th>참여가능인원</th><th>삭제</th></tr>"; 
     switch(type){
-        case "individual" : document.getElementById("scheduleType").value = type; 
+        case "individual" : document.getElementById("scheduleType").value = "I"; 
                             document.getElementById("dateTimeSetting").style.cursor="";
+                            document.getElementById("individual").class="schedule-select";
+                            document.getElementById("repeat").class="schedule-none";
                             break;
-        case "repeat" : document.getElementById("scheduleType").value = type; 
+        case "repeat" : document.getElementById("scheduleType").value = "D"; 
                         document.getElementById("dateTimeSetting").style.cursor="";
+                        document.getElementById("individual").class="schedule-none";       
+                        document.getElementById("repeat").class="schedule-select";
                         break;
         case "always" : document.getElementById("scheduleType").value = type; 
                         document.getElementById("dateTimeSetting").style.cursor="not-allowed";
@@ -80,8 +134,8 @@ function doPopUP(){
     let type = document.getElementById("scheduleType").value;
     console.dir(document.getElementById("dateTimeSetting"));
     switch(type){
-        case "individual" : document.getElementById("dateTimeSetting").dataset.target="#individualSetting";break;
-        case "repeat" : document.getElementById("dateTimeSetting").dataset.target="#repeatSetting";break;
+        case "I" : document.getElementById("dateTimeSetting").dataset.target="#individualSetting";break;
+        case "D" : document.getElementById("dateTimeSetting").dataset.target="#repeatSetting";break;
         default : alert("클래스타입을 선택해주세요"); break;
     }
 };
@@ -98,6 +152,7 @@ function setCurriculum(){
     
         document.getElementById("noneCurri").remove();
     }
+    
     let hiddeName = "<input type='hidden' value='" +curriName + "'name='curriTitle'>";
     let hiddeContent = "<input type='hidden' value='" +curriContent + "'name='curriContent'>";
     let hiddeStep = "<input type='hidden' value='" +step + "'name='curriStep'>";
@@ -109,12 +164,125 @@ function setCurriculum(){
     document.getElementById("curriName").value = "";   
     document.getElementById("curriContent").value ="";                  
     document.getElementById("selectStep").value = Number(step)+1;                    
+};
+
+function addSchedule(){
+    let addInfo = document.getElementsByName("lectureSchedule");
+    let scheduleTable = document.getElementById("scheduleDetail");
+    let week = ['일','월','화','수','목','금','토'];
+    let dayOfWeek = week[new Date(addInfo[0].value).getDay()]; 
+    let hiddenDay = "<input type='hidden' value='" + addInfo[0].value + "' name='inputDate'>";
+    let hiddenStartT = "<input type='hidden' value='" + addInfo[1].value+":"+ addInfo[2].value + "' name='scheduleStart'>";
+    let minP = "<input type='hidden' value='" + addInfo[3].value + "' name='inputMin'>";
+    let maxP = "<input type='hidden' value='" + addInfo[4].value + "' name='inputMax'>";
+    scheduleTable.innerHTML += "<tr><td name='scheduleTable1'>"+addInfo[0].value + "(" + dayOfWeek + ")"
+                             + "</td><td name='scheduleTable2'>"+addInfo[1].value + " : "+ addInfo[2].value 
+                             + "</td><td name='scheduleTable3'> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>"
+                             + hiddenDay + hiddenStartT + minP + maxP
+};
+
+
+
+function addDayRepeat(){
+    let inputData = document.getElementsByName("lectureSchedule2");
+    let startDate = new Date(document.getElementById("start").value);
+    let endDate = new Date(document.getElementById("end").value);
+
+    let selectWeek = document.getElementsByName("dayName");
+    let weekArr = [];
+    let weekList = ['일','월','화','수','목','금','토'];
+    
+    let repeatTable = document.getElementById("repeatTable");
+    	
+    for(var i = 0; i < selectWeek.length; i++){
+        if(selectWeek[i].checked){
+            weekArr.push(selectWeek[i].value);
+        }
+    }
+    
+    let dayMinus = (endDate.getTime() - startDate.getTime())/(1000*60*60*24) +1 ;
+    
+    for(var i = 0; i < dayMinus; i++){
+    	let date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+    	
+            for(var j = 0; j < weekArr.length; j ++){
+        	
+            if(date.getDay() == weekArr[j]){
+
+                
+                //날짜 계산
+                let year = date.getFullYear()
+                let month = date.getMonth() + 1
+                month = month >= 10 ? month : '0' + month
+                let day = date.getDate();
+                day = day >= 10 ? day : '0' + day
+                let purchaseDay = year + '-' + month + '-' + day;
+                let dayOfWeek = weekList[weekArr[j]];
+
+                //히든태그
+                let hiddenDay = "<input type='hidden' value='" + purchaseDay + "' name='inputDate'>";
+                let hiddenStartT = "<input type='hidden' value='" + inputData[0].value+":"+ inputData[1].value + "' name='scheduleStart'>";
+                let minP = "<input type='hidden' value='" + inputData[2].value + "' name='inputMin'>";
+                let maxP = "<input type='hidden' value='" + inputData[3].value + "' name='inputMax'>";            
+                
+                repeatTable.innerHTML += "<tr><td name='scheduleTable1'>"+ purchaseDay + "(" + dayOfWeek + ")"
+                             + "</td><td name='scheduleTable2'>"+inputData[0].value + " : "+ inputData[1].value 
+                             + "</td><td name='scheduleTable3'> 최소 "+ inputData[2].value + "명 ~ 최대 " + inputData[3].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>"
+                             + hiddenDay + hiddenStartT + minP + maxP;
+            }
+        }
+    }
 }
 
+function scheduleWrite(){
+    
+    document.getElementById("scheduleList").innerHTML = "";
+    let writeDate = document.getElementsByName("scheduleTable1");
+    let writeTime = document.getElementsByName("scheduleTable2");
+    let writePeople = document.getElementsByName("scheduleTable3");
 
+    for(var i = 0; i < writeDate.length; i++){
+        document.getElementById("scheduleList").innerHTML += "강의날짜  :  " + writeDate[i].innerHTML + "    ||  시작시간  :  " + writeTime[i].innerHTML + "   ||   " + writePeople[i].innerHTML + "<br>"
+    }
+}
 
+function regularScheduleAdd(){
 
+    let startDate = document.getElementById("regularStart").value;
+    let endDate = document.getElementById("regularEnd").value;
 
+    let regurlaScheduleInfo = document.getElementsByName("regularInputInfo");
+    let regulsrScheduleTable = document.getElementById("regularTable");
+
+    regulsrScheduleTable.innerHTML = "<tr style='background-color: #f5f5f5;'><th>강의날짜</th><th>시작 시간</th><th>참여가능인원</th><th>예정횟수</th><th>삭제</th></tr>";;
+    let week = ['일','월','화','수','목','금','토'];
+    let dayOfWeekStart = week[new Date(startDate).getDay()]; 
+    let dayOfWeekEnd = week[new Date(endDate).getDay()]; 
+    let hiddenDay = "<input type='hidden' value='" + startDate + "' name='inputDate'>";
+    let hiddenStartT = "<input type='hidden' value='" + regurlaScheduleInfo[0].value+":"+ regurlaScheduleInfo[1].value + "' name='scheduleStart'>";
+    let minP = "<input type='hidden' value='" + regurlaScheduleInfo[2].value + "' name='inputMin'>";
+    let maxP = "<input type='hidden' value='" + regurlaScheduleInfo[3].value + "' name='inputMax'>";
+    let expectCount = "<input type='hidden' value='" + regurlaScheduleInfo[4].value + "' name='ScheduleCount'>";
+    alert(regurlaScheduleInfo[4].value);
+    regulsrScheduleTable.innerHTML += "<tr><td name='regularTable1'>"+startDate + "(" + dayOfWeekStart + ")  ~  " + endDate +"(" + dayOfWeekEnd + ")" 
+                             + "</td><td name='regularTable2'>"+regurlaScheduleInfo[0].value + " : "+ regurlaScheduleInfo[1].value 
+                             + "</td><td name='regularTable3'> 최소 "+ regurlaScheduleInfo[2].value + "명 ~ 최대 " + regurlaScheduleInfo[3].value + 
+                             "명 </td><td name='regularTable4>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button'>삭제</button></td></tr>"
+                             + hiddenDay + hiddenStartT + minP + maxP + expectCount;
+
+}
+
+function regularRegist(){
+    
+    document.getElementById("regularList").innerHTML = "";
+    let writeDate = document.getElementsByName("regularTable1");
+    let writeTime = document.getElementsByName("regularTable2");
+    let writePeople = document.getElementsByName("regularTable3");
+    let expectCount = document.getElementsByName("regularTable4");
+
+    document.getElementById("regularList").innerHTML += "강의날짜  :  " + writeDate[0].innerHTML + "    ||  시작시간  :  " + writeTime[0].innerHTML + "   ||   " + writePeople[0].innerHTML + "  ||  예정횟수  :  " + expectCount[0].innerHTML+"<br>";
+}
 
 
 

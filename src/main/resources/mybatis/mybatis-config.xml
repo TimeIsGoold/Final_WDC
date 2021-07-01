@@ -26,11 +26,17 @@
  		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>
  		<typeAlias alias="UserClassDTO" type="com.tig.wdc.user.model.dto.UserClassDTO"/>
  		<typeAlias alias="UserCouponDTO" type="com.tig.wdc.user.model.dto.UserCouponDTO"/>
+ 		<typeAlias alias="ClassPieceDTO" type="com.tig.wdc.user.model.dto.ClassPieceDTO"/>
+ 		<typeAlias alias="CurriculumDTO" type="com.tig.wdc.model.dto.CurriculumDTO"/>
+ 		<typeAlias alias="UserReviewDTO" type="com.tig.wdc.user.model.dto.UserReviewDTO"/>
+ 		<typeAlias alias="ReviewAnswerDTO" type="com.tig.wdc.user.model.dto.ReviewAnswerDTO"/>
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
  		<typeAlias alias="attachment" type="com.tig.wdc.model.dto.AttachMentDTO"/>
  		<typeAlias alias="completePiece" type="com.tig.wdc.model.dto.ClassPieceDTO"/>
+ 		<typeAlias alias="curriculum" type="com.tig.wdc.model.dto.CurriculumDTO"/>
+ 		<typeAlias alias="schedule" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
  		
  	</typeAliases>
  </configuration>

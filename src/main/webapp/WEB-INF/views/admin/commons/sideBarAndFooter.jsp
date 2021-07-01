@@ -20,9 +20,6 @@
     			var NdocumentUrl = new URL(documentUrl);  
     			var currentMenu = NdocumentUrl .searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
     			 
-    			console.log(NdocumentUrl);
-    			console.log(currentMenu);
-    			
     			const sideBar = document.getElementsByClassName('nav-link');
     			
     			const currentMenuBar = document.getElementById(currentMenu);

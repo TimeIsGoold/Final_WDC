@@ -1,7 +1,5 @@
 package com.tig.wdc.admin.model.dto;
 
-import java.util.Date;
-
 public class CouponDTO {
 
 	private int couponNo;
@@ -12,13 +10,14 @@ public class CouponDTO {
 	private java.sql.Date startDate;
 	private java.sql.Date endDate;
 	private String useStatus;
+	private int discountCondition;
 	
 	public CouponDTO() {
 		super();
 	}
 
 	public CouponDTO(int couponNo, String couponType, String couponName, int discount, java.sql.Date issueDate,
-			java.sql.Date startDate, java.sql.Date endDate, String useStatus) {
+			java.sql.Date startDate, java.sql.Date endDate, String useStatus, int discountCondition) {
 		super();
 		this.couponNo = couponNo;
 		this.couponType = couponType;
@@ -28,6 +27,7 @@ public class CouponDTO {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.useStatus = useStatus;
+		this.discountCondition = discountCondition;
 	}
 
 	public int getCouponNo() {
@@ -94,11 +94,19 @@ public class CouponDTO {
 		this.useStatus = useStatus;
 	}
 
+	public int getDiscountCondition() {
+		return discountCondition;
+	}
+
+	public void setDiscountCondition(int discountCondition) {
+		this.discountCondition = discountCondition;
+	}
+
 	@Override
 	public String toString() {
 		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName=" + couponName
 				+ ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", useStatus=" + useStatus + "]";
+				+ endDate + ", useStatus=" + useStatus + ", discountCondition=" + discountCondition + "]";
 	}
 
 }
