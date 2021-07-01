@@ -6,24 +6,18 @@
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>우리동네 클래스</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-            rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         
     </head>
     <body class="sb-nav-fixed">
               	<!-- header -->
-		<%@ include file="commons/header.jsp" %>
+ 		<%@ include file="commons/header.jsp" %>
 		
         <div id="layoutSidenav">
         
@@ -92,13 +86,20 @@
                                         <tr>
                                             <td>누적 신고</td>
                                             <td style="padding-left: 200px;">${ memberInfo.reportedCnt }</td>
-                                            <td align="right"><button type="submit" class="btn btn-danger" >블랙리스트 등록</button></td>
+                                            <td align="right"><c:choose><c:when test="${memberInfo.blockYn eq 'N'}">
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#insertBlackList">
+												 블랙리스트 등록
+											</button>
+                                            </c:when><c:otherwise><button class="btn btn-danger" disabled>BlackList</button></c:otherwise></c:choose></td>
                                         </tr>
                                         <tr>
+                                   
                                             <td>쿠폰 발급하기</td>
-                                            <td colspan="" align="right"><a class="btn btn-primary" href="couponIssue.html" role="button">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+                                            <td colspan="" align="right"><c:choose><c:when test="${memberInfo.blockYn eq 'N'}">
+                                            <a class="btn btn-primary" href="couponIssue.html" role="button">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                            </c:when><c:otherwise></c:otherwise></c:choose></td>
                                             <td></td>
-                                        </tr>
+                                        </tr>				
                                     </table>
                                 </div>
                             </div>
@@ -107,6 +108,28 @@
                 </main>
             </div>
 
+										<!-- 블랙리스트 등록 -->
+										<div class="modal fade" id="insertBlackList" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										  <div class="modal-dialog">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <h5 class="modal-title" id="exampleModalLabel">블랙리스트 등록</h5>
+										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										      </div>
+										      <form method="POST" action="${pageContext.servletContext.contextPath}/admin/blackListInsert">
+										      <div class="modal-body">
+										        <textarea cols="50" rows="10" style="resize:none;" name="blackReason"></textarea>
+										        <input type="hidden" name="userNo" value="${ memberInfo.studentnNo }"/>
+										        <input type="hidden" name="type" value="${ memberInfo.type }"/>
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+										        <button type="submit" class="btn btn-danger">등록하기</button>
+										      </div>
+										       </form>
+										    </div>
+										  </div>
+										</div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>

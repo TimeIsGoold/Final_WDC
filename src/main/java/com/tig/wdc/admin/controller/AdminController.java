@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
@@ -70,6 +73,7 @@ public class AdminController {
 	@GetMapping("classManagement")
 	public String selectClassList(Model model) {
 
+		System.out.println(adminService.selectAllClassList());
 		model.addAttribute("classList", adminService.selectAllClassList());
 
 		return "admin/adminClassManagement";
@@ -330,5 +334,29 @@ public class AdminController {
 		}
 		return "admin/BlackListManagement";
 	}
+	
+	@GetMapping("selectClassBycategory")
+	public String selectClassBycategory(@RequestParam("ct")String type, Model model) {
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("type", type);
+		
+		
+		model.addAttribute("classList", adminService.selectClassBycategory(map));
+		
+		
+		return "admin/adminClassManagement";
+	}
+	
+	@PostMapping("blackListInsert")
+	public String blackListInsert(@ModelAttribute BlackListDTO black, Model model) {
+		Map<String, Object> blackMap = new HashMap<>();
+		blackMap.put("blackMap", black);
+		adminService.insertBlackList(blackMap);
+		adminService.updateBlackListOnUSerTable(blackMap);
+		
+		return "redirect:blackListMenagement?&ut=to";
+	}
+	
 
 }

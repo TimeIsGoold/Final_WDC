@@ -156,5 +156,7 @@ public interface AdminService {
 
 	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
 
+	List<ClassDTO> selectClassBycategory(Map<String, String> type);
+
 
 }

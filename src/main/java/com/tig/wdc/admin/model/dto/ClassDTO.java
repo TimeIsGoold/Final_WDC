@@ -8,10 +8,13 @@ public class ClassDTO {
 	private String classPrice;
 	private String classType;
 	private String decisionStatus;
-	public ClassDTO() {}
-	
+	private String classDicsionStatus;
+	public ClassDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public ClassDTO(int classNo, String classTitle, String teacherName, String classPrice, String classType,
-			String decisionStatus) {
+			String decisionStatus, String classDicsionStatus) {
 		super();
 		this.classNo = classNo;
 		this.classTitle = classTitle;
@@ -19,8 +22,8 @@ public class ClassDTO {
 		this.classPrice = classPrice;
 		this.classType = classType;
 		this.decisionStatus = decisionStatus;
+		this.classDicsionStatus = classDicsionStatus;
 	}
-	
 	public int getClassNo() {
 		return classNo;
 	}
@@ -57,14 +60,19 @@ public class ClassDTO {
 	public void setDecisionStatus(String decisionStatus) {
 		this.decisionStatus = decisionStatus;
 	}
-	
+	public String getClassDicsionStatus() {
+		return classDicsionStatus;
+	}
+	public void setClassDicsionStatus(String classDicsionStatus) {
+		this.classDicsionStatus = classDicsionStatus;
+	}
 	@Override
 	public String toString() {
 		return "ClassDTO [classNo=" + classNo + ", classTitle=" + classTitle + ", teacherName=" + teacherName
 				+ ", classPrice=" + classPrice + ", classType=" + classType + ", decisionStatus=" + decisionStatus
-				+ "]";
+				+ ", classDicsionStatus=" + classDicsionStatus + "]";
 	}
-	
+
 	
 	
 }
