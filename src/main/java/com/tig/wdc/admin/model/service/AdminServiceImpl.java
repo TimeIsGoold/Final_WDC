@@ -259,6 +259,11 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectClassBycategory(type);
 	}
 
+	@Override
+	public Object selectClassDetail(Map<String, Object> cnct) {
+		return mapper.selectClassDetail(cnct);
+	}
+
 
 
 }

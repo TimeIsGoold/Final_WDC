@@ -223,7 +223,6 @@ public class AdminController {
 		 } else if(type.equals("Y")) {
 			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
 		 }
-	  
 		 return "admin/adminCalculateManagement"; 
 	 }
 	 
@@ -264,7 +263,6 @@ public class AdminController {
 			model.addAttribute("totalList", adminService.selectStudentList());
 		}
 		return "admin/adminMemberManagement";
-
 	}
 	
 	/**
@@ -285,7 +283,6 @@ public class AdminController {
 			rd.setType("T");
 		}
 			model.addAttribute("reportDetail", adminService.selectStudentReportList(rd));
-			
 			if(chkCnt == 1) {
 			model.addAttribute("message", "해당 유저는 누적 신고 3회로  블랙리스트가 되었습니다.");
 			}
@@ -300,7 +297,6 @@ public class AdminController {
 		blackMap.put("userNo", userNo);
 		adminService.updateReportStatus(no);
 		int i = adminService.selectReportCnt(userNo);
-		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
 		int chkCnt = 0;
 		if(i > 2) {
 			adminService.insertBlackList(blackMap);
@@ -314,12 +310,7 @@ public class AdminController {
 	
 	@GetMapping("procsDenyStatus")
 	public String procsDenyStatus(@RequestParam("rn")int no, @RequestParam("type")String type, Model model) {
-
-		
-
 		adminService.updateReportStatus2(no);
-
-		
 		return "redirect:reportDetail?no="+no+"&type="+ type;
 	}
 	
@@ -337,14 +328,9 @@ public class AdminController {
 	
 	@GetMapping("selectClassBycategory")
 	public String selectClassBycategory(@RequestParam("ct")String type, Model model) {
-		
 		Map<String, String> map = new HashMap<>();
 		map.put("type", type);
-		
-		
 		model.addAttribute("classList", adminService.selectClassBycategory(map));
-		
-		
 		return "admin/adminClassManagement";
 	}
 	
@@ -354,8 +340,18 @@ public class AdminController {
 		blackMap.put("blackMap", black);
 		adminService.insertBlackList(blackMap);
 		adminService.updateBlackListOnUSerTable(blackMap);
-		
 		return "redirect:blackListMenagement?&ut=to";
+	}
+	
+	@GetMapping("classDetail")
+	public String classDetail(Model model, @RequestParam("cn")int userNo, @RequestParam("ct")String type) {
+		System.out.println(userNo);
+		System.out.println(type);
+		Map<String, Object> cnct = new HashMap<>();
+		cnct.put("userNo", userNo);
+		cnct.put("type", type);
+		model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
+		return "admin/BeforeDicision";
 	}
 	
 

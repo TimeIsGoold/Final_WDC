@@ -56,7 +56,7 @@
                                     </thead>
                                     <tbody>
                      				<c:forEach items="${classList}" var="ClassDTO">
-				                            <tr>
+				                            <tr style="cursor:pointer;" onclick="location.href='${pageContext.servletContext.contextPath}/admin/classDetail?cn=${ClassDTO.classNo}&ct=${ClassDTO.classDicsionStatus}'">
 				                                <td>${ClassDTO.classNo}</td>
 				                                <td>${ClassDTO.classTitle}</td>
 				                                <td>${ClassDTO.teacherName}</td>

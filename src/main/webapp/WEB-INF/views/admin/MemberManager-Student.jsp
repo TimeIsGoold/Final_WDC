@@ -93,7 +93,6 @@
                                             </c:when><c:otherwise><button class="btn btn-danger" disabled>BlackList</button></c:otherwise></c:choose></td>
                                         </tr>
                                         <tr>
-                                   
                                             <td>쿠폰 발급하기</td>
                                             <td colspan="" align="right"><c:choose><c:when test="${memberInfo.blockYn eq 'N'}">
                                             <a class="btn btn-primary" href="couponIssue.html" role="button">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</a>

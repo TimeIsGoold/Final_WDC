@@ -158,5 +158,7 @@ public interface AdminService {
 
 	List<ClassDTO> selectClassBycategory(Map<String, String> type);
 
+	Object selectClassDetail(Map<String, Object> cnct);
+
 
 }
