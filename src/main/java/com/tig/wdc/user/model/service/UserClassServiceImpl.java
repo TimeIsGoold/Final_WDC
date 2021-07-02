@@ -14,6 +14,7 @@ import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserInquiryDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -86,6 +87,10 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectSchedule(clsNo);
 	}
 
+	@Override
+	public List<UserInquiryDTO> selectQnA(int clsNo) {
+		return mapper.selectQnA(clsNo);
+	}
 
 	/**
 	 *@author 연준
@@ -102,5 +107,6 @@ public class UserClassServiceImpl implements UserClassService{
 	public List<UserCouponDTO> selectCouponList(int userNo) {
 		return userInfoMapper.selectCouponList(userNo);
 	}
+
 
 }

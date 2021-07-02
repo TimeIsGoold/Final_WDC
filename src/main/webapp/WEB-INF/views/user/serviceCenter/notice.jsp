@@ -23,8 +23,8 @@
       .justify-content-lg-end {
         justify-content: normal !important;
       }
-a
-      .form-control-lg {
+	  
+	  a.form-control-lg {
         width: 450px;
       }
 

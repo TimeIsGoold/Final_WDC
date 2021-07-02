@@ -69,6 +69,7 @@ input:focus {
 	margin-top: -5px;
 	width: 1020px !important;
 	border-radius: 25px;
+	height: 100px;
 }
 
 /* The Close Button */
@@ -207,6 +208,7 @@ i {
   border: none !important;
   color: black !important;
 }
+
 </style>
 </head>
 <body>
@@ -329,68 +331,50 @@ i {
 						</ul>
 					</div>
 				</div>
- 					<div class="datetimepicker2" id="datetimepicker2">하하</div>
 				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 					<!-- 날짜, 시간 선택 -->
 					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-					&nbsp;&nbsp;
-					<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
-					
-					&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+					&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-					&nbsp;&nbsp;
-					<input type="number" class="datetimepicker" name="ppl">
-					&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;<input type="number" class="datetimepicker" name="ppl">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<li class="list-inline-item m-0 p-0">
-					<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-					<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>
-					신청하기 
-					</button>
-					
+						<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+							<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+						</button>
 					</li>
 					</form>
 				</div>
-				
-				<c:forEach var="schedule" items="${ requestScope.schedule }">
-               ${ schedule.scheduleStart }
-               ${ schedule.scheduleDate }
-            </c:forEach>
-            
-             <script>
-               let times = new Array();
-               let days = new Array();
-               
-                <c:forEach var="schedule" items="${ requestScope.schedule }">
-                  times.push("${schedule.scheduleStart}");
-                  days.push("${schedule.scheduleDate}");
-               </c:forEach>
 
-               let timeValues = times;
-               let dayValues = days;
-               
-               jQuery('#datetimepicker').datetimepicker({               
-                  datepicker : true,
-                  allowTimes : timeValues,
-                  format:'Y-m-d H:i',
-                  onChangeDateTime : function(dp, $input) {
-                     console.log($input.val());
-                     var datetimepicker2 = document.getElementById('datetimepicker2');
-                     datetimepicker2.innerHTML = $input.val();
-                  },
-                  //allowDates: ['01.07.2021','02.07.2021','03.01.2014','04.01.2021','05.01.2014','06.01.2014'], formatDate:'d.m.Y'
-                  //allowDates: ['2021-07-02','2021-07-03'],formatDate:'Y-m-d'
-                  allowDates : days,
-                  formatDate:'Y-m-d'
-               });
-               
- 
-               
+	            <script>
+	               let times = new Array();
+	               let days = new Array();
+	               
+	               <c:forEach var="schedule" items="${ requestScope.schedule }">
+	               	times.push("${schedule.scheduleStart}");
+	               	days.push("${schedule.scheduleDate}");
+	               </c:forEach>
+	
+	               let timeValues = times;
+	               let dayValues = days;
+	               
+	               jQuery('#datetimepicker').datetimepicker({               
+	                  datepicker : true,
+	                  allowTimes : timeValues,
+	                  format:'Y-m-d H:i',
+	                  onChangeDateTime : function(dp, $input) {
+	                     console.log($input.val());
+	                  },
+	                  allowDates : days,
+	                  formatDate:'Y-m-d',
+	                  scrollMonth : false
+	                  
 
-            </script>
-
+	               });
+	
+	            </script>
 				<br>
 				<br>
 				<br>
@@ -424,12 +408,12 @@ i {
 									<br>
 									<!-- 완성작 사진 -->
 									<h3 style="padding-bottom: 20px;">※ 클래스 완성작</h3>
-									${ requestScope.classDetail.cExpl }<br>
+									- ${ requestScope.classDetail.cExpl }<br>
 									<div style="width: 550px; display: flex; margin: auto; text-align: center; justify-content: space-between; font-size: 16px;">
 										<c:forEach var="classPiece" items="${ requestScope.classPiece }">
 											<div>
 												<img src="${ pageContext.servletContext.contextPath }/resources/upload/${ classPiece.piecePic }" width="250px" height="250px">
-												<br>${ classPiece.pieceTitle }
+												<br><br>${ classPiece.pieceTitle }
 											</div>
 										</c:forEach>
 									</div>
@@ -495,18 +479,19 @@ i {
 					<div class="tab-pane fade" id="reviews" role="tabpanel"
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
-							<button onclick="reviewWrite1();" class="btn btn-dark"
+							<button onclick="reviewWrite1();" type="button" class="btn btn-dark"
 								style="margin-left: 88%; width: 112px; font-size: 15px;">리뷰 작성</button>
 							<div id="reviewWrite"
 								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
-								<form action="detail.html">
 									<input type="file"
 										style="margin-left: 55%; margin-bottom: 10px; font-size: 15px;">
 									<textarea class="feedbackArea"
 										style="font-size: 15px; border-color: lightgray"
 										placeholder="리뷰를 작성해 주세요."></textarea>
+								<form action="">
 									<button class="btn btn-dark" type="submit"
-										style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성</button>
+										style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성
+									</button>
 								</form>
 							</div>
 
@@ -552,11 +537,11 @@ i {
 										</div>
 										<!-- 답변 -->
 										<div class="media mb-3 answer">
-											<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50">
+											<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50" height="50">
 											<div class="media-body ml-3">
 												<h6 class="mb-0 text-uppercase">${ review.answer.teName }</h6>
 												<p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
-												<p class="text-small mb-0 text-muted">${ review.answer.ansContent }</p>
+												<p class="text-small mb-0 text-muted" style="margin-top: 7px;">${ review.answer.ansContent }</p>
 												<br>
 											</div>
 										</div>
@@ -571,17 +556,18 @@ i {
 					<div class="tab-pane fade" id="questions" role="tabpanel"
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
-							<button onclick="inquiryWrite1();" class="btn btn-dark"
+							<button onclick="inquiryWrite1();" type="button" class="btn btn-dark"
 								style="margin-left: 88%; width: 112px; font-size: 15px;">문의
 								작성</button>
 							<div id="inquiryWrite"
 								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
-								<form action="detail.html">
 									<textarea class="feedbackArea"
 										style="font-size: 15px; border-color: lightgray"
 										placeholder="문의 사항을 작성해 주세요."></textarea>
+								<form action="">
 									<button class="btn btn-dark" type="submit"
-										style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성</button>
+										style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성
+									</button>
 								</form>
 							</div>
 
@@ -600,51 +586,27 @@ i {
 							<div class="row">
 								<div class="col-lg-8">
 									<!-- 문의1 -->
+									<c:forEach var="qna" items="${ requestScope.qna }">
 									<div style="padding-bottom: 15px;">
 										<div class="media mb-3">
-											<img class="rounded-circle" src="img/user.png" alt=""
-												width="50">
 											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">김이박</h6>
-												<div class="small text-muted mb-0 text-uppercase">2021-06-11</div>
-												<p class="text-small mb-0 text-muted">클래스 수강 취소 가능한가요?</p>
+												<h6 class="mb-0 text-uppercase">${ qna.userName }</h6>
+												<div class="small text-muted mb-0 text-uppercase">${ qna.queDate }</div>
+												<p class="text-small mb-0 text-muted">${ qna.queContent }</p>
 											</div>
 										</div>
 										<!-- 답변 -->
 										<div class="media mb-3 answer">
-											<img class="rounded-circle" src="img/user.png" alt=""
-												width="50">
+											<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ qna.answer.tePic }"  width="50" height="50">
 											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">강사</h6>
-												<p class="small text-muted mb-0 text-uppercase">2021-06-11</p>
-												<p class="text-small mb-0 text-muted">답변드려요.</p>
+												<h6 class="mb-0 text-uppercase">${ qna.answer.teName }</h6>
+												<p class="small text-muted mb-0 text-uppercase">${ qna.answer.answerTime }</p>
+												<p class="text-small mb-0 text-muted">${ qna.answer.answerContent }</p>
 												<br>
 											</div>
 										</div>
 									</div>
-									<!-- 문의2 -->
-									<div style="padding-bottom: 15px;">
-										<div class="media mb-3">
-											<img class="rounded-circle" src="img/user.png" alt=""
-												width="50">
-											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">최박</h6>
-												<p class="small text-muted mb-0 text-uppercase">2021-06-11</p>
-												<p class="text-small mb-0 text-muted">클래스 커리큘럼 문의드려요</p>
-											</div>
-										</div>
-										<!-- 답변 -->
-										<div class="media mb-3 answer">
-											<img class="rounded-circle" src="img/user.png" alt=""
-												width="50">
-											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">강사</h6>
-												<p class="small text-muted mb-0 text-uppercase">2021-06-11</p>
-												<p class="text-small mb-0 text-muted">답변드려요.</p>
-												<br>
-											</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
