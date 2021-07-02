@@ -144,22 +144,19 @@ h5, .h5 {
                     <tr>
                       <th class="pl-0 border-0" scope="row">
                         <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="img/class-sport.png" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></strong></div>
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">42,500</p>
+                        <p class="mb-0 small">${ requestScope.userClassDTO.price }</p>
                       </td>
                       <td class="align-middle border-0">
                           <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="1"/>
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value=${ requestScope.classApplyDTO.ppl }/>
                           </div>
-                        </div>
                       </td>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">42,500</p>
+                        <p class="mb-0 small">${ requestScope.userClassDTO.price }</p>
                       </td>
                     </tr>
                   </tbody>
@@ -307,13 +304,13 @@ h5, .h5 {
                         <div class="col-lg-6">
                           <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><a href="#none" class="close">x</a></span></button>
                           <div class="p-5 my-md-4">
-                            <h2 class="h5"> 리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</h2>
-                            <h2 class="h5">강사 : 이해승</h2>
+                            <h2 class="h5"> ${ requestScope.userClassDTO.title }</h2>
+                            <h2 class="h5">강사이름</h2>
                             <p class="text-small mb-4">
-                                <p class="text-muted">강의 날짜 : 2021-06-30</p>
-                                <p class="text-muted">강의 시간 : 16:00 ~ 18:00</p>
-                                <p class="text-muted">신청 인원 : 1 명</p>
-                                <p class="text-muted">결제 금액 : 42,500 원</p>
+                                <p class="text-muted">강의 날짜 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,0,10) }</p>
+                                <p class="text-muted">강의 시간 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,11,16) }</p>
+                                <p class="text-muted">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p>
+                                <p class="text-muted">결제 금액 : ${ requestScope.userClassDTO.price }</p>
                             </p>
                             <hr>
                             <ul style="font-size: 15px;">
