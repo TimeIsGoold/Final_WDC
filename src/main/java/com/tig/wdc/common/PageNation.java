@@ -31,7 +31,6 @@ public class PageNation {
 		endRow = startRow + limit -1;
 		 
 		PageInfoDTO pageInfo = new PageInfoDTO(pageNo,totalCount,limit,buttonAmount,maxPage,startPage,endPage,startRow,endRow);
-		
 		return pageInfo;
 	}
 }

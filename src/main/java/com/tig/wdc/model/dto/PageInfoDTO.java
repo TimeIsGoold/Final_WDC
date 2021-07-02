@@ -1,5 +1,8 @@
 package com.tig.wdc.model.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PageInfoDTO {
 	
 	private int pageNo;     	// 요청한 페이지번호

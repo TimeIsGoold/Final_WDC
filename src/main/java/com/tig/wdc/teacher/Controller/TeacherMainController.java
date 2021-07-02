@@ -22,11 +22,13 @@ public class TeacherMainController {
 
 	private final TeacherInfoService teacherInfoServcie;
 	private final BoardAndQnAService noticeService;
+	private PageInfoDTO pageInfo;
 	
 	@Autowired
-	public TeacherMainController(TeacherInfoService teacherInfoServcie, BoardAndQnAService noticeService) {
+	public TeacherMainController(TeacherInfoService teacherInfoServcie, BoardAndQnAService noticeService, PageInfoDTO pageInfo) {
 		this.teacherInfoServcie = teacherInfoServcie;
 		this.noticeService = noticeService;
+		this.pageInfo = pageInfo; 
 	}
 
 	@GetMapping("teacher")
@@ -36,10 +38,10 @@ public class TeacherMainController {
 	
 	@GetMapping("teacher/main")
 	public String teacherMain(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
-		
 		int teacherNo= (Integer) session.getAttribute("teacherNo");
+		System.out.println("너의 값은???????" + currentPage);
 		//공지사항 페이징처리
-		PageInfoDTO pageInfo = PageNation.getPageInfo(currentPage, noticeService.selectNoticeCount(), 5, 5);
+		pageInfo = PageNation.getPageInfo(currentPage, noticeService.selectNoticeCount(), 5, 5);
 		//페이징처리정보
 		model.addAttribute("pageInfo", pageInfo);
 		//공지사항리스트

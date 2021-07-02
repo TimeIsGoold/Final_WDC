@@ -238,7 +238,7 @@
 	</script>
 	<script>
 		function goMain() {
-			if (confirm("메인으로 돌아가시겠습니까?<br> 작성중인 내용은 유지되지 않습니다.")) {
+			if (confirm("메인으로 돌아가시겠습니까? \n작성중인 내용은 유지되지 않습니다. \n- 김현빈 -" )) {
 				location.href = "${pageContext.servletContext.contextPath }/teacher/main";
 			} else {
 				location.href = "#";

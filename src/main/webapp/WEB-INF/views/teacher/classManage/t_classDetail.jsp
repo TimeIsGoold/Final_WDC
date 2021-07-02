@@ -85,7 +85,7 @@
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/studentManageList" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
       </div>  
     
@@ -339,6 +339,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>
