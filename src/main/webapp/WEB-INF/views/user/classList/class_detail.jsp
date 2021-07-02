@@ -378,7 +378,9 @@ i {
                   onChangeDateTime : function(dp, $input) {
                      console.log($input.val());
                      var datetimepicker2 = document.getElementById('datetimepicker2');
-                     datetimepicker2.innerText = $input.val();
+                     
+                     $("#datetimepicker2")[0].value = $input.val();
+                     $("#datetimepicker2")[0].innerText = $input.val();
                   },
                   //allowDates: ['01.07.2021','02.07.2021','03.01.2014','04.01.2021','05.01.2014','06.01.2014'], formatDate:'d.m.Y'
                   //allowDates: ['2021-07-02','2021-07-03'],formatDate:'Y-m-d'
