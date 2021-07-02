@@ -3,7 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
- 
+ 	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 	</settings>
  	<typeAliases>
  	
  		<!-- admin -->
@@ -31,6 +33,10 @@
  		<typeAlias alias="UserReviewDTO" type="com.tig.wdc.user.model.dto.UserReviewDTO"/>
  		<typeAlias alias="ReviewAnswerDTO" type="com.tig.wdc.user.model.dto.ReviewAnswerDTO"/>
  		<typeAlias alias="ScheduleDTO" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
+ 		<typeAlias alias="UserInquiryDTO" type="com.tig.wdc.user.model.dto.UserInquiryDTO"/>
+ 		<typeAlias alias="InquiryAnswerDTO" type="com.tig.wdc.user.model.dto.InquiryAnswerDTO"/>
+ 		<typeAlias alias="NoticeDTO" type="com.tig.wdc.admin.model.dto.NoticeDTO"/>
+ 		
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
@@ -40,6 +46,7 @@
  		<typeAlias alias="schedule" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
  		<typeAlias alias="classInfo" type="com.tig.wdc.user.model.dto.ClassDTO"/>
  		<typeAlias alias="scheduleInfo" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
+ 		<typeAlias alias="regularScheduleInfo" type="com.tig.wdc.model.dto.RegularClassInfoDTO"/>
  		
  	</typeAliases>
  </configuration>

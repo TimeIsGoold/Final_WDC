@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.user.model.dao.UserServiceCenterMapper">
+
+	<resultMap type="NoticeDTO" id="NoticeResult">
+		<id column="NOTICE_NO" property="noticeNo"/>
+		<result column="NOTICE_TYPE" property="noticeType"/>
+		<result column="IMPORTANT_YN" property="importantYN"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="WRITE_DATE" property="writeDate"/>
+	</resultMap>
+
+	<select id="selectNotice" parameterType="NoticeDTO" resultMap="NoticeResult">
+		SELECT
+		       *
+		  FROM NOTICE
+		 WHERE NOTICE_TYPE = 'A'
+		    OR NOTICE_TYPE = 'C'
+	</select>
+	
+	<resultMap type="NoticeDTO" id="NoticeDetailResult">
+		<id column="NOTICE_TYPE" property="noticeType"/>
+		<result column="NOTICE_TITLE" property="noticeTitle"/>
+		<result column="NOTICE_CONTENT" property="noticeContent"/>
+	</resultMap>
+	
+	<select id="selectNoticeDetail" parameterType="NoticeDTO" resultMap="NoticeDetailResult">
+	
+	</select>
+</mapper>

@@ -33,7 +33,6 @@
                 background: rgb(112, 112, 112);
             }
         </style>
-
     </head>
     <body class="sb-nav-fixed">
         
@@ -54,7 +53,7 @@
                                 <i class="fas fa-table me-1"></i>공지사항 목록
 
                                 <div class="subMenuBar">
-                                    <button class="write">작성하기</button>
+                                    <button class="write" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeWrite?currentMenu=notice'">작성하기</button>
                                 </div>
                             </div>
 

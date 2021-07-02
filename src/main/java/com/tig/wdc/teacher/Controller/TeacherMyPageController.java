@@ -17,7 +17,9 @@ import com.tig.wdc.common.PageNation;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.service.BalanceService;
 import com.tig.wdc.teacher.model.service.BoardAndQnAService;
+import com.tig.wdc.teacher.model.service.ClassRegistManageService;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.service.UserClassService;
 
 /**
  * @author 강현우, 이해승
@@ -29,15 +31,19 @@ public class TeacherMyPageController {
 	
 	private BalanceService myPageService;
 	private BoardAndQnAService boardService;
+	private UserClassService classService; 
 	private PageInfoDTO pageInfo;
 	private ClassDTO classInfo;
+	private ClassRegistManageService classManage;
 	
 	@Autowired
-	public TeacherMyPageController(BalanceService myPageService, BoardAndQnAService boardService, PageInfoDTO pageInfo, ClassDTO classInfo) {
+	public TeacherMyPageController(BalanceService myPageService, BoardAndQnAService boardService, PageInfoDTO pageInfo, ClassDTO classInfo, UserClassService classService, ClassRegistManageService classManage) {
 		this.myPageService = myPageService;
 		this.boardService = boardService;
 	    this.pageInfo = pageInfo;
 	    this.classInfo = classInfo;
+	    this.classService = classService;
+	    this.classManage = classManage;
 	}
 	
 	/**
@@ -59,19 +65,40 @@ public class TeacherMyPageController {
 		return "teacher/classManage/t_classManagement";
 	}
 	
+	
+	/**
+	 * 클래스 상세조회(이해승)
+	 * @param session 세션정보
+	 * @param model 
+	 * @param clsNo 클래스 번호
+	 * @return 클래스 상세정보
+	 */
 	@GetMapping("/classDetail/{clsNo}")
-	public String classDetail(HttpSession session, Model model, @PathVariable("clsNo") int clsNo) {
+	public String classDetail(Model model, @PathVariable("clsNo") int clsNo) {
 		
-		classInfo.setTeNo((Integer) session.getAttribute("teacherNo"));
-		classInfo.setClsNo(clsNo);
-		
-		model.addAttribute("clsNo", clsNo);
-		
-//		model.addAttribute("classInfo", );
-//		model.addAttribute(attributeValue);
-//		model.addAttribute(attributeValue);
-//		model.addAttribute(attributeValue);
+		model.addAttribute("classDetail", classService.selectClassDtail(clsNo));
+		model.addAttribute("titlePicture", classService.selectClassPic(clsNo));
+		model.addAttribute("classPiece", classService.selectClassPiece(clsNo));
+		model.addAttribute("curriculum", classService.selectCurriculum(clsNo));
+
 		return "teacher/classManage/t_classDetail";
+	}
+	
+	/**
+	 * @param model
+	 * @param classType 클래스타입
+	 * @return 클래스 스케쥴
+	 */
+	@GetMapping("/studentManagement")
+	public String attendanceManageMent(Model model, @RequestParam("classType") String classType, @RequestParam("clsNo") int clsNo) {
+		
+		/* 정규클래스 출석관리*/
+		System.out.println("클ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ" + classType);
+		System.out.println("번호ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ"  + clsNo);
+		System.out.println(classManage.selectRegularScheduleinfo(clsNo));
+		model.addAttribute("regularInfo", classManage.selectRegularScheduleinfo(clsNo));
+		
+		return "teacher/classManage/t_classAttendanceDetaiRegularl";
 	}
 	
 	/* 정산관리 */

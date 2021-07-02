@@ -390,6 +390,16 @@
 	</select>
 	
 	<!-- 문의답변달기 - insert -->
+<!-- 	<insert id="insertAnswer" parameterType="hashMap">
+		INSERT
+  		  INTO ADMIN_Q_ANSWER
+  		VALUES
+  		(
+   		  #{answer}
+  		, SYSDATE
+  		, #{no}
+  		)
+	</insert> -->
 	
 	<!-- 문의답변달기 - update -->
 	
@@ -519,10 +529,34 @@
          WHERE A.CPN_NO = #{no}
 	</select>
 	
-	<!-- 쿠폰 발급 -->
-	<!-- <insert id="insertCouponIssue">
-	
-	</insert> -->
+ 	<!-- 쿠폰 발급 -->
+	<insert id="insertCouponIssue" parameterType="CouponDTO">
+		<selectKey keyProperty="userNo" order="BEFORE" resultType="_int">
+         	SELECT DECODE(MAX(USER_NO),NULL,0)
+              FROM USER_INFO
+              <if test="type == 'total'">
+         	 WHERE USER_ID = ''
+         	  </if>
+         	  <if test="type == 'certain'">
+         	 WHERE USER_ID = #{ couponType }
+         	  </if>
+		</selectKey>
+		INSERT
+          INTO COUPON
+        VALUES
+        	(
+          	  SEQ_CPN_NO.NEXTVAL
+        	, #{ couponName }
+        	, #{ discount }
+        	, #{ discountCondition }
+        	, #{ startDate }
+        	, #{ endDate }
+        	, 'N'
+        	, NULL
+        	, #{ userNo }
+        	, SYSDATE
+        )
+	</insert>
 	
 	<!-- 공지 -->
 	<select id="selectAllNoticeList" resultMap="noticeList">

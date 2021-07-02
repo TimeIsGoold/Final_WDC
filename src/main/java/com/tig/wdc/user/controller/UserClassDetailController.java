@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
-import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserInquiryDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
@@ -76,8 +76,11 @@ public class UserClassDetailController {
 		List<UserReviewDTO> review = new ArrayList<UserReviewDTO>();
 		review = classService.selectReview(clsNo);
 		model.addAttribute("review",review);
-		
-		System.out.println(review);
+				
+		//문의 select
+		List<UserInquiryDTO> qna = new ArrayList<UserInquiryDTO>();
+		qna = classService.selectQnA(clsNo);
+		model.addAttribute("qna",qna);
 		
 		//클래스 스케줄 select
 		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
@@ -91,6 +94,7 @@ public class UserClassDetailController {
 	
 	/**
 	 * 결제페이지 이동용 메소드
+	 * @author 연준
 	 * @param session
 	 * @return
 	 */
@@ -114,5 +118,10 @@ public class UserClassDetailController {
 		
 		return "user/payment/payment";
 	}
+	
+//	@PostMapping("paymentSuccess")
+//	public String paymentSuccess() {
+//		
+//	}
 	
 }

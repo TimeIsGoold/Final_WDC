@@ -16,9 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
+import com.tig.wdc.admin.model.dto.CouponDTO;
+import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
+import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
+import com.tig.wdc.user.model.service.UserClassService;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -30,7 +39,6 @@ public class AdminController {
 	public AdminController(AdminService adminService) {
 
 		this.adminService = adminService;
-
 	}
 
 	/**
@@ -73,7 +81,6 @@ public class AdminController {
 	@GetMapping("classManagement")
 	public String selectClassList(Model model) {
 
-		System.out.println(adminService.selectAllClassList());
 		model.addAttribute("classList", adminService.selectAllClassList());
 
 		return "admin/adminClassManagement";
@@ -134,6 +141,15 @@ public class AdminController {
 		
 		return "admin/questionDetail"; 
 	}
+	
+//	@PostMapping("questionAnswer")
+//	public void questionAnswerIssue(@ModelAttribute QuestionDTO question, @RequestParam("no")int no, Model model) {
+//		
+//		answerMap.put("answer", question.getQuestionReContent());
+//		answerMap.put("no", no);
+//		
+//		model.addAttribute("question",adminService.insertAnswer(answerMap));
+//	}
 	 
 	/**
 	 * @author 송아현
@@ -168,13 +184,25 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
-	 * 쿠폰 발급
-	 * 
-	 * @return
+	 * 쿠폰 발급을 위한 매핑
+	 * 전처리 -> url
 	 */
 	@GetMapping("couponIssue")
-	public String couponIssue() {
-		return "admin/couponIssue";
+	public void couponIssue() {}
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * 후처리
+	 * @return
+	 */
+	@RequestMapping("couponIssue")
+	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
+
+		System.out.println("test : " + coupon.getType());
+		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
+		
+		return "redirect:/admin/couponManagement?currentMenu=coupon";
 	}
 
 	/**
@@ -210,6 +238,18 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
+	 * 공지 작성
+	 * 
+	 * @return
+	 */
+	@GetMapping("noticeWrite")
+	public String noticeIssue() {
+		
+		return "admin/noticeWrite";
+	}
+	
+	/**
+	 * @author 송아현
 	 * 정산 관리
 	 * 
 	 * @param model
@@ -224,6 +264,17 @@ public class AdminController {
 			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
 		 }
 		 return "admin/adminCalculateManagement"; 
+	 }
+	 
+   /**
+	* @author 송아현
+	* 정산 상세
+	*  
+	* @return
+	*/
+	@GetMapping("calculateDetail")
+	 public String calculateInfoDetail() {
+		 return "admin/calculateDetail";
 	 }
 	 
 
@@ -297,6 +348,7 @@ public class AdminController {
 		blackMap.put("userNo", userNo);
 		adminService.updateReportStatus(no);
 		int i = adminService.selectReportCnt(userNo);
+		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
 		int chkCnt = 0;
 		if(i > 2) {
 			adminService.insertBlackList(blackMap);
@@ -350,7 +402,7 @@ public class AdminController {
 		Map<String, Object> cnct = new HashMap<>();
 		cnct.put("userNo", userNo);
 		cnct.put("type", type);
-		model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
+	//	model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
 		return "admin/BeforeDicision";
 	}
 	
