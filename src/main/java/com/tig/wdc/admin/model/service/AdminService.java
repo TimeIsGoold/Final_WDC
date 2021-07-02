@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,7 @@ public interface AdminService {
 	 */
 	QuestionDTO selectTeacherQuestionInfoDetail(int no);
 	
+	//int insertAnswer(Map<String, Object> answerMap);
 
 	StudentDTO selectOneStudent(int no);
 
@@ -90,6 +92,15 @@ public interface AdminService {
 	 * @return
 	 */
 	CouponDTO selectCouponInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * @param coupon 
+	 * 
+	 * @return
+	 */
+	int insertCouponIssue(CouponDTO coupon);
 
 	/**
 	 * @author 송아현
@@ -159,6 +170,8 @@ public interface AdminService {
 	List<ClassDTO> selectClassBycategory(Map<String, String> type);
 
 	Object selectClassDetail(Map<String, Object> cnct);
+
+
 
 
 }
