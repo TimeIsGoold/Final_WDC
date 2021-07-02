@@ -14,53 +14,53 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+	    <style>
+	    	.container-fluid {
+	    		 margin-top: 30px;
+	    	}
+	    	
+	    	.card-header {
+	    		 font-size: x-large;
+	    	}
+	    	
+	        th {
+	            text-align: center !important;
+	            border: 1px solid lightgrey !important;
+	            width: 200px;
+	            vertical-align: middle;
+	            background: #fef0ae !important;
+	        }
+	    
+	        td {
+	            border: 1px solid lightgrey !important;
+	        }
+	        
+	        .radioBtn {
+	        	 margin-left: 185px; 
+	        	 margin-right: 15px;
+	        }
+	        
+	        #noticeContext {
+	        	 height: 300px; 
+	        	 overflow: auto;
+	        }
+	        
+	        .submitBtn {
+	        	 margin-left: 85%;
+	        }
+	        
+	        .Btn {
+	        	width: 100px; 
+	        	background: #fef0ae; 
+	        	border: 1px solid lightgrey;
+	        }
+	
+	        .Btn:hover {
+	            background: black !important;
+	            color: white !important;
+	        }
+	    </style>
     </head>
-    <style>
-    	.container-fluid {
-    		 margin-top: 30px;
-    	}
-    	
-    	.card-header {
-    		 font-size: x-large;
-    	}
-    	
-        th {
-            text-align: center !important;
-            border: 1px solid lightgrey !important;
-            width: 200px;
-            vertical-align: middle;
-            background: #fef0ae !important;
-        }
-    
-        td {
-            border: 1px solid lightgrey !important;
-        }
-        
-        .radioBtn {
-        	 margin-left: 185px; 
-        	 margin-right: 15px;
-        }
-        
-        #noticeContext {
-        	 height: 300px; 
-        	 overflow: auto;
-        }
-        
-        .submitBtn {
-        	 margin-left: 85%;
-        }
-        
-        .Btn {
-        	width: 100px; 
-        	background: #fef0ae; 
-        	border: 1px solid lightgrey;
-        }
-
-        .Btn:hover {
-            background: black !important;
-            color: white !important;
-        }
-    </style>
     <body class="sb-nav-fixed">
     
         <!-- header -->

@@ -14,78 +14,77 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+	    <style>
+	    	.container-fluid {
+	        	margin-top: 30px;
+	        }
+	        
+	        .card-header {
+	        	font-size: x-large;
+	        }
+	        
+	        th {
+	            text-align: center !important;
+	            width: 200px !important;
+	            border: 1px solid lightgrey !important;
+	            background: #fef0ae !important;
+	            vertical-align: middle;
+	        }
+	
+	        td {
+	            border: 1px solid lightgrey !important;
+	        }
+	        
+	        #questionContextArea {
+	        	height: 200px;
+	        }
+	        
+	        .questionContext {
+	        	overflow: auto;
+	        }
+	        
+	        #requestTitle {
+	        	width: 200px !important;
+	        }
+	        
+	        #requestContextArea {
+	        	overflow: auto;
+	        }
+	        
+	        #requestContext {
+	        	width: 2000px !important; 
+	        	height: 150px; 
+	        	border: none;
+	        }
+	        
+	        .submitBtn {
+	        	margin-left: 1000px;
+	        }
+	        
+	        .returnBtn {
+	        	width: 100px; 
+	        	background: #fef0ae; 
+	        	border: 1px solid lightgrey;
+	        	margin-left: 48%;
+	        }
+	
+	        .returnBtn:hover {
+	            background: black !important;
+	            color: white !important;
+	        }
+	        
+	        .answerBtn {
+	        	width: 100px; 
+	        	background: #fef0ae; 
+	        	border: 1px solid lightgrey;
+	        }
+	
+	        .answerBtn:hover {
+	            background: black !important;
+	            color: white !important;
+	        }
+	    </style>
     </head>
-    <style>
-    	.container-fluid {
-        	margin-top: 30px;
-        }
-        
-        .card-header {
-        	font-size: x-large;
-        }
-        
-        th {
-            text-align: center !important;
-            width: 200px !important;
-            border: 1px solid lightgrey !important;
-            background: #fef0ae !important;
-            vertical-align: middle;
-        }
-
-        td {
-            border: 1px solid lightgrey !important;
-        }
-        
-        #questionContextArea {
-        	height: 200px;
-        }
-        
-        .questionContext {
-        	overflow: auto;
-        }
-        
-        #requestTitle {
-        	width: 200px !important;
-        }
-        
-        #requestContextArea {
-        	overflow: auto;
-        }
-        
-        #requestContext {
-        	width: 2000px !important; 
-        	height: 150px; 
-        	border: none;
-        }
-        
-        .submitBtn {
-        	margin-left: 1000px;
-        }
-        
-        .returnBtn {
-        	width: 100px; 
-        	background: #fef0ae; 
-        	border: 1px solid lightgrey;
-        	margin-left: 48%;
-        }
-
-        .returnBtn:hover {
-            background: black !important;
-            color: white !important;
-        }
-        
-        .answerBtn {
-        	width: 100px; 
-        	background: #fef0ae; 
-        	border: 1px solid lightgrey;
-        }
-
-        .answerBtn:hover {
-            background: black !important;
-            color: white !important;
-        }
-    </style>
-
     <body class="sb-nav-fixed">
 
         <!-- header -->
