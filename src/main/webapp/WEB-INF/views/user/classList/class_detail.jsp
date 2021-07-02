@@ -349,8 +349,8 @@ i {
 							<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
 						</button>
 					</li>
-					</form>
 				</div>
+				</form>
 	            <script>
 	               let times = new Array();
 	               let days = new Array();
