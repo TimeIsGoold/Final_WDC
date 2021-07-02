@@ -477,13 +477,8 @@ i {
 					<div class="tab-pane fade" id="reviews" role="tabpanel"
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
-<<<<<<< HEAD
 							<button onclick="reviewWrite1();" type="button" class="btn btn-dark"
 								style="margin-left: 88%; width: 112px; font-size: 15px;">리뷰 작성</button>
-=======
-							<button onclick="reviewWrite1();" class="btn btn-dark"
-								style="margin-left: 88%; width: 112px; font-size: 15px;" type="button">리뷰 작성</button>
->>>>>>> branch 'master' of https://github.com/TimeIsGoold/Final_WDC.git
 							<div id="reviewWrite"
 								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
 									<input type="file"
