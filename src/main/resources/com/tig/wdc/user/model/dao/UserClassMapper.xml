@@ -194,5 +194,8 @@
 		  FROM SCHEDULE S
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
+    
+
+    
 
 </mapper>

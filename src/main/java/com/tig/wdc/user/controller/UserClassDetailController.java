@@ -19,6 +19,8 @@ import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserCouponDTO;
+import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
@@ -98,7 +100,16 @@ public class UserClassDetailController {
 	@PostMapping("payment")
 	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model, UserClassDTO userClassDTO) {
 		int userNo= (Integer) session.getAttribute("userNo");
-
+		// 유저 넘버로 이름과 전화번호 조회
+		UserInfoDTO userInfo = new UserInfoDTO();
+		userInfo = classService.selectUserInfo(userNo);
+		// 유저 넘버로 보유 쿠폰 조회
+		List<UserCouponDTO> couponList = new ArrayList<UserCouponDTO>();
+		couponList = classService.selectCouponList(userNo);
+				
+		
+		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("couponList",couponList);
 		
 		model.addAttribute("classApplyDTO",classApplyDTO);
 		model.addAttribute("scheduleDTO", scheduleDTO);

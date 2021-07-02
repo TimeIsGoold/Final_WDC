@@ -77,6 +77,7 @@
 		  JOIN CHEERING_HISTORY H ON(A.CHEERING_NO = H.CHEERING_NO)
 		  JOIN CLASS C ON(H.CLS_NO = C.CLS_NO)
 		 WHERE A.USER_NO = #{userNo}
+		 ORDER BY CPN_NO
 	</select>
 	
 	<select id="selectScheduledOneDayClassList" parameterType="UserClassDTO" resultMap="UserClassResult">
