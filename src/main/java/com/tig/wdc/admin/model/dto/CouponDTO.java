@@ -14,13 +14,14 @@ public class CouponDTO {
 	private String useStatus;
 	private int discountCondition;
 	private int userNo;
+	private String type;
 	
 	public CouponDTO() {
 		super();
 	}
 
 	public CouponDTO(int couponNo, String couponType, String couponName, int discount, Date issueDate, Date startDate,
-			Date endDate, String useStatus, int discountCondition, int userNo) {
+			Date endDate, String useStatus, int discountCondition, int userNo, String type) {
 		super();
 		this.couponNo = couponNo;
 		this.couponType = couponType;
@@ -32,6 +33,7 @@ public class CouponDTO {
 		this.useStatus = useStatus;
 		this.discountCondition = discountCondition;
 		this.userNo = userNo;
+		this.type = type;
 	}
 
 	public int getCouponNo() {
@@ -114,12 +116,20 @@ public class CouponDTO {
 		this.userNo = userNo;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName=" + couponName
 				+ ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", useStatus=" + useStatus + ", discountCondition=" + discountCondition + ", userNo="
-				+ userNo + "]";
+				+ userNo + ", type=" + type + "]";
 	}
-
+	
 }

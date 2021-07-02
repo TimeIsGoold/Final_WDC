@@ -138,11 +138,10 @@ public class AdminController {
 //	@PostMapping("questionAnswer")
 //	public void questionAnswerIssue(@ModelAttribute QuestionDTO question, @RequestParam("no")int no, Model model) {
 //		
-//		HashMap answerMap = new HashMap<>();
 //		answerMap.put("answer", question.getQuestionReContent());
 //		answerMap.put("no", no);
 //		
-//		model.addAttribute("",adminService.insertAnswer(answerMap));
+//		model.addAttribute("question",adminService.insertAnswer(answerMap));
 //	}
 	 
 	/**
@@ -190,12 +189,13 @@ public class AdminController {
 	 * 후처리
 	 * @return
 	 */
-	@PostMapping("couponIssue1")
+	@RequestMapping("couponIssue")
 	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
-		System.out.println("coupon : " + coupon);
+
+		System.out.println("test : " + coupon.getType());
 		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
 		
-		return "redirect:admin/couponManagement?currentMenu=coupon";
+		return "redirect:/admin/couponManagement?currentMenu=coupon";
 	}
 
 	/**

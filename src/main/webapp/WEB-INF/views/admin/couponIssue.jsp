@@ -95,13 +95,13 @@
 
 							<div class="card-body">
                                 <table class="table">
-                                    <form id="frm1">
+                                    <form id="frm1" method="post">
 	                                    <tbody>
 	                                        <tr>
 	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
 	                                            <td colspan="4">
-	                                                <input type="radio" name="type" class="radioBtn">전체 회원
-	                                                <input type="radio" name="type" class="radioBtn">특정 회원
+	                                                <input type="radio" name="type" value="total" class="radioBtn">전체 회원
+	                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
 	                                                <input type="text" name="couponType" id="certainArea" placeholder="ID를 입력하세요.">
 	                                            </td>
 	                                        </tr>
@@ -148,7 +148,7 @@
         </div>
         <script>
         	$("#btnCoupon").on("click",function(){
-        		$("#frm1").attr("method","post").attr("action","/wdc/admin/couponIssue1").submit();
+        		$("#frm1").attr("action","/wdc/admin/couponIssue").submit();
         	});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

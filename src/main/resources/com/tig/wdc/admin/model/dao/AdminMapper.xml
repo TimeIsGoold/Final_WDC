@@ -512,10 +512,14 @@
  	<!-- 쿠폰 발급 -->
 	<insert id="insertCouponIssue" parameterType="CouponDTO">
 		<selectKey keyProperty="userNo" order="BEFORE" resultType="_int">
-			SELECT 
-				   USER_NO
-         	  FROM USER_INFO
+         	SELECT DECODE(MAX(USER_NO),NULL,0)
+              FROM USER_INFO
+              <if test="type == 'total'">
+         	 WHERE USER_ID = ''
+         	  </if>
+         	  <if test="type == 'certain'">
          	 WHERE USER_ID = #{ couponType }
+         	  </if>
 		</selectKey>
 		INSERT
           INTO COUPON
