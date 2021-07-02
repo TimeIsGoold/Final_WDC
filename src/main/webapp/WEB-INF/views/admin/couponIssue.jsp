@@ -10,12 +10,13 @@
         <meta name="author" content="" />
         <title>우리동네 클래스</title>
         <!-- Favicon-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <style>
+        
+         <style>
         .container-fluid {
         	margin-top: 30px;
         }
@@ -70,6 +71,9 @@
 		}
         
     </style>
+    </head>
+   
+    
     <body class="sb-nav-fixed">
     
     	<!-- header -->
@@ -91,39 +95,39 @@
 
 							<div class="card-body">
                                 <table class="table">
-                                    <form method="post" action="couponIssue">
+                                    <form id="frm1">
 	                                    <tbody>
 	                                        <tr>
 	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
 	                                            <td colspan="4">
-	                                                <input type="radio" class="radioBtn">전체 회원
-	                                                <input type="radio" class="radioBtn">특정 회원
-	                                                <input type="text" id="certainArea" placeholder="ID를 입력하세요.">
+	                                                <input type="radio" name="type" class="radioBtn">전체 회원
+	                                                <input type="radio" name="type" class="radioBtn">특정 회원
+	                                                <input type="text" name="couponType" id="certainArea" placeholder="ID를 입력하세요.">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>쿠 &nbsp;폰 &nbsp;명</th>
 	                                            <td colspan="4">
-	                                            	<input type="text" class="couponInfoArea">
+	                                            	<input type="text" name="couponName" class="couponInfoArea">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>사용 기한</th>
 	                                            <td class="day">시작일</td>
-	                                            <td><input type="date"></td>
+	                                            <td><input type="date" name="startDate"></td>
 	                                            <td class="day">종료일</td>
-	                                            <td><input type="date"></td>
+	                                            <td><input type="date" name="endDate"></td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>제한 조건</th>
 	                                            <td colspan="4">
-	                                            	<input type="text" class="couponInfoArea">
+	                                            	<input type="text" name="discountCondition" class="couponInfoArea">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>할인 금액</th>
 	                                            <td colspan="4">
-	                                            	<input type="text" class="couponInfoArea">
+	                                            	<input type="text" name="discount" class="couponInfoArea">
 	                                            </td>
 	                                        </tr>
 	                                    </tbody>
@@ -131,17 +135,22 @@
                                 </table>
 
                                 <div class="couponIssueBtnArea">
-                                    <input type="submit" class="couponIssueBtn" value="발급하기">
+                                    <input type="button" id="btnCoupon" class="couponIssueBtn"  value="발급하기">
                                     <input type="button" class="couponIssueBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon'" value="리스트보기">
                                 </div>
                             </div>
-
+						
                         </div>
                     </div>
                 </main>
             </div>
 
         </div>
+        <script>
+        	$("#btnCoupon").on("click",function(){
+        		$("#frm1").attr("method","post").attr("action","/wdc/admin/couponIssue1").submit();
+        	});
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

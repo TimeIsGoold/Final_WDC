@@ -65,6 +65,7 @@ public interface AdminService {
 	 */
 	QuestionDTO selectTeacherQuestionInfoDetail(int no);
 	
+	//int insertAnswer(Map<String, Object> answerMap);
 
 	StudentDTO selectOneStudent(int no);
 
@@ -99,7 +100,7 @@ public interface AdminService {
 	 * 
 	 * @return
 	 */
-	int insertCouponIssue(HashMap coupon);
+	int insertCouponIssue(CouponDTO coupon);
 
 	/**
 	 * @author 송아현
@@ -165,6 +166,8 @@ public interface AdminService {
 	int insertBlackList(Map<String, Object> blackMap);
 
 	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
+
+
 
 
 }

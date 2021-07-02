@@ -94,7 +94,7 @@ public interface AdminMapper {
 	 * @param coupon 
 	 * @return
 	 */
-	int insertCouponIssue(HashMap coupon);
+	int insertCouponIssue(CouponDTO coupon);
 
 	/**
 	 * @author 송아현

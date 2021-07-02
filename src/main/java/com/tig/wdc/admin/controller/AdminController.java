@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.CouponDTO;
+import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
@@ -133,6 +134,16 @@ public class AdminController {
 		
 		return "admin/questionDetail"; 
 	}
+	
+//	@PostMapping("questionAnswer")
+//	public void questionAnswerIssue(@ModelAttribute QuestionDTO question, @RequestParam("no")int no, Model model) {
+//		
+//		HashMap answerMap = new HashMap<>();
+//		answerMap.put("answer", question.getQuestionReContent());
+//		answerMap.put("no", no);
+//		
+//		model.addAttribute("",adminService.insertAnswer(answerMap));
+//	}
 	 
 	/**
 	 * @author 송아현
@@ -179,15 +190,12 @@ public class AdminController {
 	 * 후처리
 	 * @return
 	 */
-	@PostMapping("couponIssue")
+	@PostMapping("couponIssue1")
 	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
+		System.out.println("coupon : " + coupon);
+		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
 		
-		HashMap couponMap = new HashMap<>();
-		couponMap.put("type", coupon.getCouponType());
-		couponMap.put("coupon", coupon);
-		model.addAttribute("couponIssue", adminService.insertCouponIssue(couponMap));
-		
-		return "admin/couponIssue";
+		return "redirect:admin/couponManagement?currentMenu=coupon";
 	}
 
 	/**

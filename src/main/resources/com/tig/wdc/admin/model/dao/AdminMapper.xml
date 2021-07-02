@@ -378,14 +378,14 @@
 	</select>
 	
 	<!-- 문의답변달기 - insert -->
-<!--	<insert id="insertAnswer" parameterType="">
+<!-- 	<insert id="insertAnswer" parameterType="hashMap">
 		INSERT
   		  INTO ADMIN_Q_ANSWER
   		VALUES
   		(
-   		  #{}
+   		  #{answer}
   		, SYSDATE
-  		, #{}
+  		, #{no}
   		)
 	</insert> -->
 	
@@ -510,21 +510,21 @@
 	</select>
 	
  	<!-- 쿠폰 발급 -->
-	<insert id="insertCouponIssue" parameterType="hashMap">
+	<insert id="insertCouponIssue" parameterType="CouponDTO">
 		<selectKey keyProperty="userNo" order="BEFORE" resultType="_int">
 			SELECT 
 				   USER_NO
          	  FROM USER_INFO
-         	 WHERE USER_ID = #{ type }
+         	 WHERE USER_ID = #{ couponType }
 		</selectKey>
 		INSERT
           INTO COUPON
         VALUES
         	(
           	  SEQ_CPN_NO.NEXTVAL
-        	, #{ couponNo }
         	, #{ couponName }
         	, #{ discount }
+        	, #{ discountCondition }
         	, #{ startDate }
         	, #{ endDate }
         	, 'N'

@@ -138,7 +138,7 @@
                                 </table>
                             </div>
 
-							<!-- <form> -->
+							<form method="post" action="requestion">
 	                            <div class="card-body">
 	                                <table class="table">
 	                                    <tr>
@@ -165,12 +165,12 @@
 			                                    <input type="button" class="answerBtn" value="답변달기">
 	                                   		</c:when>
 	                                   		<c:when test="${empty questionDetail.questionReContent}">
-			                                    <input type="button" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="답변달기">
+			                                    <input type="submit" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="답변달기">
 	                                   		</c:when>
 	                                   	</c:choose>
 	                                </div>
 	                            </div>
-                            <!-- </form> -->
+                            </form>
 
                         </div>
                     </div>
