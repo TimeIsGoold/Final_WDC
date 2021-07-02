@@ -253,6 +253,17 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.updateBlackListOnUSerTable(blackMap);
 	}
 
+	@Override
+	public List<ClassDTO> selectClassBycategory(Map<String, String> type) {
+		
+		return mapper.selectClassBycategory(type);
+	}
+
+	@Override
+	public Object selectClassDetail(Map<String, Object> cnct) {
+		return mapper.selectClassDetail(cnct);
+	}
+
 
 
 }

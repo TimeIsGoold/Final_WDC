@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
@@ -70,6 +73,7 @@ public class AdminController {
 	@GetMapping("classManagement")
 	public String selectClassList(Model model) {
 
+		System.out.println(adminService.selectAllClassList());
 		model.addAttribute("classList", adminService.selectAllClassList());
 
 		return "admin/adminClassManagement";
@@ -219,7 +223,6 @@ public class AdminController {
 		 } else if(type.equals("Y")) {
 			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
 		 }
-	  
 		 return "admin/adminCalculateManagement"; 
 	 }
 	 
@@ -260,7 +263,6 @@ public class AdminController {
 			model.addAttribute("totalList", adminService.selectStudentList());
 		}
 		return "admin/adminMemberManagement";
-
 	}
 	
 	/**
@@ -295,7 +297,6 @@ public class AdminController {
 		blackMap.put("userNo", userNo);
 		adminService.updateReportStatus(no);
 		int i = adminService.selectReportCnt(userNo);
-		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
 		int chkCnt = 0;
 		if(i > 2) {
 			adminService.insertBlackList(blackMap);
@@ -309,12 +310,7 @@ public class AdminController {
 	
 	@GetMapping("procsDenyStatus")
 	public String procsDenyStatus(@RequestParam("rn")int no, @RequestParam("type")String type, Model model) {
-
-		
-
 		adminService.updateReportStatus2(no);
-
-		
 		return "redirect:reportDetail?no="+no+"&type="+ type;
 	}
 	
@@ -329,5 +325,34 @@ public class AdminController {
 		}
 		return "admin/BlackListManagement";
 	}
+	
+	@GetMapping("selectClassBycategory")
+	public String selectClassBycategory(@RequestParam("ct")String type, Model model) {
+		Map<String, String> map = new HashMap<>();
+		map.put("type", type);
+		model.addAttribute("classList", adminService.selectClassBycategory(map));
+		return "admin/adminClassManagement";
+	}
+	
+	@PostMapping("blackListInsert")
+	public String blackListInsert(@ModelAttribute BlackListDTO black, Model model) {
+		Map<String, Object> blackMap = new HashMap<>();
+		blackMap.put("blackMap", black);
+		adminService.insertBlackList(blackMap);
+		adminService.updateBlackListOnUSerTable(blackMap);
+		return "redirect:blackListMenagement?&ut=to";
+	}
+	
+	@GetMapping("classDetail")
+	public String classDetail(Model model, @RequestParam("cn")int userNo, @RequestParam("ct")String type) {
+		System.out.println(userNo);
+		System.out.println(type);
+		Map<String, Object> cnct = new HashMap<>();
+		cnct.put("userNo", userNo);
+		cnct.put("type", type);
+		model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
+		return "admin/BeforeDicision";
+	}
+	
 
 }

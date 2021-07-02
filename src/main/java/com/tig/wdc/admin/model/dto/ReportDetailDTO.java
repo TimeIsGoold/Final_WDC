@@ -13,6 +13,7 @@ public class ReportDetailDTO {
 	private String reportedNmae1;
 	private String reportedNmae2;
 	private java.sql.Date reportDate;
+	private String blackListYN;
 	private String type;
 	private String reason;
 	private String imgPath;
@@ -21,19 +22,20 @@ public class ReportDetailDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReportDetailDTO(int reportNo, int teNo, int userNo, String reportTitle, String reportedId1,
-			String reportedId2, String reportedNmae1, String reportedNmae2, Date reportDate, String type, String reason,
-			String imgPath, String reportStatus) {
+	public ReportDetailDTO(int reportNo, int userNo, int teNo, String reportTitle, String reportedId1,
+			String reportedId2, String reportedNmae1, String reportedNmae2, Date reportDate, String blackListYN,
+			String type, String reason, String imgPath, String reportStatus) {
 		super();
 		this.reportNo = reportNo;
-		this.teNo = teNo;
 		this.userNo = userNo;
+		this.teNo = teNo;
 		this.reportTitle = reportTitle;
 		this.reportedId1 = reportedId1;
 		this.reportedId2 = reportedId2;
 		this.reportedNmae1 = reportedNmae1;
 		this.reportedNmae2 = reportedNmae2;
 		this.reportDate = reportDate;
+		this.blackListYN = blackListYN;
 		this.type = type;
 		this.reason = reason;
 		this.imgPath = imgPath;
@@ -45,17 +47,17 @@ public class ReportDetailDTO {
 	public void setReportNo(int reportNo) {
 		this.reportNo = reportNo;
 	}
-	public int getTeNo() {
-		return teNo;
-	}
-	public void setTeNo(int teNo) {
-		this.teNo = teNo;
-	}
 	public int getUserNo() {
 		return userNo;
 	}
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
+	}
+	public int getTeNo() {
+		return teNo;
+	}
+	public void setTeNo(int teNo) {
+		this.teNo = teNo;
 	}
 	public String getReportTitle() {
 		return reportTitle;
@@ -93,6 +95,12 @@ public class ReportDetailDTO {
 	public void setReportDate(java.sql.Date reportDate) {
 		this.reportDate = reportDate;
 	}
+	public String getBlackListYN() {
+		return blackListYN;
+	}
+	public void setBlackListYN(String blackListYN) {
+		this.blackListYN = blackListYN;
+	}
 	public String getType() {
 		return type;
 	}
@@ -119,11 +127,11 @@ public class ReportDetailDTO {
 	}
 	@Override
 	public String toString() {
-		return "ReportDetailDTO [reportNo=" + reportNo + ", teNo=" + teNo + ", userNo=" + userNo + ", reportTitle="
+		return "ReportDetailDTO [reportNo=" + reportNo + ", userNo=" + userNo + ", teNo=" + teNo + ", reportTitle="
 				+ reportTitle + ", reportedId1=" + reportedId1 + ", reportedId2=" + reportedId2 + ", reportedNmae1="
-				+ reportedNmae1 + ", reportedNmae2=" + reportedNmae2 + ", reportDate=" + reportDate + ", type=" + type
-				+ ", reason=" + reason + ", imgPath=" + imgPath + ", reportStatus=" + reportStatus + "]";
+				+ reportedNmae1 + ", reportedNmae2=" + reportedNmae2 + ", reportDate=" + reportDate + ", blackListYN="
+				+ blackListYN + ", type=" + type + ", reason=" + reason + ", imgPath=" + imgPath + ", reportStatus="
+				+ reportStatus + "]";
 	}
-	
 	
 }

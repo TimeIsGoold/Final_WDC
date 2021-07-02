@@ -11,6 +11,7 @@
 		<result column="TE_ENROLL_DATE" property="enrollDate"/>
 		<result column="TYPE" property="userType"/>
 		<result column="누적신고"  property="reportedCnt"/>
+		<result column="BLOCK_YN"  property="blackYn"/>
 	</resultMap>
 	
 	<resultMap id="userDTO" type="TotalDTO">
@@ -20,6 +21,7 @@
 		<result column="USER_ENROLL_DATE" property="enrollDate"/>
 		<result column="TYPE" property="userType"/>
 		<result column="누적신고"  property="reportedCnt"/>
+		<result column="BLOCK_YN"  property="blackYn"/>
 	</resultMap>
 	
 	<resultMap type="StudentDTO" id="studentDTO">
@@ -31,8 +33,10 @@
 		<result column="USER_BIRTH"  property="birth"/>
 		<result column="USER_ENROLL_DATE"  property="enrollDate"/>
 		<result column="누적신고"  property="reportedCnt"/>
+		<result column="BLOCK_YN"  property="blockYn"/>
 	</resultMap>
 		
+
 	<resultMap id="classLsit" type="ClassDTO">
 		<id column="CLS_NO" property="classNo"/>
 		<result column="CLS_TITLE" property="classTitle"/>
@@ -40,6 +44,7 @@
 		<result column="CLS_PRICE" property="classPrice"/>
 		<result column="CLS_TYPE" property="classType"/>
 		<result column="CLS_STATUS" property="decisionStatus"/>
+		<result column="CLS_DICSION_STATUS" property="classDicsionStatus"/>
 	</resultMap>
 	
 	<resultMap id="reportList" type="ReportDTO">
@@ -114,6 +119,7 @@
 		<result column="TE_INTRO"  property="teacherIntro"/>
 		<result column="TE_PIC"  property="imgPath"/>
 		<result column="누적신고"  property="reportedCnt"/>
+		<result column="BLOCK_YN"  property="blockYn"/>
 	</resultMap>
 	
 	<!-- 쿠폰 -->
@@ -183,7 +189,8 @@
 		<result column="USER_ID" property="reportedId1"/>
 		<result column="TE_ID" property="reportedId2"/>
 		<result column="TE_NO" property="teNo"/>
-		<result column="USER_NO" property="usetNo"/>
+		<result column="BLOCK_YN" property="blackListYN"/>
+		<result column="USER_NO" property="userNo"/>
 		<result column="USER_NAME" property="reportedNmae1"/>
 		<result column="TE_NAME" property="reportedNmae2"/>
 		<result column="REPORT_DATE" property="reportDate"/>
@@ -217,6 +224,7 @@
 		     , T.TE_ID
 		     , T.TE_NAME
 		     , T.TE_ENROLL_DATE
+             , T.BLOCK_YN
 		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
 		  FROM TEACHER_INFO T
 		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
@@ -226,6 +234,7 @@
 		     , T.TE_ID
 		     , T.TE_NAME
 		     , T.TE_ENROLL_DATE
+             , T.BLOCK_YN
 		  UNION ALL
 		 SELECT 
 		        U.USER_NO
@@ -233,6 +242,7 @@
 		      , U.USER_ID
 		      , U.USER_NAME
 		      , U.USER_ENROLL_DATE
+              , U.BLOCK_YN
 		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
 		    FROM USER_INFO U
 		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
@@ -242,18 +252,20 @@
 		      , U.USER_ID
 		      , U.USER_NAME
 		      , U.USER_ENROLL_DATE
-	</select>
-	
+              , U.BLOCK_YN
+    </select>
+
 	<select id="selectAllClassList" resultMap="classLsit">
 		SELECT 
 		       C.CLS_NO
 		     , C.CLS_TITLE
-		     , C.CLS_TYPE
+		     , T.TE_NAME
 		     , C.CLS_PRICE
+		     , C.CLS_TYPE
 		     , C.CLS_STATUS
-		     , TI.TE_NAME
+             , C.CLS_DICSION_STATUS
 		  FROM CLASS C
-		  JOIN TEACHER_INFO TI ON (C.TE_NO = TI.TE_NO)
+		  JOIN TEACHER_INFO T ON (C.TE_NO = T.TE_NO)
 	</select>
 	
 	<select id="selectAllReportList" resultMap="reportList">
@@ -391,6 +403,7 @@
 		     , U.USER_BIRTH
 		     , U.USER_ENROLL_DATE
 		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		     , U.BLOCK_YN
 		  FROM USER_INFO U
 		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
 		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
@@ -403,6 +416,7 @@
 		        , U.USER_PHONE
 		        , U.USER_BIRTH
 		        , U.USER_ENROLL_DATE
+		        , U.BLOCK_YN
 	</select>
 	
 	<select id="selectOneTeacher" resultMap="teacherDTO" parameterType="_int">
@@ -417,6 +431,7 @@
              , T.TE_INTRO
              , T.TE_PIC
 		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		     , T.BLOCK_YN
 		  FROM TEACHER_INFO T
 		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
 		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
@@ -431,6 +446,7 @@
                  , T.TE_ENROLL_DATE
                  , T.TE_INTRO
                  , T.TE_PIC
+        		 , T.BLOCK_YN
 	</select>
 	
 	<select id="selectTeacherList" resultMap="totalDTO" >
@@ -441,6 +457,7 @@
 		     , T.TE_NAME
 		     , T.TE_ENROLL_DATE
 		     , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		     , T.BLOCK_YN
 		  FROM TEACHER_INFO T
 		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
 		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
@@ -449,6 +466,7 @@
 		     , T.TE_ID
 		     , T.TE_NAME
 		     , T.TE_ENROLL_DATE
+		     , T.BLOCK_YN
 	</select>
 
 	<select id="selectStudentList" resultMap="userDTO" >
@@ -459,6 +477,7 @@
 		      , U.USER_NAME
 		      , U.USER_ENROLL_DATE
 		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		      , U.BLOCK_YN
 		    FROM USER_INFO U
 		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
 		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
@@ -467,6 +486,7 @@
 		      , U.USER_ID
 		      , U.USER_NAME
 		      , U.USER_ENROLL_DATE
+		      , U.BLOCK_YN
 	</select>      
 
 	<!-- 쿠폰 -->
@@ -566,13 +586,13 @@
 	     , TE_ID
 	     , TE_NAME
 	     , TE_NO
-	     , type
 	     </if>
 	     <if test='type == "T"'>
 	     , USER_ID
 	     , USER_NAME
 	     , USER_NO
 	     </if>
+	     , BLOCK_YN
 	     , TYPE
 	     , REPORT_DATE
 	     , REPORT_REASON
@@ -653,38 +673,87 @@
 	
 	<insert id="insertBlackList" parameterType="hashmap">
 		INSERT 
-	     <if test='type == "T"'>
+	     <if test='type == "T"|| blackMap.type =="T"'>
 		  INTO TE_BLOCK_LIST
 		  </if>
-	     <if test='type == "U"'>
+	     <if test='type == "U"|| blackMap.type =="U"'>
 		  INTO USER_BLOCK_LIST
 		  </if>
 		VALUES
 		(
 	     <if test='type == "T"'>
 		  SEQ_TE_BLOCK_NO.NEXTVAL
+		, #{userNo}
+		, '누적 신고 3회로 블랙리스트 추가'
 		  </if>
 	     <if test='type == "U"'>
 		  SEQ_USER_BLOCK_NO.NEXTVAL
-		  </if>
 		, #{userNo}
 		, '누적 신고 3회로 블랙리스트 추가'
+		  </if>
+		  <if test='blackMap.blackReason != null'>
+		  SEQ_USER_BLOCK_NO.NEXTVAL
+		, #{blackMap.userNo}
+		, #{blackMap.blackReason}
+		</if>
 		, SYSDATE
 		)
 	</insert>
 	
 	<update id="updateBlackListOnUSerTable" parameterType="hashmap">
-	    <if test='type == "T"'>
+	    <if test='type == "T"|| blackMap.type == "T"'>
 		UPDATE TEACHER_INFO
-		   SET TE_BLOCK_YN = 'Y'
-		 WHERE TE_NO = #{userNO} 
+		   SET BLOCK_YN = 'Y'
 		</if>
-	    <if test='type == "U"'>
+		<if test='type == "T"'>
+		 WHERE TE_NO = #{userNo}
+		</if> 
+		<if test='blackMap.type == "T"'>
+		 WHERE TE_NO = #{blackMap.userNo}
+		</if>
+	    <if test='type == "U"|| blackMap.type == "U"'>
 		UPDATE USER_INFO
-		   SET USER_BLOCK_YN = 'Y'
-		 WHERE USER_NO = #{userNO} 
+		   SET BLOCK_YN = 'Y'
+		</if>
+		<if test='type == "U"'>		  
+		 WHERE USER_NO = #{userNo} 
+		</if>
+		<if test='blackMap.type == "U"'>
+		 WHERE USER_NO = #{blackMap.userNo}
 		</if>
 	</update>
+	
+	<select id="selectClassBycategory" resultMap="classLsit" parameterType="hashmap">
+		SELECT 
+		       C.CLS_NO
+		     , C.CLS_TITLE
+		     , T.TE_NAME
+		     , C.CLS_PRICE
+		     , C.CLS_TYPE
+		     , C.CLS_STATUS
+		     , C.CLS_DICSION_STATUS
+		  FROM CLASS C
+		  JOIN TEACHER_INFO T ON (C.TE_NO = T.TE_NO)
+		  <if test='type == "one"'>
+		 WHERE CLS_DICSION_STATUS = 'W'
+		  </if>
+		  <if test='type == "two"'>
+		 WHERE CLS_DICSION_STATUS = 'F'
+		  </if>
+		  <if test='type == "accept"'>
+		 WHERE CLS_DICSION_STATUS = 'S'
+		   AND CLS_STATUS NOT IN 'E'
+		  </if>
+		  <if test='type == "reject"'>
+		 WHERE CLS_DICSION_STATUS = 'R'
+		  </if>
+		  <if test='type == "lackOfCheering"'>
+		 WHERE CLS_DICSION_STATUS = 'L'
+		  </if>
+		  <if test='type == "complate"'>
+		 WHERE CLS_STATUS = 'E'
+		  </if>
+	</select>
 
 	
 </mapper>
