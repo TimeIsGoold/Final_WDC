@@ -55,7 +55,7 @@
       <!-- navbar-->
       <header class="header bg-white">
         <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="../User_View/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/user/mypage/userLoginSuccessMain"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
@@ -100,42 +100,59 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageMain.html">내 정보</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageScheduledClass.html">참여 예정 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageParticipatingClass.html">참여 중인 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageComplateClass.html">참여 완료 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageCouponList.html">내 쿠폰</a></strong></div>
-
-
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain">내 정보</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/scheduledClassList">참여 예정 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white  mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/complateClassList">참여 완료 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
               </div>
               <!-- SHOP LISTING-->
               <!-- 원데이 클래스일 경우 구매 취소 불가 !!-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
+                    <c:choose>
+                  	<c:when test="${ empty requestScope.participatingOneDayClassList && empty requestScope.participatingRegularClassList }">
+                  		진행 중인 클래스가 없습니다.
+                  	</c:when>
+                  	</c:choose>
+                
                   <!-- PRODUCT-->
+                  <!-- 원데이 클래스  -->
+                <c:forEach  var="classList" items="${ requestScope.participatingOneDayClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">05.20 ~ 06.30</div>
+                      <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
                       <div class="position-relative mb-3">
-                      <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="img/macaron.jpg" alt="..."></a>
+                      <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
 
                       </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[정규]마카롱 만들기 체험</a></h6>
-                      <p class="small text-muted">30000원 / 1명 </p>
+                      <h6> 
+                      <a class="reset-anchor" href="scheduledClassDetail.html">
+                        [원데이] ${classList.title}
+                      </a>
+                      </h6>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
-                  <!-- PRODUCT-->
+                 </c:forEach>
+                 <!-- 정규 클래스 -->
+                  <c:forEach  var="rClassList" items="${ requestScope.participatingRegularClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">06.21 / 16:00</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/resources/user/img/dance.jpg" alt="..."></a>
-
+                      <div class="badge text-white badge-primary">${fn:substring(rClassList.startDate,5,10)} ~ ${fn:substring(rClassList.endDate,5,10)} </div>
+                      <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
+                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${rClassList.titlePic}" alt="..."></a>
                       </div>
-                      <h6> <a class="reset-anchor" href="scheduledClassDetail.html">[원데이]아이돌 댄스 배우기</a></h6>
-                      <p class="small text-muted">40000원 / 1명</p>
+                      <h6> 
+                      <a class="reset-anchor" href="scheduledClassDetail.html">
+                        [정규] ${rClassList.title}
+                      </a>
+                      </h6>
+                      <p class="small text-muted"><fmt:formatNumber value="${rClassList.price}" pattern="#,###"/> 원 / ${rClassList.clsPplAmount}명</p>
                     </div>
                   </div>
+                  </c:forEach>
+                  
                 </div>
                 <br><br>
                 <!-- PAGINATION-->

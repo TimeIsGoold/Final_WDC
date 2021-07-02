@@ -1,6 +1,7 @@
 package com.tig.wdc.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
@@ -12,6 +13,7 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 
 public interface AdminService {
 
@@ -47,11 +49,21 @@ public interface AdminService {
 	
 	/**
 	 * @author 송아현
-	 * 강사문의상세
+	 * 학생 문의상세
 	 * @param id
 	 * @return
 	 */
-	QuestionDTO selectTeacherQuestionInfoDetail(String id);
+	QuestionDTO selectStudentQuestionInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 강사문의상세
+	 * 
+	 * @param id
+	 * @return
+	 */
+	QuestionDTO selectTeacherQuestionInfoDetail(int no);
+	
 
 	StudentDTO selectOneStudent(int no);
 
@@ -68,6 +80,16 @@ public interface AdminService {
 	 * @return
 	 */
 	List<CouponDTO> selectAllCouponList();
+	
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	CouponDTO selectCouponInfoDetail(int no);
 
 	/**
 	 * @author 송아현
@@ -76,6 +98,15 @@ public interface AdminService {
 	 * @return
 	 */
 	List<NoticeDTO> selectAllNoticeList();
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	NoticeDTO selectNoticeInfoDetail(int no);
 
 	/**
 	 * @author 송아현
@@ -96,8 +127,34 @@ public interface AdminService {
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
-//	ReportDetailDTO selectTeacherReportList(int no);
 
+	/**
+	 * @author 김현빈
+	 * 신고 승인 
+	 * 
+	 * @return
+	 */
+	int updateReportStatus(int no);
+
+	/**
+	 * @author 김현빈
+	 * 신고 거부
+	 * 
+	 * @param no
+	 */
+	int updateReportStatus2(int no);
+
+	List<BlackListDTO> selectAllBlackList();
+
+	List<BlackListDTO> selectBlockedTeacherList();
+
+	List<BlackListDTO> selectBlockedStudentList();
+
+	int selectReportCnt(int no);
+
+	int insertBlackList(Map<String, Object> blackMap);
+
+	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
 
 
 }

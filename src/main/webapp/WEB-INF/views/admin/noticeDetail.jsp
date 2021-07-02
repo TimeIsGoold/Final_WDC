@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,18 +9,23 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>우리동네 클래스</title>
+        <!-- Favicon-->
+    	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    <script>
-        function noticeModify(){
-            location.href="CustomerNoticeManagement.html";
-        }
-    </script>
     <style>
+    	.container-fluid {
+    		 margin-top: 30px;
+    	}
+    	
+    	.card-header {
+    		 font-size: x-large;
+    	}
+    	
         th {
-            text-align: center;
+            text-align: center !important;
             border: 1px solid lightgrey !important;
             width: 200px;
             vertical-align: middle;
@@ -30,102 +35,76 @@
         td {
             border: 1px solid lightgrey !important;
         }
+        
+        .radioBtn {
+        	 margin-left: 185px; 
+        	 margin-right: 15px;
+        }
+        
+        #noticeContext {
+        	 height: 300px; 
+        	 overflow: auto;
+        }
+        
+        .submitBtn {
+        	 margin-left: 85%;
+        }
+        
+        .Btn {
+        	width: 100px; 
+        	background: #fef0ae; 
+        	border: 1px solid lightgrey;
+        }
 
-        .modifyBtn:hover {
+        .Btn:hover {
             background: black !important;
             color: white !important;
         }
     </style>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="CustomerMain.html" style="width: 180px;">우리동네 클래스</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar-->
-            <ul style="padding: 20px 0px 0px 1260px;">
-                <a class="sb-nav-link-icon" id="navbarDropdown" href="CustomerLogin.html" role="button" style="background-color: gray; width: 50px; height: 50px;">
-                    <img src="./pic/log-in.png" style="width: 30px; height: 30px;">
-                </a>
-            </ul>
-        </nav>
+    
+        <!-- header -->
+		<%@ include file="commons/header.jsp" %>
+		
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link collapsed" href="CustomerMemberManagement.html">
-                                회원관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerClassManagement.html">
-                                클래스관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerMemberReportManagement.html">
-                                신고관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerQuestionManagement.html">
-                                문의
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCouponManagement.html">
-                                쿠폰
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerNoticeManagement.html" style="color: #fef0ae;">
-                                공지사항
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCalculateManagement.html">
-                                정산
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">
-                        Copyright &copy; 우리동네 클래스
-                        </div>
-                    </div>
-                </nav>
-            </div>
-
+        
+        	<!-- sideBar & footer -->
+			<%@ include file="commons/sideBarAndFooter.jsp" %>
+			
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4" style="margin-top: 30px;">
+                    <div class="container-fluid px-4">
                         <div class="card mb-4">
 
-                            <div class="card-header" style="font-size: x-large;">
-                                <i class="fas fa-table me-1"></i>
-                                공지사항 상세
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>공지사항 상세
                             </div>
 
                             <div class="card-body">
-                                <table class="table" style="border: 1px solid;">
+                                <table class="table">
                                     <tbody>
                                         <tr>
                                             <th>대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-                                            <td>
-                                                <input type="radio" id="all" name="contact" value="all" checked style="margin-left: 120px; margin-right: 10px;">전체 회원용
-                                                <input type="radio" id="teacher" name="contact" value="teacher" style="margin-left: 120px; margin-right: 10px;">강사 회원용
-                                                <input type="radio" id="normal" name="contact" value="normal" style="margin-left: 120px; margin-right: 10px;">일반 회원용
+                                            <td id="noticetype">
+                                                <input type="radio" class="radioBtn" id="A" onclick="return(false);">전체 회원용
+                                                <input type="radio" class="radioBtn" id="T" onclick="return(false);">강사 회원용
+                                                <input type="radio" class="radioBtn" id="C" onclick="return(false);">수강생 회원용
                                             </td>
                                         </tr>
                                         <tr>
                                             <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-                                            <td>공지합니다!</td>
+                                            <td>${ noticeDetail.noticeTitle }</td>
                                         </tr>
                                         <tr>
                                             <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
-                                            <td style="height: 300px; overflow: auto;">공지합니다!</td>
+                                            <td id="noticeContext">${ noticeDetail.noticeContent }</td>
                                         </tr>
                                     </tbody>
                                 </table>
 
-                                <div class="submitBtn" style="margin-left: 1115px;">
-                                    <input type="submit" class="modifyBtn" value="수정하기" onclick="noticeModify();" style="width: 100px; background: #fef0ae; border: 1px solid lightgrey;">
+                                <div class="submitBtn">
+                                    <input type="submit" class="Btn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="수정하기">
+                                	<input type="submit" class="Btn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
                                 </div>
                             </div>
 
@@ -135,6 +114,20 @@
             </div>
 
         </div>
+        <script type="text/javascript">
+       		const type = '${ noticeDetail.noticeType}';
+       		
+       		if(type == 'A') {
+       			const area = document.getElementById('A');
+       			area.checked = true;
+       		} else if(type == 'T'){
+       			const area = document.getElementById('T');
+       			area.checked = true;
+       		} else {
+       			const area = document.getElementById('C');
+       			area.checked = true;
+       		}
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

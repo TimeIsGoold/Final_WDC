@@ -34,7 +34,7 @@
 
         td {
             border: 1px solid lightgrey !important;
-            width: 410px;
+            width: 410px !important;
         }
         
         #questionContextArea {
@@ -141,7 +141,14 @@
                                         <th>답&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변</th>
                                         <td>
                                             <div id="requestContextArea">
-                                                <input type="text" id="requestContext">
+                                            	<c:choose>
+                                            		<c:when test="${empty questionDetail.questionReContent }">
+                                            			<input type="text" id="requestContext">
+                                            		</c:when>
+                                            		<c:when test="${not empty questionDetail.questionReContent}">
+                                            			${ questionDetail.questionReContent }
+                                            		</c:when>
+                                            	</c:choose>
                                             </div>
                                         </td>
                                     </tr>
@@ -149,7 +156,14 @@
                                 
                                 <div class="submitBtn">
                                     <input type="button" class="returnBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="리스트보기">
-                                    <input type="button" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="답변달기">
+                       	            <c:choose>
+                                   		<c:when test="${not empty questionDetail.questionReContent }">
+		                                    <input type="button" class="answerBtn" value="답변달기">
+                                   		</c:when>
+                                   		<c:when test="${empty questionDetail.questionReContent}">
+		                                    <input type="button" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="답변달기">
+                                   		</c:when>
+                                   	</c:choose>
                                 </div>
                             </div>
 

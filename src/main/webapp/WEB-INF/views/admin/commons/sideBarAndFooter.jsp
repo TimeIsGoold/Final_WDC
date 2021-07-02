@@ -20,9 +20,6 @@
     			var NdocumentUrl = new URL(documentUrl);  
     			var currentMenu = NdocumentUrl .searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
     			 
-    			console.log(NdocumentUrl);
-    			console.log(currentMenu);
-    			
     			const sideBar = document.getElementsByClassName('nav-link');
     			
     			const currentMenuBar = document.getElementById(currentMenu);
@@ -47,6 +44,10 @@
                    </a>
                    <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/reportManagement?currentMenu=report">
                                            신고관리
+                       <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                   </a>
+                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/blackListMenagement?currentMenu=blacklist&ut=to">
+                                          블랙리스트 관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
                    <a class="nav-link collapsed" id="question" href="${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to">

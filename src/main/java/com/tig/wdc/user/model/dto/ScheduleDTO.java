@@ -5,8 +5,7 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 /**
- * @author SORA
- * 클래스 스케쥴 DTO
+ * @author SORA 클래스 스케쥴 DTO
  */
 @Component
 public class ScheduleDTO {
@@ -18,16 +17,20 @@ public class ScheduleDTO {
 	private int minPeople;
 	private int maxPeople;
 	private int clsNo;
-	private int ScheduleCount;
-	
+	private int scheduleCount;
+
 	private String inputDate;
 	private String inputMin;
 	private String inputMax;
-	
-	public ScheduleDTO() {}
+
+	private String stringScheduleDate; // 페이먼트용
+
+	public ScheduleDTO() {
+	}
 
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
-			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax) {
+			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax,
+			String stringScheduleDate) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.scheduleType = scheduleType;
@@ -36,10 +39,11 @@ public class ScheduleDTO {
 		this.minPeople = minPeople;
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
-		this.ScheduleCount = scheduleCount;
+		this.scheduleCount = scheduleCount;
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;
+		this.stringScheduleDate = stringScheduleDate;
 	}
 
 	public int getScheduleNo() {
@@ -99,11 +103,11 @@ public class ScheduleDTO {
 	}
 
 	public int getScheduleCount() {
-		return ScheduleCount;
+		return scheduleCount;
 	}
 
 	public void setScheduleCount(int scheduleCount) {
-		ScheduleCount = scheduleCount;
+		scheduleCount = scheduleCount;
 	}
 
 	public String getInputDate() {
@@ -130,11 +134,21 @@ public class ScheduleDTO {
 		this.inputMax = inputMax;
 	}
 
+	public String getStringScheduleDate() {
+		return stringScheduleDate;
+	}
+
+	public void setStringScheduleDate(String stringScheduleDate) {
+		this.stringScheduleDate = stringScheduleDate;
+	}
+
 	@Override
 	public String toString() {
 		return "ScheduleDTO [scheduleNo=" + scheduleNo + ", scheduleType=" + scheduleType + ", scheduleDate="
 				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
-				+ maxPeople + ", clsNo=" + clsNo + ", ScheduleCount=" + ScheduleCount + ", inputDate=" + inputDate
-				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + "]";
+				+ maxPeople + ", clsNo=" + clsNo + ", scheduleCount=" + scheduleCount + ", inputDate=" + inputDate
+				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + ", stringScheduleDate=" + stringScheduleDate
+				+ "]";
 	}
+
 }

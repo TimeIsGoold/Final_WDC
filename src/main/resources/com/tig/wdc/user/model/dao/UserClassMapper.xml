@@ -24,6 +24,7 @@
         <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
         <result column="SAVE_PATH" property="titlePic"/>
+        <result column="AVG_SCORE" property="avgScore"/>
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
@@ -79,5 +80,119 @@
 		 WHERE A.TYPE = 'TITLE'
            AND C.CLS_NO = #{ clsNo }
 	</select>
+	
+	<select id="selectClassPic" parameterType="_int" resultMap="ClassResult">
+		SELECT
+		       *
+		  FROM CLASS C
+		  JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		 WHERE C.CLS_NO = #{ clsNo }
+	</select>  
+	
+	<select id="selectClassStar" parameterType="_int" resultMap="ClassResult">
+		SELECT 
+		       AVG(R.REVIEW_SCORE) AS AVG_SCORE
+		     , S.CLS_NO
+	      FROM REVIEW R
+		  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
+         WHERE S.CLS_NO = #{ clsNo }
+		 GROUP BY S.CLS_NO
+	</select>  
+	
+	<resultMap type="ClassPieceDTO" id="ClassPieceResult">
+        <id column="PIECE_NO" property="pieceNo"/>
+        <result column="PIECE_TITLE" property="pieceTitle"/>
+        <result column="PIECE_PIC" property="piecePic"/>
+        <result column="CLS_NO" property="clsNo"/>
+    </resultMap>
+    
+    <select id="selectClassPiece" parameterType="_int" resultMap="ClassPieceResult">
+	    SELECT
+	      	   *
+	 	  FROM CLASS_PIECE
+	     WHERE CLS_NO = #{clsNo} 
+    </select>
+    
+    <resultMap type="CurriculumDTO" id="CurriculumResult">
+        <id column="CRCLM_NO" property="curriNo"/>
+        <result column="CRCLM_STEP" property="curriStep"/>
+        <result column="CRCLM_TITLE" property="curriTitle"/>
+        <result column="CRCLM_CONTENT" property="curriContent"/>
+        <result column="CLS_NO" property="clsNo"/>
+    </resultMap>
+    
+    <select id="selectCurriculum" parameterType="_int" resultMap="CurriculumResult">
+	    SELECT
+	      	   *
+	 	  FROM CURRICULUM
+	     WHERE CLS_NO = #{clsNo} 
+    </select>
+    
+    <resultMap type="UserReviewDTO" id="ReviewResult">
+        <id column="REVIEW_NO" property="reviewNo"/>
+        <result column="REVIEW_TITLE" property="reviewTitle"/>
+        <result column="REVIEW_CONTENT" property="reviewContent"/>
+        <result column="REVIEW_PIC" property="reviewPic"/>
+        <result column="REVIEW_SCORE" property="reviewScore"/>
+        <result column="REVIEW_ENROLLDATE" property="reviewEnrollDate"/>
+        <result column="CLS_APL_NO" property="aplNo"/>
+        <result column="USER_NAME" property="userName"/>
+    </resultMap>
+    
+    <select id="selectReview" parameterType="_int" resultMap="ReviewResult">
+		SELECT
+		       R.*
+		     , U.USER_NAME
+		  FROM REVIEW R
+		  JOIN CLASS_APPLY A ON(R.CLS_APL_NO = A.CLS_APL_NO)
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = A.SCHEDULE_NO)
+		  JOIN CLASS_APPLY C ON (R.CLS_APL_NO = C.CLS_APL_NO)
+		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
+    
+    <resultMap type="ReviewAnswerDTO" id="ReviewAnswerResult">
+        <id column="RE_ANS_NO" property="ansNo"/>
+        <result column="RE_ANS_DATE" property="ansDate"/>
+        <result column="RE_ANS_CONTENT" property="ansContent"/>
+        <result column="REVIEW_NO" property="reviewNo"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="TE_NAME" property="teName"/>
+        <result column="TE_PIC" property="tePic"/>
+    </resultMap>
+    
+    <select id="selectReviewAnswer" parameterType="_int" resultMap="ReviewAnswerResult">
+		SELECT
+		       A.*
+		     , T.TE_NAME
+		     , T.TE_PIC
+		     , U.USER_NAME
+		  FROM REVIEW_ANSWER A
+		  JOIN REVIEW R ON (R.REVIEW_NO = A.REVIEW_NO)
+		  JOIN TEACHER_INFO T ON (T.TE_NO = A.TE_NO)
+		  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
+		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
+    
+    <resultMap type="ScheduleDTO" id="ScheduleResult">
+        <id column="SCHEDULE_NO" property="scheduleNo"/>
+        <result column="SCHEDULE_TYPE" property="scheduleType"/>
+        <result column="SCHEDULE_DATE" property="scheduleDate"/>
+        <result column="SCHEDULE_START" property="scheduleStart"/>
+        <result column="MIN_PEOPLE" property="minPeople"/>
+        <result column="MAX_PEOPLE" property="maxPeople"/>
+        <result column="CLS_NO" property="clsNo"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+    </resultMap>
+    
+    <select id="selectSchedule" parameterType="_int" resultMap="ScheduleResult">
+		SELECT 
+		       * 
+		  FROM SCHEDULE S
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
 
 </mapper>

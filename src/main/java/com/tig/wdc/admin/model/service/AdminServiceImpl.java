@@ -1,6 +1,7 @@
 package com.tig.wdc.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -85,9 +87,19 @@ public class AdminServiceImpl implements AdminService {
 	 * 강사 문의 상세
 	 */
 	@Override
-	public QuestionDTO selectTeacherQuestionInfoDetail(String id) {
+	public QuestionDTO selectTeacherQuestionInfoDetail(int no) {
 
-		return mapper.selectTeacherQuestionInfoDetail(id);
+		return mapper.selectTeacherQuestionInfoDetail(no);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 학생 상세 문의
+	 */
+	@Override
+	public QuestionDTO selectStudentQuestionInfoDetail(int no) {
+
+		return mapper.selectStudentQuestionInfoDetail(no);
 	}
 
 	@Override
@@ -122,6 +134,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectAllCouponList();
 	}
+	
+	/**
+	 *@author 송아현
+	 *쿠폰 상세
+	 */
+	@Override
+	public CouponDTO selectCouponInfoDetail(int no) {
+		
+		return mapper.selectCouponInfoDetail(no);
+	}
 
 	/**
 	 * @author 송아현
@@ -132,6 +154,17 @@ public class AdminServiceImpl implements AdminService {
 	public List<NoticeDTO> selectAllNoticeList() {
 
 		return mapper.selectAllNoticeList();
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 상세
+	 *
+	 */
+	@Override
+	public NoticeDTO selectNoticeInfoDetail(int no) {
+
+		return mapper.selectNoticeInfoDetail(no);
 	}
 
 	 /**
@@ -144,25 +177,7 @@ public class AdminServiceImpl implements AdminService {
 	 
 		 return mapper.selectNoCalculateList(); 
 	}
-
-	@Override
-	public ReportDetailDTO selectStudentReportList(ReportDetailDTO rd) {
-		
-		
-		System.out.println(rd);
-		
-		System.out.println(mapper.selectStudentReportList(rd));
-		
-		return mapper.selectStudentReportList(rd);
-	}
-
-//	@Override
-//	public ReportDetailDTO selectTeacherReportList(int no) {
-//		
-//		return mapper.selectTeacherReportList(no);
-//	}
-
-	 
+	
 	 /**
 	 * @author 송아현
 	 * 정산완료
@@ -172,6 +187,70 @@ public class AdminServiceImpl implements AdminService {
 	 public List<CalculateDTO> selectYesCalculateList() {
 	 
 		 return mapper.selectYesCalculateList(); 
+	}
+
+	@Override
+	public ReportDetailDTO selectStudentReportList(ReportDetailDTO rd) {
+
+		
+		return mapper.selectStudentReportList(rd);
+	}
+
+
+//	@Override
+//	public ReportDetailDTO selectTeacherReportList(int no) {
+//		
+//		return mapper.selectTeacherReportList(no);
+//	}
+
+	
+
+	@Override
+	public  int updateReportStatus(int no) {
+		
+		return mapper.updateReportStatus(no);
+	}
+
+	@Override
+	public int updateReportStatus2(int no) {
+		
+		return mapper.updateReportStatus2(no);
+	}
+
+	@Override
+	public List<BlackListDTO> selectAllBlackList() {
+		
+		return mapper.selectAllBlackList();
+	}
+
+	@Override
+	public List<BlackListDTO> selectBlockedTeacherList() {
+		
+		return mapper.selectBlockedTeacherList();
+	}
+
+	@Override
+	public List<BlackListDTO> selectBlockedStudentList() {
+		
+		return mapper.selectBlockedStudentList();
+	}
+
+	@Override
+	public int selectReportCnt(int no) {
+		
+		return mapper.selectReportCnt(no);
+	}
+
+	@Override
+	public int insertBlackList(Map<String, Object> blackMap) {
+		
+		return mapper.insertBlackList(blackMap);
+	}
+
+	@Override
+	public int updateBlackListOnUSerTable(Map<String, Object> blackMap) {
+		
+		return mapper.updateBlackListOnUSerTable(blackMap);
 	}
 
 

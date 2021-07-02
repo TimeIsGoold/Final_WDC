@@ -146,20 +146,99 @@ public class UserInfoController {
 		return "user/mypage/coupon";
 	}
 	
+	/**
+	 * 참여 예정 클래스 목록 조회용
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("scheduledClassList")
 	public String scheduledClassList(Model model, HttpSession session) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		
-		List<UserClassDTO> scheduledClassList = new ArrayList<UserClassDTO>();
+		List<UserClassDTO> scheduledOneDayClassList = new ArrayList<UserClassDTO>();
+		List<UserClassDTO> scheduledRegularClassList = new ArrayList<UserClassDTO>();
 		
-		scheduledClassList = infoService.selectScheduledClassList(userNo);
+		// 1. 원데이용
+		scheduledOneDayClassList = infoService.selectScheduledOneDayClassList(userNo);
+		// 2. 정규용
+		scheduledRegularClassList = infoService.selectScheduledRegularClassList(userNo);
 		
-		model.addAttribute("scheduledClassList",scheduledClassList);
+		model.addAttribute("scheduledOneDayClassList",scheduledOneDayClassList);
+		model.addAttribute("scheduledRegularClassList",scheduledRegularClassList);
 		
 		return "user/mypage/scheduledClass";
 
 	}
+	
+	/**
+	 * 참여 진행중 클래스 목록 조회용 메소드
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("participatingClassList")
+	public String participatingClassList(Model model, HttpSession session) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		
+		List<UserClassDTO> participatingOneDayClassList = new ArrayList<UserClassDTO>();
+		List<UserClassDTO> participatingRegularClassList = new ArrayList<UserClassDTO>();
+		
+		// 1. 원데이용
+		participatingOneDayClassList = infoService.selectparticipatingOneDayClassList(userNo);
+		// 2. 정규용
+		participatingRegularClassList = infoService.selectparticipatingRegularClassList(userNo);
+		
+		model.addAttribute("participatingOneDayClassList",participatingOneDayClassList);
+		model.addAttribute("participatingRegularClassList",participatingRegularClassList);
+		
+		return "user/mypage/participatingClass";
+	}
+	
+	/**
+	 * 참여 완료 and 취소(환불) 클래스 조회용 메소드
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("complateClassList")
+	public String complateClassList(Model model, HttpSession session) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		
+		List<UserClassDTO> complateClassList = new ArrayList<UserClassDTO>();
+		List<UserClassDTO> refundClassList = new ArrayList<>();
+		
+		// 
+		complateClassList = infoService.selectComplateClassList(userNo);
+		refundClassList = infoService.selectRefundClassList(userNo);
+		
+		
+		model.addAttribute("complateClassList",complateClassList);
+		model.addAttribute("refundClassList",refundClassList);
+		
+		return "user/mypage/complateClass";
+
+	}
+	
+	/**
+	 * 예약 상세 조회용 메소드
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("userApplyClassDetail")
+	public String userApplyClassDetail(Model model, HttpSession session) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+
+		return "user/mypage/scheduledClass_detail";
+
+	}
+	
+	
 	
 }
 
