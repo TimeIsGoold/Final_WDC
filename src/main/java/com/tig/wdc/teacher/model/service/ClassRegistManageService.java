@@ -4,6 +4,7 @@ import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.model.dto.RegularClassInfoDTO;
+import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 
@@ -32,7 +33,7 @@ public interface ClassRegistManageService {
 	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
 
 	//정규 클래스 신청한 정보
-	RegularClassInfoDTO selectApplyUserInfo(int schedule_no);
+	ClassApplyDTO selectApplyUserInfo(int scheduleNoo);
 
 	
 }

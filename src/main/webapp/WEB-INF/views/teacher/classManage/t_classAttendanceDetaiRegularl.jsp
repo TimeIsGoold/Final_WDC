@@ -101,7 +101,7 @@
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
         <div class="row" style="padding-bottom: 15px;">
           <div class="col-sm-9">
-            <h5>클래스명 : 초코식빵 만들기 클래스</h5>
+            <h5>[ ${ regularInfo.classTitle } ]</h5>
           </div>
           <div class="col-sm-2`" style="float: right;">
             <p><b>수업일 : </b></p>
@@ -111,13 +111,13 @@
           </div>
         </div>
         <div class="col-sm-12">
-          <pre><b>클래스 기간  :  </b>2020년 5월 20일 ~ 2020년 6월 30일</pre>
+          <pre><b>진행 기간  :  </b>${ regularInfo.start} ~ ${ regularInfo.end }</pre>
         </div>  
         <div class="col-sm-12">
-          <pre><b>강의 횟수  :  </b>7회 / 총 10회</pre>
+          <pre><b>강의 횟수  :  </b>7회 / 총 ${ regularInfo.scheduleCount }회</pre>
         </div>        
         <div class="col-sm-12">
-          <pre><b>수강 인원  :  </b>8명 / 최대 10명</pre>
+          <pre><b>수강 인원  :  </b>${ regularInfo.applyCount }명 / 최대 ${ regularInfo.maxPeople }명</pre>
         </div>
       </div>
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tig.wdc.common.PageNation;
 import com.tig.wdc.model.dto.PageInfoDTO;
@@ -91,12 +92,13 @@ public class TeacherMyPageController {
 	 * @return 클래스 스케쥴
 	 */
 	@GetMapping("/studentManagement")
-	public String attendanceManageMent(Model model, @RequestParam("classType") String classType, @RequestParam("clsNo") int clsNo) {
+	public String attendanceManageMent(Model model, @RequestParam Map<String,String> info) {
 		
 		/* 정규클래스 출석관리*/
-		RegularClassInfoDTO regularClassinfo = classManage.selectRegularScheduleinfo(clsNo);
+		RegularClassInfoDTO regularClassinfo = classManage.selectRegularScheduleinfo(Integer.parseInt(info.get("clsNo")));
 		model.addAttribute("regularInfo", regularClassinfo);
-		model.addAttribute("applyUserInfo", classManage.selectApplyUserInfo(regularClassinfo.getSchedule_no()));
+		model.addAttribute("applyUserInfo",classManage.selectApplyUserInfo(regularClassinfo.getSchedule_no()));
+		 
 		return "teacher/classManage/t_classAttendanceDetaiRegularl";
 	}
 	
