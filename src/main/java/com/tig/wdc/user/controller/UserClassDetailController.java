@@ -19,6 +19,8 @@ import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserCouponDTO;
+import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
@@ -75,10 +77,7 @@ public class UserClassDetailController {
 		review = classService.selectReview(clsNo);
 		model.addAttribute("review",review);
 		
-		//리뷰 답변 select
-		List<ReviewAnswerDTO> reviewAnswer = new ArrayList<ReviewAnswerDTO>();
-		reviewAnswer = classService.selectReviewAnswer(clsNo);
-		model.addAttribute("reviewAnswer",reviewAnswer);
+		System.out.println(review);
 		
 		//클래스 스케줄 select
 		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
@@ -92,13 +91,23 @@ public class UserClassDetailController {
 	
 	/**
 	 * 결제페이지 이동용 메소드
+	 * @author 연준
 	 * @param session
 	 * @return
 	 */
 	@PostMapping("payment")
 	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model, UserClassDTO userClassDTO) {
 		int userNo= (Integer) session.getAttribute("userNo");
-
+		// 유저 넘버로 이름과 전화번호 조회
+		UserInfoDTO userInfo = new UserInfoDTO();
+		userInfo = classService.selectUserInfo(userNo);
+		// 유저 넘버로 보유 쿠폰 조회
+		List<UserCouponDTO> couponList = new ArrayList<UserCouponDTO>();
+		couponList = classService.selectCouponList(userNo);
+				
+		
+		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("couponList",couponList);
 		
 		model.addAttribute("classApplyDTO",classApplyDTO);
 		model.addAttribute("scheduleDTO", scheduleDTO);
@@ -106,5 +115,10 @@ public class UserClassDetailController {
 		
 		return "user/payment/payment";
 	}
+	
+//	@PostMapping("paymentSuccess")
+//	public String paymentSuccess() {
+//		
+//	}
 	
 }

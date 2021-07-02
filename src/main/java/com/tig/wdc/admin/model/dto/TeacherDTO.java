@@ -14,12 +14,12 @@ public class TeacherDTO {
 	private int reportedCnt;              // 누적 신고일
 	private String imgPath;               // 이미지 경로
 	private String teacherIntro;          // 강사 소개
-	public TeacherDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private String blockYn;
+	
+	public TeacherDTO() {}
+	
 	public TeacherDTO(int teNo, String usertype, String teacherType, String name, String id, String phone,
-			Date enrollDate, int reportedCnt, String imgPath, String teacherIntro) {
+			Date enrollDate, int reportedCnt, String imgPath, String teacherIntro, String blockYn) {
 		super();
 		this.teNo = teNo;
 		this.usertype = usertype;
@@ -31,7 +31,9 @@ public class TeacherDTO {
 		this.reportedCnt = reportedCnt;
 		this.imgPath = imgPath;
 		this.teacherIntro = teacherIntro;
+		this.blockYn = blockYn;
 	}
+	
 	public int getTeNo() {
 		return teNo;
 	}
@@ -92,12 +94,17 @@ public class TeacherDTO {
 	public void setTeacherIntro(String teacherIntro) {
 		this.teacherIntro = teacherIntro;
 	}
+	public String getBlockYn() {
+		return blockYn;
+	}
+	public void setBlockYn(String blockYn) {
+		this.blockYn = blockYn;
+	}
+	
 	@Override
 	public String toString() {
 		return "TeacherDTO [teNo=" + teNo + ", usertype=" + usertype + ", teacherType=" + teacherType + ", name=" + name
 				+ ", id=" + id + ", phone=" + phone + ", enrollDate=" + enrollDate + ", reportedCnt=" + reportedCnt
-				+ ", imgPath=" + imgPath + ", teacherIntro=" + teacherIntro + "]";
+				+ ", imgPath=" + imgPath + ", teacherIntro=" + teacherIntro + ", blockYn=" + blockYn + "]";
 	}
-	
-	
 }

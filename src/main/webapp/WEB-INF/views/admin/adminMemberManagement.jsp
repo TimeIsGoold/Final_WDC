@@ -6,19 +6,13 @@
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>우리동네 클래스</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-            rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"
-            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script>
             function detailPage() {
                 location.href="MemberManager-admin.html";
@@ -60,6 +54,7 @@
                                             <th>성명</th>
                                             <th>가입 날짜</th>
                                             <th>누적신고 횟수</th>
+                                            <th>블랙리스트 여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,6 +68,8 @@
 				                                <td>${totalList.userName}</td>
 				                                <td>${totalList.enrollDate}</td>
 				                                <td>${totalList.reportedCnt}</td>
+				                                <td><c:choose><c:when test="${ totalList.blackYn eq 'Y' }"><label style="color : red; align-text:right">BlackList</label></c:when></c:choose></td>
+				                                
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

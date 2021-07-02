@@ -75,7 +75,12 @@
                                     <tbody>
                                         <tr>
                                             <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-                                            <td>${ couponDetail.couponType }</td>
+                                            <td>
+                                            	<c:if test="${ couponDetail.couponType eq 'TOTAL'}">고객 전체</c:if>
+                                            	<c:if test="${ couponDetail.couponType ne 'TOTAL'}">
+                                            		${ couponDetail.couponType }
+                                            	</c:if>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>쿠 &nbsp;폰 &nbsp;명</th>

@@ -255,6 +255,7 @@ i {
 									<c:forEach var="classPic" items="${ requestScope.classPic }">
 										<div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
 											<img class="w-100" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
+											<input type="hidden" name="titlePic" value="${ classPic.titlePic }"/>
 										</div>
 									</c:forEach>
 								</div>
@@ -264,7 +265,7 @@ i {
 									<c:forEach var="classPic" items="${ requestScope.classPic }">
 										<c:set value="${ i+1 }" var="i" ></c:set>
 										<a class="d-block" href="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }"
-											data-lightbox="product" title="Product item ${i} }"> <img
+											data-lightbox="product" title="Product item ${i}"> <img
 											class="img-fluid" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
 										</a> 
 									</c:forEach>
@@ -328,12 +329,14 @@ i {
 						</ul>
 					</div>
 				</div>
+ 					<input class="datetimepicker2" id="datetimepicker2">
 				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 					<!-- 날짜, 시간 선택 -->
 					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
 					&nbsp;&nbsp;
 					<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
+					
 					&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
@@ -357,7 +360,7 @@ i {
             </c:forEach>
             
              <script>
-                let times = new Array();
+               let times = new Array();
                let days = new Array();
                
                 <c:forEach var="schedule" items="${ requestScope.schedule }">
@@ -371,29 +374,19 @@ i {
                jQuery('#datetimepicker').datetimepicker({               
                   datepicker : true,
                   allowTimes : timeValues,
-                  //minDate : 0,
+                  format:'Y-m-d H:i',
                   onChangeDateTime : function(dp, $input) {
                      console.log($input.val());
+                     var datetimepicker2 = document.getElementById('datetimepicker2');
+                     datetimepicker2.innerText = $input.val();
                   },
-                  beforeShowDay: disableAllTheseDays
+                  //allowDates: ['01.07.2021','02.07.2021','03.01.2014','04.01.2021','05.01.2014','06.01.2014'], formatDate:'d.m.Y'
+                  //allowDates: ['2021-07-02','2021-07-03'],formatDate:'Y-m-d'
+                  allowDates : days,
+                  formatDate:'Y-m-d'
                });
                
-               // 일요일만 선택 막기 
-               function noSundays(date) { 
-                 return [date.getDay() = days, '']; 
-               }
-               
-               var disabledDays = dayValues;
-
-               function disableAllTheseDays(date) { 
-                     var m = date.getMonth(), d = date.getDate(), y = date.getFullYear(); 
-                     for (i = 0; i < disabledDays.length; i++) { 
-                         if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1) { 
-                             return [false]; 
-                         } 
-                     } 
-                     return [true]; 
-                  }
+ 
                
 
             </script>
@@ -503,7 +496,7 @@ i {
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
 							<button onclick="reviewWrite1();" class="btn btn-dark"
-								style="margin-left: 88%; width: 112px; font-size: 15px;">리뷰 작성</button>
+								style="margin-left: 88%; width: 112px; font-size: 15px;" type="button">리뷰 작성</button>
 							<div id="reviewWrite"
 								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
 								<form action="detail.html">
@@ -559,11 +552,11 @@ i {
 										</div>
 										<!-- 답변 -->
 										<div class="media mb-3 answer">
-											<img class="rounded-circle" src="${ requestScope.reviewAnswer.tePic }" alt="" width="50">
+											<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50">
 											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">${ requestScope.reviewAnswer.teName }</h6>
-												<p class="small text-muted mb-0 text-uppercase">${ requestScope.reviewAnswer.ansDate }</p>
-												<p class="text-small mb-0 text-muted">${ requestScope.reviewAnswer.ansContent }</p>
+												<h6 class="mb-0 text-uppercase">${ review.answer.teName }</h6>
+												<p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
+												<p class="text-small mb-0 text-muted">${ review.answer.ansContent }</p>
 												<br>
 											</div>
 										</div>
