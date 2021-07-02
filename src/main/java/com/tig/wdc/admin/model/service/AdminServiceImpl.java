@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +102,15 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectStudentQuestionInfoDetail(no);
 	}
+	
+	/**
+	 * @author 송아현
+	 * 문의 등록
+	 */
+//	@Override
+//	public int insertAnswer(Map<String, Object> answerMap) {
+//		return 0;
+//	}
 
 	@Override
 	public StudentDTO selectOneStudent(int no) {
@@ -143,6 +153,16 @@ public class AdminServiceImpl implements AdminService {
 	public CouponDTO selectCouponInfoDetail(int no) {
 		
 		return mapper.selectCouponInfoDetail(no);
+	}
+	
+	/**
+	 *@author 송아현
+	 *쿠폰 발급
+	 */
+	@Override
+	public int insertCouponIssue(CouponDTO coupon) {
+		
+		return mapper.insertCouponIssue(coupon);
 	}
 
 	/**

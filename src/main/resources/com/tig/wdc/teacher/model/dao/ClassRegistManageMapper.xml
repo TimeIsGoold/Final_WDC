@@ -2,7 +2,16 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tig.wdc.teacher.model.dao.ClassRegistMapper">
+<mapper namespace="com.tig.wdc.teacher.model.dao.ClassRegistManageMapper">
+
+    <resultMap type="regularScheduleInfo" id="regularSchedule">
+        <id column="SCHEDULE_NO" property="schedule_no"/>
+        <result column="MAX_PEOPLE" property="maxPeople"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+        <result column="SUM(B.CLS_PPL)" property="applyCount"/>
+        <result column="CLS_START_D" property="start"/>
+        <result column="CLS_END_D" property="end"/>
+    </resultMap> 
 
     <insert id="insertClassInfo" parameterType="ClassDTO">
         INSERT 
@@ -99,7 +108,23 @@
              , #{ inputMin }
              , #{ inputMax }
              , #{ clsNo }
-             , #{ ScheduleCount }
+             , #{ scheduleCount }
              )
     </insert>
+    <select id="selectRegularScheduleinfo" parameterType="_int" resultMap="regularSchedule">
+        SELECT 
+               A.SCHEDULE_NO
+             , A.MAX_PEOPLE  
+             , A.SCHEDULE_COUNT
+             , SUM(B.CLS_PPL)
+             , C.CLS_START_D
+             , C.CLS_END_D
+          FROM SCHEDULE A
+          JOIN CLASS_APPLY B ON (A.SCHEDULE_NO = B.SCHEDULE_NO)
+          JOIN CLASS C ON (A.CLS_NO = C.CLS_NO)
+          JOIN PAYMENT D ON (B.CLS_APL_NO = D.CLS_APL_NO)
+        WHERE C.CLS_NO = #{clsNo}
+          AND D.PAY_STATUS = '완료'
+         GROUP BY A.SCHEDULE_NO,A.MAX_PEOPLE,A.SCHEDULE_COUNT,C.CLS_START_D,C.CLS_END_D    
+    </select>
 </mapper>

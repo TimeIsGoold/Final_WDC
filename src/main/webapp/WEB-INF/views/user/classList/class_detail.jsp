@@ -331,6 +331,7 @@ i {
 						</ul>
 					</div>
 				</div>
+
 				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 					<!-- 날짜, 시간 선택 -->
 					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
@@ -347,7 +348,6 @@ i {
 					</li>
 					</form>
 				</div>
-
 	            <script>
 	               let times = new Array();
 	               let days = new Array();
@@ -370,10 +370,8 @@ i {
 	                  allowDates : days,
 	                  formatDate:'Y-m-d',
 	                  scrollMonth : false
-	                  
 
 	               });
-	
 	            </script>
 				<br>
 				<br>
@@ -479,8 +477,13 @@ i {
 					<div class="tab-pane fade" id="reviews" role="tabpanel"
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
+<<<<<<< HEAD
 							<button onclick="reviewWrite1();" type="button" class="btn btn-dark"
 								style="margin-left: 88%; width: 112px; font-size: 15px;">리뷰 작성</button>
+=======
+							<button onclick="reviewWrite1();" class="btn btn-dark"
+								style="margin-left: 88%; width: 112px; font-size: 15px;" type="button">리뷰 작성</button>
+>>>>>>> branch 'master' of https://github.com/TimeIsGoold/Final_WDC.git
 							<div id="reviewWrite"
 								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
 									<input type="file"

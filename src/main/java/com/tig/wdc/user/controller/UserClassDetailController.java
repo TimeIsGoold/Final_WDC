@@ -94,6 +94,7 @@ public class UserClassDetailController {
 	
 	/**
 	 * 결제페이지 이동용 메소드
+	 * @author 연준
 	 * @param session
 	 * @return
 	 */
@@ -117,5 +118,10 @@ public class UserClassDetailController {
 		
 		return "user/payment/payment";
 	}
+	
+//	@PostMapping("paymentSuccess")
+//	public String paymentSuccess() {
+//		
+//	}
 	
 }

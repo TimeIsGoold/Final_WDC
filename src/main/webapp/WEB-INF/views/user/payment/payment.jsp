@@ -198,35 +198,67 @@ h5, .h5 {
               <!-- 쿠폰 적용-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b>
-                    <select style="height: 25px;  margin-left: 55px;" class="couponDis" onchange="functionTest2()">
+                  <button id="discount" class="btn btn-dark btn-sm btn-block" type="button">적용하기</button>
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b> 
+                  <h6 style="font-size: 13px; font-weight:200 !important;"> * 적용하기를 누르셔야 쿠폰 적용 가능합니다. </h6>
+                   <script>
+                  	$("#discount").click(function() {
+						var couponNo = "0"; 
+						var couponDisTotalPrice = "0";
+						var couponDisAmount = "0";
+						
+ 						for(var i = 1; i < $(".couponDis")[0].length; i++){
+							if($(".couponDis")[0][i].selected){
+								
+								couponNo = $(".couponDis")[0][i].value;
+								alert(couponNo);
+								
+								couponDisTotalPrice = $(".couponDis")[0][i+1].value;
+								couponDisAmount = $(".couponDis")[0][i+2].value;
+								
+								// 오른쪽 토탈 금액 변경
+								$("#totalPrice")[0].value = couponDisTotalPrice;
+								$("#totalPrice")[0].innerText = couponDisTotalPrice;
+								$("#totalPrice")[0].innerText += " 원";							
+					
+								// 오른쪽 쿠폰 할인금액 변경
+								$("#couponDisAmount2")[0].value = couponDisAmount;
+								$("#couponDisAmount2")[0].innerText = couponDisAmount;
+								$("#couponDisAmount2")[0].innerText += " 원";							
+
+								// 모달창 결제금액 변경
+								$("#totalPriceModal")[0].value = couponDisTotalPrice;
+								$("#totalPriceModal")[0].innerText = couponDisTotalPrice;							
+
+								// 인풋 확인
+								$("#insertPrice")[0].value = couponDisTotalPrice;
+								$("#insertPrice")[0].innerText = couponDisTotalPrice;			
+								$("#insertPrice")[0].innerText += " 원";			
+
+
+								}
+						} 
+						
+					});
+                  </script>                  
+                  <select style="height: 25px;  margin-left: 55px;" class="couponDis" id="discountCoupon">
+                   <c:choose>
+                  	<c:when test="${empty couponList}">
+                  	   <option>사용 가능한 쿠폰이 없습니다.</option>
+                  	</c:when>
+                  	<c:otherwise>
                     	<option>선택</option>
                     	<c:forEach var="couponList" items="${ requestScope.couponList }">
-                       <c:set value="${i+1 }" var="i"></c:set>
-						<script>
-						var totalPrice ;
-						
-						function functionTest2(){
-	  						var couponNo = "0";
-	  			          	couponNo = $(".couponDis")[0][2].value;
-	                      var couponDisWon = document.getElementById('couponDis2');
-	                      couponDisWon.innerHTML = couponNo;
-	                      couponDisWon.innerHTML += ' 원';
-
-	                      var totalPrice =  document.getElementById('totalPrice');
-	                      var totalPrice2 =  document.getElementById('totalPrice2');
-	                      totalPrice.innerHTML = ${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl } - couponNo;
-	                      totalPrice.innerHTML += ' 원';
-	                      
-	                      totalPrice2.innerHTML = ${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl } - couponNo;
-
-	  					} 
-	  					</script>
-                        <option id="coupon" value="${ couponList.disAmount }">${ couponList.cpnName }
-                          (할인 금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/>원)
+                        <option id="coupon" value="${ couponList.cpnNo }">
+                        ${ couponList.cpnName } (할인 금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/>원)
                         </option>
+                        <c:set var="couponDisAmountTotalPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl -  couponList.disAmount }"></c:set>
+                        <option id="couponTotalPrice" hidden="" value="${ couponDisAmountTotalPrice}"></option>
+                        <option id="couponDisAmount" hidden="" value="${ couponList.disAmount }"></option>
                     	</c:forEach>
-                    </select>
+                  	</c:otherwise>
+                   </c:choose>
+                  </select>
                 </div>
                 </div>
               </div>
@@ -238,7 +270,6 @@ h5, .h5 {
                 <div class="row align-items-center text-center">
                   <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><b>결제 수단 선택</b>
                     <select style="height: 25px;  margin-left: 23px; width: 135px;" id="payment_method">
-                        <option>선택</option>
                         <option>카카오 페이</option>
                     </select>
                 </div>
@@ -301,23 +332,18 @@ h5, .h5 {
                     <h5 class="text-uppercase mb-4">최종 결제 금액</h5>
                     <ul class="list-unstyled mb-0">
                       <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small"><fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원</span></li>
-                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Coupon Discount</strong><span class="text-muted small" id="couponDis2">0원</span></li>
+                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Coupon Discount</strong><span class="text-muted small" id="couponDisAmount2">0원</span></li>
                       <li class="border-bottom my-2"></li>
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold">Total</strong>
-                      <span id="totalPrice23">
-                      <li id="totalPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }">
-                      </li>
-                      <input type="hidden" id="totalPrice2" >
-<%--                       <input value="<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원 " id="totalPrice" >
- --%>                      
+                      <span id="totalPrice">
+						<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원                     
                       </span>
                       </li>
                       <li>
                           <div class="form-group mb-0">
                           <br>
                             <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal"><b>결제하기</b></button>
-                            <button id = "discount" class="btn btn-dark btn-sm btn-block" type = "button">적용하기</button>
                           </div>
 
                       </li>
@@ -328,9 +354,9 @@ h5, .h5 {
           </div>
         </section>
       </div>
-
 </div>
 <!-- 결제 팝업 -->
+
 
   <div id="pop01" class="overlay">
     <div class="popup">
@@ -348,7 +374,10 @@ h5, .h5 {
                                 <p class="text-muted">강의 날짜 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,0,10) }</p>
                                 <p class="text-muted">강의 시간 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,11,16) }</p>
                                 <p class="text-muted">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p>
-                                <p class="text-muted" id="totalPriceModal">결제 금액 : </p>
+                             	  결제 금액 :
+                             	<span class="" id="totalPriceModal" style="display: inline-flex">
+                             	<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/>
+                             	</span> 원
                             </p>
                             <hr>
                             <ul style="font-size: 15px;">
@@ -357,9 +386,13 @@ h5, .h5 {
 							</ul>
                             <hr>
                             <div>
-								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;"></a>취소</button>
+                                <form action="${ pageContext.servletContext.contextPath }/user/paymentSuccess" method="post">
+								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;" type="button"></a>취소</button>
                                 <!-- 카카오 페이 연결 -->
-								<button id = "doPay"type = "button" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">결제하기</button>
+								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">결제하기</button>
+								<!-- payment - payPrice   -->
+                             	<input type="hidden" name="totalPrice" id="insertPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }"/>
+                                </form>
                             </div>
                           </div>
                         </div>
@@ -389,18 +422,14 @@ h5, .h5 {
     			return;
     		} */
     	    
-     	    var totalPrice = document.getElementById("totalPrice2").value; 
-     	    alert(totalPrice1);  
-     	    var totalPriceModal =  document.getElementById('totalPriceModal');
-             totalPriceModal.innerHTML = totalPrices;
-             
+
+            
     		location.href='#pop01';
     		       
         }
 
         function paymentSuccess(){
             alert("결제에 성공 및 예약 완료");
-            location.href="mypageScheduledClass.html";
         }
     </script>
     
