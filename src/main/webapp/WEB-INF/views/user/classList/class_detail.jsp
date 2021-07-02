@@ -329,7 +329,7 @@ i {
 						</ul>
 					</div>
 				</div>
- 					<div class="datetimepicker2" id="datetimepicker2">하하</div>
+ 					<input class="datetimepicker2" id="datetimepicker2">
 				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 					<!-- 날짜, 시간 선택 -->
 					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
@@ -378,7 +378,7 @@ i {
                   onChangeDateTime : function(dp, $input) {
                      console.log($input.val());
                      var datetimepicker2 = document.getElementById('datetimepicker2');
-                     datetimepicker2.innerHTML = $input.val();
+                     datetimepicker2.innerText = $input.val();
                   },
                   //allowDates: ['01.07.2021','02.07.2021','03.01.2014','04.01.2021','05.01.2014','06.01.2014'], formatDate:'d.m.Y'
                   //allowDates: ['2021-07-02','2021-07-03'],formatDate:'Y-m-d'
@@ -496,7 +496,7 @@ i {
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
 							<button onclick="reviewWrite1();" class="btn btn-dark"
-								style="margin-left: 88%; width: 112px; font-size: 15px;">리뷰 작성</button>
+								style="margin-left: 88%; width: 112px; font-size: 15px;" type="button">리뷰 작성</button>
 							<div id="reviewWrite"
 								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
 								<form action="detail.html">
