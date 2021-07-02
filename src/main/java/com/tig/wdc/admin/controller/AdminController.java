@@ -22,6 +22,12 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
+import com.tig.wdc.user.model.service.UserClassService;
 
 @Controller
 @RequestMapping("/admin/*")
