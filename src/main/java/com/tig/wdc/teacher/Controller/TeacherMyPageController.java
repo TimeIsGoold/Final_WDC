@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.common.PageNation;
 import com.tig.wdc.model.dto.PageInfoDTO;
+import com.tig.wdc.model.dto.RegularClassInfoDTO;
 import com.tig.wdc.teacher.model.service.BalanceService;
 import com.tig.wdc.teacher.model.service.BoardAndQnAService;
 import com.tig.wdc.teacher.model.service.ClassRegistManageService;
@@ -93,8 +94,9 @@ public class TeacherMyPageController {
 	public String attendanceManageMent(Model model, @RequestParam("classType") String classType, @RequestParam("clsNo") int clsNo) {
 		
 		/* 정규클래스 출석관리*/
-		model.addAttribute("regularInfo", classManage.selectRegularScheduleinfo(clsNo));
-		
+		RegularClassInfoDTO regularClassinfo = classManage.selectRegularScheduleinfo(clsNo);
+		model.addAttribute("regularInfo", regularClassinfo);
+		model.addAttribute("applyUserInfo", classManage.selectApplyUserInfo(regularClassinfo.getSchedule_no()));
 		return "teacher/classManage/t_classAttendanceDetaiRegularl";
 	}
 	

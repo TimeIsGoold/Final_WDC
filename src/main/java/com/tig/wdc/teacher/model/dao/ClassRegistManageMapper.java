@@ -28,4 +28,6 @@ public interface ClassRegistManageMapper {
 
 	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
 
+	RegularClassInfoDTO selectApplyUserInfo(int schedule_no);
+
 }

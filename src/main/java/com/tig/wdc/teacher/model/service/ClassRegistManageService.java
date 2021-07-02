@@ -31,5 +31,8 @@ public interface ClassRegistManageService {
 	//정규 클래스 정보
 	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
 
+	//정규 클래스 신청한 정보
+	RegularClassInfoDTO selectApplyUserInfo(int schedule_no);
+
 	
 }

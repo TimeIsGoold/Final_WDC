@@ -12,7 +12,6 @@
         <result column="CLS_START_D" property="start"/>
         <result column="CLS_END_D" property="end"/>
     </resultMap> 
-    <resultMap type=""
 
     <insert id="insertClassInfo" parameterType="ClassDTO">
         INSERT 

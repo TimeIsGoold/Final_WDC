@@ -75,6 +75,14 @@ public class ClassRegistServiceImpl implements ClassRegistManageService {
 	public RegularClassInfoDTO selectRegularScheduleinfo(int clsNo) {
 		return mapper.selectRegularScheduleinfo(clsNo);
 	}
+
+	/**
+	 *  정규클래스 신청자 정보
+	 */
+	@Override
+	public RegularClassInfoDTO selectApplyUserInfo(int schedule_no) {
+		return mapper.selectApplyUserInfo(schedule_no);
+	}
 	
 	
 
