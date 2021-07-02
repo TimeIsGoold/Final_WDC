@@ -13,13 +13,14 @@ public class CouponDTO {
 	private java.sql.Date endDate;
 	private String useStatus;
 	private int discountCondition;
+	private int userNo;
 	
 	public CouponDTO() {
 		super();
 	}
 
-	public CouponDTO(int couponNo, String couponType, String couponName, int discount, Date issueDate,
-			Date startDate, Date endDate, String useStatus, int discountCondition) {
+	public CouponDTO(int couponNo, String couponType, String couponName, int discount, Date issueDate, Date startDate,
+			Date endDate, String useStatus, int discountCondition, int userNo) {
 		super();
 		this.couponNo = couponNo;
 		this.couponType = couponType;
@@ -30,6 +31,7 @@ public class CouponDTO {
 		this.endDate = endDate;
 		this.useStatus = useStatus;
 		this.discountCondition = discountCondition;
+		this.userNo = userNo;
 	}
 
 	public int getCouponNo() {
@@ -104,12 +106,20 @@ public class CouponDTO {
 		this.discountCondition = discountCondition;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
-		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName="
-				+ couponName + ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", useStatus=" + useStatus + ", discountCondition=" + discountCondition
-				+ "]";
+		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName=" + couponName
+				+ ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", useStatus=" + useStatus + ", discountCondition=" + discountCondition + ", userNo="
+				+ userNo + "]";
 	}
 
 }

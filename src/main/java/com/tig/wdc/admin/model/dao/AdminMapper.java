@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +94,7 @@ public interface AdminMapper {
 	 * @param coupon 
 	 * @return
 	 */
-	int insertCouponIssue(CouponDTO coupon);
+	int insertCouponIssue(HashMap coupon);
 
 	/**
 	 * @author 송아현

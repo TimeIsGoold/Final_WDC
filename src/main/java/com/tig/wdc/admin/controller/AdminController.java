@@ -168,6 +168,7 @@ public class AdminController {
 	/**
 	 * @author 송아현
 	 * 쿠폰 발급을 위한 매핑
+	 * 전처리 -> url
 	 */
 	@GetMapping("couponIssue")
 	public void couponIssue() {}
@@ -175,13 +176,16 @@ public class AdminController {
 	/**
 	 * @author 송아현
 	 * 쿠폰 발급
-	 * 
+	 * 후처리
 	 * @return
 	 */
 	@PostMapping("couponIssue")
 	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
 		
-		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
+		HashMap couponMap = new HashMap<>();
+		couponMap.put("type", coupon.getCouponType());
+		couponMap.put("coupon", coupon);
+		model.addAttribute("couponIssue", adminService.insertCouponIssue(couponMap));
 		
 		return "admin/couponIssue";
 	}

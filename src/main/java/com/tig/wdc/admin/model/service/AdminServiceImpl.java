@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -150,7 +151,7 @@ public class AdminServiceImpl implements AdminService {
 	 *쿠폰 발급
 	 */
 	@Override
-	public int insertCouponIssue(CouponDTO coupon) {
+	public int insertCouponIssue(HashMap coupon) {
 		
 		return mapper.insertCouponIssue(coupon);
 	}

@@ -510,12 +510,12 @@
 	</select>
 	
  	<!-- 쿠폰 발급 -->
-	<insert id="insertCouponIssue" parameterType="CouponDTO">
+	<insert id="insertCouponIssue" parameterType="hashMap">
 		<selectKey keyProperty="userNo" order="BEFORE" resultType="_int">
 			SELECT 
 				   USER_NO
          	  FROM USER_INFO
-         	 WHERE USER_ID = #{ couponType }
+         	 WHERE USER_ID = #{ type }
 		</selectKey>
 		INSERT
           INTO COUPON
