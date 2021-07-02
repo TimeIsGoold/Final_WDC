@@ -7,6 +7,8 @@ import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserCouponDTO;
+import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -37,5 +39,9 @@ public interface UserClassMapper {
 
 
 	public List<ScheduleDTO> selectSchedule(int clsNo);
+
+	public UserInfoDTO selectUserInfo(int userNo);
+
+	public List<UserCouponDTO> selectCouponList(int userNo);
 
 }

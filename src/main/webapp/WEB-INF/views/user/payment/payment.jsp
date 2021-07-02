@@ -125,6 +125,7 @@ h5, .h5 {
             </div>
           </div>
         </section>
+
         <section class="py-5">
           <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
@@ -143,20 +144,20 @@ h5, .h5 {
                   <tbody>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="img/class-sport.png" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
+                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic }" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
                           <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">${ requestScope.userClassDTO.price }</p>
+                        <p class="mb-0 small"><fmt:formatNumber value="${ requestScope.userClassDTO.price }" pattern="#,###"/> 원</p>
                       </td>
                       <td class="align-middle border-0">
                           <div class="quantity">
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value=${ requestScope.classApplyDTO.ppl }/>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value=${ requestScope.classApplyDTO.ppl } /> 명
                           </div>
                       </td>
-                      <td class="align-middle border-0">
-                        <p class="mb-0 small">${ requestScope.userClassDTO.price }</p>
+                      <td class="align-middle border-0">                      
+                        <p class="mb-0 small"><fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원 </p>
                       </td>
                     </tr>
                   </tbody>
@@ -178,7 +179,7 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;이름
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name">
+                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name" value="${ requestScope.userInfo.userName }" disabled="disabled">
                     </td>
                   </tr>
                   <tr>
@@ -186,25 +187,51 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;휴대폰번호
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone">
+                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone" value="${ requestScope.userInfo.phone }" disabled="disabled">
                     </td>
                   </tr>
                 </tbody>
               </table>
               <br>
+              
+
               <!-- 쿠폰 적용-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
                   <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b>
-                    <select style="height: 25px;  margin-left: 45px;">
-                        <option>선택</option>
-                        <option>사용가능 쿠폰 1</option>
-                        <option>사용가능 쿠폰 2</option>
+                    <select style="height: 25px;  margin-left: 55px;" class="couponDis" onchange="functionTest2()">
+                    	<option>선택</option>
+                    	<c:forEach var="couponList" items="${ requestScope.couponList }">
+                       <c:set value="${i+1 }" var="i"></c:set>
+						<script>
+						var totalPrice ;
+						
+						function functionTest2(){
+	  						var couponNo = "0";
+	  			          	couponNo = $(".couponDis")[0][2].value;
+	                      var couponDisWon = document.getElementById('couponDis2');
+	                      couponDisWon.innerHTML = couponNo;
+	                      couponDisWon.innerHTML += ' 원';
+
+	                      var totalPrice =  document.getElementById('totalPrice');
+	                      var totalPrice2 =  document.getElementById('totalPrice2');
+	                      totalPrice.innerHTML = ${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl } - couponNo;
+	                      totalPrice.innerHTML += ' 원';
+	                      
+	                      totalPrice2.innerHTML = ${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl } - couponNo;
+
+	  					} 
+	  					</script>
+                        <option id="coupon" value="${ couponList.disAmount }">${ couponList.cpnName }
+                          (할인 금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/>원)
+                        </option>
+                    	</c:forEach>
                     </select>
                 </div>
-                <div style="margin-left: 20px;">할인금액 : <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="0 원"></div>
                 </div>
               </div>
+              
+              
               <br>
               <!-- 결제 수단 선택-->
               <div class="bg-light px-4 py-3">
@@ -273,13 +300,24 @@ h5, .h5 {
                   <div class="card-body">
                     <h5 class="text-uppercase mb-4">최종 결제 금액</h5>
                     <ul class="list-unstyled mb-0">
-                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">42,500 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small"><fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Coupon Discount</strong><span class="text-muted small" id="couponDis2">0원</span></li>
                       <li class="border-bottom my-2"></li>
-                      <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>42,500 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between mb-4">
+                      <strong class="text-uppercase small font-weight-bold">Total</strong>
+                      <span id="totalPrice23">
+                      <li id="totalPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }">
+                      </li>
+                      <input type="hidden" id="totalPrice2" >
+<%--                       <input value="<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원 " id="totalPrice" >
+ --%>                      
+                      </span>
+                      </li>
                       <li>
                           <div class="form-group mb-0">
                           <br>
                             <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal"><b>결제하기</b></button>
+                            <button id = "discount" class="btn btn-dark btn-sm btn-block" type = "button">적용하기</button>
                           </div>
 
                       </li>
@@ -310,7 +348,7 @@ h5, .h5 {
                                 <p class="text-muted">강의 날짜 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,0,10) }</p>
                                 <p class="text-muted">강의 시간 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,11,16) }</p>
                                 <p class="text-muted">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p>
-                                <p class="text-muted">결제 금액 : ${ requestScope.userClassDTO.price }</p>
+                                <p class="text-muted" id="totalPriceModal">결제 금액 : </p>
                             </p>
                             <hr>
                             <ul style="font-size: 15px;">
@@ -346,10 +384,16 @@ h5, .h5 {
     	    	return
     		}
     		        
-    	    if(check == false){
+/*     	    if(check == false){
     			alert("규정에 동의하셔야 결제가 가능합니다.");
     			return;
-    		}
+    		} */
+    	    
+     	    var totalPrice = document.getElementById("totalPrice2").value; 
+     	    alert(totalPrice1);  
+     	    var totalPriceModal =  document.getElementById('totalPriceModal');
+             totalPriceModal.innerHTML = totalPrices;
+             
     		location.href='#pop01';
     		       
         }
