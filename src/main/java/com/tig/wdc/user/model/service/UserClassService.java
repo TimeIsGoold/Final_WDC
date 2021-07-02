@@ -32,7 +32,6 @@ public interface UserClassService {
 
 	UserClassDTO selectClassStar(int clsNo);
 
-	List<ReviewAnswerDTO> selectReviewAnswer(int clsNo);
 
 
 }

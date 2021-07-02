@@ -71,10 +71,7 @@ public class UserClassDetailController {
 		review = classService.selectReview(clsNo);
 		model.addAttribute("review",review);
 		
-		//리뷰 답변 select
-		List<ReviewAnswerDTO> reviewAnswer = new ArrayList<ReviewAnswerDTO>();
-		reviewAnswer = classService.selectReviewAnswer(clsNo);
-		model.addAttribute("reviewAnswer",reviewAnswer);
+		System.out.println(review);
 		
 		return "user/classList/class_detail";
 	}

@@ -514,11 +514,11 @@ i {
 										</div>
 										<!-- 답변 -->
 										<div class="media mb-3 answer">
-											<img class="rounded-circle" src="${ requestScope.reviewAnswer.tePic }" alt="" width="50">
+											<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50">
 											<div class="media-body ml-3">
-												<h6 class="mb-0 text-uppercase">${ requestScope.reviewAnswer.teName }</h6>
-												<p class="small text-muted mb-0 text-uppercase">${ requestScope.reviewAnswer.ansDate }</p>
-												<p class="text-small mb-0 text-muted">${ requestScope.reviewAnswer.ansContent }</p>
+												<h6 class="mb-0 text-uppercase">${ review.answer.teName }</h6>
+												<p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
+												<p class="text-small mb-0 text-muted">${ review.answer.ansContent }</p>
 												<br>
 											</div>
 										</div>

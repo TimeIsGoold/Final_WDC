@@ -34,6 +34,5 @@ public interface UserClassMapper {
 
 	public UserClassDTO selectClassStar(int clsNo);
 
-	public List<ReviewAnswerDTO> selectReviewAnswer(int clsNo);
 
 }
