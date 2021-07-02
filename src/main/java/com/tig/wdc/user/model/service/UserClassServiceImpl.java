@@ -75,14 +75,11 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectClassStar(clsNo);
 	}
 
-	@Override
-	public List<ReviewAnswerDTO> selectReviewAnswer(int clsNo) {
-		return mapper.selectReviewAnswer(clsNo);
-	}
 
 	@Override
 	public List<ScheduleDTO> selectSchedule(int clsNo) {
 		return mapper.selectSchedule(clsNo);
 	}
+
 
 }

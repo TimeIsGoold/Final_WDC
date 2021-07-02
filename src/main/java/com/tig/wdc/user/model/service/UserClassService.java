@@ -33,7 +33,6 @@ public interface UserClassService {
 
 	UserClassDTO selectClassStar(int clsNo);
 
-	List<ReviewAnswerDTO> selectReviewAnswer(int clsNo);
 
 	List<ScheduleDTO> selectSchedule(int clsNo);
 

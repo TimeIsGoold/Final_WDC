@@ -138,33 +138,22 @@
         <result column="REVIEW_ENROLLDATE" property="reviewEnrollDate"/>
         <result column="CLS_APL_NO" property="aplNo"/>
         <result column="USER_NAME" property="userName"/>
+        <!-- 리뷰답변 DTO association 함 -->
+        <association property="answer" javaType="ReviewAnswerDTO">
+        	<id column="RE_ANS_NO" property="ansNo"/>
+	        <result column="RE_ANS_DATE" property="ansDate"/>
+	        <result column="RE_ANS_CONTENT" property="ansContent"/>
+	        <result column="REVIEW_NO" property="reviewNo"/>
+	        <result column="TE_NO" property="teNo"/>
+	        <result column="TE_NAME" property="teName"/>
+	        <result column="TE_PIC" property="tePic"/>
+        </association>
     </resultMap>
     
     <select id="selectReview" parameterType="_int" resultMap="ReviewResult">
 		SELECT
-		       R.*
-		     , U.USER_NAME
-		  FROM REVIEW R
-		  JOIN CLASS_APPLY A ON(R.CLS_APL_NO = A.CLS_APL_NO)
-		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = A.SCHEDULE_NO)
-		  JOIN CLASS_APPLY C ON (R.CLS_APL_NO = C.CLS_APL_NO)
-		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
-		 WHERE S.CLS_NO = #{ clsNo }
-    </select>
-    
-    <resultMap type="ReviewAnswerDTO" id="ReviewAnswerResult">
-        <id column="RE_ANS_NO" property="ansNo"/>
-        <result column="RE_ANS_DATE" property="ansDate"/>
-        <result column="RE_ANS_CONTENT" property="ansContent"/>
-        <result column="REVIEW_NO" property="reviewNo"/>
-        <result column="TE_NO" property="teNo"/>
-        <result column="TE_NAME" property="teName"/>
-        <result column="TE_PIC" property="tePic"/>
-    </resultMap>
-    
-    <select id="selectReviewAnswer" parameterType="_int" resultMap="ReviewAnswerResult">
-		SELECT
-		       A.*
+               R.*
+             , A.*
 		     , T.TE_NAME
 		     , T.TE_PIC
 		     , U.USER_NAME
@@ -194,5 +183,6 @@
 		  FROM SCHEDULE S
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
+
 
 </mapper>
