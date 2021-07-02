@@ -85,7 +85,7 @@
                                 <div class="tab-content mb-5" id="myTabContent">
                                   <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                                     <div class="p-4 p-lg-5 bg-white" style="text-align: center;">
-                                      <ul class="list-unstyled small d-inline-block" style="width: 900px;">
+                                      <ul class="list-unstyled small d-inline-block" style="width: 900px;margin-left: 0px;">
                                         <div style="text-align:left">
                                           <div style="width: 550px; height: 70px; margin-top: 20px;">
                                             <h3>※ 상세 정보</h3>

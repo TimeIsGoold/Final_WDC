@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,17 +20,25 @@ import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
+import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
+import com.tig.wdc.user.model.service.UserClassService;
 
 @Controller
 @RequestMapping("/admin/*")
 public class AdminController {
 
 	private final AdminService adminService;
+	private final UserClassService classService;
 
 	@Autowired
-	public AdminController(AdminService adminService) {
+	public AdminController(AdminService adminService, UserClassService classService) {
 
 		this.adminService = adminService;
+		this.classService = classService;
 
 	}
 
@@ -345,13 +354,53 @@ public class AdminController {
 	
 	@GetMapping("classDetail")
 	public String classDetail(Model model, @RequestParam("cn")int userNo, @RequestParam("ct")String type) {
-		System.out.println(userNo);
-		System.out.println(type);
-		Map<String, Object> cnct = new HashMap<>();
-		cnct.put("userNo", userNo);
-		cnct.put("type", type);
-		model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
-		return "admin/BeforeDicision";
+		
+		
+		//클래스 정보 select
+		UserClassDTO classDetail = new UserClassDTO();
+		classDetail = classService.selectClassDtail(userNo);
+		model.addAttribute("classDetail",classDetail);
+		
+		//대표사진 3장 select
+		List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+		classPic = classService.selectClassPic(userNo);
+		model.addAttribute("classPic",classPic);
+		
+		//평점 select
+		UserClassDTO classStar = new UserClassDTO();
+		classStar = classService.selectClassStar(userNo);
+		model.addAttribute("classStar",classStar);
+		
+		//완성작 select
+		List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+		classPiece = classService.selectClassPiece(userNo);
+		model.addAttribute("classPiece",classPiece);
+		
+		//커리큘럼 select
+		List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+		curriculum = classService.selectCurriculum(userNo);
+		model.addAttribute("curriculum",curriculum);
+		
+		//리뷰 select
+		List<UserReviewDTO> review = new ArrayList<UserReviewDTO>();
+		review = classService.selectReview(userNo);
+		model.addAttribute("review",review);
+		
+		//리뷰 답변 select
+		List<ReviewAnswerDTO> reviewAnswer = new ArrayList<ReviewAnswerDTO>();
+		reviewAnswer = classService.selectReviewAnswer(userNo);
+		model.addAttribute("reviewAnswer",reviewAnswer);
+		
+		
+		
+		
+//		System.out.println(userNo);
+//		System.out.println(type);
+//		Map<String, Object> cnct = new HashMap<>();
+//		cnct.put("userNo", userNo);
+//		cnct.put("type", type);
+//		model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
+		return "admin/testClassDetail";
 	}
 	
 
