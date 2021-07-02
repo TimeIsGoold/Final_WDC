@@ -336,8 +336,11 @@ i {
 					<!-- 날짜, 시간 선택 -->
 					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-					&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+					&nbsp;&nbsp;
+					<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
+					<input id="datetimepicker2">
+					&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
 					&nbsp;&nbsp;<input type="number" class="datetimepicker" name="ppl">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -366,6 +369,10 @@ i {
 	                  format:'Y-m-d H:i',
 	                  onChangeDateTime : function(dp, $input) {
 	                     console.log($input.val());
+	                     var datetimepicker2 = document.getElementById('datetimepicker2');
+	                     
+	                     $("#datetimepicker2")[0].value = $input.val();
+	                     $("#datetimepicker2")[0].innerText = $input.val();
 	                  },
 	                  allowDates : days,
 	                  formatDate:'Y-m-d',
