@@ -93,9 +93,6 @@ public class TeacherMyPageController {
 	public String attendanceManageMent(Model model, @RequestParam("classType") String classType, @RequestParam("clsNo") int clsNo) {
 		
 		/* 정규클래스 출석관리*/
-		System.out.println("클ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ" + classType);
-		System.out.println("번호ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ"  + clsNo);
-		System.out.println(classManage.selectRegularScheduleinfo(clsNo));
 		model.addAttribute("regularInfo", classManage.selectRegularScheduleinfo(clsNo));
 		
 		return "teacher/classManage/t_classAttendanceDetaiRegularl";
