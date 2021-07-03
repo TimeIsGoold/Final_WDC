@@ -92,14 +92,30 @@ public class TeacherMyPageController {
 	 * @return 클래스 스케쥴
 	 */
 	@GetMapping("/studentManagement")
-	public String attendanceManageMent(Model model, @RequestParam Map<String,String> info) {
+	public String attendanceManageMent(Model model, @RequestParam(defaultValue = "1") int currentPage, @RequestParam Map<String,String> info) {
+		
+		String pageName = "";
+		if(info.get("classType").equals("R")) {
+			RegularClassInfoDTO regularClassinfo = classManage.selectRegularScheduleinfo(Integer.parseInt(info.get("clsNo")));
+			model.addAttribute("regularInfo", regularClassinfo);
+			//model.addAttribute("applyUserInfo",classManage.selectApplyUserInfo(regularClassinfo.getSchedule_no()));
+			
+			pageName = "teacher/classManage/t_classAttendanceDetaiRegularl";
+		} else {
+			
+			pageInfo = PageNation.getPageInfo(currentPage, boardService.selectScheduleCount(Integer.parseInt(info.get("clsNo"))), 10, 5);
+			model.addAttribute("pageInfo", pageInfo);
+			classInfo.setClsNo(Integer.parseInt(info.get("clsNo")));
+			classInfo.setPageInfo(pageInfo);
+			
+			model.addAttribute("onedayInfo", classManage.selectOneDayScheduleList(classInfo));
+			
+			pageName = "teacher/classManage/t_classAttendance";
+		}
 		
 		/* 정규클래스 출석관리*/
-		RegularClassInfoDTO regularClassinfo = classManage.selectRegularScheduleinfo(Integer.parseInt(info.get("clsNo")));
-		model.addAttribute("regularInfo", regularClassinfo);
-		model.addAttribute("applyUserInfo",classManage.selectApplyUserInfo(regularClassinfo.getSchedule_no()));
 		 
-		return "teacher/classManage/t_classAttendanceDetaiRegularl";
+		return pageName;
 	}
 	
 	/* 정산관리 */

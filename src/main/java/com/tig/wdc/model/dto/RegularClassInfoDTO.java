@@ -20,10 +20,12 @@ public class RegularClassInfoDTO {
 	private String classTitle;
 	private int nowCount;
 	
+	private PageInfoDTO pageInfo;
+
 	public RegularClassInfoDTO() {}
 
 	public RegularClassInfoDTO(int scheduleNo, int maxPeople, int scheduleCount, int applyCount, Date start, Date end,
-			String classTitle) {
+			String classTitle, int nowCount, PageInfoDTO pageInfo) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.maxPeople = maxPeople;
@@ -32,13 +34,15 @@ public class RegularClassInfoDTO {
 		this.start = start;
 		this.end = end;
 		this.classTitle = classTitle;
+		this.nowCount = nowCount;
+		this.pageInfo = pageInfo;
 	}
 
-	public int getSchedule_no() {
+	public int getScheduleNo() {
 		return scheduleNo;
 	}
 
-	public void setSchedule_no(int scheduleNo) {
+	public void setScheduleNo(int scheduleNo) {
 		this.scheduleNo = scheduleNo;
 	}
 
@@ -90,10 +94,26 @@ public class RegularClassInfoDTO {
 		this.classTitle = classTitle;
 	}
 
+	public int getNowCount() {
+		return nowCount;
+	}
+
+	public void setNowCount(int nowCount) {
+		this.nowCount = nowCount;
+	}
+
+	public PageInfoDTO getPageInfo() {
+		return pageInfo;
+	}
+
+	public void setPageInfo(PageInfoDTO pageInfo) {
+		this.pageInfo = pageInfo;
+	}
+
 	@Override
 	public String toString() {
 		return "RegularClassInfoDTO [scheduleNo=" + scheduleNo + ", maxPeople=" + maxPeople + ", scheduleCount="
 				+ scheduleCount + ", applyCount=" + applyCount + ", start=" + start + ", end=" + end + ", classTitle="
-				+ classTitle + "]";
+				+ classTitle + ", nowCount=" + nowCount + ", pageInfo=" + pageInfo + "]";
 	}
 }

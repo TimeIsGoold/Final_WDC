@@ -105,8 +105,8 @@
         <id column="SCHEDULE_NO" property="schedule_no"/>
         <result column="MAX_PEOPLE" property="maxPeople"/>
         <result column="SCHEDULE_COUNT" property="scheduleCount"/>
-        <result column="SUM(B.CLS_PPL)" property="applyCount"/>
-        <result column="CLS_START_D" property="start"/>
+        <result column="신청인원" property="applyCount"/>
+        <result column="시작일" property="start"/>
         <result column="CLS_END_D" property="end"/>
         <result column="CLS_TITLE" property="classTitle"/>
     </resultMap>
@@ -115,8 +115,8 @@
                A.SCHEDULE_NO
              , A.MAX_PEOPLE  
              , A.SCHEDULE_COUNT
-             , SUM(B.CLS_PPL)
-             , C.CLS_START_D
+             , SUM(B.CLS_PPL) 신청인원
+             , C.CLS_START_D 시작일
              , C.CLS_END_D
              , C.CLS_TITLE
           FROM SCHEDULE A
@@ -142,5 +142,36 @@
           FROM CLASS_APPLY A
           JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
          WHERE A.SCHEDULE_NO= #{ scheduleNo }
+    </select>
+
+    <select id="selectOneDayScheduleList" resultMap="regularSchedule" parameterType="ClassDTO">
+        SELECT 
+              A.SCHEDULE_NO
+            , A.SCHEDULE_DATE 
+            , A.MAX_PEOPLE
+            , A.신청인원
+            , A.CLS_TITLE
+         FROM (SELECT ROWNUM RNUM
+                    , B.SCHEDULE_NO
+                    , B.SCHEDULE_DATE
+                    , B.MAX_PEOPLE
+                    , B.신청인원
+                    , B.CLS_TITLE
+                 FROM (SELECT C.SCHEDULE_NO
+                            , C.SCHEDULE_DATE
+                            , C.MAX_PEOPLE
+                            , SUM(D.CLS_PPL) 신청인원
+                            , F.CLS_TITLE
+                         FROM SCHEDULE  C
+                         JOIN CLASS_APPLY  D ON (C.SCHEDULE_NO = D.SCHEDULE_NO)
+                         JOIN PAYMENT E ON (D.CLS_APL_NO = E.CLS_APL_NO)
+                         JOIN CLASS F ON (C.CLS_NO = F.CLS_NO)
+                        WHERE C.CLS_NO = #{ clsNo }
+                          AND E.PAY_STATUS = '완료'
+                     GROUP BY C.SCHEDULE_NO, C.SCHEDULE_DATE, C.MAX_PEOPLE, F.CLS_TITLE
+                     ORDER BY C.SCHEDULE_DATE
+                       ) B
+              ) A
+        WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }    
     </select>
 </mapper>

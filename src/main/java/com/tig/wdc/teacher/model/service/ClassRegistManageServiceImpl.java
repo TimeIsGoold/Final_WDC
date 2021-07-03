@@ -1,5 +1,7 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,6 +82,14 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	@Override
 	public ClassApplyDTO selectApplyUserInfo(int scheduleNo) {
 		return mapper.selectApplyUserInfo(scheduleNo);
+	}
+
+	/**
+	 * 원데이클래스 스케쥴 리스트
+	 */
+	@Override
+	public List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo) {
+		return mapper.selectOneDayScheduleList(classInfo);
 	}
 	
 	

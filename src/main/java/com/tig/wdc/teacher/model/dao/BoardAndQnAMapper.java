@@ -16,4 +16,6 @@ public interface BoardAndQnAMapper {
 
 	List<ClassDTO> selectClassList(ClassDTO classInfo);
 
+	int selectScheduleCount(int clsNo);
+
 }

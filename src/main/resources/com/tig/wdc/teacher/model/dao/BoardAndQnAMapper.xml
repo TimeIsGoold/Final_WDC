@@ -65,7 +65,7 @@
                ) A
          WHERE A.RNUM BETWEEN #{ startRow } AND #{ endRow }	
 	</select>
-	    <select id="selectClassCount" resultType="_int" parameterType="_int">
+	<select id="selectClassCount" resultType="_int" parameterType="_int">
         SELECT 
                COUNT(CLS_NO) 
           FROM CLASS 
@@ -102,5 +102,11 @@
                         ) B
                ) A
          WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }  
+    </select>
+    <select id="selectScheduleCount" resultType="_int">
+        SELECT 
+               COUNT(SCHEDULE_NO)
+          FROM SCHEDULE
+         WHERE CLS_NO = #{ clsNo }  
     </select>
 </mapper>
