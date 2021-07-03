@@ -102,7 +102,7 @@
              )
     </insert>
     <resultMap type="regularScheduleInfo" id="regularSchedule">
-        <id column="SCHEDULE_NO" property="schedule_no"/>
+        <id column="SCHEDULE_NO" property="scheduleNo"/>
         <result column="MAX_PEOPLE" property="maxPeople"/>
         <result column="SCHEDULE_COUNT" property="scheduleCount"/>
         <result column="신청인원" property="applyCount"/>
@@ -147,18 +147,18 @@
     <select id="selectOneDayScheduleList" resultMap="regularSchedule" parameterType="ClassDTO">
         SELECT 
               A.SCHEDULE_NO
-            , A.SCHEDULE_DATE 
+            , A.시작일 
             , A.MAX_PEOPLE
             , A.신청인원
             , A.CLS_TITLE
          FROM (SELECT ROWNUM RNUM
                     , B.SCHEDULE_NO
-                    , B.SCHEDULE_DATE
+                    , B.시작일
                     , B.MAX_PEOPLE
                     , B.신청인원
                     , B.CLS_TITLE
                  FROM (SELECT C.SCHEDULE_NO
-                            , C.SCHEDULE_DATE
+                            , C.SCHEDULE_DATE 시작일
                             , C.MAX_PEOPLE
                             , SUM(D.CLS_PPL) 신청인원
                             , F.CLS_TITLE

@@ -184,6 +184,6 @@
   </div>
   </div>
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>
