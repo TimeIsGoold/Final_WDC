@@ -36,7 +36,8 @@
  		<typeAlias alias="UserInquiryDTO" type="com.tig.wdc.user.model.dto.UserInquiryDTO"/>
  		<typeAlias alias="InquiryAnswerDTO" type="com.tig.wdc.user.model.dto.InquiryAnswerDTO"/>
  		<typeAlias alias="NoticeDTO" type="com.tig.wdc.admin.model.dto.NoticeDTO"/>
- 		
+ 		<typeAlias alias="PageInfoDTO" type="com.tig.wdc.model.dto.PageInfoDTO"/>
+ 		<typeAlias alias="UserReportDTO" type="com.tig.wdc.user.model.dto.UserReportDTO"/>
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>

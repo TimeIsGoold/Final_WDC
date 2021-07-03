@@ -17,7 +17,6 @@ public class ClassApplyDTO {
 
 	public ClassApplyDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ClassApplyDTO(int aplNo, int ppl, Date aplDate, int userNo, String attStatus, int scheduleNo) {

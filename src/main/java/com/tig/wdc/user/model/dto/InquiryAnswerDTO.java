@@ -2,6 +2,10 @@ package com.tig.wdc.user.model.dto;
 
 import java.sql.Date;
 
+/**
+ * @author SORA
+ * 문의 답변 DTO
+ */
 public class InquiryAnswerDTO {
 
 	private int answerNo;
@@ -13,7 +17,6 @@ public class InquiryAnswerDTO {
 
 	public InquiryAnswerDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public InquiryAnswerDTO(int answerNo, String answerContent, int queNo, Date answerTime, String teName,

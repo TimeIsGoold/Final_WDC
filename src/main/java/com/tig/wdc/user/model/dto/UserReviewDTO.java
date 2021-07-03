@@ -3,7 +3,8 @@ package com.tig.wdc.user.model.dto;
 import java.sql.Date;
 
 /**
- * @author SORA 리뷰 DTO
+ * @author SORA 
+ * 리뷰 DTO
  */
 public class UserReviewDTO {
 
