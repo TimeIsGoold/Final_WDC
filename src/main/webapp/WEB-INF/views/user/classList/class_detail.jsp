@@ -255,9 +255,10 @@ i {
 								<div class="owl-thumbs d-flex flex-row flex-sm-column"
 									data-slider-id="1">
 									<c:forEach var="classPic" items="${ requestScope.classPic }">
+									<c:set var="i" value="${i+1}"></c:set>
 										<div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
 											<img class="w-100" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
-											<input type="hidden" name="titlePic" value="${ classPic.titlePic }"/>
+											<input type="hidden" name="titlePic${i}" value="${ classPic.titlePic }"/>
 										</div>
 									</c:forEach>
 								</div>
@@ -338,7 +339,6 @@ i {
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
 					&nbsp;&nbsp;
 					<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
-					<input id="datetimepicker2">
 					&nbsp;&nbsp;&nbsp;
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 					<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">

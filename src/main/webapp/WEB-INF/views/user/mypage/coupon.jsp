@@ -162,7 +162,7 @@
                       </thead>
                       <tbody>
                        <c:forEach  var="couponList" items="${ requestScope.couponList }">
-                       <c:set value="${i+1 }" var="i"></c:set>
+                       <c:set value="${i+1}" var="i"></c:set>
                         <tr class="tr-hover">
                           <th>${i}</th>
                           <th><button class="coupon-modal" type="button" data-toggle="modal" data-target="#coupon_detail${i}">${couponList.cpnName}</button></th>

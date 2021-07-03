@@ -110,8 +110,6 @@ public class UserInfoController {
 	@GetMapping("userLoginSuccessMain")
 	public String main(Model model, HttpSession session) {
 
-		int userNo= (Integer) session.getAttribute("userNo");
-
 		
 		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
 		newClassList = classService.selectNewClassList();
@@ -126,6 +124,14 @@ public class UserInfoController {
 		model.addAttribute("cheerClassList",cheerClassList);
 		
 		return "user/main/main";
+	}
+	
+	@GetMapping("logout")
+	public String logout(Model model, HttpSession session) {
+		session.invalidate();
+		System.out.println("로그아웃 으로 넘어옴");
+		
+		return "user/login/login";
 	}
 	
 	/**

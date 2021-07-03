@@ -4,6 +4,9 @@
 <html>
   <head>
 	<%@include file="../commons/header.jsp" %>
+	
+ <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
 .overlay {
@@ -73,6 +76,7 @@ h5, .h5 {
     font-size: 18px;
     margin-bottom: 1.2rem;
 }
+
     </style>
   </head>
   <body>
@@ -144,7 +148,7 @@ h5, .h5 {
                   <tbody>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic }" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
+                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic1 }" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
                           <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
@@ -179,7 +183,7 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;이름
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name" value="${ requestScope.userInfo.userName }" disabled="disabled">
+                      <input type="text" style="width: 250px;" name="name" id="phone" value="${ requestScope.userInfo.userName }" disabled="disabled">
                     </td>
                   </tr>
                   <tr>
@@ -187,7 +191,7 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;휴대폰번호
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone" value="${ requestScope.userInfo.phone }" disabled="disabled">
+                      <input type="text"style="width: 250px;" name="phone" id="phone" value="${ requestScope.userInfo.phone }" disabled="disabled">
                     </td>
                   </tr>
                 </tbody>
@@ -211,7 +215,6 @@ h5, .h5 {
 							if($(".couponDis")[0][i].selected){
 								
 								couponNo = $(".couponDis")[0][i].value;
-								alert(couponNo);
 								
 								couponDisTotalPrice = $(".couponDis")[0][i+1].value;
 								couponDisAmount = $(".couponDis")[0][i+2].value;
@@ -235,6 +238,8 @@ h5, .h5 {
 								$("#insertPrice")[0].innerText = couponDisTotalPrice;			
 								$("#insertPrice")[0].innerText += " 원";			
 
+								// 스케줄 넘버 인풋 넣기
+								$("#insertCouponNo")[0].value = couponNo;
 
 								}
 						} 
@@ -364,7 +369,10 @@ h5, .h5 {
                   <div class="modal-content">
                     <div class="modal-body p-0">
                       <div class="row align-items-stretch">
-                        <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+                        <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" 
+                        style="background: url(${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic1 })" href="${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic1 }" data-lightbox="productview" 
+                        title="${ requestScope.userClassDTO.title }">
+                        </a></div>
                         <div class="col-lg-6">
                           <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><a href="#none" class="close">x</a></span></button>
                           <div class="p-5 my-md-4">
@@ -373,9 +381,10 @@ h5, .h5 {
                             <p class="text-small mb-4">
                                 <p class="text-muted">강의 날짜 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,0,10) }</p>
                                 <p class="text-muted">강의 시간 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,11,16) }</p>
-                                <p class="text-muted">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p>
+                                <p class="text-muted" style="display: inline-flex;">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p> <span class="text-muted">명</span>
+                                <br>
                              	  결제 금액 :
-                             	<span class="" id="totalPriceModal" style="display: inline-flex">
+                             	<span class="" id="totalPriceModal" style="display: inline-flex;">
                              	<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/>
                              	</span> 원
                             </p>
@@ -386,13 +395,20 @@ h5, .h5 {
 							</ul>
                             <hr>
                             <div>
-                                <form action="${ pageContext.servletContext.contextPath }/user/paymentSuccess" method="post">
+                               <!--  <form action="${ pageContext.servletContext.contextPath }/user/paymentSuccess" method="post">-->
 								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;" type="button"></a>취소</button>
                                 <!-- 카카오 페이 연결 -->
-								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">결제하기</button>
-								<!-- payment - payPrice   -->
-                             	<input type="hidden" name="totalPrice" id="insertPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }"/>
-                                </form>
+								<button id="doPay" type="button" class="btn btn-dark" style="margin-left: 50px;">결제하기</button>
+								
+								<!-- 1. 클래스 어플라이 인서트용 인풋 히든 -->
+                             	<input type="hidden" name="ppl" value="${ requestScope.classApplyDTO.ppl }"/>
+                             	<input type="hidden" name="scheduleNo" value="${ requestScope.pasymentScheduleDTO.scheduleNo }"/>
+                             	<!-- 2. 페이먼트 인서트용 인풋 히든 -->
+                             	<input type="hidden" name="payPrice" id="insertPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }"/>
+                             	<input type="hidden" name="cpnNo" value="0" id="insertCouponNo"/>
+                             	
+                             	
+                               <!-- </form>--> 
                             </div>
                           </div>
                         </div>
@@ -402,36 +418,117 @@ h5, .h5 {
                 </div>
     		</div>
 		</div>
-            <!-- 결제 스크립트 -->
-     <script>
-         function checkContent(){
-	        var name = document.getElementById("name").value;
-    	    var phone = document.getElementById("phone").value;
-            var check = document.getElementById("checkagree").checked;
-            if(name.length == 0){
-	        	alert("이름을 입력하세요");
-    	    	return;
-    	    }
-	        if(phone.length ==0){
-	        	alert("전화번호를 입력하세요");
-    	    	return
-    		}
-    		        
-/*     	    if(check == false){
-    			alert("규정에 동의하셔야 결제가 가능합니다.");
-    			return;
-    		} */
-    	    
+<!-- 결제 스크립트 -->
 
-            
-    		location.href='#pop01';
-    		       
-        }
+<script>
+	function checkContent(){
+/*      	var name = document.getElementById("name").value;
+	    var phone = document.getElementById("phone").value;
+        var check = document.getElementById("checkagree").checked;
+        if(name.length == 0){
+     		alert("이름을 입력하세요");
+	    	return;
+	    }
+    	if(phone.length ==0){
+     		alert("전화번호를 입력하세요");
+	    	return
+		}
+		        
+ 	    if(check == false){
+			alert("규정에 동의하셔야 결제가 가능합니다.");
+			return;
+		}   */
+	    
+		location.href='#pop01';
+		       
+    }
+</script>
 
-        function paymentSuccess(){
-            alert("결제에 성공 및 예약 완료");
-        }
-    </script>
+     
+<script>
+// 카카오 페이 연결
+	$("#doPay").click(function(){
+		var IMP = window.IMP; //생략 가능
+        IMP.init('imp51520793'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용 // 전달해야 하는 변수
+        var msg;
+        
+        const payPrice = document.getElementsByName("payPrice")[0].value;
+        const buyerName = document.getElementsByName("name")[0].value;
+        const buyerTel = document.getElementsByName("phone")[0].value;
+        const ppl = document.getElementsByName("ppl")[0].value;
+        const scheduleNo = document.getElementsByName("scheduleNo")[0].value;
+        const cpnNo = document.getElementsByName("cpnNo")[0].value;
+
+        IMP.request_pay({
+            pg : 'kakaopay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '우리동네클래스 결제',
+            amount : payPrice,
+            buyer_email : 'tigwdc123@gmail.com',
+            buyer_name : buyerName,
+            buyer_tel : buyerTel,
+            buyer_addr : '서울시 강남수 삼성동', 
+            buyer_postcode : '123-456',
+            //m_redirect_url : 'http://www.naver.com'
+        }, function(rsp) {
+            if ( rsp.success ) {
+                //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+                jQuery.ajax({
+                    url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        imp_uid : rsp.imp_uid
+                        //기타 필요한 데이터가 있으면 추가 전달
+                    }
+                }).done(function(data) {
+                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+                    if ( everythings_fine ) {
+                        msg = '결제가 완료되었습니다.';
+                        msg += '\n고유ID : ' + rsp.imp_uid;
+                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '\결제 금액 : ' + rsp.paid_amount;
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                        
+                        alert(msg);
+                    } else {
+   						alert("결제에 실패하였습니다");
+   						return;
+                    }
+                });
+                //성공시 이동할 페이지
+                $.ajax({
+                       url:"${pageContext.servletContext.contextPath}/user/paymentSuccess",
+                       type:"post",
+                       data:{
+                    	  // 클래스 어플라이 인서트
+                    	  scheduleNo : scheduleNo,
+                    	  ppl : ppl,
+                    	  // 페이먼트 인서트
+                          payPrice : payPrice,
+                          cpnNo : cpnNo,
+
+                       },
+                       success:function(data, textStatus, xhr){
+                          alert("결제 성공하였습니다!!\n예약이 완료었습니다.");
+                          location.replace("${pageContext.servletContext.contextPath}/user/paymentSuccessToBookCheckPage")
+                       },
+                       error:function(xhr,status,error){
+                          console.log(error);
+                       }
+                    });
+            }else{
+                msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+                //실패시 이동할 페이지
+                alert("결제에 실패 하였습니다.");
+            }
+	});
+	});
+
+
+</script>
     
     <%@include file="../commons/footer.jsp" %>
  </div>
