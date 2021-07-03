@@ -65,8 +65,7 @@
         }
         
         .couponIssueBtn:hover {
-			background: black !important;
-            color: white !important;
+			background: rgb(112, 112, 112);
 		}
     	</style>
     </head>
@@ -91,7 +90,7 @@
 
 							<div class="card-body">
                                 <table class="table">
-                                    <form id="frm1" method="post">
+                                    <form id="area" method="post">
 	                                    <tbody>
 	                                        <tr>
 	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
@@ -144,7 +143,7 @@
         </div>
         <script>
         	$("#btnCoupon").on("click",function(){
-        		$("#frm1").attr("action","/wdc/admin/couponIssue").submit();
+        		$("#area").attr("action","/wdc/admin/couponIssue").submit();
         	});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

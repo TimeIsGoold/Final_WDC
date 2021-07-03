@@ -46,8 +46,7 @@
 	        }
 	
 	        .returnBtn:hover {
-	            background: black !important;
-	            color: white !important;
+	            background: rgb(112, 112, 112);
 	        }
 	    </style>
     </head>

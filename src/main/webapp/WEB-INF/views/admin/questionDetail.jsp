@@ -25,7 +25,7 @@
 	        
 	        th {
 	            text-align: center !important;
-	            width: 200px !important;
+	            width: 200px;
 	            border: 1px solid lightgrey !important;
 	            background: #fef0ae !important;
 	            vertical-align: middle;
@@ -44,7 +44,7 @@
 	        }
 	        
 	        #requestTitle {
-	        	width: 200px !important;
+	        	width: 200px;
 	        }
 	        
 	        #requestContextArea {
@@ -52,25 +52,13 @@
 	        }
 	        
 	        #requestContext {
-	        	width: 2000px !important; 
+	        	width: 99.9%; 
 	        	height: 150px; 
 	        	border: none;
 	        }
 	        
 	        .submitBtn {
-	        	margin-left: 1000px;
-	        }
-	        
-	        .returnBtn {
-	        	width: 100px; 
-	        	background: #fef0ae; 
-	        	border: 1px solid lightgrey;
-	        	margin-left: 48%;
-	        }
-	
-	        .returnBtn:hover {
-	            background: black !important;
-	            color: white !important;
+	        	margin-left: 85%;
 	        }
 	        
 	        .answerBtn {
@@ -80,8 +68,7 @@
 	        }
 	
 	        .answerBtn:hover {
-	            background: black !important;
-	            color: white !important;
+	            background: rgb(112, 112, 112);
 	        }
 	    </style>
     </head>
@@ -104,40 +91,40 @@
                                 <i class="fas fa-table me-1"></i>문의 상세
                             </div>
 
-                            <div class="card-body">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>회원번호</th>
-                                            <td>${ questionDetail.questionNo }</td>
-                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
-                                            <td>${ questionDetail.questionType }</td>
-                                        </tr>
-                                        <tr>
-                                            <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-                                            <td>${ questionDetail.questionName }</td>
-                                            <th>아&nbsp;&nbsp;이&nbsp;&nbsp;디</th>
-                                            <td>${ questionDetail.questionId }</td>
-                                        </tr>
-                                        <tr>
-                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-                                            <td colspan="3">
-                                            	${ questionDetail.questionTitle }
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
-                                            <td colspan="3" id="questionContextArea">
-                                                <div class="questionContext">
-                                                	${ questionDetail.questionContent }
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+							<form method="post" id="area">
+	                            <div class="card-body">
+	                                <table class="table">
+	                                    <tbody>
+	                                        <tr>
+	                                            <th>회원번호</th>
+	                                            <td name="questionNo">${ questionDetail.questionNo }</td>
+	                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
+	                                            <td>${ questionDetail.questionType }</td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
+	                                            <td>${ questionDetail.questionName }</td>
+	                                            <th>아&nbsp;&nbsp;이&nbsp;&nbsp;디</th>
+	                                            <td>${ questionDetail.questionId }</td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
+	                                            <td colspan="3">
+	                                            	${ questionDetail.questionTitle }
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
+	                                            <td colspan="3" id="questionContextArea">
+	                                                <div class="questionContext">
+	                                                	${ questionDetail.questionContent }
+	                                                </div>
+	                                            </td>
+	                                        </tr>
+	                                    </tbody>
+	                                </table>
+	                            </div>
 
-							<form method="post" action="requestion">
 	                            <div class="card-body">
 	                                <table class="table">
 	                                    <tr>
@@ -146,7 +133,7 @@
 	                                            <div>
 	                                            	<c:choose>
 	                                            		<c:when test="${empty questionDetail.questionReContent }">
-	                                            			<input type="text" id="requestContext">
+	                                            			<input type="text" name="questionReContent" id="requestContext">
 	                                            		</c:when>
 	                                            		<c:when test="${not empty questionDetail.questionReContent}">
 	                                            			${ questionDetail.questionReContent }
@@ -158,15 +145,10 @@
 	                                </table>
 	                                
 	                                <div class="submitBtn">
-	                                    <input type="button" class="returnBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="리스트보기">
-	                       	            <c:choose>
-	                                   		<c:when test="${not empty questionDetail.questionReContent }">
-			                                    <input type="button" class="answerBtn" value="답변달기">
-	                                   		</c:when>
-	                                   		<c:when test="${empty questionDetail.questionReContent}">
-			                                    <input type="submit" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="답변달기">
-	                                   		</c:when>
-	                                   	</c:choose>
+	                                	<c:if test="${empty questionDetail.questionReContent}">
+	                                		<input type="button" id="questionAnswerBtn" class="answerBtn" value="답변달기">
+	                                	</c:if>
+	                                    <input type="button" class="answerBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'" value="리스트보기">
 	                                </div>
 	                            </div>
                             </form>
@@ -177,6 +159,11 @@
             </div>
             
         </div>
+        <script>
+	        $("#questionAnswerBtn").on("click",function(){
+	    		$("#area").attr("action","/wdc/admin/questionAnswer").submit();
+	    	});
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

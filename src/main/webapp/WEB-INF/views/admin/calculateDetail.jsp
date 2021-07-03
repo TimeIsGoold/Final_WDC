@@ -95,8 +95,7 @@
 		}
 
         .listDetailBtn:hover {
-            background: black !important;
-            color: white !important;
+            background: rgb(112, 112, 112);
         }
         
         .detailCalculate {
@@ -110,7 +109,7 @@
         }
         
         .submitBtn {
-        	margin-left: 93%;
+        	margin-left: 85%;
         }
         
         .returnPageBtn {
@@ -120,8 +119,7 @@
         }
 
         .returnPageBtn:hover {
-            background: black !important;
-            color: white !important;
+            background: rgb(112, 112, 112);
         }
         
         #modalTitle {
@@ -170,8 +168,7 @@
         }
 
         #closeBtn:hover {
-            background: black !important;
-            color: white !important;  
+            background: rgb(112, 112, 112);  
         }
         </style>
     </head>
@@ -262,7 +259,8 @@
                                 </table>
 
                                 <div class="submitBtn">
-                                    <input type="submit" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                                	<input type="submit" class="returnPageBtn" value="정산하기">
+                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
                                 </div>
                             </div>
 
@@ -300,7 +298,6 @@
                 <input type="submit" value="닫기" id="closeBtn" onclick="cancel();">
             </div>
         </div>
-
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

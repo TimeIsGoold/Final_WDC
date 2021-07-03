@@ -24,33 +24,42 @@
         	}
         	
         	.totalQuestion {
+        		margin-top: 0.5%;
                 width: 33%;
                 border-radius: 5px;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
             }
 
             .totalQuestion:hover {
-                background : #fef0ae;
-    			color: black;
+                background: rgb(112, 112, 112);
             }
 
 			.teacherQuestion {
+               	margin-top: 0.5%;
                 width: 33%;
                 border-radius: 5px;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
             }
 
             .teacherQuestion:hover {
-                background : #fef0ae;
-    			color: black;
+                background: rgb(112, 112, 112);
             }
             
             .studentQuestion {
+                margin-top: 0.5%;
                 width: 33%;
                 border-radius: 5px;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
             }
             
             .studentQuestion:hover {
-                background : #fef0ae;
-    			color: black;
+                background: rgb(112, 112, 112);
             }
         </style>
     </head>
@@ -74,9 +83,9 @@
                             </div>
                             
                             <div class="sideMenu">
-                            	<input type="button" class="totalQuestion" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'">
-                            	<input type="button" class="teacherQuestion" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc'">
-                            	<input type="button" class="studentQuestion" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st'">
+                            	<input type="button" id="to" class="totalQuestion" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'">
+                            	<input type="button" id="tc" class="teacherQuestion" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc'">
+                            	<input type="button" id="st" class="studentQuestion" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st'">
       						</div>
 
                             <div class="card-body">
@@ -119,6 +128,18 @@
             </div>
 
         </div>
+        <script>
+    		function drawColor(){
+    			var documentUrl = document.URL; 
+    			var NdocumentUrl = new URL(documentUrl);  
+    			var currentTab = NdocumentUrl .searchParams.get("mt");  //url에 있는 name이란 파라미터값을 가지고옴
+    			
+    			const currentTabBar = document.getElementById(currentTab);
+    			currentTabBar.style.background = '#ffe163';
+    			currentTabBar.style.fontWeight = 'bolder';
+    		}
+    	</script>
+    	<script>drawColor();</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

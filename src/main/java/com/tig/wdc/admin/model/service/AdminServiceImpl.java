@@ -105,12 +105,23 @@ public class AdminServiceImpl implements AdminService {
 	
 	/**
 	 * @author 송아현
-	 * 문의 등록
+	 * 문의 답변 - insert
 	 */
-//	@Override
-//	public int insertAnswer(Map<String, Object> answerMap) {
-//		return 0;
-//	}
+	@Override
+	public int insertAnswer(QuestionDTO question) {
+		
+		return mapper.insertAnswer(question);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 문의 답변 - update
+	 */
+	@Override
+	public int updateAnswer(QuestionDTO question) {
+
+		return mapper.updateAnswer(question);
+	}
 
 	@Override
 	public StudentDTO selectOneStudent(int no) {
@@ -185,6 +196,17 @@ public class AdminServiceImpl implements AdminService {
 	public NoticeDTO selectNoticeInfoDetail(int no) {
 
 		return mapper.selectNoticeInfoDetail(no);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 등록
+	 * 
+	 */
+	@Override
+	public int insertNoticeWrite(NoticeDTO notice) {
+
+		return mapper.insertNoticeWrite(notice);
 	}
 
 	 /**

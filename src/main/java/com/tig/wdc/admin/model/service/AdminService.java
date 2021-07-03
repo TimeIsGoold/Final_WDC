@@ -65,7 +65,23 @@ public interface AdminService {
 	 */
 	QuestionDTO selectTeacherQuestionInfoDetail(int no);
 	
-	//int insertAnswer(Map<String, Object> answerMap);
+	/**
+	 * @author 송아현
+	 * 문의 답변 - insert
+	 * 
+	 * @param question
+	 * @return
+	 */
+	int insertAnswer(QuestionDTO question);
+
+	/**
+	 * @author 송아현
+	 * 문의 답변 - update
+	 * 
+	 * @param question
+	 * @return
+	 */
+	int updateAnswer(QuestionDTO question);
 
 	StudentDTO selectOneStudent(int no);
 
@@ -118,6 +134,15 @@ public interface AdminService {
 	 * @return
 	 */
 	NoticeDTO selectNoticeInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 공지 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int insertNoticeWrite(NoticeDTO notice);
 
 	/**
 	 * @author 송아현
@@ -170,6 +195,10 @@ public interface AdminService {
 	List<ClassDTO> selectClassBycategory(Map<String, String> type);
 
 	Object selectClassDetail(Map<String, Object> cnct);
+
+
+
+
 
 
 

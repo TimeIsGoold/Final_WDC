@@ -16,9 +16,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <!-- include libraries(jQuery, bootstrap) -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <!-- include summernote css/js -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+        <!-- summernote-lite -->
+        <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/summernote/summernote-lite.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/admin/js/summernote/lang/summernote-ko-KR.js"></script>
+		<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/admin/css/summernote/summernote-lite.css">
 	    <style>
 	    	.container-fluid{
 	        	margin-top: 30px;
@@ -40,18 +41,30 @@
 	            border: 1px solid lightgrey !important;
 	        }
 	        
-	        .radioBtn {
-	        	margin-left: 230px !important; 
-	        	margin-right: 15px !important;
+	        .radioBtnType {
+	        	margin-left: 17%; 
+	        	margin-right: 10px;
+	        }
+	        
+	        .radioBtnCondition {
+	        	margin-left: 28%; 
+	        	margin-right: 10px;
 	        }
 	        
 	        #titleArea {
-	        	width: 1260px;
+	        	width: 1225px;
 	        	border: none;
 	        }
 	        
+	        #contextArea {
+	        	background: #fef0ae !important;
+	        	text-align: center !important;
+	        	font-weight: bolder;
+    			font-size: large;
+	        }
+	        
 	        .noticeBtnArea {
-	        	margin-left: 85.5%;
+	        	margin-left: 85%;
 	        }
 	        
 	        .noticeBtn {
@@ -61,8 +74,7 @@
 	        }
 	
 	        .noticeBtn:hover {
-	            background: black !important;
-	            color: white !important;
+	            background: rgb(112, 112, 112);
 	        }
 	    </style>
     </head>
@@ -87,32 +99,43 @@
 
                             <div class="card-body">
                                 <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-                                            <td>
-                                                <input type="radio" class="radioBtn"checked>전체 회원용
-                                                <input type="radio" class="radioBtn">강사 회원용
-                                                <input type="radio" class="radioBtn">일반 회원용
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-                                            <td>
-                                                <input type="text" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
-                                            <td>
-                                                <div id="summernote"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    <form id="area" method="post">
+	                                    <tbody>
+	                                        <tr>
+	                                            <th>공개&nbsp;&nbsp;대상</th>
+	                                            <td>
+	                                                <input type="radio" name="type" class="radioBtnType"checked>전체 회원용
+	                                                <input type="radio" name="type" class="radioBtnType">강사 회원용
+	                                                <input type="radio" name="type" class="radioBtnType">일반 회원용
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
+	                                            <td>
+	                                                <input type="radio" name="important" class="radioBtnCondition"checked>보통
+	                                                <input type="radio" name="important" class="radioBtnCondition">중요
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
+	                                            <td>
+	                                                <input type="text" name="title" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <td id="contextArea" colspan="2">내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+	                                        </tr>
+	                                        <tr>
+	                                        	<td colspan="2">
+	  												<textarea id="summernote" name="context"></textarea>
+	                                            </td>
+	                                        </tr>
+	                                    </tbody>
+                                    </form>
                                 </table>     
                 
                                 <div class="noticeBtnArea">
-                                    <input type="submit" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="등록하기">
+                                    <input type="submit" id="btnNotice" class="noticeBtn" value="등록하기">
                                     <input type="submit" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
                                 </div>
 
@@ -124,6 +147,11 @@
             </div>
 
         </div>
+        <script type="text/javascript">
+        	$("#btnNotice").on("click",function(){
+        		$("#area").attr("action","/wdc/admin/noticeWrite").submit();
+        	});
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -134,7 +162,7 @@
         <script>
             $('#summernote').summernote({
               placeholder: '공지사항을 입력하세요.',
-              tabsize: 2,
+              lang: "ko-KR",
               height: 350
             });
           </script>  

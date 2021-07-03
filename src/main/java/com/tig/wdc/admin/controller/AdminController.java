@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
+import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
@@ -142,14 +143,20 @@ public class AdminController {
 		return "admin/questionDetail"; 
 	}
 	
-//	@PostMapping("questionAnswer")
-//	public void questionAnswerIssue(@ModelAttribute QuestionDTO question, @RequestParam("no")int no, Model model) {
-//		
-//		answerMap.put("answer", question.getQuestionReContent());
-//		answerMap.put("no", no);
-//		
-//		model.addAttribute("question",adminService.insertAnswer(answerMap));
-//	}
+	/**@author 송아현
+	 * 문의 답변 
+	 * @param question
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("questionAnswer")
+	public String questionAnswer(@ModelAttribute QuestionDTO question, Model model) {
+		
+		model.addAttribute("questionAnswer", adminService.insertAnswer(question));
+		model.addAttribute("questionAnswer", adminService.updateAnswer(question));
+		
+		return "redirect:/admin/questionManagement?currentMenu=question&mt=to";
+	}
 	 
 	/**
 	 * @author 송아현
@@ -199,7 +206,6 @@ public class AdminController {
 	@RequestMapping("couponIssue")
 	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
 
-		System.out.println("test : " + coupon.getType());
 		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
 		
 		return "redirect:/admin/couponManagement?currentMenu=coupon";
@@ -238,14 +244,26 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
-	 * 공지 작성
-	 * 
+	 * 공지 작성/수정을 위한 매핑
+	 * 전처리 -> url
 	 * @return
 	 */
 	@GetMapping("noticeWrite")
-	public String noticeIssue() {
+	public void noticeIssue() {}
+	
+	/**
+	 * @author 송아현
+	 * 공지사항 등록
+	 * @param notice
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("noticeWrite")
+	public String noticeWrite(@ModelAttribute NoticeDTO notice, Model model) {
 		
-		return "admin/noticeWrite";
+		model.addAttribute("noticeWrite", adminService.insertNoticeWrite(notice));
+		
+		return "redirect:/admin/noticeManagement?currentMenu=notice";
 	}
 	
 	/**

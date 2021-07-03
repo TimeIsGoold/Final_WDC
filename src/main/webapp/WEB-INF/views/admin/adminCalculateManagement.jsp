@@ -26,22 +26,27 @@
             .calculateNo {
                 width: 49.8%;
                 border-radius: 5px;
+                margin-top: 0.5%;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
             }
             
             .calculateNo:hover {
-            	background : #fef0ae;
-    			color: black;
+            	background: rgb(112, 112, 112);
             }
 
             .calculateYes {
                 width: 49.8%;
                 border-radius: 5px;
+                margin-top: 0.5%;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
             }
             
             .calculateYes:hover {
-				background : #fef0ae;
-    			color: black;
-    			border: 1px solid #fef0ae;
+				background: rgb(112, 112, 112);
 			}
         </style>
     </head>
@@ -65,8 +70,8 @@
                             </div>
                             
                             <div class="sideMenu">
-                            	<input type="button" class="calculateNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
-                            	<input type="button" class="calculateYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y'">
+                            	<input type="button" id="N" class="calculateNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                            	<input type="button" id="Y" class="calculateYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y'">
       						</div>
                             
                             <div class="card-body">
@@ -109,6 +114,18 @@
             </div>
 
         </div>
+        <script>
+    		function drawColor(){
+    			var documentUrl = document.URL; 
+    			var NdocumentUrl = new URL(documentUrl);  
+    			var currentTab = NdocumentUrl .searchParams.get("YN");  //url에 있는 name이란 파라미터값을 가지고옴
+    			
+    			const currentTabBar = document.getElementById(currentTab);
+    			currentTabBar.style.background = '#ffe163';
+    			currentTabBar.style.fontWeight = 'bolder';
+    		}
+    	</script>
+    	<script>drawColor();</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -117,4 +134,4 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>
-</html></html>
+</html>
