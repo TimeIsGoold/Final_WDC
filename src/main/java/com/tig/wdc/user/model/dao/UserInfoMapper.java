@@ -26,4 +26,6 @@ public interface UserInfoMapper {
 
 	List<UserClassDTO> selectRefundClassList(int userNo);
 
+	UserClassDTO selectScheduleDetail(UserClassDTO userClassDTO);
+
 }

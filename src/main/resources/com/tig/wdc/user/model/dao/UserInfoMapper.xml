@@ -54,6 +54,11 @@
         <result column="SCHEDULE_DATE" property="scheduleDate"/>
         <result column="SCHEDULE_START" property="scheduleStart"/>
         <result column="CLS_PPL" property="clsPplAmount"/>
+        <result column="PAY_PRICE" property="payPrice"/>
+        <result column="CLS_APL_NO" property="aplNo"/>
+        <result column="TE_NAME" property="teName"/>
+        <result column="CLS_APL_D" property="clsAplDate"/>
+        <result column="CLS_PPL" property="ppl"/>
     </resultMap>
 
 	<select id="selectUser" parameterType="UserInfoDTO" resultMap="UserInfoResult">
@@ -188,6 +193,21 @@
 		 WHERE C.USER_NO = #{userNo}
            AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '취소'
+	</select>
+	
+	<select id="selectScheduleDetail" parameterType="UserClassDTO" resultMap="UserClassResult">
+        SELECT 
+		       *
+		  FROM CLASS_APPLY C
+		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+          JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
+          JOIN TEACHER_INFO T ON(L.TE_NO = T.TE_NO)
+         WHERE C.USER_NO = #{ userNo }
+           AND C.CLS_APL_NO = #{ aplNo }
+		   AND A.TYPE = 'TITLE'
+	
 	</select>
 
 </mapper>

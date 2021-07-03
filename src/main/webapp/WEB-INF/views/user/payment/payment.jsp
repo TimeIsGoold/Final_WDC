@@ -183,7 +183,7 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;이름
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" style="width: 250px;" name="name" id="phone" value="${ requestScope.userInfo.userName }" disabled="disabled">
+                      <input type="text" style="width: 250px;" name="name" id="name" value="${ requestScope.userInfo.userName }" disabled="disabled">
                     </td>
                   </tr>
                   <tr>
@@ -422,22 +422,13 @@ h5, .h5 {
 
 <script>
 	function checkContent(){
-/*      	var name = document.getElementById("name").value;
-	    var phone = document.getElementById("phone").value;
+
         var check = document.getElementById("checkagree").checked;
-        if(name.length == 0){
-     		alert("이름을 입력하세요");
-	    	return;
-	    }
-    	if(phone.length ==0){
-     		alert("전화번호를 입력하세요");
-	    	return
-		}
 		        
  	    if(check == false){
-			alert("규정에 동의하셔야 결제가 가능합니다.");
+			alert("약관에 동의하셔야 결제가 가능합니다.");
 			return;
-		}   */
+		}   
 	    
 		location.href='#pop01';
 		       

@@ -41,6 +41,11 @@ public class UserCategoryController {
 		
 		allClassList = categoryService.selectClassCategory();
 		
+		// 저 리스트에서 클래스 넘버만 뽑고 
+		// 해당 리스트의 길이만큼  응원하기 카운팅해주는 매퍼  for 문 돌린 다음에 jsp에 뿌려준다. ㅇㅋ?
+//		for(int i = 0; i < allClassList.size(); i++) {
+//		}
+		
 		model.addAttribute("allClassList",allClassList);
 		
 		return "user/classList/class_all";

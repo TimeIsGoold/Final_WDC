@@ -34,6 +34,11 @@ public class UserClassDTO {
 	private Date scheduleDate; // 스케줄 시작 날짜
 	private String scheduleStart; // 스케줄 시작 시간
 	private int clsPplAmount; // 강의 신청 인원
+	private int payPrice;
+	private int aplNo;
+	private String teName;
+	private java.sql.Date clsAplDate;
+	private int ppl;
 
 	private String titlePic1; // 페이먼트 용 
 	private int userNo; // 페이먼트 용 
@@ -44,7 +49,7 @@ public class UserClassDTO {
 			Date startDate, Date endDate, int price, String addInfo, String addSup, String dicsionStatus,
 			String clsType, Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
 			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
-			String titlePic1, int userNo) {
+			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String titlePic1, int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -70,6 +75,11 @@ public class UserClassDTO {
 		this.scheduleDate = scheduleDate;
 		this.scheduleStart = scheduleStart;
 		this.clsPplAmount = clsPplAmount;
+		this.payPrice = payPrice;
+		this.aplNo = aplNo;
+		this.teName = teName;
+		this.clsAplDate = clsAplDate;
+		this.ppl = ppl;
 		this.titlePic1 = titlePic1;
 		this.userNo = userNo;
 	}
@@ -266,6 +276,46 @@ public class UserClassDTO {
 		this.clsPplAmount = clsPplAmount;
 	}
 
+	public int getPayPrice() {
+		return payPrice;
+	}
+
+	public void setPayPrice(int payPrice) {
+		this.payPrice = payPrice;
+	}
+
+	public int getAplNo() {
+		return aplNo;
+	}
+
+	public void setAplNo(int aplNo) {
+		this.aplNo = aplNo;
+	}
+
+	public String getTeName() {
+		return teName;
+	}
+
+	public void setTeName(String teName) {
+		this.teName = teName;
+	}
+
+	public java.sql.Date getClsAplDate() {
+		return clsAplDate;
+	}
+
+	public void setClsAplDate(java.sql.Date clsAplDate) {
+		this.clsAplDate = clsAplDate;
+	}
+
+	public int getPpl() {
+		return ppl;
+	}
+
+	public void setPpl(int ppl) {
+		this.ppl = ppl;
+	}
+
 	public String getTitlePic1() {
 		return titlePic1;
 	}
@@ -290,11 +340,12 @@ public class UserClassDTO {
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
 				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", titlePic=" + titlePic
 				+ ", avgScore=" + avgScore + ", dDay=" + dDay + ", scheduleDate=" + scheduleDate + ", scheduleStart="
-				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", titlePic1=" + titlePic1 + ", userNo=" + userNo
-				+ "]";
+				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", payPrice=" + payPrice + ", aplNo=" + aplNo
+				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", titlePic1=" + titlePic1
+				+ ", userNo=" + userNo + "]";
 	}
-	
-	
+
+
 
 
 	

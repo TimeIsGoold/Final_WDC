@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -217,10 +218,8 @@ public class UserInfoController {
 		List<UserClassDTO> complateClassList = new ArrayList<UserClassDTO>();
 		List<UserClassDTO> refundClassList = new ArrayList<>();
 		
-		// 
 		complateClassList = infoService.selectComplateClassList(userNo);
 		refundClassList = infoService.selectRefundClassList(userNo);
-		
 		
 		model.addAttribute("complateClassList",complateClassList);
 		model.addAttribute("refundClassList",refundClassList);
@@ -235,11 +234,18 @@ public class UserInfoController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("userApplyClassDetail")
-	public String userApplyClassDetail(Model model, HttpSession session) {
+	@GetMapping("userApplyClassDetail/{aplNo}")
+	public String userApplyClassDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		userClassDTO.setAplNo(aplNo);
 
+		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
+		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
+		
+		model.addAttribute("scheduleDetailUserClassDTO",scheduleDetailUserClassDTO);
+		
 		return "user/mypage/scheduledClass_detail";
 
 	}
