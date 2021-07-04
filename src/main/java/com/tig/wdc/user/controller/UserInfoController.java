@@ -58,6 +58,10 @@ public class UserInfoController {
 		
 		model.addAttribute("userInfoDTO",userInfoDTO);
 		
+		if(session == null) {
+			return "user/login/login";
+		}
+		
 		return "user/mypage/mypage";
 	}
 

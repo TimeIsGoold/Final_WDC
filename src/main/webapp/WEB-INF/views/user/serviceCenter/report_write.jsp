@@ -37,6 +37,13 @@
       border-radius: 10px;
       padding: 5px;
     }
+    
+    .imgSelect:hover{
+    background: #fef0ae;
+    }
+    .imgSelect:active{
+    background: #fbde48;
+    }
 
     i{
       font-family: "Font Awesome 5 Free" !important;
@@ -77,8 +84,8 @@
           </nav>
         </div>
       </header>
-
       <div class="container">
+
         <!-- HERO SECTION-->
         <section class="py-5 bg-light1">
           <div class="container">
@@ -88,8 +95,9 @@
               </div>
               <div class="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0" style="background: #fef0ae">
                     <li class="breadcrumb-item"><a href="mypageScheduledClass.html">돌아가기</a></li>
+                    
                   </ol>
                 </nav>
               </div>
@@ -99,6 +107,7 @@
         <section class="py-5">
           <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0" style="margin-left: 17%;">
+             <form action="${ pageContext.servletContext.contextPath }/user/reportInsert"  method="post" encType="multipart/form-data">
               <!-- CART TABLE-->
               <div class="table-responsive mb-4">
                 <table class="table">
@@ -112,14 +121,14 @@
                   <tbody>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="img/class-sport.png" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></strong></div>
+                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${pageContext.servletContext.contextPath }/${userClassDTO.titlePic}" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
                         <div class="quantity">
                           <button class="dec-btn p-0"><i class="fas"></i></button>
-                          <p style="width: 50px; margin-top: 15px;">이해승</p>                         
+                          <p style="width: 50px; margin-top: 15px;">${ requestScope.userClassDTO.teName } </p>                         
                            <button class="inc-btn p-0"><i class="fas"></i></button>
                         </div>
                     </td>
@@ -127,7 +136,7 @@
                       <td class="align-middle border-0">
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas"></i></button>
-                            <p style="margin-top: 15px; font-size: 17px;">1 명</p>
+                            <p style="margin-top: 15px; font-size: 17px;">${ requestScope.userClassDTO.ppl } 명</p>
                             <button class="inc-btn p-0"><i class="fas"></i></button>
                           </div>
                       </td>
@@ -135,11 +144,23 @@
                     </tr>
                 </tbody>
             </table>
-                <li>&nbsp;&nbsp;&nbsp;신청 날짜 :&nbsp;&nbsp;&nbsp;
-                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 250px;" id="name" class="refunderInfo" value="2021-06-30" disabled></li>
-                <br>
-                <li>&nbsp;&nbsp;&nbsp;신청 시간 :&nbsp;&nbsp;&nbsp;
-                <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="16:00 ~ 18:00" disabled> </li>
+            	<hr>
+                <li>&nbsp;&nbsp;&nbsp;강의 날짜  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <c:if test="${ requestScope.userClassDTO.clsType eq 'O' }">
+                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 250px;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleDate }" disabled></li>
+                </c:if>
+                <c:if test="${ requestScope.userClassDTO.clsType eq 'R' }">
+                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 250px;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.startDate } ~ ${ requestScope.userClassDTO.endDate }" disabled></li>
+                </c:if>
+                
+                <hr>
+                <li>&nbsp;&nbsp;&nbsp;수업 시작 시간 &nbsp;&nbsp;&nbsp;
+                <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleStart }" disabled> </li>
+                
+                <hr>
+                <li>&nbsp;&nbsp;&nbsp;수업 소요 시간 &nbsp;&nbsp;&nbsp;
+                <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.time }" disabled> </li>
+                <hr>
                 <br>
               </div>
               <!-- 신청자 정보-->
@@ -149,24 +170,31 @@
                       <i class="fas mr-2" style="display: flex;">
                         <h5 style="width: 200px; margin-top: 7px;">신고 제목 : 
                         </h5>
-                        <input style="width: 500px; display: flex;" placeholder="신고 제목을 입력해 주세요"> 
+                        <input name="reportTitle"  style="width: 500px; display: flex;" placeholder="신고 제목을 입력해 주세요"> 
                       </i>
                     </div>
                 </div>
             </div>
-            <textarea style="resize: none; width: 725px; height: 220px; margin-top: 10px; border-radius: 5px; margin-left: 3px; padding: 15px;" placeholder="신고 내용을 작성 해 주세요"></textarea>
-      
-            <label for="input-file" style="margin-left: 10px;">
-              <input id="input-file" type="file" style="margin-left: 500px; margin-top: 10px; display: none;">
-              첨부 파일
+            <textarea name="reportReason" style="resize: none; width: 725px; height: 220px; margin-top: 10px; border-radius: 5px; margin-left: 3px; padding: 15px;" placeholder="신고 내용을 작성 해 주세요"></textarea>
+			<br>
+             <label class="imgSelect" for="input-file" style="margin-left: 170px; height: 40px; text-align: center; padding-top: 8px; width: 110px; border-radius: 5px; margin-top: 10px;">
+              <input name="singleFile" id="input-file" type="file" style="margin-top: 10px; display: none;" onchange="LoadImg(this);">
+                          첨부파일 선택
             </label>
             <br>  
-            <button style="margin-left: 40%; margin-top: -5px;" onclick=writeComplate(); class="btn btn-dark submitbtn">신고 작성하기 </button>
-
-
-
+            <br>
+            <br>
+            <br><br>
+            <button style="margin-left: 40%; margin-top: -5px;" onclick=writeComplate(); class="btn btn-dark submitbtn" type="submit">신고 작성하기 </button>
+            <input type="hidden" name="reportToNo" value="${ requestScope.userClassDTO.teNo}">
+            <br>
+			</form>      	
+            <div class="content-img-area1"  style="margin-left: 4px; margin-top: -180px">
+				<img id="LoadImg" width="150" height="120" style="margin-bottom: 50px;">
+			</div>
+            <input type="hidden" name="reportToNo" value="${ requestScope.userClassDTO.teNo}">
             </div>
-
+<br>
           </div>
         </section>
       </div>
@@ -177,6 +205,18 @@
         alert("신고 작성되었습니다.")
         location.href="mypageReportList.html";
     }
+</script>
+<script>
+	function LoadImg(value){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function (e){
+				$('#LoadImg').attr('src',e.target.result);
+			}
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+
 </script>
 
       	<%@include file="../commons/footer.jsp" %>

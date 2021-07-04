@@ -11,6 +11,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -52,6 +53,10 @@ public interface UserClassService {
 	int insertPayment(PaymentDTO insertPaymentDTO);
 
 	int updateCpnUseYn(int cpnNo);
+
+	int insertReport(UserReportDTO userReportDTO);
+
+	int insertReportHistory(UserReportDTO userReportDTO);
 
 
 

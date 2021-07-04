@@ -151,9 +151,11 @@ public class UserServiceCenterController {
 		return "user/serviceCenter/report_detail";
 	}
 	
-	@GetMapping("reportWrite")
-	public String ReportWrite() {
-		
-		return "user/serviceCenter/report_write";
-	}
+//	@GetMapping("reportWrite")
+//	public String ReportWrite() {
+//		
+//		return "user/serviceCenter/report_write";
+//	}
+	
+
 }
