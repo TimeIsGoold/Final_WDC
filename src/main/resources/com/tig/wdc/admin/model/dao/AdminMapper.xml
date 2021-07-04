@@ -645,12 +645,15 @@
 			 , B.TE_TYPE
 			 , B.TE_NAME
 			 , B.TE_ID
-			 , TO_CHAR(A.CALC_MONTH) 정산날짜
+			 , A.CALC_MONTH 정산날짜
 			 , 'Y' AS 정산여부
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
+         GROUP BY A.CALC_NO, B.TE_TYPE, B.TE_NAME, B.TE_ID, A.CALC_MONTH
          ORDER BY A.CALC_NO
 	</select>
+	
+	<!-- 환불미승인 리스트 -->
 	
 	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="ReportDetailDTO">
 		SELECT
