@@ -3,6 +3,7 @@ package com.tig.wdc.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.PaymentDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
@@ -104,24 +106,83 @@ public class UserClassDetailController {
 		// 유저 넘버로 이름과 전화번호 조회
 		UserInfoDTO userInfo = new UserInfoDTO();
 		userInfo = classService.selectUserInfo(userNo);
+		model.addAttribute("userInfo", userInfo);
+		
 		// 유저 넘버로 보유 쿠폰 조회
 		List<UserCouponDTO> couponList = new ArrayList<UserCouponDTO>();
-		couponList = classService.selectCouponList(userNo);
-				
-		
-		model.addAttribute("userInfo", userInfo);
+		userClassDTO.setUserNo(userNo);
+		couponList = classService.selectCouponList(userClassDTO);
 		model.addAttribute("couponList",couponList);
 		
+		// 스케줄 넘버 조회
+		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
+		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO.getStringScheduleDate());
+		model.addAttribute("pasymentScheduleDTO", paymentScheduleDTO);
+
+		
+		
 		model.addAttribute("classApplyDTO",classApplyDTO);
+		
+		// stringScheduleDate 용
 		model.addAttribute("scheduleDTO", scheduleDTO);
-		model.addAttribute("userClassDTO", userClassDTO);
 		
 		return "user/payment/payment";
 	}
 	
-//	@PostMapping("paymentSuccess")
-//	public String paymentSuccess() {
-//		
-//	}
 	
+	/**
+	 * 결제 완료 시 이동 페이지 및 결제 디비 인서트
+	 * @return
+	 */
+	@PostMapping("paymentSuccess")
+	public String paymentSuccess(HttpServletRequest request, HttpSession session) {
+		int userNo= (Integer) session.getAttribute("userNo");
+		// 0 .쿠폰 no 가 0 이 아니라면 사용으로 업데이트
+		int cpnNo = Integer.parseInt(request.getParameter("cpnNo"));
+		
+		if(cpnNo != 0) {
+			int updateResult = classService.updateCpnUseYn(cpnNo);
+		}
+		
+		// 1. 클래스 어플라이 인서트
+		ClassApplyDTO paymentClassApplyDTO = new ClassApplyDTO();
+		
+		int scheduleNo = Integer.parseInt(request.getParameter("scheduleNo"));
+		int ppl = Integer.parseInt(request.getParameter("ppl"));
+		
+		paymentClassApplyDTO.setUserNo(userNo);
+		paymentClassApplyDTO.setScheduleNo(scheduleNo);
+		paymentClassApplyDTO.setPpl(ppl);
+		
+		int classApplyInsertResult = classService.insertClassApply(paymentClassApplyDTO);
+		
+		
+		// 2. 페이먼트 인서트
+		PaymentDTO insertPaymentDTO = new PaymentDTO();
+		int payPrice = Integer.parseInt(request.getParameter("payPrice"));
+		
+		insertPaymentDTO.setPayPrice(payPrice);
+		insertPaymentDTO.setCpnNo(cpnNo);
+		
+		int paymentInsertResult = classService.insertPayment(insertPaymentDTO);
+		
+		
+		// 클래스 어플라이랑 페이먼트 둘다 인서트 잘 됐다면 이동 -> ajax 라 필요 없음
+		if(classApplyInsertResult + paymentInsertResult == 2) {
+			String returnPage = "redirect:/user/mypage/scheduledClassList";
+
+			return returnPage;
+		}
+		
+		return "user/mypage/mypage"; 
+	}
+	
+	@GetMapping("paymentSuccessToBookCheckPage")
+	public String paymentSuccessToBookCheckPage(HttpSession session) {
+		
+		String returnPage = "redirect:/user/mypage/scheduledClassList";
+
+		
+		return returnPage;
+	}
 }

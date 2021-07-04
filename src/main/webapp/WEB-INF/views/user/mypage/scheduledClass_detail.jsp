@@ -67,7 +67,7 @@
       <!-- navbar-->
       <header class="header bg-white">
         <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/user/mypage/userLoginSuccessMain"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
@@ -116,14 +116,11 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageMain.html">내 정보</a></strong></div>
-                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageScheduledClass.html">참여 예정 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageParticipatingClass.html">참여 중인 클래스</a></strong></div>
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageComplateClass.html">참여 완료 클래스</a></strong></div>
-
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="mypageCouponList.html">내 쿠폰</a></strong></div>
-
-
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain">내 정보</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/scheduledClassList">참여 예정 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/complateClassList">참여 완료 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
               </div>
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
@@ -132,7 +129,7 @@
                     
                   <div class="row"  style="width: 1500px; height: 200px;">
 
-                    <img class="w-100" src="img/class-sport.png" alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
+                    <img class="w-100" src="${pageContext.servletContext.contextPath }/${scheduleDetailUserClassDTO.titlePic}"  alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
 
                     <ul class="list-inline mb-2">
                       <li class="list-inline-item m-0">
@@ -140,30 +137,35 @@
                           <p style="margin-left: 10px; margin-top: 2px;"> 강의명</p>
                         </i>
                       </li> 
-                      <h4><a href="detail.html" style="color: black;">하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></h4>
+                      <h4><a href="detail.html" style="color: black;">${ requestScope.scheduleDetailUserClassDTO.title }</a></h4>
                       <br>  
                       <li class="list-inline-item m-0">
                         <i class="fas fa-caret-right small text-dark" style="display: flex; margin-left: 3px; ">
                           <p style="margin-left: 10px; margin-top: 2px;"> 강사명</p>
                         </i>
-                      </li> : 이해승 강사님
+                      </li> : ${ requestScope.scheduleDetailUserClassDTO.teName } 강사님
                       <br>
                     </ul>
                   </div>
                   <!-- PRODUCT-->
-
                     <div style="text-align: left; margin-top: -30px;">
+					<hr>
+                    <c:if test="${ requestScope.scheduleDetailUserClassDTO.clsType eq 'O' }">
+                    <li>수업예정 날짜 : ${ requestScope.scheduleDetailUserClassDTO.scheduleDate }</li>
+                    </c:if>
+                    <c:if test="${ requestScope.scheduleDetailUserClassDTO.clsType eq 'R' }">
+                    <li>수업예정 날짜 : ${ requestScope.scheduleDetailUserClassDTO.startDate } ~ ${ requestScope.scheduleDetailUserClassDTO.endDate }</li>
+                    </c:if>
                     <hr>
-                    <li>수업예정 날짜 : 06/25</li>
+                    <li>수업예정 시간 : ${ requestScope.scheduleDetailUserClassDTO.scheduleStart }</li>
                     <hr>
-                    <li>수업예정 시간 : 16:00 ~ 20:00</li>
+                    <li>수업소요 시간 : ${ requestScope.scheduleDetailUserClassDTO.time }</li>
                     <hr>
-                    <li>결제 날짜 : 06/25</li>
+                    <li>결제 날짜 : ${ requestScope.scheduleDetailUserClassDTO.clsAplDate }</li>
                     <hr>
-                    <li>신청 인원 : 1</li>
+                    <li>신청 인원 : ${ requestScope.scheduleDetailUserClassDTO.ppl } 명 </li>
                     <hr>
-      
-                    <li>결제 금액 : 39,000</li>
+                    <li>결제 금액 : <fmt:formatNumber value="${ requestScope.scheduleDetailUserClassDTO.payPrice }" pattern="#,###"/> 원</li>
                     <hr>
                     </div>
                     <br>

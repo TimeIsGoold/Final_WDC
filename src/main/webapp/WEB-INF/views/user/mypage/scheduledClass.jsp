@@ -104,7 +104,6 @@
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/complateClassList">참여 완료 클래스</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
-
               </div>
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
@@ -121,15 +120,15 @@
                     <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
-                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
 
                       </div>
                       <h6> 
-                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo} ">
                         [원데이] ${classList.title}
                       </a>
                       </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
                   </c:forEach>
@@ -139,10 +138,10 @@
                     <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">${fn:substring(rClassList.startDate,5,10)} ~ ${fn:substring(rClassList.endDate,5,10)} </div>
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
-                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${rClassList.titlePic}" alt="..."></a>
+                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ rClassList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${rClassList.titlePic}" alt="..."></a>
                       </div>
                       <h6> 
-                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ rClassList.aplNo }">
                         [정규] ${rClassList.title}
                       </a>
                       </h6>
