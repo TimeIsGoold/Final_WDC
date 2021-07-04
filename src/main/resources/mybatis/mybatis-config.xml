@@ -33,6 +33,13 @@
  		<typeAlias alias="UserReviewDTO" type="com.tig.wdc.user.model.dto.UserReviewDTO"/>
  		<typeAlias alias="ReviewAnswerDTO" type="com.tig.wdc.user.model.dto.ReviewAnswerDTO"/>
  		<typeAlias alias="ScheduleDTO" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
+ 		<typeAlias alias="UserInquiryDTO" type="com.tig.wdc.user.model.dto.UserInquiryDTO"/>
+ 		<typeAlias alias="InquiryAnswerDTO" type="com.tig.wdc.user.model.dto.InquiryAnswerDTO"/>
+ 		<typeAlias alias="NoticeDTO" type="com.tig.wdc.admin.model.dto.NoticeDTO"/>
+ 		<typeAlias alias="PageInfoDTO" type="com.tig.wdc.model.dto.PageInfoDTO"/>
+ 		<typeAlias alias="UserReportDTO" type="com.tig.wdc.user.model.dto.UserReportDTO"/>
+ 		<typeAlias alias="PaymentDTO" type="com.tig.wdc.user.model.dto.PaymentDTO"/>
+ 		<typeAlias alias="ClassApplyDTO" type="com.tig.wdc.user.model.dto.ClassApplyDTO"/>
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
@@ -43,6 +50,7 @@
  		<typeAlias alias="classInfo" type="com.tig.wdc.user.model.dto.ClassDTO"/>
  		<typeAlias alias="scheduleInfo" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
  		<typeAlias alias="regularScheduleInfo" type="com.tig.wdc.model.dto.RegularClassInfoDTO"/>
+ 		<typeAlias alias="classApplyInfo" type="com.tig.wdc.user.model.dto.ClassApplyDTO"/>
  		
  	</typeAliases>
  </configuration>

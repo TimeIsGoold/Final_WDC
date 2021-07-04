@@ -34,16 +34,24 @@ public class UserClassDTO {
 	private Date scheduleDate; // 스케줄 시작 날짜
 	private String scheduleStart; // 스케줄 시작 시간
 	private int clsPplAmount; // 강의 신청 인원
+	private int payPrice;
+	private int aplNo;
+	private String teName;
+	private java.sql.Date clsAplDate;
+	private int ppl;
+	private String payStatus;
 
-	public UserClassDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private String titlePic1; // 페이먼트 용 
+	private int userNo; // 페이먼트 용 
+	
+	public UserClassDTO() {}
 
 	public UserClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time,
 			Date startDate, Date endDate, int price, String addInfo, String addSup, String dicsionStatus,
 			String clsType, Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
-			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount) {
+			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
+			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, String titlePic1,
+			int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -69,6 +77,14 @@ public class UserClassDTO {
 		this.scheduleDate = scheduleDate;
 		this.scheduleStart = scheduleStart;
 		this.clsPplAmount = clsPplAmount;
+		this.payPrice = payPrice;
+		this.aplNo = aplNo;
+		this.teName = teName;
+		this.clsAplDate = clsAplDate;
+		this.ppl = ppl;
+		this.payStatus = payStatus;
+		this.titlePic1 = titlePic1;
+		this.userNo = userNo;
 	}
 
 	public int getClsNo() {
@@ -263,6 +279,70 @@ public class UserClassDTO {
 		this.clsPplAmount = clsPplAmount;
 	}
 
+	public int getPayPrice() {
+		return payPrice;
+	}
+
+	public void setPayPrice(int payPrice) {
+		this.payPrice = payPrice;
+	}
+
+	public int getAplNo() {
+		return aplNo;
+	}
+
+	public void setAplNo(int aplNo) {
+		this.aplNo = aplNo;
+	}
+
+	public String getTeName() {
+		return teName;
+	}
+
+	public void setTeName(String teName) {
+		this.teName = teName;
+	}
+
+	public java.sql.Date getClsAplDate() {
+		return clsAplDate;
+	}
+
+	public void setClsAplDate(java.sql.Date clsAplDate) {
+		this.clsAplDate = clsAplDate;
+	}
+
+	public int getPpl() {
+		return ppl;
+	}
+
+	public void setPpl(int ppl) {
+		this.ppl = ppl;
+	}
+
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public String getTitlePic1() {
+		return titlePic1;
+	}
+
+	public void setTitlePic1(String titlePic1) {
+		this.titlePic1 = titlePic1;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
 		return "UserClassDTO [clsNo=" + clsNo + ", title=" + title + ", address=" + address + ", intro=" + intro
@@ -271,7 +351,14 @@ public class UserClassDTO {
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
 				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", titlePic=" + titlePic
 				+ ", avgScore=" + avgScore + ", dDay=" + dDay + ", scheduleDate=" + scheduleDate + ", scheduleStart="
-				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + "]";
+				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", payPrice=" + payPrice + ", aplNo=" + aplNo
+				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", payStatus=" + payStatus
+				+ ", titlePic1=" + titlePic1 + ", userNo=" + userNo + "]";
 	}
+
+	
+
+
+	
 
 }

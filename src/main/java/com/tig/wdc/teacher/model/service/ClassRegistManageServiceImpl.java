@@ -1,6 +1,5 @@
 package com.tig.wdc.teacher.model.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.model.dto.RegularClassInfoDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistManageMapper;
+import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 
@@ -19,12 +19,12 @@ import com.tig.wdc.user.model.dto.ScheduleDTO;
  * 클래스등록용 서비스
  */
 @Service
-public class ClassRegistServiceImpl implements ClassRegistManageService {
+public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	
 	private ClassRegistManageMapper mapper;
 	
 	@Autowired
-	public ClassRegistServiceImpl(ClassRegistManageMapper mapper) {
+	public ClassRegistManageServiceImpl(ClassRegistManageMapper mapper) {
 		this.mapper = mapper;
 	}
 
@@ -74,6 +74,22 @@ public class ClassRegistServiceImpl implements ClassRegistManageService {
 	@Override
 	public RegularClassInfoDTO selectRegularScheduleinfo(int clsNo) {
 		return mapper.selectRegularScheduleinfo(clsNo);
+	}
+
+	/**
+	 *  정규클래스 신청자 정보
+	 */
+	@Override
+	public ClassApplyDTO selectApplyUserInfo(int scheduleNo) {
+		return mapper.selectApplyUserInfo(scheduleNo);
+	}
+
+	/**
+	 * 원데이클래스 스케쥴 리스트
+	 */
+	@Override
+	public List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo) {
+		return mapper.selectOneDayScheduleList(classInfo);
 	}
 	
 	

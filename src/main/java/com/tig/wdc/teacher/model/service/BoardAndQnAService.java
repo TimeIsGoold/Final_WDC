@@ -36,4 +36,11 @@ public interface BoardAndQnAService {
 	 * @return 클래스 리스트
 	 */
 	public List<ClassDTO> selectClassList(ClassDTO classInfo);
+
+	/**
+	 * 원데이 클래스 전체 스케쥴 수 카운트
+	 * @param clsNo 클래스번호
+	 * @return
+	 */
+	public int selectScheduleCount(int clsNo);
 }

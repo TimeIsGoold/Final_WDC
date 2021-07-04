@@ -23,8 +23,8 @@
       .justify-content-lg-end {
         justify-content: normal !important;
       }
-	  
-	  a.form-control-lg {
+
+      .form-control-lg {
         width: 450px;
       }
 
@@ -45,34 +45,39 @@
         display: inline-block;
       }
 
-      *{  margin: 0; padding: 0; }
-      ul{list-style: none;}
-      .accordion-box{
-        width: 100%; max-width: 600px;
-        margin:  0 auto;
-      }
-      p.title{
-        width: 100%;  
-        line-height: 60px; 
-        background: #fef0ae; 
-        color: black; 
-        box-sizing: border-box;
-        padding: 0 10px;
-      }
-      .con{
-        padding: 20px; 
-        display:none;
-      }
+      div.tab {
+      width: 600px;
+    }
 
-      .tr-hover:hover{
-        background-color: #f8f9fa !important;
-      }
+    .tab {
+        height: auto;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        width: 1000px;
+    }
 
-      td{
-        vertical-align: unset !important;
-      }
+    td:hover{
+      text-decoration: underline;
+    }
 
-      i{
+    .tr-hover:hover{
+      background-color: #f8f9fa !important;
+    }
+
+    td{
+      text-decoration:none !important;
+      vertical-align: unset !important;
+    }
+
+    a{
+      color: black;
+      text-decoration: none;
+    }
+    a:hover{
+      color: black;
+      text-decoration: none;
+    }
+
+    i{
         font-family: "Font Awesome 5 Free" !important;
       }
 
@@ -129,40 +134,44 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-0 order-lg-0">
-                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice">공지사항</a></strong></div>
+                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice">공지사항</a></strong></div>
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/faq">자주 묻는 질문</a></strong></div>
-                <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/inquiry">1:1 문의</a></strong></div>
+                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/inquiry">1:1 문의</a></strong></div>
                 <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/report">나의 신고</a></strong></div>
               </div> 
+              <!-- BILLING ADDRESS-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0" style="text-align: center;">
                 <div class="container p-0">
                   <div class="row">
                     <table class="table table-hover" style="width: 850px;">
                       <thead>
-                          <tr>
+                        <tr>
                           <th><b>번호</b></th>
-                          <th><b>공지 제목</b></th>
-                          <th><b>등록 일자</b></th>
-                          </tr>
+                          <th><b>신고제목</b></th>
+                          <th><b>신고일자</b></th>
+                          <th><b>답변</b></th>
+                        </tr>
                       </thead>
                       <tbody>
-                      	  <c:forEach var="notice" items="${ requestScope.notice }" varStatus="noticeNo">
-	                          <c:if test="${ notice.importantYN eq 'Y' }">
-		                          <tr style="background-color: #e1efff8f; font-weight: 600;">
+                      	<c:forEach var="inquiry" items="${ requestScope.inquiry }" varStatus="inquiryNo">
+	                        <tr class="tr-hover">
+	                          <th>${ inquiryNo.index + pageInfo.startRow }</th>
+	                          <td><a href="${ pageContext.servletContext.contextPath }/user/serviceCenter/inquiryDetail/${ inquiry.queNo }">${ inquiry.queTitle }</a></td>
+	                          <td>${ inquiry.queDate }</td>
+	                          <c:if test="${ inquiry.answerYn eq 'Y' }">
+		                          <td>답변완료</td>
 		                      </c:if>
-		                      <c:if test="${ notice.importantYN eq 'N' }">
-		                          <tr class="tr-hover">
+	                          <c:if test="${ inquiry.answerYn eq 'N' }">
+		                          <td>대기중</td>
 		                      </c:if>
-			                          <th>${ noticeNo.index + pageInfo.startRow }</th>
-			                          <td onclick="location.href='${ pageContext.servletContext.contextPath }/user/serviceCenter/noticeDetail/${ notice.noticeNo }'" style="cursor:pointer;">${ notice.noticeTitle }</td>
-			                          <td>${ notice.writeDate }</td>
-		                       	  </tr>
-                       	  </c:forEach>     
+	                        </tr>
+                        </c:forEach>
                       </tbody>
                     </table>
                   </div>
+                  <button type="submit" class="btn btn-dark" style="float: right; width: 120px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/serviceCenter/inquiryWrite'">새 문의</button>
                   
-		        <!-- 페이지 처리 -->
+                <!-- 페이지 처리 -->
 				<div class="pagingArea" align="center">
 		 	       <nav aria-label="Page navigation example" style="margin-left: 300px; margin-top: 50px;">
 		           		<ul class="pagination justify-content-center justify-content-lg-end">
@@ -231,7 +240,7 @@
                   
 			   <!-- 페이징 스크립트 -->
 		       <script>
-					const link = "/wdc/user/serviceCenter/notice";
+					const link = "/wdc/user/serviceCenter/inquiry";
 					//const searchLink = "${ pageContext.servletContext.contextPath }/board/search";
 						
 					if(document.getElementById("startPage")) {
@@ -302,8 +311,9 @@
             </div>
           </div>
         </section>
-      <br><br><br><br>
       </div>
+      <br><br><br><br>
       	<%@include file="../commons/footer.jsp" %>
+</div>
   </body>
 </html>

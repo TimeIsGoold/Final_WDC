@@ -42,4 +42,9 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 		return mapper.selectClassList(classInfo);
 	}
 
+	@Override
+	public int selectScheduleCount(int clsNo) {
+		return mapper.selectScheduleCount(clsNo);
+	}
+
 }
