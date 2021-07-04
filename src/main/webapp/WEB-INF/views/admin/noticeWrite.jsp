@@ -104,22 +104,22 @@
 	                                        <tr>
 	                                            <th>공개&nbsp;&nbsp;대상</th>
 	                                            <td>
-	                                                <input type="radio" name="type" class="radioBtnType"checked>전체 회원용
-	                                                <input type="radio" name="type" class="radioBtnType">강사 회원용
-	                                                <input type="radio" name="type" class="radioBtnType">일반 회원용
+	                                                <input type="radio" name="noticeType" value="A" class="radioBtnType"checked>전체 회원용
+	                                                <input type="radio" name="noticeType" value="T" class="radioBtnType">강사 회원용
+	                                                <input type="radio" name="noticeType" value="C" class="radioBtnType">일반 회원용
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
 	                                            <td>
-	                                                <input type="radio" name="important" class="radioBtnCondition"checked>보통
-	                                                <input type="radio" name="important" class="radioBtnCondition">중요
+	                                                <input type="radio" name="importantYN" value="N" class="radioBtnCondition"checked>보통
+	                                                <input type="radio" name="importantYN" value="Y" class="radioBtnCondition">중요
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
 	                                            <td>
-	                                                <input type="text" name="title" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
+	                                                <input type="text" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
@@ -127,7 +127,7 @@
 	                                        </tr>
 	                                        <tr>
 	                                        	<td colspan="2">
-	  												<textarea id="summernote" name="context"></textarea>
+	  												<textarea id="summernote" name="noticeContent"></textarea>
 	                                            </td>
 	                                        </tr>
 	                                    </tbody>
@@ -135,8 +135,8 @@
                                 </table>     
                 
                                 <div class="noticeBtnArea">
-                                    <input type="submit" id="btnNotice" class="noticeBtn" value="등록하기">
-                                    <input type="submit" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
+                                    <input type="button" id="btnNotice" class="noticeBtn" value="등록하기">
+                                    <input type="button" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
                                 </div>
 
                             </div>
@@ -147,7 +147,7 @@
             </div>
 
         </div>
-        <script type="text/javascript">
+        <script>
         	$("#btnNotice").on("click",function(){
         		$("#area").attr("action","/wdc/admin/noticeWrite").submit();
         	});

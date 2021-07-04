@@ -64,6 +64,7 @@
 		<result column="아이디" property="questionId"/>
 		<result column="제목" property="questionTitle"/>
 		<result column="날짜" property="questionDate"/>
+		<result column="답변여부" property="answerYN"/>
 	</resultMap>
 	
 	<!-- 강사문의 -->
@@ -74,6 +75,7 @@
 		<result column="TE_ID" property="questionId"/>
 		<result column="Q_TITLE" property="questionTitle"/>
 		<result column="Q_DATE" property="questionDate"/>
+		<result column="ANSWER_YN" property="answerYN"/>
 	</resultMap>
 	
 	<!-- 수강생문의 -->
@@ -84,6 +86,7 @@
 		<result column="USER_ID" property="questionId"/>
 		<result column="Q_TITLE" property="questionTitle"/>
 		<result column="Q_DATE" property="questionDate"/>
+		<result column="ANSWER_YN" property="answerYN"/>
 	</resultMap>
 	
 	<!-- 강사문의상세 -->
@@ -305,6 +308,7 @@
 			 , C.USER_ID 아이디
 			 , A.Q_TITLE 제목
 			 , A.Q_DATE 날짜
+			 , A.ANSWER_YN 답변여부
 		  FROM ADMIN_Q A
 		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
@@ -316,6 +320,7 @@
 			 , C.TE_ID 아이디
 			 , A.Q_TITLE 제목
 			 , A.Q_DATE 날짜
+			 , A.ANSWER_YN 답변여부
 		  FROM ADMIN_Q A
 		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
@@ -332,6 +337,7 @@
 			 , C.TE_ID
 			 , A.Q_TITLE
 			 , A.Q_DATE
+			 , A.ANSWER_YN
 		  FROM ADMIN_Q A
 		  JOIN TE_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
@@ -347,6 +353,7 @@
 			 , C.USER_ID
 			 , A.Q_TITLE
 			 , A.Q_DATE
+			 , A.ANSWER_YN
 		  FROM ADMIN_Q A
 		  JOIN USER_TO_ADMIN_Q B ON (A.Q_NO = B.Q_NO)
 		  JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
@@ -592,11 +599,24 @@
   		VALUES
   		(
    		  SEQ_NOTICE_NO.NEXTVAL
-        , #{title}
-        , #{context}
+        , #{noticeTitle}
+        , #{noticeContent}
   		, SYSDATE
-        , #{type}
-        , #{important}
+  		<if test='noticeType == "A"'>
+        , 'A'
+       	</if>
+       	<if test='noticeType == "T"'>
+        , 'T'
+       	</if>
+       	<if test='noticeType == "C"'>
+        , 'C'
+       	</if>
+       	<if test='importantYN == "Y"'>
+        , 'Y'
+       	</if>
+       	<if test='importantYN == "N"'>
+        , 'N'
+       	</if>
   		, 1
   		)
 	</insert>

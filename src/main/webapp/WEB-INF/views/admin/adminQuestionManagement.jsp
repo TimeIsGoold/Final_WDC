@@ -98,6 +98,7 @@
                                             <th>아이디</th>
                                             <th>제목</th>
                                             <th>작성일</th>
+                                            <th>답변여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,6 +117,7 @@
 				                                <td>${QuestionDTO.questionId}</td>
 				                                <td>${QuestionDTO.questionTitle}</td>
 				                                <td>${QuestionDTO.questionDate}</td>
+				                                <td>${QuestionDTO.answerYN}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
