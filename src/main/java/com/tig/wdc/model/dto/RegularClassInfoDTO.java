@@ -4,35 +4,46 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * @author 이해승
+ * 정규과정 정보조회용
+ */
 @Component
 public class RegularClassInfoDTO {
 
-	private int schedule_no;
+	private int scheduleNo;
 	private int maxPeople;
 	private int scheduleCount;
 	private int applyCount;
 	private Date start;
 	private Date end;
+	private String classTitle;
+	private int nowCount;
 	
+	private PageInfoDTO pageInfo;
+
 	public RegularClassInfoDTO() {}
 
-	public RegularClassInfoDTO(int schedule_no, int maxPeople, int scheduleCount, int applyCount, Date start,
-			Date end) {
+	public RegularClassInfoDTO(int scheduleNo, int maxPeople, int scheduleCount, int applyCount, Date start, Date end,
+			String classTitle, int nowCount, PageInfoDTO pageInfo) {
 		super();
-		this.schedule_no = schedule_no;
+		this.scheduleNo = scheduleNo;
 		this.maxPeople = maxPeople;
 		this.scheduleCount = scheduleCount;
 		this.applyCount = applyCount;
 		this.start = start;
 		this.end = end;
+		this.classTitle = classTitle;
+		this.nowCount = nowCount;
+		this.pageInfo = pageInfo;
 	}
 
-	public int getSchedule_no() {
-		return schedule_no;
+	public int getScheduleNo() {
+		return scheduleNo;
 	}
 
-	public void setSchedule_no(int schedule_no) {
-		this.schedule_no = schedule_no;
+	public void setScheduleNo(int scheduleNo) {
+		this.scheduleNo = scheduleNo;
 	}
 
 	public int getMaxPeople() {
@@ -75,9 +86,34 @@ public class RegularClassInfoDTO {
 		this.end = end;
 	}
 
+	public String getClassTitle() {
+		return classTitle;
+	}
+
+	public void setClassTitle(String classTitle) {
+		this.classTitle = classTitle;
+	}
+
+	public int getNowCount() {
+		return nowCount;
+	}
+
+	public void setNowCount(int nowCount) {
+		this.nowCount = nowCount;
+	}
+
+	public PageInfoDTO getPageInfo() {
+		return pageInfo;
+	}
+
+	public void setPageInfo(PageInfoDTO pageInfo) {
+		this.pageInfo = pageInfo;
+	}
+
 	@Override
 	public String toString() {
-		return "RegularClassInfoDTO [schedule_no=" + schedule_no + ", maxPeople=" + maxPeople + ", scheduleCount="
-				+ scheduleCount + ", applyCount=" + applyCount + ", start=" + start + ", end=" + end + "]";
+		return "RegularClassInfoDTO [scheduleNo=" + scheduleNo + ", maxPeople=" + maxPeople + ", scheduleCount="
+				+ scheduleCount + ", applyCount=" + applyCount + ", start=" + start + ", end=" + end + ", classTitle="
+				+ classTitle + ", nowCount=" + nowCount + ", pageInfo=" + pageInfo + "]";
 	}
 }

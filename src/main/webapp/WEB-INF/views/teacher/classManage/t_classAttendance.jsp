@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +64,11 @@
       background-color: #fef0ae;
       border-color: #fef0ae;
     }
+    .pagingArea button {
+	  background-color: #fef0ae;
+	  border: 1px solid #fef0ae;
+	  border-radius: 5px;
+    }
   </style>
 
 
@@ -81,36 +87,35 @@
 		<%@ include file="../commons/sidebar.jsp" %>
       
       <!-- main page -->
-      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
+      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 5px; ">
         
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classDetail.html" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;" >
+          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left;">
-      <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
+<!--       <div class="page-header" style="margin-bottom: 3px; margin-left: 40px;">
         <h4>수강생 관리</h4>
-      </div>
-      <form>
-        <div class='col-sm-10' style="margin-left: 10px;">
-          <div class="form-group">
+      </div> -->
+<!--         <div class='col-sm-10' style="margin-left: 10px;">
+           <div class="form-group">
             <div class="row">
               <div class="col-sm-3" style="margin-left: 10px;">
                 <h5>클래스 검색</h5>
               </div>
-              <div class='col-sm-3'>
+               <div class='col-sm-3'>
                 <select class="form-control" id="classStatus">상태검색
                   <option value="todo">강의 전</option>
                   <option value="done">완료</option>
@@ -120,12 +125,11 @@
                 <button type="submit" class="btn btn-primary">검색</button>   
               </div>
             </div>
-            </div>
-        </div>
-      </form>
+            </div> 
+        </div> -->
 
-      <div class="col-sm-10" id="content-formatting" style="float: left; padding-top: 50px;">
-        <table class="table table-hover" style="text-align: center;">
+      <div class="col-sm-10" id="content-formatting" style="float: left; padding-top: 50px; height: 800px">
+        <table class="table table-hover" style="text-align: center;" >
           <thead>
             <tr>
               <th>번호</th>
@@ -136,53 +140,91 @@
             </tr>
           </thead>
           <tbody>
+            <c:forEach var="schedule" items="${ onedayInfo }" varStatus="status">
             <tr>
-              <td>1</td>
-              <td><a href="t_classAttendanceDetail.html">초코식빵 만들기 클래스</a></td>
-              <td>2회차</td>
-              <td>2021-06-20</td>
-              <td>2/4</td>
+              <td>${ pageInfo.startRow + status.index }</td>
+              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList/${ schedule.scheduleNo}">${ schedule.classTitle}</a></td>
+              <td>${ pageInfo.startRow + status.index }회차</td>
+              <td>${ schedule.start }</td>
+              <td>${ schedule.applyCount}/${ schedule.maxPeople}</td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="t_classAttendanceDetail.html">6가지맛 마카롱 클래스</a></td>
-              <td>1회차</td>
-              <td>2021-06-01</td>
-              <td>4/4</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><a href="t_classAttendanceDetail.html">3개월 베이킹 클래스(정규반)</a></td>
-              <td>10회차</td>
-              <td>2021-06-01</td>
-              <td>4/4</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td><a href="t_classAttendanceDetail.html">3개월 베이킹 클래스(정규반)</a></td>
-              <td>10회차</td>
-              <td>2021-05-25</td>
-              <td>4/4</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td><a href="t_classAttendanceDetail.html">3개월 베이킹 클래스(정규반)</a></td>
-              <td>10회차</td>
-              <td>2021-05-20</td>
-              <td>4/4</td>
-            </tr>
+            
+            </c:forEach>
+          
           </tbody>
         </table><br><br>
         <nav aria-label="...">
-          <ul class="pagination" style="justify-content: center;">
-            <li class="page-item"><span class="page-link"><</span></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">></a></li>
-          </ul>
+        	<div class="pagingArea" align="center">
+        		<c:choose>
+        			<c:when test="${ empty requestScope.searchValue }">
+        				<button id="startPage"><<</button>
+        
+        				<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+        					<button  disabled ><</button>
+        				</c:if>
+        				<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+        					<button id="prevPage"><</button>
+        				</c:if>
+        
+        				<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }"	end="${ requestScope.pageInfo.endPage }" step="1">
+        					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+        						<button disabled>
+        							<c:out value="${ p }" />
+        						</button>
+        					</c:if>
+        					<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+        						<button onclick="pageButtonAction(this.innerText);">
+        							<c:out value="${ p }" />
+        						</button>
+        					</c:if>
+        				</c:forEach>
+        
+        				<c:if
+        					test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+        					<button disabled >></button>
+        				</c:if>
+        				<c:if
+        					test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+        					<button id="nextPage">></button>
+        				</c:if>
+        
+        				<button id="maxPage">>></button>
+        			</c:when>
+        			<c:otherwise>
+        				<button id="searchStartPage"><<</button>
+        
+        				<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+        					<button  disabled><</button>
+        				</c:if>
+        				<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+        					<button id="searchPrevPage" ><</button>
+        				</c:if>
+        
+        				<c:forEach var="p"	begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+        					<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+        						<button disabled>
+        							<c:out value="${ p }" />
+        						</button>
+        					</c:if>
+        					<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+        						<button  onclick="seachPageButtonAction(this.innerText);">
+        							<c:out value="${ p }" />
+        						</button>
+        					</c:if>
+        				</c:forEach>
+        
+        				<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+        					<button disabled>></button>
+        				</c:if>
+        				<c:if
+        					test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+        					<button id="searchNextPage" >></button>
+        				</c:if>
+        
+        				<button id="searchMaxPage" >>></button>
+        			</c:otherwise>
+        		</c:choose>
+        	</div>
         </nav>
       </div>
     </div>
@@ -201,5 +243,42 @@
   </div>
   
   <jsp:include page="../commons/footer.jsp"/>
+  
+  <script>
+    const link = "${pageContext.servletContext.contextPath }/teacher/studentManagement";
+    const condition = "&clsNo=${ clsNo }&classType=O"
+	if(document.getElementById("startPage")) {
+		const $startPage = document.getElementById("startPage");
+		$startPage.onclick = function() {
+			location.href = link + "?currentPage=1" + condition;
+		}
+	}
+	
+	if(document.getElementById("prevPage")) {
+		const $prevPage = document.getElementById("prevPage");
+		$prevPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }" + condition;
+		}
+	}
+	
+	if(document.getElementById("nextPage")) {
+		const $nextPage = document.getElementById("nextPage");
+		$nextPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }" + condition;
+		}
+	}
+	
+	if(document.getElementById("maxPage")) {
+		const $maxPage = document.getElementById("maxPage");
+		$maxPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }" + condition;
+		}
+	}
+	
+	function pageButtonAction(text) {
+		location.href = link + "?currentPage=" + text + condition;
+		
+	}
+	</script>  	
 </body>
-<html>
+</html>

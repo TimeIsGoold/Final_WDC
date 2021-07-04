@@ -1,9 +1,12 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.List;
+
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.model.dto.RegularClassInfoDTO;
+import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 
@@ -30,6 +33,12 @@ public interface ClassRegistManageService {
 
 	//정규 클래스 정보
 	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
+
+	//정규 클래스 신청한 정보
+	ClassApplyDTO selectApplyUserInfo(int scheduleNoo);
+
+	//원데이클래스 스케쥴리스트
+	List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
 
 	
 }
