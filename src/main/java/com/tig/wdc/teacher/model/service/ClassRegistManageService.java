@@ -6,6 +6,7 @@ import java.util.List;
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
 import com.tig.wdc.model.dto.RegularClassInfoDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
@@ -43,6 +44,12 @@ public interface ClassRegistManageService {
 
 	//원데이클래스 출석 수정용
 	int modifyOndeDayAttendanceStatus(HashMap<String, Object> applyNoList);
+
+	//정규클래스 출석 수정용
+	int insertRegularClassAttendance(HashMap<String, Object> attendInfo);
+
+	//정규클래스 기존 출석정보
+	List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo);
 
 	
 }

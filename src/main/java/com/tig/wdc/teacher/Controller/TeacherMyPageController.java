@@ -1,7 +1,6 @@
 package com.tig.wdc.teacher.Controller;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tig.wdc.common.PageNation;
 import com.tig.wdc.model.dto.PageInfoDTO;
@@ -103,7 +101,8 @@ public class TeacherMyPageController {
 			/* 정규클래스 스케쥴*/
 			RegularClassInfoDTO regularClassinfo = classManage.selectRegularScheduleinfo(Integer.parseInt(info.get("clsNo")));
 			model.addAttribute("regularInfo", regularClassinfo);
-			//model.addAttribute("applyUserInfo",classManage.selectApplyUserInfo(regularClassinfo.getSchedule_no()));
+			model.addAttribute("applyUserInfoList",classManage.selectApplyUserInfo(regularClassinfo.getScheduleNo()));
+			model.addAttribute("existingInfo", classManage.selectExistingInfo(regularClassinfo.getScheduleNo()));
 			
 			pageName = "teacher/classManage/t_classAttendanceDetaiRegularl";
 		} else {
@@ -148,18 +147,54 @@ public class TeacherMyPageController {
 	@PostMapping("/oneDayAttendanceUpdate")
 	public String oneDayAttendanceUpdate(Model model,@RequestParam("allApplyNo") int[] allNo, @RequestParam("checkedApplyNo") @Nullable int[] checkedNo, @RequestParam int scheduleNo) {
 		
-		System.out.println("모든번호 : " + allNo[0] );
-		System.out.println("신청한번호 : " + checkedNo );
-		
-		
 		HashMap<String, Object> applyNoList= new HashMap<>();
 		
 		applyNoList.put("allApplyNo", allNo);
 		applyNoList.put("checkedApplyNo", checkedNo);
 		classManage.modifyOndeDayAttendanceStatus(applyNoList);
+		
 		return "redirect:/teacher/oneDayAttendanceList/" + scheduleNo;
 	}
 	
+	
+	@PostMapping("/regularAttendance")
+	public String regularAttendanceUpdate(Model model, @RequestParam @Nullable String attendanceInfo,@RequestParam int scheduleNo, @RequestParam String attendanceDate) {
+		
+			String applyNo = "";
+			String userNo = "";
+			int classStep = 0;
+			
+			if(attendanceInfo != null && attendanceInfo.length() >0) {
+				
+				String[] infoList = attendanceInfo.split(",");
+				for(int i = 0; i < infoList.length; i++) {
+					
+					String[] oneInfo = infoList[i].split("/");
+					if(i != (infoList.length -1 )) {
+						
+						applyNo += oneInfo[1] + ",";
+						userNo += oneInfo[2] + ",";
+					} else {
+						classStep = Integer.parseInt(oneInfo[0]);
+						applyNo += oneInfo[1];
+						userNo += oneInfo[2];
+					}
+				}
+			}
+			
+			HashMap<String, Object> attendInfo = new HashMap<>();
+			
+			attendInfo.put("classStep", classStep);
+			attendInfo.put("applyNo", applyNo);
+			attendInfo.put("userNo", userNo);
+			attendInfo.put("applyNo", applyNo);
+			attendInfo.put("attendanceDate", java.sql.Date.valueOf(attendanceDate));
+			attendInfo.put("scheduleNo", scheduleNo);
+			System.out.println(attendInfo);
+			classManage.insertRegularClassAttendance(attendInfo);
+			
+		return "";
+	}
 	
 	/* 정산관리 */
 	@GetMapping("/teacherBalanceList")

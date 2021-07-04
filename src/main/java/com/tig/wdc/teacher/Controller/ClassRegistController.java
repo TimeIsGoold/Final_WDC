@@ -89,15 +89,15 @@ public class ClassRegistController {
 		if(!mkdir.exists()) {
 			mkdir.mkdirs();
 		}
-		int classInsertResult = classService.insertClassInfo(classInfo);
+		classService.insertClassInfo(classInfo);
 		
 		/* 2. 클래스 대표사진 INSERT */
-		int totalCount = 0; //전체 사진 수
+//		int totalCount = 0; //전체 사진 수
 		int insertCount = 0; //사진 insert 카운투
 		for(int i = 1; i < 4; i++) {
 			
 			if(!pictures.get("thumbnailImg" + i).isEmpty()) {
-				totalCount++;
+//				totalCount++;
 				MultipartFile img = pictures.get("thumbnailImg" + i);
 				String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
 				String saveName = UUID.randomUUID().toString().replace("-", "") + ext;
@@ -125,17 +125,17 @@ public class ClassRegistController {
 		//클래스 대표사진 출력
 		/* 3. 완성작 INSERT*/
 		String[] pieceTitle = pieceInfo.getPieceTitle().split(",");
-		int pieceTitleIndex = 0;
+//		int pieceTitleIndex = 0;
 		for(int i = 4; i < 6; i++) {
 			
 			if(!pictures.get("thumbnailImg" + i).isEmpty()) {
-				totalCount++;
+//				totalCount++;
 				
 				MultipartFile img = pictures.get("thumbnailImg" + i);
 				String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
 				classPiece.setPiecePicture(UUID.randomUUID().toString().replace("-", "") + ext);
 				classPiece.setPieceTitle(pieceTitle[0]);
-				pieceTitleIndex++;
+//				pieceTitleIndex++;
 
 				try {
 					img.transferTo(new File(filePath + "\\" + classPiece.getPiecePicture()));
@@ -159,7 +159,7 @@ public class ClassRegistController {
 			curriculum.setCurriTitle(curriTitle[i]);
 			curriculum.setCurriContent(curriContent[i]);
 			
-			int result = classService.insertCurriculum(curriculum);
+			classService.insertCurriculum(curriculum);
 		}
 		/* 5. 스케쥴 등록 */
 		int scheduleInsert = 0;

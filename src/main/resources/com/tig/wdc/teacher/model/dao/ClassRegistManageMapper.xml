@@ -197,4 +197,31 @@
          </foreach>
         </if>
     </update>
+    <insert id="insertRegularClassAttendance" parameterType="hashmap">
+        INSERT 
+          INTO REGULAR_CLASS
+        VALUES
+             (
+               SEQ_REG_MANAGE_NO.NEXTVAL
+             , #{ attendanceDate }
+             , #{ userNo }
+             , #{ applyNo }
+             , #{ classStep }
+             , #{ scheduleNo }
+             )
+    </insert>
+    <resultMap type="regularAttend" id="regularAttendInfo">
+        <id column="REG_MANAGE_NO" property="regManageNo"/>
+        <result column="CLASS_DATE" property="classDate"/>
+        <result column="ATTENDER_NO" property="attendanceUser"/>
+        <result column="CLS_APL_NO" property="attendanceApply"/>
+        <result column="CLASS_STEP" property="classStep"/>
+        <result column="SCHEDULE_NO" property="scheduleNo"/>
+    </resultMap>
+    <select id="selectExistingInfo" resultMap="regularAttendInfo" parameterType="_int">
+        SELECT 
+               *
+          FROM REGULAR_CLASS
+         WHERE SCHEDULE_NO = #{ scheduleNo } 
+    </select>
 </mapper>

@@ -152,7 +152,7 @@
     <script>
 	function attendanceChange(p){
 		
-		var checkboxList = document.getElementsByName("checkedUser");
+		var checkboxList = document.getElementsByName("checkedApplyNo");
 		if(p.value == 0){
 			for(var i = 0; i < checkboxList.length; i++){
 				checkboxList[i].checked = true;

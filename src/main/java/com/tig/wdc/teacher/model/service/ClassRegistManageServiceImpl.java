@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
 import com.tig.wdc.model.dto.RegularClassInfoDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistManageMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -78,7 +79,7 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	}
 
 	/**
-	 *  정규클래스 신청자 정보
+	 *  클래스 신청자 정보
 	 */
 	@Override
 	public List<ClassApplyDTO> selectApplyUserInfo(int scheduleNo) {
@@ -109,6 +110,17 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 
 			return mapper.modifyOndeDayAttendanceStatus(applyNoList);
 		}
+	}
+
+	@Override
+	public int insertRegularClassAttendance(HashMap<String, Object> attendInfo) {
+		return mapper.insertRegularClassAttendance(attendInfo);
+		
+	}
+
+	@Override
+	public List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo) {
+		return mapper.selectExistingInfo(scheduleNo);
 	}
 	
 	
