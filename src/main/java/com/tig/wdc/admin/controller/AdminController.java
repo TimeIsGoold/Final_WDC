@@ -9,13 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.BlackListDTO;
+import com.tig.wdc.admin.model.dto.CouponDTO;
+import com.tig.wdc.admin.model.dto.NoticeDTO;
+import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
+import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
+import com.tig.wdc.user.model.service.UserClassService;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -27,7 +40,6 @@ public class AdminController {
 	public AdminController(AdminService adminService) {
 
 		this.adminService = adminService;
-
 	}
 
 	/**
@@ -130,6 +142,21 @@ public class AdminController {
 		
 		return "admin/questionDetail"; 
 	}
+	
+	/**@author 송아현
+	 * 문의 답변 
+	 * @param question
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("questionAnswer")
+	public String questionAnswer(@ModelAttribute QuestionDTO question, Model model) {
+		
+		model.addAttribute("questionAnswer", adminService.insertAnswer(question));
+		model.addAttribute("questionAnswer", adminService.updateAnswer(question));
+		
+		return "redirect:/admin/questionManagement?currentMenu=question&mt=to";
+	}
 	 
 	/**
 	 * @author 송아현
@@ -164,13 +191,24 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
-	 * 쿠폰 발급
-	 * 
-	 * @return
+	 * 쿠폰 발급을 위한 매핑
+	 * 전처리 -> url
 	 */
 	@GetMapping("couponIssue")
-	public String couponIssue() {
-		return "admin/couponIssue";
+	public void couponIssue() {}
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * 후처리
+	 * @return
+	 */
+	@RequestMapping("couponIssue")
+	public String couponIssue(@ModelAttribute CouponDTO coupon, Model model) {
+
+		model.addAttribute("couponIssue", adminService.insertCouponIssue(coupon));
+		
+		return "redirect:/admin/couponManagement?currentMenu=coupon";
 	}
 
 	/**
@@ -206,6 +244,30 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
+	 * 공지 작성/수정을 위한 매핑
+	 * 전처리 -> url
+	 * @return
+	 */
+	@GetMapping("noticeWrite")
+	public void noticeIssue() {}
+	
+	/**
+	 * @author 송아현
+	 * 공지사항 등록
+	 * @param notice
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("noticeWrite")
+	public String noticeWrite(@ModelAttribute NoticeDTO notice, Model model) {
+		
+		model.addAttribute("noticeWrite", adminService.insertNoticeWrite(notice));
+		
+		return "redirect:/admin/noticeManagement?currentMenu=notice";
+	}
+	
+	/**
+	 * @author 송아현
 	 * 정산 관리
 	 * 
 	 * @param model
@@ -219,8 +281,18 @@ public class AdminController {
 		 } else if(type.equals("Y")) {
 			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
 		 }
-	  
 		 return "admin/adminCalculateManagement"; 
+	 }
+	 
+   /**
+	* @author 송아현
+	* 정산 상세
+	*  
+	* @return
+	*/
+	@GetMapping("calculateDetail")
+	 public String calculateInfoDetail() {
+		 return "admin/calculateDetail";
 	 }
 	 
 
@@ -260,7 +332,6 @@ public class AdminController {
 			model.addAttribute("totalList", adminService.selectStudentList());
 		}
 		return "admin/adminMemberManagement";
-
 	}
 	
 	/**
@@ -309,12 +380,7 @@ public class AdminController {
 	
 	@GetMapping("procsDenyStatus")
 	public String procsDenyStatus(@RequestParam("rn")int no, @RequestParam("type")String type, Model model) {
-
-		
-
 		adminService.updateReportStatus2(no);
-
-		
 		return "redirect:reportDetail?no="+no+"&type="+ type;
 	}
 	
@@ -329,5 +395,34 @@ public class AdminController {
 		}
 		return "admin/BlackListManagement";
 	}
+	
+	@GetMapping("selectClassBycategory")
+	public String selectClassBycategory(@RequestParam("ct")String type, Model model) {
+		Map<String, String> map = new HashMap<>();
+		map.put("type", type);
+		model.addAttribute("classList", adminService.selectClassBycategory(map));
+		return "admin/adminClassManagement";
+	}
+	
+	@PostMapping("blackListInsert")
+	public String blackListInsert(@ModelAttribute BlackListDTO black, Model model) {
+		Map<String, Object> blackMap = new HashMap<>();
+		blackMap.put("blackMap", black);
+		adminService.insertBlackList(blackMap);
+		adminService.updateBlackListOnUSerTable(blackMap);
+		return "redirect:blackListMenagement?&ut=to";
+	}
+	
+	@GetMapping("classDetail")
+	public String classDetail(Model model, @RequestParam("cn")int userNo, @RequestParam("ct")String type) {
+		System.out.println(userNo);
+		System.out.println(type);
+		Map<String, Object> cnct = new HashMap<>();
+		cnct.put("userNo", userNo);
+		cnct.put("type", type);
+	//	model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
+		return "admin/BeforeDicision";
+	}
+	
 
 }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tig.wdc.teacher.model.dao.ClassRegistManageMapper">
+    <insert id="insertClassInfo" parameterType="ClassDTO">
+        INSERT 
+          INTO CLASS
+        VALUES
+             (
+               SEQ_CLS_NO.NEXTVAL
+             , #{ title }
+             , #{ address }
+             , #{ intro }
+             , #{ cExpl }
+             , #{ time }
+             , #{ startDate }
+             , #{ endDate }
+             , #{ price }
+             , #{ addInfo }
+             , #{ addSup, jdbcType=VARCHAR }
+             , #{ dicsionStatus }
+             , #{ clsType }
+             , SYSDATE
+             , #{ status }
+             , #{ teNo }
+             , #{ categoryNo }
+             , #{ simpleIntro }
+             )
+    </insert>
+    <insert id="insertTitlePicture" parameterType="attachment">
+        <selectKey keyProperty="classNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        INSERT 
+          INTO ATTACHMENT
+        VALUES 
+             (
+               SEQ_ATTACH_NO.NEXTVAL
+             , #{ originName }
+             , #{ saveName }
+             , #{ savePath }
+             , #{ type }
+             , #{ thumbnailPath }
+             , #{ attachStatus }
+             , #{ classNo }
+             )
+    </insert>
+    <insert id="insertCompletePiece" parameterType="completePiece">
+        <selectKey keyProperty="classNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>     
+        INSERT 
+          INTO CLASS_PIECE
+        VALUES 
+             (
+               SEQ_PIECE_NO.NEXTVAL
+             , #{ pieceTitle }
+             , #{ piecePicture }
+             , #{ classNo }
+             )
+    </insert>
+    <insert id="insertCurriculum" parameterType="curriculum">
+        <selectKey keyProperty="clsNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        INSERT
+          INTO CURRICULUM
+        VALUES
+             (
+               SEQ_CRCLM_NO.NEXTVAL
+             , #{ curriStep } 
+             , #{ curriTitle }
+             , #{ curriContent }
+             , #{ clsNo }
+             ) 
+    </insert>
+    <insert id="insertSchedule" parameterType="schedule">
+        <selectKey keyProperty="clsNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_CLS_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+        INSERT
+          INTO SCHEDULE
+        VALUES 
+             (
+               SEQ_SCHEDULE_NO.NEXTVAL
+             , #{ scheduleType }
+             , #{ inputDate }
+             , #{ scheduleStart }
+             , #{ inputMin }
+             , #{ inputMax }
+             , #{ clsNo }
+             , #{ scheduleCount }
+             )
+    </insert>
+    <resultMap type="regularScheduleInfo" id="regularSchedule">
+        <id column="SCHEDULE_NO" property="scheduleNo"/>
+        <result column="MAX_PEOPLE" property="maxPeople"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+        <result column="신청인원" property="applyCount"/>
+        <result column="시작일" property="start"/>
+        <result column="CLS_END_D" property="end"/>
+        <result column="CLS_TITLE" property="classTitle"/>
+    </resultMap>
+    <select id="selectRegularScheduleinfo" parameterType="_int" resultMap="regularSchedule">
+        SELECT 
+               A.SCHEDULE_NO
+             , A.MAX_PEOPLE  
+             , A.SCHEDULE_COUNT
+             , SUM(B.CLS_PPL) 신청인원
+             , C.CLS_START_D 시작일
+             , C.CLS_END_D
+             , C.CLS_TITLE
+          FROM SCHEDULE A
+          JOIN CLASS_APPLY B ON (A.SCHEDULE_NO = B.SCHEDULE_NO)
+          JOIN CLASS C ON (A.CLS_NO = C.CLS_NO)
+          JOIN PAYMENT D ON (B.CLS_APL_NO = D.CLS_APL_NO)
+        WHERE C.CLS_NO = #{clsNo}
+          AND D.PAY_STATUS = '완료'
+         GROUP BY A.SCHEDULE_NO,A.MAX_PEOPLE,A.SCHEDULE_COUNT,C.CLS_START_D,C.CLS_END_D,C.CLS_TITLE   
+    </select>
+    <resultMap type="classApplyInfo" id="applyInfo">
+        <id column="CLS_APL_NO" property="aplNo"/>
+        <result column="USER_NO" property="userNo"/>
+        <result column="SCHEDULE_NO" property="scheduleNo"/>
+        <result column="USER_NAME" property="userName"/>
+    </resultMap>
+    <select id="selectApplyUserInfo" resultMap="applyInfo" parameterType="_int">
+        SELECT 
+               A.CLS_APL_NO 
+             , A.USER_NO
+             , A.SCHEDULE_NO
+             , B.USER_NAME  
+          FROM CLASS_APPLY A
+          JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
+         WHERE A.SCHEDULE_NO= #{ scheduleNo }
+    </select>
+
+    <select id="selectOneDayScheduleList" resultMap="regularSchedule" parameterType="ClassDTO">
+        SELECT 
+              A.SCHEDULE_NO
+            , A.시작일 
+            , A.MAX_PEOPLE
+            , A.신청인원
+            , A.CLS_TITLE
+         FROM (SELECT ROWNUM RNUM
+                    , B.SCHEDULE_NO
+                    , B.시작일
+                    , B.MAX_PEOPLE
+                    , B.신청인원
+                    , B.CLS_TITLE
+                 FROM (SELECT C.SCHEDULE_NO
+                            , C.SCHEDULE_DATE 시작일
+                            , C.MAX_PEOPLE
+                            , SUM(D.CLS_PPL) 신청인원
+                            , F.CLS_TITLE
+                         FROM SCHEDULE  C
+                         JOIN CLASS_APPLY  D ON (C.SCHEDULE_NO = D.SCHEDULE_NO)
+                         JOIN PAYMENT E ON (D.CLS_APL_NO = E.CLS_APL_NO)
+                         JOIN CLASS F ON (C.CLS_NO = F.CLS_NO)
+                        WHERE C.CLS_NO = #{ clsNo }
+                          AND E.PAY_STATUS = '완료'
+                     GROUP BY C.SCHEDULE_NO, C.SCHEDULE_DATE, C.MAX_PEOPLE, F.CLS_TITLE
+                     ORDER BY C.SCHEDULE_DATE
+                       ) B
+              ) A
+        WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }    
+    </select>
+</mapper>

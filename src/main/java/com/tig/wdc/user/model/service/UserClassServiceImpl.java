@@ -7,10 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dao.UserClassMapper;
+import com.tig.wdc.user.model.dao.UserInfoMapper;
+import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.PaymentDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserCouponDTO;
+import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserInquiryDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -22,8 +28,10 @@ public class UserClassServiceImpl implements UserClassService{
 
 	@Autowired
 	private UserClassMapper mapper;
-	public UserClassServiceImpl(UserClassMapper mapper) {
+	private UserInfoMapper userInfoMapper;
+	public UserClassServiceImpl(UserClassMapper mapper, UserInfoMapper userInfoMapper) {
 		this.mapper = mapper;
+		this.userInfoMapper = userInfoMapper;
 	}
 
 	@Override
@@ -75,14 +83,54 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectClassStar(clsNo);
 	}
 
-	@Override
-	public List<ReviewAnswerDTO> selectReviewAnswer(int clsNo) {
-		return mapper.selectReviewAnswer(clsNo);
-	}
 
 	@Override
 	public List<ScheduleDTO> selectSchedule(int clsNo) {
 		return mapper.selectSchedule(clsNo);
 	}
+
+	@Override
+	public List<UserInquiryDTO> selectQnA(int clsNo) {
+		return mapper.selectQnA(clsNo);
+	}
+
+	/**
+	 *@author 연준
+	 */
+	@Override
+	public UserInfoDTO selectUserInfo(int userNo) {
+		return userInfoMapper.selectUser(userNo);
+	}
+
+	/**
+	 *@author 연준
+	 */
+	@Override
+	public List<UserCouponDTO> selectCouponList(UserClassDTO userClassDTO) {
+		return mapper.selectCouponList(userClassDTO);
+	}
+
+	@Override
+	public ScheduleDTO selectscheduleNo(String stringScheduleDate) {
+		return mapper.selectscheduleNo(stringScheduleDate);
+	}
+
+	@Override
+	public int insertClassApply(ClassApplyDTO paymentClassApplyDTO) {
+		return mapper.insertClassApply(paymentClassApplyDTO);
+	}
+
+	@Override
+	public int insertPayment(PaymentDTO insertPaymentDTO) {
+		return mapper.insertPayment(insertPaymentDTO);
+	}
+
+	@Override
+	public int updateCpnUseYn(int cpnNo) {
+		return mapper.updateCpnUseYn(cpnNo);
+	}
+
+
+
 
 }

@@ -13,9 +13,33 @@
         <result column="IMPORTANT_YN" property="important"/>
         <result column="ADMIN_NO" property="adminNo"/>
     </resultMap>
+    <resultMap type="classInfo" id="classInfo">
+        <id column="CLS_NO" property="clsNo"/>
+        <result column="CLS_TITLE" property="title"/>
+        <result column="CLS_ADDRESS" property="address"/>
+        <result column="CLS_INTRO" property="intro"/>
+        <result column="CLS_C_EXPL" property="cExpl"/>
+        <result column="CLS_TIME" property="time"/>
+        <result column="CLS_START_D" property="startDate"/>
+        <result column="CLS_END_D" property="endDate"/>
+        <result column="CLS_PRICE" property="price"/>
+        <result column="CLS_ADD_INFO" property="addInfo"/>
+        <result column="CLS_ADD_SUP" property="addSup"/>
+        <result column="CLS_DICSION_STATUS" property="dicsionStatus"/>
+        <result column="CLS_TYPE" property="clsType"/>
+        <result column="DATE_APLCT" property="dateAplct"/>
+        <result column="CLS_STATUS" property="status"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <association property="schedule" javaType="com.tig.wdc.user.model.dto.ScheduleDTO">
+            <result column="SCHEDULE_TYPE" property="scheduleType"/>
+        </association>
+    </resultMap>
     
     <select id="selectNoticeCount" resultType="_int">
-        SELECT COUNT(NOTICE_NO) 
+        SELECT 
+               COUNT(NOTICE_NO) 
           FROM NOTICE 
          WHERE NOTICE_TYPE IN('A','T')    
     </select>
@@ -41,4 +65,48 @@
                ) A
          WHERE A.RNUM BETWEEN #{ startRow } AND #{ endRow }	
 	</select>
+	<select id="selectClassCount" resultType="_int" parameterType="_int">
+        SELECT 
+               COUNT(CLS_NO) 
+          FROM CLASS 
+         WHERE TE_NO = #{ teacherNo }
+    </select>
+    <select id="selectClassList" parameterType="ClassDTO" resultMap="classInfo">
+        SELECT 
+               A.CLS_NO
+             , A.CLS_TITLE
+             , A.CLS_TYPE
+             , A.CLS_PRICE
+             , A.CLS_STATUS
+             , A.CLS_DICSION_STATUS
+             , A.SCHEDULE_TYPE
+          FROM (SELECT ROWNUM RNUM
+                     , B.CLS_NO
+                     , B.CLS_TITLE
+                     , B.CLS_TYPE
+                     , B.CLS_PRICE
+                     , B.CLS_STATUS
+                     , B.CLS_DICSION_STATUS
+                     , B.SCHEDULE_TYPE
+                  FROM (SELECT DISTINCT(C.CLS_NO)
+                             , C.CLS_TITLE
+                             , C.CLS_TYPE
+                             , C.CLS_PRICE
+                             , C.CLS_STATUS
+                             , C.CLS_DICSION_STATUS
+                             , D.SCHEDULE_TYPE
+                          FROM CLASS C
+                          JOIN SCHEDULE D ON (C.CLS_NO = D.CLS_NO)
+                         WHERE C.TE_NO = #{ teNo }
+                         ORDER BY C.CLS_NO DESC
+                        ) B
+               ) A
+         WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }  
+    </select>
+    <select id="selectScheduleCount" resultType="_int">
+        SELECT 
+               COUNT(SCHEDULE_NO)
+          FROM SCHEDULE
+         WHERE CLS_NO = #{ clsNo }  
+    </select>
 </mapper>

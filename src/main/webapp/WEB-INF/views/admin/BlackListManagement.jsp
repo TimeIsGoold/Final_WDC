@@ -51,7 +51,8 @@
                                     </thead>
                                     <tbody>
                          				<c:forEach items="${allBlackList}" var="allBlackList">
-				                            <tr style="cursor:pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/blackListMenagement?memberType=${allBlackList.type}&memberNo=${allBlackList.blackNo}'">
+				                            <tr>
+				                            <!--  style="cursor:pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/blackListMenagement?memberType=${allBlackList.type}&memberNo=${allBlackList.blackNo}'" -->
 				                                <td><c:choose>
 				                                	<c:when test="${ allBlackList.type eq 'T'}">강사</c:when>
 				                                	<c:when test="${ allBlackList.type eq 'U'}">수강생</c:when>

@@ -78,41 +78,41 @@
       </script>
 
       <script>
-      // Modal을 가져옵니다.
+      // Modalì ê°ì ¸ìµëë¤.
       var modals = document.getElementsByClassName("modal");
-      // Modal을 띄우는 클래스 이름을 가져옵니다.
+      // Modalì ëì°ë í´ëì¤ ì´ë¦ì ê°ì ¸ìµëë¤.
       var btns = document.getElementsByClassName("btn-img");
-      // Modal을 닫는 close 클래스를 가져옵니다.
+      // Modalì ë«ë close í´ëì¤ë¥¼ ê°ì ¸ìµëë¤.
       var spanes = document.getElementsByClassName("close");
       var funcs = [];
       
-      // Modal을 띄우고 닫는 클릭 이벤트를 정의한 함수
+      // Modalì ëì°ê³  ë«ë í´ë¦­ ì´ë²¤í¸ë¥¼ ì ìí í¨ì
       function Modal(num) {
         return function() {
-          // 해당 클래스의 내용을 클릭하면 Modal을 띄웁니다.
+          // í´ë¹ í´ëì¤ì ë´ì©ì í´ë¦­íë©´ Modalì ëìëë¤.
           btns[num].onclick =  function() {
               modals[num].style.display = "block";
               console.log(num);
           };
       
-          // <span> 태그(X 버튼)를 클릭하면 Modal이 닫습니다.
+          // <span> íê·¸(X ë²í¼)ë¥¼ í´ë¦­íë©´ Modalì´ ë«ìµëë¤.
           spanes[num].onclick = function() {
               modals[num].style.display = "none";
           };
         };
       }
         
-      // 원하는 Modal 수만큼 Modal 함수를 호출해서 funcs 함수에 정의합니다.
+      // ìíë Modal ìë§í¼ Modal í¨ìë¥¼ í¸ì¶í´ì funcs í¨ìì ì ìí©ëë¤.
       for(var i = 0; i < btns.length; i++) {
         funcs[i] = Modal(i);
       }
       
-      // 원하는 Modal 수만큼 funcs 함수를 호출합니다.
+      // ìíë Modal ìë§í¼ funcs í¨ìë¥¼ í¸ì¶í©ëë¤.
       for(var j = 0; j < btns.length; j++) {
         funcs[j]();
       }
       
-      // Modal 영역 밖을 클릭하면 Modal을 닫습니다.
+      // Modal ìì­ ë°ì í´ë¦­íë©´ Modalì ë«ìµëë¤.
       window.onclick = function(event) {
         if (event.target.className == "modal") {
             event.target.style.display = "none";
@@ -122,7 +122,7 @@
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
    
-   <!-- class_art 에서 추가 -->
+   <!-- class_art ìì ì¶ê° -->
          <script>
         var range = document.getElementById('range');
         noUiSlider.create(range, {
@@ -140,7 +140,7 @@
             tooltips: true,
             format: {
               to: function ( value ) {
-                return value + '원';
+                return value + 'ì';
               },
               from: function ( value ) {
                 return value.replace('', '');
@@ -172,3 +172,6 @@
         // while using file:// protocol
         // pls don't forget to change to your domain :)
         injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+       </script>
+
+	   

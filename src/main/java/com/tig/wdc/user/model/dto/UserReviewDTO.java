@@ -16,13 +16,14 @@ public class UserReviewDTO {
 	private Date reviewEnrollDate;
 	private int aplNo;
 	private String userName;
+	private ReviewAnswerDTO answer;
 
 	public UserReviewDTO() {
 		super();
 	}
 
 	public UserReviewDTO(int reviewNo, String reviewTitle, String reviewContent, String reviewPic, int reviewScore,
-			Date reviewEnrollDate, int aplNo, String userName) {
+			Date reviewEnrollDate, int aplNo, String userName, ReviewAnswerDTO answer) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
@@ -32,6 +33,7 @@ public class UserReviewDTO {
 		this.reviewEnrollDate = reviewEnrollDate;
 		this.aplNo = aplNo;
 		this.userName = userName;
+		this.answer = answer;
 	}
 
 	public int getReviewNo() {
@@ -98,11 +100,19 @@ public class UserReviewDTO {
 		this.userName = userName;
 	}
 
+	public ReviewAnswerDTO getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(ReviewAnswerDTO answer) {
+		this.answer = answer;
+	}
+
 	@Override
 	public String toString() {
 		return "UserReviewDTO [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent="
 				+ reviewContent + ", reviewPic=" + reviewPic + ", reviewScore=" + reviewScore + ", reviewEnrollDate="
-				+ reviewEnrollDate + ", aplNo=" + aplNo + ", userName=" + userName + "]";
+				+ reviewEnrollDate + ", aplNo=" + aplNo + ", userName=" + userName + ", answer=" + answer + "]";
 	}
 
 }

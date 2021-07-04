@@ -138,33 +138,22 @@
         <result column="REVIEW_ENROLLDATE" property="reviewEnrollDate"/>
         <result column="CLS_APL_NO" property="aplNo"/>
         <result column="USER_NAME" property="userName"/>
+        <!-- 리뷰답변 DTO association 함 -->
+        <association property="answer" javaType="ReviewAnswerDTO">
+        	<id column="RE_ANS_NO" property="ansNo"/>
+	        <result column="RE_ANS_DATE" property="ansDate"/>
+	        <result column="RE_ANS_CONTENT" property="ansContent"/>
+	        <result column="REVIEW_NO" property="reviewNo"/>
+	        <result column="TE_NO" property="teNo"/>
+	        <result column="TE_NAME" property="teName"/>
+	        <result column="TE_PIC" property="tePic"/>
+        </association>
     </resultMap>
     
     <select id="selectReview" parameterType="_int" resultMap="ReviewResult">
 		SELECT
-		       R.*
-		     , U.USER_NAME
-		  FROM REVIEW R
-		  JOIN CLASS_APPLY A ON(R.CLS_APL_NO = A.CLS_APL_NO)
-		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = A.SCHEDULE_NO)
-		  JOIN CLASS_APPLY C ON (R.CLS_APL_NO = C.CLS_APL_NO)
-		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
-		 WHERE S.CLS_NO = #{ clsNo }
-    </select>
-    
-    <resultMap type="ReviewAnswerDTO" id="ReviewAnswerResult">
-        <id column="RE_ANS_NO" property="ansNo"/>
-        <result column="RE_ANS_DATE" property="ansDate"/>
-        <result column="RE_ANS_CONTENT" property="ansContent"/>
-        <result column="REVIEW_NO" property="reviewNo"/>
-        <result column="TE_NO" property="teNo"/>
-        <result column="TE_NAME" property="teName"/>
-        <result column="TE_PIC" property="tePic"/>
-    </resultMap>
-    
-    <select id="selectReviewAnswer" parameterType="_int" resultMap="ReviewAnswerResult">
-		SELECT
-		       A.*
+               R.*
+             , A.*
 		     , T.TE_NAME
 		     , T.TE_PIC
 		     , U.USER_NAME
@@ -194,5 +183,119 @@
 		  FROM SCHEDULE S
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
+    
+    <resultMap type="UserInquiryDTO" id="InquiryResult">
+        <id column="QUESTION_NO" property="queNo"/>
+        <result column="QUESTION_CONTENT" property="queContent"/>
+        <result column="QUESTION_DATE" property="queDate"/>
+        <result column="QUESTION_VISIABLE_YN" property="queVisibleYn"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="CLS_NO" property="clsNo"/>
+        <!-- 문의답변 DTO association 함 -->
+        <association property="answer" javaType="InquiryAnswerDTO">
+        	<id column="ANSWER_NO" property="answerNo"/>
+	        <result column="ANSWER_CONTENT" property="answerContent"/>
+	        <result column="QUESTION_NO" property="queNo"/>
+	        <result column="ANSER_TIME" property="answerTime"/>
+	        <result column="TE_NAME" property="teName"/>
+	        <result column="TE_PIC" property="tePic"/>
+        </association>
+    </resultMap>
+    
+    <select id="selectQnA" parameterType="_int" resultMap="InquiryResult">
+		SELECT
+		       U.*
+		     , A.*
+		     , T.TE_NAME
+		     , T.TE_PIC
+		     , I.USER_NAME
+		  FROM USER_TO_TEACHER_Q U
+		  JOIN CLASS C ON (U.CLS_NO = C.CLS_NO)
+		  JOIN TE_ANSWER A ON (A.QUESTION_NO = U.QUESTION_NO)
+		  JOIN TEACHER_INFO T ON (C.TE_NO = T.TE_NO)
+		  JOIN USER_INFO I ON (U.USER_NO = I.USER_NO)
+		 WHERE C.CLS_NO = #{ clsNo }
+    </select>
+
+    
+	<select id="selectscheduleNo" parameterType="string" resultMap="ScheduleResult">
+		SELECT
+		       *
+		  FROM SCHEDULE
+		 WHERE SCHEDULE_DATE = SUBSTR(#{value},0,10)
+		   AND SCHEDULE_START = SUBSTR(#{value},12,15)
+	</select>
+    
+	<insert id="insertClassApply" parameterType="ClassApplyDTO">
+		INSERT
+	      INTO CLASS_APPLY
+		VALUES
+		(
+		  SEQ_CLS_APL_NO.NEXTVAL
+		, #{ ppl }
+		, SYSDATE
+		, #{ userNo }
+		, DEFAULT
+		, #{ scheduleNo }
+		)
+	</insert>
+	
+	<insert id="insertPayment" parameterType="PaymentDTO">
+		<selectKey keyProperty="clsAplNo" resultType="_int" order="BEFORE">
+			SELECT
+			      SEQ_CLS_APL_NO.CURRVAL
+			FROM DUAL
+	 	</selectKey>
+		INSERT
+		  INTO PAYMENT
+		VALUES
+		(
+		  SEQ_PAY_NO.NEXTVAL
+		, #{ payPrice }
+		, '카카오페이'
+		, SYSDATE	
+		<if test='cpnNo == "0"'>
+		, null
+		</if>
+		<if test='cpnNo != "0"'>		
+		, #{ cpnNo }
+		</if>
+		, '완료'
+		, #{ clsAplNo }
+		)
+	</insert>
+	
+	 <resultMap type="UserCouponDTO" id="CouponResult">
+    	<id column="CPN_NO" property="cpnNo"/>
+    	<result column="CPN_NAME" property="cpnName"/>
+        <result column="DIS_AMOUNT" property="disAmount"/>
+        <result column="DIS_CONDITION" property="disCondition"/>
+        <result column="CPN_START" property="cpnStart"/>
+        <result column="CPN_END" property="cpnEnd"/>
+        <result column="CPN_USE_YN" property="cpnUseYn"/>
+        <result column="CHEERING_NO" property="cheeringNo"/>
+        <result column="USER_NO" property="userNo"/>
+        <result column="CPN_ISSUE_DATE" property="issuedDate"/>
+        <result column="CLS_TITLE" property="couponClassName"/>
+    </resultMap>
+    
+	
+	<update id="updateCpnUseYn" parameterType="_int">
+		UPDATE COUPON
+		   SET CPN_USE_YN = 'Y'
+		 WHERE CPN_NO = #{ cpnNo }
+	</update>
+	
+	<select id="selectCouponList" parameterType="UserClassDTO" resultMap="CouponResult">
+		SELECT 
+		       *
+		  FROM COUPON A
+		  JOIN CHEERING_HISTORY H ON(A.CHEERING_NO = H.CHEERING_NO)
+		  JOIN CLASS C ON(H.CLS_NO = C.CLS_NO)
+		 WHERE A.USER_NO = #{ userNo }
+		   AND CPN_USE_YN = 'N'
+           AND H.CLS_NO = #{ clsNo }
+		 ORDER BY CPN_NO
+	</select>
 
 </mapper>

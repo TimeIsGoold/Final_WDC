@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -110,8 +111,6 @@ public class UserInfoController {
 	@GetMapping("userLoginSuccessMain")
 	public String main(Model model, HttpSession session) {
 
-		int userNo= (Integer) session.getAttribute("userNo");
-
 		
 		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
 		newClassList = classService.selectNewClassList();
@@ -126,6 +125,14 @@ public class UserInfoController {
 		model.addAttribute("cheerClassList",cheerClassList);
 		
 		return "user/main/main";
+	}
+	
+	@GetMapping("logout")
+	public String logout(Model model, HttpSession session) {
+		session.invalidate();
+		System.out.println("로그아웃 으로 넘어옴");
+		
+		return "user/login/login";
 	}
 	
 	/**
@@ -211,10 +218,8 @@ public class UserInfoController {
 		List<UserClassDTO> complateClassList = new ArrayList<UserClassDTO>();
 		List<UserClassDTO> refundClassList = new ArrayList<>();
 		
-		// 
 		complateClassList = infoService.selectComplateClassList(userNo);
 		refundClassList = infoService.selectRefundClassList(userNo);
-		
 		
 		model.addAttribute("complateClassList",complateClassList);
 		model.addAttribute("refundClassList",refundClassList);
@@ -224,18 +229,41 @@ public class UserInfoController {
 	}
 	
 	/**
+	 * 진행/ 예정 
 	 * 예약 상세 조회용 메소드
 	 * @param model
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("userApplyClassDetail")
-	public String userApplyClassDetail(Model model, HttpSession session) {
+	@GetMapping("userApplyClassDetail/{aplNo}")
+	public String userApplyClassDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		userClassDTO.setAplNo(aplNo);
 
+		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
+		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
+		
+		model.addAttribute("scheduleDetailUserClassDTO",scheduleDetailUserClassDTO);
+		
 		return "user/mypage/scheduledClass_detail";
 
+	}
+	
+	@GetMapping("userApplyComplateDetail/{aplNo}")
+	public String userApplyComplateDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		userClassDTO.setAplNo(aplNo);
+
+		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
+		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
+		
+		model.addAttribute("complateDetailUserClassDTO",scheduleDetailUserClassDTO);
+		
+		return "user/mypage/complateClass_detail";
 	}
 	
 	

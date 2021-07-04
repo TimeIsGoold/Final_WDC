@@ -10,6 +10,7 @@ import com.tig.wdc.model.dto.NoticeDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.dao.BoardAndQnAMapper;
 import com.tig.wdc.teacher.model.dao.TeacherInfoMapper;
+import com.tig.wdc.user.model.dto.ClassDTO;
 
 @Service
 public class BoardAndQnAServiceImpl implements BoardAndQnAService {
@@ -29,6 +30,21 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 	@Override
 	public List<NoticeDTO> selectNoticeList(PageInfoDTO pageInfo) {
 		return mapper.selectNoticeList(pageInfo);
+	}
+
+	@Override
+	public int selectClassCount(int teacherNo) {
+		return mapper.selectClassCount(teacherNo);
+	}
+
+	@Override
+	public List<ClassDTO> selectClassList(ClassDTO classInfo) {
+		return mapper.selectClassList(classInfo);
+	}
+
+	@Override
+	public int selectScheduleCount(int clsNo) {
+		return mapper.selectScheduleCount(clsNo);
 	}
 
 }

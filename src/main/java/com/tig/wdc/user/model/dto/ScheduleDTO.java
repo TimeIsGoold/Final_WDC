@@ -5,7 +5,8 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 
 /**
- * @author SORA 클래스 스케쥴 DTO
+ * @author SORA 
+ * 클래스 스케쥴 DTO
  */
 @Component
 public class ScheduleDTO {

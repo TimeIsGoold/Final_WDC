@@ -30,8 +30,7 @@ public class PageNation {
 		startRow = (pageNo - 1) * limit + 1; // 4page 3 * 10 + 1
 		endRow = startRow + limit -1;
 		 
-		PageInfoDTO pageInfo = new PageInfoDTO(pageNo,totalCount,limit,buttonAmount,maxPage,startPage,endPage,startRow,endRow);
-		
+		PageInfoDTO pageInfo = new PageInfoDTO(pageNo,totalCount,limit,buttonAmount,maxPage,startPage,endPage,startRow,endRow,0);
 		return pageInfo;
 	}
 }

@@ -25,4 +25,6 @@ public interface UserInfoService {
 	public List<UserClassDTO> selectComplateClassList(int userNo);
 
 	public List<UserClassDTO> selectRefundClassList(int userNo);
+
+	public UserClassDTO selectScheduleDetail(UserClassDTO userClassDTO);
 }

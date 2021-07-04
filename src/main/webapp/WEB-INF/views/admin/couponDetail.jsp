@@ -14,43 +14,42 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+	    <style>
+	        .container-fluid {
+	        	margin-top: 30px;
+	        }
+	        
+	        .card-header {
+	        	font-size: x-large;
+	        }
+	        
+	        th {
+	            width: 200px;
+	            text-align: center !important;
+	            border: 1px solid lightgrey !important;
+	            background: #fef0ae !important;
+	        }
+	
+	        td {
+	            text-align: center;
+	            border: 1px solid lightgrey !important;
+	        }
+	        
+	        .moveReturnPageBtn {
+	        	 margin-left: 93%;
+	        }
+	        
+	        .returnBtn {
+	        	 width: 100px; 
+	        	 background: #fef0ae; 
+	        	 border: 1px solid lightgrey;
+	        }
+	
+	        .returnBtn:hover {
+	            background: rgb(112, 112, 112);
+	        }
+	    </style>
     </head>
-    <style>
-        .container-fluid {
-        	margin-top: 30px;
-        }
-        
-        .card-header {
-        	font-size: x-large;
-        }
-        
-        th {
-            width: 200px;
-            text-align: center !important;
-            border: 1px solid lightgrey !important;
-            background: #fef0ae !important;
-        }
-
-        td {
-            text-align: center;
-            border: 1px solid lightgrey !important;
-        }
-        
-        .moveReturnPageBtn {
-        	 margin-left: 93%;
-        }
-        
-        .returnBtn {
-        	 width: 100px; 
-        	 background: #fef0ae; 
-        	 border: 1px solid lightgrey;
-        }
-
-        .returnBtn:hover {
-            background: black !important;
-            color: white !important;
-        }
-    </style>
     <body class="sb-nav-fixed">
     
     	<!-- header -->
@@ -75,7 +74,12 @@
                                     <tbody>
                                         <tr>
                                             <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-                                            <td>${ couponDetail.couponType }</td>
+                                            <td>
+                                            	<c:if test="${ couponDetail.couponType eq 'TOTAL'}">고객 전체</c:if>
+                                            	<c:if test="${ couponDetail.couponType ne 'TOTAL'}">
+                                            		${ couponDetail.couponType }
+                                            	</c:if>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>쿠 &nbsp;폰 &nbsp;명</th>

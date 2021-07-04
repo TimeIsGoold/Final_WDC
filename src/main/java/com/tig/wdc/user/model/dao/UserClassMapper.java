@@ -3,10 +3,15 @@ package com.tig.wdc.user.model.dao;
 import java.util.List;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.PaymentDTO;
 import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.user.model.dto.UserCouponDTO;
+import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserInquiryDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -35,8 +40,21 @@ public interface UserClassMapper {
 
 	public UserClassDTO selectClassStar(int clsNo);
 
-	public List<ReviewAnswerDTO> selectReviewAnswer(int clsNo);
-
 	public List<ScheduleDTO> selectSchedule(int clsNo);
+
+	public UserInfoDTO selectUserInfo(int userNo);
+
+	public List<UserCouponDTO> selectCouponList(UserClassDTO userClassDTO);
+
+	public List<UserInquiryDTO> selectQnA(int clsNo);
+
+	public ScheduleDTO selectscheduleNo(String stringScheduleDate);
+
+	public int insertClassApply(ClassApplyDTO paymentClassApplyDTO);
+
+	public int insertPayment(PaymentDTO insertPaymentDTO);
+
+	public int updateCpnUseYn(int cpnNo);
+
 
 }

@@ -71,4 +71,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return mapper.selectRefundClassList(userNo);
 	}
 
+
+	@Override
+	public UserClassDTO selectScheduleDetail(UserClassDTO userClassDTO) {
+		return mapper.selectScheduleDetail(userClassDTO);
+	}
+
 }

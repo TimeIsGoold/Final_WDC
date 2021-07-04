@@ -14,13 +14,13 @@ public class ClassApplyDTO {
 	private int userNo;
 	private String attStatus;
 	private int scheduleNo;
+	private String userName;
 
-	public ClassApplyDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	public ClassApplyDTO(int aplNo, int ppl, Date aplDate, int userNo, String attStatus, int scheduleNo) {
+	public ClassApplyDTO() {}
+
+	public ClassApplyDTO(int aplNo, int ppl, Date aplDate, int userNo, String attStatus, int scheduleNo,
+			String userName) {
 		super();
 		this.aplNo = aplNo;
 		this.ppl = ppl;
@@ -28,6 +28,7 @@ public class ClassApplyDTO {
 		this.userNo = userNo;
 		this.attStatus = attStatus;
 		this.scheduleNo = scheduleNo;
+		this.userName = userName;
 	}
 
 	public int getAplNo() {
@@ -78,10 +79,17 @@ public class ClassApplyDTO {
 		this.scheduleNo = scheduleNo;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassApplyDTO [aplNo=" + aplNo + ", ppl=" + ppl + ", aplDate=" + aplDate + ", userNo=" + userNo
-				+ ", attStatus=" + attStatus + ", scheduleNo=" + scheduleNo + "]";
+				+ ", attStatus=" + attStatus + ", scheduleNo=" + scheduleNo + ", userName=" + userName + "]";
 	}
-
 }

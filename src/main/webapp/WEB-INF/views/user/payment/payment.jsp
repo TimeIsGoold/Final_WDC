@@ -4,6 +4,9 @@
 <html>
   <head>
 	<%@include file="../commons/header.jsp" %>
+	
+ <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
 .overlay {
@@ -73,6 +76,7 @@ h5, .h5 {
     font-size: 18px;
     margin-bottom: 1.2rem;
 }
+
     </style>
   </head>
   <body>
@@ -80,28 +84,28 @@ h5, .h5 {
       <!-- navbar-->
       <header class="header bg-white">
         <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="../User_View/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-warning" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">클래스</a>
                   <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item border-0 transition-link" href="class_all.html">전체보기</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_sport.html">스포츠</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_beauty.html">뷰티</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_art.html">미술 · 공예 · 공연전시</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_cook.html">요리 · 베이킹</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_it.html">컴퓨터 · IT</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_language.html">언어 · 스피치</a>
-                    <a class="dropdown-item border-0 transition-link" href="class_revenue.html">재태크 · 창업</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/all">전체보기</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/sports">스포츠</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/beauty">뷰티</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/art">미술 · 공예 · 공연전시</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/cook">요리 · 베이킹</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/computer">컴퓨터 · IT</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/language">언어 · 스피치</a>
+                    <a class="dropdown-item border-0 transition-link" href="${ pageContext.servletContext.contextPath }/user/category/revenu">재태크 · 창업</a>
                   </div>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="serviceCenter.html"> <i class="fas  mr-1 text-gray"></i>고객센터</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
               <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="likeClassList.html"> <i class="far fa-heart mr-1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="mypageMain.html"> <i class="fas fa-user-alt mr-1 text-gray hover-btn"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/likeClass"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
               </ul>
             </div>
           </nav>
@@ -125,6 +129,7 @@ h5, .h5 {
             </div>
           </div>
         </section>
+
         <section class="py-5">
           <div class="row">
             <div class="col-lg-8 mb-4 mb-lg-0">
@@ -143,20 +148,20 @@ h5, .h5 {
                   <tbody>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="img/class-sport.png" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
+                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic1 }" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
                           <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">${ requestScope.userClassDTO.price }</p>
+                        <p class="mb-0 small"><fmt:formatNumber value="${ requestScope.userClassDTO.price }" pattern="#,###"/> 원</p>
                       </td>
                       <td class="align-middle border-0">
                           <div class="quantity">
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value=${ requestScope.classApplyDTO.ppl }/>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value=${ requestScope.classApplyDTO.ppl } /> 명
                           </div>
                       </td>
-                      <td class="align-middle border-0">
-                        <p class="mb-0 small">${ requestScope.userClassDTO.price }</p>
+                      <td class="align-middle border-0">                      
+                        <p class="mb-0 small"><fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원 </p>
                       </td>
                     </tr>
                   </tbody>
@@ -178,7 +183,7 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;이름
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name">
+                      <input type="text" style="width: 250px;" name="name" id="name" value="${ requestScope.userInfo.userName }" disabled="disabled">
                     </td>
                   </tr>
                   <tr>
@@ -186,32 +191,90 @@ h5, .h5 {
                       &nbsp;&nbsp;&nbsp;&nbsp;휴대폰번호
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone">
+                      <input type="text"style="width: 250px;" name="phone" id="phone" value="${ requestScope.userInfo.phone }" disabled="disabled">
                     </td>
                   </tr>
                 </tbody>
               </table>
               <br>
+              
+
               <!-- 쿠폰 적용-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b>
-                    <select style="height: 25px;  margin-left: 45px;">
-                        <option>선택</option>
-                        <option>사용가능 쿠폰 1</option>
-                        <option>사용가능 쿠폰 2</option>
-                    </select>
+                  <button id="discount" class="btn btn-dark btn-sm btn-block" type="button">적용하기</button>
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b> 
+                  <h6 style="font-size: 13px; font-weight:200 !important;"> * 적용하기를 누르셔야 쿠폰 적용 가능합니다. </h6>
+                   <script>
+                  	$("#discount").click(function() {
+						var couponNo = "0"; 
+						var couponDisTotalPrice = "0";
+						var couponDisAmount = "0";
+						
+ 						for(var i = 1; i < $(".couponDis")[0].length; i++){
+							if($(".couponDis")[0][i].selected){
+								
+								couponNo = $(".couponDis")[0][i].value;
+								
+								couponDisTotalPrice = $(".couponDis")[0][i+1].value;
+								couponDisAmount = $(".couponDis")[0][i+2].value;
+								
+								// 오른쪽 토탈 금액 변경
+								$("#totalPrice")[0].value = couponDisTotalPrice;
+								$("#totalPrice")[0].innerText = couponDisTotalPrice;
+								$("#totalPrice")[0].innerText += " 원";							
+					
+								// 오른쪽 쿠폰 할인금액 변경
+								$("#couponDisAmount2")[0].value = couponDisAmount;
+								$("#couponDisAmount2")[0].innerText = couponDisAmount;
+								$("#couponDisAmount2")[0].innerText += " 원";							
+
+								// 모달창 결제금액 변경
+								$("#totalPriceModal")[0].value = couponDisTotalPrice;
+								$("#totalPriceModal")[0].innerText = couponDisTotalPrice;							
+
+								// 인풋 확인
+								$("#insertPrice")[0].value = couponDisTotalPrice;
+								$("#insertPrice")[0].innerText = couponDisTotalPrice;			
+								$("#insertPrice")[0].innerText += " 원";			
+
+								// 스케줄 넘버 인풋 넣기
+								$("#insertCouponNo")[0].value = couponNo;
+
+								}
+						} 
+						
+					});
+                  </script>                  
+                  <select style="height: 25px;  margin-left: 55px;" class="couponDis" id="discountCoupon">
+                   <c:choose>
+                  	<c:when test="${empty couponList}">
+                  	   <option>사용 가능한 쿠폰이 없습니다.</option>
+                  	</c:when>
+                  	<c:otherwise>
+                    	<option>선택</option>
+                    	<c:forEach var="couponList" items="${ requestScope.couponList }">
+                        <option id="coupon" value="${ couponList.cpnNo }">
+                        ${ couponList.cpnName } (할인 금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/>원)
+                        </option>
+                        <c:set var="couponDisAmountTotalPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl -  couponList.disAmount }"></c:set>
+                        <option id="couponTotalPrice" hidden="" value="${ couponDisAmountTotalPrice}"></option>
+                        <option id="couponDisAmount" hidden="" value="${ couponList.disAmount }"></option>
+                    	</c:forEach>
+                  	</c:otherwise>
+                   </c:choose>
+                  </select>
                 </div>
-                <div style="margin-left: 20px;">할인금액 : <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="0 원"></div>
                 </div>
               </div>
+              
+              
               <br>
               <!-- 결제 수단 선택-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
                   <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><b>결제 수단 선택</b>
                     <select style="height: 25px;  margin-left: 23px; width: 135px;" id="payment_method">
-                        <option>선택</option>
                         <option>카카오 페이</option>
                     </select>
                 </div>
@@ -273,9 +336,15 @@ h5, .h5 {
                   <div class="card-body">
                     <h5 class="text-uppercase mb-4">최종 결제 금액</h5>
                     <ul class="list-unstyled mb-0">
-                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">42,500 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small"><fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Coupon Discount</strong><span class="text-muted small" id="couponDisAmount2">0원</span></li>
                       <li class="border-bottom my-2"></li>
-                      <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>42,500 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between mb-4">
+                      <strong class="text-uppercase small font-weight-bold">Total</strong>
+                      <span id="totalPrice">
+						<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/> 원                     
+                      </span>
+                      </li>
                       <li>
                           <div class="form-group mb-0">
                           <br>
@@ -290,9 +359,9 @@ h5, .h5 {
           </div>
         </section>
       </div>
-
 </div>
 <!-- 결제 팝업 -->
+
 
   <div id="pop01" class="overlay">
     <div class="popup">
@@ -300,7 +369,10 @@ h5, .h5 {
                   <div class="modal-content">
                     <div class="modal-body p-0">
                       <div class="row align-items-stretch">
-                        <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+                        <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" 
+                        style="background: url(${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic1 })" href="${ pageContext.servletContext.contextPath }/${ requestScope.userClassDTO.titlePic1 }" data-lightbox="productview" 
+                        title="${ requestScope.userClassDTO.title }">
+                        </a></div>
                         <div class="col-lg-6">
                           <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><a href="#none" class="close">x</a></span></button>
                           <div class="p-5 my-md-4">
@@ -309,8 +381,12 @@ h5, .h5 {
                             <p class="text-small mb-4">
                                 <p class="text-muted">강의 날짜 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,0,10) }</p>
                                 <p class="text-muted">강의 시간 : ${ fn:substring(requestScope.scheduleDTO.stringScheduleDate,11,16) }</p>
-                                <p class="text-muted">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p>
-                                <p class="text-muted">결제 금액 : ${ requestScope.userClassDTO.price }</p>
+                                <p class="text-muted" style="display: inline-flex;">신청 인원 : ${ requestScope.classApplyDTO.ppl }</p> <span class="text-muted">명</span>
+                                <br>
+                             	  결제 금액 :
+                             	<span class="" id="totalPriceModal" style="display: inline-flex;">
+                             	<fmt:formatNumber value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }" pattern="#,###"/>
+                             	</span> 원
                             </p>
                             <hr>
                             <ul style="font-size: 15px;">
@@ -319,9 +395,20 @@ h5, .h5 {
 							</ul>
                             <hr>
                             <div>
-								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;"></a>취소</button>
+                               <!--  <form action="${ pageContext.servletContext.contextPath }/user/paymentSuccess" method="post">-->
+								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;" type="button"></a>취소</button>
                                 <!-- 카카오 페이 연결 -->
-								<button id = "doPay"type = "button" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">결제하기</button>
+								<button id="doPay" type="button" class="btn btn-dark" style="margin-left: 50px;">결제하기</button>
+								
+								<!-- 1. 클래스 어플라이 인서트용 인풋 히든 -->
+                             	<input type="hidden" name="ppl" value="${ requestScope.classApplyDTO.ppl }"/>
+                             	<input type="hidden" name="scheduleNo" value="${ requestScope.pasymentScheduleDTO.scheduleNo }"/>
+                             	<!-- 2. 페이먼트 인서트용 인풋 히든 -->
+                             	<input type="hidden" name="payPrice" id="insertPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }"/>
+                             	<input type="hidden" name="cpnNo" value="0" id="insertCouponNo"/>
+                             	
+                             	
+                               <!-- </form>--> 
                             </div>
                           </div>
                         </div>
@@ -331,34 +418,108 @@ h5, .h5 {
                 </div>
     		</div>
 		</div>
-            <!-- 결제 스크립트 -->
-     <script>
-         function checkContent(){
-	        var name = document.getElementById("name").value;
-    	    var phone = document.getElementById("phone").value;
-            var check = document.getElementById("checkagree").checked;
-            if(name.length == 0){
-	        	alert("이름을 입력하세요");
-    	    	return;
-    	    }
-	        if(phone.length ==0){
-	        	alert("전화번호를 입력하세요");
-    	    	return
-    		}
-    		        
-    	    if(check == false){
-    			alert("규정에 동의하셔야 결제가 가능합니다.");
-    			return;
-    		}
-    		location.href='#pop01';
-    		       
-        }
+<!-- 결제 스크립트 -->
 
-        function paymentSuccess(){
-            alert("결제에 성공 및 예약 완료");
-            location.href="mypageScheduledClass.html";
-        }
-    </script>
+<script>
+	function checkContent(){
+
+        var check = document.getElementById("checkagree").checked;
+		        
+ 	    if(check == false){
+			alert("약관에 동의하셔야 결제가 가능합니다.");
+			return;
+		}   
+	    
+		location.href='#pop01';
+		       
+    }
+</script>
+
+     
+<script>
+// 카카오 페이 연결
+	$("#doPay").click(function(){
+		var IMP = window.IMP; //생략 가능
+        IMP.init('imp51520793'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용 // 전달해야 하는 변수
+        var msg;
+        
+        const payPrice = document.getElementsByName("payPrice")[0].value;
+        const buyerName = document.getElementsByName("name")[0].value;
+        const buyerTel = document.getElementsByName("phone")[0].value;
+        const ppl = document.getElementsByName("ppl")[0].value;
+        const scheduleNo = document.getElementsByName("scheduleNo")[0].value;
+        const cpnNo = document.getElementsByName("cpnNo")[0].value;
+
+        IMP.request_pay({
+            pg : 'kakaopay',
+            pay_method : 'card',
+            merchant_uid : 'merchant_' + new Date().getTime(),
+            name : '우리동네클래스 결제',
+            amount : payPrice,
+            buyer_email : 'tigwdc123@gmail.com',
+            buyer_name : buyerName,
+            buyer_tel : buyerTel,
+            buyer_addr : '서울시 강남수 삼성동', 
+            buyer_postcode : '123-456',
+            //m_redirect_url : 'http://www.naver.com'
+        }, function(rsp) {
+            if ( rsp.success ) {
+                //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
+                jQuery.ajax({
+                    url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        imp_uid : rsp.imp_uid
+                        //기타 필요한 데이터가 있으면 추가 전달
+                    }
+                }).done(function(data) {
+                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+                    if ( everythings_fine ) {
+                        msg = '결제가 완료되었습니다.';
+                        msg += '\n고유ID : ' + rsp.imp_uid;
+                        msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '\결제 금액 : ' + rsp.paid_amount;
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                        
+                        alert(msg);
+                    } else {
+   						alert("결제에 실패하였습니다");
+   						return;
+                    }
+                });
+                //성공시 이동할 페이지
+                $.ajax({
+                       url:"${pageContext.servletContext.contextPath}/user/paymentSuccess",
+                       type:"post",
+                       data:{
+                    	  // 클래스 어플라이 인서트
+                    	  scheduleNo : scheduleNo,
+                    	  ppl : ppl,
+                    	  // 페이먼트 인서트
+                          payPrice : payPrice,
+                          cpnNo : cpnNo,
+
+                       },
+                       success:function(data, textStatus, xhr){
+                          alert("결제 성공하였습니다!!\n예약이 완료었습니다.");
+                          location.replace("${pageContext.servletContext.contextPath}/user/paymentSuccessToBookCheckPage")
+                       },
+                       error:function(xhr,status,error){
+                          console.log(error);
+                       }
+                    });
+            }else{
+                msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+                //실패시 이동할 페이지
+                alert("결제에 실패 하였습니다.");
+            }
+	});
+	});
+
+
+</script>
     
     <%@include file="../commons/footer.jsp" %>
  </div>

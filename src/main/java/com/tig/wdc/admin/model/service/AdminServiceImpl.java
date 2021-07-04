@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,6 +102,26 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectStudentQuestionInfoDetail(no);
 	}
+	
+	/**
+	 * @author 송아현
+	 * 문의 답변 - insert
+	 */
+	@Override
+	public int insertAnswer(QuestionDTO question) {
+		
+		return mapper.insertAnswer(question);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 문의 답변 - update
+	 */
+	@Override
+	public int updateAnswer(QuestionDTO question) {
+
+		return mapper.updateAnswer(question);
+	}
 
 	@Override
 	public StudentDTO selectOneStudent(int no) {
@@ -144,6 +165,16 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.selectCouponInfoDetail(no);
 	}
+	
+	/**
+	 *@author 송아현
+	 *쿠폰 발급
+	 */
+	@Override
+	public int insertCouponIssue(CouponDTO coupon) {
+		
+		return mapper.insertCouponIssue(coupon);
+	}
 
 	/**
 	 * @author 송아현
@@ -165,6 +196,17 @@ public class AdminServiceImpl implements AdminService {
 	public NoticeDTO selectNoticeInfoDetail(int no) {
 
 		return mapper.selectNoticeInfoDetail(no);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 등록
+	 * 
+	 */
+	@Override
+	public int insertNoticeWrite(NoticeDTO notice) {
+
+		return mapper.insertNoticeWrite(notice);
 	}
 
 	 /**
@@ -251,6 +293,17 @@ public class AdminServiceImpl implements AdminService {
 	public int updateBlackListOnUSerTable(Map<String, Object> blackMap) {
 		
 		return mapper.updateBlackListOnUSerTable(blackMap);
+	}
+
+	@Override
+	public List<ClassDTO> selectClassBycategory(Map<String, String> type) {
+		
+		return mapper.selectClassBycategory(type);
+	}
+
+	@Override
+	public Object selectClassDetail(Map<String, Object> cnct) {
+		return mapper.selectClassDetail(cnct);
 	}
 
 

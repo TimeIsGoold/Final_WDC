@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,12 +73,29 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 문의 답변 - insert
+	 * 
+	 * @param question
+	 * @return
+	 */
+	int insertAnswer(QuestionDTO question);
+	
+	/**
+	 * @author 송아현
+	 * 문의 답변 - update
+	 * 
+	 * @param question
+	 * @return
+	 */
+	int updateAnswer(QuestionDTO question);
+
+	/**
+	 * @author 송아현
 	 * 쿠폰
 	 * 
 	 * @return
 	 */
 	List<CouponDTO> selectAllCouponList();
-	
 	
 	/**
 	 * @author 송아현
@@ -86,6 +104,15 @@ public interface AdminMapper {
 	 * @return
 	 */
 	CouponDTO selectCouponInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 쿠폰 발급
+	 * 
+	 * @param coupon 
+	 * @return
+	 */
+	int insertCouponIssue(CouponDTO coupon);
 
 	/**
 	 * @author 송아현
@@ -103,6 +130,15 @@ public interface AdminMapper {
 	 * @return
 	 */
 	NoticeDTO selectNoticeInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 공지 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int insertNoticeWrite(NoticeDTO notice);
 	
 	/**
 	 * @author 송아현
@@ -125,7 +161,6 @@ public interface AdminMapper {
 	TeacherDTO selectOneTeacher(int no);
 
 	List<TotalDTO> selectStudentList();
-
 	
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
@@ -144,6 +179,15 @@ public interface AdminMapper {
 	int insertBlackList(Map<String, Object> blackMap);
 
 	int updateBlackListOnUSerTable(Map<String, Object> blackMap);
+
+	List<ClassDTO> selectClassBycategory(Map<String, String> type);
+
+	Object selectClassDetail(Map<String, Object> cnct);
+
+
+
+
+
 
 
 }

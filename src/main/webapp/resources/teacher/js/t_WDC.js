@@ -209,7 +209,6 @@ function addDayRepeat(){
             for(var j = 0; j < weekArr.length; j ++){
         	
             if(date.getDay() == weekArr[j]){
-
                 
                 //날짜 계산
                 let year = date.getFullYear()

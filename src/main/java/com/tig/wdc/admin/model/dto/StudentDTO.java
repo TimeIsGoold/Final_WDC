@@ -12,11 +12,12 @@ public class StudentDTO {
 	private java.sql.Date birth;        		  // 회원 생년 월일
 	private java.sql.Date enrollDate;     // 가입일
 	private int reportedCnt;              // 누적 신고일
+	private String blockYn;
 	
 	public StudentDTO() {}
 	
 	public StudentDTO(int studentnNo, String studentName, String type, String id, String phone, Date birth,
-			Date enrollDate, int reportedCnt) {
+			Date enrollDate, int reportedCnt, String blockYn) {
 		super();
 		this.studentnNo = studentnNo;
 		this.studentName = studentName;
@@ -26,6 +27,7 @@ public class StudentDTO {
 		this.birth = birth;
 		this.enrollDate = enrollDate;
 		this.reportedCnt = reportedCnt;
+		this.blockYn = blockYn;
 	}
 	
 	public int getStudentnNo() {
@@ -76,13 +78,18 @@ public class StudentDTO {
 	public void setReportedCnt(int reportedCnt) {
 		this.reportedCnt = reportedCnt;
 	}
+	public String getBlockYn() {
+		return blockYn;
+	}
+	public void setBlockYn(String blockYn) {
+		this.blockYn = blockYn;
+	}
 	
 	@Override
 	public String toString() {
 		return "StudentDTO [studentnNo=" + studentnNo + ", studentName=" + studentName + ", type=" + type + ", id=" + id
 				+ ", phone=" + phone + ", birth=" + birth + ", enrollDate=" + enrollDate + ", reportedCnt="
-				+ reportedCnt + "]";
+				+ reportedCnt + ", blockYn=" + blockYn + "]";
 	}
-
 	
 }

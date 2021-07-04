@@ -29,11 +29,16 @@
         		 margin-top: 4px;"
         	}
         	
+        	.write {
+        		background: #fef0ae;
+        		width: 100px;
+        		border: 1px solid lightgrey;
+        	}
+        	
             .write:hover {
                 background: rgb(112, 112, 112);
             }
         </style>
-
     </head>
     <body class="sb-nav-fixed">
         
@@ -54,7 +59,7 @@
                                 <i class="fas fa-table me-1"></i>공지사항 목록
 
                                 <div class="subMenuBar">
-                                    <button class="write">작성하기</button>
+                                    <button class="write" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeWrite?currentMenu=notice'">작성하기</button>
                                 </div>
                             </div>
 
@@ -64,7 +69,7 @@
                                         <tr>
                                             <th>공지번호</th>
                                             <th>공개대상</th>
-                                            <th>타입</th>
+                                            <th>상태</th>
                                             <th>공지 제목</th>
                                             <th>작성일</th>
                                         </tr>

@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
-import com.tig.wdc.teacher.model.service.ClassRegistService;
+import com.tig.wdc.teacher.model.service.ClassRegistManageService;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
 
@@ -35,14 +35,14 @@ import com.tig.wdc.user.model.dto.ScheduleDTO;
 @RequestMapping("classRegist/*")
 public class ClassRegistController {
 
-	private final ClassRegistService classService;
+	private final ClassRegistManageService classService;
 	private AttachMentDTO titlePicture;
 	private	ClassPieceDTO classPiece;
 	private CurriculumDTO curriculum;
 	private ScheduleDTO schedule;
 	
 	@Autowired
-	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistService classService, CurriculumDTO curriculum, ScheduleDTO schedule) {
+	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistManageService classService, CurriculumDTO curriculum, ScheduleDTO schedule) {
 		super();
 		this.titlePicture = titlePicture;
 		this.classPiece = classPiece;
@@ -100,10 +100,11 @@ public class ClassRegistController {
 				totalCount++;
 				MultipartFile img = pictures.get("thumbnailImg" + i);
 				String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
+				String saveName = UUID.randomUUID().toString().replace("-", "") + ext;
 				titlePicture.setOriginName(img.getOriginalFilename());
-				titlePicture.setSaveName(UUID.randomUUID().toString().replace("-", "") + ext);
-				titlePicture.setSavePath(filePath);
-				titlePicture.setThumbnailPath(filePath);
+				titlePicture.setSaveName(saveName);
+				titlePicture.setSavePath("resources/upload/" + saveName);
+				titlePicture.setThumbnailPath("resources/upload/" + saveName);
 				titlePicture.setAttachStatus("Y");
 				titlePicture.setPictureInfo(img);
 				if(i == 1) {
@@ -137,7 +138,9 @@ public class ClassRegistController {
 				pieceTitleIndex++;
 
 				try {
-					img.transferTo(new File(filePath + "\\" + titlePicture.getSaveName()));
+					img.transferTo(new File(filePath + "\\" + classPiece.getPiecePicture()));
+					System.out.println(img);
+					System.out.println("완성작 인설트 완료!!!!!!!!!!!!!!");
 					insertCount += classService.insertCompletePiece(classPiece);
 					
 				} catch (Exception e) {
@@ -184,6 +187,6 @@ public class ClassRegistController {
 			scheduleInsert = classService.insertSchedule(scheduleInfo);
 		}
 		
-		return "";
+		return "redirect:/teacher/teacherClassManagement";
 	}
 }
