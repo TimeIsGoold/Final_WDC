@@ -73,6 +73,24 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 문의 답변 - insert
+	 * 
+	 * @param question
+	 * @return
+	 */
+	int insertAnswer(QuestionDTO question);
+	
+	/**
+	 * @author 송아현
+	 * 문의 답변 - update
+	 * 
+	 * @param question
+	 * @return
+	 */
+	int updateAnswer(QuestionDTO question);
+
+	/**
+	 * @author 송아현
 	 * 쿠폰
 	 * 
 	 * @return
@@ -112,6 +130,15 @@ public interface AdminMapper {
 	 * @return
 	 */
 	NoticeDTO selectNoticeInfoDetail(int no);
+	
+	/**
+	 * @author 송아현
+	 * 공지 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int insertNoticeWrite(NoticeDTO notice);
 	
 	/**
 	 * @author 송아현
@@ -156,6 +183,10 @@ public interface AdminMapper {
 	List<ClassDTO> selectClassBycategory(Map<String, String> type);
 
 	Object selectClassDetail(Map<String, Object> cnct);
+
+
+
+
 
 
 

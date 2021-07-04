@@ -390,18 +390,23 @@
 	</select>
 	
 	<!-- 문의답변달기 - insert -->
-<!-- 	<insert id="insertAnswer" parameterType="hashMap">
+	<insert id="insertAnswer" parameterType="QuestionDTO">
 		INSERT
   		  INTO ADMIN_Q_ANSWER
   		VALUES
   		(
-   		  #{answer}
+   		  #{questionReContent}
   		, SYSDATE
-  		, #{no}
+  		, #{questionNo}
   		)
-	</insert> -->
+	</insert>
 	
 	<!-- 문의답변달기 - update -->
+	<update id="updateAnswer" parameterType="QuestionDTO">
+		UPDATE ADMIN_Q 
+   		   SET ANSWER_YN = 'Y'
+ 		 WHERE Q_NO = #{questionNo}
+	</update>
 	
 	<select id="selectOneStudent" resultMap="studentDTO" parameterType="_int">
 		SELECT 
@@ -575,11 +580,26 @@
 			   NOTICE_TYPE
 			 , NOTICE_TITLE
 			 , NOTICE_CONTENT
+			 , IMPORTANT_YN
 		  FROM NOTICE
          WHERE NOTICE_NO = #{no}
 	</select>
 	
 	<!-- 공지 등록 -->
+	<insert id="insertNoticeWrite" parameterType="NoticeDTO">
+		INSERT
+  		  INTO NOTICE
+  		VALUES
+  		(
+   		  SEQ_NOTICE_NO.NEXTVAL
+        , #{title}
+        , #{context}
+  		, SYSDATE
+        , #{type}
+        , #{important}
+  		, 1
+  		)
+	</insert>
 	
 	<!-- 정산 미완료 -->
 	<select id="selectNoCalculateList" resultMap="calculateLNoList">

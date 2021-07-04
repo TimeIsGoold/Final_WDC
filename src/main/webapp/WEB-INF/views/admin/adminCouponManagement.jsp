@@ -28,6 +28,12 @@
         		 font-size: 15px; 
         		 margin-top: 4px;"
         	}
+        	
+        	.issue {
+        		background: #fef0ae;
+        		width: 100px;
+        		border: 1px solid lightgrey;
+        	}
 	    
 	        .issue:hover {
 	            background: rgb(112, 112, 112);

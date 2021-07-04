@@ -14,53 +14,57 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+	    <style>
+	    	.container-fluid {
+	    		 margin-top: 30px;
+	    	}
+	    	
+	    	.card-header {
+	    		 font-size: x-large;
+	    	}
+	    	
+	        th {
+	            text-align: center !important;
+	            border: 1px solid lightgrey !important;
+	            width: 200px;
+	            vertical-align: middle;
+	            background: #fef0ae !important;
+	        }
+	    
+	        td {
+	            border: 1px solid lightgrey !important;
+	        }
+	        
+	        .radioBtnType {
+	        	margin-left: 17%; 
+	        	margin-right: 10px;
+	        }
+	        
+	        .radioBtnCondition {
+	        	margin-left: 28%; 
+	        	margin-right: 10px;
+	        }
+	        
+	        #noticeContext {
+	        	 height: 300px; 
+	        	 overflow: auto;
+	        }
+	        
+	        .submitBtn {
+	        	 margin-left: 85%;
+	        }
+	        
+	        .Btn {
+	        	width: 100px; 
+	        	background: #fef0ae; 
+	        	border: 1px solid lightgrey;
+	        }
+	
+	        .Btn:hover {
+	            background: rgb(112, 112, 112);
+	        }
+	    </style>
     </head>
-    <style>
-    	.container-fluid {
-    		 margin-top: 30px;
-    	}
-    	
-    	.card-header {
-    		 font-size: x-large;
-    	}
-    	
-        th {
-            text-align: center !important;
-            border: 1px solid lightgrey !important;
-            width: 200px;
-            vertical-align: middle;
-            background: #fef0ae !important;
-        }
-    
-        td {
-            border: 1px solid lightgrey !important;
-        }
-        
-        .radioBtn {
-        	 margin-left: 185px; 
-        	 margin-right: 15px;
-        }
-        
-        #noticeContext {
-        	 height: 300px; 
-        	 overflow: auto;
-        }
-        
-        .submitBtn {
-        	 margin-left: 85%;
-        }
-        
-        .Btn {
-        	width: 100px; 
-        	background: #fef0ae; 
-        	border: 1px solid lightgrey;
-        }
-
-        .Btn:hover {
-            background: black !important;
-            color: white !important;
-        }
-    </style>
     <body class="sb-nav-fixed">
     
         <!-- header -->
@@ -84,13 +88,20 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <th>대&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
+                                            <th>공개&nbsp;&nbsp;대상</th>
                                             <td id="noticetype">
-                                                <input type="radio" class="radioBtn" id="A" onclick="return(false);">전체 회원용
-                                                <input type="radio" class="radioBtn" id="T" onclick="return(false);">강사 회원용
-                                                <input type="radio" class="radioBtn" id="C" onclick="return(false);">수강생 회원용
+                                                <input type="radio" class="radioBtnType" id="A" onclick="return(false);">전체 회원용
+                                                <input type="radio" class="radioBtnType" id="T" onclick="return(false);">강사 회원용
+                                                <input type="radio" class="radioBtnType" id="C" onclick="return(false);">수강생 회원용
                                             </td>
                                         </tr>
+                                        <tr>
+	                                        <th>상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
+	                                        <td id="importantYN">
+                                                <input type="radio" class="radioBtnCondition" id="N" onclick="return(false);">보통
+                                                <input type="radio" class="radioBtnCondition" id="Y" onclick="return(false);">중요
+	                                        </td>
+	                                    </tr>
                                         <tr>
                                             <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
                                             <td>${ noticeDetail.noticeTitle }</td>
@@ -115,17 +126,26 @@
 
         </div>
         <script type="text/javascript">
-       		const type = '${ noticeDetail.noticeType}';
+       		const type = '${noticeDetail.noticeType}';
+       		const important = '${noticeDetail.importantYN}';
        		
        		if(type == 'A') {
-       			const area = document.getElementById('A');
-       			area.checked = true;
+       			const typeRadio = document.getElementById('A');
+       			typeRadio.checked = true;
        		} else if(type == 'T'){
-       			const area = document.getElementById('T');
-       			area.checked = true;
-       		} else {
-       			const area = document.getElementById('C');
-       			area.checked = true;
+       			const typeRadio = document.getElementById('T');
+       			typeRadio.checked = true;
+       		} else if(type == 'C') {
+       			const typeRadio = document.getElementById('C');
+       			typeRadio.checked = true;
+       		}
+       		
+       		if(important == 'N') {
+       			const importantRadio = document.getElementById('N');
+       			importantRadio.checked = true;
+       		} else if(important == 'Y') {
+       			const importantRadio = document.getElementById('Y');
+       			importantRadio.checked = true;
        		}
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

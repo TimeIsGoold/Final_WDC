@@ -15,8 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        
-         <style>
+        <style>
         .container-fluid {
         	margin-top: 30px;
         }
@@ -66,14 +65,10 @@
         }
         
         .couponIssueBtn:hover {
-			background: black !important;
-            color: white !important;
+			background: rgb(112, 112, 112);
 		}
-        
-    </style>
+    	</style>
     </head>
-   
-    
     <body class="sb-nav-fixed">
     
     	<!-- header -->
@@ -95,7 +90,7 @@
 
 							<div class="card-body">
                                 <table class="table">
-                                    <form id="frm1" method="post">
+                                    <form id="area" method="post">
 	                                    <tbody>
 	                                        <tr>
 	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
@@ -148,7 +143,7 @@
         </div>
         <script>
         	$("#btnCoupon").on("click",function(){
-        		$("#frm1").attr("action","/wdc/admin/couponIssue").submit();
+        		$("#area").attr("action","/wdc/admin/couponIssue").submit();
         	});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
