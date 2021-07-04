@@ -129,6 +129,9 @@
        		const type = '${noticeDetail.noticeType}';
        		const important = '${noticeDetail.importantYN}';
        		
+       		console.log("type : " + type);
+       		console.log("important : " + important);
+       		
        		if(type == 'A') {
        			const typeRadio = document.getElementById('A');
        			typeRadio.checked = true;
