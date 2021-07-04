@@ -129,10 +129,10 @@
                       <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
                     </c:if>
                       <div class="position-relative mb-3">
-                       <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
                       <h6> 
-                       <a class="reset-anchor" href="complateClassDetail.html">
+                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [원데이] ${classList.title}
                         </c:if>
@@ -156,10 +156,10 @@
                       <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
                     </c:if>
                       <div class="position-relative mb-3">
-                       <a class="d-block" href="complateClassDetail.html"><img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }"><img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
                       <h6> 
-                       <a class="reset-anchor" href="complateClassDetail.html">
+                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [취소][원데이] ${classList.title}
                         </c:if>

@@ -134,7 +134,7 @@
                     
                   <div class="row"  style="width: 1500px; height: 200px;">
 
-                    <img class="w-100" src="img/class-sport.png" alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
+                    <img class="w-100" src="${pageContext.servletContext.contextPath }/${complateDetailUserClassDTO.titlePic}"  alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
 
                     <ul class="list-inline mb-2">
                       <li class="list-inline-item m-0">
@@ -142,13 +142,13 @@
                           <p style="margin-left: 10px; margin-top: 2px;"> 강의명</p>
                         </i>
                       </li> 
-                      <h4><a href="detail.html" style="color: black;">하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></h4>
+                      <h4><a href="detail.html" style="color: black;">${ requestScope.complateDetailUserClassDTO.title }</a></h4>
                       <br>  
                       <li class="list-inline-item m-0">
                         <i class="fas fa-caret-right small text-dark" style="display: flex; margin-left: 3px; ">
                           <p style="margin-left: 1px; margin-top: 2px;"> 강사명</p>
                         </i>
-                      </li> : 이해승 강사님
+                      </li> : ${ requestScope.complateDetailUserClassDTO.teName } 강사님
                       <br>
                     </ul>
                   </div>
@@ -156,16 +156,22 @@
 
                     <div style="text-align: left; margin-top: -30px;">
                     <hr>
-                    <li>수업진행 날짜 : 06/25</li>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.clsType eq 'O' }">
+                    <li>강의 날짜 : ${ requestScope.complateDetailUserClassDTO.scheduleDate }</li>
+                    </c:if>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.clsType eq 'R' }">
+                    <li>강의 날짜: ${ requestScope.complateDetailUserClassDTO.startDate } ~ ${ requestScope.complateDetailUserClassDTO.endDate }</li>
+                    </c:if>
                     <hr>
-                    <li>수업진행 시간 : 16:00 ~ 20:00</li>
+                    <li>강의 진행 시간 : ${ requestScope.complateDetailUserClassDTO.scheduleStart }</li>
                     <hr>
-                    <li>결제 날짜 : 06/25</li>
+                    <li>강의 소요 시간 : ${ requestScope.complateDetailUserClassDTO.time }</li>
                     <hr>
-                    <li>신청 인원 : 1</li>
+                    <li>결제 날짜 : ${ requestScope.complateDetailUserClassDTO.clsAplDate }</li>
                     <hr>
-      
-                    <li>결제 금액 : 39,000</li>
+                    <li>신청 인원 : ${ requestScope.complateDetailUserClassDTO.ppl } 명 </li>
+                    <hr>
+                    <li>결제 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.payPrice }" pattern="#,###"/></li>
                     <hr>
                     </div>
                     <br>
@@ -176,11 +182,13 @@
                           <button class="btn btn-dark" type="submit" style="display: flex;">클래스 신고하기</button>
                         </form>
                       </div>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '완료' }">
                       <div style="width: 200px; height: 40px; display: inline-flex;">
                         <form action="class_certificatesView.html" style="display: flex;">
                           <button class="btn btn-dark" type="submit" style="display: flex;">수료증 보기</button>
                         </form>
-                      </div>
+                      </div>                    
+                    </c:if> 
                     </div>
 
 
@@ -191,8 +199,9 @@
             </div>
           </div>
         </section>
-
+	</div>
        <%@include file="../commons/footer.jsp" %>
- </div>
+       </div>
+ 
   </body>
 </html>

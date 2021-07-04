@@ -165,8 +165,7 @@
                     <hr>
                     <li>신청 인원 : ${ requestScope.scheduleDetailUserClassDTO.ppl } 명 </li>
                     <hr>
-      
-                    <li>결제 금액 : <fmt:formatNumber value="${ requestScope.scheduleDetailUserClassDTO.payPrice }" pattern="#,###"/></li>
+                    <li>결제 금액 : <fmt:formatNumber value="${ requestScope.scheduleDetailUserClassDTO.payPrice }" pattern="#,###"/> 원</li>
                     <hr>
                     </div>
                     <br>

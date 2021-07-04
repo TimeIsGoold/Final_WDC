@@ -229,6 +229,7 @@ public class UserInfoController {
 	}
 	
 	/**
+	 * 진행/ 예정 
 	 * 예약 상세 조회용 메소드
 	 * @param model
 	 * @param session
@@ -248,6 +249,21 @@ public class UserInfoController {
 		
 		return "user/mypage/scheduledClass_detail";
 
+	}
+	
+	@GetMapping("userApplyComplateDetail/{aplNo}")
+	public String userApplyComplateDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		userClassDTO.setAplNo(aplNo);
+
+		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
+		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
+		
+		model.addAttribute("complateDetailUserClassDTO",scheduleDetailUserClassDTO);
+		
+		return "user/mypage/complateClass_detail";
 	}
 	
 	

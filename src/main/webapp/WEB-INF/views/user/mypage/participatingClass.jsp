@@ -123,15 +123,15 @@
                     <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
                       <div class="position-relative mb-3">
-                      <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                      <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
 
                       </div>
                       <h6> 
-                      <a class="reset-anchor" href="scheduledClassDetail.html">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo }">
                         [원데이] ${classList.title}
                       </a>
                       </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
                  </c:forEach>
@@ -141,14 +141,14 @@
                     <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-primary">${fn:substring(rClassList.startDate,5,10)} ~ ${fn:substring(rClassList.endDate,5,10)} </div>
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
-                        <a class="d-block" href="scheduledClassDetail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${rClassList.titlePic}" alt="..."></a>
+                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ rClassList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${rClassList.titlePic}" alt="..."></a>
                       </div>
                       <h6> 
-                      <a class="reset-anchor" href="scheduledClassDetail.html">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ rClassList.aplNo }">
                         [정규] ${rClassList.title}
                       </a>
                       </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${rClassList.price}" pattern="#,###"/> 원 / ${rClassList.clsPplAmount}명</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${rClassList.payPrice}" pattern="#,###"/> 원 / ${rClassList.clsPplAmount}명</p>
                     </div>
                   </div>
                   </c:forEach>

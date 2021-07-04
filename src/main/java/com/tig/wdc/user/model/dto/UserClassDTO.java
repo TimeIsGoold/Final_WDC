@@ -39,6 +39,7 @@ public class UserClassDTO {
 	private String teName;
 	private java.sql.Date clsAplDate;
 	private int ppl;
+	private String payStatus;
 
 	private String titlePic1; // 페이먼트 용 
 	private int userNo; // 페이먼트 용 
@@ -49,7 +50,8 @@ public class UserClassDTO {
 			Date startDate, Date endDate, int price, String addInfo, String addSup, String dicsionStatus,
 			String clsType, Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
 			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
-			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String titlePic1, int userNo) {
+			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, String titlePic1,
+			int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -80,6 +82,7 @@ public class UserClassDTO {
 		this.teName = teName;
 		this.clsAplDate = clsAplDate;
 		this.ppl = ppl;
+		this.payStatus = payStatus;
 		this.titlePic1 = titlePic1;
 		this.userNo = userNo;
 	}
@@ -316,6 +319,14 @@ public class UserClassDTO {
 		this.ppl = ppl;
 	}
 
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
 	public String getTitlePic1() {
 		return titlePic1;
 	}
@@ -341,11 +352,11 @@ public class UserClassDTO {
 				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", titlePic=" + titlePic
 				+ ", avgScore=" + avgScore + ", dDay=" + dDay + ", scheduleDate=" + scheduleDate + ", scheduleStart="
 				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", payPrice=" + payPrice + ", aplNo=" + aplNo
-				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", titlePic1=" + titlePic1
-				+ ", userNo=" + userNo + "]";
+				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", payStatus=" + payStatus
+				+ ", titlePic1=" + titlePic1 + ", userNo=" + userNo + "]";
 	}
 
-
+	
 
 
 	
