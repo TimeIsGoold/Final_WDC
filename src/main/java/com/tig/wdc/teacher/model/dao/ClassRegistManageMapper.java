@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
@@ -28,8 +29,10 @@ public interface ClassRegistManageMapper {
 
 	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
 
-	ClassApplyDTO selectApplyUserInfo(int scheduleNo);
+	List<ClassApplyDTO> selectApplyUserInfo(int scheduleNo);
 
 	List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
+
+	int modifyOndeDayAttendanceStatus(HashMap<String, Object> applyNoList);
 
 }

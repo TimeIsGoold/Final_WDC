@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.tig.wdc.model.dto.AttachMentDTO;
@@ -34,11 +35,14 @@ public interface ClassRegistManageService {
 	//정규 클래스 정보
 	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
 
-	//정규 클래스 신청한 정보
-	ClassApplyDTO selectApplyUserInfo(int scheduleNoo);
+	//클래스 신청한 정보
+	List<ClassApplyDTO> selectApplyUserInfo(int scheduleNoo);
 
 	//원데이클래스 스케쥴리스트
 	List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
+
+	//원데이클래스 출석 수정용
+	int modifyOndeDayAttendanceStatus(HashMap<String, Object> applyNoList);
 
 	
 }

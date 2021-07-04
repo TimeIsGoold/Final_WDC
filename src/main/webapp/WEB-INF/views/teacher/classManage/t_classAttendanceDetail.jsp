@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,9 +94,10 @@
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-        <p style="font-size: 20px;">초코식빵 만들기 클래스</p><p style="font-size: 18px; float: right;">진행일자 : 2021년 6월 1일</p>
+        <p style="font-size: 18px; float: right;">진행일자 : 2021년 6월 1일</p>
       </div>
-      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px;">
+      <form method="post" action="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceUpdate">
+      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 1000px">
         <table class="table table-hover" style="text-align: center;">
           <thead>
             <tr>
@@ -103,49 +105,32 @@
               <th>이름</th>
               <th>연락처</th>
               <th>참석 여부</th>
-              <th>상태 변경</th>
+              <th>출석 확인</th>
             </tr>
           </thead>
           <tbody>
+            <c:forEach var="applyUser" items="${ applyInfoList }" varStatus="status">
+            <input type="hidden" value=${ applyUser.aplNo} name="allApplyNo">
             <tr>
-              <td>1</td>
-              <td>조준영</td>
-              <td>010-1234-5678</td>
-              <td>참석</td>
-              <td><input type="checkbox"></td>
-              <!--<td><button style="color: lightgray;">참석</button></td>-->
+              <td>${ status.count }</td>
+              <td>${ applyUser.userName }</td>
+              <td>${ applyUser.userPhone }</td>
+              <c:choose>
+                <c:when test="${ applyUser.attStatus eq 'Y'}">
+                <td>참석</td>
+                <td><input type="checkbox" checked="checked" value="${ applyUser.aplNo }" name="checkedApplyNo"></td>
+                </c:when>
+                <c:otherwise>
+                <td>미참석</td>
+                <td><input type="checkbox" value="${ applyUser.aplNo }" name="checkedApplyNo"></td>
+                </c:otherwise>
+              </c:choose>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>최영주</td>
-              <td>010-1577-1577</td>
-              <td>미참석</td>
-              <td><input type="checkbox"></td>
-              <!--<td><button style="color: #fef0ae;">참석</button></td>-->
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>조준영</td>
-              <td>010-1234-5678</td>
-              <td>미참석</td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>조준영</td>
-              <td>010-1234-5678</td>
-              <td>참석</td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>김주완</td>
-              <td>010-7489-1111</td>
-              <td>미참석</td>
-              <td><input type="checkbox"></td>
-            </tr>
+            
+            </c:forEach>
+
           </tbody>
-          <tfoot>
+<!--           <tfoot>
             <tr>
               <td> </td>
               <td> </td>
@@ -153,24 +138,35 @@
               <th>총 인원</th>
               <td>3명</td>
             </tr>
-          </tfoot>
+          </tfoot> -->
         </table><br><br>
-        <div class='col-sm-3' style="margin:auto; padding-bottom: 50px;">
-          <button type="submit" class="btn btn-primary">수업시작</button>   
+        <div class='col-sm-12' style="margin:auto; padding-bottom: 50px; ">
+          <input type="hidden" name="scheduleNo" value=${scheduleNo }>
+          <button type="submit" class="btn btn-primary" style="margin-left: 350px">수업시작</button>   
+          <button id="attendanceButton"type="button" class="btn btn-primary" style="margin-left: 240px" onclick="attendanceChange(this);" value="0">전체출석</button>   
         </div>
-        <nav aria-label="...">
-          <ul class="pagination" style="justify-content: center;">
-            <li class="page-item"><span class="page-link"><</span></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">></a></li>
-          </ul>
-        </nav>
+
       </div>
+      </form>
     </div>
+    <script>
+	function attendanceChange(p){
+		
+		var checkboxList = document.getElementsByName("checkedUser");
+		if(p.value == 0){
+			for(var i = 0; i < checkboxList.length; i++){
+				checkboxList[i].checked = true;
+				p.value = 1;
+			}
+		} else {
+			
+			for(var i = 0; i < checkboxList.length; i++){
+				checkboxList[i].checked = false;
+				p.value = 0;
+			}
+		}
+	}
+    </script>
 
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
@@ -183,7 +179,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
-  
+
   <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

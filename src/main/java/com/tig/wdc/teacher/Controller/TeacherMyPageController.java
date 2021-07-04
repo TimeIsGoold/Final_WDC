@@ -1,15 +1,18 @@
 package com.tig.wdc.teacher.Controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -87,7 +90,7 @@ public class TeacherMyPageController {
 	}
 	
 	/**
-	 * 클래스 스케쥴 별 참여정보 조회
+	 * 클래스 스케쥴 별 참여정보 조회(이해승)
 	 * @param model
 	 * @param classType 클래스타입
 	 * @return 클래스 스케쥴
@@ -121,13 +124,40 @@ public class TeacherMyPageController {
 		return pageName;
 	}
 	
+	/**
+	 * 원데이클래스 스케쥴별 신청정보(이해승)
+	 * @param model
+	 * @param scheduleNo 스케쥴번호
+	 * @return 
+	 */
 	@GetMapping("/oneDayAttendanceList/{scheduleNo}")
-	public String OneDayAttendancdManange(Model model, @PathVariable("scheduleNo") int scheduleNo) {
+	public String oneDayAttendancdManange(Model model, @PathVariable("scheduleNo") int scheduleNo) {
 		
-		
+		model.addAttribute("applyInfoList", classManage.selectApplyUserInfo(scheduleNo));
+		model.addAttribute("scheduleNo",scheduleNo);
 		return "teacher/classManage/t_classAttendanceDetail";
+	}
+	
+	/**
+	 * 원데이 클래스 출석상태 update(이해승)
+	 * @param model
+	 * @param allApplyNo
+	 * @param checkedApplyNo
+	 * @return
+	 */
+	@PostMapping("/oneDayAttendanceUpdate")
+	public String oneDayAttendanceUpdate(Model model,@RequestParam("allApplyNo") int[] allNo, @RequestParam("checkedApplyNo") @Nullable int[] checkedNo, @RequestParam int scheduleNo) {
+		
+		System.out.println("모든번호 : " + allNo[0] );
+		System.out.println("신청한번호 : " + checkedNo );
 		
 		
+		HashMap<String, Object> applyNoList= new HashMap<>();
+		
+		applyNoList.put("allApplyNo", allNo);
+		applyNoList.put("checkedApplyNo", checkedNo);
+		classManage.modifyOndeDayAttendanceStatus(applyNoList);
+		return "redirect:/teacher/oneDayAttendanceList/" + scheduleNo;
 	}
 	
 	
