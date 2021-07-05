@@ -24,6 +24,8 @@
  		<typeAlias alias="reportDetailDTO" type="com.tig.wdc.admin.model.dto.ReportDetailDTO"/>
  		<typeAlias alias="blackListDTO" type="com.tig.wdc.admin.model.dto.BlackListDTO"/>
  		<typeAlias alias="RefundDTO" type="com.tig.wdc.admin.model.dto.RefundDTO"/>
+ 		<typeAlias alias="ClsDecisionDTO" type="com.tig.wdc.admin.model.dto.ClsDecisionDTO"/>
+ 		
  		
  		<!-- user -->
  		<typeAlias alias="UserInfoDTO" type="com.tig.wdc.user.model.dto.UserInfoDTO"/>

@@ -1,11 +1,12 @@
 package com.tig.wdc.admin.model.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
@@ -14,7 +15,6 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
-import com.tig.wdc.admin.model.dto.BlackListDTO;
 
 public interface AdminService {
 
@@ -194,7 +194,11 @@ public interface AdminService {
 
 	List<ClassDTO> selectClassBycategory(Map<String, String> type);
 
-	Object selectClassDetail(Map<String, Object> cnct);
+
+	int updateFirstDecision(ClsDecisionDTO clsDecisionDTO);
+
+	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
+
 
 
 

@@ -831,6 +831,34 @@
 		 WHERE CLS_STATUS = 'E'
 		  </if>
 	</select>
-
 	
+	<update id="updateFirstDecision" parameterType="ClsDecisionDTO">
+		UPDATE CLASS
+		<if test='status == "accept"'>
+		   SET CLS_DICSION_STATUS = 'F'
+	    </if>
+	    <if test='status ==  "reject"'>
+		   SET CLS_DICSION_STATUS = 'R'
+	    </if>
+	     WHERE CLS_NO = #{clsNo}
+	</update>
+	
+	<insert id="insertClassDecision" parameterType="ClsDecisionDTO">
+		INSERT
+		  INTO DISICION_HISTORY
+	    VALUES
+	    (
+	      SEQ_DICSION_NO.NEXTVAL
+	     <if test='status == "accept"'>
+	    , null
+	    </if>
+	    <if test='status ==  "reject"'>
+	    , #{rejectReason}
+	    </if>
+	    , SYSDATE
+	    , 1
+	    , #{clsNo}
+	    , null 
+	    )
+	 </insert>
 </mapper>

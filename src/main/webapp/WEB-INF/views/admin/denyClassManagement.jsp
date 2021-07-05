@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,70 +23,15 @@
         
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="CustomerMain.html" style="width: 180px;">우리동네 클래스</a>
-            <!-- Sidebar Toggle-->
-            <button
-                class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-                id="sidebarToggle"
-                href="#!">
-                <i class="fas fa-bars"></i>
-            </button>
-            <!-- Navbar-->
-            <ul style="padding: 20px 0px 0px 1260px;">
-                <a
-                    class="sb-nav-link-icon"
-                    id="navbarDropdown"
-                    href="CustomerLogin.html"
-                    role="button"
-                    style="background-color: gray; width: 50px; height: 50px;">
-                    <img src="./pic/log-in.png" style="width: 30px; height: 30px;">
-                </a>
-            </ul>
-        </nav>
+
+                       	<!-- header -->
+		<%@ include file="commons/header.jsp" %>
+		
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link collapsed" href="CustomerMemberManagement.html" style="color: #fef0ae;">
-                                회원관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerClassManagement.html">
-                                클래스관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerMemberReportManagement.html">
-                                신고관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerQuestionManagement.html">
-                                문의내역
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCouponManagement.html">
-                                쿠폰
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerNoticeManagement.html">
-                                공지사항
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <a class="nav-link collapsed" href="CustomerCalculateManagement.html">
-                                정산 내역
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">
-                            Copyright &copy; 우리동네 클래스
-                        </div>
-                    </div>
-                </nav>
-            </div>
+        
+        	<!-- sideBar & footer -->
+			<%@ include file="commons/sideBarAndFooter.jsp" %>
+            
 
             <div id="layoutSidenav_content">
                 <main>
@@ -97,42 +44,48 @@
                             </div>
                             <section class="py-5">
                                 <div class="container">
-                                    <div class="row mb-5">
-                                        <div class="col-lg-6">
-                                          <!-- PRODUCT SLIDER-->
-                                          <div class="row m-sm-0">
-                                            <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
-                                              <div class="owl-thumbs d-flex flex-row flex-sm-column" data-slider-id="1">
-                                                <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/class-sport.png" alt="..."></div>
-                                                <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/class-sport2.png" alt="..."></div>
-                                                <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/class-sport3.png" alt="..."></div>
-                                              </div>
-                                            </div>
-                                            <div class="col-sm-10 order-1 order-sm-2">
-                                              <div class="owl-carousel product-slider" data-slider-id="1">
-                                                <a class="d-block" href="img/class-sport.png" data-lightbox="product" title="Product item 1">
-                                                  <img class="img-fluid" src="img/class-sport.png" alt="...">
-                                                </a>
-                                              </div>
-                                            </div>
-                                          </div>
+                                <div class="">
+									<div class="col-lg-6">
+										<!-- PRODUCT SLIDER-->
+												<div class=""
+													data-slider-id="1" style="display:flex;">
+													<c:forEach var="classPic" items="${ classPic }">
+													<c:set var="i" value="${i+1}"></c:set>
+														<div class="" >
+															<img class="" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="..." style="width: 450px; height:300px;">
+															<input type="hidden" name="titlePic${i}" value="${ classPic.titlePic }"/>
+														</div>
+													</c:forEach>
+												</div>
+									</div>
+                                  <!-- PRODUCT DETAILS-->
+                                  <div class="" >
+                                   <div style="font-size: xx-large; color: red; font-weight: bold;">&nbsp;&nbsp;반려</div>
+                                    <h1>${classDetail.title }</h1><br>
+                                    <p class="text-muted lead">강의 카테고리 :                                         
+                                        <c:choose>
+                                        	<c:when test="${classDetail.categoryNo  eq '1'}">스포츠</c:when>
+                                        	<c:when test="${classDetail.categoryNo  eq '2'}">요리/베이킹</c:when>
+                                        	<c:when test="${classDetail.categoryNo  eq '3'}">미술/공예/공연전시</c:when>
+                                        	<c:when test="${classDetail.categoryNo  eq '4'}">뷰티</c:when>
+                                        	<c:when test="${classDetail.categoryNo  eq '5'}">컴퓨터/IT</c:when>
+                                        	<c:when test="${classDetail.categoryNo  eq '6'}">언어/스피치</c:when>
+                                        	<c:otherwise>재테크/창업</c:otherwise>
+                                        </c:choose> </p>
+                                    <p class="text-muted lead">신청 날짜 : ${ classDetail.dateAplct } </p>
+                                    <p class="text-muted lead">클래스 가격 : <fmt:formatNumber value="${ classDetail.price }" pattern="#,###"/> 원</p><br>
+                                      <div style="display:flex;">
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/calendar.png">&nbsp;&nbsp;
+                                        <c:choose>
+                                        	<c:when test="${classDetail.clsType  eq 'O'}">원데이 클래스</c:when>
+                                        	<c:otherwise>정규 클래스</c:otherwise>
+                                        </c:choose>
                                         </div>
-                                        <!-- PRODUCT DETAILS-->
-                                        <div class="col-lg-6">
-                                            <div style="font-size: xx-large; color: red; font-weight: bold;">&nbsp;&nbsp;반려</div>
-                                          <h1>리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</h1>
-                                          <p class="text-muted lead">42,500 원</p>
-                                          <ul class="list-unstyled small d-inline-block" style="font-size: 16px; display: flex !important; padding-top: 15px;">
-                                            <div class="class-icon">
-                                              <div><img src="img/calendar.png" width="20px">&nbsp;&nbsp;원데이클래스</div>
-                                              <div style="padding-top:15px"><img src="img/pin.png" width="22px">&nbsp;&nbsp;00동</div>
-                                            </div>
-                                            <div class="class-icon" style="padding-inline: 30px;">
-                                              <div><img src="img/clock.png" width="20px">&nbsp;&nbsp;2시간 소요</div>
-                                              <div style="padding-top:15px"><img src="img/users.png" width="20px">&nbsp;&nbsp;최대 4명 가능</div>
-                                            </div>
-                                        </ul>
-                                    </div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/pin.png">&nbsp;&nbsp;${classDetail.address }</div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/clock.png">&nbsp;&nbsp;${classDetail.time }</div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/users.png">&nbsp;&nbsp;최대 4명 가능</div>
+                                      </div>
+                                  </div>
                                 </div>
                             </div>
                             <div style="background-color: #f5f5f5; width: 1200px; height: 200px; margin: auto;font-size: large; padding: 3%;">

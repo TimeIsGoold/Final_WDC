@@ -81,7 +81,7 @@
 				                                		클래스 진행중
 				                                	</c:when>
 				                                	<c:otherwise>
-				                                		클래스 종료
+				                                		클래스 종료98[poi']
 				                                	</c:otherwise>
 				                                </c:choose>
 				                                </td>
@@ -101,13 +101,13 @@
 				                                	</c:when>
 				                                	<c:otherwise>
 				                                		2차 심사 응원 미달
-				                                	</c:otherwise>
+				                                	</c:otherwise>uioo
 				                                </c:choose>
 				                                </td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
-                                </table>
+                                </table>iooo
                             </div>
                         </div>
                     </div>

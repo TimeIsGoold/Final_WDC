@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
@@ -182,7 +183,11 @@ public interface AdminMapper {
 
 	List<ClassDTO> selectClassBycategory(Map<String, String> type);
 
-	Object selectClassDetail(Map<String, Object> cnct);
+	int updateFirstDecision(ClsDecisionDTO clsDecisionDTO);
+
+	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
+
+
 
 
 
