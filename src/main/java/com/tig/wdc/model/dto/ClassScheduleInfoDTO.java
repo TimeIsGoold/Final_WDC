@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author 이해승
- * 정규과정 정보조회용
+ * 클래스 스케쥴 필요 정보조회용
  */
 @Component
-public class RegularClassInfoDTO {
+public class ClassScheduleInfoDTO {
 
 	private int scheduleNo;
 	private int maxPeople;
@@ -22,9 +22,9 @@ public class RegularClassInfoDTO {
 	
 	private PageInfoDTO pageInfo;
 
-	public RegularClassInfoDTO() {}
+	public ClassScheduleInfoDTO() {}
 
-	public RegularClassInfoDTO(int scheduleNo, int maxPeople, int scheduleCount, int applyCount, Date start, Date end,
+	public ClassScheduleInfoDTO(int scheduleNo, int maxPeople, int scheduleCount, int applyCount, Date start, Date end,
 			String classTitle, int nowCount, PageInfoDTO pageInfo) {
 		super();
 		this.scheduleNo = scheduleNo;

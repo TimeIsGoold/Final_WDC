@@ -2,6 +2,9 @@ package com.tig.wdc.admin.model.dto;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class QuestionDTO {
 
 	private int questionNo;

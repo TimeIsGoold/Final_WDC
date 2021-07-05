@@ -40,7 +40,6 @@ public class ClassRegistController {
 	private	ClassPieceDTO classPiece;
 	private CurriculumDTO curriculum;
 	private ScheduleDTO schedule;
-	
 	@Autowired
 	public ClassRegistController(AttachMentDTO titlePicture, ClassPieceDTO classPiece, ClassRegistManageService classService, CurriculumDTO curriculum, ScheduleDTO schedule) {
 		super();

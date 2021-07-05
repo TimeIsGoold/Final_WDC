@@ -109,4 +109,81 @@
           FROM SCHEDULE
          WHERE CLS_NO = #{ clsNo }  
     </select>
+    <select id="selectAdminQnACount" resultType="_int">
+        SELECT 
+               COUNT(Q_NO) 
+         FROM ADMIN_Q 
+        WHERE MEMBER_TYPE = 'TEACHER' 
+          AND MEMBER_NO = #{ teacherNo }
+    </select>
+    <resultMap type="UserInquiryDTO" id="adminQnA">
+    	<id column="Q_NO" property="queNo"/>
+		<result column="Q_TITLE" property="queTitle"/>
+		<result column="Q_DATE" property="queDate"/>
+		<result column="ANSWER_YN" property="answerYn"/>
+		<result column="Q_CONTENT" property="queContent"/>
+		<association property="answer" javaType="InquiryAnswerDTO">
+			<id column="Q_NO" property="queNo"/>
+	        <result column="ANSWER_CONTENT" property="answerContent"/>
+	        <result column="ANSWER_DATE" property="answerTime"/>
+		</association>
+    </resultMap>
+    <select id="selectAdminQnAList" resultMap="adminQnA">
+        SELECT 
+               A.*
+          FROM (SELECT ROWNUM RNUM
+                     , B.*
+                  FROM (SELECT C.*
+                          FROM ADMIN_Q C
+                         WHERE C.MEMBER_NO = #{ teacherNo }
+                           AND MEMBER_TYPE = 'TEACHER'
+                         ORDER BY C.Q_NO DESC
+                        ) B
+               ) A
+         WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }
+    </select>
+    <select id="selectQnADetail" resultMap="adminQnA" parameterType="hashmap">
+        SELECT 
+               A.Q_NO 
+             , A.Q_TITLE
+             , A.Q_CONTENT
+             , A.Q_DATE
+             , A.ANSWER_YN
+             <if test='"Y".equals(answer)'>
+             , B.ANSWER_CONTENT
+             , B.ANSWER_DATE
+             </if>
+          FROM ADMIN_Q A
+          <if test='"Y".equals(answer)'>
+          JOIN ADMIN_Q_ANSWER B ON (A.Q_NO = B.Q_NO)
+          </if>
+         WHERE A.Q_NO = #{ questinoNo }
+    </select>
+    <insert id="insertAdminQuestion" parameterType="QuestionDTO">
+        INSERT 
+          INTO ADMIN_Q
+        VALUES 
+             ( #{ questionTitle }
+             , #{ questionContent }
+             , SYSDATE
+             , 'N'
+             , 'TEACHER'
+             , #{ questionId }
+             , SEQ_Q_NO.NEXTVAL
+             )    
+    </insert>
+    <insert id="insertAdminQuestionHistory" parameterType="QuestionDTO">
+        <selectKey keyProperty="questionNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_Q_NO.CURRVAL
+              FROM DUAL
+        </selectKey>
+            INSERT
+              INTO TE_TO_ADMIN_Q
+            VALUES 
+                 ( #{ questionId }
+                 , #{ questionNo }
+                 ) 
+    </insert>
+    
 </mapper>

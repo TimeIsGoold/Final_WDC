@@ -85,7 +85,7 @@
         
         <!-- 상단 메뉴바 -->
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classDetail.html" style="font-size: 15; color: black"><b>상세정보</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
@@ -94,7 +94,7 @@
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+          <a href="#" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
       </div>  
     
@@ -117,7 +117,7 @@
           <pre><b>진행 기간  :  </b>${ regularInfo.start} ~ ${ regularInfo.end }</pre>
         </div>  
         <div class="col-sm-12">
-          <pre><b>강의 횟수  :  </b>7회 / 총 ${ regularInfo.scheduleCount }회</pre>
+          <pre id="countInfo"><b>강의 횟수  :  </b>0회 / 총 ${ regularInfo.scheduleCount }회</pre>
         </div>        
         <div class="col-sm-12">
           <pre><b>수강 인원  :  </b>${ regularInfo.applyCount }명 / 최대 ${ regularInfo.maxPeople }명</pre>
@@ -125,7 +125,6 @@
       </div>
 
       <!-- 출석표1 -->
-      
       <div class="col-sm-12" id="content-formatting" style="float: left; height: 600px; overflow: auto;">
         <table class="table table-hover" style="text-align: center;">
           <thead>
@@ -137,21 +136,29 @@
               </c:forEach>
             </tr>
             <tr>
-               <c:forEach var="cnt" begin="1" end="${ regularInfo.scheduleCount }" step="1">
-              <th><input type="checkbox" class="attendAllCheck${ cnt }"></th>
-               </c:forEach>
+              <c:forEach var="cnt" begin="1" end="${ regularInfo.scheduleCount }" step="1">
+              <th><input type="checkbox" class="attendAllCheck${ cnt }" value="${ cnt }" id="all${ cnt }"onclick="allAttend(this);"></th>
+              </c:forEach>
             </tr>
           </thead>
           <tbody>
+            <c:choose>
+            <c:when test="${ empty applyUserInfoList }">
+            <td class=>
+              <td>신청인원이 없음</td>
+            </c:when>
+            <c:otherwise>
             <c:forEach var="applyUserInfo" items="${ applyUserInfoList }" varStatus="status">
             <tr>
               <td nowrap>${ status.count }</td>
               <td nowrap>${ applyUserInfo.userName }</td>
               <c:forEach var="cnt" begin="1" end="${ regularInfo.scheduleCount }" step="1">
-                  <td><input type="checkbox" value="${ cnt }/${ applyUserInfo.aplNo }/${ applyUserInfo.userNo}" name="attendanceInfo"></td>
+                  <td><input type="checkbox" class="checkUser${cnt}"value="${ cnt }/${ applyUserInfo.aplNo }/${ applyUserInfo.userNo}" name="attendanceInfo"></td>
               </c:forEach>
             </tr>
             </c:forEach>
+            </c:otherwise>
+            </c:choose>
           </tbody>
         </table>
       </div>
@@ -161,12 +168,111 @@
         </div>
         <div class='col-sm-3' style="margin:auto; padding-top: 70px; padding-bottom: 50px;">
         <input type="hidden" value="${ regularInfo.scheduleNo }" name="scheduleNo">
-          <button type="submit" class="btn btn-primary">수업시작</button>
+        <input type="hidden" value="${ clsNo }" name="clsNo">
+          <button type="submit" class="btn btn-primary">출석체크</button>
         </div>
       </div>
     </div>
     </form>
+	<script>
+    window.onload = function () {
+      if ("${ existingInfo }" != null && "${ existingInfo }".length > 0) {
+        let existStep = [];
+        let existApplyNo = [];
+        let existMemberNo = [];
+        
+        <c:forEach items="${existingInfo}" var="list" varStatus="status">
+          <c:choose>
+            <c:when test="${ status.last}">
+              existStep.push(${list.classStep});
+              existMemberNo.push(${list.attendanceUser});
+              existApplyNo.push(${list.attendanceApply});
+              const lastDate = "${list.classDate}";
+            </c:when>
+            <c:otherwise>
+              existStep.push(${list.classStep});
+              existMemberNo.push(${list.attendanceUser});
+              existApplyNo.push(${list.attendanceApply});
+              existApplyNo.push("/");
+              existMemberNo.push("/");
+            </c:otherwise>
+          </c:choose>
+        </c:forEach>
 
+        existApplyNo = existApplyNo.toString().split("/");
+        existMemberNo = existMemberNo.toString().split("/");
+
+        for (var i = 0; i < existApplyNo.length; i++) {
+          if (i == 0) {
+            existApplyNo[i] = existApplyNo[i].slice(0, existApplyNo[i].length - 1);
+            existMemberNo[i] = existMemberNo[i].slice(0, existMemberNo[i].length - 1);
+          } else if (i == existApplyNo.length - 1) {
+            existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length);
+            existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length);
+          } else {
+            existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length - 1);
+            existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length - 1);
+          }
+        };
+        let applyNoList = [];
+        let memberNoList = [];
+
+        for (var i = 0; i < existApplyNo.length; i++) {
+          applyNoList.push(existApplyNo[i].split(','));
+          memberNoList.push(existMemberNo[i].split(','));
+        }
+        for (var i = 1; i <= existStep.length; i++) {
+          var allClass = document.getElementsByClassName("attendAllCheck" + i);
+          var userClass = document.getElementsByClassName("checkUser" + i);
+          allClass[0].disabled = true;
+
+
+          var existValue = "";
+          for (var j = 0; j < userClass.length; j++) {
+
+            userClass[j].disabled = "true";
+            userClass[j].name = "";
+            for (var k = 0; k <= applyNoList.length; k++) {
+              existValue = i + "/" + applyNoList[i - 1][k] + "/" + memberNoList[i - 1][k];
+              if (userClass[j].value == existValue) {
+                userClass[j].checked = true;
+              }
+            }
+          }
+        }
+
+        for(var i = existStep.length+2; i <= "${ regularInfo.scheduleCount }"; i++){
+
+          var allClass = document.getElementsByClassName("attendAllCheck" + i);
+          var userClass = document.getElementsByClassName("checkUser" + i);
+          allClass[0].disabled = true;
+
+          for(var j = 0; j < userClass.length; j++){
+            userClass[j].disabled=true;
+          }
+        }
+        var classCount = existStep.length;
+        document.getElementById("countInfo").innerHTML = "<b>강의 횟수  :  </b>"+classCount+"회 / 총 30회";
+      }
+
+    }
+	</script>
+	<script>
+	function allAttend(p){
+		let id = document.getElementById(p.id);
+		let className = "checkUser" + p.value;
+		let classUser = document.getElementsByClassName(className);
+		if(id.checked){
+			for(var i = 0; i < classUser.length; i++){
+				classUser[i].checked = true;
+			}
+		} else {
+			for(var i = 0; i < classUser.length; i++){
+				classUser[i].checked = false;
+			}
+		}
+	}
+	</script>
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
