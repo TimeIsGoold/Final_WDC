@@ -54,6 +54,4 @@ public interface UserClassService {
 	int updateCpnUseYn(int cpnNo);
 
 
-
-
 }

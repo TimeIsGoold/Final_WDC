@@ -57,4 +57,5 @@ public interface UserClassMapper {
 	public int updateCpnUseYn(int cpnNo);
 
 
+
 }
