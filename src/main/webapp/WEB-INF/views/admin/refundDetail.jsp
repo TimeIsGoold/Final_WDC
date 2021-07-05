@@ -91,39 +91,41 @@
 	                                    <tbody>
 	                                        <tr>
 	                                            <th>아&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;디</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.id }</td>
 	                                            <th>신청번호</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.cancelNo }</td>
+	                                            <input type="hidden" name="cancelNo" value="${ refundInfoDetail.cancelNo }">
 	                                        </tr>
 	                                        <tr>
 	                                        	<th>환불신청일</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.refundApplyDate }</td>
 	                                            <th>환 불 일</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.refundDate }</td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>취소&nbsp;&nbsp;&nbsp;사유</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.cancelReason }</td>
 	                                            <th>상세사유</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.cancelReasonDetail }</td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>클래스타입</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.classType }</td>
 	                                            <th>클래스명</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.className }</td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>예&nbsp;&nbsp;&nbsp;금&nbsp;&nbsp;&nbsp;주</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.refundHolder }</td>
 	                                            <th>은 행 명</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.refundBank }</td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.refundAccount }</td>
 	                                            <th>환 불 액</th>
-	                                            <td colspan="4"></td>
+	                                            <td colspan="4">${ refundInfoDetail.refundAmount }</td>
+	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
 	                                        </tr>
 	                                    </tbody>
                                     </form>

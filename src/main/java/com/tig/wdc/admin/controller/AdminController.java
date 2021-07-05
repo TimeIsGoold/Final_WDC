@@ -327,6 +327,7 @@ public class AdminController {
 	@GetMapping("refundDetail")
 	public String refundInfoDetail(@ModelAttribute RefundDTO refund, Model model) {
 		
+		System.out.println("dto : " + refund);
 		model.addAttribute("refundDetail", adminService.selectRefundInfoDetail(refund));
 		
 		return "admin/refundDetail";

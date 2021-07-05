@@ -97,9 +97,9 @@
 	                                <table class="table">
 	                                    <tbody>
 	                                        <tr>
+	                                            <input type="hidden" name="questionNo" value="${ questionDetail.questionNo }">
 	                                            <th>회원번호</th>
 	                                            <td>${ questionDetail.userNo }</td>
-	                                            <input type="hidden" name="questionNo" value="${ questionDetail.questionNo }">
 	                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
 	                                            <td>${ questionDetail.questionType }</td>
 	                                        </tr>

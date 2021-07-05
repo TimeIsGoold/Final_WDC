@@ -163,6 +163,7 @@
 		<id column="NOTICE_TYPE" property="noticeType"/>
 		<result column="NOTICE_TITLE" property="noticeTitle"/>
 		<result column="NOTICE_CONTENT" property="noticeContent"/>
+		<result column="IMPORTANT_YN" property="importantYN"/>
 	</resultMap>
 	
 	<!-- 정산 미완료 -->
