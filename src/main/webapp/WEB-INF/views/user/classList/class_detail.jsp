@@ -348,7 +348,6 @@ i {
 						</li>
 					</div>
 					</form>
-					
 		            <script>
 		               let times = new Array();
 		               let days = new Array();
@@ -375,8 +374,11 @@ i {
 		                  allowDates : days,
 		                  formatDate:'Y-m-d',
 		                  scrollMonth : false
+<<<<<<< HEAD
 
 		               });
+=======
+>>>>>>> branch 'master' of https://github.com/TimeIsGoold/Final_WDC.git
 		            </script>
 	            </c:if>
 	            
