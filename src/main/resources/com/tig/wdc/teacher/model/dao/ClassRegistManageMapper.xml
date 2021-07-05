@@ -130,18 +130,24 @@
     <resultMap type="classApplyInfo" id="applyInfo">
         <id column="CLS_APL_NO" property="aplNo"/>
         <result column="USER_NO" property="userNo"/>
+        <result column="ATT_STATUS" property="attStatus"/>
         <result column="SCHEDULE_NO" property="scheduleNo"/>
         <result column="USER_NAME" property="userName"/>
+        <result column="USER_PHONE" property="userPhone"/>
     </resultMap>
     <select id="selectApplyUserInfo" resultMap="applyInfo" parameterType="_int">
-        SELECT 
-               A.CLS_APL_NO 
-             , A.USER_NO
+        SELECT
+               A.CLS_APL_NO
+             , A.ATT_STATUS
              , A.SCHEDULE_NO
-             , B.USER_NAME  
+             , A.USER_NO 
+             , B.USER_NAME
+             , B.USER_PHONE
           FROM CLASS_APPLY A
           JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
-         WHERE A.SCHEDULE_NO= #{ scheduleNo }
+          JOIN PAYMENT C ON (A.CLS_APL_NO = C.CLS_APL_NO)
+         WHERE A.SCHEDULE_NO = #{ scheduleNo }
+           AND C.PAY_STATUS = '완료'
     </select>
 
     <select id="selectOneDayScheduleList" resultMap="regularSchedule" parameterType="ClassDTO">
@@ -173,5 +179,49 @@
                        ) B
               ) A
         WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }    
+    </select>
+    <update id="modifyOndeDayAttendanceStatus" parameterType="hashmap">
+        UPDATE CLASS_APPLY
+        <if test='status == "reset"'>
+           SET ATT_STATUS = 'N'
+         WHERE CLS_APL_NO IN
+         <foreach collection="allApplyNo" item="all" open="(" close=")" separator=",">
+             #{ all }
+         </foreach>
+        </if>
+        <if test='status == "update"'>
+           SET ATT_STATUS = 'Y'
+         WHERE CLS_APL_NO IN 
+         <foreach collection="checkedApplyNo" item="checked" open="(" close=")" separator=",">
+             #{ checked }
+         </foreach>
+        </if>
+    </update>
+    <insert id="insertRegularClassAttendance" parameterType="hashmap">
+        INSERT 
+          INTO REGULAR_CLASS
+        VALUES
+             (
+               SEQ_REG_MANAGE_NO.NEXTVAL
+             , #{ attendanceDate }
+             , #{ userNo }
+             , #{ applyNo }
+             , #{ classStep }
+             , #{ scheduleNo }
+             )
+    </insert>
+    <resultMap type="regularAttend" id="regularAttendInfo">
+        <id column="REG_MANAGE_NO" property="regManageNo"/>
+        <result column="CLASS_DATE" property="classDate"/>
+        <result column="ATTENDER_NO" property="attendanceUser"/>
+        <result column="CLS_APL_NO" property="attendanceApply"/>
+        <result column="CLASS_STEP" property="classStep"/>
+        <result column="SCHEDULE_NO" property="scheduleNo"/>
+    </resultMap>
+    <select id="selectExistingInfo" resultMap="regularAttendInfo" parameterType="_int">
+        SELECT 
+               *
+          FROM REGULAR_CLASS
+         WHERE SCHEDULE_NO = #{ scheduleNo } 
     </select>
 </mapper>

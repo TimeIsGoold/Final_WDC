@@ -15,12 +15,13 @@ public class ClassApplyDTO {
 	private String attStatus;
 	private int scheduleNo;
 	private String userName;
-
+	
+	private String userPhone;
 
 	public ClassApplyDTO() {}
 
 	public ClassApplyDTO(int aplNo, int ppl, Date aplDate, int userNo, String attStatus, int scheduleNo,
-			String userName) {
+			String userName, String userPhone) {
 		super();
 		this.aplNo = aplNo;
 		this.ppl = ppl;
@@ -29,6 +30,7 @@ public class ClassApplyDTO {
 		this.attStatus = attStatus;
 		this.scheduleNo = scheduleNo;
 		this.userName = userName;
+		this.userPhone = userPhone;
 	}
 
 	public int getAplNo() {
@@ -87,9 +89,18 @@ public class ClassApplyDTO {
 		this.userName = userName;
 	}
 
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassApplyDTO [aplNo=" + aplNo + ", ppl=" + ppl + ", aplDate=" + aplDate + ", userNo=" + userNo
-				+ ", attStatus=" + attStatus + ", scheduleNo=" + scheduleNo + ", userName=" + userName + "]";
+				+ ", attStatus=" + attStatus + ", scheduleNo=" + scheduleNo + ", userName=" + userName + ", userPhone="
+				+ userPhone + "]";
 	}
 }
