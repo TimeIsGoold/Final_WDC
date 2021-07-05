@@ -76,6 +76,11 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 		return mapper.insertAdminQuestionHistory(content);
 	}
 
+	@Override
+	public NoticeDTO selectNoticeDetail(int noticeNo) {
+		return mapper.selectNoticeDetail(noticeNo);
+	}
+
 
 
 }

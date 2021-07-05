@@ -35,7 +35,6 @@ public class TeacherMainController {
 	@GetMapping("teacher/main")
 	public String teacherMain(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		int teacherNo= (Integer) session.getAttribute("teacherNo");
-		System.out.println("너의 값은???????" + currentPage);
 		//공지사항 페이징처리
 		pageInfo = PageNation.getPageInfo(currentPage, noticeService.selectNoticeCount(), 5, 5);
 		//페이징처리정보

@@ -107,44 +107,31 @@
 			<%@ include file="../commons/sidebar.jsp" %>
 
         	<!-- main page -->
-		   <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
-		
-		     <div class="col-sm-12" id="content-formatting" style="float: left; margin: auto;">
+		   <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; height: 1000px">
+			<h3>공지사항</h3>
+		     <div class="col-sm-12" id="content-formatting" style="float: left; margin: auto; ">
 		       <table class="table table-hover">
 		         <thead>
 		           <tr>
-		             <th>글 번호</th>
-		             <td colspan="3">61</td>
+		             <th>공지 번호</th>
+		             <td colspan="3">${ noticeDetail.no }</td>
 		             <th>작성일</th>
-		             <td style="width: 25%">2021-05-20</td>
+		             <td style="width: 25%">${ noticeDetail.writeDate }</td>
 		           </tr>
 		           <tr>
 		             <th>제목</th>
-		             <td colspan="3">정산 일자가 지났는데 아직 입금이 안됐어요</td>
+		             <td colspan="3">${ noticeDetail.title } </td>
 		           </tr>
 		         </thead>
 		         <tbody>
 		           <tr>
-		             <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px;">
-					               동해 물과 백두산이 마르고 닳도록
-					               하느님이 보우하사 우리나라 만세.
-					               무궁화 삼천리 화려 강산
-					               대한 사람, 대한으로 길이 보전하세.<br>
-					               
-					               남산 위에 저 소나무, 철갑을 두른 듯
-					               바람 서리 불변함은 우리 기상일세.
-					               무궁화 삼천리 화려 강산
-					               대한 사람, 대한으로 길이 보전하세.<br><br>
-					               
-					               남산 위에 저 소나무, 철갑을 두른 듯
-					               바람 서리 불변함은 우리 기상일세.
-					               무궁화 삼천리 화려 강산
-					               대한 사람, 대한으로 길이 보전하세.   
+		             <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px; ">
+					               ${ noticeDetail.content }     
 		             </td>
 		           </tr>
 		         </tbody>
 		       </table><br><br><br><br>
-		       <button class="btn btn-primary" type="button" style="margin-left: 40%;">확인</button>
+		       <button class="btn btn-primary" type="button" style="margin-left: 40%;" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/main'">확인</button>
 		     </div>           
 		   </div>
     	</div>

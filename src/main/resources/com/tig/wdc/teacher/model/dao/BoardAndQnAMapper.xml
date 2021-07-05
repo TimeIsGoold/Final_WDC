@@ -185,5 +185,15 @@
                  , #{ questionNo }
                  ) 
     </insert>
-    
+    <select id="selectNoticeDetail" parameterType="_int" resultMap="noticeInfo">
+        SELECT
+               A.NOTICE_NO
+             , A.NOTICE_TITLE
+             , A.NOTICE_CONTENT
+             , A.WRITE_DATE
+             , A.IMPORTANT_YN
+             , A.NOTICE_TYPE
+          FROM NOTICE A
+         WHERE NOTICE_NO = #{ noticeNo }         
+    </select>
 </mapper>

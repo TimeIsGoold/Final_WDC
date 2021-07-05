@@ -1,6 +1,5 @@
 package com.tig.wdc.teacher.Controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -316,6 +315,14 @@ public class TeacherMyPageController {
 	public String teacherFAQ() {
 		
 		return "teacher/reportInquiry/t_FAQ";
+	}
+	
+	@GetMapping("/noticeDetail")
+	public String noticeDetail(Model model, @RequestParam int noticeNo) {
+		
+		model.addAttribute("noticeDetail", boardService.selectNoticeDetail(noticeNo));
+		
+		return "teacher/classManage/t_classNotice";
 	}
 	
 }

@@ -68,4 +68,6 @@ public interface BoardAndQnAService {
 	public int insertAdminQuestion(QuestionDTO content);
 
 	public int insertAdminQuestionHistory(QuestionDTO content);
+
+	public NoticeDTO selectNoticeDetail(int noticeNo);
 }

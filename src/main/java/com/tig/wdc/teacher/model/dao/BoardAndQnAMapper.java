@@ -32,4 +32,6 @@ public interface BoardAndQnAMapper {
 
 	int insertAdminQuestionHistory(QuestionDTO content);
 
+	NoticeDTO selectNoticeDetail(int noticeNo);
+
 }
