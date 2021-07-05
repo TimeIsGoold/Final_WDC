@@ -297,5 +297,51 @@
            AND H.CLS_NO = #{ clsNo }
 		 ORDER BY CPN_NO
 	</select>
+	
+	<resultMap type="UserReportDTO" id="ReportResult">
+		<id column="REPORT_NO" property="reportNo"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="REPORT_REASON" property="reportReason"/>
+		<result column="REPORT_TYPE" property="reportType"/>
+		<result column="REPORT_FROM_NO" property="reportFromNo"/>
+		<result column="REPORT_TO_NO" property="reportToNo"/>
+		<result column="REPORT_PIC" property="reportPic"/>
+		<result column="PROCS_STATUS" property="status"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="RNUM" property="rowNum"/>
+		<result column="REPORT_ANSWER" property="reportAnswer"/>
+	</resultMap>
+	
+	<insert id="insertReport" parameterType="UserReportDTO">
+       INSERT 
+         INTO REPORT
+       VALUES
+       (
+         SEQ_REPORT_NO.NEXTVAL
+       , #{ reportTitle }
+       , #{ reportReason }
+       , '수강생'
+       , #{ reportFromNo }
+       , #{ reportToNo }
+       , #{ reportPic }
+       , DEFAULT
+       , SYSDATE
+       )
+	</insert>
+	
+	<insert id="insertReportHistory" parameterType="UserReportDTO">
+		<selectKey keyProperty="reportNo" resultType="_int" order="BEFORE">
+			SELECT
+        		   SEQ_REPORT_NO.CURRVAL
+			  FROM DUAL
+	 	</selectKey>
+	   INSERT
+	     INTO TE_REPORT_HISTORY
+	   VALUES
+	   (
+	     #{ reportToNo }
+	   , #{ reportNo }
+	   )
+	</insert>
 
 </mapper>

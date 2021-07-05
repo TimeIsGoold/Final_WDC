@@ -17,6 +17,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -128,6 +129,16 @@ public class UserClassServiceImpl implements UserClassService{
 	@Override
 	public int updateCpnUseYn(int cpnNo) {
 		return mapper.updateCpnUseYn(cpnNo);
+	}
+
+	@Override
+	public int insertReport(UserReportDTO userReportDTO) {
+		return mapper.insertReport(userReportDTO);
+	}
+
+	@Override
+	public int insertReportHistory(UserReportDTO userReportDTO) {
+		return mapper.insertReportHistory(userReportDTO);
 	}
 
 

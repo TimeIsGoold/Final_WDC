@@ -12,6 +12,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
@@ -55,6 +56,10 @@ public interface UserClassMapper {
 	public int insertPayment(PaymentDTO insertPaymentDTO);
 
 	public int updateCpnUseYn(int cpnNo);
+
+	public int insertReport(UserReportDTO userReportDTO);
+
+	public int insertReportHistory(UserReportDTO userReportDTO);
 
 
 }

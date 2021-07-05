@@ -188,7 +188,6 @@
                      <c:choose>
                      <c:when test="${ classList.dicsionStatus eq 'F' }">
                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
-                     <div class="bottom_badgeCheer text-white badge-primary" style="color: black !important;">현재 응원 수 : 2</div>
                      </c:when>
                      </c:choose>
                       <div class="mb-3 position-relative">
@@ -213,7 +212,7 @@
                       <c:choose>
                       <c:when test="${ classList.dicsionStatus eq 'S' }">                      
                         <h6 style="margin-top: 15px;"> 
-                        <a class="reset-anchor" href="detail.html">
+                        <a class="reset-anchor" href="detail.html" style="margin-top: -20px;">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [원데이] ${classList.title}
                         </c:if>
@@ -224,7 +223,7 @@
                         </h6>
                       </c:when>
                       <c:when test="${ classList.dicsionStatus eq 'F' }">
-                        <h6 style="margin-top: 42px;"> <a class="reset-anchor" href="detail.html">
+                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="detail.html">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [원데이] ${classList.title}
                         </c:if>

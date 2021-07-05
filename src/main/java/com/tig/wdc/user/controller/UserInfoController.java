@@ -3,6 +3,7 @@ package com.tig.wdc.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,10 @@ public class UserInfoController {
 		userInfoDTO = infoService.selectUser(userNo);
 		
 		model.addAttribute("userInfoDTO",userInfoDTO);
+		
+		if(session == null) {
+			return "user/login/login";
+		}
 		
 		return "user/mypage/mypage";
 	}
@@ -220,6 +225,7 @@ public class UserInfoController {
 		
 		complateClassList = infoService.selectComplateClassList(userNo);
 		refundClassList = infoService.selectRefundClassList(userNo);
+		System.out.println("refundClassList : " + refundClassList);
 		
 		model.addAttribute("complateClassList",complateClassList);
 		model.addAttribute("refundClassList",refundClassList);
@@ -236,7 +242,7 @@ public class UserInfoController {
 	 * @return
 	 */
 	@GetMapping("userApplyClassDetail/{aplNo}")
-	public String userApplyClassDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo) {
+	public String userApplyClassDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo, HttpServletRequest request) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
@@ -251,13 +257,24 @@ public class UserInfoController {
 
 	}
 	
-	@GetMapping("userApplyComplateDetail/{aplNo}")
-	public String userApplyComplateDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo) {
+	/**
+	 * 완료 클래스 예약 상세 조회 메소드
+	 * @param model
+	 * @param session
+	 * @param userClassDTO
+	 * @param aplNo
+	 * @return
+	 */
+	@GetMapping("userApplyComplateDetail/{aplNo}/{payStatus}")
+	public String userApplyComplateDetail(Model model, HttpSession session, UserClassDTO userClassDTO, @PathVariable("aplNo") int aplNo,@PathVariable("payStatus") String payStatus) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
 		userClassDTO.setAplNo(aplNo);
-
+		userClassDTO.setPayStatus(payStatus);
+		
+		System.out.println("userClassDTO : " + userClassDTO);
+		
 		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
 		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
 		
