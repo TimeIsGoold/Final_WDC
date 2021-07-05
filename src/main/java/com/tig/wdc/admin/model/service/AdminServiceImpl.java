@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tig.wdc.admin.model.dao.AdminMapper;
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
+import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
@@ -302,8 +303,14 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Object selectClassDetail(Map<String, Object> cnct) {
-		return mapper.selectClassDetail(cnct);
+	public int updateFirstDecision(ClsDecisionDTO clsDecisionDTO) {
+		
+		return mapper.updateFirstDecision(clsDecisionDTO);
+	}
+
+	@Override
+	public int insertClassDecision(ClsDecisionDTO clsDecisionDTO) {
+		return mapper.insertClassDecision(clsDecisionDTO);
 	}
 
 
