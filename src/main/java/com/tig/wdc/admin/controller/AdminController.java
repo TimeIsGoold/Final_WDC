@@ -293,13 +293,9 @@ public class AdminController {
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail(@RequestParam("YN")String type, Model model) {
+	 public String calculateInfoDetail(Model model) {
 		
-		if(type.equals("N")) {
-			
-		} else if(type.equals("Y")) {
-			//model.addAttribute("calculateDetail", adminService.selectCalculateDetail());
-		}
+		//model.addAttribute("calculateDetail", adminService.selectCalculateDetail());
 		
 		return "admin/calculateDetail";
 	 }
@@ -314,10 +310,23 @@ public class AdminController {
 	 */
 	@GetMapping("refundManagement")
 	public String refundManagement(@RequestParam("YN")String type, Model model) {
-		
+		System.out.println("type :" + type);
 		model.addAttribute("refundList", adminService.selectRefundList(type));
 
 		return "admin/adminRefundManagement";
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("refundDetail")
+	public String refundInfoDetail(Model model) {
+		
+		return "admin/refundDetail";
 	}
 	 
 

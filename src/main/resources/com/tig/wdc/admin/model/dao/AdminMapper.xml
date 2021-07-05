@@ -183,6 +183,12 @@
 		<result column="정산여부" property="calcYN"/>
 	</resultMap>
 	
+	<!-- 정산 상세 -->
+	<resultMap id="calculateInfoDetail" type="CalculateDTO">
+		<id column="" property=""/>
+		<result column="" property=""/>
+	</resultMap>
+	
 	<!-- 환불 관리 -->
 	<resultMap id="refundList" type="RefundDTO">
 		<id column="CANCLE_NO" property="cancelNo"/>
@@ -661,12 +667,12 @@
 	</select>
 	
 	<!-- 정산 상세 -->
-<!-- 	<select id="selectCalculateInfoDetail" resultMap="">
+	<select id="selectCalculateInfoDetail" resultMap="calculateInfoDetail" parameterType="_int">
 	
-	</select> -->
+	</select>
 	
 	<!-- 환불 리스트 -->
-	<select id="selectRefundList" resultMap="refundList" parameterType="String">
+	<select id="selectRefundList" resultMap="refundList" parameterType="string">
 		SELECT
        		   A.CANCLE_NO
      		 , F.CLS_TYPE
@@ -680,12 +686,7 @@
   		  JOIN USER_INFO D ON (C.USER_NO = D.USER_NO)
   		  JOIN SCHEDULE E ON (C.SCHEDULE_NO = E.SCHEDULE_NO)
   		  JOIN CLASS F ON (E.CLS_NO = F.CLS_NO)
-  		  <if test='refundStatus == "N"'>
- 		 WHERE A.REFUND_STATUS = 'N'
-  		  </if>
-  		  <if test='refundStatus == "Y"'>
- 		 WHERE A.REFUND_STATUS = 'Y'
-  		  </if>
+  		 WHERE A.REFUND_STATUS = #{type}
 		 ORDER BY A.CANCLE_NO
 	</select>
 	

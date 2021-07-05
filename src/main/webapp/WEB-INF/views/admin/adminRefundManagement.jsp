@@ -70,8 +70,8 @@
                             </div>
                             
                             <div class="sideMenu">
-                            	<input type="button" id="N" name="refundStatus" class="refundNo" value="N" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
-                            	<input type="button" id="Y" name="refundStatus" class="refundYes" value="Y" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=Y'">
+                            	<input type="button" id="N" class="refundNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
+                            	<input type="button" id="Y" class="refundYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=Y'">
       						</div>
                             
                             <div class="card-body">

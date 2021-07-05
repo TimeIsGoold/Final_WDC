@@ -168,7 +168,7 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
-	 * 환불 신청 리스트
+	 * 환불 관리
 	 * 
 	 * @return
 	 */
