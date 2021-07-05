@@ -358,7 +358,6 @@ i {
 						</ul>
 					</div>
 				</div>
-<<<<<<< HEAD
 
 				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
 					<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
@@ -406,7 +405,6 @@ i {
 		                  allowDates : days,
 		                  formatDate:'Y-m-d',
 		                  scrollMonth : false
-=======
 				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
 				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 					<!-- 날짜, 시간 선택 -->
@@ -435,7 +433,6 @@ i {
 	               	times.push("${schedule.scheduleStart}");
 	               	days.push("${schedule.scheduleDate}");
 	               </c:forEach>
->>>>>>> refs/remotes/origin/yeonjun
 	
 		               });
 		            </script>
