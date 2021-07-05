@@ -9,6 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>우리동네 클래스</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Favicon-->
     	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -81,76 +82,55 @@
                         <div class="card mb-4">
 
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>정산 상세
+                                <i class="fas fa-table me-1"></i>환불 상세
                             </div>
 
                             <div class="card-body">
                                 <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>아 &nbsp;&nbsp;이 &nbsp;&nbsp;디</th>
-                                            <td colspan="4"></td>
-                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
-                                            <td colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>이 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-                                            <td colspan="4"></td>
-                                            <th>계좌 번호</th>
-                                            <td colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>개설 클래스</th>
-                                            <td colspan="4"></td>
-                                            <th>근무 일수</th>
-                                            <td colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>총&nbsp;&nbsp;&nbsp;매출액</th>
-                                            <td colspan="4"></td>
-                                            <th>근무 시간</th>
-                                            <td colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>최 종 정 산</th>
-                                            <td>
-                                                <div class="detailCalculate">총 매출</div>
-                                                <div class="detailCalculate">0</div>
-                                            </td>
-                                            <td class="signCalculate">
-                                                <div>-</div>
-                                            </td>
-                                            <td>
-                                                <div class="detailCalculate">소비세</div>
-                                                <div class="detailCalculate">0</div>
-                                            </td>
-                                            <td class="signCalculate">
-                                                <div>-</div>
-                                            </td>
-                                            <td>
-                                                <div class="detailCalculate">사용 수수료(10%)</div>
-                                                <div class="detailCalculate">0</div>
-                                            </td>
-                                            <td class="signCalculate">
-                                                <div>-</div>
-                                            </td>
-                                            <td>
-                                                <div class="detailCalculate">카드 수수료</div>
-                                                <div class="detailCalculate">0</div>
-                                            </td>
-                                            <td class="signCalculate">
-                                                <div>=</div>
-                                            </td>
-                                            <td>
-                                                <div class="detailCalculate">최종 금액</div>
-                                                <div class="detailCalculate">0</div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                	<form id="area" method="post">
+	                                    <tbody>
+	                                        <tr>
+	                                            <th>아&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;디</th>
+	                                            <td colspan="4"></td>
+	                                            <th>신청번호</th>
+	                                            <td colspan="4"></td>
+	                                        </tr>
+	                                        <tr>
+	                                        	<th>환불신청일</th>
+	                                            <td colspan="4"></td>
+	                                            <th>환 불 일</th>
+	                                            <td colspan="4"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>취소&nbsp;&nbsp;&nbsp;사유</th>
+	                                            <td colspan="4"></td>
+	                                            <th>상세사유</th>
+	                                            <td colspan="4"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>클래스타입</th>
+	                                            <td colspan="4"></td>
+	                                            <th>클래스명</th>
+	                                            <td colspan="4"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>예&nbsp;&nbsp;&nbsp;금&nbsp;&nbsp;&nbsp;주</th>
+	                                            <td colspan="4"></td>
+	                                            <th>은 행 명</th>
+	                                            <td colspan="4"></td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
+	                                            <td colspan="4"></td>
+	                                            <th>환 불 액</th>
+	                                            <td colspan="4"></td>
+	                                        </tr>
+	                                    </tbody>
+                                    </form>
                                 </table>
 
                                 <div class="submitBtn">
-                                	<input type="submit" class="returnPageBtn" value="정산하기">
+                                	<input type="button" id="approveBtn" class="returnPageBtn" value="환불승인">
                                     <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
                                 </div>
                             </div>
@@ -161,6 +141,11 @@
             </div>
 
         </div>
+        <script>
+        	$("#approveBtn").on("click",function(){
+        		$("#area").attr("action","/wdc/admin/couponIssue").submit();
+        	});
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

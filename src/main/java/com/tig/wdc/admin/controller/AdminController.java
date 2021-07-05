@@ -153,7 +153,7 @@ public class AdminController {
 	 */
 	@RequestMapping("questionAnswer")
 	public String questionAnswer(@ModelAttribute QuestionDTO question, Model model) {
-		System.out.println("dto : " + question);
+
 		model.addAttribute("questionAnswer", adminService.insertAnswer(question));
 		model.addAttribute("questionAnswer", adminService.updateAnswer(question));
 		
@@ -331,7 +331,11 @@ public class AdminController {
 		
 		return "admin/refundDetail";
 	}
-	 
+	
+	@RequestMapping("refundDetail")
+	public String refundApprove(@ModelAttribute RefundDTO refund, Model model) {
+		return "redirect:/admin/refundManagement?currentMenu=refund&YN=N";
+	}
 
 	/**
 	 * 회원 상세 - 현빈

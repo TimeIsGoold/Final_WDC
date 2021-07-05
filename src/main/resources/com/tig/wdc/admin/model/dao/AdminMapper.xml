@@ -735,6 +735,16 @@
            AND A.CANCLE_NO = #{ cancelNo }
 	</select>
 	
+	<!-- 환불 승인 -->
+	<update id="updateRefundApprove" parameterType="RefundDTO">
+		UPDATE PAYMENT_CANCEL
+           SET 
+               REFUND_AMOUNT = #{ refundAmount }
+             , REFUND_DATE = SYSDATE
+             , REFUND_STATUS = 'Y'
+         WHERE CANCLE_NO = #{ cancelNo }
+	</update>
+	
 	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="ReportDetailDTO">
 		SELECT
 	       REPORT_NO
