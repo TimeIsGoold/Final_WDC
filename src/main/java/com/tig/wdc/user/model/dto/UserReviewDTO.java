@@ -3,8 +3,7 @@ package com.tig.wdc.user.model.dto;
 import java.sql.Date;
 
 /**
- * @author SORA 
- * 리뷰 DTO
+ * @author SORA 리뷰 DTO
  */
 public class UserReviewDTO {
 
@@ -15,6 +14,7 @@ public class UserReviewDTO {
 	private int reviewScore;
 	private Date reviewEnrollDate;
 	private int aplNo;
+	private int userNo;
 	private String userName;
 	private ReviewAnswerDTO answer;
 
@@ -23,7 +23,7 @@ public class UserReviewDTO {
 	}
 
 	public UserReviewDTO(int reviewNo, String reviewTitle, String reviewContent, String reviewPic, int reviewScore,
-			Date reviewEnrollDate, int aplNo, String userName, ReviewAnswerDTO answer) {
+			Date reviewEnrollDate, int aplNo, int userNo, String userName, ReviewAnswerDTO answer) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
@@ -32,6 +32,7 @@ public class UserReviewDTO {
 		this.reviewScore = reviewScore;
 		this.reviewEnrollDate = reviewEnrollDate;
 		this.aplNo = aplNo;
+		this.userNo = userNo;
 		this.userName = userName;
 		this.answer = answer;
 	}
@@ -92,6 +93,14 @@ public class UserReviewDTO {
 		this.aplNo = aplNo;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -112,7 +121,8 @@ public class UserReviewDTO {
 	public String toString() {
 		return "UserReviewDTO [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContent="
 				+ reviewContent + ", reviewPic=" + reviewPic + ", reviewScore=" + reviewScore + ", reviewEnrollDate="
-				+ reviewEnrollDate + ", aplNo=" + aplNo + ", userName=" + userName + ", answer=" + answer + "]";
+				+ reviewEnrollDate + ", aplNo=" + aplNo + ", userNo=" + userNo + ", userName=" + userName + ", answer="
+				+ answer + "]";
 	}
 
 }

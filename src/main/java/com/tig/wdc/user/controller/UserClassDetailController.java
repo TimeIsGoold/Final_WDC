@@ -52,7 +52,7 @@ public class UserClassDetailController {
 	 * @return
 	 */
 	@GetMapping("classDetail/{clsNo}")
-	public String ClassDetail(@PathVariable("clsNo") int clsNo, Model model) {
+	public String ClassDetail(HttpSession session, @PathVariable("clsNo") int clsNo, Model model) {
 		
 		//클래스 정보 select
 		UserClassDTO classDetail = new UserClassDTO();
@@ -93,9 +93,7 @@ public class UserClassDetailController {
 		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule",schedule);
-		
-		System.out.println(schedule);
-		
+
 		return "user/classList/class_detail";
 	}
 	

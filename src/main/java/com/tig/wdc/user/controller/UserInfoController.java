@@ -21,6 +21,7 @@ import com.tig.wdc.teacher.model.service.TeacherInfoService;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 import com.tig.wdc.user.model.service.UserInfoService;
 
@@ -280,10 +281,33 @@ public class UserInfoController {
 		
 		model.addAttribute("complateDetailUserClassDTO",scheduleDetailUserClassDTO);
 		
+		int reviewYn = infoService.selectReviewYn(aplNo);
+		model.addAttribute("reviewYn",reviewYn);
+		
 		return "user/mypage/complateClass_detail";
 	}
 	
-	
+	/**
+	 * 리뷰 인서트 메소드
+	 * @param model
+	 * @param session
+	 * @param aplNo
+	 * @param userReviewDTO
+	 * @return
+	 */
+	@PostMapping("ComplateClassReview/{aplNo}")
+	public String writeReview(Model model, HttpSession session, @PathVariable("aplNo") int aplNo, UserReviewDTO userReviewDTO) {
+		
+		//리뷰 insert
+		int userNo= (Integer) session.getAttribute("userNo");
+		
+		userReviewDTO.setUserNo(userNo);
+		userReviewDTO.setAplNo(aplNo);
+		
+		int reviewWrite = infoService.insertReview(userReviewDTO);
+		
+		return "redirect:/user/mypage/complateClassList";
+	}
 	
 }
 

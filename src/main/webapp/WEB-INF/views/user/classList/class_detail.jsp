@@ -208,33 +208,6 @@ i {
   border: none !important;
   color: black !important;
 }
-
-.non{
-	opacity:0;
-	width: 0px;
-}
-									
-.star-size{
-	width:25px;
-	height:25px;
-	cursor:pointer;
-}
-
-.star-count{
-	width: 400px;
-    margin-left: 100px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.file-upload{
-/* 	content:url("${pageContext.servletContext.contextPath }/resources/user/img/picture.png");*/	
-	width:1000px;
-	margin-left: 55%;
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-
 </style>
 </head>
 <body>
@@ -269,7 +242,9 @@ i {
           </nav>
         </div>
       </header>
+      
 	  <%@include file="../commons/search.jsp" %>
+	  
 	  <form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
 		<section class="py-5">
 			<div class="container">
@@ -362,15 +337,10 @@ i {
 				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
 					<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 						<!-- 날짜, 시간 선택 -->
-						<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
 						<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-						&nbsp;&nbsp;
-						<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
-						&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 						<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-						&nbsp;&nbsp;<input type="number" class="datetimepicker" name="ppl">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;<input type="number" class="datetimepicker" name="ppl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<li class="list-inline-item m-0 p-0">
 							<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
 								<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
@@ -551,98 +521,8 @@ i {
 					</div>
 
 					<!-- 리뷰 탭 -->
-					<div class="tab-pane fade" id="reviews" role="tabpanel"
-						aria-labelledby="reviews-tab">
+					<div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
-							<button onclick="reviewWrite1();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">리뷰 작성</button>
-							<div id="reviewWrite" style="width: 200px; height: 180px; display: none; margin-left: -100px; margin-bottom: 70px;">
-								<form action="${ pageContext.servletContext.contextPath }/user/classDetail" method="post">
-									<div class="file-upload">
-										▷ 수강 사진을 첨부해주세요. (1장 필수)&nbsp;:&nbsp;&nbsp;<input name="reviewPic" type="file">
-									</div>
-									<div class="star-count">
-										▷ 클래스는 어떠셨나요?&nbsp;:&nbsp;
-									  <label class="list-inline-item m-0">
-									  	<input type="radio" class="non" name="star" id="star1" value="1" onclick="starScore1()">
-									  	<img id="star-img1" class="star-size" src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png">
-									  </label>
-									  <label class="list-inline-item m-0">
-									  	<input type="radio" class="non" name="star" id="star2" value="2" onclick="starScore2()">
-									  	<img id="star-img2" class="star-size" src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png">
-									  </label>
-									  <label class="list-inline-item m-0">
-									  	<input type="radio" class="non" name="star" id="star3" value="3" onclick="starScore3()">
-									  	<img id="star-img3" class="star-size" src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png">
-									  </label>
-									  <label class="list-inline-item m-0">
-									  	<input type="radio" class="non" name="star" id="star4" value="4" onclick="starScore4()">
-									  	<img id="star-img4" class="star-size" src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png">
-									  </label>
-									  <label class="list-inline-item m-0">
-									  	<input type="radio" class="non" name="star" id="star5" value="5" onclick="starScore5()">
-									  	<img id="star-img5" class="star-size" src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png">
-									  </label>
-									</div>
-									
-									<script>
-										function starScore1(){
-											document.getElementById("star-img1").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img2").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-											document.getElementById("star-img3").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-											document.getElementById("star-img4").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-											document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-										}
-										function starScore2(){
-											document.getElementById("star-img1").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img2").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img3").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-											document.getElementById("star-img4").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-											document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-
-										}
-										function starScore3(){
-											document.getElementById("star-img1").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img2").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img3").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img4").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-											document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-
-										}
-										function starScore4(){
-											document.getElementById("star-img1").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img2").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img3").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img4").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/emptyStar.png";
-
-										}
-										function starScore5(){
-											document.getElementById("star-img1").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img2").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img3").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img4").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-											document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
-										}
-									</script>
-
-									<textarea name="reviewContent"class="feedbackArea" style="font-size: 15px; border-color: lightgray" placeholder="리뷰를 작성해 주세요."></textarea>
-									<button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성
-									</button>
-								</form>
-							</div>
-
-							<!-- 리뷰 작성 눌렀을 시-->
-							<script>
-								function reviewWrite1() {
-									if (document.getElementById("reviewWrite").style.display == "none") {
-										document.getElementById("reviewWrite").style.display = "block";
-									} else if (document
-											.getElementById("reviewWrite").style.display == "block") {
-										document.getElementById("reviewWrite").style.display = "none";
-									}
-								}
-							</script>
-
 							<div class="row">
 								<div class="col-lg-8">
 									<!-- <div style="display:flex; text-align: center; justify-content: space-evenly; margin: auto;">

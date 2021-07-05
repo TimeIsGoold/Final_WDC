@@ -59,6 +59,4 @@ public interface UserClassService {
 	int insertReportHistory(UserReportDTO userReportDTO);
 
 
-
-
 }

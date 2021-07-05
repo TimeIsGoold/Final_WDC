@@ -62,4 +62,5 @@ public interface UserClassMapper {
 	public int insertReportHistory(UserReportDTO userReportDTO);
 
 
+
 }

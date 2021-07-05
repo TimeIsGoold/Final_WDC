@@ -63,6 +63,16 @@
         <result column="REFUND_AMOUNT" property="refundAmount"/>
         <result column="REFUND_STATUS" property="refundStatus"/>
     </resultMap>
+    
+    <resultMap type="UserReviewDTO" id="ReviewResult">
+        <id column="REVIEW_NO" property="reviewNo"/>
+        <result column="REVIEW_SCORE" property="reviewScore"/>
+        <result column="REVIEW_CONTENT" property="reviewContent"/>
+        <result column="REVIEW_PIC" property="reviewPic"/>
+        <result column="REVIEW_ENROLLDATE" property="reviewEnrollDate"/>
+        <result column="CLS_APL_NO" property="aplNo"/>
+        <result column="USER_NAME" property="userName"/>
+    </resultMap>
 
 	<select id="selectUser" parameterType="UserInfoDTO" resultMap="UserInfoResult">
 		SELECT
@@ -213,7 +223,29 @@
          WHERE C.USER_NO = #{ userNo }
            AND C.CLS_APL_NO = #{ aplNo }
 		   AND A.TYPE = 'TITLE'
-	
 	</select>
+	
+    <select id="selectReviewYn" parameterType="_int" resultType="_int">
+	    SELECT
+		       COUNT(REVIEW_NO)
+		  FROM REVIEW
+		 WHERE CLS_APL_NO = #{ aplNo }
+    </select>
+    
+    <insert id="insertReview" parameterType="UserReviewDTO">
+    	INSERT
+	      INTO REVIEW
+		VALUES
+		(
+		  SEQ_REVIEW_NO.NEXTVAL
+		, #{ reviewContent }
+		, #{ reviewPic }
+		, #{ reviewScore }
+		, SYSDATE
+		, #{ aplNo }
+		)
+    </insert>
+    
+
 
 </mapper>

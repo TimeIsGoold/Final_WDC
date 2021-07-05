@@ -192,6 +192,6 @@
         </section>
       </div>
       	<%@include file="../commons/footer.jsp" %>
-</div>
+	</div>
   </body>
 </html>
