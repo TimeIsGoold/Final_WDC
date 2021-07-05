@@ -348,7 +348,6 @@ i {
 						</li>
 					</div>
 					</form>
-					
 		            <script>
 		               let times = new Array();
 		               let days = new Array();
@@ -375,36 +374,6 @@ i {
 		                  allowDates : days,
 		                  formatDate:'Y-m-d',
 		                  scrollMonth : false
-				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
-				<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
-					<!-- 날짜, 시간 선택 -->
-					<!-- <div style="font-size: 20px; font-weight: 600;">클래스 일정을 선택해 주세요.</div><br> -->
-					<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-					&nbsp;&nbsp;
-					<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">
-					&nbsp;&nbsp;&nbsp;
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-					&nbsp;&nbsp;<input type="number" class="datetimepicker" name="ppl" max="4" min="1">
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<li class="list-inline-item m-0 p-0">
-						<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-							<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
-						</button>
-					</li>
-				</div>
-				</form>
-				</c:if>
-	            <script>
-	               let times = new Array();
-	               let days = new Array();
-	               
-	               <c:forEach var="schedule" items="${ requestScope.schedule }">
-	               	times.push("${schedule.scheduleStart}");
-	               	days.push("${schedule.scheduleDate}");
-	               </c:forEach>
-	
-		               });
 		            </script>
 	            </c:if>
 	            
