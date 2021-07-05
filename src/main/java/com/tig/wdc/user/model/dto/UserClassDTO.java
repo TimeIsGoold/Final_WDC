@@ -40,6 +40,8 @@ public class UserClassDTO {
 	private java.sql.Date clsAplDate;
 	private int ppl;
 	private String payStatus;
+	private int refundAmount;
+	private String refundStatus;
 
 	private String titlePic1; // 페이먼트 용 
 	private int userNo; // 페이먼트 용 
@@ -50,8 +52,8 @@ public class UserClassDTO {
 			Date startDate, Date endDate, int price, String addInfo, String addSup, String dicsionStatus,
 			String clsType, Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
 			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
-			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, String titlePic1,
-			int userNo) {
+			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, int refundAmount,
+			String refundStatus, String titlePic1, int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -83,6 +85,8 @@ public class UserClassDTO {
 		this.clsAplDate = clsAplDate;
 		this.ppl = ppl;
 		this.payStatus = payStatus;
+		this.refundAmount = refundAmount;
+		this.refundStatus = refundStatus;
 		this.titlePic1 = titlePic1;
 		this.userNo = userNo;
 	}
@@ -327,6 +331,22 @@ public class UserClassDTO {
 		this.payStatus = payStatus;
 	}
 
+	public int getRefundAmount() {
+		return refundAmount;
+	}
+
+	public void setRefundAmount(int refundAmount) {
+		this.refundAmount = refundAmount;
+	}
+
+	public String getRefundStatus() {
+		return refundStatus;
+	}
+
+	public void setRefundStatus(String refundStatus) {
+		this.refundStatus = refundStatus;
+	}
+
 	public String getTitlePic1() {
 		return titlePic1;
 	}
@@ -353,12 +373,10 @@ public class UserClassDTO {
 				+ ", avgScore=" + avgScore + ", dDay=" + dDay + ", scheduleDate=" + scheduleDate + ", scheduleStart="
 				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", payPrice=" + payPrice + ", aplNo=" + aplNo
 				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", payStatus=" + payStatus
-				+ ", titlePic1=" + titlePic1 + ", userNo=" + userNo + "]";
+				+ ", refundAmount=" + refundAmount + ", refundStatus=" + refundStatus + ", titlePic1=" + titlePic1
+				+ ", userNo=" + userNo + "]";
 	}
 
-	
 
-
-	
 
 }

@@ -4,7 +4,9 @@
 <html>
   <head>
  	<%@include file="../commons/header.jsp" %>
- 	
+
+    <%@ page import="java.sql.Timestamp" %>
+    <%@ page import="java.text.SimpleDateFormat" %>
 <style>
 .overlay {
   position: fixed;
@@ -74,6 +76,14 @@ h5, .h5 {
     </style>
   </head>
   <body>
+<!-- 현재 시간  -->
+<%Timestamp now = new Timestamp(System.currentTimeMillis());
+
+SimpleDateFormat formats = new SimpleDateFormat("yyyy-MM-dd");
+
+String strDate = formats.format(now); %>
+<c:set value="<%=strDate %>" var="cDate"></c:set>
+				
     <div class="page-holder">
       <!-- navbar-->
       <header class="header bg-white">
@@ -244,8 +254,17 @@ h5, .h5 {
                 <div class="row align-items-center text-center">
                   <div class="col-md-6 mb-3 mb-md-0 text-md-left"><b>강의 진행 상태</b>
                 </div>
-                <div style="margin-left: 20px;"> <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="강의 진행중" class="refunderInfo"></div>
-                </div>
+                <c:choose>
+                	<c:when test="${ requestScope.userClassDTO.clsType eq 'R'}">
+                		<c:if test="${ requestScope.userClassDTO.startDate < cDate}">
+                		<div style="margin-left: 20px;"> <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="강의 진행중" class="refunderInfo"></div>
+                		</c:if>
+                	</c:when>
+                	<c:otherwise>
+                		<div style="margin-left: 20px;"> <input type="text" disabled style="border: 1px solid black; border-radius: 5px; width: 150px;" value="강의 진행 전" class="refunderInfo"></div>                	
+                	</c:otherwise>
+                </c:choose>
+			  </div>
               </div>
               <br>
               <!-- 취소 사유 선택 -->

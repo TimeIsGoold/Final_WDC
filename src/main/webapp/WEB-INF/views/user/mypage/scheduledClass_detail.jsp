@@ -205,8 +205,15 @@
                          </c:when>
                          <c:otherwise>
 	                      <div style="width: 200px; height: 40px; display: inline-flex;">
-	                        <form action="class_refund.html" style="display: flex;">
+	                        <form action="${ pageContext.servletContext.contextPath }/user/userRefund" style="display: flex;" method="post">
 	                          <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
+	                      <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
+                          <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
+                          <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">
+                          <input type="hidden" name="teName" value="${ requestScope.scheduleDetailUserClassDTO.teName }">
+                          <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
+                          <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
+                          <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
 	                        </form>
 	                      </div>
                          </c:otherwise>
@@ -230,7 +237,6 @@
                           <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
                           <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
                           <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
-                          
                         </form>
                       </div>
                     </div>

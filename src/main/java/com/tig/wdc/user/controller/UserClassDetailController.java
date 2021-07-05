@@ -263,8 +263,20 @@ public class UserClassDetailController {
 			new File(filePath + "\\" + saveName).delete();
 			model.addAttribute("message", "파일 업로드 실패!!!!");
 		}
-		
-
 		return "redirect:serviceCenter/main";
+	}
+	
+	
+	@PostMapping("userRefund")
+	public String userRefund(HttpSession session, UserClassDTO userClassDTO, Model model) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		
+		System.out.println("userClassDTO :" + userClassDTO);
+		
+		model.addAttribute("userClassDTO",userClassDTO);
+		
+		return "user/payment/refund"; 
 	}
 }
