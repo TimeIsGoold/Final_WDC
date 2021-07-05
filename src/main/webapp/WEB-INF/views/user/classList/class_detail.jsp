@@ -374,11 +374,8 @@ i {
 		                  allowDates : days,
 		                  formatDate:'Y-m-d',
 		                  scrollMonth : false
-<<<<<<< HEAD
 
 		               });
-=======
->>>>>>> branch 'master' of https://github.com/TimeIsGoold/Final_WDC.git
 		            </script>
 	            </c:if>
 	            
