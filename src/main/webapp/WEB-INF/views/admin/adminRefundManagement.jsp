@@ -70,8 +70,8 @@
                             </div>
                             
                             <div class="sideMenu">
-                            	<input type="button" id="N" class="refundNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
-                            	<input type="button" id="Y" class="refundYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=Y'">
+                            	<input type="button" id="N" name="refundStatus" class="refundNo" value="N" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
+                            	<input type="button" id="Y" name="refundStatus" class="refundYes" value="Y" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=Y'">
       						</div>
                             
                             <div class="card-body">
@@ -88,13 +88,20 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${refundList}" var="RefundDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund'">
-				                                <td>${RefundDTO.calcNo}</td>
-				                                <td>${RefundDTO.teType}></td>
-				                                <td>${RefundDTO.teName}</td>
-				                                <td>${RefundDTO.teId}</td>
-				                                <td>${RefundDTO.calcMonth}</td>
-				                                <td>${RefundDTO.calcYN}</td>
+				                            <tr>
+				                                <td>${RefundDTO.cancelNo}</td>
+				                                <c:choose>
+				                                	<c:when test="${RefundDTO.classType eq 'O'}">
+				                                		<td>원데이</td>
+				                                	</c:when>
+				                                	<c:when test="${RefundDTO.classType eq 'R'}">
+				                                		<td>정규</td>
+				                                	</c:when>
+				                                </c:choose>
+				                                <td>${RefundDTO.className}</td>
+				                                <td>${RefundDTO.id}</td>
+				                                <td>${RefundDTO.refundApplyDate}</td>
+				                                <td>${RefundDTO.refundStatus}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

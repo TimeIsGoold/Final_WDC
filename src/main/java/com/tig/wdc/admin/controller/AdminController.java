@@ -289,12 +289,36 @@ public class AdminController {
 	* @author 송아현
 	* 정산 상세
 	*  
+	* @param model
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail() {
-		 return "admin/calculateDetail";
+	 public String calculateInfoDetail(@RequestParam("YN")String type, Model model) {
+		
+		if(type.equals("N")) {
+			
+		} else if(type.equals("Y")) {
+			//model.addAttribute("calculateDetail", adminService.selectCalculateDetail());
+		}
+		
+		return "admin/calculateDetail";
 	 }
+	
+	/**
+	 * @author 송아현
+	 * 환불 관리
+	 * 
+	 * @param type
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("refundManagement")
+	public String refundManagement(@RequestParam("YN")String type, Model model) {
+		
+		model.addAttribute("refundList", adminService.selectRefundList(type));
+
+		return "admin/adminRefundManagement";
+	}
 	 
 
 	/**

@@ -147,8 +147,6 @@
 		<result column="DIS_CONDITION" property="discountCondition"/>
 	</resultMap>
 	
-	<!-- 쿠폰 발급 -->
-	
 	<!-- 공지 -->
 	<resultMap id="noticeList" type="NoticeDTO">
 		<id column="NOTICE_NO" property="noticeNo"/>
@@ -165,8 +163,6 @@
 		<result column="NOTICE_CONTENT" property="noticeContent"/>
 	</resultMap>
 	
-	<!-- 공지 등록 -->
-	
 	<!-- 정산 미완료 -->
 	<resultMap id="calculateLNoList" type="CalculateDTO">
 		<id column="CALC_NO" property="calcNo"/>
@@ -179,11 +175,22 @@
 	
 	<!-- 정산 완료 -->
 	<resultMap id="calculateLYesList" type="CalculateDTO">
-		<id column="TE_TYPE" property="teType"/>
+		<id column="CALC_NO" property="calcNo"/>
+		<result column="TE_TYPE" property="teType"/>
 		<result column="TE_NAME" property="teName"/>
 		<result column="TE_ID" property="teId"/>
-		<result column="정산예정달" property="calcMonth"/>
+		<result column="정산날짜" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
+	</resultMap>
+	
+	<!-- 환불 관리 -->
+	<resultMap id="refundList" type="RefundDTO">
+		<id column="CANCLE_NO" property="cancelNo"/>
+		<result column="CLS_TYPE" property="classType"/>
+		<result column="CLS_TITLE" property="className"/>
+		<result column="USER_ID" property="id"/>
+		<result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
+		<result column="REFUND_STATUS" property="refundStatus"/>
 	</resultMap>
 	
 	<resultMap id="reportDetailDTO" type="ReportDetailDTO">
@@ -653,7 +660,34 @@
          ORDER BY A.CALC_NO
 	</select>
 	
-	<!-- 환불미승인 리스트 -->
+	<!-- 정산 상세 -->
+<!-- 	<select id="selectCalculateInfoDetail" resultMap="">
+	
+	</select> -->
+	
+	<!-- 환불 리스트 -->
+	<select id="selectRefundList" resultMap="refundList" parameterType="String">
+		SELECT
+       		   A.CANCLE_NO
+     		 , F.CLS_TYPE
+     		 , F.CLS_TITLE
+     		 , D.USER_ID
+     		 , A.REFUND_APPLY_DATE
+     		 , A.REFUND_STATUS
+  		  FROM PAYMENT_CANCEL A
+  		  JOIN PAYMENT B ON (A.PAY_NO = B.PAY_NO)
+  		  JOIN CLASS_APPLY C ON (B.CLS_APL_NO = C.CLS_APL_NO)
+  		  JOIN USER_INFO D ON (C.USER_NO = D.USER_NO)
+  		  JOIN SCHEDULE E ON (C.SCHEDULE_NO = E.SCHEDULE_NO)
+  		  JOIN CLASS F ON (E.CLS_NO = F.CLS_NO)
+  		  <if test='refundStatus == "N"'>
+ 		 WHERE A.REFUND_STATUS = 'N'
+  		  </if>
+  		  <if test='refundStatus == "Y"'>
+ 		 WHERE A.REFUND_STATUS = 'Y'
+  		  </if>
+		 ORDER BY A.CANCLE_NO
+	</select>
 	
 	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="ReportDetailDTO">
 		SELECT
