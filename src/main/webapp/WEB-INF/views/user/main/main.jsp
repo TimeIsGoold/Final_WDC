@@ -195,7 +195,7 @@
 		                    <h2 class="h4">${ newClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ newClassList.simpleIntro }</p>
-		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/class/classDetail">클래스 보기</a></div>
+		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ newClassList.clsNo }">클래스 보기</a></div>
 		                  </div>
 		                </div>
 		              </div>
@@ -252,7 +252,7 @@
 		                    <h2 class="h4">${ topClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ topClassList.simpleIntro }</p>
-		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 보기</a></div>
+		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ topClassList.clsNo }">클래스 보기</a></div>
 		                  </div>
 		                </div>
 		              </div>
@@ -279,7 +279,7 @@
            </div>
           </section>
 
-            <!-- 오픈 예정 클래스  -->
+          <!-- 오픈 예정 클래스  -->
           <section class="py-5">
             <header>
               <p class="small text-muted small text-uppercase mb-1">새로운 클래스가 열려요!</p>
@@ -309,7 +309,7 @@
 		                    <h2 class="h4">${ cheerClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ cheerClassList.simpleIntro }</p>
-		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 응원하기</a></div>
+		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }">클래스 보기</a></div>
 		                  </div>
 		                </div>
 		              </div>
