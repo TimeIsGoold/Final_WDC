@@ -174,6 +174,15 @@ public interface AdminMapper {
 	 */
 	List<RefundDTO> selectRefundList(String type);
 	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	RefundDTO selectRefundInfoDetail(RefundDTO refund);
+	
 	StudentDTO selectOneStudent(int no);
 
 	TeacherDTO selectOneTeacher(int no);
@@ -203,6 +212,7 @@ public interface AdminMapper {
 	int updateFirstDecision(ClsDecisionDTO clsDecisionDTO);
 
 	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
+
 
 
 

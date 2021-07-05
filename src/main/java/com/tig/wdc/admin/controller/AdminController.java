@@ -21,6 +21,7 @@ import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
+import com.tig.wdc.admin.model.dto.RefundDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
@@ -152,7 +153,7 @@ public class AdminController {
 	 */
 	@RequestMapping("questionAnswer")
 	public String questionAnswer(@ModelAttribute QuestionDTO question, Model model) {
-		
+		System.out.println("dto : " + question);
 		model.addAttribute("questionAnswer", adminService.insertAnswer(question));
 		model.addAttribute("questionAnswer", adminService.updateAnswer(question));
 		
@@ -310,7 +311,7 @@ public class AdminController {
 	 */
 	@GetMapping("refundManagement")
 	public String refundManagement(@RequestParam("YN")String type, Model model) {
-		System.out.println("type :" + type);
+
 		model.addAttribute("refundList", adminService.selectRefundList(type));
 
 		return "admin/adminRefundManagement";
@@ -324,7 +325,9 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("refundDetail")
-	public String refundInfoDetail(Model model) {
+	public String refundInfoDetail(@ModelAttribute RefundDTO refund, Model model) {
+		
+		model.addAttribute("refundDetail", adminService.selectRefundInfoDetail(refund));
 		
 		return "admin/refundDetail";
 	}

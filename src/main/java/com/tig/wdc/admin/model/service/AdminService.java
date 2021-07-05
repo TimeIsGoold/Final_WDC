@@ -176,6 +176,15 @@ public interface AdminService {
 	 * @return
 	 */
 	List<RefundDTO> selectRefundList(String type);
+	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	RefundDTO selectRefundInfoDetail(RefundDTO refund);
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
@@ -214,6 +223,7 @@ public interface AdminService {
 	int updateFirstDecision(ClsDecisionDTO clsDecisionDTO);
 
 	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
+
 
 
 

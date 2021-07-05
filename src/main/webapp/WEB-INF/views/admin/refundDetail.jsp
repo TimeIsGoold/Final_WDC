@@ -151,7 +151,7 @@
 
                                 <div class="submitBtn">
                                 	<input type="submit" class="returnPageBtn" value="정산하기">
-                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
                                 </div>
                             </div>
 

@@ -254,6 +254,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.selectRefundList(type);
 	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 */
+	@Override
+	public RefundDTO selectRefundInfoDetail(RefundDTO refund) {
+
+		return mapper.selectRefundInfoDetail(refund);
+	}
 
 	@Override
 	public ReportDetailDTO selectStudentReportList(ReportDetailDTO rd) {

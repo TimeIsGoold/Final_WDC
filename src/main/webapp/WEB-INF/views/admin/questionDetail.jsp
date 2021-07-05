@@ -9,6 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>우리동네 클래스</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Favicon-->
     	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -97,7 +98,8 @@
 	                                    <tbody>
 	                                        <tr>
 	                                            <th>회원번호</th>
-	                                            <td name="questionNo">${ questionDetail.questionNo }</td>
+	                                            <td>${ questionDetail.userNo }</td>
+	                                            <input type="hidden" name="questionNo" value="${ questionDetail.questionNo }">
 	                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
 	                                            <td>${ questionDetail.questionType }</td>
 	                                        </tr>

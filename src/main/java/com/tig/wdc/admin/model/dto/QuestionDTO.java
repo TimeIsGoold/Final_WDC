@@ -13,14 +13,15 @@ public class QuestionDTO {
 	private String questionContent;
 	private String questionReContent;
 	private String answerYN;
+	private int userNo;
 	
 	public QuestionDTO() {
 		super();
 	}
 
 	public QuestionDTO(int questionNo, String questionType, String questionName, String questionId,
-			String questionTitle, Date questionDate, String questionContent, String questionReContent,
-			String answerYN) {
+			String questionTitle, Date questionDate, String questionContent, String questionReContent, String answerYN,
+			int userNo) {
 		super();
 		this.questionNo = questionNo;
 		this.questionType = questionType;
@@ -31,6 +32,7 @@ public class QuestionDTO {
 		this.questionContent = questionContent;
 		this.questionReContent = questionReContent;
 		this.answerYN = answerYN;
+		this.userNo = userNo;
 	}
 
 	public int getQuestionNo() {
@@ -105,12 +107,20 @@ public class QuestionDTO {
 		this.answerYN = answerYN;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionDTO [questionNo=" + questionNo + ", questionType=" + questionType + ", questionName="
 				+ questionName + ", questionId=" + questionId + ", questionTitle=" + questionTitle + ", questionDate="
 				+ questionDate + ", questionContent=" + questionContent + ", questionReContent=" + questionReContent
-				+ ", answerYN=" + answerYN + "]";
+				+ ", answerYN=" + answerYN + ", userNo=" + userNo + "]";
 	}
 
 }
