@@ -18,56 +18,43 @@
         	.container-fluid{
         		 margin-top: 30px;
         	}
-        	
+        
         	.card-header {
         		 font-size: x-large;
         	}
-        	
-        	.totalQuestion {
-        		margin-top: 0.5%;
-                width: 33%;
+        
+            .refundNo {
+                width: 49.8%;
                 border-radius: 5px;
-                background: #fef0ae;
-                border: none;
-                height: 30px;
-            }
-
-            .totalQuestion:hover {
-                background: rgb(112, 112, 112);
-            }
-
-			.teacherQuestion {
-               	margin-top: 0.5%;
-                width: 33%;
-                border-radius: 5px;
-                background: #fef0ae;
-                border: none;
-                height: 30px;
-            }
-
-            .teacherQuestion:hover {
-                background: rgb(112, 112, 112);
-            }
-            
-            .studentQuestion {
                 margin-top: 0.5%;
-                width: 33%;
-                border-radius: 5px;
                 background: #fef0ae;
                 border: none;
                 height: 30px;
             }
             
-            .studentQuestion:hover {
-                background: rgb(112, 112, 112);
+            .refundNo:hover {
+            	background: rgb(112, 112, 112);
             }
+
+            .refundYes {
+                width: 49.8%;
+                border-radius: 5px;
+                margin-top: 0.5%;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
+            }
+            
+            .refundYes:hover {
+				background: rgb(112, 112, 112);
+			}
         </style>
     </head>
     <body class="sb-nav-fixed">
     
     	<!-- header -->
 		<%@ include file="commons/header.jsp" %>
-		
+        
         <div id="layoutSidenav">
         
         	<!-- sideBar & footer -->
@@ -79,45 +66,35 @@
                         <div class="card mb-4">
 
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>문의내역
+                                <i class="fas fa-table me-1"></i>환불 내역
                             </div>
                             
                             <div class="sideMenu">
-                            	<input type="button" id="to" class="totalQuestion" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'">
-                            	<input type="button" id="tc" class="teacherQuestion" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc'">
-                            	<input type="button" id="st" class="studentQuestion" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st'">
+                            	<input type="button" id="N" class="refundNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
+                            	<input type="button" id="Y" class="refundYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=Y'">
       						</div>
-
+                            
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>문의번호</th>
-                                            <th>분류</th>
-                                            <th>성명</th>
+                                            <th>환불신청번호</th>
+                                            <th>클래스타입</th>
+                                            <th>클래스명</th>
                                             <th>아이디</th>
-                                            <th>제목</th>
-                                            <th>작성일</th>
-                                            <th>답변여부</th>
+                                            <th>신청일</th>
+                                            <th>승인여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                     					<c:forEach items="${questionList}" var="QuestionDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionDetail?currentMenu=question&mt=${QuestionDTO.questionType}&no=${QuestionDTO.questionNo}'">
-				                                <td>${QuestionDTO.questionNo}</td>
-				                                <c:choose>
-				                                	<c:when test="${QuestionDTO.questionType eq 'USER'}">
-				                                		<td>수강생</td>
-				                                	</c:when>
-				                                	<c:when test="${QuestionDTO.questionType eq 'TEACHER'}">
-				                                		<td>강사</td>
-				                                	</c:when>
-				                                </c:choose>
-				                                <td>${QuestionDTO.questionName}</td>
-				                                <td>${QuestionDTO.questionId}</td>
-				                                <td>${QuestionDTO.questionTitle}</td>
-				                                <td>${QuestionDTO.questionDate}</td>
-				                                <td>${QuestionDTO.answerYN}</td>
+                     					<c:forEach items="${refundList}" var="RefundDTO">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund'">
+				                                <td>${RefundDTO.calcNo}</td>
+				                                <td>${RefundDTO.teType}></td>
+				                                <td>${RefundDTO.teName}</td>
+				                                <td>${RefundDTO.teId}</td>
+				                                <td>${RefundDTO.calcMonth}</td>
+				                                <td>${RefundDTO.calcYN}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
@@ -134,7 +111,7 @@
     		function drawColor(){
     			var documentUrl = document.URL; 
     			var NdocumentUrl = new URL(documentUrl);  
-    			var currentTab = NdocumentUrl .searchParams.get("mt");  //url에 있는 name이란 파라미터값을 가지고옴
+    			var currentTab = NdocumentUrl .searchParams.get("YN");  //url에 있는 name이란 파라미터값을 가지고옴
     			
     			const currentTabBar = document.getElementById(currentTab);
     			currentTabBar.style.background = '#ffe163';

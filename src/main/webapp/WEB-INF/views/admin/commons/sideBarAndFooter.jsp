@@ -65,6 +65,10 @@
                                            정산
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
+                   <a class="nav-link collapsed" id="refund" href="${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N">
+                                           환불                   
+                       <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                   </a>
                </div>
            </div>
            <div class="sb-sidenav-footer">

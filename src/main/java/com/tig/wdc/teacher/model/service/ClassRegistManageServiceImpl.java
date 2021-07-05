@@ -1,5 +1,6 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
 import com.tig.wdc.model.dto.RegularClassInfoDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistManageMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -77,10 +79,10 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	}
 
 	/**
-	 *  정규클래스 신청자 정보
+	 *  클래스 신청자 정보
 	 */
 	@Override
-	public ClassApplyDTO selectApplyUserInfo(int scheduleNo) {
+	public List<ClassApplyDTO> selectApplyUserInfo(int scheduleNo) {
 		return mapper.selectApplyUserInfo(scheduleNo);
 	}
 
@@ -90,6 +92,35 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	@Override
 	public List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo) {
 		return mapper.selectOneDayScheduleList(classInfo);
+	}
+
+	/**
+	 * 원데이클래스 출석상태값 변경
+	 */
+	@Override
+	public int modifyOndeDayAttendanceStatus(HashMap<String, Object> applyNoList) {
+		
+		applyNoList.put("status", "reset");
+		if(applyNoList.get("checkedApplyNo") == null) {
+			
+			return mapper.modifyOndeDayAttendanceStatus(applyNoList);
+		} else {
+			mapper.modifyOndeDayAttendanceStatus(applyNoList);
+			applyNoList.put("status", "update");
+
+			return mapper.modifyOndeDayAttendanceStatus(applyNoList);
+		}
+	}
+
+	@Override
+	public int insertRegularClassAttendance(HashMap<String, Object> attendInfo) {
+		return mapper.insertRegularClassAttendance(attendInfo);
+		
+	}
+
+	@Override
+	public List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo) {
+		return mapper.selectExistingInfo(scheduleNo);
 	}
 	
 	

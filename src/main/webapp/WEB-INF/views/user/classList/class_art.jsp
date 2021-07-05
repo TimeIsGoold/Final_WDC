@@ -170,7 +170,7 @@
                      </c:when>
                      </c:choose>
                       <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                        <div class="badge text-white badge-"></div><a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                         <div class="product-overlay">
                           <c:choose>
                            <c:when test="${ classList.dicsionStatus eq 'S' }">

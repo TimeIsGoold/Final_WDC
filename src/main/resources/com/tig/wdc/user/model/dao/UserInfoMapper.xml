@@ -60,6 +60,8 @@
         <result column="CLS_APL_D" property="clsAplDate"/>
         <result column="CLS_PPL" property="ppl"/>
         <result column="PAY_STATUS" property="payStatus"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="REFUND_STATUS" property="refundStatus"/>
     </resultMap>
     
     <resultMap type="UserReviewDTO" id="ReviewResult">
@@ -215,6 +217,9 @@
 		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
           JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
           JOIN TEACHER_INFO T ON(L.TE_NO = T.TE_NO)
+          <if test='payStatus == "취소"'>
+          JOIN PAYMENT_CANCEL X ON(P.PAY_NO = X.PAY_NO)
+          </if>
          WHERE C.USER_NO = #{ userNo }
            AND C.CLS_APL_NO = #{ aplNo }
 		   AND A.TYPE = 'TITLE'

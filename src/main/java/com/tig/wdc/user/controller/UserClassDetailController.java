@@ -1,7 +1,9 @@
 package com.tig.wdc.user.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -23,6 +27,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
@@ -100,6 +105,11 @@ public class UserClassDetailController {
 	 */
 	@PostMapping("payment")
 	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model, UserClassDTO userClassDTO) {
+		
+		if(session == null) {
+			return "user/login/login";
+		}
+		
 		int userNo= (Integer) session.getAttribute("userNo");
 		// 유저 넘버로 이름과 전화번호 조회
 		UserInfoDTO userInfo = new UserInfoDTO();
@@ -175,6 +185,11 @@ public class UserClassDetailController {
 		return "user/mypage/mypage"; 
 	}
 	
+	/**
+	 * 결제 완료후 참여 예정 페이지로 이동 메소드
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("paymentSuccessToBookCheckPage")
 	public String paymentSuccessToBookCheckPage(HttpSession session) {
 		
@@ -182,5 +197,84 @@ public class UserClassDetailController {
 
 		
 		return returnPage;
+	}
+	
+	/**
+	 * 신고 작성 페이지 이동용 메소드
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("userReport")
+	public String userReport(HttpSession session, UserClassDTO userClassDTO, Model model) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		
+		model.addAttribute("userClassDTO",userClassDTO);
+		
+		return "user/serviceCenter/report_write"; 
+	}
+	
+	/**@author 연준
+	 * 신고 인서트 후 페이지 이동
+	 * @return
+	 */
+	@PostMapping("reportInsert")
+	public String reportInsert(@RequestParam MultipartFile singleFile, Model model, HttpSession session, UserReportDTO userReportDTO, HttpServletRequest request){
+		int userNo= (Integer) session.getAttribute("userNo");
+		
+		
+		/* 사진 추가할 경로 */
+		//루트 경로
+		String root = request.getServletContext().getRealPath("resources");
+		
+		//파일저장할 경로(없을 경우 생성)
+		String filePath = root + "\\upload";
+		File mkdir = new File(filePath);
+		if(!mkdir.exists()) {
+			mkdir.mkdirs();
+		}
+		
+		/* 파일명 변경 처리 */
+		String originFileName = singleFile.getOriginalFilename();
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String saveName = /*UUID.randomUUID().toString()*/originFileName.replace("-", "")/*+ ext*/;
+		
+		/* 파일을 저장한다. */
+		try {
+			singleFile.transferTo(new File(filePath + "\\" + saveName));
+
+			userReportDTO.setReportFromNo(userNo);
+			userReportDTO.setReportPic(saveName);
+			//신고 사진/내용 인서트
+			int insertResult = classService.insertReport(userReportDTO);
+			// 신고 이력 인서트
+			int historyInsertResult = classService.insertReportHistory(userReportDTO);
+			
+			if(insertResult == 1) {
+				return "redirect:serviceCenter/report";
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+			/* 실패시 파일 삭제 */
+			new File(filePath + "\\" + saveName).delete();
+			model.addAttribute("message", "파일 업로드 실패!!!!");
+		}
+		return "redirect:serviceCenter/main";
+	}
+	
+	
+	@PostMapping("userRefund")
+	public String userRefund(HttpSession session, UserClassDTO userClassDTO, Model model) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		userClassDTO.setUserNo(userNo);
+		
+		System.out.println("userClassDTO :" + userClassDTO);
+		
+		model.addAttribute("userClassDTO",userClassDTO);
+		
+		return "user/payment/refund"; 
 	}
 }

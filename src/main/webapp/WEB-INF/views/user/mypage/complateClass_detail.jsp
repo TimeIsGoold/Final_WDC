@@ -185,10 +185,74 @@
                      <br>
                   </div>
               	</div>
+              	    <!-- PRODUCT-->
+
+                    <div style="text-align: left; margin-top: -30px;">
+                    <hr>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.clsType eq 'O' }">
+                    <li>강의 날짜 : ${ requestScope.complateDetailUserClassDTO.scheduleDate }</li>
+                    </c:if>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.clsType eq 'R' }">
+                    <li>강의 날짜: ${ requestScope.complateDetailUserClassDTO.startDate } ~ ${ requestScope.complateDetailUserClassDTO.endDate }</li>
+                    </c:if>
+                    <hr>
+                    <li>강의 진행 시간 : ${ requestScope.complateDetailUserClassDTO.scheduleStart }</li>
+                    <hr>
+                    <li>강의 소요 시간 : ${ requestScope.complateDetailUserClassDTO.time }</li>
+                    <hr>
+                    <li>결제 날짜 : ${ requestScope.complateDetailUserClassDTO.clsAplDate }</li>
+                    <hr>
+                    <li>신청 인원 : ${ requestScope.complateDetailUserClassDTO.ppl } 명 </li>
+                    <hr>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '완료' }">
+                    <li>결제 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.payPrice }" pattern="#,###"/></li>
+                    </c:if>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
+                    <li>결제 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.payPrice }" pattern="#,###"/></li>                    
+                    <hr>
+                    </c:if>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
+                    	<c:if test="${ !empty requestScope.complateDetailUserClassDTO.refundAmount }">
+                  		  <li>환불 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/>  </li>                                        	
+                    	</c:if>
+                    	<c:if test="${ empty requestScope.complateDetailUserClassDTO.refundAmount }">
+                  		  <li>환불 금액 :  [환불 승인 대기중 입니다.] </li>                                        	
+                    	</c:if>
+                    <hr>
+                    </c:if>
+                    <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
+                    	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'N' }">
+                    		<li>환불 상태 : 환불 승인 대기중</li>                    
+                    <hr>
+                    	</c:if>
+                    	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'Y' }">
+                    		<li>환불 상태 : 환불 승인</li>                    
+                    <hr>
+                    	</c:if>
+                    </c:if>
+                    </div>
+                    <br>
+              	
                     <div style="display: flex; justify-content: space-evenly; width: 710px;">
                       <div style="display: inline-flex;">
-                        <form action="class_report.html" style="display: flex;">
-                          <button class="btn btn-dark" type="submit" style="display: flex; width: 155px; font-size: 15px;">클래스 신고하기</button>
+                        <form action="${ pageContext.servletContext.contextPath }/user/userReport" style="display: flex;">
+                          <button class="btn btn-dark" type="submit" style="display: flex;">클래스 신고하기</button>
+                          <input type="hidden" name="titlePic" value="${complateDetailUserClassDTO.titlePic}">
+                          <input type="hidden" name="title" value="${ requestScope.complateDetailUserClassDTO.title }">
+                          <input type="hidden" name="ppl" value="${ requestScope.complateDetailUserClassDTO.ppl }">
+                          <c:choose>
+                          	<c:when test="${ !empty requestScope.complateDetailUserClassDTO.scheduleDate }">
+                          		<input type="hidden" name="scheduleDate" value="${ requestScope.complateDetailUserClassDTO.scheduleDate }">
+                          	</c:when>
+                          </c:choose>
+                          <input type="hidden" name="scheduleStart" value="${ requestScope.complateDetailUserClassDTO.scheduleStart }">
+                          <input type="hidden" name="time" value="${ requestScope.complateDetailUserClassDTO.time }">
+                          <input type="hidden" name="teNo" value="${ requestScope.complateDetailUserClassDTO.teNo }">
+                          <input type="hidden" name="teName" value="${ requestScope.complateDetailUserClassDTO.teName }">
+                          <input type="hidden" name="clsType" value="${ requestScope.complateDetailUserClassDTO.clsType }">
+                          <input type="hidden" name="startDate" value="${ requestScope.complateDetailUserClassDTO.startDate }">
+                          <input type="hidden" name="endDate" value="${ requestScope.complateDetailUserClassDTO.endDate }">
+                          
                         </form>
                       </div>
 	                  <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '완료' }">

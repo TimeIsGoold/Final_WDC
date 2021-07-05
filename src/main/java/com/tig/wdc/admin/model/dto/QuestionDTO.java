@@ -12,13 +12,15 @@ public class QuestionDTO {
 	private java.sql.Date questionDate;
 	private String questionContent;
 	private String questionReContent;
+	private String answerYN;
 	
 	public QuestionDTO() {
 		super();
 	}
 
 	public QuestionDTO(int questionNo, String questionType, String questionName, String questionId,
-			String questionTitle, Date questionDate, String questionContent, String questionReContent) {
+			String questionTitle, Date questionDate, String questionContent, String questionReContent,
+			String answerYN) {
 		super();
 		this.questionNo = questionNo;
 		this.questionType = questionType;
@@ -28,6 +30,7 @@ public class QuestionDTO {
 		this.questionDate = questionDate;
 		this.questionContent = questionContent;
 		this.questionReContent = questionReContent;
+		this.answerYN = answerYN;
 	}
 
 	public int getQuestionNo() {
@@ -94,12 +97,20 @@ public class QuestionDTO {
 		this.questionReContent = questionReContent;
 	}
 
+	public String getAnswerYN() {
+		return answerYN;
+	}
+
+	public void setAnswerYN(String answerYN) {
+		this.answerYN = answerYN;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionDTO [questionNo=" + questionNo + ", questionType=" + questionType + ", questionName="
 				+ questionName + ", questionId=" + questionId + ", questionTitle=" + questionTitle + ", questionDate="
 				+ questionDate + ", questionContent=" + questionContent + ", questionReContent=" + questionReContent
-				+ "]";
+				+ ", answerYN=" + answerYN + "]";
 	}
-	
+
 }

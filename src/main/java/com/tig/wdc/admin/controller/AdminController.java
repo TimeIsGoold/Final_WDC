@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -16,18 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
+import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
-import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
-import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
-import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
 @Controller
@@ -35,11 +34,13 @@ import com.tig.wdc.user.model.service.UserClassService;
 public class AdminController {
 
 	private final AdminService adminService;
+	private final UserClassService classService;
 
 	@Autowired
-	public AdminController(AdminService adminService) {
+	public AdminController(AdminService adminService, UserClassService classService) {
 
 		this.adminService = adminService;
+		this.classService = classService;
 	}
 
 	/**
@@ -397,10 +398,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("selectClassBycategory")
-	public String selectClassBycategory(@RequestParam("ct")String type, Model model) {
+	public String selectClassBycategory(@RequestParam("ct")String type,@RequestParam(value="cnt", defaultValue="0")int result, Model model) {
 		Map<String, String> map = new HashMap<>();
 		map.put("type", type);
 		model.addAttribute("classList", adminService.selectClassBycategory(map));
+		if(result > 0)  model.addAttribute("message","1차 심사를 승인하셨습니다.");
 		return "admin/adminClassManagement";
 	}
 	
@@ -414,15 +416,167 @@ public class AdminController {
 	}
 	
 	@GetMapping("classDetail")
-	public String classDetail(Model model, @RequestParam("cn")int userNo, @RequestParam("ct")String type) {
-		System.out.println(userNo);
+	public String classDetail(Model model, @RequestParam("cn")int clsNo, @RequestParam(value ="ct", defaultValue="end")String type) {
+		
 		System.out.println(type);
-		Map<String, Object> cnct = new HashMap<>();
-		cnct.put("userNo", userNo);
-		cnct.put("type", type);
-	//	model.addAttribute("classDetail", adminService.selectClassDetail(cnct));
-		return "admin/BeforeDicision";
+		String path = "";
+		if(type.equals("W")) {
+		//클래스 정보 select
+				UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path = "admin/jspsjspjsp";	
+		} else if(type.equals("S")) {
+				UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path ="admin/jspsjspjsp";	
+		} else if(type.equals("F")) {
+				UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path = "admin/jspsjspjsp";	
+		} else if(type.equals("S")) {
+				UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path = "admin/EndedClass";	
+				// 거절된 클래스
+		} else if(type.equals("R")) {
+			UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path = "admin/denyClassManagement";	
+		} else if(type.equals("end")) {
+			UserClassDTO classDetail = new UserClassDTO();
+			classDetail = classService.selectClassDtail(clsNo);
+			model.addAttribute("classDetail",classDetail);
+			//대표사진 3장 select
+			List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+			classPic = classService.selectClassPic(clsNo);
+			model.addAttribute("classPic",classPic);
+			//완성작 select
+			List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+			classPiece = classService.selectClassPiece(clsNo);
+			model.addAttribute("classPiece",classPiece);
+			//커리큘럼 select
+			List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+			curriculum = classService.selectCurriculum(clsNo);
+			model.addAttribute("curriculum",curriculum);
+			path = "admin/EndedClass";	
+	}
+		return path;
+	}
+	
+	@PostMapping("firstDecision")
+	public String firstDecicsion(@ModelAttribute ClsDecisionDTO clsDecisionDTO, Model model) {
+		System.out.println(clsDecisionDTO.getStatus());
+		System.out.println(clsDecisionDTO.getClsNo());
+		 int result = adminService.updateFirstDecision(clsDecisionDTO);
+		 if(result > 0)  adminService.insertClassDecision(clsDecisionDTO);
+		return "redirect:selectClassBycategory?ct=tw&cnt="+result;
 	}
 	
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

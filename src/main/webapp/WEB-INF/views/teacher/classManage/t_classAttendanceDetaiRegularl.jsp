@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,12 +93,13 @@
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
       </div>  
     
     <!-- 클래스 정보 -->
+    <form method="post" action="${ pageContext.servletContext.contextPath }/teacher/regularAttendance">
     <div class="col-sm-10" id="content-formatting" style="float: left;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
         <div class="row" style="padding-bottom: 15px;">
@@ -107,7 +110,7 @@
             <p><b>수업일 : </b></p>
           </div>
           <div class="col-sm-1" style="float: right;">
-            <input type="date"></h6>
+            <input type="date" required="required" name="attendanceDate">
           </div>
         </div>
         <div class="col-sm-12">
@@ -122,243 +125,33 @@
       </div>
 
       <!-- 출석표1 -->
+      
       <div class="col-sm-12" id="content-formatting" style="float: left; height: 600px; overflow: auto;">
         <table class="table table-hover" style="text-align: center;">
           <thead>
             <tr>
               <th rowspan="2" nowrap style="vertical-align: middle;">번호</th>
               <th rowspan="2" nowrap style="vertical-align: middle;">이름</th>
-              <th nowrap>1회차</th>
-              <th nowrap>2회차</th>
-              <th nowrap>3회차</th>
-              <th nowrap>4회차</th>
-              <th nowrap>5회차</th>
-              <th nowrap>6회차</th>
-              <th nowrap>7회차</th>
-              <th nowrap>8회차</th>
-              <th nowrap>9회차</th>
-              <th nowrap>10회차</th>
-              <th nowrap>11회차</th>
-              <th nowrap>12회차</th>
-              <th nowrap>13회차</th>
-              <th nowrap>14회차</th>
+              <c:forEach var="cnt" begin="1" end="${ regularInfo.scheduleCount }" step="1">
+              <th nowrap>${ cnt }회차</th>
+              </c:forEach>
             </tr>
             <tr>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
+               <c:forEach var="cnt" begin="1" end="${ regularInfo.scheduleCount }" step="1">
+              <th><input type="checkbox" class="attendAllCheck${ cnt }"></th>
+               </c:forEach>
             </tr>
           </thead>
           <tbody>
+            <c:forEach var="applyUserInfo" items="${ applyUserInfoList }" varStatus="status">
             <tr>
-              <td nowrap>1</td>
-              <td nowrap>조준영</td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
-              <td ><input type="checkbox"></td>
+              <td nowrap>${ status.count }</td>
+              <td nowrap>${ applyUserInfo.userName }</td>
+              <c:forEach var="cnt" begin="1" end="${ regularInfo.scheduleCount }" step="1">
+                  <td><input type="checkbox" value="${ cnt }/${ applyUserInfo.aplNo }/${ applyUserInfo.userNo}" name="attendanceInfo"></td>
+              </c:forEach>
             </tr>
-            <tr>
-              <td>2</td>
-              <td>최영주</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>조준영</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>조준영</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>김주완</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>김현빈</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>민연준</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>민연준</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>민연준</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>민연준</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>김준현</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-              <th><input type="checkbox"></th>
-            </tr>
+            </c:forEach>
           </tbody>
         </table>
       </div>
@@ -367,10 +160,12 @@
           <p><b>총 인원 : 3명</b></p>
         </div>
         <div class='col-sm-3' style="margin:auto; padding-top: 70px; padding-bottom: 50px;">
-          <button type="submit" class="btn btn-primary">수업시작</button> <!-- insert되고 목록으로 돌아가기 -->
+        <input type="hidden" value="${ regularInfo.scheduleNo }" name="scheduleNo">
+          <button type="submit" class="btn btn-primary">수업시작</button>
         </div>
       </div>
     </div>
+    </form>
 
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
@@ -384,4 +179,4 @@
   </div>
   </div>
 </body>
-<html>
+</html>

@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-  
   	<%@include file="../commons/header.jsp" %>
-
-  
+    <%@ page import="java.sql.Timestamp" %>
+    <%@ page import="java.text.SimpleDateFormat" %>
   <style>
       .class-link {
         color: black;
@@ -61,7 +60,14 @@
     *{font-family:'Cafe24SsurroundAir' !important;}
     
   </style>
+
   </head>
+                <!-- 현재 시간  -->
+              <%Timestamp now = new Timestamp(System.currentTimeMillis());
+
+				SimpleDateFormat formats = new SimpleDateFormat("yyyy-MM-dd");
+
+				String strDate = formats.format(now); %>
   <body>
     <div class="page-holder">
       <!-- navbar-->
@@ -112,17 +118,32 @@
             </div>
             </section>
           </div>
+        <c:set value="<%=strDate %>" var="cDate"></c:set>
         <section class="py-5">
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain">내 정보</a></strong></div>
+                  
+                  <c:choose>
+                  <c:when test="${requestScope.scheduleDetailUserClassDTO.scheduleDate == cDate && requestScope.scheduleDetailUserClassDTO.clsType eq 'O' }">
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/scheduledClassList">참여 예정 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
+                  </c:when>
+                  <c:when test="${requestScope.scheduleDetailUserClassDTO.startDate < cDate && requestScope.scheduleDetailUserClassDTO.clsType eq 'R' }">
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/scheduledClassList">참여 예정 클래스</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
+                  </c:when>
+                  <c:otherwise>
                   <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/scheduledClassList">참여 예정 클래스</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/participatingClassList">참여 중인 클래스</a></strong></div>
+                  </c:otherwise>
+                  </c:choose>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/complateClassList">참여 완료 클래스</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
               </div>
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+
                 <div class="row">
                   <div class="col-xl-10 col-lg-4 col-sm-6" style="margin-left: 30px; ">
                   <div class="row" style="height: 200px;">
@@ -167,14 +188,51 @@
                     <br>
 
                     <div style="margin-left: 25%;">
+                     <c:choose>
+                         <c:when test="${ requestScope.scheduleDetailUserClassDTO.clsType eq 'O' && requestScope.scheduleDetailUserClassDTO.scheduleDate == cDate }">
+                         	                      <div style="width: 200px; height: 40px; display: inline-flex;">
+	                          <button class="btn btn-dark" type="button" style="display: flex;" onclick="noRefund();">구매 취소하기</button>
+	                          <script type="text/javascript">
+	                          	function noRefund() {
+									alert("원데이 클래스는 강의 날짜 당일에 환불 불가합니다. 고객센터에 문의해 주세요");
+								}
+	                          </script>
+	                      </div>                         
+                         </c:when>
+                         <c:otherwise>
+	                      <div style="width: 200px; height: 40px; display: inline-flex;">
+	                        <form action="${ pageContext.servletContext.contextPath }/user/userRefund" style="display: flex;" method="post">
+	                          <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
+	                      <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
+                          <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
+                          <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">
+                          <input type="hidden" name="teName" value="${ requestScope.scheduleDetailUserClassDTO.teName }">
+                          <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
+                          <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
+                          <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
+	                        </form>
+	                      </div>
+                         </c:otherwise>
+                      </c:choose>
                       <div style="width: 200px; height: 40px; display: inline-flex;">
-                        <form action="class_refund.html" style="display: flex;">
-                          <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
-                        </form>
-                      </div>
-                      <div style="width: 200px; height: 40px; display: inline-flex;">
-                        <form action="class_report.html" style="display: flex;">
+                        <form action="${ pageContext.servletContext.contextPath }/user/userReport" style="display: flex;">
                           <button class="btn btn-dark" type="submit" style="display: flex;">클래스 신고하기</button>
+                          
+                          <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
+                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
+                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
+                          <c:choose>
+                          	<c:when test="${ !empty requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          		<input type="hidden" name="scheduleDate" value="${ requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          	</c:when>
+                          </c:choose>
+                          <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
+                          <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
+                          <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">
+                          <input type="hidden" name="teName" value="${ requestScope.scheduleDetailUserClassDTO.teName }">
+                          <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
+                          <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
+                          <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
                         </form>
                       </div>
                     </div>
@@ -188,6 +246,7 @@
           </div>
         </section>
       	<%@include file="../commons/footer.jsp" %>
+
  </div>
   </body>
 </html>
