@@ -1,6 +1,7 @@
 package com.tig.wdc.user.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -11,6 +12,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserRefundDTO;
 import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
@@ -58,7 +60,14 @@ public interface UserClassService {
 
 	int insertReportHistory(UserReportDTO userReportDTO);
 
+	List<ScheduleDTO> selectTime(ScheduleDTO scheduleDTO);
 
+	int inserRefund(UserRefundDTO userRefundDTO);
 
+	int updatePaymentStatus(int payNo);
+
+	int selectCheerHistory(UserClassDTO cheerUpHisInsertDTO);
+
+	int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
 }

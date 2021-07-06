@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,33 +67,11 @@
 <body>
   <div class="page-holder">
     <!-- navbar-->
-    <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
-      <div class="container px-0 px-lg-3">
-        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark"><h1>우리동네 클래스</h1></span></a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-              </li>
-              <li class="nav-item">
-              </li>
-              <li class="nav-item"><a class="nav-link" href="t_main.html"><h3>강사 페이지</h3></a>
-              </li>
-              <li class="nav-item dropdown">
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">               
-              <li class="nav-item"></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <%@ include file="../commons/header.jsp" %>
 
     <div class="container">
-      <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
+    <%@ include file="../commons/sidebar.jsp" %>
+<!--       <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
         <h5 class="text-uppercase mb-4"><a class="nav-link" href="#" style="color: black; text-align: center;"><h2>홈</h1></a></h5>
         <div class="py-2 px-4 bg-light mb-3"><h5>클래스 관리</h5></div>
         <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
@@ -111,7 +90,7 @@
           <li class="mb-2"><a class="reset-anchor" href="t_FAQ.html">자주 묻는 질문</a></li>
           <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
         </ul>
-      </div>
+      </div> -->
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
@@ -138,7 +117,7 @@
               </div> -->
             </div>
             
-            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px;">
+            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 800px">
               <table class="table table-hover" style="text-align: center;">
                 <thead>
                   <tr>
@@ -149,36 +128,21 @@
                   </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="QnAList" items="${ adminQnAList }" varStatus="status">
                   <tr>
-                    <td>1</td>
-                    <td><a href="t_inquiryDetail.html">클래스 만들다가 오류가 났어요</a></td>
-                    <td>2021-06-20</td>
-                    <td>처리 중</td>
+                    <td>${ pageInfo.startRow + status.index }</td>
+                    <td><a href="${pageContext.servletContext.contextPath }/teacher/teacherInquiryDetail?questinoNo=${QnAList.queNo }&answer=${QnAList.answerYn}">${ QnAList.queTitle }</a></td>
+                    <td>${ QnAList.queDate }</td>
+                    <c:choose>
+                      <c:when test="${ QnAList.answerYn eq 'Y' }">
+                      <td>답변완료</td>
+                      </c:when>
+                      <c:otherwise>
+                      <td>처리중</td>
+                      </c:otherwise>
+                    </c:choose>
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td><a href="#">정산일이 자났는데 입금이 되지 않았습니다.</a></td>
-                    <td>2021-06-02</td>
-                    <td>답변완료</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td><a href="#">아이디를 바꿀수 있나요?</a></td>
-                    <td>2021-05-20</td>
-                    <td>답변완료</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td><a href="#">정규 클래스를 원데이로 변경</a></td>
-                    <td>2021-04-12</td>
-                    <td>답변완료</td>
-                  </tr>
-                  <tr>
-                    <td>5</td>
-                    <td><a href="#">이게 뭐에요?</a></td>
-                    <td>2021-04-10</td>
-                    <td>답변완료</td>
-                  </tr>
+                </c:forEach>
                 </tbody>
               </table>
               <nav aria-label="...">
@@ -213,6 +177,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

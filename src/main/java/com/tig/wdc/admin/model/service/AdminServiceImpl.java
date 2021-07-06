@@ -14,6 +14,7 @@ import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
+import com.tig.wdc.admin.model.dto.RefundDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
@@ -230,6 +231,38 @@ public class AdminServiceImpl implements AdminService {
 	 public List<CalculateDTO> selectYesCalculateList() {
 	 
 		 return mapper.selectYesCalculateList(); 
+	}
+	
+	/**
+	 * @author 송아현
+	 * 정산 상세
+	 * 
+	 */
+	@Override
+	public CalculateDTO selectCalculateDetail() {
+		
+		return mapper.selectCalculateDetail();
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 관리
+	 * 
+	 */
+	@Override
+	public List<RefundDTO> selectRefundList(String type) {
+
+		return mapper.selectRefundList(type);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 */
+	@Override
+	public RefundDTO selectRefundInfoDetail(RefundDTO refund) {
+
+		return mapper.selectRefundInfoDetail(refund);
 	}
 
 	@Override

@@ -4,6 +4,8 @@
 <html>
   <head>
  	<%@include file="../commons/header.jsp" %>
+ 	    <%@ page import="java.sql.Timestamp" %>
+    <%@ page import="java.text.SimpleDateFormat" %>
 
   <style>
       .infoInput{
@@ -20,6 +22,14 @@
   </style>
   </head>
   <body>
+                  <!-- 현재 시간  -->
+<%Timestamp now = new Timestamp(System.currentTimeMillis());
+
+SimpleDateFormat formats = new SimpleDateFormat("yyyy-MM-dd");
+
+String strDate = formats.format(now); %>
+<c:set value="<%=strDate %>" var="cDate"></c:set>
+				
     <div class="page-holder bg-light">
       <!-- navbar-->
       <header class="header bg-white">
@@ -102,7 +112,7 @@
               </div>
               <div class="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0" style="background: #fef0ae">
                     <li class="breadcrumb-item"><a href="complateClassDetail.html">돌아가기</a></li>
                   </ol>
                 </nav>
@@ -119,7 +129,7 @@
                     <div class="row align-items-center text-center">
                       <div class="col-md-6 mb-3 mb-md-0 text-md-left">
                           <i class="fas mr-2" style="display: flex;">
-                            <h5 style="width: 200px; margin-top: 7px; height: 10px;">성명 : 민연준
+                            <h5 style="width: 200px; margin-top: 7px; height: 10px;">성명 : ${ userInfoDTO.userName }
                             </h5>
                           </i>
                         </div>
@@ -131,7 +141,7 @@
                     <div class="row align-items-center text-center">
                       <div class="col-md-6 mb-3 mb-md-0 text-md-left">
                           <i class="fas mr-2" style="display: flex;">
-                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 신청일 : 2021-06-03
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 신청일 : ${ cDate }
                             </h5>
                           </i>
                         </div>
@@ -143,8 +153,14 @@
                     <div class="row align-items-center text-center">
                       <div class="col-md-6 mb-3 mb-md-0 text-md-left">
                           <i class="fas mr-2" style="display: flex;">
-                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 기간 : 2021-06-30 ~ 2021-07-30
+                          <c:if test="${ userClassDTO.clsType eq 'R' }">
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 기간 : ${ userClassDTO.startDate } ~ ${ userClassDTO.endDate }
                             </h5>
+                          </c:if>
+                          <c:if test="${ userClassDTO.clsType eq 'O' }">
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 기간 : ${ userClassDTO.scheduleDate }
+                            </h5>
+                          </c:if>
                           </i>
                         </div>
                     </div>
@@ -155,7 +171,7 @@
                     <div class="row align-items-center text-center">
                       <div class="col-md-6 mb-3 mb-md-0 text-md-left">
                           <i class="fas mr-2" style="display: flex;">
-                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">수강 번호 : 55221123
+                            <h5 style="width: 500px; margin-top: 7px; height: 10px;">식별 번호 : ${ userInfoDTO.userNo }${ randomNum }
                             </h5>
                           </i>
                         </div>
@@ -176,33 +192,35 @@
                     <tr>
                       <th class="pl-0 border-0" scope="row">
                         <div class="media align-items-center">
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></strong></div>
+                          <c:if test="${ userClassDTO.clsType eq 'O' }">
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">[원데이] ${ userClassDTO.title }</a></strong></div>
+                          </c:if>                  
+                          <c:if test="${ userClassDTO.clsType eq 'R' }">
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">[정규] ${ userClassDTO.title }</a></strong></div>
+                          </c:if>
                         </div>
                       </th>
                       <td class="align-middle border-0">
                         <div class="quantity">
                           <button class="dec-btn p-0"><i class="fas"></i></button>
-                          <p style="width: 80px; ">이해승</p>                         
+                          <p style="width: 80px; ">${ userClassDTO.teName }</p>                        
                            <button class="inc-btn p-0"><i class="fas"></i></button>
                         </div>
                     </td>
-
                       <td class="align-middle border-0">
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas"></i></button>
                             <button class="inc-btn p-0"><i class="fas"></i></button>
                           </div>
                       </td>
-
                     </tr>
                 </tbody>
             </table>
-            
-
+					<hr>
             <table class="table">
                 <thead class="bg-light">
                   <tr>
-                    <th class="border-0" scope="col"> <strong class="text-small text-uppercase">2021-07-30</strong></th>
+                    <th class="border-0" scope="col"> <strong class="text-small text-uppercase">${ cDate }</strong></th>
                     <th class="border-0" scope="col"> <strong class="text-small text-uppercase" style="margin-left: 15px;"> </strong></th>
                     <th class="border-0" scope="col"> <strong class="text-small text-uppercase" style="margin-left: 200px;">위 수강 현황은 사실과 같음을 증명합니다. (주)우동클</strong></th>
                   </tr>
@@ -211,8 +229,12 @@
  
               </tbody>
           </table>
-
-              <button style="margin-left: 41%;" onclick=writeComplate();>인쇄하기 </button>
+          					<hr>
+	<br>	<br>	<br>
+	
+	
+	
+              <button style="margin-left: 41%;" onclick="window.print()">인쇄하기 </button>
 
 
 

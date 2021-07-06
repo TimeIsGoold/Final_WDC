@@ -25,7 +25,7 @@
  		<typeAlias alias="blackListDTO" type="com.tig.wdc.admin.model.dto.BlackListDTO"/>
  		<typeAlias alias="RefundDTO" type="com.tig.wdc.admin.model.dto.RefundDTO"/>
  		<typeAlias alias="ClsDecisionDTO" type="com.tig.wdc.admin.model.dto.ClsDecisionDTO"/>
- 		<typeAlias alias="CheeringCLassDTO" type="com.tig.wdc.admin.model.dto.CheeringCLassDTO"/>
+ 		<typeAlias alias="CheeringClassDTO" type="com.tig.wdc.admin.model.dto.CheeringClassDTO"/>
  		
  		
  		<!-- user -->
@@ -44,6 +44,7 @@
  		<typeAlias alias="UserReportDTO" type="com.tig.wdc.user.model.dto.UserReportDTO"/>
  		<typeAlias alias="PaymentDTO" type="com.tig.wdc.user.model.dto.PaymentDTO"/>
  		<typeAlias alias="ClassApplyDTO" type="com.tig.wdc.user.model.dto.ClassApplyDTO"/>
+ 		<typeAlias alias="UserRefundDTO" type="com.tig.wdc.user.model.dto.UserRefundDTO"/>
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>
@@ -53,7 +54,7 @@
  		<typeAlias alias="schedule" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
  		<typeAlias alias="classInfo" type="com.tig.wdc.user.model.dto.ClassDTO"/>
  		<typeAlias alias="scheduleInfo" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
- 		<typeAlias alias="regularScheduleInfo" type="com.tig.wdc.model.dto.RegularClassInfoDTO"/>
+ 		<typeAlias alias="classScheduleInfo" type="com.tig.wdc.model.dto.ClassScheduleInfoDTO"/>
  		<typeAlias alias="classApplyInfo" type="com.tig.wdc.user.model.dto.ClassApplyDTO"/>
  		<typeAlias alias="regularAttend" type="com.tig.wdc.model.dto.RegularClassAttendanceDTO"/>
  		

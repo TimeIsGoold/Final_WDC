@@ -2,6 +2,11 @@ package com.tig.wdc.model.dto;
 
 import java.sql.Date;
 
+/**
+ * 정규클래스 출석
+ * @author 이해승
+ *
+ */
 public class RegularClassAttendanceDTO {
 
     private int regManageNo;

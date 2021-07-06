@@ -24,6 +24,7 @@ import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
+import com.tig.wdc.admin.model.dto.RefundDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
@@ -155,7 +156,7 @@ public class AdminController {
 	 */
 	@RequestMapping("questionAnswer")
 	public String questionAnswer(@ModelAttribute QuestionDTO question, Model model) {
-		
+
 		model.addAttribute("questionAnswer", adminService.insertAnswer(question));
 		model.addAttribute("questionAnswer", adminService.updateAnswer(question));
 		
@@ -292,13 +293,53 @@ public class AdminController {
 	* @author 송아현
 	* 정산 상세
 	*  
+	* @param model
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail() {
-		 return "admin/calculateDetail";
+	 public String calculateInfoDetail(Model model) {
+		
+		//model.addAttribute("calculateDetail", adminService.selectCalculateDetail());
+		
+		return "admin/calculateDetail";
 	 }
-	 
+	
+	/**
+	 * @author 송아현
+	 * 환불 관리
+	 * 
+	 * @param type
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("refundManagement")
+	public String refundManagement(@RequestParam("YN")String type, Model model) {
+
+		model.addAttribute("refundList", adminService.selectRefundList(type));
+
+		return "admin/adminRefundManagement";
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("refundDetail")
+	public String refundInfoDetail(@ModelAttribute RefundDTO refund, Model model) {
+		
+		System.out.println("dto : " + refund);
+		model.addAttribute("refundDetail", adminService.selectRefundInfoDetail(refund));
+		
+		return "admin/refundDetail";
+	}
+	
+	@RequestMapping("refundDetail")
+	public String refundApprove(@ModelAttribute RefundDTO refund, Model model) {
+		return "redirect:/admin/refundManagement?currentMenu=refund&YN=N";
+	}
 
 	/**
 	 * 회원 상세 - 현빈

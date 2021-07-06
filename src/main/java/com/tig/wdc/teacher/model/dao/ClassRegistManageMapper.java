@@ -7,7 +7,7 @@ import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
-import com.tig.wdc.model.dto.RegularClassInfoDTO;
+import com.tig.wdc.model.dto.ClassScheduleInfoDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
@@ -28,16 +28,22 @@ public interface ClassRegistManageMapper {
 
 	int insertSchedule(ScheduleDTO schedule);
 
-	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
+	ClassScheduleInfoDTO selectRegularScheduleinfo(int clsNo);
 
 	List<ClassApplyDTO> selectApplyUserInfo(int scheduleNo);
 
-	List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
+	List<ClassScheduleInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
 
 	int modifyOndeDayAttendanceStatus(HashMap<String, Object> applyNoList);
 
 	int insertRegularClassAttendance(HashMap<String, Object> attendInfo);
 
 	List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo);
+
+	List<ClassScheduleInfoDTO> selectOnedayApplyCount(List<ClassScheduleInfoDTO> onedayInfoList);
+
+	ClassScheduleInfoDTO selectRegularApplyCount(int scheduleNo);
+
+	int updateRegularApplyStatus(String[] updateList);
 
 }

@@ -11,6 +11,7 @@ import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
+import com.tig.wdc.admin.model.dto.RefundDTO;
 import com.tig.wdc.admin.model.dto.ReportDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
@@ -161,6 +162,30 @@ public interface AdminService {
 	 */
 	List<CalculateDTO> selectYesCalculateList();
 	
+	/**
+	 * @author 송아현
+	 * 정산 상세
+	 * 
+	 * @return
+	 */
+	CalculateDTO selectCalculateDetail();
+	
+	/**
+	 * @author 송아현
+	 * 환불 관리
+	 * 
+	 * @return
+	 */
+	List<RefundDTO> selectRefundList(String type);
+	
+	/**
+	 * @author 송아현
+	 * 환불 상세
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	RefundDTO selectRefundInfoDetail(RefundDTO refund);
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
@@ -201,6 +226,9 @@ public interface AdminService {
 	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
 
 	List<CheeringClassDTO> selectCheeringClass();
+
+
+
 
 
 

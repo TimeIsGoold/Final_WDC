@@ -195,64 +195,58 @@
                                 <table class="table">
                                     <tbody>
                                         <tr>
-                                            <th>아 &nbsp;&nbsp;이 &nbsp;&nbsp;디</th>
-                                            <td colspan="4"></td>
-                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
-                                            <td colspan="4"></td>
+                                            <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
+                                            <td colspan="4">${ calculateInfoDetail.teName }</td>
+                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
+                                            <td colspan="4">${ calculateInfoDetail.teType }</td>
                                         </tr>
                                         <tr>
-                                            <th>이 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-                                            <td colspan="4"></td>
-                                            <th>계좌 번호</th>
-                                            <td colspan="4"></td>
+                                            <th>아&nbsp;&nbsp;이&nbsp;디</th>
+                                            <td colspan="4">${ calculateInfoDetail.teId }</td>
+                                            <th>은&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;행</th>
+                                            <td colspan="4">${ calculateInfoDetail.bank }</td>
                                         </tr>
                                         <tr>
-                                            <th>개설 클래스</th>
+                                            <th>클&nbsp;&nbsp;래&nbsp;스</th>
                                             <td colspan="4">
-                                                <input type="submit" class="listDetailBtn" value="클래스 내역" onclick="classCalculateInfo();">
+                                                <input type="submit" class="listDetailBtn" value="상세 정보" onclick="classCalculateInfo();">
                                             </td>
-                                            <th>근무 일수</th>
-                                            <td colspan="4"></td>
+                                            <th>계좌번호</th>
+                                            <td colspan="4">${ calculateInfoDetail.teAcntNo }</td>
                                         </tr>
                                         <tr>
-                                            <th>총&nbsp;&nbsp;&nbsp;매출액</th>
-                                            <td colspan="4"></td>
-                                            <th>근무 시간</th>
-                                            <td colspan="4"></td>
-                                        </tr>
-                                        <tr>
-                                            <th>최 종 정 산</th>
+                                            <th>최종정산</th>
                                             <td>
                                                 <div class="detailCalculate">총 매출</div>
-                                                <div class="detailCalculate">0</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.totalSales }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
                                             </td>
                                             <td>
                                                 <div class="detailCalculate">소비세</div>
-                                                <div class="detailCalculate">0</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.tax}</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
                                             </td>
                                             <td>
                                                 <div class="detailCalculate">사용 수수료(10%)</div>
-                                                <div class="detailCalculate">0</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.useFees }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
                                             </td>
                                             <td>
                                                 <div class="detailCalculate">카드 수수료</div>
-                                                <div class="detailCalculate">0</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.cardFees }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>=</div>
                                             </td>
                                             <td>
                                                 <div class="detailCalculate">최종 금액</div>
-                                                <div class="detailCalculate">0</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.calcAmount }</div>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -282,13 +276,17 @@
                     <thead>
                         <td>클래스명</td>
                         <td>인원</td>
+                        <td>근무일수</td>
+                        <td>근무시간</td>
                         <td>매출액</td>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="classTitle">0</td>
-                            <td id="count">0</td>
-                            <td id="price">0</td>
+                            <td id="classTitle">${ calculateInfoDetail.className }</td>
+                            <td id="count">${ calculateInfoDetail.count }</td>
+                            <td id="workDay">${ calculateInfoDetail.workDay }</td>
+                            <td id="workTime">${ calculateInfoDetail.workTime }</td>
+                            <td id="price">${ calculateInfoDetail.price }</td>
                         </tr>
                     </tbody>
                 </table>

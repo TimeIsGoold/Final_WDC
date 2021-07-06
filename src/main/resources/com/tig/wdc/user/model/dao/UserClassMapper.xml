@@ -131,7 +131,6 @@
     
     <resultMap type="UserReviewDTO" id="ReviewResult">
         <id column="REVIEW_NO" property="reviewNo"/>
-        <result column="REVIEW_TITLE" property="reviewTitle"/>
         <result column="REVIEW_CONTENT" property="reviewContent"/>
         <result column="REVIEW_PIC" property="reviewPic"/>
         <result column="REVIEW_SCORE" property="reviewScore"/>
@@ -165,7 +164,7 @@
 		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
-    
+   
     <resultMap type="ScheduleDTO" id="ScheduleResult">
         <id column="SCHEDULE_NO" property="scheduleNo"/>
         <result column="SCHEDULE_TYPE" property="scheduleType"/>
@@ -182,6 +181,14 @@
 		       * 
 		  FROM SCHEDULE S
 		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
+    
+    <select id="selectTime" parameterType="ScheduleDTO" resultMap="ScheduleResult">
+        SELECT 
+		       * 
+		  FROM SCHEDULE S
+		 WHERE S.CLS_NO = #{ clsNo }
+           AND SCHEDULE_DATE = #{ scheduleDate }
     </select>
     
     <resultMap type="UserInquiryDTO" id="InquiryResult">
@@ -216,7 +223,6 @@
 		  JOIN USER_INFO I ON (U.USER_NO = I.USER_NO)
 		 WHERE C.CLS_NO = #{ clsNo }
     </select>
-
     
 	<select id="selectscheduleNo" parameterType="string" resultMap="ScheduleResult">
 		SELECT
@@ -279,7 +285,6 @@
         <result column="CLS_TITLE" property="couponClassName"/>
     </resultMap>
     
-	
 	<update id="updateCpnUseYn" parameterType="_int">
 		UPDATE COUPON
 		   SET CPN_USE_YN = 'Y'
@@ -342,6 +347,54 @@
 	     #{ reportToNo }
 	   , #{ reportNo }
 	   )
+	</insert>
+	
+	<insert id="inserRefund" parameterType="UserRefundDTO">
+	   INSERT
+	     INTO PAYMENT_CANCEL
+	   VALUES
+	   (
+	     SEQ_CANCLE_NO.NEXTVAL
+	   , #{ cancelReason }
+	   , NULL
+	   , NULL
+	   , #{ cancelReasonDetail }
+	   , #{ payNo }
+	   , #{ refundAccount }
+	   , #{ accountHolder }
+	   , #{ bank }
+	   , DEFAULT
+	   , SYSDATE
+	   )
+	</insert>
+	
+	<update id="updatePaymentStatus" parameterType="_int">
+	  UPDATE PAYMENT
+	     SET PAY_STATUS = '취소'
+	   WHERE PAY_NO = #{ payNo }
+	</update>
+	
+	<select id="selectCheerHistory" parameterType="UserClassDTO" resultType="_int">
+	   SELECT
+		      COUNT(DECODE(CHEERING_STATUS,'Y',1)) count
+		FROM CHEERING_HISTORY CH
+	    JOIN USER_INFO U ON(CH.USER_NO = U.USER_NO)
+	    JOIN CLASS C ON(CH.CLS_NO = C.CLS_NO)
+	   WHERE C.CLS_NO = #{ clsNo }
+	     AND U.USER_NO = #{ userNo }
+	</select>
+	
+	<insert id="insertCheerHistory" parameterType="UserClassDTO">
+	   INSERT
+	     INTO CHEERING_HISTORY
+	   VALUES
+	   (
+	     SEQ_CHEERING_NO.NEXTVAL
+	   , #{ clsNo }
+	   , 'Y'
+	   , #{ userNo }
+	   )
+	
 	</insert>
 
 </mapper>

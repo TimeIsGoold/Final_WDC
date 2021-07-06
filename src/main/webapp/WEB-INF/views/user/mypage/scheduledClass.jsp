@@ -108,7 +108,6 @@
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
-                  <!-- PRODUCT-->
                   <c:choose>
                   	<c:when test="${ empty requestScope.scheduledOneDayClassList && empty requestScope.scheduledRegularClassList }">
                   		진행 예정 클래스가 없습니다.
@@ -121,7 +120,6 @@
                       <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
                         <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
-
                       </div>
                       <h6> 
                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo} ">

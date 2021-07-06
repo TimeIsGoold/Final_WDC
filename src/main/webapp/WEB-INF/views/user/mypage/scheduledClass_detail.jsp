@@ -51,10 +51,10 @@
       .w-100{
         transition: all 0.2s linear;
       }
-      .btn-dark:hover{
+/*       .btn-dark:hover{
         background-color: #ffe66a;
         border: #ffe66a;
-      }
+      } */
 
 
     *{font-family:'Cafe24SsurroundAir' !important;}
@@ -142,16 +142,12 @@
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/complateClassList">참여 완료 클래스</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/coupon">내 쿠폰</a></strong></div>
               </div>
-              <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
 
                 <div class="row">
                   <div class="col-xl-10 col-lg-4 col-sm-6" style="margin-left: 30px; ">
-                    
-                  <div class="row"  style="width: 1500px; height: 200px;">
-
+                  <div class="row" style="height: 200px;">
                     <img class="w-100" src="${pageContext.servletContext.contextPath }/${scheduleDetailUserClassDTO.titlePic}"  alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
-
                     <ul class="list-inline mb-2">
                       <li class="list-inline-item m-0">
                         <i class="fas fa-caret-right small text-dark" style="display: flex; margin-left: 3px; ">
@@ -206,7 +202,15 @@
                          <c:otherwise>
 	                      <div style="width: 200px; height: 40px; display: inline-flex;">
 	                        <form action="${ pageContext.servletContext.contextPath }/user/userRefund" style="display: flex;" method="post">
-	                          <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
+	                      <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
+	                      <c:choose>
+                          	<c:when test="${ !empty requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          		<input type="hidden" name="scheduleDate" value="${ requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          	</c:when>
+                          </c:choose>
+	                      <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
+                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
+                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
 	                      <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
                           <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
                           <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">
@@ -214,6 +218,8 @@
                           <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
                           <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
                           <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
+                          <input type="hidden" name="payPrice" value="${ requestScope.scheduleDetailUserClassDTO.payPrice }">
+                          <input type="hidden" name="payNo" value="${ requestScope.scheduleDetailUserClassDTO.payNo }">
 	                        </form>
 	                      </div>
                          </c:otherwise>
@@ -222,14 +228,14 @@
                         <form action="${ pageContext.servletContext.contextPath }/user/userReport" style="display: flex;">
                           <button class="btn btn-dark" type="submit" style="display: flex;">클래스 신고하기</button>
                           
-                          <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
-                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
-                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
                           <c:choose>
                           	<c:when test="${ !empty requestScope.scheduleDetailUserClassDTO.scheduleDate }">
                           		<input type="hidden" name="scheduleDate" value="${ requestScope.scheduleDetailUserClassDTO.scheduleDate }">
                           	</c:when>
                           </c:choose>
+                          <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
+                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
+                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
                           <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
                           <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
                           <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">

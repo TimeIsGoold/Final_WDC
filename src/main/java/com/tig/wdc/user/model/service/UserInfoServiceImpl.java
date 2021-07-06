@@ -9,6 +9,7 @@ import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -76,5 +77,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserClassDTO selectScheduleDetail(UserClassDTO userClassDTO) {
 		return mapper.selectScheduleDetail(userClassDTO);
 	}
+	
+	@Override
+	public int insertReview(UserReviewDTO userReviewDTO) {
+		return mapper.insertReview(userReviewDTO);
+	}
+
+
+	@Override
+	public int selectReviewYn(int aplNo) {
+		return mapper.selectReviewYn(aplNo);
+	}
+
 
 }

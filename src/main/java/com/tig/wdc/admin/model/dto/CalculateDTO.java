@@ -10,6 +10,18 @@ public class CalculateDTO {
 	private String teId;
 	private String calcMonth;
 	private String calcYN;
+	private String bank;
+	private String teAcntNo;
+	private int totalSales;
+	private int tax;
+	private int useFees;
+	private int cardFees;
+	private int calcAmount;
+	private String className;
+	private int count;
+	private int workDay;
+	private int workTime;
+	private int price;
 	
 	public CalculateDTO() {
 		super();

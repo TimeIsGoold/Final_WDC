@@ -24,117 +24,119 @@
         	font-size: x-large;
         }
         
+        .table {
+        	border: 1px solid lightgray;
+        }
+        
         th {
-            width: 200px;
             text-align: center !important;
-            border: 1px solid lightgrey !important;
+            border: 1px solid lightgray;
+            width: 150px;
+            vertical-align: middle;
             background: #fef0ae !important;
         }
 
         td {
-            border: 1px solid lightgrey !important;
+            text-align: center;
+            width: 180px;
+        }
+
+        .detailCalculate {
+        	border: 1px solid lightgray;
         }
         
-		.radioBtn {
-			margin-right: 15px;
-        	margin-left: 250px;
-		}
-		
-		#certainArea {
-			margin-left: 10px;
-		}
-		
-		.couponInfoArea {
-			width: 1175px;
-			border: none;
-		}
-		
-		.day {
-			text-align: center; 
-        	background: rgb(235, 235, 235) !important;
-		}
-		
-		.couponIssueBtnArea {
+        .signCalculate {
+        	vertical-align: middle;
+        	font-weight: bolder;
+        	font-size: large;
+        }
+        
+        .submitBtn {
         	margin-left: 85%;
         }
         
-        .couponIssueBtn {
-        	background: #fef0ae;
-        	width: 100px;
+        .returnPageBtn {
+        	width: 100px; 
+        	background: #fef0ae; 
         	border: 1px solid lightgrey;
         }
-        
-        .couponIssueBtn:hover {
-			background: rgb(112, 112, 112);
-		}
-    	</style>
+
+        .returnPageBtn:hover {
+            background: rgb(112, 112, 112);
+        }
+        </style>
     </head>
     <body class="sb-nav-fixed">
     
     	<!-- header -->
 		<%@ include file="commons/header.jsp" %>
-		
+    
         <div id="layoutSidenav">
         
         	<!-- sideBar & footer -->
 			<%@ include file="commons/sideBarAndFooter.jsp" %>
-			
+        
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <div class="card mb-4">
 
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>쿠폰 상세
+                                <i class="fas fa-table me-1"></i>환불 상세
                             </div>
 
-							<div class="card-body">
+                            <div class="card-body">
                                 <table class="table">
-                                    <form id="area" method="post">
+                                	<form id="area" method="post">
 	                                    <tbody>
 	                                        <tr>
-	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-	                                            <td colspan="4">
-	                                                <input type="radio" name="type" value="total" class="radioBtn">전체 회원
-	                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
-	                                                <input type="text" name="couponType" id="certainArea" placeholder="ID를 입력하세요.">
-	                                            </td>
+	                                            <th>아&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;디</th>
+	                                            <td colspan="4">${ refundInfoDetail.id }</td>
+	                                            <th>신청번호</th>
+	                                            <td colspan="4">${ refundInfoDetail.cancelNo }</td>
+	                                            <input type="hidden" name="cancelNo" value="${ refundInfoDetail.cancelNo }">
 	                                        </tr>
 	                                        <tr>
-	                                            <th>쿠 &nbsp;폰 &nbsp;명</th>
-	                                            <td colspan="4">
-	                                            	<input type="text" name="couponName" class="couponInfoArea">
-	                                            </td>
+	                                        	<th>환불신청일</th>
+	                                            <td colspan="4">${ refundInfoDetail.refundApplyDate }</td>
+	                                            <th>환 불 일</th>
+	                                            <td colspan="4">${ refundInfoDetail.refundDate }</td>
 	                                        </tr>
 	                                        <tr>
-	                                            <th>사용 기한</th>
-	                                            <td class="day">시작일</td>
-	                                            <td><input type="date" name="startDate"></td>
-	                                            <td class="day">종료일</td>
-	                                            <td><input type="date" name="endDate"></td>
+	                                            <th>취소&nbsp;&nbsp;&nbsp;사유</th>
+	                                            <td colspan="4">${ refundInfoDetail.cancelReason }</td>
+	                                            <th>상세사유</th>
+	                                            <td colspan="4">${ refundInfoDetail.cancelReasonDetail }</td>
 	                                        </tr>
 	                                        <tr>
-	                                            <th>제한 조건</th>
-	                                            <td colspan="4">
-	                                            	<input type="text" name="discountCondition" class="couponInfoArea">
-	                                            </td>
+	                                            <th>클래스타입</th>
+	                                            <td colspan="4">${ refundInfoDetail.classType }</td>
+	                                            <th>클래스명</th>
+	                                            <td colspan="4">${ refundInfoDetail.className }</td>
 	                                        </tr>
 	                                        <tr>
-	                                            <th>할인 금액</th>
-	                                            <td colspan="4">
-	                                            	<input type="text" name="discount" class="couponInfoArea">
-	                                            </td>
+	                                            <th>예&nbsp;&nbsp;&nbsp;금&nbsp;&nbsp;&nbsp;주</th>
+	                                            <td colspan="4">${ refundInfoDetail.refundHolder }</td>
+	                                            <th>은 행 명</th>
+	                                            <td colspan="4">${ refundInfoDetail.refundBank }</td>
+	                                        </tr>
+	                                        <tr>
+	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
+	                                            <td colspan="4">${ refundInfoDetail.refundAccount }</td>
+	                                            <th>환 불 액</th>
+	                                            <td colspan="4">${ refundInfoDetail.refundAmount }</td>
+	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
 	                                        </tr>
 	                                    </tbody>
-                                    </from>
+                                    </form>
                                 </table>
 
-                                <div class="couponIssueBtnArea">
-                                    <input type="button" id="btnCoupon" class="couponIssueBtn"  value="발급하기">
-                                    <input type="button" class="couponIssueBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon'" value="리스트보기">
+                                <div class="submitBtn">
+                                	<input type="button" id="approveBtn" class="returnPageBtn" value="환불승인">
+                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
                                 </div>
                             </div>
-						
+
                         </div>
                     </div>
                 </main>
@@ -142,7 +144,7 @@
 
         </div>
         <script>
-        	$("#btnCoupon").on("click",function(){
+        	$("#approveBtn").on("click",function(){
         		$("#area").attr("action","/wdc/admin/couponIssue").submit();
         	});
         </script>
@@ -155,4 +157,3 @@
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>
 </html>
-
