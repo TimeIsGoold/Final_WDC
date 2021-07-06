@@ -142,52 +142,82 @@ String strDate = formats.format(now); %>
                   <thead class="bg-light">
                     <tr>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">신청한 강의</strong></th>
-                      <th class="border-0" scope="col"> </th>
-                      <th class="border-0" scope="col"> </th>
-                      <th class="border-0" scope="col"> </th>
+                      <th class="border-0" scope="col">&emsp;&emsp; 인원</th>
+                      <th class="border-0" scope="col">&emsp;&emsp; 강사명 </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="img/class-sport.png" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</a></strong></div>
+                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${pageContext.servletContext.contextPath }/${ userClassDTO.titlePic}" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas"></i></button>
-                            <input class="border-0 shadow-0 p-0" type="text" value="1"/> 명
+                            <input class="border-0 shadow-0 p-0" type="text" value="${ requestScope.userClassDTO.ppl}"/> 명
                             <button class="inc-btn p-0"><i class="fas"></i></button>
                           </div>
                       </td>
-                    </tr>
+                       <td class="align-middle border-0">
+                          <div class="quantity">
+                            <button class="dec-btn p-0"><i class="fas"></i></button>
+                            <input style="width: 70px;" class="border-0 shadow-0 p-0" type="text" value="${ requestScope.userClassDTO.teName}"/> 
+                            <button class="inc-btn p-0"><i class="fas"></i></button>
+                          </div>
+                      </td>
                   </tbody>
                 </table>
                 <div class="table-responsive mb-4">
                   <table class="table">
                     <tbody>
+                    <c:choose>
+					<c:when test="${ requestScope.userClassDTO.clsType eq 'O'}">
                       <tr>
                         <th class="pl-0 border-0" scope="row" style="width: 140px;">
-                          &nbsp;&nbsp;&nbsp;&nbsp;신청 날짜
+                          &nbsp;&nbsp;&nbsp;&nbsp;신청 강의 날짜
                         </th>
                         <td style="border-top: 0px !important">
-                          <input type="text" style="width: 250px;" id="name" class="refunderInfo" value="2021-06-30" disabled>
+                          <input type="text" style="width: 250px;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleDate }" disabled>
                         </td>
                       </tr>
                       <tr>
                         <th class="pl-0 border-0" scope="row">
-                          &nbsp;&nbsp;&nbsp;&nbsp;신청 시간
+                          &nbsp;&nbsp;&nbsp;&nbsp;신청 강의 시간
                         </th>
                         <td style="border-top: 0px !important">
-                          <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="16:00 ~ 18:00" disabled>
+                          <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleStart}" disabled>
                         </td>
                       </tr>
+					</c:when>     
+					<c:when test="${ requestScope.userClassDTO.clsType eq 'R'}">
+					   <tr>
+                        <th class="pl-0 border-0" scope="row" style="width: 140px;">
+                          &nbsp;&nbsp;&nbsp;&nbsp;신청 강의 날짜
+                        </th>
+                        <td style="border-top: 0px !important">
+                          <input type="text" style="width: 250px;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.startDate} ~ ${ requestScope.userClassDTO.endDate}" disabled>
+                        </td>
+                      </tr>
+                      <tr>
+                        <tr>
+                        <th class="pl-0 border-0" scope="row">
+                          &nbsp;&nbsp;&nbsp;&nbsp;신청 강의 시간
+                        </th>
+                        <td style="border-top: 0px !important">
+                          <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleStart}" disabled>
+                        </td>
+                      </tr>
+					</c:when>   
+                    </c:choose>
                     </tbody>
                   </table>
                 </div>
               </div>
               <!-- 신청자 정보-->
+              <form action="${pageContext.servletContext.contextPath}/user/refundInsert" method="post">
+              <input type="hidden" value="${ requestScope.userClassDTO.payNo}" name="payNo">
               <table class="table">
                 <thead class="bg-light">
                   <tr>
@@ -203,7 +233,7 @@ String strDate = formats.format(now); %>
                       &nbsp;&nbsp;&nbsp;&nbsp;이름
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name" class="refunderInfo" value="한 불" disabled>
+                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name" class="refunderInfo" value="${ userDTO.userName }" disabled>
                     </td>
                   </tr>
                   <tr>
@@ -211,7 +241,7 @@ String strDate = formats.format(now); %>
                       &nbsp;&nbsp;&nbsp;&nbsp;휴대폰번호
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone" class="refunderInfo" value="010-1234-5678" disabled>
+                      <input type="text" placeholder="휴대폰 번호를 입력해 주세요" style="width: 250px;" id="phone" class="refunderInfo" value="${ userDTO.phone }" disabled>
                     </td>
                   </tr>
                   <tr>
@@ -219,16 +249,7 @@ String strDate = formats.format(now); %>
                       &nbsp;&nbsp;&nbsp;&nbsp;입금 은행
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="계좌 번호를 입력해 주세요" style="width: 250px;" id="phone" class="refunderInfo" >
-                    </td>
-                  </tr>
-                  <tr>
-                    <th class="pl-0 border-0" scope="row">
-                      &nbsp;&nbsp;&nbsp;&nbsp;환불 계좌
-                    </th>
-                    <td style="border-top: 0px !important">
-                      <select style="width: 200px;">
-                        <option>        </option>
+                      <select style="width: 200px;" required="required" name="bank">
                         <option>농협은행</option>
                         <option>국민은행</option>
                         <option>기업은행</option>
@@ -240,10 +261,19 @@ String strDate = formats.format(now); %>
                   </tr>
                   <tr>
                     <th class="pl-0 border-0" scope="row">
+                      &nbsp;&nbsp;&nbsp;&nbsp;환불 계좌
+                    </th>
+                    <td style="border-top: 0px !important">
+                      <input name="refundAccount" type="text" placeholder="계좌 번호를 입력해 주세요" style="width: 250px;" id="account" class="refunderInfo" required="required">
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="pl-0 border-0" scope="row">
                       &nbsp;&nbsp;&nbsp;&nbsp;예금주
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="" style="width: 250px;" id="phone" class="refunderInfo" value="한 불" disabled>
+                      <input name="accountHolder" type="text"  style="width: 250px;" id="phone" class="refunderInfo" value="${ userDTO.userName }" disabled>
+                    <p style="margin-top: 4px !important; color: gray;">* 예금주는 신청자와 동일해야합니다.</p>
                     </td>
                   </tr>
                 </tbody>
@@ -275,20 +305,32 @@ String strDate = formats.format(now); %>
                 <div style="margin-left: 20px;"></div>
                 </div>
               </div>
-              <div class="refundBackground"><input type="radio" value="refund1" name="refundReason" class="refundReasonInput"> 개인 일정</div>
+              <div class="refundBackground"><input id="cancelReason1" onclick="death();" type="radio" value="개인 일정" name="cancelReason" class="refundReasonInput"> 개인 일정</div>
               <br>
-              <div class="refundBackground"><input type="radio" value="refund1" name="refundReason" class="refundReasonInput"> 작가와의 일정 협의 실패</div>
+              <div class="refundBackground"><input id="cancelReason2" onclick="death();" type="radio" value="작가와의 일정 협의 실패" name="cancelReason" class="refundReasonInput"> 작가와의 일정 협의 실패</div>
               <br>
-              <div class="refundBackground"><input type="radio" value="refund1" name="refundReason" class="refundReasonInput"> 작가와 연락이 안됨</div>
+              <div class="refundBackground"><input id="cancelReason3" onclick="death();" type="radio" value="작가와 연락이 안됨" name="cancelReason" class="refundReasonInput"> 작가와 연락이 안됨</div>
               <br>
-              <div class="refundBackground"><input type="radio" value="refund1" name="refundReason" class="refundReasonInput"> 다른 클래스 구매 위해</div>
+              <div class="refundBackground"><input id="cancelReason4" onclick="death();" type="radio" value="다른 클래스 구매 위해" name="cancelReason" class="refundReasonInput"> 다른 클래스 구매 위해</div>
               <br>
-              <div class="refundBackground"><input type="radio" value="refund1" name="refundReason" class="refundReasonInput"> 작가님의 요청</div>
+              <div class="refundBackground"><input id="cancelReason5" onclick="death();" type="radio" value="작가님의 요청" name="cancelReason" class="refundReasonInput"> 작가님의 요청</div>
               <br>
-              <div class="refundBackground" style=""><input type="radio" value="refund1" name="refundReason" class="refundReasonInput">&nbsp; 기타 
-              </div>
-              <textarea style="resize: none; width: 620px; height: 100px; margin-top: 40px; margin-left: 45px; border-radius: 5px;" placeholder="기타 사유를 작성해 주세요"></textarea>
+              <div class="refundBackground"><input type="radio"  value="기타" name="cancelReason" class="refundReasonInput" onclick="phinex();"> 기타</div>
+              <br>
+              <textarea name="cancelReasonDetail" id="guitar" disabled="disabled"
+              style="resize: none; width: 620px; height: 100px;  margin-left: 20px;  margin-top:5px; border-radius: 5px;" placeholder="기타 사유를 작성해 주세요"></textarea>
               <br><br>
+              <script>
+      	       function death() {
+      	    	 $('#guitar').attr("disabled",true);
+      	    	 $('#guitar').val("");
+				}
+              
+               function phinex() {
+            	  $('#guitar').removeAttr('disabled');       	       
+      	       
+            	 }
+              </script>
               <!-- 약관 동의 -->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
@@ -345,15 +387,32 @@ String strDate = formats.format(now); %>
                   <div class="card-body">
                     <h5 class="text-uppercase mb-4">총 환불 금액</h5>
                     <ul class="list-unstyled mb-0">
-                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">결제 금액</strong><span class="text-muted small">42,500 원</span></li>
-                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold" style="margin-top: 10px;">환불 수수료</strong><span class="text-muted small" style="margin-top: 10px;">- 5000 원</span></li>
+                      <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">결제 금액</strong>
+                      <span class="text-muted small"><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span></li>
                       <!-- <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold" style="margin-top: 10px;">강의 진행도에 따른 수수료</strong><span class="text-muted small" style="margin-top: 10px;">- 5000 원</span></li> -->
                       <li class="border-bottom my-2"></li>
-                      <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>37,500 원</span></li>
+                      <c:if test="${ requestScope.userClassDTO.clsType eq 'O'}">
+                      <li class="d-flex align-items-center justify-content-between mb-4">
+                      <strong class="text-uppercase small font-weight-bold">총 환불금액</strong>
+                      <span><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span>
+                      </li>
+                      </c:if>
+                      <c:if test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate >= cDate }">
+                      <li class="d-flex align-items-center justify-content-between mb-4">
+                      <strong class="text-uppercase small font-weight-bold">총 환불금액</strong>
+                      <span><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span>
+                      </li>
+                      </c:if>
+                      <c:if test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate < cDate }">
+                      <li class="d-flex align-items-center justify-content-between mb-4">
+                      <strong class="text-uppercase small font-weight-bold"></strong>
+                      <span>환불 승인 시 남은 기간을 계산해서 알려드립니다.</span>
+                      </li>
+                      </c:if>
                       <li>
                           <div class="form-group mb-0">
                           <br>
-                            <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal"><b>환불 신청하기</b></button>
+                            <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal" type="button"><b>환불 신청하기</b></button>
                           </div>
                       </li>
                     </ul>
@@ -372,28 +431,44 @@ String strDate = formats.format(now); %>
                   <div class="modal-content">
                     <div class="modal-body p-0">
                       <div class="row align-items-stretch">
-                        <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+                        <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${pageContext.servletContext.contextPath }/${ userClassDTO.titlePic})" 
+                        href="${pageContext.servletContext.contextPath }/${ userClassDTO.titlePic}" data-lightbox="productview" title="${ userClassDTO.title}"></a></div>
                         <div class="col-lg-6">
                           <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><a href="#none" class="close">x</a></span></button>
                           <div class="p-5 my-md-4">
-                            <h2 class="h5"> 리포머 하나면 가성비 홈짐 완성! 하루 30분 홈 리포머 필라테스</h2>
-                            <h2 class="h5">강사 : 이해승</h2>
+                            <h2 class="h5"> ${ userClassDTO.title }</h2>
+                            <h2 class="h5">강사 : ${ userClassDTO.teName }</h2>
                             <p class="text-small mb-4">
-                                <p class="text-muted">강의 날짜 : 2021-06-30</p>
-                                <p class="text-muted">강의 시간 : 16:00 ~ 18:00</p>
-                                <p class="text-muted">신청 인원 : 1 명</p>
-                                <p class="text-muted">환불 금액 : 37,500 원</p>
+                            <c:if test="${ userClassDTO.clsType eq 'R'}">
+                                <p class="text-muted">강의 날짜 : ${ userClassDTO.startDate } ~ ${ userClassDTO.endDate }</p>
+                            </c:if>
+                            <c:if test="${ userClassDTO.clsType eq 'O'}">
+                                <p class="text-muted">강의 날짜 : ${ userClassDTO.scheduleDate }</p>
+                            </c:if>
+                                <p class="text-muted">강의 시작 시간 : ${ userClassDTO.scheduleStart }</p>
+                                <p class="text-muted">강의 시간 : ${ userClassDTO.time }</p>                                
+                                <p class="text-muted">신청 인원 : ${ userClassDTO.ppl } 명</p>
+                            <c:choose>
+                            	<c:when test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate < cDate }">
+                                <p class="text-muted">환불 금액 : 환불 승인 시 남은 기간을 계산해서 알려드립니다.</p>
+                            	</c:when>
+                            	<c:otherwise>
+                                <p class="text-muted">환불 금액 : <fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</p>                            	
+                            	</c:otherwise>
+                            </c:choose>
                             </p>
                             <hr>
                             <ul style="font-size: 15px;">
 								<li style="margin-left: -30px;">환불 신청시 취소 할 수 없습니다. 신중히 결정해 주세요</li>
 								<li style="margin-left: -30px;">영업일 기준 1~7일 후 취소 금액 확인 가능합니다.</li>
+								<li style="margin-left: -30px;">정규 클래스 취소 시 환불 규정을 상세히 읽어주세요. 남은 강의 기간이 1/2 이하인 경우에 환불금액은 0원이며, 취소 신청 시 취소 해제 불가능합니다.</li>
 							</ul>
                             <hr>
                             <div>
 								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;"></a>취소</button>
                                 <!-- 카카오 페이 연결 -->
-								<button id = "doPay"type = "button" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">환불하기</button>
+								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">환불하기</button>
+								</form>
                             </div>
                           </div>
                         </div>
@@ -406,30 +481,45 @@ String strDate = formats.format(now); %>
             <!-- 결제 스크립트 -->
      <script>
          function checkContent(){
-	        // var name = document.getElementById("name").value;
-    	    // var phone = document.getElementById("phone").value;
-            // var check = document.getElementById("checkagree").checked;
-            // if(name.length == 0){
-	        // 	alert("이름을 입력하세요");
-    	    // 	return;
-    	    // }
-	        // if(phone.length ==0){
-	        // 	alert("전화번호를 입력하세요");
-    	    // 	return
-    		// }
+        	 var account = document.getElementById("account").value;
+         	 if(account == "" || account == " "){
+        		 alert("계좌번호를 입력해 주세요")
+        		 return;
+        	 }
+        	 
+             var check = document.getElementById("checkagree").checked;
+
     		        
-    	    // if(check == false){
-    		// 	alert("규정에 동의하셔야 결제가 가능합니다.");
-    		// 	return;
-    		// }
-    		location.href='#pop01';
+     	     if(check == false){
+    		 	alert("환불 약관에 동의하셔야 환불 신청 가능합니다.");
+    		 	return;
+    		 }   
+    	     
+    	     var checkReason = document.getElementById("guitar").value;
+    		 
+     	     var checkReason1 = document.getElementById("cancelReason1").checked;
+     	     var checkReason2 = document.getElementById("cancelReason2").checked;
+     	     var checkReason3 = document.getElementById("cancelReason3").checked;
+     	     var checkReason4 = document.getElementById("cancelReason4").checked;
+     	     var checkReason5 = document.getElementById("cancelReason5").checked;
+     	     
+     	     if(checkReason1 == false && checkReason2 == false && checkReason3 == false && checkReason4 == false && checkReason5 == false && checkReason == false && checkReason == ""){
+     	    	 
+     		 	alert("환불 사유를 선택하거나 작성해주세요");
+    		 	return;
+    	     }
+     	     
+             if (confirm('정말 환불 하시겠습니까? ')) {
+    			location.href='#pop01';
+                 // Yes click
+            } else {
+                return;
+ 		    }
+    	     
     		       
         }
 
-        function paymentSuccess(){
-            alert("환불 처리 되었습니다.");
-            location.href="mypageScheduledClass.html";
-        }
+
     </script>
 
     <%@include file="../commons/footer.jsp" %>

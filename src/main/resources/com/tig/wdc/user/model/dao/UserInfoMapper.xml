@@ -62,6 +62,7 @@
         <result column="PAY_STATUS" property="payStatus"/>
         <result column="REFUND_AMOUNT" property="refundAmount"/>
         <result column="REFUND_STATUS" property="refundStatus"/>
+        <result column="PAY_NO" property="payNo"/>
     </resultMap>
     
     <resultMap type="UserReviewDTO" id="ReviewResult">

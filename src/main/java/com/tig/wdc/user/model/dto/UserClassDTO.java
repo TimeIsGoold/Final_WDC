@@ -42,6 +42,7 @@ public class UserClassDTO {
 	private String payStatus;
 	private int refundAmount;
 	private String refundStatus;
+	private int payNo;
 
 	private String titlePic1; // 페이먼트 용 
 	private int userNo; // 페이먼트 용 
@@ -53,7 +54,7 @@ public class UserClassDTO {
 			String clsType, Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
 			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
 			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, int refundAmount,
-			String refundStatus, String titlePic1, int userNo) {
+			String refundStatus, int payNo, String titlePic1, int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -87,6 +88,7 @@ public class UserClassDTO {
 		this.payStatus = payStatus;
 		this.refundAmount = refundAmount;
 		this.refundStatus = refundStatus;
+		this.payNo = payNo;
 		this.titlePic1 = titlePic1;
 		this.userNo = userNo;
 	}
@@ -347,6 +349,14 @@ public class UserClassDTO {
 		this.refundStatus = refundStatus;
 	}
 
+	public int getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
+	}
+
 	public String getTitlePic1() {
 		return titlePic1;
 	}
@@ -373,9 +383,10 @@ public class UserClassDTO {
 				+ ", avgScore=" + avgScore + ", dDay=" + dDay + ", scheduleDate=" + scheduleDate + ", scheduleStart="
 				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", payPrice=" + payPrice + ", aplNo=" + aplNo
 				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", payStatus=" + payStatus
-				+ ", refundAmount=" + refundAmount + ", refundStatus=" + refundStatus + ", titlePic1=" + titlePic1
-				+ ", userNo=" + userNo + "]";
+				+ ", refundAmount=" + refundAmount + ", refundStatus=" + refundStatus + ", payNo=" + payNo
+				+ ", titlePic1=" + titlePic1 + ", userNo=" + userNo + "]";
 	}
+
 
 
 

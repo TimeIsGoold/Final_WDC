@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.PaymentDTO;
@@ -27,23 +29,26 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserRefundDTO;
 import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
 /**
  * @author SORA
- * 클래스 상세보기 컨트롤러 / 신청 / 결제 / 신고 용 컨트롤러
+ * 클래스 상세보기 / 신청 / 결제 / 신고/ 환불 / 수료증 조회  / 응원 용 컨트롤러
  */
 @Controller
 @RequestMapping("/user/*")
 public class UserClassDetailController {
 
 	private final UserClassService classService;
+	private final UserInfoMapper infoService;
 	
 	@Autowired
-	public UserClassDetailController(UserClassService classService) {
+	public UserClassDetailController(UserClassService classService,UserInfoMapper infoService) {
 		this.classService = classService;
+		this.infoService = infoService;
 	}
 	
 	/**
@@ -182,6 +187,7 @@ public class UserClassDetailController {
 			return returnPage;
 		}
 		
+		// 리턴값이 필요없나?
 		return "user/mypage/mypage"; 
 	}
 	
@@ -265,16 +271,122 @@ public class UserClassDetailController {
 	}
 	
 	
+	/**
+	 * 결제 취소 페이지  이동용 메소드
+	 * @param session
+	 * @param userClassDTO
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("userRefund")
 	public String userRefund(HttpSession session, UserClassDTO userClassDTO, Model model) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
 		
-		System.out.println("userClassDTO :" + userClassDTO);
+		// 유저넘버로 유저 정보 조회
+		UserInfoDTO userDTO = new UserInfoDTO();
+		userDTO = infoService.selectUser(userNo);
 		
 		model.addAttribute("userClassDTO",userClassDTO);
+		model.addAttribute("userDTO",userDTO);
 		
 		return "user/payment/refund"; 
+	}
+	
+	/**
+	 * 환불용 인서트 메소드
+	 * @param userClassDTO
+	 * @param userRefundDTO
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("refundInsert")
+	public String refundInsert(UserClassDTO userClassDTO, UserRefundDTO userRefundDTO, HttpSession session, Model model) {
+		
+		// 1. 예금주 조회
+		int userNo= (Integer) session.getAttribute("userNo");
+		UserInfoDTO userInfoDTO = new UserInfoDTO();
+		userInfoDTO = classService.selectUserInfo(userNo);
+		userRefundDTO.setAccountHolder(userInfoDTO.getUserName());
+		
+		int payNo = userClassDTO.getPayNo();
+		// 2. 페이넘 받기		
+		userRefundDTO.setPayNo(payNo);
+		
+		// payment cancel 테이블 인서트
+		int result = classService.inserRefund(userRefundDTO);
+		
+		// payment -> 취소로 업데이트
+		int paymentResult = classService.updatePaymentStatus(payNo);
+		
+		if(result + paymentResult == 2) {
+			System.out.println("클래스 취소 성공");
+			return "redirect:/user/mypage/complateClassList";
+		}
+		// 실패시 
+		return "user/main/main";
+	}
+	
+	/**
+	 * 수료증 조회 메소드
+	 * @param userClassDTO
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("certificate/user")
+	public String selectCertificate(UserClassDTO userClassDTO, HttpSession session, Model model) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		UserInfoDTO userInfoDTO = new UserInfoDTO();
+		userInfoDTO = classService.selectUserInfo(userNo);
+		System.out.println("userInfoDTO : " + userInfoDTO);
+		System.out.println("userClassDTO : " + userClassDTO);
+		
+		
+		long randomNum = ((long)((Math.random()*100000000) + 100000000) * (long)((Math.random()*1000) + 100));
+		
+		model.addAttribute("randomNum",randomNum);
+		model.addAttribute("userClassDTO", userClassDTO);
+		model.addAttribute("userInfoDTO", userInfoDTO);
+		
+		return "user/mypage/certificate";
+
+	}
+	
+	/**
+	 * 응원하기 메소드
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("cheerUp")
+	@ResponseBody
+	public String cheerUp(HttpServletRequest request, HttpSession session) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		int clsNo = Integer.parseInt(request.getParameter("clsNo"));
+		UserClassDTO cheerUpHisInsertDTO = new UserClassDTO();
+		cheerUpHisInsertDTO.setUserNo(userNo);
+		cheerUpHisInsertDTO.setClsNo(clsNo);
+		
+		//1. 해당 클래스 응원했는지 조회
+		int cheerHistory = classService.selectCheerHistory(cheerUpHisInsertDTO);
+		System.out.println("cheerHistory : " + cheerHistory);
+		
+		int cheerUpResult = 0;
+		// 해당 클래스 응원 카운트가 0이면
+		if(cheerHistory == 0) {
+			cheerUpResult = classService.insertCheerHistory(cheerUpHisInsertDTO);
+		}else if(cheerHistory == 1) {
+		}else if( session.getAttribute("userNo").equals("null")) {
+			cheerUpResult = 2;
+		}
+		
+		String result = Integer.toString(cheerUpResult); 
+		return result; 
+
 	}
 }

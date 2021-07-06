@@ -27,7 +27,7 @@ import com.tig.wdc.user.model.service.UserInfoService;
 
 /**
  * @author 민연준
- * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 강사정보수정용, 참여진행/완료/예정 클래스조회용 컨트롤러
+ * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 강사정보수정용, 참여진행/완료/예정 클래스조회 / 찜 및 응원 클래스 조회용 컨트롤러
  */
 @Controller
 @RequestMapping("/user/mypage/*")
@@ -308,6 +308,9 @@ public class UserInfoController {
 		
 		return "redirect:/user/mypage/complateClassList";
 	}
+	
+	
+	
 	
 }
 

@@ -43,6 +43,7 @@
  		<typeAlias alias="UserReportDTO" type="com.tig.wdc.user.model.dto.UserReportDTO"/>
  		<typeAlias alias="PaymentDTO" type="com.tig.wdc.user.model.dto.PaymentDTO"/>
  		<typeAlias alias="ClassApplyDTO" type="com.tig.wdc.user.model.dto.ClassApplyDTO"/>
+ 		<typeAlias alias="UserRefundDTO" type="com.tig.wdc.user.model.dto.UserRefundDTO"/>
  		
  		<!-- teacher  -->
  		<typeAlias alias="CALCULATE" type="com.tig.wdc.model.dto.BalanceDTO"/>

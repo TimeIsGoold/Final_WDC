@@ -202,7 +202,15 @@
                          <c:otherwise>
 	                      <div style="width: 200px; height: 40px; display: inline-flex;">
 	                        <form action="${ pageContext.servletContext.contextPath }/user/userRefund" style="display: flex;" method="post">
-	                          <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
+	                      <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
+	                      <c:choose>
+                          	<c:when test="${ !empty requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          		<input type="hidden" name="scheduleDate" value="${ requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          	</c:when>
+                          </c:choose>
+	                      <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
+                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
+                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
 	                      <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
                           <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
                           <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">
@@ -210,6 +218,8 @@
                           <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
                           <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
                           <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
+                          <input type="hidden" name="payPrice" value="${ requestScope.scheduleDetailUserClassDTO.payPrice }">
+                          <input type="hidden" name="payNo" value="${ requestScope.scheduleDetailUserClassDTO.payNo }">
 	                        </form>
 	                      </div>
                          </c:otherwise>
@@ -218,14 +228,14 @@
                         <form action="${ pageContext.servletContext.contextPath }/user/userReport" style="display: flex;">
                           <button class="btn btn-dark" type="submit" style="display: flex;">클래스 신고하기</button>
                           
-                          <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
-                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
-                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
                           <c:choose>
                           	<c:when test="${ !empty requestScope.scheduleDetailUserClassDTO.scheduleDate }">
                           		<input type="hidden" name="scheduleDate" value="${ requestScope.scheduleDetailUserClassDTO.scheduleDate }">
                           	</c:when>
                           </c:choose>
+                          <input type="hidden" name="titlePic" value="${scheduleDetailUserClassDTO.titlePic}">
+                          <input type="hidden" name="title" value="${ requestScope.scheduleDetailUserClassDTO.title }">
+                          <input type="hidden" name="ppl" value="${ requestScope.scheduleDetailUserClassDTO.ppl }">
                           <input type="hidden" name="scheduleStart" value="${ requestScope.scheduleDetailUserClassDTO.scheduleStart }">
                           <input type="hidden" name="time" value="${ requestScope.scheduleDetailUserClassDTO.time }">
                           <input type="hidden" name="teNo" value="${ requestScope.scheduleDetailUserClassDTO.teNo }">

@@ -189,21 +189,21 @@
                     <hr>
                     </c:if>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
-                    	<c:if test="${ !empty requestScope.complateDetailUserClassDTO.refundAmount }">
-                  		  <li>환불 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/>  </li>                                        	
+                    	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'Y' }">
+                  		  <li>환불 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/> 원  </li>                                        	
                     	</c:if>
-                    	<c:if test="${ empty requestScope.complateDetailUserClassDTO.refundAmount }">
+                    	<c:if test="${ empty requestScope.complateDetailUserClassDTO.refundStatus eq 'N' }">
                   		  <li>환불 금액 :  [환불 승인 대기중 입니다.] </li>                                        	
                     	</c:if>
                     <hr>
                     </c:if>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
                     	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'N' }">
-                    		<li>환불 상태 : 환불 승인 대기중</li>                    
+                    		<li>환불 상태 : [환불 승인 대기중 입니다.]</li>                    
                     <hr>
                     	</c:if>
                     	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'Y' }">
-                    		<li>환불 상태 : 환불 승인</li>                    
+                    		<li>환불 상태 : [환불 승인]</li>                    
                     <hr>
                     	</c:if>
                     </c:if>
@@ -234,8 +234,23 @@
                       </div>
 	                  <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '완료' }">
 	                    <div style="display: inline-flex;">
-	                        <form action="class_certificatesView.html" style="display: flex; width: 131px; font-size: 15px;">
+	                        <form action="${ pageContext.servletContext.contextPath }/user/certificate/user" style="display: flex; width: 131px; font-size: 15px;" method="post">
 	                          	<button class="btn btn-dark" type="submit" style="display: flex;">수료증 보기</button>
+			                      <input type="hidden" name="titlePic" value="${complateDetailUserClassDTO.titlePic}">
+		                          <input type="hidden" name="title" value="${ requestScope.complateDetailUserClassDTO.title }">
+		                          <input type="hidden" name="ppl" value="${ requestScope.complateDetailUserClassDTO.ppl }">
+		                          <c:choose>
+		                          	<c:when test="${ !empty requestScope.complateDetailUserClassDTO.scheduleDate }">
+		                          		<input type="hidden" name="scheduleDate" value="${ requestScope.complateDetailUserClassDTO.scheduleDate }">
+		                          	</c:when>
+		                          </c:choose>
+		                          <input type="hidden" name="scheduleStart" value="${ requestScope.complateDetailUserClassDTO.scheduleStart }">
+		                          <input type="hidden" name="time" value="${ requestScope.complateDetailUserClassDTO.time }">
+		                          <input type="hidden" name="teNo" value="${ requestScope.complateDetailUserClassDTO.teNo }">
+		                          <input type="hidden" name="teName" value="${ requestScope.complateDetailUserClassDTO.teName }">
+		                          <input type="hidden" name="clsType" value="${ requestScope.complateDetailUserClassDTO.clsType }">
+		                          <input type="hidden" name="startDate" value="${ requestScope.complateDetailUserClassDTO.startDate }">
+		                          <input type="hidden" name="endDate" value="${ requestScope.complateDetailUserClassDTO.endDate }">
 	                        </form>
 	                    </div>           
 	                    <c:if test="${ requestScope.reviewYn eq 0 }">      
