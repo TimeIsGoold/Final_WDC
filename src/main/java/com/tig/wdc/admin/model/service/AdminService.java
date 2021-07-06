@@ -177,7 +177,7 @@ public interface AdminService {
 	 * 
 	 * @return
 	 */
-	CalculateDTO selectCalculateDetail();
+	CalculateDTO selectYesCalculateDetail(int no);
 	
 	/**
 	 * @author 송아현

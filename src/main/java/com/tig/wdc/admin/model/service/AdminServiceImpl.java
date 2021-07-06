@@ -249,9 +249,9 @@ public class AdminServiceImpl implements AdminService {
 	 * 
 	 */
 	@Override
-	public CalculateDTO selectCalculateDetail() {
+	public CalculateDTO selectYesCalculateDetail(int no) {
 		
-		return mapper.selectCalculateDetail();
+		return mapper.selectYesCalculateDetail(no);
 	}
 	
 	/**

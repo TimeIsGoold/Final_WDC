@@ -28,7 +28,7 @@
 	   	</script>
 	   	<style>
 	   		#pageMove {
-	   		    margin-left: 18%;
+	   		    margin-left: 6%;
 		   	    margin-bottom: 3%;
 		   	    opacity: 40%;
 	   		}
@@ -80,7 +80,7 @@
            </div>
            <div class="sb-sidenav-footer">
            	   <div id="pageMove">
-				<input type="button" value="Main으로 이동" onclick="location.href='${ pageContext.servletContext.contextPath }'">           	   
+				<input type="button" value="고객홈페이지로 이동" onclick="location.href='${ pageContext.servletContext.contextPath }'">           	   
            	   </div>
                <div class="small">
                	Copyright &copy; 우리동네 클래스

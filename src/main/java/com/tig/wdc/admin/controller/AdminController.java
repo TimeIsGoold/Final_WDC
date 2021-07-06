@@ -328,9 +328,13 @@ public class AdminController {
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail(Model model) {
+	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("no")int no, Model model) {
 		
-		//model.addAttribute("calculateDetail", adminService.selectCalculateDetail());
+		if(type.equals("N")) {
+			//model.addAttribute("calculateDetail", adminService.selectNoCalculateDetail());
+		} else if(type.equals("Y")) {
+			model.addAttribute("calculateDetail", adminService.selectYesCalculateDetail(no));
+		}
 		
 		return "admin/calculateDetail";
 	 }

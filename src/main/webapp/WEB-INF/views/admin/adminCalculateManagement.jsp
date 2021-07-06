@@ -88,7 +88,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${calculateList}" var="CalculateDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/calculateDetail?currentMenu=calculate'">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/calculateDetail?currentMenu=calculate&YN=${CalculateDTO.calcYN}&no=${CalculateDTO.calcNo}'">
 				                                <td>${CalculateDTO.calcNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${CalculateDTO.teType eq 'FREE'}">
