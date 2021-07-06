@@ -45,6 +45,7 @@
                             <section class="py-5">
                                 <div class="container">
                                 <div class="">
+                                    <div style="font-size: xx-large; color: red; font-weight: bold;">&nbsp;&nbsp;반려된 클래스</div>
 									<div class="col-lg-6">
 										<!-- PRODUCT SLIDER-->
 												<div class=""
@@ -60,7 +61,7 @@
 									</div>
                                   <!-- PRODUCT DETAILS-->
                                   <div class="" >
-                                   <div style="font-size: xx-large; color: red; font-weight: bold;">&nbsp;&nbsp;반려</div>
+
                                     <h1>${classDetail.title }</h1><br>
                                     <p class="text-muted lead">강의 카테고리 :                                         
                                         <c:choose>
