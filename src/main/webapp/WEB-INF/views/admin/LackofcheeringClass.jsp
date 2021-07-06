@@ -39,15 +39,17 @@
 
                             <div class="card-header" style="font-size: x-large;">
                                 <i class="fas fa-table me-1"></i>
-                                클래스 상세 페이지
+                                응원갯수 부족 클래스 상세 페이지
                             </div>
                             <section class="py-5">
                               <div class="container">
                                 <div class="">
+                                <div style="font-size: xx-large; color: red; font-weight: bold;">수요조사 (2차심사) 미달 클래스</div>
 									<div class="col-lg-6">
 										<!-- PRODUCT SLIDER-->
 												<div class=""
 													data-slider-id="1" style="display:flex;">
+		
 													<c:forEach var="classPic" items="${ classPic }">
 													<c:set var="i" value="${i+1}"></c:set>
 														<div class="" >
@@ -87,7 +89,7 @@
                                       </div>
                                   </div>
                                 </div>
-                                <button class="btn btn-primary" style="margin-left: 90%;">뒤로 가기</button>
+
                                 <br><br>
                                 <!-- 상세보기 탭 -->
                                 <div class="tab-content mb-5" id="myTabContent">
@@ -173,14 +175,8 @@ ${ classDetail.intro }
                                       <div class="row">
                                       <div class="col-md-2" style="height: 100px;"></div>
                                       <div class="col-md-8" style="height: 100px;">
-                                       <form method="POST" action="${pageContext.servletContext.contextPath}/admin/firstDecision">
-	                                        <input type="submit" value="&nbsp;승&nbsp;&nbsp;인&nbsp;" style="margin-right: 100px;" class="btn btn-info"/>
-                                        
-                      
-	                                        <input type="button" data-bs-toggle="modal" data-bs-target="#insertReason" value="&nbsp;반&nbsp;&nbsp;려&nbsp;" class="btn btn-danger"/>
-	                                        <input type="hidden" name="clsNo" value="${classDetail.clsNo }"/>
-	                                        <input type="hidden" name="status" value="accept"/>
-                                        </form>
+
+	                                        <input type="submit" value="뒤로 가기" style="margin-right: 100px;" class="btn btn-info"/>                       
                                       </div>
                                       <div class="col-md-2" style=" height: 100px;"></div>
                                     </div>
@@ -194,28 +190,6 @@ ${ classDetail.intro }
                     </div>
                 </main>
             </div>
-										<!-- 반려 사유 등록 -->
-										<div class="modal fade" id="insertReason" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										  <div class="modal-dialog">
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <h5 class="modal-title" id="exampleModalLabel">거절 사유 등록</h5>
-										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										      </div>
-										      <form method="POST" action="${pageContext.servletContext.contextPath}/admin/firstDecision">
-										      <div class="modal-body">
-										        <textarea cols="50" rows="10" style="resize:none;" name="rejectReason"></textarea>
-										        <input type="hidden" name="clsNo" value="${ classDetail.clsNo }"/>
-										        <input type="hidden" name="status" value="reject"/>
-										      </div>
-										      <div class="modal-footer">
-										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-										        <button type="submit" class="btn btn-danger">반려</button>
-										      </div>
-										       </form>
-										    </div>
-										  </div>
-										</div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
