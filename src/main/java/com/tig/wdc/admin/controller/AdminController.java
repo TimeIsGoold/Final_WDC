@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
+import com.tig.wdc.admin.model.dto.CheeringClassDTO;
 import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
 import com.tig.wdc.admin.model.dto.NoticeDTO;
@@ -86,7 +88,7 @@ public class AdminController {
 
 		model.addAttribute("classList", adminService.selectAllClassList());
 
-		return "admin/adminClassManagement";
+		return "admin/testClassList";
 	}
 
 	/**
@@ -402,7 +404,6 @@ public class AdminController {
 
 	@GetMapping("procsAcceptStatus")
 	public String procsAcceptStatus(@RequestParam("rn")int no, @RequestParam("type")String type, @RequestParam("un")int userNo, Model model) {
-		
 		Map<String, Object> blackMap = new HashMap<>();
 		blackMap.put("type", type);
 		blackMap.put("userNo", userNo);
@@ -457,11 +458,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("classDetail")
-	public String classDetail(Model model, @RequestParam("cn")int clsNo, @RequestParam(value ="ct", defaultValue="end")String type) {
-		
-		System.out.println(type);
+	public String classDetail(Model model, @RequestParam("cn")int clsNo, @RequestParam("ct")String type, @RequestParam("cd")String decision) {
 		String path = "";
-		if(type.equals("W")) {
+		if(type.equals("W") && decision.equals("Y")) {
 		//클래스 정보 select
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
@@ -478,8 +477,10 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
-				path = "admin/jspsjspjsp";	
-		} else if(type.equals("S")) {
+				path = "admin/BeforeDicision";	
+				
+				// 2차 심사 진행중
+		} else if(type.equals("F") && decision.equals("Y")) {
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -495,8 +496,10 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
-				path ="admin/jspsjspjsp";	
-		} else if(type.equals("F")) {
+				path = "admin/BeforeDicision";	
+				
+				// 진행중인 클래스
+		} else if(type.equals("S") && decision.equals("P")) {
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -512,26 +515,10 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
-				path = "admin/jspsjspjsp";	
-		} else if(type.equals("S")) {
-				UserClassDTO classDetail = new UserClassDTO();
-				classDetail = classService.selectClassDtail(clsNo);
-				model.addAttribute("classDetail",classDetail);
-				//대표사진 3장 select
-				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
-				classPic = classService.selectClassPic(clsNo);
-				model.addAttribute("classPic",classPic);
-				//완성작 select
-				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
-				classPiece = classService.selectClassPiece(clsNo);
-				model.addAttribute("classPiece",classPiece);
-				//커리큘럼 select
-				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
-				curriculum = classService.selectCurriculum(clsNo);
-				model.addAttribute("curriculum",curriculum);
-				path = "admin/EndedClass";	
+				path = "admin/detailpage";	
+				
 				// 거절된 클래스
-		} else if(type.equals("R")) {
+		} else if(type.equals("R") && decision.equals("Y")) {
 			UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -548,24 +535,45 @@ public class AdminController {
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
 				path = "admin/denyClassManagement";	
-		} else if(type.equals("end")) {
-			UserClassDTO classDetail = new UserClassDTO();
-			classDetail = classService.selectClassDtail(clsNo);
-			model.addAttribute("classDetail",classDetail);
-			//대표사진 3장 select
-			List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
-			classPic = classService.selectClassPic(clsNo);
-			model.addAttribute("classPic",classPic);
-			//완성작 select
-			List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
-			classPiece = classService.selectClassPiece(clsNo);
-			model.addAttribute("classPiece",classPiece);
-			//커리큘럼 select
-			List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
-			curriculum = classService.selectCurriculum(clsNo);
-			model.addAttribute("curriculum",curriculum);
-			path = "admin/EndedClass";	
-	}
+				
+				// 응원 갯수 부족 클래스
+		} else if(type.equals("L") && decision.equals("Y")) {
+				UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path = "admin/LackofcheeringClass";	
+				
+				// 종료된 클래스
+		} else if(decision.equals("E")) {
+				UserClassDTO classDetail = new UserClassDTO();
+				classDetail = classService.selectClassDtail(clsNo);
+				model.addAttribute("classDetail",classDetail);
+				//대표사진 3장 select
+				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+				classPic = classService.selectClassPic(clsNo);
+				model.addAttribute("classPic",classPic);
+				//완성작 select
+				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+				classPiece = classService.selectClassPiece(clsNo);
+				model.addAttribute("classPiece",classPiece);
+				//커리큘럼 select
+				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+				curriculum = classService.selectCurriculum(clsNo);
+				model.addAttribute("curriculum",curriculum);
+				path = "admin/EndedClass";	
+		}
 		return path;
 	}
 	
@@ -578,6 +586,18 @@ public class AdminController {
 		return "redirect:selectClassBycategory?ct=tw&cnt="+result;
 	}
 	
+	@GetMapping("seconddecision")
+	public String selectCheeringClass(Model model) {
+		List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
+		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+		
+		CheeringClassDTO cheeringClass = null;
+		for(int i = 0; i < cheeringClassList.size(); i++ ) {
+//			cheeringClassList.get(i).getFirstDecision()
+		}
+		return "admin/testClassList";
+		
+	}
 
 }
 

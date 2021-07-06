@@ -1,6 +1,5 @@
 package com.tig.wdc.admin.model.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tig.wdc.admin.model.dao.AdminMapper;
 import com.tig.wdc.admin.model.dto.CalculateDTO;
+import com.tig.wdc.admin.model.dto.CheeringClassDTO;
 import com.tig.wdc.admin.model.dto.ClassDTO;
 import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
@@ -344,6 +344,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int insertClassDecision(ClsDecisionDTO clsDecisionDTO) {
 		return mapper.insertClassDecision(clsDecisionDTO);
+	}
+
+	@Override
+	public List<CheeringClassDTO> selectCheeringClass() {
+		return mapper.selectCheeringClass();
 	}
 
 

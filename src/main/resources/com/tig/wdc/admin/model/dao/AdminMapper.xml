@@ -251,6 +251,16 @@
 			<result column="TE_BLOCK_D" property="enrollDate"/>
 	</resultMap>
 	
+	<resultMap id="cheeringCLassDTO" type="CheeringCLassDTO" >
+			<id column="CLS_NO" property="clsNo"/>
+			<result column="DICISION_DATE" property="firstDecision"/>
+			<result column="DATE_APLCT" property="enrollDate"/>
+			<result column="CLS_TITLE" property="title"/>
+			<result column="TE_NAME" property="teName"/>
+			<result column="CATEGORY_NO" property="categoryNo"/>
+			<result column="응원갯수" property="cheeringCnt"/>
+	</resultMap>
+	
 		
 	<select id="selectTotalUsertList" resultMap="totalDTO">
 		SELECT 
@@ -952,4 +962,26 @@
 	    , null 
 	    )
 	 </insert>
+	 
+	 <select id="selectCheeringClass" resultMap="cheeringCLassDTO">
+		SELECT 
+		       C.CLS_NO
+		     , DH.DICISION_DATE
+		     , C.DATE_APLCT
+		     , C.CLS_TITLE
+		     , T.TE_NAME
+		     , C.CATEGORY_NO
+		     , COUNT(DECODE(CHEERING_STATUS,'Y',1)) 응원갯수
+		  FROM CLASS C
+		  LEFT JOIN TEACHER_INFO T on (C.TE_NO = T.TE_NO)
+		  LEFT JOIN DISICION_HiSTORY DH on (DH.CLS_NO = C.CLS_NO)
+		  LEFT JOIN CHEERING_HiSTORY CH on (C.CLS_NO = CH.CLS_NO)
+		 WHERE C.CLS_DICSION_STATUS = 'F'
+		 GROUP BY C.CLS_NO
+		        , DH.DICISION_DATE
+		        , C.DATE_APLCT
+		        , C.CLS_TITLE
+		        , T.TE_NAME
+		        , C.CATEGORY_NO
+	 </select>
 </mapper>
