@@ -73,6 +73,8 @@ public interface UserClassMapper {
 
 	public int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
+	public List<UserClassDTO> selectMyCheerClassList(int userNo);
+
 
 
 

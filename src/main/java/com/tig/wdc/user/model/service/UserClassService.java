@@ -70,4 +70,6 @@ public interface UserClassService {
 
 	int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
+	List<UserClassDTO> selectMyCheerClassList(int userNo);
+
 }

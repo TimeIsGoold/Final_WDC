@@ -168,6 +168,11 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.insertCheerHistory(cheerUpHisInsertDTO);
 	}
 
+	@Override
+	public List<UserClassDTO> selectMyCheerClassList(int userNo) {
+		return mapper.selectMyCheerClassList(userNo);
+	}
+
 
 
 
