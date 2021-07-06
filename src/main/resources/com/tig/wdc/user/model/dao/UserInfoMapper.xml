@@ -135,7 +135,7 @@
            AND P.PAY_STATUS = '완료'
            AND CLS_TYPE = 'R'  
            <![CDATA[
-           AND (L.CLS_START_D < SYSDATE)
+           AND (L.CLS_START_D > SYSDATE)
            ]]>
 	</select>
 	
@@ -174,7 +174,7 @@
            AND CLS_TYPE = 'R'  
            <![CDATA[
            AND (L.CLS_START_D < SYSDATE)
-           AND (L.CLS_END_D > SYSDATE)
+           AND (L.CLS_END_D >= SYSDATE)
            ]]>
 	</select>
 	
@@ -190,8 +190,8 @@
            AND A.TYPE = 'TITLE'
            AND C.ATT_STATUS = 'Y'
           <![CDATA[
-           AND (S.SCHEDULE_DATE < SYSDATE
-            OR L.CLS_END_D < SYSDATE)
+           AND (S.SCHEDULE_DATE <= SYSDATE
+            OR L.CLS_END_D <= SYSDATE)
             ]]>
            AND P.PAY_STATUS = '완료'
 	</select>

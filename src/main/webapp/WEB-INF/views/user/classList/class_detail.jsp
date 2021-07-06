@@ -292,7 +292,7 @@ i {
 						<input type="hidden" name="title" value="${ requestScope.classDetail.title }"/>
 						<h1>${ requestScope.classDetail.title }</h1>
 						<p class="text-muted lead"><fmt:formatNumber value="${ requestScope.classDetail.price }" pattern="#,###"/> 원</p>
-						<input type="hidden" name="price" value="${ requestScope.classDetail.price }"/>
+
 						<ul class="list-unstyled small d-inline-block"
 							style="font-size: 16px; display: flex !important; padding-top: 15px;">
 							<div class="class-icon">
@@ -344,6 +344,8 @@ i {
 						<li class="list-inline-item m-0 p-0">
 							<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
 								<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+								<input type="hidden" name="price" value="${ requestScope.classDetail.price }"/>
+								<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
 							</button>
 						</li>
 					</div>

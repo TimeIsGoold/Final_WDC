@@ -146,7 +146,10 @@ public class UserClassDetailController {
 	@PostMapping("payment")
 	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model,
 			UserClassDTO userClassDTO) {
+		System.out.println("userClassDTO : " + userClassDTO.toString());
+		System.out.println("scheduleDTO : " + scheduleDTO.toString());
 
+		
 		if (session == null) {
 			return "user/login/login";
 		}
@@ -164,14 +167,23 @@ public class UserClassDetailController {
 		model.addAttribute("couponList", couponList);
 
 		// 스케줄 넘버 조회
-		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
-		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO.getStringScheduleDate());
-		model.addAttribute("pasymentScheduleDTO", paymentScheduleDTO);
-
-		model.addAttribute("classApplyDTO", classApplyDTO);
-
-		// stringScheduleDate 용
+		scheduleDTO.setClsNo(userClassDTO.getClsNo());
+		scheduleDTO.setScheduleClsType(userClassDTO.getClsType());
+		System.out.println("scheduleDTO2 : " + scheduleDTO);
 		model.addAttribute("scheduleDTO", scheduleDTO);
+
+		
+		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
+		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO);
+		// paymentScheduleDTO 가 왜 null?
+		
+		System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
+		System.out.println("scheduleDTO3 : " + scheduleDTO);
+		//System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
+		
+		model.addAttribute("classApplyDTO", classApplyDTO);
+		// stringScheduleDate 용
+		model.addAttribute("paymentScheduleDTO", paymentScheduleDTO);
 
 		return "user/payment/payment";
 	}

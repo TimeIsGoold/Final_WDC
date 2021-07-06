@@ -48,7 +48,7 @@ public interface UserClassService {
 
 	List<UserInquiryDTO> selectQnA(int clsNo);
 
-	ScheduleDTO selectscheduleNo(String stringScheduleDate);
+	ScheduleDTO selectscheduleNo(ScheduleDTO scheduleDTO);
 
 	int insertClassApply(ClassApplyDTO paymentClassApplyDTO);
 

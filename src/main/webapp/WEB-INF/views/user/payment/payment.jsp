@@ -192,6 +192,7 @@ h5, .h5 {
                     </th>
                     <td style="border-top: 0px !important">
                       <input type="text"style="width: 250px;" name="phone" id="phone" value="${ requestScope.userInfo.phone }" disabled="disabled">
+                      <input type="text"style="width: 250px;" name="phone" id="phone" value="${ requestScope.paymentScheduleDTO.scheduleNo }" disabled="disabled">
                     </td>
                   </tr>
                 </tbody>
@@ -402,7 +403,7 @@ h5, .h5 {
 								
 								<!-- 1. 클래스 어플라이 인서트용 인풋 히든 -->
                              	<input type="hidden" name="ppl" value="${ requestScope.classApplyDTO.ppl }"/>
-                             	<input type="hidden" name="scheduleNo" value="${ requestScope.pasymentScheduleDTO.scheduleNo }"/>
+                             	<input type="hidden" name="scheduleNo" value="${ requestScope.paymentScheduleDTO.scheduleNo }"/>
                              	<!-- 2. 페이먼트 인서트용 인풋 히든 -->
                              	<input type="hidden" name="payPrice" id="insertPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }"/>
                              	<input type="hidden" name="cpnNo" value="0" id="insertCouponNo"/>

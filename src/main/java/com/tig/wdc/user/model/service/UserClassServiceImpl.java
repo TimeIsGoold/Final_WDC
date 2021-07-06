@@ -114,8 +114,8 @@ public class UserClassServiceImpl implements UserClassService{
 	}
 
 	@Override
-	public ScheduleDTO selectscheduleNo(String stringScheduleDate) {
-		return mapper.selectscheduleNo(stringScheduleDate);
+	public ScheduleDTO selectscheduleNo(ScheduleDTO scheduleDTO) {
+		return mapper.selectscheduleNo(scheduleDTO);
 	}
 
 	@Override

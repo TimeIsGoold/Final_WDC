@@ -225,12 +225,19 @@
 		 WHERE C.CLS_NO = #{ clsNo }
     </select>
     
-	<select id="selectscheduleNo" parameterType="string" resultMap="ScheduleResult">
+	<select id="selectscheduleNo" parameterType="ScheduleDTO" resultMap="ScheduleResult">
 		SELECT
-		       *
-		  FROM SCHEDULE
-		 WHERE SCHEDULE_DATE = SUBSTR(#{value},0,10)
-		   AND SCHEDULE_START = SUBSTR(#{value},12,15)
+		       S.*
+		  FROM SCHEDULE S
+		  JOIN CLASS C ON(S.CLS_NO = C.CLS_NO)
+		 WHERE S.SCHEDULE_START = SUBSTR(#{stringScheduleDate},12,15)
+		 <if test='scheduleClsType == "O"'>		 
+		   AND S.SCHEDULE_DATE = SUBSTR(#{stringScheduleDate},0,10)
+		 </if>
+		 <if test='scheduleClsType == "R"'>		 
+		   AND C.CLS_START_D = SUBSTR(#{stringScheduleDate},0,10)
+		 </if>
+		   AND S.CLS_NO = #{ clsNo }
 	</select>
     
 	<insert id="insertClassApply" parameterType="ClassApplyDTO">

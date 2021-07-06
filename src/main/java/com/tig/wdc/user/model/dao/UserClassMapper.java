@@ -51,7 +51,7 @@ public interface UserClassMapper {
 
 	public List<UserInquiryDTO> selectQnA(int clsNo);
 
-	public ScheduleDTO selectscheduleNo(String stringScheduleDate);
+	public ScheduleDTO selectscheduleNo(ScheduleDTO scheduleDTO);
 
 	public int insertClassApply(ClassApplyDTO paymentClassApplyDTO);
 

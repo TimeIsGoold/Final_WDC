@@ -23,6 +23,7 @@ public class ScheduleDTO {
 	private String inputDate;
 	private String inputMin;
 	private String inputMax;
+	private String scheduleClsType;
 
 	private String stringScheduleDate; // 페이먼트용
 
@@ -31,7 +32,7 @@ public class ScheduleDTO {
 
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
 			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax,
-			String stringScheduleDate) {
+			String scheduleClsType, String stringScheduleDate) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.scheduleType = scheduleType;
@@ -44,6 +45,7 @@ public class ScheduleDTO {
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;
+		this.scheduleClsType = scheduleClsType;
 		this.stringScheduleDate = stringScheduleDate;
 	}
 
@@ -108,7 +110,7 @@ public class ScheduleDTO {
 	}
 
 	public void setScheduleCount(int scheduleCount) {
-		scheduleCount = scheduleCount;
+		this.scheduleCount = scheduleCount;
 	}
 
 	public String getInputDate() {
@@ -135,6 +137,14 @@ public class ScheduleDTO {
 		this.inputMax = inputMax;
 	}
 
+	public String getScheduleClsType() {
+		return scheduleClsType;
+	}
+
+	public void setScheduleClsType(String scheduleClsType) {
+		this.scheduleClsType = scheduleClsType;
+	}
+
 	public String getStringScheduleDate() {
 		return stringScheduleDate;
 	}
@@ -148,8 +158,11 @@ public class ScheduleDTO {
 		return "ScheduleDTO [scheduleNo=" + scheduleNo + ", scheduleType=" + scheduleType + ", scheduleDate="
 				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
 				+ maxPeople + ", clsNo=" + clsNo + ", scheduleCount=" + scheduleCount + ", inputDate=" + inputDate
-				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + ", stringScheduleDate=" + stringScheduleDate
-				+ "]";
+				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + ", scheduleClsType=" + scheduleClsType
+				+ ", stringScheduleDate=" + stringScheduleDate + "]";
 	}
+
+
+
 
 }
