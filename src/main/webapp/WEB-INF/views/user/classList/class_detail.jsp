@@ -365,7 +365,6 @@ i {
 		               jQuery('#datetimepicker').datetimepicker({               
 		                  datepicker : true,
 		                  allowTimes : timeValues,
-		                  closeOnDateSelect : true,
 		                  //allowDates : days,
 		                  format:'Y-m-d H:i',
 		                  onChangeDateTime : function(dp, $input) {
@@ -413,8 +412,7 @@ i {
 		                     //console.log(timeValues);
 		                  },
 		                  formatDate:'Y-m-d',
-		                  scrollMonth : false,
-		                  closeOnDateSelect : true
+		                  scrollMonth : false
 
 		               });
 		            </script>
