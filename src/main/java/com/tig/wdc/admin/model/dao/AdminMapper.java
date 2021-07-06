@@ -145,6 +145,15 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 공지 수정 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int updateNoticeReWrite(NoticeDTO notice);
+	
+	/**
+	 * @author 송아현
 	 * 미정산
 	 * 
 	 * @return
@@ -184,6 +193,15 @@ public interface AdminMapper {
 	 */
 	RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap);
 	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	int updateRefundApprove(RefundDTO refund);
+	
 	StudentDTO selectOneStudent(int no);
 
 	TeacherDTO selectOneTeacher(int no);
@@ -215,6 +233,8 @@ public interface AdminMapper {
 	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
 
 	List<CheeringClassDTO> selectCheeringClass();
+
+
 
 
 

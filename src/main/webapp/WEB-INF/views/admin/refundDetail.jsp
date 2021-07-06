@@ -100,7 +100,16 @@
 	                                        	<th>환불신청일</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundApplyDate }</td>
 	                                            <th>환 불 일</th>
-	                                            <td colspan="4">${ refundInfoDetail.refundDate }</td>
+	                                            <td colspan="4">
+	                                            	<c:choose>
+	                                            		<c:when test="${ empty refundInfoDetail.refundDate }">
+	                                            			아직 승인되지 않았습니다
+	                                            		</c:when>
+	                                            		<c:when test="${ not empty refundInfoDetail.refundDate }">
+	                                            			${ refundInfoDetail.refundDate }
+	                                            		</c:when>
+	                                            	</c:choose>
+	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>취소&nbsp;&nbsp;&nbsp;사유</th>
@@ -138,15 +147,7 @@
 	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundAccount }</td>
 	                                            <th>환 불 액</th>
-	                                            <c:choose>
-	                                            	<c:when test="${ refundInfoDetail.refundAmount eq 0}">
-	                                            		<td colspan="4">정산 전 입니다</td>
-	                                            	</c:when>
-	                                            	<c:when test="${ not empty refundInfoDetail.refundAmount }">
-	                                            		<td colspan="4">${ refundInfoDetail.refundAmount }</td>
-	                                            	</c:when>
-	                                            </c:choose>
-	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
+	                                            <td colspan="4">${ refundInfoDetail.refundAmount }원</td>
 	                                        </tr>
 	                                    </tbody>
                                     </form>
@@ -166,7 +167,7 @@
         </div>
         <script>
         	$("#approveBtn").on("click",function(){
-        		$("#area").attr("action","/wdc/admin/couponIssue").submit();
+        		$("#area").attr("action","/wdc/admin/refundDetail").submit();
         	});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

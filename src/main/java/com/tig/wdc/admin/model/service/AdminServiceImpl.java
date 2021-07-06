@@ -210,6 +210,16 @@ public class AdminServiceImpl implements AdminService {
 
 		return mapper.insertNoticeWrite(notice);
 	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 수정 등록
+	 */
+	@Override
+	public int updateNoticeReWrite(NoticeDTO notice) {
+
+		return mapper.updateNoticeReWrite(notice);
+	}
 
 	 /**
 	 * @author 송아현
@@ -263,6 +273,16 @@ public class AdminServiceImpl implements AdminService {
 	public RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap) {
 
 		return mapper.selectRefundInfoDetail(refundDetailMap);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 */
+	@Override
+	public int updateRefundApprove(RefundDTO refund) {
+
+		return mapper.updateRefundApprove(refund);
 	}
 
 	@Override

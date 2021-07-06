@@ -86,7 +86,7 @@
 				                                		<td>강사</td>
 				                                	</c:when>
 				                                	<c:when test="${NoticeDTO.noticeType eq 'C'}">
-				                                		<td>고객</td>
+				                                		<td>수강생</td>
 				                                	</c:when>
 				                                </c:choose>
 				                                <c:choose>

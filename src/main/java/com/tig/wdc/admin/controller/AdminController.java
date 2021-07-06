@@ -248,9 +248,8 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
-	 * 공지 작성/수정을 위한 매핑
+	 * 공지 작성을 위한 매핑
 	 * 전처리 -> url
-	 * @return
 	 */
 	@GetMapping("noticeWrite")
 	public void noticeIssue() {}
@@ -258,6 +257,7 @@ public class AdminController {
 	/**
 	 * @author 송아현
 	 * 공지사항 등록
+	 * 
 	 * @param notice
 	 * @param model
 	 * @return
@@ -266,6 +266,37 @@ public class AdminController {
 	public String noticeWrite(@ModelAttribute NoticeDTO notice, Model model) {
 		
 		model.addAttribute("noticeWrite", adminService.insertNoticeWrite(notice));
+		
+		return "redirect:/admin/noticeManagement?currentMenu=notice";
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지사항 수정을 위한 매핑
+	 * 전처리 -> url
+	 * 
+	 * @param no
+	 * @param model
+	 */
+	@GetMapping("noticeReWrite")
+	public void noticeReWrite(@RequestParam("no")int no, Model model) {
+		
+		model.addAttribute("noticeDetail", adminService.selectNoticeInfoDetail(no));
+	}
+	
+	/**
+	 * @author 송아현
+	 * 공지사항 수정 등록
+	 * 
+	 * @param no
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("noticeReWrite")
+	public String noticeReWrite(@ModelAttribute NoticeDTO notice, Model model) {
+
+		System.out.println("notice : " + notice);
+		model.addAttribute("noticeRewrite", adminService.updateNoticeReWrite(notice));
 		
 		return "redirect:/admin/noticeManagement?currentMenu=notice";
 	}
@@ -338,8 +369,19 @@ public class AdminController {
 		return "admin/refundDetail";
 	}
 	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 * 
+	 * @param refund
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("refundDetail")
 	public String refundApprove(@ModelAttribute RefundDTO refund, Model model) {
+		
+		model.addAttribute("refundDetail", adminService.updateRefundApprove(refund));
+		
 		return "redirect:/admin/refundManagement?currentMenu=refund&YN=N";
 	}
 

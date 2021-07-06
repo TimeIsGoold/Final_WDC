@@ -164,6 +164,7 @@
 		<result column="NOTICE_TITLE" property="noticeTitle"/>
 		<result column="NOTICE_CONTENT" property="noticeContent"/>
 		<result column="IMPORTANT_YN" property="importantYN"/>
+		<result column="NOTICE_NO" property="noticeNo"/>
 	</resultMap>
 	
 	<!-- 정산 미완료 -->
@@ -187,10 +188,10 @@
 	</resultMap>
 	
 	<!-- 정산 상세 -->
-	<resultMap id="calculateInfoDetail" type="CalculateDTO">
+<!-- 	<resultMap id="calculateInfoDetail" type="CalculateDTO">
 		<id column="" property=""/>
 		<result column="" property=""/>
-	</resultMap>
+	</resultMap> -->
 	
 	<!-- 환불 관리 -->
 	<resultMap id="refundList" type="RefundDTO">
@@ -260,7 +261,6 @@
 			<result column="CATEGORY_NO" property="categoryNo"/>
 			<result column="응원갯수" property="cheeringCnt"/>
 	</resultMap>
-	
 		
 	<select id="selectTotalUsertList" resultMap="totalDTO">
 		SELECT 
@@ -623,6 +623,7 @@
 			 , NOTICE_TITLE
 			 , WRITE_DATE
 		  FROM NOTICE
+		 ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<!-- 공지 상세 -->
@@ -632,6 +633,7 @@
 			 , NOTICE_TITLE
 			 , NOTICE_CONTENT
 			 , IMPORTANT_YN
+			 , NOTICE_NO
 		  FROM NOTICE
          WHERE NOTICE_NO = #{no}
 	</select>
@@ -664,6 +666,31 @@
   		, 1
   		)
 	</insert>
+	
+	<!-- 공지 수정 등록 -->
+	<update id="updateNoticeReWrite" parameterType="NoticeDTO">
+		UPDATE NOTICE
+           SET 
+               NOTICE_TITLE = #{noticeTitle}
+             , NOTICE_CONTENT = #{noticeContent}
+             , WRITE_DATE = SYSDATE
+             <if test='noticeType == "A"'>
+	         , 'A'
+	       	 </if>
+	       	 <if test='noticeType == "T"'>
+	         , 'T'
+	       	 </if>
+	       	 <if test='noticeType == "C"'>
+	         , 'C'
+	       	 </if>
+	       	 <if test='importantYN == "Y"'>
+	         , 'Y'
+	       	 </if>
+	       	 <if test='importantYN == "N"'>
+	         , 'N'
+	       	 </if>
+	     WHERE NOTICE_NO = #{noticeNo}
+	</update>
 	
 	<!-- 정산 미완료 -->
 	<select id="selectNoCalculateList" resultMap="calculateLNoList">
@@ -698,9 +725,9 @@
 	</select>
 	
 	<!-- 정산 상세 -->
-	<select id="selectCalculateInfoDetail" resultMap="calculateInfoDetail" parameterType="_int">
+<!-- 	<select id="selectCalculateInfoDetail" resultMap="calculateInfoDetail" parameterType="_int">
 	
-	</select>
+	</select> -->
 	
 	<!-- 환불 리스트 -->
 	<select id="selectRefundList" resultMap="refundList" parameterType="string">
@@ -750,8 +777,7 @@
 	<update id="updateRefundApprove" parameterType="RefundDTO">
 		UPDATE PAYMENT_CANCEL
            SET 
-               REFUND_AMOUNT = #{ refundAmount }
-             , REFUND_DATE = SYSDATE
+               REFUND_DATE = SYSDATE
              , REFUND_STATUS = 'Y'
          WHERE CANCLE_NO = #{ cancelNo }
 	</update>

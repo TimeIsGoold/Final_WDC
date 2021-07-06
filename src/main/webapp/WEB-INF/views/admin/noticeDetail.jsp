@@ -114,7 +114,7 @@
                                 </table>
 
                                 <div class="submitBtn">
-                                    <input type="submit" class="Btn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeWrite?currentMenu=notice'" value="수정하기">
+                                    <input type="submit" class="Btn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeReWrite?currentMenu=notice&no=${ noticeDetail.noticeNo }'" value="수정하기">
                                 	<input type="submit" class="Btn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
                                 </div>
                             </div>

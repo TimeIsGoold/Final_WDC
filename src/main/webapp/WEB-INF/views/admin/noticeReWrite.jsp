@@ -94,7 +94,7 @@
                         <div class="card mb-4">
 
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>공지사항 작성
+                                <i class="fas fa-table me-1"></i>공지사항 수정
                             </div>
 
                             <div class="card-body">
@@ -104,22 +104,22 @@
 	                                        <tr>
 	                                            <th>공개&nbsp;&nbsp;대상</th>
 	                                            <td>
-	                                                <input type="radio" name="noticeType" value="A" class="radioBtnType"checked>전체 회원용
-	                                                <input type="radio" name="noticeType" value="T" class="radioBtnType">강사 회원용
-	                                                <input type="radio" name="noticeType" value="C" class="radioBtnType">일반 회원용
+	                                                <input type="radio" name="noticeType" value="A" id="A" class="radioBtnType">전체 회원용
+	                                                <input type="radio" name="noticeType" value="T" id="T" class="radioBtnType">강사 회원용
+	                                                <input type="radio" name="noticeType" value="C" id="C" class="radioBtnType">일반 회원용
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
 	                                            <td>
-	                                                <input type="radio" name="importantYN" value="N" class="radioBtnCondition"checked>보통
-	                                                <input type="radio" name="importantYN" value="Y" class="radioBtnCondition">중요
+	                                                <input type="radio" name="importantYN" id="N" value="N" class="radioBtnCondition">보통
+	                                                <input type="radio" name="importantYN" id="Y" value="Y" class="radioBtnCondition">중요
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
 	                                            <td>
-	                                                <input type="text" value="test입니다." name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
+	                                                <input type="text" value="${ noticeDetail.noticeTitle }" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
@@ -135,7 +135,7 @@
                                 </table>     
                 
                                 <div class="noticeBtnArea">
-                                    <input type="button" id="btnNotice" class="noticeBtn" value="등록하기">
+                                    <input type="button" id="btnNotice" class="noticeBtn" value="수정하기">
                                     <input type="button" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
                                 </div>
 
@@ -149,8 +149,34 @@
         </div>
         <script>
         	$("#btnNotice").on("click",function(){
-        		$("#area").attr("action","/wdc/admin/noticeWrite").submit();
+        		$("#area").attr("action","/wdc/admin/noticeReWrite").submit();
         	});
+        </script>
+        <script type="text/javascript">
+       		const type = '${noticeDetail.noticeType}';
+       		const important = '${noticeDetail.importantYN}';
+       		
+       		console.log("type : " + type);
+       		console.log("important : " + important);
+       		
+       		if(type == 'A') {
+       			const typeRadio = document.getElementById('A');
+       			typeRadio.checked = true;
+       		} else if(type == 'T'){
+       			const typeRadio = document.getElementById('T');
+       			typeRadio.checked = true;
+       		} else if(type == 'C') {
+       			const typeRadio = document.getElementById('C');
+       			typeRadio.checked = true;
+       		}
+       		
+       		if(important == 'N') {
+       			const importantRadio = document.getElementById('N');
+       			importantRadio.checked = true;
+       		} else if(important == 'Y') {
+       			const importantRadio = document.getElementById('Y');
+       			importantRadio.checked = true;
+       		}
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
@@ -165,6 +191,8 @@
               lang: "ko-KR",
               height: 350
             });
+            // 서머노트 데이터 삽입
+            $('#summernote').summernote('code', '${ noticeDetail.noticeContent }');
           </script>  
     </body>
 </html>

@@ -145,6 +145,15 @@ public interface AdminService {
 	 * @return
 	 */
 	int insertNoticeWrite(NoticeDTO notice);
+	
+	/**
+	 * @author 송아현
+	 * 공지 수정 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int updateNoticeReWrite(NoticeDTO notice);
 
 	/**
 	 * @author 송아현
@@ -186,6 +195,15 @@ public interface AdminService {
 	 * @return
 	 */
 	RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap);
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	int updateRefundApprove(RefundDTO refund);
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
@@ -226,6 +244,7 @@ public interface AdminService {
 	int insertClassDecision(ClsDecisionDTO clsDecisionDTO);
 
 	List<CheeringClassDTO> selectCheeringClass();
+
 
 
 

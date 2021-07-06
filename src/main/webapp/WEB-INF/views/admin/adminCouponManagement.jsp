@@ -80,7 +80,14 @@
                      					<c:forEach items="${couponList}" var="CouponDTO">
 				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponDetail?currentMenu=coupon&no=${ CouponDTO.couponNo }'">
 				                                <td>${CouponDTO.couponNo}</td>
-				                                <td>${CouponDTO.couponType}</td>
+				                                <c:choose>
+				                                	<c:when test="${CouponDTO.couponType eq 'TOTAL'}">
+				                                		<td>고객 전체</td>
+				                                	</c:when>
+				                                	<c:when test="${CouponDTO.couponType ne 'TOTAL'}">
+				                                		<td>${CouponDTO.couponType}</td>
+				                                	</c:when>
+				                                </c:choose>
 				                                <td>${CouponDTO.couponName}</td>
 				                                <td>${CouponDTO.discount}</td>
 				                                <td>${CouponDTO.issueDate}</td>
