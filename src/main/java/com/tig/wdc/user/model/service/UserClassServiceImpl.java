@@ -18,6 +18,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserRefundDTO;
 import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
@@ -147,6 +148,25 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectTime(scheduleDTO);
 	}
 
+	@Override
+	public int inserRefund(UserRefundDTO userRefundDTO) {
+		return mapper.inserRefund(userRefundDTO);
+	}
+
+	@Override
+	public int updatePaymentStatus(int payNo) {
+		return mapper.updatePaymentStatus(payNo);
+	}
+
+	@Override
+	public int selectCheerHistory(UserClassDTO cheerUpHisInsertDTO) {
+		return mapper.selectCheerHistory(cheerUpHisInsertDTO);
+	}
+
+	@Override
+	public int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO) {
+		return mapper.insertCheerHistory(cheerUpHisInsertDTO);
+	}
 
 
 

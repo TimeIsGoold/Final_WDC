@@ -161,16 +161,22 @@
                 <div class="row">
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.revenuClassList }">
+                  <c:set value="${i+1}" var="i"></c:set>
+                 
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
                      <c:choose>
                      <c:when test="${ classList.dicsionStatus eq 'F' }">
                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
-                     <div class="bottom_badgeCheer text-white badge-primary" style="color: black !important;">현재 응원 수 : 2</div>
                      </c:when>
                      </c:choose>
                       <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                        <div class="badge text-white badge-"></div>
+                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
+                        
+                        <input type="hidden" value="${ classList.clsNo }" id="clsNo${i}">
+                        <img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="...">
+                        </a>
                         <div class="product-overlay">
                           <c:choose>
                            <c:when test="${ classList.dicsionStatus eq 'S' }">
@@ -181,7 +187,7 @@
                            </c:when>
                            <c:when test="${ classList.dicsionStatus eq 'F' }">
                            <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="cart.html">응원하기</a></li>
+                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="cheerUp${i}">응원하기</a></li>
                             <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                             </ul>
                            </c:when>
@@ -190,15 +196,67 @@
                       </div>
                       <c:choose>
                       <c:when test="${ classList.dicsionStatus eq 'S' }">                      
-                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                        <h6 style="margin-top: 15px;"> 
+                        <a class="reset-anchor" href="detail.html" style="margin-top: -20px;">
+                        <c:if test="${ classList.clsType eq 'O' }">
+                        [원데이] ${classList.title}
+                        </c:if>
+                        <c:if test="${ classList.clsType eq 'R' }">
+                        [정규] ${classList.title}
+                        </c:if>
+                        </a>
+                        </h6>
                       </c:when>
                       <c:when test="${ classList.dicsionStatus eq 'F' }">
-                        <h6 style="margin-top: 42px;"> <a class="reset-anchor" href="detail.html">${ classList.title}</a></h6>
+                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="detail.html">
+                        <c:if test="${ classList.clsType eq 'O' }">
+                        [오픈예정][원데이] ${classList.title}
+                        </c:if>
+                        <c:if test="${ classList.clsType eq 'R' }">
+                        [오픈예정][정규] ${classList.title}
+                        </c:if>
+                        </a>
+                        </h6>
                       </c:when>
-                      </c:choose>                      
+                      </c:choose>
                       <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원</p>
                     </div>
                   </div>
+			<script>
+				$("#cheerUp" + ${i}).click(function(){
+					
+			        
+			        if (confirm('응원 하시겠습니까? ')){
+			             // Yes click
+			        const clsNo = document.getElementById('clsNo' + ${i}).value;
+
+ 			        $.ajax({
+			               url:"${pageContext.servletContext.contextPath}/user/cheerUp",
+			               type:"post",
+			               data:{
+			            	  clsNo : clsNo			
+			               },
+			               success:function(data, textStatus, xhr){
+			            	   if(data == '0'){
+			            		   alert("이미 응원하신 클래스 입니다");
+			            	   }else if(data == '1'){
+			            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
+							  	   location.reload();
+			            	   } 
+			               },
+			               error:function(xhr,status,error){
+			                  console.log(error);
+			               }
+			        	});  
+			             
+			        } else {
+						return;
+			        } 
+			        
+			         return;
+			        });
+				
+			</script>
                   </c:forEach>
                   
                   </div>

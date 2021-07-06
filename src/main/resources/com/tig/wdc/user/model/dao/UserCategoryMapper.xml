@@ -31,102 +31,142 @@
        SELECT
               A.*
             , T.* 
-            , SUBSTR(A.CLS_START_D - SYSDATE,0,2) D_DAY
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
         WHERE (A.CLS_DICSION_STATUS = 'S'
            OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
           AND T.TYPE = 'TITLE'
     </select>
     
     <select id="selectSportsClassCategory" resultMap="UserCategoryResult">
-    	SELECT
-	          A.*
-            , T.*
-            , SUBSTR(A.CLS_START_D - SYSDATE,0,2)  D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')
-		   AND A.CATEGORY_NO = 1
-           AND T.TYPE = 'TITLE'	
+       SELECT
+              A.*
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 1
+          AND T.TYPE = 'TITLE'
     </select>
 
     <select id="selectClassBeautyCategory" resultMap="UserCategoryResult">
-    	SELECT
+       SELECT
               A.*
-            , T.*
-            , SUBSTR(A.CLS_START_D - SYSDATE,0,2) D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')
-		   AND A.CATEGORY_NO = 4
-           AND T.TYPE = 'TITLE'	
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 4
+          AND T.TYPE = 'TITLE'
     </select>
     
     <select id="selectClassArtCategory" resultMap="UserCategoryResult">
-        SELECT
-               A.*
-             , T.*   
-             , SUBSTR(A.CLS_START_D - SYSDATE,0,2)  D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')		  
-		   AND A.CATEGORY_NO = 3
-           AND T.TYPE = 'TITLE'	
+       SELECT
+              A.*
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 3
+          AND T.TYPE = 'TITLE'
     </select>
     
     <select id="selectClassCookCategory" resultMap="UserCategoryResult">
-        SELECT
-               A.*
-             , T.*
-             , SUBSTR(A.CLS_START_D - SYSDATE,0,2)  D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')
-		   AND A.CATEGORY_NO = 2
-           AND T.TYPE = 'TITLE'	
+       SELECT
+              A.*
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 2
+          AND T.TYPE = 'TITLE'
     </select>
     
     <select id="selectClassComputerCategory" resultMap="UserCategoryResult">
-        SELECT
-               A.*
-             , T.*
-             , SUBSTR(A.CLS_START_D - SYSDATE,0,2)  D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')
-		   AND A.CATEGORY_NO = 5
-           AND T.TYPE = 'TITLE'	
+       SELECT
+              A.*
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 5
+          AND T.TYPE = 'TITLE'
     </select>
     
     <select id="selectClassLanguageCategory" resultMap="UserCategoryResult">
-    	SELECT
-               A.*
-             , T.*
-             , SUBSTR(A.CLS_START_D - SYSDATE,0,2)  D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')
-		   AND A.CATEGORY_NO = 6
-           AND T.TYPE = 'TITLE'
+       SELECT
+              A.*
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 6
+          AND T.TYPE = 'TITLE'
     </select>
     
         <select id="selectClassRevenuCategory" resultMap="UserCategoryResult">
-    	SELECT
-               A.*
-             , T.*
-             , SUBSTR(A.CLS_START_D - SYSDATE,0,2)  D_DAY
-		  FROM CLASS A
-		  JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
-		 WHERE (A.CLS_DICSION_STATUS = 'S'
-		    OR  A.CLS_DICSION_STATUS = 'F')
-		   AND A.CATEGORY_NO = 7
-           AND T.TYPE = 'TITLE'
+       SELECT
+              A.*
+            , T.* 
+            , DH.*
+            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM CLASS A
+         JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
+         LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          AND DH.DICISION_DATE IS NOT NULL
+          AND A.CLS_DICSION_STATUS != 'L'
+          AND A.CLS_DICSION_STATUS != 'R'
+		  AND A.CATEGORY_NO = 7
+          AND T.TYPE = 'TITLE'
     </select>
 </mapper>

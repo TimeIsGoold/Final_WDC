@@ -142,7 +142,7 @@
                         </c:if>
                        </a>
                       </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
                   </c:forEach>
@@ -169,7 +169,7 @@
                         </c:if>
                        </a>
                       </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
                   </c:forEach>

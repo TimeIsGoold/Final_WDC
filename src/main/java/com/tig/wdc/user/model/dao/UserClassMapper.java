@@ -13,6 +13,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserRefundDTO;
 import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
@@ -63,6 +64,14 @@ public interface UserClassMapper {
 	public int insertReportHistory(UserReportDTO userReportDTO);
 
 	public List<ScheduleDTO> selectTime(ScheduleDTO scheduleDTO);
+
+	public int inserRefund(UserRefundDTO userRefundDTO);
+
+	public int updatePaymentStatus(int payNo);
+
+	public int selectCheerHistory(UserClassDTO cheerUpHisInsertDTO);
+
+	public int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
 
 

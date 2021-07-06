@@ -348,5 +348,53 @@
 	   , #{ reportNo }
 	   )
 	</insert>
+	
+	<insert id="inserRefund" parameterType="UserRefundDTO">
+	   INSERT
+	     INTO PAYMENT_CANCEL
+	   VALUES
+	   (
+	     SEQ_CANCLE_NO.NEXTVAL
+	   , #{ cancelReason }
+	   , NULL
+	   , NULL
+	   , #{ cancelReasonDetail }
+	   , #{ payNo }
+	   , #{ refundAccount }
+	   , #{ accountHolder }
+	   , #{ bank }
+	   , DEFAULT
+	   , SYSDATE
+	   )
+	</insert>
+	
+	<update id="updatePaymentStatus" parameterType="_int">
+	  UPDATE PAYMENT
+	     SET PAY_STATUS = '취소'
+	   WHERE PAY_NO = #{ payNo }
+	</update>
+	
+	<select id="selectCheerHistory" parameterType="UserClassDTO" resultType="_int">
+	   SELECT
+		      COUNT(DECODE(CHEERING_STATUS,'Y',1)) count
+		FROM CHEERING_HISTORY CH
+	    JOIN USER_INFO U ON(CH.USER_NO = U.USER_NO)
+	    JOIN CLASS C ON(CH.CLS_NO = C.CLS_NO)
+	   WHERE C.CLS_NO = #{ clsNo }
+	     AND U.USER_NO = #{ userNo }
+	</select>
+	
+	<insert id="insertCheerHistory" parameterType="UserClassDTO">
+	   INSERT
+	     INTO CHEERING_HISTORY
+	   VALUES
+	   (
+	     SEQ_CHEERING_NO.NEXTVAL
+	   , #{ clsNo }
+	   , 'Y'
+	   , #{ userNo }
+	   )
+	
+	</insert>
 
 </mapper>
