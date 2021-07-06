@@ -25,7 +25,7 @@
  		<typeAlias alias="blackListDTO" type="com.tig.wdc.admin.model.dto.BlackListDTO"/>
  		<typeAlias alias="RefundDTO" type="com.tig.wdc.admin.model.dto.RefundDTO"/>
  		<typeAlias alias="ClsDecisionDTO" type="com.tig.wdc.admin.model.dto.ClsDecisionDTO"/>
- 		<typeAlias alias="CheeringCLassDTO" type="com.tig.wdc.admin.model.dto.CheeringCLassDTO"/>
+ 		<typeAlias alias="CheeringClassDTO" type="com.tig.wdc.admin.model.dto.CheeringClassDTO"/>
  		
  		
  		<!-- user -->

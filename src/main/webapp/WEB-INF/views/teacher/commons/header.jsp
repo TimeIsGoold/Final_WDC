@@ -38,7 +38,6 @@
 
   <style>
     .header {
-    	padding-top: 3%;
     	margin-right: 20%;
     	margin-left: 20%;
     }
@@ -82,8 +81,8 @@
               <li class="nav-item">강사페이지</li>
             </ul>
             <ul class="navbar-nav ml-auto">               
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
+              <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/teacher/registTeacher"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
+              <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
             </ul>
           </div>
         </nav>
