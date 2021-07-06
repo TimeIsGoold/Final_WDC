@@ -89,12 +89,19 @@
                                     <tbody>
                      					<c:forEach items="${refundList}" var="RefundDTO">
 				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund'">
-				                                <td>${RefundDTO.calcNo}</td>
-				                                <td>${RefundDTO.teType}></td>
-				                                <td>${RefundDTO.teName}</td>
-				                                <td>${RefundDTO.teId}</td>
-				                                <td>${RefundDTO.calcMonth}</td>
-				                                <td>${RefundDTO.calcYN}</td>
+				                                <td>${RefundDTO.cancelNo}</td>
+				                                <c:choose>
+				                                	<c:when test="${RefundDTO.classType eq 'O'}">
+				                                		<td>원데이</td>
+				                                	</c:when>
+				                                	<c:when test="${RefundDTO.classType eq 'R'}">
+				                                		<td>정규</td>
+				                                	</c:when>
+				                                </c:choose>
+				                                <td>${RefundDTO.className}</td>
+				                                <td>${RefundDTO.id}</td>
+				                                <td>${RefundDTO.refundApplyDate}</td>
+				                                <td>${RefundDTO.refundStatus}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

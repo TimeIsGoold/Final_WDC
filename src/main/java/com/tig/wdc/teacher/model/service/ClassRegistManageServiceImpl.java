@@ -10,7 +10,7 @@ import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
-import com.tig.wdc.model.dto.RegularClassInfoDTO;
+import com.tig.wdc.model.dto.ClassScheduleInfoDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistManageMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
@@ -74,7 +74,7 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	 *  정규클래스 정보 select
 	 */
 	@Override
-	public RegularClassInfoDTO selectRegularScheduleinfo(int clsNo) {
+	public ClassScheduleInfoDTO selectRegularScheduleinfo(int clsNo) {
 		return mapper.selectRegularScheduleinfo(clsNo);
 	}
 
@@ -90,7 +90,7 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	 * 원데이클래스 스케쥴 리스트
 	 */
 	@Override
-	public List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo) {
+	public List<ClassScheduleInfoDTO> selectOneDayScheduleList(ClassDTO classInfo) {
 		return mapper.selectOneDayScheduleList(classInfo);
 	}
 
@@ -121,6 +121,21 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	@Override
 	public List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo) {
 		return mapper.selectExistingInfo(scheduleNo);
+	}
+
+	@Override
+	public List<ClassScheduleInfoDTO> selectOnedayApplyCount(List<ClassScheduleInfoDTO> onedayInfoList) {
+		return mapper.selectOnedayApplyCount(onedayInfoList);
+	}
+
+	@Override
+	public ClassScheduleInfoDTO selectRegularApplyCount(int scheduleNo) {
+		return mapper.selectRegularApplyCount(scheduleNo);
+	}
+
+	@Override
+	public int updateRegularApplyStatus(String[] updateList) {
+		return mapper.updateRegularApplyStatus(updateList);
 	}
 	
 	

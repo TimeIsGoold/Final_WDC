@@ -39,15 +39,17 @@
 
                             <div class="card-header" style="font-size: x-large;">
                                 <i class="fas fa-table me-1"></i>
-                                클래스 상세 페이지
+                                응원갯수 부족 클래스 상세 페이지
                             </div>
                             <section class="py-5">
                               <div class="container">
                                 <div class="">
+                                <div style="font-size: xx-large; color: red; font-weight: bold;">수요조사 (2차심사) 미달 클래스</div>
 									<div class="col-lg-6">
 										<!-- PRODUCT SLIDER-->
 												<div class=""
 													data-slider-id="1" style="display:flex;">
+		
 													<c:forEach var="classPic" items="${ classPic }">
 													<c:set var="i" value="${i+1}"></c:set>
 														<div class="" >
@@ -87,7 +89,7 @@
                                       </div>
                                   </div>
                                 </div>
-                                <button class="btn btn-primary" style="margin-left: 90%;">뒤로 가기</button>
+
                                 <br><br>
                                 <!-- 상세보기 탭 -->
                                 <div class="tab-content mb-5" id="myTabContent">
@@ -172,6 +174,10 @@ ${ classDetail.intro }
                                       <br><br><br><br><br>
                                       <div class="row">
                                       <div class="col-md-2" style="height: 100px;"></div>
+                                      <div class="col-md-8" style="height: 100px;">
+
+	                                        <input type="submit" value="뒤로 가기" style="margin-right: 100px;" class="btn btn-info"/>                       
+                                      </div>
                                       <div class="col-md-2" style=" height: 100px;"></div>
                                     </div>
                                     </div>

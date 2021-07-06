@@ -353,25 +353,62 @@ i {
 		               let days = new Array();
 		               
 		               <c:forEach var="schedule" items="${ requestScope.schedule }">
-		               	times.push("${schedule.scheduleStart}");
-		               	days.push("${schedule.scheduleDate}");
+			           	 // times.push("${schedule.scheduleStart}");
+			              days.push("${schedule.scheduleDate}");
 		               </c:forEach>
 		
-		               let timeValues = times;
+		               let timeValues = ["00:00"];
 		               let dayValues = days;
 		               
 		               jQuery('#datetimepicker').datetimepicker({               
 		                  datepicker : true,
 		                  allowTimes : timeValues,
+		                  //allowDates : days,
 		                  format:'Y-m-d H:i',
 		                  onChangeDateTime : function(dp, $input) {
-		                     console.log($input.val());
-		                     var datetimepicker2 = document.getElementById('datetimepicker2');
+		                     console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
+		                     console.log(dp);
+		                     var pickDay = $input.val(); //선택한 날짜를 담아줌
+		                     var dayArray = pickDay.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
+		                     var test1 = this;
+		                     console.log(dayArray[0] + ', ' + dayArray[1]); 
 		                     
-		                     $("#datetimepicker2")[0].value = $input.val();
-		                     $("#datetimepicker2")[0].innerText = $input.val();
+		                     //var date = dayArray[0]; //dayArray[0]에 날짜 담김
+		                     
+		                     $.ajax({
+		                        type: "post",
+		                        url: "dateTimePicker",
+		                        data: { date : dayArray[0], clsNo : ${ requestScope.classDetail.clsNo } },
+		                        success:function(data, textStatus, xhr){
+		                        	console.log(data);
+		                        	//alert("성공 확인용 알럿");
+		                            //location.replace("${pageContext.servletContext.contextPath}/user/classDetail")
+		                            let tArr = new Array();
+		                            for(var idx in data ){
+		                            	tArr.push(data[0].scheduleStart);
+		                            }
+		                        	timeValues = tArr;
+		                        	if(timeValues.length > 0){
+		                        		test1.setOptions({
+					                    	allowTimes : timeValues,
+					                    	timepicker : true
+					                     });
+		                        	} else {
+		                        		test1.setOptions({
+					                    	
+					                    	timepicker : false
+					                     });
+		                        	}
+		                        	
+		                        },
+		                        error:function(xhr,status,error){
+		                            console.log(error);
+		                        }
+		                     });
+		                     
+		                     
+		                     //console.log(timeValues);
 		                  },
-		                  allowDates : days,
 		                  formatDate:'Y-m-d',
 		                  scrollMonth : false
 

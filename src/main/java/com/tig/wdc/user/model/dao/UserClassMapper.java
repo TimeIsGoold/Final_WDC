@@ -1,6 +1,7 @@
 package com.tig.wdc.user.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -62,6 +63,8 @@ public interface UserClassMapper {
 
 	public int insertReportHistory(UserReportDTO userReportDTO);
 
+	public List<ScheduleDTO> selectTime(ScheduleDTO scheduleDTO);
+
 	public int inserRefund(UserRefundDTO userRefundDTO);
 
 	public int updatePaymentStatus(int payNo);
@@ -69,6 +72,7 @@ public interface UserClassMapper {
 	public int selectCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
 	public int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
+
 
 
 

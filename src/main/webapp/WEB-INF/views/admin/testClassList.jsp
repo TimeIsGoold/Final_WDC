@@ -13,8 +13,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
     </head>
     <body class="sb-nav-fixed">
         
@@ -45,71 +43,46 @@
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=complate" class="btn btn-warning">완료 클래스</a>
       						</div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                            <ul class="nav nav-tabs" style=" margin-left: 0px; ">
+
+							  <li class="nav-item">
+							    <a class="nav-link active" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total">전체</a>
+							  </li>
+							  <li class="nav-item">
+							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total">2차 승인</a>
+							  </li>
+							  <li class="nav-item">
+							    <a class="nav-link" data-toggle="tab" href="#zxc">반려</a>
+							  </li>
+							</ul>
+							<br>
+							<div class="tab-content">
+ 								<table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>클래스 번호</th>
+                                            <th>전체 선택</th>
                                             <th>클래스 제목</th>
                                             <th>강사 이름</th>
-                                            <th>클래스 가격</th>
+                                            <th>1차 심사통과 날짜</th>
                                             <th>클래스 종류</th>
-                                            <th>클래스 상태</th>
-                                            <th>심사 상태</th>
+                                            <th>응원 갯수</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                     				<c:forEach items="${classList}" var="ClassDTO">
-				                            <tr style="cursor:pointer;" onclick="location.href='${pageContext.servletContext.contextPath}/admin/classDetail?cn=${ClassDTO.classNo}&ct=${ClassDTO.classDicsionStatus}&cd=${ClassDTO.decisionStatus}'">
-				                                <td>${ClassDTO.classNo}</td>
-				                                <td>${ClassDTO.classTitle}</td>
-				                                <td>${ClassDTO.teacherName}</td>
-				                                <td>${ClassDTO.classPrice}</td>
-				                                <td>
-				                                <c:choose>
-				                                	<c:when test="${ClassDTO.classType eq 'O'}">
-				                                		원데이 클래스
-				                                	</c:when>
-				                                	<c:when test="${ClassDTO.classType eq 'R'}">
-				                                		정규 클래스
-				                                	</c:when>
-				                                </c:choose>
-				                                </td>
-				                                <td>
-				                                <c:choose>
-				                                	<c:when test="${ClassDTO.decisionStatus eq 'Y'}">
-				                                		클래스 개강 예정
-				                                	</c:when>
-				                                	<c:when test="${ClassDTO.decisionStatus eq 'P'}">
-				                                		클래스 진행중
-				                                	</c:when>
-				                                	<c:otherwise>
-				                                		클래스 종료
-				                                	</c:otherwise>
-				                                </c:choose>
-				                                </td>
-				                                <td>
-		                                		<c:choose>
-				                                	<c:when test="${ClassDTO.classDicsionStatus eq 'W'}">
-				                                		1차 심사중
-				                                	</c:when>
-				                                	<c:when test="${ClassDTO.classDicsionStatus eq 'F'}">
-				                                		2차 심사중
-				                                	</c:when>
-				                                	<c:when test="${ClassDTO.classDicsionStatus eq 'S'}">
-				                                		클래스 개설 승인 완료
-				                                	</c:when>
-				                                	<c:when test="${ClassDTO.classDicsionStatus eq 'R'}">
-				                                		클래스 심사 거절
-				                                	</c:when>
-				                                	<c:otherwise>
-				                                		2차 심사 응원 미달
-				                                	</c:otherwise>
-				                                </c:choose>
-				                                </td>
+                     				<c:forEach items="${cheeringClassList}" var="cheeringClassList">
+				                            <tr>
+				                                <td><input type="checkbox"/> </td>
+				                                <td>${cheeringClassList.classTitle}</td>
+				                                <td>${cheeringClassList.teacherName}</td>
+				                                <td>${cheeringClassList.classPrice}</td>
+				                                <td>${cheeringClassList.classPrice}</td>
+				                                <td>${cheeringClassList.classPrice}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
                                 </table>
+
+							</div>
                             </div>
                         </div>
                     </div>

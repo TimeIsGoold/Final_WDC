@@ -183,6 +183,14 @@
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
     
+    <select id="selectTime" parameterType="ScheduleDTO" resultMap="ScheduleResult">
+        SELECT 
+		       * 
+		  FROM SCHEDULE S
+		 WHERE S.CLS_NO = #{ clsNo }
+           AND SCHEDULE_DATE = #{ scheduleDate }
+    </select>
+    
     <resultMap type="UserInquiryDTO" id="InquiryResult">
         <id column="QUESTION_NO" property="queNo"/>
         <result column="QUESTION_CONTENT" property="queContent"/>

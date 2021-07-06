@@ -128,7 +128,7 @@
             </div> 
         </div> -->
 
-      <div class="col-sm-10" id="content-formatting" style="float: left; padding-top: 50px; height: 800px">
+      <div class="col-sm-10" id="content-formatting" style="float: left; padding-top: 50px; height: 1000px">
         <table class="table table-hover" style="text-align: center;" >
           <thead>
             <tr>

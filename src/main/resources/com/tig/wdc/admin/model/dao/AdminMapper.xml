@@ -91,7 +91,8 @@
 	
 	<!-- 강사문의상세 -->
 	<resultMap id="teacherQuestionInfoDetail" type="QuestionDTO">
-		<id column="TE_NO" property="questionNo"/>
+		<id column="Q_NO" property="questionNo"/>
+		<result column="TE_NO" property="userNo"/>
 		<result column="MEMBER_TYPE" property="questionType"/>
 		<result column="TE_NAME" property="questionName"/>
 		<result column="TE_ID" property="questionId"/>
@@ -102,7 +103,8 @@
 	
 	<!-- 수강생문의상세 -->
 	<resultMap id="studentQuestionInfoDetail" type="QuestionDTO">
-		<id column="USER_NO" property="questionNo"/>
+		<id column="Q_NO" property="questionNo"/>
+		<result column="USER_NO" property="userNo"/>
 		<result column="MEMBER_TYPE" property="questionType"/>
 		<result column="USER_NAME" property="questionName"/>
 		<result column="USER_ID" property="questionId"/>
@@ -147,8 +149,6 @@
 		<result column="DIS_CONDITION" property="discountCondition"/>
 	</resultMap>
 	
-	<!-- 쿠폰 발급 -->
-	
 	<!-- 공지 -->
 	<resultMap id="noticeList" type="NoticeDTO">
 		<id column="NOTICE_NO" property="noticeNo"/>
@@ -163,9 +163,8 @@
 		<id column="NOTICE_TYPE" property="noticeType"/>
 		<result column="NOTICE_TITLE" property="noticeTitle"/>
 		<result column="NOTICE_CONTENT" property="noticeContent"/>
+		<result column="IMPORTANT_YN" property="importantYN"/>
 	</resultMap>
-	
-	<!-- 공지 등록 -->
 	
 	<!-- 정산 미완료 -->
 	<resultMap id="calculateLNoList" type="CalculateDTO">
@@ -179,11 +178,44 @@
 	
 	<!-- 정산 완료 -->
 	<resultMap id="calculateLYesList" type="CalculateDTO">
-		<id column="TE_TYPE" property="teType"/>
+		<id column="CALC_NO" property="calcNo"/>
+		<result column="TE_TYPE" property="teType"/>
 		<result column="TE_NAME" property="teName"/>
 		<result column="TE_ID" property="teId"/>
-		<result column="정산예정달" property="calcMonth"/>
+		<result column="정산날짜" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
+	</resultMap>
+	
+	<!-- 정산 상세 -->
+	<resultMap id="calculateInfoDetail" type="CalculateDTO">
+		<id column="" property=""/>
+		<result column="" property=""/>
+	</resultMap>
+	
+	<!-- 환불 관리 -->
+	<resultMap id="refundList" type="RefundDTO">
+		<id column="CANCLE_NO" property="cancelNo"/>
+		<result column="CLS_TYPE" property="classType"/>
+		<result column="CLS_TITLE" property="className"/>
+		<result column="USER_ID" property="id"/>
+		<result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
+		<result column="REFUND_STATUS" property="refundStatus"/>
+	</resultMap>
+	
+	<!-- 환불 상세 -->
+	<resultMap id="refundInfoDetail" type="RefundDTO">
+		<id column="CANCLE_NO" property="cancelNo"/>
+		<result column="CLS_TYPE" property="classType"/>
+		<result column="CLS_TITLE" property="className"/>
+		<result column="USER_ID" property="id"/>
+		<result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
+		<result column="CANCLE_REASON" property="cancelReason"/>
+		<result column="CANCLE_REASON_DETAIL" property="cancelReasonDetail"/>
+		<result column="REFUND_AMOUNT" property="refundAmount"/>
+		<result column="REFUND_DATE" property="refundDate"/>
+		<result column="REFUND_HOLDER" property="refundHolder"/>
+		<result column="REFUND_BANK" property="refundBank"/>
+		<result column="REFUND_ACCOUNT" property="refundAccount"/>
 	</resultMap>
 	
 	<resultMap id="reportDetailDTO" type="ReportDetailDTO">
@@ -217,6 +249,16 @@
 			<result column="TE_ID" property="blackId"/>
 			<result column="TE_NAME" property="blackName"/>
 			<result column="TE_BLOCK_D" property="enrollDate"/>
+	</resultMap>
+	
+	<resultMap id="cheeringCLassDTO" type="CheeringCLassDTO" >
+			<id column="CLS_NO" property="clsNo"/>
+			<result column="DICISION_DATE" property="firstDecision"/>
+			<result column="DATE_APLCT" property="enrollDate"/>
+			<result column="CLS_TITLE" property="title"/>
+			<result column="TE_NAME" property="teName"/>
+			<result column="CATEGORY_NO" property="categoryNo"/>
+			<result column="응원갯수" property="cheeringCnt"/>
 	</resultMap>
 	
 		
@@ -363,7 +405,8 @@
 	<!-- 강사문의상세 -->
 	<select id="selectTeacherQuestionInfoDetail" resultMap="teacherQuestionInfoDetail" parameterType="_int">
 		SELECT 
-			   C.TE_NO
+			   A.Q_NO
+			 , C.TE_NO
 			 , A.MEMBER_TYPE
 			 , C.TE_NAME
 			 , C.TE_ID
@@ -381,7 +424,8 @@
 	<!-- 수강생문의상세 -->
 	<select id="selectStudentQuestionInfoDetail" resultMap="studentQuestionInfoDetail" parameterType="_int">
         SELECT 
-			   C.USER_NO
+        	   A.Q_NO
+			 , C.USER_NO
 			 , A.MEMBER_TYPE
 			 , C.USER_NAME
 			 , C.USER_ID
@@ -653,7 +697,64 @@
          ORDER BY A.CALC_NO
 	</select>
 	
-	<!-- 환불미승인 리스트 -->
+	<!-- 정산 상세 -->
+	<select id="selectCalculateInfoDetail" resultMap="calculateInfoDetail" parameterType="_int">
+	
+	</select>
+	
+	<!-- 환불 리스트 -->
+	<select id="selectRefundList" resultMap="refundList" parameterType="string">
+		SELECT
+       		   A.CANCLE_NO
+     		 , F.CLS_TYPE
+     		 , F.CLS_TITLE
+     		 , D.USER_ID
+     		 , A.REFUND_APPLY_DATE
+     		 , A.REFUND_STATUS
+  		  FROM PAYMENT_CANCEL A
+  		  JOIN PAYMENT B ON (A.PAY_NO = B.PAY_NO)
+  		  JOIN CLASS_APPLY C ON (B.CLS_APL_NO = C.CLS_APL_NO)
+  		  JOIN USER_INFO D ON (C.USER_NO = D.USER_NO)
+  		  JOIN SCHEDULE E ON (C.SCHEDULE_NO = E.SCHEDULE_NO)
+  		  JOIN CLASS F ON (E.CLS_NO = F.CLS_NO)
+  		 WHERE A.REFUND_STATUS = #{type}
+		 ORDER BY A.CANCLE_NO
+	</select>
+	
+	<!-- 환불 상세 -->
+	<select id="selectRefundInfoDetail" resultMap="refundInfoDetail" parameterType="RefundDTO">
+		SELECT
+			   A.CANCLE_NO
+     		 , F.CLS_TYPE
+     		 , F.CLS_TITLE
+     		 , D.USER_ID
+     		 , A.REFUND_APPLY_DATE
+             , A.CANCLE_REASON
+             , A.CANCLE_REASON_DETAIL
+             , A.REFUND_AMOUNT
+             , A.REFUND_DATE
+             , A.REFUND_HOLDER
+             , A.REFUND_BANK
+             , A.REFUND_ACCOUNT
+  		  FROM PAYMENT_CANCEL A
+  		  JOIN PAYMENT B ON (A.PAY_NO = B.PAY_NO)
+  		  JOIN CLASS_APPLY C ON (B.CLS_APL_NO = C.CLS_APL_NO)
+  		  JOIN USER_INFO D ON (C.USER_NO = D.USER_NO)
+  		  JOIN SCHEDULE E ON (C.SCHEDULE_NO = E.SCHEDULE_NO)
+  		  JOIN CLASS F ON (E.CLS_NO = F.CLS_NO)
+  		 WHERE A.REFUND_STATUS = #{ refundStatus }
+           AND A.CANCLE_NO = #{ cancelNo }
+	</select>
+	
+	<!-- 환불 승인 -->
+	<update id="updateRefundApprove" parameterType="RefundDTO">
+		UPDATE PAYMENT_CANCEL
+           SET 
+               REFUND_AMOUNT = #{ refundAmount }
+             , REFUND_DATE = SYSDATE
+             , REFUND_STATUS = 'Y'
+         WHERE CANCLE_NO = #{ cancelNo }
+	</update>
 	
 	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="ReportDetailDTO">
 		SELECT
@@ -861,4 +962,26 @@
 	    , null 
 	    )
 	 </insert>
+	 
+	 <select id="selectCheeringClass" resultMap="cheeringCLassDTO">
+		SELECT 
+		       C.CLS_NO
+		     , DH.DICISION_DATE
+		     , C.DATE_APLCT
+		     , C.CLS_TITLE
+		     , T.TE_NAME
+		     , C.CATEGORY_NO
+		     , COUNT(DECODE(CHEERING_STATUS,'Y',1)) 응원갯수
+		  FROM CLASS C
+		  LEFT JOIN TEACHER_INFO T on (C.TE_NO = T.TE_NO)
+		  LEFT JOIN DISICION_HiSTORY DH on (DH.CLS_NO = C.CLS_NO)
+		  LEFT JOIN CHEERING_HiSTORY CH on (C.CLS_NO = CH.CLS_NO)
+		 WHERE C.CLS_DICSION_STATUS = 'F'
+		 GROUP BY C.CLS_NO
+		        , DH.DICISION_DATE
+		        , C.DATE_APLCT
+		        , C.CLS_TITLE
+		        , T.TE_NAME
+		        , C.CATEGORY_NO
+	 </select>
 </mapper>
