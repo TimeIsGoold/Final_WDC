@@ -1,6 +1,7 @@
 package com.tig.wdc.user.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -57,6 +58,9 @@ public interface UserClassService {
 	int insertReport(UserReportDTO userReportDTO);
 
 	int insertReportHistory(UserReportDTO userReportDTO);
+
+	List<ScheduleDTO> selectTime(ScheduleDTO scheduleDTO);
+
 
 
 }

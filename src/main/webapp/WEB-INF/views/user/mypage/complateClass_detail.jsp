@@ -186,8 +186,8 @@
                     </c:if>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
                     <li>결제 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.payPrice }" pattern="#,###"/></li>                    
-                    <hr>
                     </c:if>
+                    <hr>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
                     	<c:if test="${ !empty requestScope.complateDetailUserClassDTO.refundAmount }">
                   		  <li>환불 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/>  </li>                                        	
@@ -249,8 +249,6 @@
 							</div>
 						</c:if>
 					  </c:if>
-					</div>
-					</div>
 					</div>
 						<div id="reviewWrite" style="width: 200px; height: 180px; display: none; margin-left: 200px; margin-bottom: 40px; margin-top: 65px;">
 							<form action="${ pageContext.servletContext.contextPath }/user/mypage/ComplateClassReview/${ requestScope.complateDetailUserClassDTO.aplNo }" method="post">
@@ -332,7 +330,8 @@
 								}
 							</script>
 						</div>
-					</div>			
+					</div>
+					</div>		
                		<br><br>
             	</div>
         	</section>
