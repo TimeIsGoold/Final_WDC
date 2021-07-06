@@ -675,19 +675,19 @@
              , NOTICE_CONTENT = #{noticeContent}
              , WRITE_DATE = SYSDATE
              <if test='noticeType == "A"'>
-	         , 'A'
+	         , NOTICE_TYPE = 'A'
 	       	 </if>
 	       	 <if test='noticeType == "T"'>
-	         , 'T'
+	         , NOTICE_TYPE = 'T'
 	       	 </if>
 	       	 <if test='noticeType == "C"'>
-	         , 'C'
+	         , NOTICE_TYPE = 'C'
 	       	 </if>
 	       	 <if test='importantYN == "Y"'>
-	         , 'Y'
+	         , IMPORTANT_YN = 'Y'
 	       	 </if>
 	       	 <if test='importantYN == "N"'>
-	         , 'N'
+	         , IMPORTANT_YN = 'N'
 	       	 </if>
 	     WHERE NOTICE_NO = #{noticeNo}
 	</update>

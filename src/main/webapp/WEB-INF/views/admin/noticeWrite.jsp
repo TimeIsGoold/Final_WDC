@@ -119,7 +119,7 @@
 	                                        <tr>
 	                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
 	                                            <td>
-	                                                <input type="text" value="test입니다." name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
+	                                                <input type="text" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
