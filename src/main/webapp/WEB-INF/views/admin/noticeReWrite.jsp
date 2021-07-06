@@ -102,6 +102,7 @@
                                     <form id="area" method="post">
 	                                    <tbody>
 	                                        <tr>
+	                                        	<input type="hidden" name="noticeNo">
 	                                            <th>공개&nbsp;&nbsp;대상</th>
 	                                            <td>
 	                                                <input type="radio" name="noticeType" value="A" id="A" class="radioBtnType">전체 회원용

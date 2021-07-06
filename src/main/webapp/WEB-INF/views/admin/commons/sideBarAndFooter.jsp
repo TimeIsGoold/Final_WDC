@@ -26,6 +26,13 @@
 	   			currentMenuBar.style.color = '#fef0ae';
 	   		}
 	   	</script>
+	   	<style>
+	   		#pageMove {
+	   		    margin-left: 18%;
+		   	    margin-bottom: 3%;
+		   	    opacity: 40%;
+	   		}
+	   	</style>
     </head>
 <body>
     <div id="layoutSidenav_nav">
@@ -72,6 +79,9 @@
                </div>
            </div>
            <div class="sb-sidenav-footer">
+           	   <div id="pageMove">
+				<input type="button" value="Main으로 이동" onclick="location.href='${ pageContext.servletContext.contextPath }'">           	   
+           	   </div>
                <div class="small">
                	Copyright &copy; 우리동네 클래스
                </div>

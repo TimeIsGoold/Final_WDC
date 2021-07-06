@@ -10,14 +10,13 @@ public class NoticeDTO {
 	private String noticeTitle;
 	private java.sql.Date writeDate;
 	private String noticeContent;
-	private int no;
 	
 	public NoticeDTO() {
 		super();
 	}
 
 	public NoticeDTO(int noticeNo, String noticeType, String importantYN, String noticeTitle, Date writeDate,
-			String noticeContent, int no) {
+			String noticeContent) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeType = noticeType;
@@ -25,7 +24,6 @@ public class NoticeDTO {
 		this.noticeTitle = noticeTitle;
 		this.writeDate = writeDate;
 		this.noticeContent = noticeContent;
-		this.no = no;
 	}
 
 	public int getNoticeNo() {
@@ -76,19 +74,11 @@ public class NoticeDTO {
 		this.noticeContent = noticeContent;
 	}
 
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
 	@Override
 	public String toString() {
 		return "NoticeDTO [noticeNo=" + noticeNo + ", noticeType=" + noticeType + ", importantYN=" + importantYN
 				+ ", noticeTitle=" + noticeTitle + ", writeDate=" + writeDate + ", noticeContent=" + noticeContent
-				+ ", no=" + no + "]";
+				+ "]";
 	}
 
 }

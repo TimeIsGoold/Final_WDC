@@ -295,7 +295,6 @@ public class AdminController {
 	@RequestMapping("noticeReWrite")
 	public String noticeReWrite(@ModelAttribute NoticeDTO notice, Model model) {
 
-		System.out.println("notice : " + notice);
 		model.addAttribute("noticeRewrite", adminService.updateNoticeReWrite(notice));
 		
 		return "redirect:/admin/noticeManagement?currentMenu=notice";
