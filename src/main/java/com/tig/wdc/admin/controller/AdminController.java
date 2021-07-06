@@ -326,12 +326,15 @@ public class AdminController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("refundDetail")
-	public String refundInfoDetail(@ModelAttribute RefundDTO refund, Model model) {
+	@GetMapping("refundDetail") 
+	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no,@ModelAttribute RefundDTO refund, Model model) {
+	
+		Map<String, Object> refundDetailMap = new HashMap<>();
+		refundDetailMap.put("status", status);
+		refundDetailMap.put("no", no);
 		
-		System.out.println("dto : " + refund);
-		model.addAttribute("refundDetail", adminService.selectRefundInfoDetail(refund));
-		
+		model.addAttribute("refundInfoDetail",adminService.selectRefundInfoDetail(refundDetailMap));
+	  
 		return "admin/refundDetail";
 	}
 	

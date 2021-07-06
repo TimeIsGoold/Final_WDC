@@ -18,9 +18,9 @@
 	   		function drawColor(){
 	   			var documentUrl = document.URL; 
 	   			var NdocumentUrl = new URL(documentUrl);  
-	   			var currentMenu = NdocumentUrl .searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
+	   			var currentMenu = NdocumentUrl.searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
 	   			 
-	   			const sideBar = document.getElementsByClassName('nav-link');
+	   			//const sideBar = document.getElementsByClassName('nav-link');
 	   			
 	   			const currentMenuBar = document.getElementById(currentMenu);
 	   			currentMenuBar.style.color = '#fef0ae';

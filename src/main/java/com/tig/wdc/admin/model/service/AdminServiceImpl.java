@@ -260,9 +260,9 @@ public class AdminServiceImpl implements AdminService {
 	 * 환불 상세
 	 */
 	@Override
-	public RefundDTO selectRefundInfoDetail(RefundDTO refund) {
+	public RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap) {
 
-		return mapper.selectRefundInfoDetail(refund);
+		return mapper.selectRefundInfoDetail(refundDetailMap);
 	}
 
 	@Override

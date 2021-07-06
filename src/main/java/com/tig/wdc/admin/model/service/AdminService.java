@@ -182,10 +182,10 @@ public interface AdminService {
 	 * @author 송아현
 	 * 환불 상세
 	 * 
-	 * @param refund
+	 * @param refundDetailMap
 	 * @return
 	 */
-	RefundDTO selectRefundInfoDetail(RefundDTO refund);
+	RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap);
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 

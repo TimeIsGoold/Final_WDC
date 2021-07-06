@@ -106,11 +106,25 @@
 	                                            <th>취소&nbsp;&nbsp;&nbsp;사유</th>
 	                                            <td colspan="4">${ refundInfoDetail.cancelReason }</td>
 	                                            <th>상세사유</th>
-	                                            <td colspan="4">${ refundInfoDetail.cancelReasonDetail }</td>
+	                                            <c:choose>
+	                                            	<c:when test="${ empty refundInfoDetail.cancelReasonDetail }">
+	                                            		<td colspan="4">상세 사유가 없습니다</td>
+	                                            	</c:when>
+	                                            	<c:when test="${ not empty refundInfoDetail.cancelReasonDetail }">
+	                                            		<td colspan="4">${ refundInfoDetail.cancelReasonDetail }</td>
+	                                            	</c:when>
+	                                            </c:choose>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>클래스타입</th>
-	                                            <td colspan="4">${ refundInfoDetail.classType }</td>
+	                                            <c:choose>
+	                                            	<c:when test="${ refundInfoDetail.classType eq 'O' }">
+	                                            		<td colspan="4">원데이</td>
+	                                            	</c:when>
+	                                            	<c:when test="${ refundInfoDetail.classType eq 'R' }">
+	                                            		<td colspan="4">정규</td>
+	                                            	</c:when>
+	                                            </c:choose>
 	                                            <th>클래스명</th>
 	                                            <td colspan="4">${ refundInfoDetail.className }</td>
 	                                        </tr>
@@ -124,7 +138,14 @@
 	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundAccount }</td>
 	                                            <th>환 불 액</th>
-	                                            <td colspan="4">${ refundInfoDetail.refundAmount }</td>
+	                                            <c:choose>
+	                                            	<c:when test="${ refundInfoDetail.refundAmount eq 0}">
+	                                            		<td colspan="4">정산 전 입니다</td>
+	                                            	</c:when>
+	                                            	<c:when test="${ not empty refundInfoDetail.refundAmount }">
+	                                            		<td colspan="4">${ refundInfoDetail.refundAmount }</td>
+	                                            	</c:when>
+	                                            </c:choose>
 	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
 	                                        </tr>
 	                                    </tbody>

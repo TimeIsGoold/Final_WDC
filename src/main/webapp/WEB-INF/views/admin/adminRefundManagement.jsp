@@ -88,7 +88,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${refundList}" var="RefundDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund'">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund&status=${RefundDTO.refundStatus}&no=${RefundDTO.cancelNo}'">
 				                                <td>${RefundDTO.cancelNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${RefundDTO.classType eq 'O'}">

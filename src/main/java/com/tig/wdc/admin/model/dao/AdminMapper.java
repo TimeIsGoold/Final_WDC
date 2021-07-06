@@ -182,7 +182,7 @@ public interface AdminMapper {
 	 * @param refund
 	 * @return
 	 */
-	RefundDTO selectRefundInfoDetail(RefundDTO refund);
+	RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap);
 	
 	StudentDTO selectOneStudent(int no);
 
