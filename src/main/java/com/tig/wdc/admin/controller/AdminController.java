@@ -1,5 +1,6 @@
 package com.tig.wdc.admin.controller;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -548,10 +549,11 @@ public class AdminController {
 	@GetMapping("seconddecision")
 	public String selectCheeringClass(Model model) {
 		List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
-		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+//		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
 		
 		CheeringClassDTO cheeringClass = null;
 		for(int i = 0; i < cheeringClassList.size(); i++ ) {
+//			Date firstDDay = new Date();
 //			cheeringClassList.get(i).getFirstDecision()
 		}
 		return "admin/testClassList";
