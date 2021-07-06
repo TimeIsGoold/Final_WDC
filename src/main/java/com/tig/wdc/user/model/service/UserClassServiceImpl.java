@@ -1,6 +1,7 @@
 package com.tig.wdc.user.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -140,6 +141,13 @@ public class UserClassServiceImpl implements UserClassService{
 	public int insertReportHistory(UserReportDTO userReportDTO) {
 		return mapper.insertReportHistory(userReportDTO);
 	}
+
+	@Override
+	public List<ScheduleDTO> selectTime(ScheduleDTO scheduleDTO) {
+		return mapper.selectTime(scheduleDTO);
+	}
+
+
 
 
 
