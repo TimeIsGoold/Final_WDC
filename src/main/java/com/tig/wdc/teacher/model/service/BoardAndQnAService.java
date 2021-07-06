@@ -1,10 +1,14 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.model.dto.NoticeDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.UserInquiryDTO;
 
 /**
  * 공지사항(상세), 관리자 문의(작성,내역) 등 게시판 처리용
@@ -43,4 +47,27 @@ public interface BoardAndQnAService {
 	 * @return
 	 */
 	public int selectScheduleCount(int clsNo);
+
+	
+	/**
+	 * 강사가 관리자에게 문의한 전체 수
+	 * @param teacherNo
+	 * @return
+	 */
+	public int selectAdminQnACount(int teacherNo);
+
+	/**
+	 * 강사가 관리자에게 문의한 리스트
+	 * @param searchCondition 검색조건
+	 * @return
+	 */
+	public List<UserInquiryDTO> selectAdminQnAList(HashMap<String, Object> searchCondition);
+
+	public UserInquiryDTO selectQnADetail(Map<String, String> serachInfo);
+
+	public int insertAdminQuestion(QuestionDTO content);
+
+	public int insertAdminQuestionHistory(QuestionDTO content);
+
+	public NoticeDTO selectNoticeDetail(int noticeNo);
 }

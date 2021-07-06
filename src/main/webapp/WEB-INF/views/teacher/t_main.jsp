@@ -137,7 +137,7 @@
 	                          <td>[일반]</td>  
 	                      </c:otherwise>
 	                  </c:choose>
-	                      <td><c:out value="${ notice.title }"/></td>  
+	                      <td><a href="${pageContext.servletContext.contextPath }/teacher/noticeDetail?noticeNo=${ notice.no}"><c:out value="${ notice.title }"/></a></td>  
 	                      <td><c:out value="${ notice.writeDate }"/></td>  
 	                  </tr>
 	                  </c:forEach>

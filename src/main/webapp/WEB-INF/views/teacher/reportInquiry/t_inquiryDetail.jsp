@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,114 +78,60 @@
 <body>
   <div class="page-holder">
     <!-- navbar-->
-    <header class="header bg-white" style="padding-top: 80px; padding-bottom: 30px;">
-      <div class="container px-0 px-lg-3">
-        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark"><h1>우리동네 클래스</h1></span></a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-              </li>
-              <li class="nav-item">
-              </li>
-              <li class="nav-item"><a class="nav-link" href="t_main.html"><h3>강사 페이지</h3></a>
-              </li>
-              <li class="nav-item dropdown">
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">               
-              <li class="nav-item"></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-              <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
+    <%@ include file="../commons/header.jsp" %>
 
     <div class="container">
       <!-- sidebar -->
-      <div class="col-lg-2 order-1 order-lg-1" style="float: left;">
-        <h5 class="text-uppercase mb-4"><a class="nav-link" href="#" style="color: black; text-align: center;"><h2>홈</h1></a></h5>
-        <div class="py-2 px-4 bg-light mb-3"><h5>클래스 관리</h5></div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-          <li class="mb-2"><a class="reset-anchor" href="t_classManagement.html">클래스 관리</a></li>
-          <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-        <div class="py-2 px-4 bg-light mb-3"><h5>매출/정산</h5></div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-          <li class="mb-2"><a class="reset-anchor" href="t_balanceList.html">정산내역 관리</a></li>
-          <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-        <div class="py-2 px-4 bg-light mb-3"><h5>문의하기</h5></div>
-        <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
-          <li class="mb-2"><a class="reset-anchor" href="t_Inquiry.html">관리자 문의</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="t_inquiryList.html">문의내역 관리</a></li>
-          <li class="mb-2"><a class="reset-anchor" href="t_FAQ.html">자주 묻는 질문</a></li>
-          <li class="mb-2"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
-        </ul>
-      </div> 
+      <%@ include file="../commons/sidebar.jsp" %>
       
       <!-- main page -->
-      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
+      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; height: 800px">
 
         <div class="col-sm-12" id="content-formatting" style="float: left; margin: auto;">
           <table class="table table-hover">
             <thead>
               <tr>
                 <th>글 번호</th>
-                <td colspan="3">61</td>
+                <td colspan="3">${ QnADetail.queNo }</td>
                 <th>문의일</th>
-                <td style="width: 25%">2021-05-20</td>
+                <td style="width: 25%">${ QnADetail.queDate }</td>
               </tr>
               <tr>
                 <th>제목</th>
-                <td colspan="3">정산 일자가 지났는데 아직 입금이 안됐어요</td>
+                <td colspan="3">${ QnADetail.queTitle }</td>
                 <th>답변일</th>
-                <td style="width: 25%">2021-05-21</td>
+                <c:choose>
+                  <c:when test="${ empty QnADetail.answer.answerTime }">
+                  <td style="width: 25%">-</td>
+                  </c:when>
+                  <c:otherwise>
+                  <td style="width: 25%">${ QnADetail.answer.answerTime }</td>
+                  </c:otherwise>
+                </c:choose>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px;">
-                  동해 물과 백두산이 마르고 닳도록
-                  하느님이 보우하사 우리나라 만세.
-                  무궁화 삼천리 화려 강산
-                  대한 사람, 대한으로 길이 보전하세.<br>
-                  
-                  남산 위에 저 소나무, 철갑을 두른 듯
-                  바람 서리 불변함은 우리 기상일세.
-                  무궁화 삼천리 화려 강산
-                  대한 사람, 대한으로 길이 보전하세.<br><br>
-                  
-                  남산 위에 저 소나무, 철갑을 두른 듯
-                  바람 서리 불변함은 우리 기상일세.
-                  무궁화 삼천리 화려 강산
-                  대한 사람, 대한으로 길이 보전하세.   
+                ${ QnADetail.queContent}  
                 </td>
               </tr>
               <tr>
                 <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px;">
                   <p><b>관리자 답변</b></p>
-                  동해 물과 백두산이 마르고 닳도록
-                  하느님이 보우하사 우리나라 만세.
-                  무궁화 삼천리 화려 강산
-                  대한 사람, 대한으로 길이 보전하세.<br>
-                  
-                  남산 위에 저 소나무, 철갑을 두른 듯
-                  바람 서리 불변함은 우리 기상일세.
-                  무궁화 삼천리 화려 강산
-                  대한 사람, 대한으로 길이 보전하세.<br><br>
-                  
-                  남산 위에 저 소나무, 철갑을 두른 듯
-                  바람 서리 불변함은 우리 기상일세.
-                  무궁화 삼천리 화려 강산
-                  대한 사람, 대한으로 길이 보전하세.   
+                  <c:choose>
+                    <c:when test="${ empty QnADetail.answer.answerContent }">
+                      등록된 답변이 없습니다.
+                    </c:when>
+                    <c:otherwise>
+                    ${ QnADetail.answer.answerContent }
+                    </c:otherwise>
+                  </c:choose>
                 </td>
               </tr>
             </tbody>
           </table><br><br><br><br>
-          <button class="btn btn-primary" type="button" style="margin-left: 40%;">확인</button>
+          <button class="btn btn-primary" type="button" style="margin-left: 40%;" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/teacherInquiryList'">목록으로</button>
         </div>  
             
     </div>  
@@ -203,6 +150,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
-<html>
+</html>

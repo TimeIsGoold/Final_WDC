@@ -52,7 +52,7 @@
  		<typeAlias alias="schedule" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
  		<typeAlias alias="classInfo" type="com.tig.wdc.user.model.dto.ClassDTO"/>
  		<typeAlias alias="scheduleInfo" type="com.tig.wdc.user.model.dto.ScheduleDTO"/>
- 		<typeAlias alias="regularScheduleInfo" type="com.tig.wdc.model.dto.RegularClassInfoDTO"/>
+ 		<typeAlias alias="classScheduleInfo" type="com.tig.wdc.model.dto.ClassScheduleInfoDTO"/>
  		<typeAlias alias="classApplyInfo" type="com.tig.wdc.user.model.dto.ClassApplyDTO"/>
  		<typeAlias alias="regularAttend" type="com.tig.wdc.model.dto.RegularClassAttendanceDTO"/>
  		

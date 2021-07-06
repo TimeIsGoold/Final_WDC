@@ -1,18 +1,14 @@
 package com.tig.wdc.teacher.Controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.common.PageNation;
-import com.tig.wdc.model.dto.NoticeDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.service.BoardAndQnAService;
 import com.tig.wdc.teacher.model.service.TeacherInfoService;
@@ -39,7 +35,6 @@ public class TeacherMainController {
 	@GetMapping("teacher/main")
 	public String teacherMain(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		int teacherNo= (Integer) session.getAttribute("teacherNo");
-		System.out.println("너의 값은???????" + currentPage);
 		//공지사항 페이징처리
 		pageInfo = PageNation.getPageInfo(currentPage, noticeService.selectNoticeCount(), 5, 5);
 		//페이징처리정보

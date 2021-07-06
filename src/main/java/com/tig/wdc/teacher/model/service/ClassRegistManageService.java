@@ -7,7 +7,7 @@ import com.tig.wdc.model.dto.AttachMentDTO;
 import com.tig.wdc.model.dto.ClassPieceDTO;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
-import com.tig.wdc.model.dto.RegularClassInfoDTO;
+import com.tig.wdc.model.dto.ClassScheduleInfoDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
@@ -34,13 +34,13 @@ public interface ClassRegistManageService {
 	int insertSchedule(ScheduleDTO schedule);
 
 	//정규 클래스 정보
-	RegularClassInfoDTO selectRegularScheduleinfo(int clsNo);
+	ClassScheduleInfoDTO selectRegularScheduleinfo(int clsNo);
 
 	//클래스 신청한 정보
 	List<ClassApplyDTO> selectApplyUserInfo(int scheduleNoo);
 
 	//원데이클래스 스케쥴리스트
-	List<RegularClassInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
+	List<ClassScheduleInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
 
 	//원데이클래스 출석 수정용
 	int modifyOndeDayAttendanceStatus(HashMap<String, Object> applyNoList);
@@ -50,6 +50,14 @@ public interface ClassRegistManageService {
 
 	//정규클래스 기존 출석정보
 	List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo);
+
+	//원데이클래스 신청인원
+	List<ClassScheduleInfoDTO> selectOnedayApplyCount(List<ClassScheduleInfoDTO> onedayInfoList);
+
+	//정규클래스 신청인원
+	ClassScheduleInfoDTO selectRegularApplyCount(int scheduleNo);
+
+	int updateRegularApplyStatus(String[] updateList);
 
 	
 }

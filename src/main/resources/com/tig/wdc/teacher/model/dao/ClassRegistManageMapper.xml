@@ -101,7 +101,7 @@
              , #{ scheduleCount }
              )
     </insert>
-    <resultMap type="regularScheduleInfo" id="regularSchedule">
+    <resultMap type="classScheduleInfo" id="scheduleInfo">
         <id column="SCHEDULE_NO" property="scheduleNo"/>
         <result column="MAX_PEOPLE" property="maxPeople"/>
         <result column="SCHEDULE_COUNT" property="scheduleCount"/>
@@ -110,7 +110,7 @@
         <result column="CLS_END_D" property="end"/>
         <result column="CLS_TITLE" property="classTitle"/>
     </resultMap>
-    <select id="selectRegularScheduleinfo" parameterType="_int" resultMap="regularSchedule">
+<!--     <select id="selectRegularScheduleinfo" parameterType="_int" resultMap="scheduleInfo">
         SELECT 
                A.SCHEDULE_NO
              , A.MAX_PEOPLE  
@@ -126,6 +126,18 @@
         WHERE C.CLS_NO = #{clsNo}
           AND D.PAY_STATUS = '완료'
          GROUP BY A.SCHEDULE_NO,A.MAX_PEOPLE,A.SCHEDULE_COUNT,C.CLS_START_D,C.CLS_END_D,C.CLS_TITLE   
+    </select> -->
+    <select id="selectRegularScheduleinfo" parameterType="_int" resultMap="scheduleInfo">
+        SELECT
+               A.SCHEDULE_NO
+             , A.MAX_PEOPLE  
+             , A.SCHEDULE_COUNT  
+             , B.CLS_START_D 시작일
+             , B.CLS_END_D
+             , B.CLS_TITLE
+          FROM SCHEDULE A
+          JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
+         WHERE A.CLS_NO = #{ clsNo }   
     </select>
     <resultMap type="classApplyInfo" id="applyInfo">
         <id column="CLS_APL_NO" property="aplNo"/>
@@ -149,36 +161,28 @@
          WHERE A.SCHEDULE_NO = #{ scheduleNo }
            AND C.PAY_STATUS = '완료'
     </select>
-
-    <select id="selectOneDayScheduleList" resultMap="regularSchedule" parameterType="ClassDTO">
+    <select id="selectOneDayScheduleList" resultMap="scheduleInfo" parameterType="ClassDTO">
         SELECT 
-              A.SCHEDULE_NO
-            , A.시작일 
-            , A.MAX_PEOPLE
-            , A.신청인원
-            , A.CLS_TITLE
-         FROM (SELECT ROWNUM RNUM
-                    , B.SCHEDULE_NO
-                    , B.시작일
-                    , B.MAX_PEOPLE
-                    , B.신청인원
-                    , B.CLS_TITLE
-                 FROM (SELECT C.SCHEDULE_NO
-                            , C.SCHEDULE_DATE 시작일
-                            , C.MAX_PEOPLE
-                            , SUM(D.CLS_PPL) 신청인원
-                            , F.CLS_TITLE
-                         FROM SCHEDULE  C
-                         JOIN CLASS_APPLY  D ON (C.SCHEDULE_NO = D.SCHEDULE_NO)
-                         JOIN PAYMENT E ON (D.CLS_APL_NO = E.CLS_APL_NO)
-                         JOIN CLASS F ON (C.CLS_NO = F.CLS_NO)
-                        WHERE C.CLS_NO = #{ clsNo }
-                          AND E.PAY_STATUS = '완료'
-                     GROUP BY C.SCHEDULE_NO, C.SCHEDULE_DATE, C.MAX_PEOPLE, F.CLS_TITLE
-                     ORDER BY C.SCHEDULE_DATE
-                       ) B
-              ) A
-        WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }    
+               A.SCHEDULE_NO
+             , A.시작일 
+             , A.CLS_TITLE
+             , A.MAX_PEOPLE
+          FROM (SELECT ROWNUM RNUM
+                     , B.SCHEDULE_NO
+                     , B.시작일
+                     , B.CLS_TITLE
+                     , B.MAX_PEOPLE
+                  FROM (SELECT C.SCHEDULE_NO
+                             , C.SCHEDULE_DATE 시작일
+                             , C.MAX_PEOPLE
+                             , D.CLS_TITLE
+                          FROM SCHEDULE  C
+                          JOIN CLASS D ON (C.CLS_NO = D.CLS_NO)
+                         WHERE C.CLS_NO = #{ clsNo }
+                         ORDER BY C.SCHEDULE_DATE
+                        ) B
+               ) A
+         WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }     
     </select>
     <update id="modifyOndeDayAttendanceStatus" parameterType="hashmap">
         UPDATE CLASS_APPLY
@@ -224,4 +228,35 @@
           FROM REGULAR_CLASS
          WHERE SCHEDULE_NO = #{ scheduleNo } 
     </select>
+    <select id="selectOnedayApplyCount" resultMap="scheduleInfo" parameterType="java.util.List">
+        SELECT
+               A.SCHEDULE_NO
+             , SUM(A.CLS_PPL) 신청인원
+          FROM CLASS_APPLY A
+          JOIN PAYMENT B ON (A.CLS_APL_NO = B.CLS_APL_NO)
+         WHERE PAY_STATUS = '완료'
+           AND A.SCHEDULE_NO IN 
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator="," >
+             #{ item.scheduleNo }
+        </foreach>
+         GROUP BY A.SCHEDULE_NO  
+    </select>
+    <select id="selectRegularApplyCount" resultMap="scheduleInfo">
+        SELECT
+               A.SCHEDULE_NO
+             , SUM(A.CLS_PPL) 신청인원
+          FROM CLASS_APPLY A
+          JOIN PAYMENT B ON (A.CLS_APL_NO = B.CLS_APL_NO)
+         WHERE PAY_STATUS = '완료'
+           AND A.SCHEDULE_NO = #{ scheduleNo }
+         GROUP BY A.SCHEDULE_NO   
+    </select>
+    <update id="updateRegularApplyStatus" parameterType="map">
+        UPDATE CLASS_APPLY
+           SET ATT_STATUS = 'Y'
+         WHERE CLS_APL_NO IN
+         <foreach collection="array" item="item" open="(" close=")" separator=",">
+             #{ item }
+         </foreach>
+    </update>
 </mapper>
