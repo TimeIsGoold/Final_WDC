@@ -49,7 +49,7 @@
 							    <a class="nav-link active" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total">전체</a>
 							  </li>
 							  <li class="nav-item">
-							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total">2차 승인</a>
+							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision">2차 승인</a>
 							  </li>
 							  <li class="nav-item">
 							    <a class="nav-link" data-toggle="tab" href="#zxc">반려</a>
@@ -69,14 +69,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                     				<c:forEach items="${cheeringClassList}" var="cheeringClassList">
+                     				<c:forEach items="${passedList}" var="passedList">
 				                            <tr>
 				                                <td><input type="checkbox"/> </td>
-				                                <td>${cheeringClassList.classTitle}</td>
-				                                <td>${cheeringClassList.teacherName}</td>
-				                                <td>${cheeringClassList.classPrice}</td>
-				                                <td>${cheeringClassList.classPrice}</td>
-				                                <td>${cheeringClassList.classPrice}</td>
+				                                <td>${passedList.title}</td>
+				                                <td>${passedList.teName}</td>
+				                                <td>${passedList.firstDecision}</td>
+				                                <td>${passedList.categoryNo}</td>
+				                                <td>${passedList.cheeringCnt}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

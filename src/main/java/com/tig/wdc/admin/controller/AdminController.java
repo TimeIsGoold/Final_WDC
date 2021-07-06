@@ -586,16 +586,23 @@ public class AdminController {
 		 if(result > 0)  adminService.insertClassDecision(clsDecisionDTO);
 		return "redirect:selectClassBycategory?ct=tw&cnt="+result;
 	}
-	
+
 	@GetMapping("seconddecision")
 	public String selectCheeringClass(Model model) {
 		List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
-//		SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
-		
-		CheeringClassDTO cheeringClass = null;
+		long today = System.currentTimeMillis();
+		// 86400000  하루 밀리 세컨드
+		List<CheeringClassDTO> refinedCheeringClassListt = null;
 		for(int i = 0; i < cheeringClassList.size(); i++ ) {
-//			Date firstDDay = new Date();
-//			cheeringClassList.get(i).getFirstDecision()
+			// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
+			if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+				refinedCheeringClassListt = new ArrayList<>();
+				refinedCheeringClassListt.add(cheeringClassList.get(i));
+				model.addAttribute("passedList", refinedCheeringClassListt);
+			// 응원수가 미달인 2차심사 대기중 인 클래스
+			} else if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+				
+			}
 		}
 		return "admin/testClassList";
 		
