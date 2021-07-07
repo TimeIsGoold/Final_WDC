@@ -3,7 +3,9 @@ package com.tig.wdc.user.controller;
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,27 +98,33 @@ public class UserClassDetailController {
 		List<UserInquiryDTO> qna = new ArrayList<UserInquiryDTO>();
 		qna = classService.selectQnA(clsNo);
 		model.addAttribute("qna", qna);
-
+		
 		// 클래스 스케줄 select
 		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
-
+		
 		return "user/classList/class_detail";
 	}
+	
+	@PostMapping("inquiry/{clsNo}")
+	public String ClassDetail(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, UserInquiryDTO userInquiryDTO) {
+	
+		//로그인 세션 값
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		userInquiryDTO.setClsNo(clsNo);
+		userInquiryDTO.setUserNo(userNo);
+		
+		System.out.println("ccccccccccccccdjfkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" + userInquiryDTO);
+		
+		// 문의 insert
+		int inquiry = classService.insertInquiry(userInquiryDTO);
+		
+		return "redirect:/user/classDetail/{clsNo}";
+	}
 
-//	@RequestMapping(value="${pageContext.servletContext.contextPath}/user/dateTimePicker/${ requestScope.classDetail.clsNo }")
-//    @ResponseBody
-//	public String DateTimePicker(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, HttpServletRequest request, @RequestParam("date") String date) {
-//		
-//		String checkedDate = request.getParameter("date");
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + checkedDate);
-//		
-//		return date;
-//		
-//	}
-
-	@PostMapping(value="classDetail/dateTimePicker",produces = "application/json; charset=utf-8" )
+	@PostMapping(value="classDetail/dateTimePicker", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String DateTimePicker(HttpSession session, Model model,
 			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, HttpServletRequest request) {
@@ -128,14 +136,12 @@ public class UserClassDetailController {
 		// 클래스 날짜에 맞는 시간 select
 		List<ScheduleDTO> time = new ArrayList<ScheduleDTO>();
 		time = classService.selectTime(scheduleDTO);
-		//model.addAttribute("time", time);
 
-		System.out.println("출력????????????????" + time);
 		Gson gson = new Gson();
 		
 		return gson.toJson(time);
 	}
-
+	
 	/**
 	 * 결제페이지 이동용 메소드
 	 * 

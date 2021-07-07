@@ -73,6 +73,10 @@ public interface UserClassMapper {
 
 	public int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
+	public ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
+
+	public int insertInquiry(UserInquiryDTO userInquiryDTO);
+
 
 
 

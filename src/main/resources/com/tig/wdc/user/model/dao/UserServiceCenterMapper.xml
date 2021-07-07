@@ -95,6 +95,21 @@
          WHERE A.Q_NO = #{ inquiryNo }
 	</select>
 	
+	<insert id="insertInquiry" parameterType="UserInquiryDTO">
+		INSERT 
+		  INTO ADMIN_Q(Q_TITLE,Q_CONTENT,Q_DATE,ANSWER_YN,MEMBER_TYPE,MEMBER_NO,Q_NO)
+		VALUES
+		(
+		  #{queTitle}
+		, #{queContent}
+		, SYSDATE
+		, 'N'
+		, 'USER'
+		, #{ userNo }
+		, SEQ_Q_NO.NEXTVAL
+		)
+	</insert>
+	
 	<resultMap type="UserReportDTO" id="ReportResult">
 		<id column="REPORT_NO" property="reportNo"/>
 		<result column="REPORT_TITLE" property="reportTitle"/>

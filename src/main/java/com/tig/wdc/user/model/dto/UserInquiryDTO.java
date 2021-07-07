@@ -3,7 +3,7 @@ package com.tig.wdc.user.model.dto;
 import java.sql.Date;
 
 /**
- * @author SORA
+ * @author SORA 
  * 문의 DTO
  */
 public class UserInquiryDTO {
@@ -17,13 +17,14 @@ public class UserInquiryDTO {
 	private int clsNo;
 	private String answerYn;
 	private InquiryAnswerDTO answer;
+	private int userNo;
 
 	public UserInquiryDTO() {
 		super();
 	}
 
 	public UserInquiryDTO(int queNo, String queTitle, String queContent, Date queDate, String queVisibleYn,
-			String userName, int clsNo, String answerYn, InquiryAnswerDTO answer) {
+			String userName, int clsNo, String answerYn, InquiryAnswerDTO answer, int userNo) {
 		super();
 		this.queNo = queNo;
 		this.queTitle = queTitle;
@@ -34,6 +35,7 @@ public class UserInquiryDTO {
 		this.clsNo = clsNo;
 		this.answerYn = answerYn;
 		this.answer = answer;
+		this.userNo = userNo;
 	}
 
 	public int getQueNo() {
@@ -108,11 +110,19 @@ public class UserInquiryDTO {
 		this.answer = answer;
 	}
 
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInquiryDTO [queNo=" + queNo + ", queTitle=" + queTitle + ", queContent=" + queContent + ", queDate="
 				+ queDate + ", queVisibleYn=" + queVisibleYn + ", userName=" + userName + ", clsNo=" + clsNo
-				+ ", answerYn=" + answerYn + ", answer=" + answer + "]";
+				+ ", answerYn=" + answerYn + ", answer=" + answer + ", userNo=" + userNo + "]";
 	}
 
 }

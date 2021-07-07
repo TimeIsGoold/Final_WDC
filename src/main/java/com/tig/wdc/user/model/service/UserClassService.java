@@ -70,4 +70,8 @@ public interface UserClassService {
 
 	int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
+	ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
+
+	int insertInquiry(UserInquiryDTO userInquiryDTO);
+
 }

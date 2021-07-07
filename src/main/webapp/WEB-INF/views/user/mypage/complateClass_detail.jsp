@@ -330,7 +330,7 @@
 										document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
 									}
 								</script>
-								<textarea name="reviewContent"class="feedbackArea" style="font-size: 15px; border-color: lightgray; width: 605px;" placeholder="리뷰를 작성해 주세요."></textarea>
+								<textarea name="reviewContent" class="feedbackArea" style="font-size: 15px; border-color: lightgray; width: 605px;" placeholder="리뷰를 작성해 주세요."></textarea>
 								<button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 725px; font-size: 15px; width: 80px;">작성</button>
 							</form>
 							<!-- 리뷰 작성 눌렀을 시-->

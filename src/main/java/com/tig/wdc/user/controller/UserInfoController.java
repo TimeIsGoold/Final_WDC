@@ -309,20 +309,5 @@ public class UserInfoController {
 		return "redirect:/user/mypage/complateClassList";
 	}
 	
-	
-	
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
