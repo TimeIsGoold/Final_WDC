@@ -634,12 +634,16 @@ public class AdminController {
 				// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
 				if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
 					refinedCheeringClassList.add(cheeringClassList.get(i));
-					List<Integer> userNoArr = adminService.selectUserNoByCheeringClass(refinedCheeringClassList.get(i).getClsNo());
-					int[] userArr = null;
-					for(int j = 0; j < userNoArr.size(); j ++) {
-//						userArr += userNoArr.get
+					System.out.println("제발 클래스 넘버를 알려주셍 ㅛ제벌" +cheeringClassList.get(i).getClsNo());
+					List<Integer> userNoArr = adminService.selectUserNoByCheeringClass(cheeringClassList.get(i).getClsNo());
+					String userNoString = null;
+					for(int j = 0; j < userNoArr.size() ; j ++) {
+						if(j < userNoArr.size() -1) {
+						} else {
+						}
 					}
-				} 
+					System.out.println("문자열이 나올까요 제발 나와주새요 : " + userNoString);
+ 				} 
 			}
 			model.addAttribute("classList", refinedCheeringClassList);
 			model.addAttribute("t", "p");
