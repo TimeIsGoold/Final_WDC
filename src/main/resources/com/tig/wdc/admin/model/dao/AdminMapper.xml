@@ -143,10 +143,13 @@
 	</resultMap>
 	
 	<!-- 정산 상세 -->
-<!-- 	<resultMap id="calculateInfoDetail" type="CalculateDTO">
-		<id column="" property=""/>
-		<result column="" property=""/>
-	</resultMap> -->
+	<resultMap id="calculateInfoDetail" type="CalculateDTO">
+		<id column="번호" property="calcNo"/>
+		<result column="TE_TYPE" property="teType"/>
+		<result column="TE_NAME" property="teName"/>
+		<result column="TE_ID" property="teId"/>
+		<result column="정산날짜" property="calcMonth"/>
+	</resultMap>
 	
 	<!-- 환불 -->
 	<resultMap id="refundList" type="RefundDTO">
@@ -649,20 +652,25 @@
 	
 	<!-- 정산 미완료 -->
 	<select id="selectNoCalculateList" resultMap="calculateList">
-    	SELECT 
-	    	   A.TUITION_M_NO 번호
-			 , C.TE_TYPE
-			 , C.TE_NAME
-			 , C.TE_ID
-             , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
-			 , A.CALCUL_STATUS 정산여부
-		  FROM TUITION_MANAGEMENT A
-		  JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
-          JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
-         WHERE A.CALCUL_STATUS = 'N'
-           AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
-                                    FROM TUITION_MANAGEMENT
-                                    GROUP BY CLS_NO)
+		SELECT 
+			   * 
+		  FROM
+	   		  (SELECT 
+	    	          A.TUITION_M_NO 번호
+			        , C.TE_TYPE
+			        , C.TE_NAME
+			        , C.TE_ID
+                    , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
+			        , A.CALCUL_STATUS 정산여부
+		         FROM TUITION_MANAGEMENT A
+		         JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
+                 JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+                WHERE A.CALCUL_STATUS = 'N'
+                  AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
+                                           FROM TUITION_MANAGEMENT
+                                          GROUP BY CLS_NO)
+             )
+        ORDER BY 번호
 	</select>
 	
 	<!-- 정산 완료 -->
@@ -683,9 +691,17 @@
 	<!-- 정산 미완료 상세 -->
 	
 	<!-- 정산 완료 상세 -->
-	<!-- <select id="selectYesCalculateDetail" resultMap="calculateInfoDetail" parameterType="_int">
-	
-	</select> -->
+	<select id="selectYesCalculateDetail" resultMap="calculateInfoDetail" parameterType="_int">
+		SELECT 
+			   A.CALC_NO AS 번호
+			 , B.TE_TYPE
+			 , B.TE_NAME
+			 , B.TE_ID
+			 , A.CALC_MONTH AS 정산날짜
+		  FROM CALCULATE A
+		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
+         WHERE A.CALC_NO = #{no}
+	</select>
 	
 	<!-- 환불 리스트 -->
 	<select id="selectRefundList" resultMap="refundList" parameterType="string">
