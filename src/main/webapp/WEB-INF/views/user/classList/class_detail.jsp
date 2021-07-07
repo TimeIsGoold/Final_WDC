@@ -344,6 +344,7 @@ i {
 						<li class="list-inline-item m-0 p-0">
 							<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
 								<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+								<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>신청하기 
 							</button>
 						</li>
 					</div>

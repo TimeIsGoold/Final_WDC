@@ -208,6 +208,16 @@ public class UserClassServiceImpl implements UserClassService{
 		return userRefundDTO;
 	}
 
+	@Override
+	public int selectDoTodayCheer(int userNo) {
+		return mapper.selectDoTodayCheer(userNo);
+	}
+
+	@Override
+	public int selectUserCpnNo(int cpnNo) {
+		return mapper.selectUserCpnNo(cpnNo);
+	}
+
 
 
 

@@ -264,7 +264,7 @@
 			            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
 							  	   location.reload();
 			            	   }else if(data == '2'){
-			            		   alert("로그인을 해주세요")
+			            		   alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
 			            	   }
 			               },
 			               error:function(xhr,status,error){

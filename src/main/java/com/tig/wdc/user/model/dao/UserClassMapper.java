@@ -81,6 +81,10 @@ public interface UserClassMapper {
 
 	public UserRefundDTO selectMaxStep(int scheduleNo);
 
+	public int selectDoTodayCheer(int userNo);
+
+	public int selectUserCpnNo(int cpnNo);
+
 
 
 

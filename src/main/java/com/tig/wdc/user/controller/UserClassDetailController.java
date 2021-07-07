@@ -1,6 +1,8 @@
 package com.tig.wdc.user.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.tig.wdc.common.Encryption;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -48,11 +52,17 @@ public class UserClassDetailController {
 
 	private final UserClassService classService;
 	private final UserInfoMapper infoService;
+	private final BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private Encryption aes;
+
 
 	@Autowired
-	public UserClassDetailController(UserClassService classService,UserInfoMapper infoService) {
+	public UserClassDetailController(UserClassService classService,UserInfoMapper infoService,BCryptPasswordEncoder passwordEncoder) {
 		this.classService = classService;
 		this.infoService = infoService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	/**
@@ -155,33 +165,61 @@ public class UserClassDetailController {
 		System.out.println("userClassDTO : " + userClassDTO.toString());
 		System.out.println("scheduleDTO : " + scheduleDTO.toString());
 
-		
-		if (session == null) {
-			return "user/login/login";
-		}
+//		
+//		if (session == null) {
+//			return "user/login/login";
+//		}
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		// 유저 넘버로 이름과 전화번호 조회
 		UserInfoDTO userInfo = new UserInfoDTO();
 		userInfo = classService.selectUserInfo(userNo);
 		model.addAttribute("userInfo", userInfo);
+		System.out.println("1. userInfo" + userInfo);
 
+		
 		// 유저 넘버로 보유 쿠폰 조회
 		List<UserCouponDTO> couponList = new ArrayList<UserCouponDTO>();
 		userClassDTO.setUserNo(userNo);
 		couponList = classService.selectCouponList(userClassDTO);
-		model.addAttribute("couponList", couponList);
+		System.out.println("2.couponList :  " + couponList);
+		
+		// 전체 쿠폰 리스트중 사용가능 쿠폰 리스트 조회
+		List<UserCouponDTO> allUserCouponList = new ArrayList<UserCouponDTO>();
+		allUserCouponList = infoService.selectAllUserCouponList();
+		for(int i = 0; i < allUserCouponList.size(); i++) {
+			// 해당 리스트의 쿠폰 번호 빼와서  카운트 조회
+			UserCouponDTO alluserCouponDTO = new UserCouponDTO();
+			alluserCouponDTO.setCpnNo(allUserCouponList.get(i).getCpnNo());
+			alluserCouponDTO.setUserNo(userNo);
+		
+			// 해당 유저가 전체 쿠폰 넘버의 사용이력이 이력 테이블에 있는지 조회
+			int allUserCouponCount = infoService.selectUseAllUserCoupon(alluserCouponDTO);
+			System.out.println("쿠폰 넘버 : " + allUserCouponList.get(i).getCpnNo());
+			
+			// 사용하지 않았다면(카운트가 0이라면) 쿠폰 리스트에 해당 쿠폰 추가
+			if(allUserCouponCount <= 0) {
+				couponList.add(allUserCouponList.get(i));
+			}else {
+				System.out.println("넘어가");
+			}
 
+		}
+		model.addAttribute("couponList", couponList);
+		System.out.println("3. couponList : " + couponList);
+		
 		// 스케줄 넘버 조회
+		System.out.println("userClassDTO : " + userClassDTO);
 		scheduleDTO.setClsNo(userClassDTO.getClsNo());
 		scheduleDTO.setScheduleClsType(userClassDTO.getClsType());
-		System.out.println("scheduleDTO2 : " + scheduleDTO);
+		System.out.println("4. 스케줄넘버 조회 scheduleDTO2 : " + scheduleDTO);
 		model.addAttribute("scheduleDTO", scheduleDTO);
 
-		
+		System.out.println("여기까진 옴?");
 		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
 		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO);
 		// paymentScheduleDTO 가 왜 null?
+		
 		
 		System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
 		System.out.println("scheduleDTO3 : " + scheduleDTO);
@@ -204,7 +242,11 @@ public class UserClassDetailController {
 		int userNo = (Integer) session.getAttribute("userNo");
 		// 0 .쿠폰 no 가 0 이 아니라면 사용으로 업데이트
 		int cpnNo = Integer.parseInt(request.getParameter("cpnNo"));
-
+		
+		// 0.1. 쿠폰 넘버로 유저 넘버를 조회해서 쿠폰넘버가 0이면 업데이트 X, 유저 올 쿠폰에 인서트
+		int cpnUserNo = classService.selectUserCpnNo(cpnNo);
+		
+		
 		if (cpnNo != 0) {
 			int updateResult = classService.updateCpnUseYn(cpnNo);
 		}
@@ -294,7 +336,8 @@ public class UserClassDetailController {
 		/* 파일명 변경 처리 */
 		String originFileName = singleFile.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		String saveName = /* UUID.randomUUID().toString() */originFileName.replace("-", "")/* + ext */;
+		String saveName = UUID.randomUUID().toString().replace("-", "") + ext;
+
 
 		/* 파일을 저장한다. */
 		try {
@@ -370,16 +413,33 @@ public class UserClassDetailController {
 		userRefundDTO.setAccountHolder(userInfoDTO.getUserName());
 		
 		int payNo = userClassDTO.getPayNo();
+		System.out.println("payNo = " + payNo);
+		
 		// 2. 페이넘 받기		
 		userRefundDTO.setPayNo(payNo);
-		// 3. 리펀드 어마운트 set*************
+		// 3. 리펀드 어마운트 set
+		if(userClassDTO.getClsType().equals("O")) {
+			userRefundDTO.setRefundAmount(userClassDTO.getPayPrice());
+		}else if(userClassDTO.getClsType().equals("R")) {
+			userRefundDTO.setRefundAmount(userRefundDTO.getRefundAmount());			
+		}
 		
+		// 4. 계좌 번호 암호화
+		System.out.println("암호화 전 : " + userRefundDTO.getRefundAccount());
+		
+		try {
+			userRefundDTO.setRefundAccount(aes.encrypt(userRefundDTO.getRefundAccount()));
+			System.out.println("암호화 후 : " + userRefundDTO.getRefundAccount());
+			System.out.println("복호화 후 : " + aes.decrypt(userRefundDTO.getRefundAccount()));
+
+		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+			e.printStackTrace();
+		}
 		
 		// payment cancel 테이블 인서트
 		int result = classService.inserRefund(userRefundDTO);
 		
 		// payment -> 취소로 업데이트
-		// 업데이트가 안댐**************
 		int paymentResult = classService.updatePaymentStatus(payNo);
 		
 		if(result + paymentResult == 2) {
@@ -436,13 +496,22 @@ public class UserClassDetailController {
 		//1. 해당 클래스 응원했는지 조회
 		int cheerHistory = classService.selectCheerHistory(cheerUpHisInsertDTO);
 		System.out.println("cheerHistory : " + cheerHistory);
+		// 이클래스에 응원한적 있으면 cheerHistory = 1, 없으면 cheerHistory = 0.
 		
+		// 2. 오늘 응원했는지 조회  <- 카운트가 0인 경우에만 응원 가능
+		int selectDoTodayCheer = classService.selectDoTodayCheer(userNo);
+		
+		// 에이작스에 반환할 결과
 		int cheerUpResult = 0;
-		// 해당 클래스 응원 카운트가 0이면
-		if(cheerHistory == 0) {
+		
+		// 해당 클래스 응원 카운트가 0이고 오늘 응원을 하지 않았다면
+		if(cheerHistory == 0 && selectDoTodayCheer == 0) {
 			cheerUpResult = classService.insertCheerHistory(cheerUpHisInsertDTO);
+			// cheerUpResult = 1
 		}else if(cheerHistory == 1) {
-		}else if( session.getAttribute("userNo").equals("null")) {
+			cheerUpResult = 0;
+			// 없으면 cheerUpResult = 0 으로 반환 (이미 응원하셨습니다)
+		}else if(selectDoTodayCheer >= 1 ) {
 			cheerUpResult = 2;
 		}
 		

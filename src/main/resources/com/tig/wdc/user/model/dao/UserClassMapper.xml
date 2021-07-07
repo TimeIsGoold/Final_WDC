@@ -428,6 +428,7 @@
 	   , #{ clsNo }
 	   , 'Y'
 	   , #{ userNo }
+	   , SYSDATE
 	   )
 	</insert>
 	
@@ -509,7 +510,14 @@
 		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
 		   AND S.SCHEDULE_NO = #{ scheduleNo }
 		 GROUP BY S.SCHEDULE_COUNT
+	</select>
 	
+	<select id="selectDoTodayCheer" parameterType="_int" resultType="_int">
+		SELECT 
+		       COUNT(CHEER_DATE)
+		  FROM CHEERING_HISTORY
+		 WHERE CHEER_DATE = TO_DATE(SYSDATE,'yy/MM/dd')
+		   AND USER_NO = #{ userNo }
 	</select>
 
 </mapper>

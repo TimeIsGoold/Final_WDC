@@ -78,4 +78,8 @@ public interface UserClassService {
 
 	UserRefundDTO selectRefundAmount(int scheduleNo, int payPrice);
 
+	int selectDoTodayCheer(int userNo);
+
+	int selectUserCpnNo(int cpnNo);
+
 }
