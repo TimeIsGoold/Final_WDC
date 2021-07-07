@@ -13,14 +13,15 @@ public class CouponDTO {
 	private java.sql.Date endDate;
 	private String useStatus;
 	private int userNo;
-	private String type;
+	private String cntUseUser;
+	//private String type;
 	
 	public CouponDTO() {
 		super();
 	}
-
+	
 	public CouponDTO(int couponNo, String couponType, String couponName, int discount, Date issueDate, Date startDate,
-			Date endDate, String useStatus, int userNo, String type) {
+			Date endDate, String useStatus, int userNo, String cntUseUser) {
 		super();
 		this.couponNo = couponNo;
 		this.couponType = couponType;
@@ -31,7 +32,7 @@ public class CouponDTO {
 		this.endDate = endDate;
 		this.useStatus = useStatus;
 		this.userNo = userNo;
-		this.type = type;
+		this.cntUseUser = cntUseUser;
 	}
 
 	public int getCouponNo() {
@@ -106,20 +107,19 @@ public class CouponDTO {
 		this.userNo = userNo;
 	}
 
-	public String getType() {
-		return type;
+	public String getCntUseUser() {
+		return cntUseUser;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCntUseUser(String cntUseUser) {
+		this.cntUseUser = cntUseUser;
 	}
 
 	@Override
 	public String toString() {
 		return "CouponDTO [couponNo=" + couponNo + ", couponType=" + couponType + ", couponName=" + couponName
 				+ ", discount=" + discount + ", issueDate=" + issueDate + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", useStatus=" + useStatus + ", userNo="
-				+ userNo + ", type=" + type + "]";
+				+ endDate + ", useStatus=" + useStatus + ", userNo=" + userNo + ", cntUseUser=" + cntUseUser + "]";
 	}
 	
 }

@@ -284,14 +284,12 @@
                         <td>클래스명</td>
                         <td>인원</td>
                         <td>근무일수</td>
-                        <td>근무시간</td>
                     </thead>
                     <tbody>
                         <tr>
                             <td id="classTitle"></td>
                             <td id="count"></td>
                             <td id="workDay"></td>
-                            <td id="workTime"></td>
                         </tr>
                     </tbody>
                 </table>

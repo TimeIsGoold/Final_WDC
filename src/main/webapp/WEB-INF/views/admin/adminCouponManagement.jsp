@@ -38,17 +38,6 @@
 	        .issue:hover {
 	            background: rgb(112, 112, 112);
 	        }
-	        
-	        .listDetailBtn {
-	        	background: #fef0ae;
-        		width: 100px;
-        		border: 1px solid lightgrey;
-        		margin-left: 25%;
-	        }
-	        
-	        .listDetailBtn:hover {
-				background: rgb(112, 112, 112);
-			}
 	    </style>
     </head>
     <body class="sb-nav-fixed">
@@ -105,9 +94,7 @@
 				                                <td>${CouponDTO.startDate} ~ ${CouponDTO.endDate}</td>
 				                                <c:choose>
 				                                	<c:when test="${CouponDTO.couponType eq 'TOTAL'}">
-				                                		<td>
-				                                			<input type="submit" class="listDetailBtn" value="사용내역 확인" onclick="">
-				                                		</td>
+				                                		<td>상세페이지에서 확인</td>
 				                                	</c:when>
 				                                	<c:when test="${CouponDTO.couponType ne 'TOTAL'}">
 				                                		<td>${CouponDTO.useStatus}</td>

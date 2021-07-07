@@ -103,6 +103,7 @@ public interface AdminMapper {
 	/**
 	 * @author 송아현
 	 * 쿠폰 상세
+	 * 
 	 * @param no
 	 * @return
 	 */
@@ -235,6 +236,7 @@ public interface AdminMapper {
 	List<CheeringClassDTO> selectCheeringClass();
 
 	List<Integer> selectUserNoByCheeringClass(int clsNo);
+
 
 
 

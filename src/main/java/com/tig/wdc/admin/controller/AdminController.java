@@ -315,7 +315,7 @@ public class AdminController {
 	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("no")int no, Model model) {
 		
 		if(type.equals("N")) {
-			//model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail());
+			//model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail(no));
 		} else if(type.equals("Y")) {
 			model.addAttribute("calculateInfoDetail", adminService.selectYesCalculateDetail(no));
 		}

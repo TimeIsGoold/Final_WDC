@@ -111,6 +111,7 @@
 		<result column="CPN_START" property="startDate"/>
 		<result column="CPN_END" property="endDate"/>
 		<result column="DIS_AMOUNT" property="discount"/>
+		<result column="총합" property="cntUseUser"/>
 	</resultMap>
 	
 	<!-- 공지 -->
@@ -542,9 +543,12 @@
 			 , A.CPN_START
 			 , A.CPN_END
 			 , A.DIS_AMOUNT
+             , COUNT(C.USER_NO) 총합
 		  FROM COUPON A
           JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
-         WHERE A.CPN_NO = #{no}
+          LEFT JOIN ALL_USER_COUPON C ON (A.CPN_NO = C.CPN_NO)
+         WHERE A.CPN_NO = #{no} 
+         GROUP BY B.USER_ID, A.CPN_NAME, A.CPN_START, A.CPN_END, A.DIS_AMOUNT
 	</select>
 	
  	<!-- 쿠폰 발급 -->

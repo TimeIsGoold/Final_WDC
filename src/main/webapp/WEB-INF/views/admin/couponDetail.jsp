@@ -93,6 +93,18 @@
                                             <th>할인 금액</th>
                                             <td>${ couponDetail.discount }원</td>
                                         </tr>
+                                        <c:if test="${ couponDetail.couponType eq 'TOTAL'}">
+                                        	<c:choose>
+                                        		<c:when test="${couponDetail.cntUseUser eq 0}">
+                                        			<th>사용인원</th>
+                                        			<td>아직 아무도 사용하지 않았습니다</td>
+                                        		</c:when>
+                                        		<c:when test="${couponDetail.cntUseUser ne 0}">
+                                        			<th>사용인원</th>
+                                        			<td>총 ${couponDetail.cntUseUser}명</td>
+                                        		</c:when>
+                                        	</c:choose>
+                                        </c:if>
                                     </tbody>
                                 </table>
 

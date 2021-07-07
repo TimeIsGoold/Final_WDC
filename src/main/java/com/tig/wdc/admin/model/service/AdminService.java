@@ -119,7 +119,7 @@ public interface AdminService {
 	 * @return
 	 */
 	int insertCouponIssue(CouponDTO coupon);
-
+	
 	/**
 	 * @author 송아현
 	 * 공지
@@ -246,6 +246,7 @@ public interface AdminService {
 	List<CheeringClassDTO> selectCheeringClass();
 
 	List<Integer> selectUserNoByCheeringClass(int clsNo);
+
 
 
 
