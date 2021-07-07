@@ -76,4 +76,27 @@
           FROM TEACHER_INFO A
          WHERE A.TE_ID = #{ checkId }
 	</select>
+	<insert id="registTeacher" parameterType="TeacherInfoDTO">
+    	INSERT 
+          INTO TEACHER_INFO
+        VALUES 
+             (
+               SEQ_TE_NO.NEXTVAL
+             , #{ teacherId }
+             , #{ teacherPwd }
+             , #{ teacherType }
+             , #{ teacherIdNo }
+             , #{ teacherName }
+             , #{ teacherPhone }
+             , #{ teacherAccountNo }
+             , #{ teacherAccountName }
+             , #{ teacherAccountBANK }
+             , null
+             , 'N'
+             , 'N'
+             , null
+             , SYSDATE
+             , 'T'
+             )
+	</insert>
 </mapper>

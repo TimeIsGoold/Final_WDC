@@ -53,4 +53,9 @@ public class TeacherInfoServiceImpl implements TeacherInfoService {
 	public String selectCheckDoubleId(String checkId) {
 		return mapper.selectCheckDoubleId(checkId);
 	}
+
+	@Override
+	public int registTeacher(TeacherInfoDTO registInfo) {
+		return mapper.registTeacher(registInfo);
+	}
 }

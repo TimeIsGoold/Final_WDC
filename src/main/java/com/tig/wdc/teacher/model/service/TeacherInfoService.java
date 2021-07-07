@@ -43,7 +43,19 @@ public interface TeacherInfoService {
 	 */
 	public int updateTeacherProfile(TeacherInfoDTO profileInfo);
 
+	/**
+	 * 아이디 중복확인
+	 * @param checkId : 확인할 아이디
+	 * @return
+	 */
 	public String selectCheckDoubleId(String checkId);
+
+	/**
+	 * 강사회원가입
+	 * @param registInfo
+	 * @return
+	 */
+	public int registTeacher(TeacherInfoDTO registInfo);
 
 
 }

@@ -60,7 +60,7 @@
     <jsp:include page="../commons/header.jsp" />
 
       <!-- body -->
-      <form method="post" action="${pageContext.servletContext.contextPath }/teacher/signUp">
+      <form method="post" action="${pageContext.servletContext.contextPath }/teacher/signUp" onsubmit="return signUpCheck();">
       <div class="container py-5">
         <div class="col-lg-10" style="margin: auto;">
           <div class="card mb-4" id="forms">
@@ -115,7 +115,8 @@
                 <div class="form-group row" id="residentNum" style="display: none;">
                   <label class="col-sm-2 col-form-label" for="RegistrationNo">주민등록번호</label>
                   <div class="col-sm-8">
-                    <input class="form-control" id="RegistrationNo" type="text" placeholder="주민등록번호 13자리를 특수문자(-) 없이 입력하세요." name="teacherIdNo" required="required">
+                    <input class="form-control" id="RegistrationNo" type="text" placeholder="000000-0000000 형태로 입력하세요." name="teacherIdNo" >
+                    <small id="RegistrationNoNoMent" style="color: red; display: none;" value="0">.</small>
                   </div>
                 </div>
                 
@@ -130,7 +131,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label" for="tutorPhone">휴대폰 번호</label>
                   <div class="col-sm-8">
-                    <input class="form-control" id="tutorPhone" type="text" placeholder="특수문자(-) 없이 11자리를 입력해주세요." name="teacherPhone" required="required">
+                    <input class="form-control" id="tutorPhone" type="text" placeholder="특수문자(-) 없이 10자리 또는 11자리를 입력해주세요." name="teacherPhone" required="required">
                     <small id="phoneMent" style="color: red; display: none;" value="0"></small>
                   </div>
                   <div class="col-sm-2">
@@ -197,10 +198,12 @@
         function typeSelect(p){
           let indi = document.getElementById("companyNum").style;
           let free = document.getElementById("residentNum").style;
+          let indiName = document.getElementById("entrepreneurNo");
+          let freeName = document.getElementById("RegistrationNo");
           console.log(p.id);
           switch(p.id){
-            case 'entrepreneur' : indi.display = ""; free.display = "none"; break;
-            case 'freelancer' : indi.display = "none"; free.display = ""; break;
+            case 'entrepreneur' : indi.display = ""; free.display = "none"; indiName.name="teacherIdNo"; freeName.name="";  break;
+            case 'freelancer' : indi.display = "none"; free.display = ""; indiName.name=""; freeName.name="teacherIdNo";  break;
           }
         }
       </script>
@@ -285,6 +288,7 @@
 
                 if(pwd1 != pwd2){
                   pwdMent2.innerHTML ="입력한 비밀번호와 일치하지 않습니다.";
+                  pwdMent2.style.color ="red";
                   pwdMent2.value = 0;
                 }
                 
@@ -320,6 +324,25 @@
                   document.getElementById("entrepreneurNoMent").style.display = "none";
                 }
              });
+
+             //주민번호 유효성검사
+             $("#RegistrationNo").keyup(function(){
+                var regIDNo = /^(?=.{14,14}$)(\d{6,6})+[-]+(\d{7,7})/
+                
+                if(regIDNo.test(document.getElementById("RegistrationNo").value)){
+                  document.getElementById("RegistrationNoNoMent").value = 1;
+                  document.getElementById("RegistrationNoNoMent").innerHTML = ""; 
+                } else {
+                  document.getElementById("RegistrationNoNoMent").value = 0;
+                  document.getElementById("RegistrationNoNoMent").style.display = "";
+                  document.getElementById("RegistrationNoNoMent").innerHTML = "000000-0000000 형태로 입력하세요";  // 
+                }
+                
+                if(document.getElementById("RegistrationNo").value==""){
+                  document.getElementById("RegistrationNoNoMent").value = 0;
+                  document.getElementById("RegistrationNoNoMent").style.display = "none";
+                }
+             });
              //휴대폰번호 유효성검사
              $("#tutorPhone").keyup(function(){
                 // var regPhone = /^(?=.{12,13}$)(\d{3,3})+[-]+(\d{3,4})+[-]+(\d{4,4})/
@@ -331,7 +354,7 @@
                 } else {
                   document.getElementById("phoneMent").value = 0;
                   document.getElementById("phoneMent").style.display = "";
-                  document.getElementById("phoneMent").innerHTML = "10자리 또는 11자리 숫자로만 입력하세요";
+                  document.getElementById("phoneMent").innerHTML = "특수문자(-) 없이 10자리 또는 11자리를 입력해주세요.";
                 }
                 
                 if(document.getElementById("tutorPhone").value==""){
@@ -340,8 +363,10 @@
                 }
              });
 
-             $("#accomoNo").keyup(function(){
-                var regAccount = /^(\d{1,})(-(\d{1,})){1,}/;
+             //계좌번호 유효성검사
+/*              $("#accomoNo").keyup(function(){
+                // var regAccount = /^(\d{1,})(-(\d{1,})){1,}/;
+                //var regAccount = /^(\d{1,})+[-]+(\d{1,})+[-]+(\d{1,})/;
                 if(regPhone.test(document.getElementById("accomoNo").value)){
                   document.getElementById("accountMent").value = 1;
                   document.getElementById("accountMent").innerHTML = ""; 
@@ -352,11 +377,11 @@
                   document.getElementById("accountMent").innerHTML = "숫자또는 '-' 만 입력가능합니다.";
                 }
                 
-                if(document.getElementById("accomoNo").value==""){
+                if(document.getElementById("accountMent").value==""){
                   document.getElementById("accountMent").value = 0;
                   document.getElementById("accountMent").style.display = "none";
                 }
-             });
+             }); */
           });   
           </script>
           <script>
@@ -407,13 +432,48 @@
                                   document.getElementById("authenticationCheck").disabled = true;break;
                   }
                 },error:function(xhr, status, error){
-
                 }
               });
-
              });
           </script>
-      
+          <script>
+            function signUpCheck(){
+              if(document.getElementById("idMent").value != 1){
+                alert("아이디를 형식에 맞춰 입력해주세요");
+                return false;
+              }
+              if(document.getElementById("doubleCheck").value != 1){
+                alert("아이디 중복검사를 해주세요")
+                return false;
+              }
+              if(document.getElementById("pwdMent").value != 1){
+                alert("비밀번호 형식에 맞춰 입력해주세요")
+                return false;
+              }
+              if(document.getElementById("pwdMent2").value != 1){
+                alert("비밀번호 일치여부를 확인해주세요");
+                return false;
+              }
+              
+              if(document.getElementById("entrepreneurNoMent").value != 1 && document.getElementById("RegistrationNoNoMent").value != 1){
+                alert("사업자등록번호 또는 주민등록번호를 확인해주세요");
+                return false;
+              }
+              if(document.getElementById("phoneMent").value != 1){
+                alert("휴대폰번호를 확인해주세요");
+                return false;
+              }
+/*               if(document.getElementById("authenticationCheck").value != 1){
+                alert("휴대폰인증을 해주세요");
+                return false;
+              } */
+/*               if(document.getElementById("accountMent").value != 1){
+                alert("계좌번호를 확인해주세요");
+                return false;
+              } */
+            }
+          </script>
+      		
       <!-- footer -->
       <footer class="bg-dark text-white">
         <div class="container py-4">
