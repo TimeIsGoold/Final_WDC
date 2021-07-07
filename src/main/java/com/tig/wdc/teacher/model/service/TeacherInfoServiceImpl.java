@@ -1,5 +1,7 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,5 +59,15 @@ public class TeacherInfoServiceImpl implements TeacherInfoService {
 	@Override
 	public int registTeacher(TeacherInfoDTO registInfo) {
 		return mapper.registTeacher(registInfo);
+	}
+
+	@Override
+	public TeacherInfoDTO selectExistingInfo(Map<String, String> result) {
+		return mapper.selectExistingInfo(result);
+	}
+
+	@Override
+	public int modifyTeacherPwd(TeacherInfoDTO info) {
+		return mapper.modifyTeacherPwd(info);
 	}
 }

@@ -396,7 +396,10 @@
             $.ajax({
               url: "${ pageContext.servletContext.contextPath }/teacher/certification",
               type:"post",
-              data: {phoneNumber : phoneNumber}, 
+              data: {
+                      phoneNumber : phoneNumber,
+                      type : "regist"
+                    }, 
               success:function(data, textStatus, xhr){
                 alert(data);
               },error:function(xhr, status, error){
@@ -473,6 +476,7 @@
               } */
             }
           </script>
+
       		
       <!-- footer -->
       <footer class="bg-dark text-white">

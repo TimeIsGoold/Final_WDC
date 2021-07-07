@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
+      <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script> 
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -58,6 +59,7 @@
     
   </style>
   <body>
+
     <!-- header -->
     <div class="page-holder">
     	
@@ -94,8 +96,8 @@
                     <%-- <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/teacher/teacherSignIn'">로그인</button> --%>
                     <button class="btn btn-primary" type="submit">로그인</button>
                   </div>
-                  <div class="col-sm-2" style="font-size: 12px; text-align: right; padding: 0px;"><a href="t_findID.html" style="color: black;">아이디찾기</a></div>
-                  <div class="col-sm-2" style="font-size: 12px; text-align: center; padding: 0px;"><a href="t_findPWD.html" style="color: black;">비밀번호찾기</a></div>
+                  <div class="col-sm-2" style="font-size: 12px; text-align: right; padding: 0px;"><a href="${ pageContext.servletContext.contextPath }/teacher/findId" style="color: black;">아이디찾기</a></div>
+                  <div class="col-sm-2" style="font-size: 12px; text-align: center; padding: 0px;"><a href="${pageContext.servletContext.contextPath }/teacher/findPWD" style="color: black;">비밀번호찾기</a></div>
                 </div>
               </form>
             </div>
@@ -112,9 +114,7 @@
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
-      <script>
-
-      </script>
+	  
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>

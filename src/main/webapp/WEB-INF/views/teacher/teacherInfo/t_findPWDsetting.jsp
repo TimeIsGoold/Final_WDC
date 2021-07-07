@@ -33,34 +33,12 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
+  <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
   <body>
     <!-- header -->
     <div class="page-holder">
       <!-- navbar-->
-      <header class="header bg-white" style="padding-top: 80px;">
-        <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark"><h1>우리동네 클래스</h1></span></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                </li>
-                <li class="nav-item">
-                </li>
-                <li class="nav-item"><a class="nav-link" href="#"><h3>강사 페이지</h3></a>
-                </li>
-                <li class="nav-item dropdown">
-                </li>
-              </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"></li>
-                <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <jsp:include page="../commons/header.jsp"/>
 
       <!-- body -->
       <div class="container py-5">
@@ -70,22 +48,25 @@
               <h4 class="mb-5">비밀번호 변경하기<br>
                 <p style="margin-top: 10px; font-size: 13px; color:rgba(0, 0, 0, 0.5);">새로운 비밀번호를 입력하세요</p>
               </h4>
-              <form>
+              <form method="POST" action="${pageContext.servletContext.contextPath }/teacher/settingNewPwd" onsubmit="return checkPwd();">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorId">비밀번호</label>
                   <div class="col-sm-12">
-                    <input class="form-control" type="password" placeholder="비밀번호">
+                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호를 입력하세요." name="teacherPwd" required="required">
+                    <small id="pwdMent" style="color: red;" value="0";>최소 8자, 영문, 숫자, 특수문자 각각 하나 이상 포함되어 있어야 합니다.</small>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="tutorPwd">비밀번호확인</label>
+                  <label class="col-sm-3 col-form-label" for="tutorPwd2">비밀번호확인</label>
                   <div class="col-sm-12">
-                    <input class="form-control" type="password" placeholder="비밀번호확인">
+                    <input class="form-control" id="tutorPwd2" type="password" placeholder="비밀번호를 다시 입력해주세요." required="required">
+                    <small id="pwdMent2" style="color: red;" value="0"></small>
                   </div>
                 </div>
                 <br>
                 <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                  <button type="button" style="width:100%; height: 38px;" onclick="location.href='t_login.html'">변경완료</button>
+                  <button type="submit" style="width:100%; height: 38px;">변경완료</button>
+                  <input type="hidden" value="${ teacherNo }" name="teacherNo">
                 </div>
                 <br>
               </form>
@@ -93,7 +74,73 @@
           </div>
         </div>
       </div>
+      <script>
+        $(document).ready(function(){
+          $("#tutorPwd").keyup(function(){
+               var regPwd =/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+               if(regPwd.test(document.getElementById("tutorPwd").value)){
+                 document.getElementById("pwdMent").innerHTML="";
+                 document.getElementById("pwdMent").value="1";
+                 document.getElementById("pwdMent").display="none";
+                } else{
+                  document.getElementById("pwdMent").innerHTML="최소 8자, 영문, 숫자, 특수문자 각각 하나 이상 포함되어 있어야 합니다.";
+                  document.getElementById("pwdMent").value="0";
+                  document.getElementById("pwdMent").display="";
+                }
+                
+                if(document.getElementById("tutorPwd").value ==""){
+                  
+                  document.getElementById("pwdMent").innerHTML="최소 8자, 영문, 숫자, 특수문자 각각 하나 이상 포함되어 있어야 합니다.";
+                  document.getElementById("pwdMent").value="0";
+                  document.getElementById("pwdMent").display="";
+                  pwdMent2.innerHTML ="";
+               }
+    
+             }); 
+         //비밀번호 일치검사
+          $("#tutorPwd2").keyup(function(){
+            var pwd1 = document.getElementById("tutorPwd").value;
+              var pwd2 = document.getElementById("tutorPwd2").value;
+              var pwdMent2 = document.getElementById("pwdMent2");
+              if(pwd1 == ""){
+                pwdMent2.innerHTML ="";
+                pwdMent2.value = 0;
+              }
+              if(pwd1 != pwd2){
+                pwdMent2.innerHTML ="입력한 비밀번호와 일치하지 않습니다.";
+                pwdMent2.style.color ="red";
+                pwdMent2.value = 0;
+              }
+             
+              if(pwd1 == pwd2){
+                pwdMent2.innerHTML ="입력한 비밀번호와 일치합니다.";
+                pwdMent2.style.color ="green";
+                pwdMent2.value = 1;
+              }
+             
+              if(pwd2==""){
+                pwdMent2.innerHTML ="입력한 비밀번호와 일치하지 않습니다.";
+                pwdMent2.style.color ="red";
+                pwdMent2.value = 0;
+              }
+            });         
+          });
+      </script>
+      <script>
+        function checkPwd(){
+          
+          if(document.getElementById("pwdMent").value != 1){
+            alert("비밀번호는 최소 8자, 영문, 숫자, 특수문자 각각 하나 이상 포함되어 있어야 합니다.");
+            return false;
+          }
 
+          if(document.getElementById("pwdMent2").value != 1){
+            alert("입력한 두 비밀번호가 일치하지 않습니다");
+            return false;
+          }
+          
+        }
+      </script>
       <!-- /아이디찾기 -->
       <!-- footer -->
       <footer class="bg-dark text-white">
@@ -147,9 +194,7 @@
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
-      <script>
 
-      </script>
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
