@@ -173,6 +173,32 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectMyCheerClassList(userNo);
 	}
 
+	/**
+	 * 환불금액 계산 서비스
+	 */
+	@Override
+	public UserRefundDTO selectRefundAmount(int scheduleNo, int payPrice) {
+		UserRefundDTO userRefundDTO = new UserRefundDTO();
+		userRefundDTO = mapper.selectMaxStep(scheduleNo);
+		System.out.println("userRefundDTO : " + userRefundDTO);
+		System.out.println("payPrice : " + payPrice);
+		// 리펀드 디티오  맥스값과 카운트가 들어옴
+		if(userRefundDTO.getMaxStep() < ((int)(userRefundDTO.getScheduleCount() / 3))) {
+			userRefundDTO.setRefundAmount((int) (payPrice / 1.5));
+			System.out.println("삼분의 이");
+		}else if(userRefundDTO.getMaxStep() < ((int)(userRefundDTO.getScheduleCount() / 2))) {
+			userRefundDTO.setRefundAmount((int) (payPrice / 2));
+			System.out.println("절반");
+		}else {
+			userRefundDTO.setRefundAmount(0);
+			System.out.println("빵원");
+		}
+		System.out.println("userRefundDTO serviceImpl : " + userRefundDTO);
+		return userRefundDTO;
+	}
+
+
+
 
 
 

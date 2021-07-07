@@ -326,11 +326,20 @@ public class UserClassDetailController {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
+		System.out.println("userClassDTO : " + userClassDTO);
 
 		// 유저넘버로 유저 정보 조회
 		UserInfoDTO userDTO = new UserInfoDTO();
 		userDTO = infoService.selectUser(userNo);
 		
+		// 스케줄 넘버로 환불금액 계산
+		// 1. 스케줄 넘버로 맥스스텝, 총 회차수 계산
+		UserRefundDTO userRefundDTO = new UserRefundDTO();
+		if(userClassDTO.getClsType().equals("R")) {
+			userRefundDTO = classService.selectRefundAmount(userClassDTO.getScheduleNo(),userClassDTO.getPayPrice());
+		}
+		
+		model.addAttribute("userRefundDTO",userRefundDTO);
 		model.addAttribute("userClassDTO",userClassDTO);
 		model.addAttribute("userDTO",userDTO);
 		
@@ -357,11 +366,14 @@ public class UserClassDetailController {
 		int payNo = userClassDTO.getPayNo();
 		// 2. 페이넘 받기		
 		userRefundDTO.setPayNo(payNo);
+		// 3. 리펀드 어마운트 set*************
+		
 		
 		// payment cancel 테이블 인서트
 		int result = classService.inserRefund(userRefundDTO);
 		
 		// payment -> 취소로 업데이트
+		// 업데이트가 안댐**************
 		int paymentResult = classService.updatePaymentStatus(payNo);
 		
 		if(result + paymentResult == 2) {

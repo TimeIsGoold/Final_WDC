@@ -220,6 +220,7 @@
                           <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
                           <input type="hidden" name="payPrice" value="${ requestScope.scheduleDetailUserClassDTO.payPrice }">
                           <input type="hidden" name="payNo" value="${ requestScope.scheduleDetailUserClassDTO.payNo }">
+                          <input type="hidden" name="scheduleNo" value="${ requestScope.scheduleDetailUserClassDTO.scheduleNo }">
 	                        </form>
 	                      </div>
                          </c:otherwise>

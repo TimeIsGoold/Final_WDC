@@ -75,6 +75,9 @@ public interface UserClassMapper {
 
 	public List<UserClassDTO> selectMyCheerClassList(int userNo);
 
+	public UserRefundDTO selectMaxStep(int scheduleNo);
+
+
 
 
 

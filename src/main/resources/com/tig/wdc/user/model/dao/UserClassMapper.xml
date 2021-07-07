@@ -364,7 +364,7 @@
 	   (
 	     SEQ_CANCLE_NO.NEXTVAL
 	   , #{ cancelReason }
-	   , NULL
+	   , #{ refundAmount }
 	   , NULL
 	   , #{ cancelReasonDetail }
 	   , #{ payNo }
@@ -454,6 +454,35 @@
          AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '-'
          AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '0'
          AND T.TYPE = 'TITLE'	
+	</select>
+	
+	<resultMap type="UserRefundDTO" id="UserRefundDTOResult">
+        <id column="CANCLE_NO" property="cancelNo"/>
+        <result column="CANCLE_REASON" property="cancelReason"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="REFUND_DATE" property="refundDate"/>
+        <result column="CANCLE_REASON_DETAIL" property="cancelReasonDetail"/>
+        <result column="PAY_NO" property="payNo"/>
+        <result column="REFUND_ACCOUNT" property="refundAccount"/>
+        <result column="REFUND_HOLDER" property="accountHolder"/>
+        <result column="REFUND_BANK" property="bank"/>
+        <result column="REFUND_STATUS" property="refundStatus"/>
+        <result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
+        <result column="MAX_STEP" property="maxStep"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+        
+	</resultMap>
+	
+	<select id="selectMaxStep" parameterType="_int" resultMap="UserRefundDTOResult">
+		SELECT
+		       MAX(CLASS_STEP) MAX_STEP
+		     , S.SCHEDULE_COUNT SCHEDULE_COUNT
+		  FROM REGULAR_CLASS R
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = R.SCHEDULE_NO)
+		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
+		   AND S.SCHEDULE_NO = #{ scheduleNo }
+		 GROUP BY S.SCHEDULE_COUNT
+	
 	</select>
 
 </mapper>

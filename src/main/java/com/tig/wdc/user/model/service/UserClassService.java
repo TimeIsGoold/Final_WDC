@@ -72,4 +72,6 @@ public interface UserClassService {
 
 	List<UserClassDTO> selectMyCheerClassList(int userNo);
 
+	UserRefundDTO selectRefundAmount(int scheduleNo, int payPrice);
+
 }
