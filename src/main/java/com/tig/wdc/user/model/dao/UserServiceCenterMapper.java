@@ -32,5 +32,7 @@ public interface UserServiceCenterMapper {
 
 	UserReportDTO selectReportAnswer(int reportNo);
 
+	int insertInquiry(UserInquiryDTO userInquiryDTO);
+
 
 }
