@@ -48,4 +48,9 @@ public class TeacherInfoServiceImpl implements TeacherInfoService {
 	public int updateTeacherProfile(TeacherInfoDTO profileInfo) {
 		return mapper.updateTeacherProfile(profileInfo);
 	}
+
+	@Override
+	public String selectCheckDoubleId(String checkId) {
+		return mapper.selectCheckDoubleId(checkId);
+	}
 }

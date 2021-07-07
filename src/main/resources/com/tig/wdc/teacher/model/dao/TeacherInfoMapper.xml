@@ -70,4 +70,10 @@
 	         , A.TE_PIC = #{ teacherPicture, jdbcType=VARCHAR }
 	     WHERE A.TE_NO = #{ teacherNo }
 	</update>
+	<select id="selectCheckDoubleId" parameterType="string" resultType="string">
+        SELECT 
+               A.TE_ID 
+          FROM TEACHER_INFO A
+         WHERE A.TE_ID = #{ checkId }
+	</select>
 </mapper>

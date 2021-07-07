@@ -43,5 +43,7 @@ public interface TeacherInfoService {
 	 */
 	public int updateTeacherProfile(TeacherInfoDTO profileInfo);
 
+	public String selectCheckDoubleId(String checkId);
+
 
 }
