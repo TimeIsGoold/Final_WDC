@@ -172,6 +172,16 @@ public class UserClassServiceImpl implements UserClassService{
 	public ScheduleDTO selectPeople(ScheduleDTO scheduleDTO) {
 		return mapper.selectPeople(scheduleDTO);
 	}
+	
+	/**
+	 * 스케쥴 최대인원수 조회
+	 */
+	@Override
+	public int selectMaxUserSize(Map hmap) {
+		
+		return mapper.selectMaxUserSize(hmap);
+	}
+
 
 	@Override
 	public int insertInquiry(UserInquiryDTO userInquiryDTO) {
@@ -207,6 +217,17 @@ public class UserClassServiceImpl implements UserClassService{
 		System.out.println("userRefundDTO serviceImpl : " + userRefundDTO);
 		return userRefundDTO;
 	}
+
+	@Override
+	public ScheduleDTO selectRegularSchedule(int clsNo) {
+		return mapper.selectRegularSchedule(clsNo);
+	}
+
+	@Override
+	public ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule) {
+		return mapper.selectAplyPeople(regularSchedule);
+	}
+
 
 
 

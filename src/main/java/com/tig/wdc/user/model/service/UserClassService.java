@@ -72,10 +72,17 @@ public interface UserClassService {
 
 	ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
 
+	int selectMaxUserSize(Map hmap);
+
 	int insertInquiry(UserInquiryDTO userInquiryDTO);
 	
 	List<UserClassDTO> selectMyCheerClassList(int userNo);
 
 	UserRefundDTO selectRefundAmount(int scheduleNo, int payPrice);
+
+	ScheduleDTO selectRegularSchedule(int clsNo);
+	
+	ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule);
+
 
 }

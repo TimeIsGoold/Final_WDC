@@ -75,11 +75,17 @@ public interface UserClassMapper {
 
 	public ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
 
+	public int selectMaxUserSize(Map hmap);
+
 	public int insertInquiry(UserInquiryDTO userInquiryDTO);
 	
 	public List<UserClassDTO> selectMyCheerClassList(int userNo);
 
 	public UserRefundDTO selectMaxStep(int scheduleNo);
+
+	public ScheduleDTO selectRegularSchedule(int clsNo);
+
+	public ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule);
 
 
 

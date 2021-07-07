@@ -104,31 +104,27 @@ public class UserClassDetailController {
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
 		
+		/*
+		 * //정규 클래스인 경우, 클래스 스케줄 select ScheduleDTO regularSchedule = new ScheduleDTO();
+		 * regularSchedule = classService.selectRegularSchedule(clsNo);
+		 * model.addAttribute("regularSchedule", regularSchedule);
+		 * 
+		 * //정규 클래스인 경우, 현재 수강 신청 인원 select ScheduleDTO aplyPeople =
+		 * classService.selectAplyPeople(regularSchedule);
+		 * 
+		 * if(aplyPeople == null) { int aply = 0; }
+		 */
+		
+		//int peopleCount = regularSchedule.getMaxPeople() - aply;
+		
 		return "user/classList/class_detail";
 	}
 	
-	@PostMapping("inquiry/{clsNo}")
-	public String ClassDetail(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, UserInquiryDTO userInquiryDTO) {
-	
-		//로그인 세션 값
-		int userNo = (Integer) session.getAttribute("userNo");
-		
-		userInquiryDTO.setClsNo(clsNo);
-		userInquiryDTO.setUserNo(userNo);
-		
-		System.out.println("ccccccccccccccdjfkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" + userInquiryDTO);
-		
-		// 문의 insert
-		int inquiry = classService.insertInquiry(userInquiryDTO);
-		
-		return "redirect:/user/classDetail/{clsNo}";
-	}
-
 	@PostMapping(value="classDetail/dateTimePicker", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String DateTimePicker(HttpSession session, Model model,
 			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, HttpServletRequest request) {
-		
+		System.out.println("날짜 확인 : " + date);
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setClsNo(clsNo);
 		scheduleDTO.setScheduleDate(date);
@@ -142,6 +138,53 @@ public class UserClassDetailController {
 		return gson.toJson(time);
 	}
 	
+	@PostMapping(value="classDetail/peopleCount", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String PeopleCount(HttpSession session, Model model,
+			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, 
+			@RequestParam("time") String time, HttpServletRequest request) {
+		System.out.println("들어오노");
+		ScheduleDTO scheduleDTO = new ScheduleDTO();
+		scheduleDTO.setClsNo(clsNo);
+		scheduleDTO.setScheduleDate(date);
+		scheduleDTO.setScheduleStart(time);
+		
+		//스케쥴 신청 인원 select
+		ScheduleDTO people = classService.selectPeople(scheduleDTO);
+		
+		//int remain = max - people.setPeopleCount(peopleCount);
+		
+		System.out.println("출력????????????????" + people);
+		
+		// 스케쥴에서 최대 인원 조회
+		Map<String,Integer> hmap = new HashMap<>();
+		hmap.put("clsNo", clsNo);
+		hmap.put("scheduleNo",people.getScheduleNo());
+		
+		int maxUserSize = classService.selectMaxUserSize(hmap);
+		System.out.println("maxUserSize : " + maxUserSize);
+		
+		int peopleCount = maxUserSize - people.getPeopleCount();
+		Gson gson = new Gson();
+		
+		return gson.toJson(peopleCount);
+	}
+	
+	@PostMapping("inquiry/{clsNo}")
+	public String ClassDetail(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, UserInquiryDTO userInquiryDTO) {
+	
+		//로그인 세션 값
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		userInquiryDTO.setClsNo(clsNo);
+		userInquiryDTO.setUserNo(userNo);
+		
+		// 문의 insert
+		int inquiry = classService.insertInquiry(userInquiryDTO);
+		
+		return "redirect:/user/classDetail/{clsNo}";
+	}
+
 	/**
 	 * 결제페이지 이동용 메소드
 	 * 
