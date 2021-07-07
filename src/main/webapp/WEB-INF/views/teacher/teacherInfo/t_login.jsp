@@ -75,7 +75,7 @@
           <div class="card mb-4" id="forms">
             <div class="card-body"><br>
               <h4 class="mb-5">로그인</h4>
-              <form method="post" action="teacher/teacherSignIn">
+              <form method="post" action="${pageContext.servletContext.contextPath }/teacher/teacherSignIn">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
                   <div class="col-sm-12">

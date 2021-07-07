@@ -28,4 +28,7 @@ public interface TeacherInfoMapper {
 
 	//아이디중복확인
 	String selectCheckDoubleId(String checkId);
+	
+	//강사 회원가입
+	int registTeacher(TeacherInfoDTO registInfo);
 }

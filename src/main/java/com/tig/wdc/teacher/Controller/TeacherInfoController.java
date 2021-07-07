@@ -268,25 +268,34 @@ public class TeacherInfoController {
 		
 		return gson.toJson(returnMessage);
 	}
-		/**
-		 * 강사회원가입
-		 * 
-		 * @param model
-		 * @return
-		 */
+	
+	/**
+	* 강사회원가입
+	* 
+	* @param model
+	* @return
+	*/
 	@PostMapping("signUp")
 	public String signUpMove(Model model, @ModelAttribute TeacherInfoDTO registInfo ) {
 
-		System.out.println("암호화 전 : " + registInfo);
 		try {
+			registInfo.setTeacherPwd(passwordEncoder.encode(registInfo.getTeacherPwd()));
 			registInfo.setTeacherIdNo(aes.encrypt(registInfo.getTeacherIdNo()));
-			System.out.println("암호화 후 : " + registInfo);
-			System.out.println("복호화 후 : " + aes.decrypt(registInfo.getTeacherIdNo()));
+			registInfo.setTeacherAccountNo(aes.encrypt(registInfo.getTeacherAccountNo()));
+			
+			System.out.println(registInfo);
+			int result = infoService.registTeacher(registInfo);
+			
+			if(result > 0) {
+				model.addAttribute("message", "회원가입성공!");
+			} else {
+				model.addAttribute("message", "회원가입실패!");
+			}
 		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
 			e.printStackTrace();
 		}
 
-		return "";
+		return "teacher/teacherInfo/t_login";
 
 	}
 }
