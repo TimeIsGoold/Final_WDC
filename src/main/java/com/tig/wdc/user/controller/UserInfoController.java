@@ -150,10 +150,38 @@ public class UserInfoController {
 	@GetMapping("coupon")
 	public String couponList(Model model, HttpSession session) {
 		
+		// 유저의 사용가능 쿠폰 리스트 조회
 		int userNo= (Integer) session.getAttribute("userNo");
 		List<UserCouponDTO> couponList = new ArrayList<UserCouponDTO>();
 		
 		couponList = infoService.selectCouponList(userNo);
+		
+		// 전체 쿠폰 리스트중 사용가능 쿠폰 리스트 조회
+		List<UserCouponDTO> allUserCouponList = new ArrayList<UserCouponDTO>();
+		allUserCouponList = infoService.selectAllUserCouponList();
+		
+		for(int i = 0; i < allUserCouponList.size(); i++) {
+			// 해당 리스트의 쿠폰 번호 빼와서  카운트 조회
+			UserCouponDTO alluserCouponDTO = new UserCouponDTO();
+			alluserCouponDTO.setCpnNo(allUserCouponList.get(i).getCpnNo());
+			alluserCouponDTO.setUserNo(userNo);
+		
+			// 해당 유저가 전체 쿠폰 넘버의 사용이력이 이력 테이블에 있는지 조회
+			int allUserCouponCount = infoService.selectUseAllUserCoupon(alluserCouponDTO);
+			System.out.println("쿠폰 넘버 : " + allUserCouponList.get(i).getCpnNo());
+			
+			// 사용하지 않았다면(카운트가 0이라면) 쿠폰 리스트에 해당 쿠폰 추가
+			if(allUserCouponCount <= 0) {
+				couponList.add(allUserCouponList.get(i));
+			}else {
+				System.out.println("넘어가");
+			}
+
+			
+		}
+		
+		
+		
 		model.addAttribute("couponList",couponList);
 		
 		return "user/mypage/coupon";

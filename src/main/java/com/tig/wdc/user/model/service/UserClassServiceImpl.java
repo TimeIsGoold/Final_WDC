@@ -228,6 +228,21 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectAplyPeople(regularSchedule);
 	}
 
+	@Override
+	public int selectDoTodayCheer(int userNo) {
+		return mapper.selectDoTodayCheer(userNo);
+	}
+
+	@Override
+	public int selectUserCpnNo(int cpnNo) {
+		return mapper.selectUserCpnNo(cpnNo);
+	}
+
+	@Override
+	public int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO) {
+		return mapper.insertAllUserCoupon(forInsertAllUserCouponDTO);
+	}
+
 
 
 

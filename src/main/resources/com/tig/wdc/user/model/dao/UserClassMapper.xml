@@ -456,6 +456,7 @@
 	   , #{ clsNo }
 	   , 'Y'
 	   , #{ userNo }
+	   , SYSDATE
 	   )
 	</insert>
 	
@@ -537,7 +538,33 @@
 		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
 		   AND S.SCHEDULE_NO = #{ scheduleNo }
 		 GROUP BY S.SCHEDULE_COUNT
-	
 	</select>
+	
+	<select id="selectDoTodayCheer" parameterType="_int" resultType="_int">
+		SELECT 
+		       COUNT(CHEER_DATE)
+		  FROM CHEERING_HISTORY
+		 WHERE CHEER_DATE = TO_DATE(SYSDATE,'yy/MM/dd')
+		   AND USER_NO = #{ userNo }
+	</select>
+	
+	
+	<select id="selectUserCpnNo" parameterType="_int" resultType="_int">
+	      SELECT
+                 USER_NO
+            FROM COUPON
+           WHERE CPN_NO = #{ cpnNo }
+	</select>
+	
+	<insert id="insertAllUserCoupon" parameterType="UserCouponDTO">
+	    INSERT
+	      INTO ALL_USER_COUPON
+	    VALUES
+	    (
+	      SEQ_USE_NO.NEXTVAL
+	    , #{ cpnNo }
+	    , #{ userNo }
+	    )
+	</insert>
 
 </mapper>

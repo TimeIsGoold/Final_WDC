@@ -83,6 +83,12 @@ public interface UserClassService {
 	ScheduleDTO selectRegularSchedule(int clsNo);
 	
 	ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule);
+	
+	int selectDoTodayCheer(int userNo);
+
+	int selectUserCpnNo(int cpnNo);
+
+	int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
 
 
 }

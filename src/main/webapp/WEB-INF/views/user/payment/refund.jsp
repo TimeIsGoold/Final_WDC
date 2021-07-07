@@ -217,7 +217,6 @@ String strDate = formats.format(now); %>
               </div>
               <!-- 신청자 정보-->
               <form action="${pageContext.servletContext.contextPath}/user/refundInsert" method="post">
-              <input type="hidden" value="${ requestScope.userClassDTO.payNo}" name="payNo">
               <table class="table">
                 <thead class="bg-light">
                   <tr>
@@ -407,11 +406,15 @@ String strDate = formats.format(now); %>
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold"></strong>
                       <span><fmt:formatNumber value="${ requestScope.userRefundDTO.refundAmount }" pattern="#,###"/> 원</span>
+                      <input type="hidden" value="${ requestScope.userRefundDTO.refundAmount}" name="refundAmount">
                       </li>
                       </c:if>
                       <li>
                           <div class="form-group mb-0">
                           <br>
+                            <input type="hidden" value="${ requestScope.userClassDTO.payNo}" name="payNo">
+                            <input type="hidden" value="${ requestScope.userClassDTO.payPrice}" name="payPrice">
+                            <input type="hidden" value="${ requestScope.userClassDTO.clsType}" name="clsType">
                             <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal" type="button"><b>환불 신청하기</b></button>
                           </div>
                       </li>
@@ -466,7 +469,7 @@ String strDate = formats.format(now); %>
                             <hr>
                             <div>
 								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;"></a>취소</button>
-								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">환불하기</button>
+								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick=paymentSuccess();>환불하기</button>
 								</form>
                             </div>
                           </div>
@@ -515,10 +518,11 @@ String strDate = formats.format(now); %>
                 return;
  		    }
     	     
-    		function paymentSuccess(){
-				alert("환불 신청 되었습니다.");
-			}
         }
+         
+ 		function paymentSuccess(){
+			alert("환불 신청 되었습니다.");
+		};
 
 
     </script>

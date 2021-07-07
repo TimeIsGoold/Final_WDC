@@ -86,6 +86,12 @@ public interface UserClassMapper {
 	public ScheduleDTO selectRegularSchedule(int clsNo);
 
 	public ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule);
+	
+	public int selectDoTodayCheer(int userNo);
+
+	public int selectUserCpnNo(int cpnNo);
+
+	public int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
 
 
 

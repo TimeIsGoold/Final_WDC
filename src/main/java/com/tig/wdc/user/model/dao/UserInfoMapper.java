@@ -33,4 +33,8 @@ public interface UserInfoMapper {
 
 	int selectReviewYn(int aplNo);
 
+	List<UserCouponDTO> selectAllUserCouponList();
+
+	int selectUseAllUserCoupon(UserCouponDTO alluserCouponDTO);
+
 }

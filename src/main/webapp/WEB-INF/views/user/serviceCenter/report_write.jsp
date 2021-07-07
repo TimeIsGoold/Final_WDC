@@ -203,7 +203,6 @@
 <script>
     function writeComplate(){
         alert("신고 작성되었습니다.")
-        location.href="mypageReportList.html";
     }
 </script>
 <script>

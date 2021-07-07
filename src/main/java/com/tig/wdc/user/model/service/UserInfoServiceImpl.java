@@ -90,4 +90,16 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 
+	@Override
+	public List<UserCouponDTO> selectAllUserCouponList() {
+		return mapper.selectAllUserCouponList();
+	}
+
+
+	@Override
+	public int selectUseAllUserCoupon(UserCouponDTO alluserCouponDTO) {
+		return mapper.selectUseAllUserCoupon(alluserCouponDTO);
+	}
+
+
 }

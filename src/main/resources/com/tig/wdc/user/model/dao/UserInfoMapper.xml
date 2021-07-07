@@ -248,6 +248,21 @@
 		)
     </insert>
     
+    
+    <select id="selectAllUserCouponList" resultMap="CouponResult">
+ 		SELECT 
+		       *
+		  FROM COUPON A
+         WHERE A.USER_NO = 0 
+    </select>
 
+	<select id="selectUseAllUserCoupon" parameterType="UserCouponDTO" resultType="_int">
+	    SELECT 
+               COUNT(*)
+          FROM ALL_USER_COUPON
+         WHERE USER_NO = #{ userNo }
+           AND CPN_NO = #{ cpnNo }
+	
+	</select>
 
 </mapper>
