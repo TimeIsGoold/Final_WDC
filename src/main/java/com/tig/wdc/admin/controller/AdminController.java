@@ -463,27 +463,8 @@ public class AdminController {
 				model.addAttribute("curriculum",curriculum);
 				path = "admin/BeforeDicision";	
 				
-				// 2차 심사 진행중
-		} else if(type.equals("F") && decision.equals("Y")) {
-				UserClassDTO classDetail = new UserClassDTO();
-				classDetail = classService.selectClassDtail(clsNo);
-				model.addAttribute("classDetail",classDetail);
-				//대표사진 3장 select
-				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
-				classPic = classService.selectClassPic(clsNo);
-				model.addAttribute("classPic",classPic);
-				//완성작 select
-				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
-				classPiece = classService.selectClassPiece(clsNo);
-				model.addAttribute("classPiece",classPiece);
-				//커리큘럼 select
-				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
-				curriculum = classService.selectCurriculum(clsNo);
-				model.addAttribute("curriculum",curriculum);
-				path = "admin/BeforeDicision";	
 				
-				// 진행중인 클래스
-		} else if(type.equals("S") && decision.equals("P")) {
+		}  else if(type.equals("S") && decision.equals("P")) {
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -563,56 +544,76 @@ public class AdminController {
 	
 	@PostMapping("firstDecision")
 	public String firstDecicsion(@ModelAttribute ClsDecisionDTO clsDecisionDTO, Model model) {
-		System.out.println(clsDecisionDTO.getStatus());
-		System.out.println(clsDecisionDTO.getClsNo());
 		 int result = adminService.updateFirstDecision(clsDecisionDTO);
 		 if(result > 0)  adminService.insertClassDecision(clsDecisionDTO);
 		return "redirect:selectClassBycategory?ct=tw&cnt="+result;
 	}
 
 	@GetMapping("seconddecision")
-	public String selectCheeringClass(@RequestParam("pc")String result, Model model) {
-		long today = System.currentTimeMillis();
-		List<CheeringClassDTO> refinedCheeringClassList = new ArrayList<>();
-		List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
-		if(result.equals("t")) {
-			model.addAttribute("classList", cheeringClassList);
-			model.addAttribute("t", "t");
-		}
-		if(result.equals("p")) {
-			for(int i = 0; i < cheeringClassList.size(); i++ ) {
-				// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-				if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
-					refinedCheeringClassList.add(cheeringClassList.get(i));
-					System.out.println("제발 클래스 넘버를 알려주셍 ㅛ제벌" +cheeringClassList.get(i).getClsNo());
-					List<Integer> userNoArr = adminService.selectUserNoByCheeringClass(cheeringClassList.get(i).getClsNo());
-					String userNoString = null;
-					for(int j = 0; j < userNoArr.size() ; j ++) {
-						if(j < userNoArr.size() -1) {
-						} else {
-						}
-					}
-					System.out.println("문자열이 나올까요 제발 나와주새요 : " + userNoString);
- 				} 
+	   public String selectCheeringClass(@RequestParam("pc")String result, Model model) {
+	      long today = System.currentTimeMillis();
+	      List<CheeringClassDTO> refinedCheeringClassList = new ArrayList<>();
+	      List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
+	      if(result.equals("t")) {
+	         model.addAttribute("classList", cheeringClassList);
+	         model.addAttribute("t", "t");
+	      }
+	      if(result.equals("p")) {
+	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
+	            // 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+	               refinedCheeringClassList.add(cheeringClassList.get(i));
+	               List<Integer> userNoArr = null;
+	               for(int j = 0; j < refinedCheeringClassList.size(); j ++) {
+	            	   userNoArr = adminService.selectUserNoByCheeringClass(refinedCheeringClassList.get(j).getClsNo());
+	            	   String userNoString = "";
+	            	   for(int k = 0; k < userNoArr.size(); k++) {
+	            		   if(k < userNoArr.size()- 1) {
+	            			   userNoString += userNoArr.get(k) + "&";
+	            		   } else if(k == userNoArr.size() - 1){
+	            			   userNoString += userNoArr.get(k);
+	            		   }
+	            	   }
+	            	   cheeringClassList.get(i).setCheeringUserNo(userNoString);
+	               }
+	            } 
+	         }
+	         model.addAttribute("classList", refinedCheeringClassList);
+	         model.addAttribute("t", "p");
+	      }
+	      // 응원수가 미달인 2차심사 대기중 인 클래스
+	      if(result.equals("l")) {
+	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+	               refinedCheeringClassList.add(cheeringClassList.get(i));
+	            } 
+	            model.addAttribute("classList", refinedCheeringClassList);
+	            model.addAttribute("t", "l");
+	         }
+	      }
+	      return "admin/testClassList";
+	   }
+	
+	@PostMapping("acceptSecondDecision")
+	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo, Model model) {
+		int result = 0;
+		String[] cheeringInfoArr = cheeringInfo.split(",");
+		for(int i = 0; i < cheeringInfoArr.length; i++) {
+			String[] getClsNo = cheeringInfoArr[i].split("/");			
+//			adminService.updateClsSecondDecision(Integer.parseInt(getClsNo[0])); 
+//			adminService.updateClsSecondDecisionHistory(Integer.parseInt(getClsNo[0])); 
+			UserClassDTO classDetail = new UserClassDTO();
+			String[] getUserNo = getClsNo[1].split("&");
+			for(int j = 0; j < getUserNo.length; j++) {
+				classDetail = classService.selectClassDtail(Integer.parseInt(getClsNo[0]));
+				classDetail.setPrice((int)(classDetail.getPrice() * 0.05));
+				classDetail.setUserNo(Integer.parseInt(getUserNo[j]));
+				result = adminService.insertCheeringCoupon(classDetail);
 			}
-			model.addAttribute("classList", refinedCheeringClassList);
-			model.addAttribute("t", "p");
 		}
-		// 응원수가 미달인 2차심사 대기중 인 클래스
-		if(result.equals("l")) {
-			for(int i = 0; i < cheeringClassList.size(); i++ ) {
-				// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-				if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
-					refinedCheeringClassList.add(cheeringClassList.get(i));
-				} 
-				model.addAttribute("classList", refinedCheeringClassList);
-				model.addAttribute("t", "l");
-			}
-		}
-		return "admin/testClassList";
-		
+		if(result >0) model.addAttribute("message" , "2차 심사 승인 완료(쿠폰지급 완료)");
+		return "redirect:seconddecision?pc=t";
 	}
-
 }
 
 

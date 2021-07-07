@@ -14,6 +14,11 @@
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
+          <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if> 
     <body class="sb-nav-fixed">
         
         <!-- header -->
@@ -34,33 +39,34 @@
                                 클래스 관리
                             </div>
                             <div class="btn-group btn-group-justified">
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total" class="btn btn-warning">전체 </a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=one" class="btn btn-warning">1차 심사 진행중</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=t" class="btn btn-warning">2차 심사 진행중</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=accept" class="btn btn-warning">승인된 클래스</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=reject" class="btn btn-warning">거절된 클래스</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=lackOfCheering" class="btn btn-warning">응원 미달 클래스</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=complate" class="btn btn-warning">완료 클래스</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total" class="btn btn-warning">전체 </a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one" class="btn btn-warning">1차 심사 진행중</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t" class="btn btn-warning">2차 심사 진행중</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept" class="btn btn-warning">승인된 클래스</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject" class="btn btn-warning">거절된 클래스</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering" class="btn btn-warning">응원 미달 클래스</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate" class="btn btn-warning">완료 클래스</a>
       						</div>
                             <div class="card-body">
                             <ul class="nav nav-tabs" style=" margin-left: 0px; ">
 
 							  <li class="nav-item">
-							    <a class="nav-link " data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=t" id="tab1">전체</a>
+							    <a class="nav-link " data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t" id="tab1">전체</a>
 							  </li>
 							  <li class="nav-item">
-							    <a class="nav-link active" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=p" id="tab2">승인 가능한 클래스</a>
+							    <a class="nav-link active" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=p" id="tab2">승인 가능한 클래스</a>
 							  </li>
 							  <li class="nav-item">
-							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=l" id="tab3">응원 미달 클래스</a>
+							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=l" id="tab3">응원 미달 클래스</a>
 							  </li>
 							</ul>
 							<br>
+							<form action="${ pageContext.servletContext.contextPath }/admin/acceptSecondDecision" method="POST">
 							<div class="tab-content">
  								<table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>전체 선택<input type="checkbox" name="cheeringInfo"/></th>
+                                            <th>전체 선택     <input type="checkbox" name="cheeringInfo"/></th>
                                             <th>클래스 제목</th>
                                             <th>강사 이름</th>
                                             <th>1차 심사통과 날짜</th>
@@ -71,7 +77,7 @@
                                     <tbody>
                      				<c:forEach items="${classList}" var="classList">
 				                            <tr>
-				                                <td><input type="checkbox" name="cheeringInfo" value=""/></td>
+				                                <td><input type="checkbox" name="cheeringInfo" value="${classList.clsNo}/${classList.cheeringUserNo}"/></td>
 				                                <td>${classList.title}</td>
 				                                <td>${classList.teName}</td>
 				                                <td>${classList.firstDecision}</td>
@@ -83,6 +89,9 @@
                                 </table>
 
 							</div>
+							<button class="btn btn-primary" type="submit">승인</button>
+							<button class="btn btn-danger" type="button">거절</button>
+							</form>
                             </div>
                         </div>
                     </div>
@@ -92,13 +101,16 @@
         <script>
          	 window.onload = function(){
          		 
-         		 const t = ${t};
+         		 const t = "${t}";
          		 console.log("함수 호출");
          		 console.log(t);
-         		var tab1 = document.getElementById('tab1');
-         		var tab2 = document.getElementById('tab2');
-         		var tab3 = document.getElementById('tab3');
+         		var tab1 = document.getElementById("tab1");
+         		var tab2 = document.getElementById("tab2");
+         		var tab3 = document.getElementById("tab3");
 				
+         		 console.log(tab1.className);
+         		 console.log(tab2.className);
+         		 console.log(tab3.className);
          		switch(t){
          		case 't' : console.log("함수 호출1"); tab1.className = 'nav-link active'; tab2.className = 'nav-link'; tab3.className = 'nav-link'; break;
          		case 'p' : console.log("함수 호출2"); tab2.className = 'nav-link active'; tab1.className = 'nav-link'; tab3.className = 'nav-link'; break;
@@ -109,9 +121,6 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>

@@ -15,6 +15,7 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.RefundDTO;
@@ -217,6 +218,12 @@ public interface AdminMapper {
 	List<CheeringClassDTO> selectCheeringClass();
 
 	List<Integer> selectUserNoByCheeringClass(int clsNo);
+
+	int updateClsSecondDecision(int clsNo);
+
+	int updateClsSecondDecisionHistory(int clsNo);
+
+	int insertCheeringCoupon(UserClassDTO classDetail);
 
 
 
