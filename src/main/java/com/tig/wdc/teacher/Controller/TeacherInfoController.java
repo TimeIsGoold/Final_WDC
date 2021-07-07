@@ -1,6 +1,8 @@
 package com.tig.wdc.teacher.Controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.tig.wdc.common.Encryption;
 import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.teacher.model.service.TeacherInfoService;
 
@@ -44,7 +47,10 @@ public class TeacherInfoController {
 
 	private final TeacherInfoService infoService;
 	private final BCryptPasswordEncoder passwordEncoder;
-
+	
+	@Autowired
+	private Encryption aes;
+	
 	@Autowired
 	public TeacherInfoController(TeacherInfoService infoService, BCryptPasswordEncoder passwordEncoder) {
 		this.infoService = infoService;
@@ -268,8 +274,17 @@ public class TeacherInfoController {
 		 * @param model
 		 * @return
 		 */
-	@GetMapping("signUp")
-	public String signUpMove(Model model) {
+	@PostMapping("signUp")
+	public String signUpMove(Model model, @ModelAttribute TeacherInfoDTO registInfo ) {
+
+		System.out.println("암호화 전 : " + registInfo);
+		try {
+			registInfo.setTeacherIdNo(aes.encrypt(registInfo.getTeacherIdNo()));
+			System.out.println("암호화 후 : " + registInfo);
+			System.out.println("복호화 후 : " + aes.decrypt(registInfo.getTeacherIdNo()));
+		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+			e.printStackTrace();
+		}
 
 		return "";
 

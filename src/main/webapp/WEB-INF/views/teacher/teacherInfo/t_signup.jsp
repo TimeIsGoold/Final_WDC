@@ -60,6 +60,7 @@
     <jsp:include page="../commons/header.jsp" />
 
       <!-- body -->
+      <form method="post" action="${pageContext.servletContext.contextPath }/teacher/signUp">
       <div class="container py-5">
         <div class="col-lg-10" style="margin: auto;">
           <div class="card mb-4" id="forms">
@@ -86,7 +87,7 @@
                   <label class="col-sm-2 col-form-label" for="tutorPwd2">비밀번호 재입력</label>
                   <div class="col-sm-8">
                     <input class="form-control" id="tutorPwd2" type="password" placeholder="비밀번호를 다시 입력해주세요." required="required">
-                    <small id="pwdMent2" style="color: red;" value="0";></small>
+                    <small id="pwdMent2" style="color: red;" value="0"></small>
                   </div>
                 </div>
 
@@ -107,7 +108,7 @@
                 <div class="form-group row" id="companyNum">
                   <label class="col-sm-2 col-form-label" for="entrepreneurNo">사업자 등록번호</label>
                   <div class="col-sm-8">
-                    <input class="form-control" id="entrepreneurNo" type="text" placeholder="000-00-00000 형태로 입력하세요" name="teacherIdNo" required="required">
+                    <input class="form-control" id="entrepreneurNo" type="text" placeholder="000-00-00000 형태로 입력하세요" name="teacherIdNo" >
                     <small id="entrepreneurNoMent" style="color: red; display: none;" value="0">.</small>
                   </div>
                 </div>
@@ -139,7 +140,7 @@
                 <div class="form-group row" style="display: none" id="phoneNumberInput">
                   <label class="col-sm-2 col-form-label" for="verNo">인증번호</label>
                   <div class="col-sm-8">
-                    <input class="form-control"  type="password" placeholder="인증번호 6자리를 입력하세요." required="required" id="checkNum">
+                    <input class="form-control"  type="password" placeholder="인증번호 6자리를 입력하세요." id="checkNum">
                   </div>
                   <button class="btn btn-sm btn-primary" type="button" id="authenticationCheck" value="0">인증번호 확인</button>
                 </div>
@@ -183,13 +184,14 @@
                 <br><br><br>
                 <div class="form-group row">
                   <div class="col-sm-3" style="margin: auto;">
-                    <button class="btn btn-lg btn-primary" type="button" onclick="location.href='t_login.html'">회원가입</button>
+                    <button class="btn btn-lg btn-primary" type="submit" >회원가입</button>
                   </div>
                 </div><br>
             </div>
           </div>
         </div>
       </div>
+      </form>
       <!-- 타입에 따른 화면 다르게 보이게하기 -->
       <script>
         function typeSelect(p){
