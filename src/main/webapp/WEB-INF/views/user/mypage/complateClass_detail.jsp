@@ -189,12 +189,7 @@
                     </c:if>
                     <hr>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
-                    	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'Y' }">
-                  		  <li>환불 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/> 원  </li>                                        	
-                    	</c:if>
-                    	<c:if test="${ empty requestScope.complateDetailUserClassDTO.refundStatus eq 'N' }">
-                  		  <li>환불 금액 :  [환불 승인 대기중 입니다.] </li>                                        	
-                    	</c:if>
+                  		  <li>환불 신청 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/> 원  </li>                                        	
                     <hr>
                     </c:if>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">

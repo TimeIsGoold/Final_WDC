@@ -51,7 +51,7 @@ public interface UserClassMapper {
 
 	public List<UserInquiryDTO> selectQnA(int clsNo);
 
-	public ScheduleDTO selectscheduleNo(String stringScheduleDate);
+	public ScheduleDTO selectscheduleNo(ScheduleDTO scheduleDTO);
 
 	public int insertClassApply(ClassApplyDTO paymentClassApplyDTO);
 
@@ -76,6 +76,10 @@ public interface UserClassMapper {
 	public ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
 
 	public int insertInquiry(UserInquiryDTO userInquiryDTO);
+	
+	public List<UserClassDTO> selectMyCheerClassList(int userNo);
+
+	public UserRefundDTO selectMaxStep(int scheduleNo);
 
 
 

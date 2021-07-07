@@ -25,6 +25,7 @@
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
         <result column="SAVE_PATH" property="titlePic"/>
         <result column="AVG_SCORE" property="avgScore"/>
+        <result column="D_DAY" property="dDay"/>
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
@@ -251,12 +252,19 @@
 		)
     </insert>
     
-	<select id="selectscheduleNo" parameterType="string" resultMap="ScheduleResult">
+	<select id="selectscheduleNo" parameterType="ScheduleDTO" resultMap="ScheduleResult">
 		SELECT
-		       *
-		  FROM SCHEDULE
-		 WHERE SCHEDULE_DATE = SUBSTR(#{value},0,10)
-		   AND SCHEDULE_START = SUBSTR(#{value},12,15)
+		       S.*
+		  FROM SCHEDULE S
+		  JOIN CLASS C ON(S.CLS_NO = C.CLS_NO)
+		 WHERE S.SCHEDULE_START = SUBSTR(#{stringScheduleDate},12,15)
+		 <if test='scheduleClsType == "O"'>		 
+		   AND S.SCHEDULE_DATE = SUBSTR(#{stringScheduleDate},0,10)
+		 </if>
+		 <if test='scheduleClsType == "R"'>		 
+		   AND C.CLS_START_D = SUBSTR(#{stringScheduleDate},0,10)
+		 </if>
+		   AND S.CLS_NO = #{ clsNo }
 	</select>
     
 	<insert id="insertClassApply" parameterType="ClassApplyDTO">
@@ -383,7 +391,7 @@
 	   (
 	     SEQ_CANCLE_NO.NEXTVAL
 	   , #{ cancelReason }
-	   , NULL
+	   , #{ refundAmount }
 	   , NULL
 	   , #{ cancelReasonDetail }
 	   , #{ payNo }
@@ -421,7 +429,87 @@
 	   , 'Y'
 	   , #{ userNo }
 	   )
-	
 	</insert>
+	
+    <resultMap type="UserClassDTO" id="UserCategoryResult">
+        <id column="CLS_NO" property="clsNo"/>
+        <result column="CLS_TITLE" property="title"/>
+        <result column="CLS_ADDRESS" property="address"/>
+        <result column="CLS_INTRO" property="intro"/>
+        <result column="CLS_C_EXPL" property="cExpl"/>
+        <result column="CLS_TIME" property="time"/>
+        <result column="CLS_START_D" property="startDate"/>
+        <result column="CLS_END_D" property="endDate"/>
+        <result column="CLS_PRICE" property="price"/>
+        <result column="CLS_ADD_INFO" property="addInfo"/>
+        <result column="CLS_ADD_SUP" property="addSup"/>
+        <result column="CLS_DICSION_STATUS" property="dicsionStatus"/>
+        <result column="CLS_TYPE" property="clsType"/>
+        <result column="DATE_APLCT" property="dateAplct"/>
+        <result column="CLS_STATUS" property="status"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <result column="SAVE_PATH" property="titlePic"/>
+        <result column="D_DAY" property="dDay"/>
+        <result column="SCHEDULE_DATE" property="scheduleDate"/>
+        <result column="SCHEDULE_START" property="scheduleStart"/>
+        <result column="CLS_PPL" property="clsPplAmount"/>
+        <result column="PAY_PRICE" property="payPrice"/>
+        <result column="CLS_APL_NO" property="aplNo"/>
+        <result column="TE_NAME" property="teName"/>
+        <result column="CLS_APL_D" property="clsAplDate"/>
+        <result column="CLS_PPL" property="ppl"/>
+        <result column="PAY_STATUS" property="payStatus"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="REFUND_STATUS" property="refundStatus"/>
+        <result column="PAY_NO" property="payNo"/>
+        <result column="D_DAY" property="dDay"/>
+    </resultMap>
+	<select id="selectMyCheerClassList" parameterType="_int" resultMap="UserCategoryResult">
+      SELECT
+            C.*
+          , T.*
+          , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+        FROM CHEERING_HISTORY CH
+	    JOIN USER_INFO U ON(CH.USER_NO = U.USER_NO)
+	    JOIN CLASS C ON(CH.CLS_NO = C.CLS_NO)
+        JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
+        JOIN ATTACHMENT T ON(C.CLS_NO = T.CLS_NO)
+       WHERE U.USER_NO = #{ userNo }
+         AND CLS_DICSION_STATUS = 'F'
+         AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '-'
+         AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '0'
+         AND T.TYPE = 'TITLE'	
+	</select>
+	
+	<resultMap type="UserRefundDTO" id="UserRefundDTOResult">
+        <id column="CANCLE_NO" property="cancelNo"/>
+        <result column="CANCLE_REASON" property="cancelReason"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="REFUND_DATE" property="refundDate"/>
+        <result column="CANCLE_REASON_DETAIL" property="cancelReasonDetail"/>
+        <result column="PAY_NO" property="payNo"/>
+        <result column="REFUND_ACCOUNT" property="refundAccount"/>
+        <result column="REFUND_HOLDER" property="accountHolder"/>
+        <result column="REFUND_BANK" property="bank"/>
+        <result column="REFUND_STATUS" property="refundStatus"/>
+        <result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
+        <result column="MAX_STEP" property="maxStep"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+        
+	</resultMap>
+	
+	<select id="selectMaxStep" parameterType="_int" resultMap="UserRefundDTOResult">
+		SELECT
+		       MAX(CLASS_STEP) MAX_STEP
+		     , S.SCHEDULE_COUNT SCHEDULE_COUNT
+		  FROM REGULAR_CLASS R
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = R.SCHEDULE_NO)
+		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
+		   AND S.SCHEDULE_NO = #{ scheduleNo }
+		 GROUP BY S.SCHEDULE_COUNT
+	
+	</select>
 
 </mapper>

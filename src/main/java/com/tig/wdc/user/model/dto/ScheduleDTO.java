@@ -24,6 +24,7 @@ public class ScheduleDTO {
 	private String inputDate;
 	private String inputMin;
 	private String inputMax;
+	private String scheduleClsType;
 
 	private String stringScheduleDate; // 페이먼트용
 
@@ -32,7 +33,7 @@ public class ScheduleDTO {
 
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
 			int maxPeople, int clsNo, int scheduleCount, int peopleCount, String inputDate, String inputMin,
-			String inputMax, String stringScheduleDate) {
+			String inputMax, String scheduleClsType, String stringScheduleDate) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.scheduleType = scheduleType;
@@ -46,6 +47,7 @@ public class ScheduleDTO {
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;
+		this.scheduleClsType = scheduleClsType;
 		this.stringScheduleDate = stringScheduleDate;
 	}
 
@@ -145,6 +147,14 @@ public class ScheduleDTO {
 		this.inputMax = inputMax;
 	}
 
+	public String getScheduleClsType() {
+		return scheduleClsType;
+	}
+
+	public void setScheduleClsType(String scheduleClsType) {
+		this.scheduleClsType = scheduleClsType;
+	}
+
 	public String getStringScheduleDate() {
 		return stringScheduleDate;
 	}
@@ -159,7 +169,8 @@ public class ScheduleDTO {
 				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
 				+ maxPeople + ", clsNo=" + clsNo + ", scheduleCount=" + scheduleCount + ", peopleCount=" + peopleCount
 				+ ", inputDate=" + inputDate + ", inputMin=" + inputMin + ", inputMax=" + inputMax
-				+ ", stringScheduleDate=" + stringScheduleDate + "]";
+				+ ", scheduleClsType=" + scheduleClsType + ", stringScheduleDate=" + stringScheduleDate + "]";
 	}
+
 
 }
