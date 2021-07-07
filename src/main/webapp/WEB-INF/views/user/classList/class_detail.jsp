@@ -321,13 +321,11 @@ i {
 							<div class="class-icon" style="padding-inline: 30px;">
 								<div>
 									<li class="list-inline-item m-0 p-0"><a
-										class="btn btn-sm btn-outline-dark"><img
-											src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
+										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
 								</div>
 								<div>
 									<li class="list-inline-item m-0 p-0"><a
-										class="btn btn-sm btn-outline-dark"><img
-											src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
+										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
 								</div>
 							</div>
 						</ul>
@@ -335,120 +333,165 @@ i {
 				</div>
 
 				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
-					<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
-						<!-- 날짜, 시간 선택 -->
-						<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-						&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-						<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-						&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<li class="list-inline-item m-0 p-0">
-							<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-								<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
-							</button>
-						</li>
-					</div>
-					</form>
-		            <script>
-		            	$("#num123").on("mouseenter",function(e){
-		            		//debugger;
-		            		e.stopPropagation();
-		            		alert($("#datetimepicker").val());
-		            	});
-		            	
-		               let times = new Array();
-		               let days = new Array();
-		               
-		               <c:forEach var="schedule" items="${ requestScope.schedule }">
-			           	 // times.push("${schedule.scheduleStart}");
-			              days.push("${schedule.scheduleDate}");
-		               </c:forEach>
+					<c:if test="${ requestScope.classDetail.clsType == 'O' }">
+						<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+							<!-- 날짜, 시간 선택 -->
+							<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+							&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+							&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li class="list-inline-item m-0 p-0">
+								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+								</button>
+							</li>
+						</div>
+						</form>
+			            <script>
+			            	$("#num123").on("mouseenter",function(e){
+			            		//2021-07-07 10:00 
+			            		//클래스번호, 스케쥴번호, 날짜, 시간넘기기 
+			            		//두번째 에이작스
+	                       		var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
+		                    	var dayArray2 = pickDay2.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
+	
+		                    	$.ajax({
+			                        type: "post",
+			                        url:  "peopleCount",
+			                        data: { date : dayArray2[0],
+			                        		time : dayArray2[1], 
+			                        		clsNo : ${ requestScope.classDetail.clsNo }
+			                        },
+			                        success:function(data, textStatus, xhr){
+				                        $("#num123").val(data);
+			                        },
+			                        error:function(xhr,status,error){
+			                            console.log(error);
+			                        }
+			                   	});
+		                    	
+		                    	e.stopPropagation();
+			            	});
+			            	
+			               let times = new Array();
+			               let days = new Array();
+			               
+			               <c:forEach var="schedule" items="${ requestScope.schedule }">
+				           	 // times.push("${schedule.scheduleStart}");
+				              days.push("${schedule.scheduleDate}");
+			               </c:forEach>
+			               
+			              /*  time11 = new Array();
+			               $(document).ready(function(){
+			            	   let dayValues = days;
+				               let today = new Date();
+				               console.log("날짜: "+ today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate());
+				               cToday = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+				               $.ajax({
+				            	  url: "dateTimePicker",
+				            	  type:"post",
+				            	  data: { date :cToday , clsNo : ${ requestScope.classDetail.clsNo } },
+				            	  success:function(data, textStatus, xhr){
+				            		  let tArr = new Array(); 
+				            		  for(var idx in data){
+				            			  tArr.push(data[idx].scheduleStart);
+				            		  }
+				            		  
+				            		  console.log("tArr : " + tArr);
+				            		  timeValues = tArr;
+				            		  console.log("timeValues : " + time11);
+				            	  },
+			                      error:function(xhr,status,error){
+			                         console.log(error);
+			                      }
+				               });
+			               }); */
 		
-		               let timeValues = ["00:00"];
-		               let dayValues = days;
-		               
-		               jQuery('#datetimepicker').datetimepicker({
-		                  datepicker : true,
-		                  //timepicker : false,
-		                  allowTimes : timeValues,
-		                  allowDates : days,
-		                  format:'Y-m-d',
-		                  formatDate:'Y-m-d',
-		                  autoClose: false,
-		                  scrollMonth : false,
-		                  scrollTime : false,
-		                  onChangeDateTime : function(dp, $input) {
-		                     
-		                	 console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
-		                     console.log(dp);
-		                     
-		                     var pickDay = $input.val(); //선택한 날짜를 담아줌
-		                     var dayArray = pickDay.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
-		                     var test1 = this;
-		                     		                     
-		                     $.ajax({
-		                        type: "post",
-		                        url: "dateTimePicker",
-		                        data: { date : dayArray[0], clsNo : ${ requestScope.classDetail.clsNo } },
-		                        success:function(data, textStatus, xhr){
-		                        	console.log(data);
-		                            let tArr = new Array();
-		                            let pArr = new Array();
-		                            for(var idx in data){
-		                            	tArr.push(data[idx].scheduleStart);
-		                            	//pArr[idx] = data[idx].minPeople;
-		                            	//pArr.push(data[idx].scheduleStart + " /남은인원 : " + data[idx].minPeople);
-		                            }
-		                            
-		                            timeValues = tArr;
-		                            console.log(timeValues);
-		                            
-		                            if(timeValues.length > 0){
-		                        		test1.setOptions({
-					                    	allowTimes : timeValues,
-					                    	allowDates : days,
-					                    	format:'Y-m-d H:i',
-					                    	timepicker : true,
-					                    	scrollTime : false,
-					                    	autoClose: false
-					                     });
-		                        		
-		                        		//두번째 에이작스
-		                        		var pickDay2 = $input.val(); //선택한 날짜를 담아줌
-		   		                    	var dayArray2 = pickDay2.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
-		   		                    	var test2 = this;
-		   		                    	
-		                        		//클래스번호, 스케쥴번호, 날짜, 시간넘기기 
-		                        		$.ajax({
-		    		                        type: "post",
-		    		                        url: "peopleCount",
-		    		                        data: { date : dayArray2[0],
-		    		                        		time : dayArray2[1], 
-		    		                        		clsNo : ${ requestScope.classDetail.clsNo }
-		    		                        		
-		    		                        },
-		    		                        success:function(data, textStatus, xhr){
-		    		                        	console.log(data);
-		    		                        },
-		    		                        error:function(xhr,status,error){
-		    		                            console.log(error);
-		    		                        }
-		    		                   	});
-		                        	} else {
-		                        		test1.setOptions({
-		                        			allowDates : days,
-		                        			scrollTime : false,
-					                    	timepicker : false
-					                     });
-		                        	}
-		                        	
-		                        },
-		                        error:function(xhr,status,error){
-		                            console.log(error);
-		                        }
-		                     });
-		                  }
-		               });
-		            </script>
+			               jQuery('#datetimepicker').datetimepicker({               
+			                  datepicker : true,
+			                  timepicker : true,
+			                  allowTimes : ["00:00"],
+			                  
+			                  allowDates : days,
+			                  format:'Y-m-d',
+			                  formatDate:'Y-m-d',
+			                  autoClose: false,
+			                  scrollMonth:false,
+			                  timepickerScrollbar:false,
+			                  onGenerate:function(dp,$input){
+			                	  
+			                  },
+			                  onChangeDateTime : function(dp, $input) {
+			                     
+			                	 console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
+			                     console.log(dp);
+			                     
+			                     var pickDay = $input.val(); //선택한 날짜를 담아줌
+			                     var dayArray = pickDay.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
+			                     var test1 = this;
+			                     		                     
+			                     $.ajax({
+			                        type: "post",
+			                        url: "dateTimePicker",
+			                        data: { date : dayArray[0], clsNo : ${ requestScope.classDetail.clsNo } },
+			                        success:function(data, textStatus, xhr){
+			                        	console.log(data);
+			                            let tArr = new Array();
+			                            let pArr = new Array();
+			                            for(var idx in data){
+			                            	tArr.push(data[idx].scheduleStart);
+			                            	//pArr[idx] = data[idx].minPeople;
+			                            	//pArr.push(data[idx].scheduleStart + " /남은인원 : " + data[idx].minPeople);
+			                            }
+			                            
+			                            //console.log(timeValues);
+			                            
+			                            if(tArr.length > 0){
+			                        		test1.setOptions({
+						                    	allowTimes : tArr,
+						                    	allowDates : days,
+						                    	format:'Y-m-d H:i',
+						                    	timepicker : true,
+						                    	scrollTime : false,
+						                    	autoClose: false
+						                     });
+			                        		
+			                        	} else {
+			                        		test1.setOptions({
+			                        			allowDates : days,
+			                        			scrollTime : false,
+						                    	timepicker : false
+						                     });
+			                        	}
+			                        	
+			                        },
+			                        error:function(xhr,status,error){
+			                            console.log(error);
+			                        }
+			                     });
+			                  }
+			               });
+			               
+			            </script>
+			    	</c:if>
+			    	
+			    	<c:if test="${ requestScope.classDetail.clsType == 'R' }">
+			    		<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+							<!-- 날짜, 시간 선택 -->
+							<c:forEach var="schedule" items="${ requestScope.schedule }">
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+								&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div>남은 인원 : ${ schedule.maxPeople }</div>
+							</c:forEach>
+							<li class="list-inline-item m-0 p-0">
+								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+								</button>
+							</li>
+						</div>
+			    	</c:if>
 	            </c:if>
 	            
 	            <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
@@ -578,10 +621,10 @@ i {
 									<c:forEach var="review" items="${ requestScope.review }">
 										<div style="padding-bottom: 15px;">
 											<div class="media mb-3">
-												<img id="myImg" class="btn-img" src="${ pageContext.servletContext.contextPath }/${ review.reviewPic }">
+												<img id="myImg" class="btn-img" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.reviewPic }">
 												<div id="myModal" class="modal media mb-3">
 													<span class="close">&times;</span> 
-													<img class="modal-content" id="img01" src="${ pageContext.servletContext.contextPath }/${ review.reviewPic }">
+													<img class="modal-content" id="img01" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.reviewPic }">
 													<div id="caption"></div>
 												</div>
 												<div class="media-body ml-3">
@@ -596,16 +639,18 @@ i {
 													<p class="text-small mb-0 text-muted">${ review.reviewContent }</p>
 												</div>
 											</div>
-											<!-- 답변 -->
-											<div class="media mb-3 answer">
-												<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50" height="50">
-												<div class="media-body ml-3">
-													<h6 class="mb-0 text-uppercase">${ review.answer.teName }</h6>
-													<p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
-													<p class="text-small mb-0 text-muted" style="margin-top: 7px;">${ review.answer.ansContent }</p>
-													<br>
+											<c:if test="${ !empty review.answer.teName }">
+												<!-- 답변 -->
+												<div class="media mb-3 answer">
+													<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50" height="50">
+													<div class="media-body ml-3">
+														<h6 class="mb-0 text-uppercase">${ review.answer.teName }</h6>
+														<p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
+														<p class="text-small mb-0 text-muted" style="margin-top: 7px;">${ review.answer.ansContent }</p>
+														<br>
+													</div>
 												</div>
-											</div>
+											</c:if>
 										</div>
 									</c:forEach>
 								</c:if>
@@ -621,16 +666,18 @@ i {
 					<div class="tab-pane fade" id="questions" role="tabpanel"
 						aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
-							<c:if test="${ !empty sessionScope.userNo }">
-								<button onclick="inquiryWrite1();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">문의 작성</button>
-							</c:if>
-							<c:if test="${ empty sessionScope.userNo }">
-								<button onclick="noWrite();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">문의 작성</button>
-							</c:if>
-							<div id="inquiryWrite" style="width: 200px; height: 180px; display: none; margin-left: -100px;">
-								<form action="${ pageContext.servletContext.contextPath }/user/inquiry/${ requestScope.classDetail.clsNo }" method="post">
-									<textarea class="feedbackArea" name="queContent" style="font-size: 15px; border-color: lightgray" placeholder="문의 사항을 작성해 주세요."></textarea>
-									<button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성</button>
+							<button onclick="inquiryWrite1();" type="button" class="btn btn-dark"
+								style="margin-left: 88%; width: 112px; font-size: 15px;">문의
+								작성</button>
+							<div id="inquiryWrite"
+								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
+									<textarea class="feedbackArea"
+										style="font-size: 15px; border-color: lightgray"
+										placeholder="문의 사항을 작성해 주세요."></textarea>
+								<form action="">
+									<button class="btn btn-dark" type="submit"
+										style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성
+									</button>
 								</form>
 							</div>
 
@@ -643,10 +690,6 @@ i {
 											.getElementById("inquiryWrite").style.display == "block") {
 										document.getElementById("inquiryWrite").style.display = "none";
 									}
-								}
-								
-								function noWrite() {
-									alert("우리 동네 클래스 회원만 문의 작성이 가능합니다.");
 								}
 							</script>
 
@@ -663,16 +706,18 @@ i {
 														<p class="text-small mb-0 text-muted">${ qna.queContent }</p>
 													</div>
 												</div>
-												<!-- 답변 -->
-												<div class="media mb-3 answer">
-													<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ qna.answer.tePic }"  width="50" height="50">
-													<div class="media-body ml-3">
-														<h6 class="mb-0 text-uppercase">${ qna.answer.teName }</h6>
-														<p class="small text-muted mb-0 text-uppercase">${ qna.answer.answerTime }</p>
-														<p class="text-small mb-0 text-muted">${ qna.answer.answerContent }</p>
-														<br>
+												<c:if test="${ !empty qna.answer.answerContent }">
+													<!-- 답변 -->
+													<div class="media mb-3 answer">
+														<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ qna.answer.tePic }"  width="50" height="50">
+														<div class="media-body ml-3">
+															<h6 class="mb-0 text-uppercase">${ qna.answer.teName }</h6>
+															<p class="small text-muted mb-0 text-uppercase">${ qna.answer.answerTime }</p>
+															<p class="text-small mb-0 text-muted">${ qna.answer.answerContent }</p>
+															<br>
+														</div>
 													</div>
-												</div>
+												</c:if>
 											</div>
 										</c:forEach>
 									</c:if>
