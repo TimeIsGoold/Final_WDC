@@ -36,7 +36,7 @@
                             <div class="btn-group btn-group-justified">
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total" class="btn btn-warning">전체 </a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=one" class="btn btn-warning">1차 심사 진행중</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=two" class="btn btn-warning">2차 심사 진행중</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=t" class="btn btn-warning">2차 심사 진행중</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=accept" class="btn btn-warning">승인된 클래스</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=reject" class="btn btn-warning">거절된 클래스</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=lackOfCheering" class="btn btn-warning">응원 미달 클래스</a>
@@ -46,13 +46,13 @@
                             <ul class="nav nav-tabs" style=" margin-left: 0px; ">
 
 							  <li class="nav-item">
-							    <a class="nav-link active" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total">전체</a>
+							    <a class="nav-link " data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=t" id="tab1">전체</a>
 							  </li>
 							  <li class="nav-item">
-							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total">2차 승인</a>
+							    <a class="nav-link active" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=p" id="tab2">승인 가능한 클래스</a>
 							  </li>
 							  <li class="nav-item">
-							    <a class="nav-link" data-toggle="tab" href="#zxc">반려</a>
+							    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=l" id="tab3">응원 미달 클래스</a>
 							  </li>
 							</ul>
 							<br>
@@ -60,7 +60,7 @@
  								<table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>전체 선택</th>
+                                            <th>전체 선택<input type="checkbox" name="cheeringInfo"/></th>
                                             <th>클래스 제목</th>
                                             <th>강사 이름</th>
                                             <th>1차 심사통과 날짜</th>
@@ -69,14 +69,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                     				<c:forEach items="${cheeringClassList}" var="cheeringClassList">
+                     				<c:forEach items="${classList}" var="classList">
 				                            <tr>
-				                                <td><input type="checkbox"/> </td>
-				                                <td>${cheeringClassList.classTitle}</td>
-				                                <td>${cheeringClassList.teacherName}</td>
-				                                <td>${cheeringClassList.classPrice}</td>
-				                                <td>${cheeringClassList.classPrice}</td>
-				                                <td>${cheeringClassList.classPrice}</td>
+				                                <td><input type="checkbox" name="cheeringInfo" value=""/></td>
+				                                <td>${classList.title}</td>
+				                                <td>${classList.teName}</td>
+				                                <td>${classList.firstDecision}</td>
+				                                <td>${classList.categoryNo}</td>
+				                                <td>${classList.cheeringCnt}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
@@ -89,6 +89,24 @@
                 </main>
             </div>
         </div>
+        <script>
+         	 window.onload = function(){
+         		 
+         		 const t = ${t};
+         		 console.log("함수 호출");
+         		 console.log(t);
+         		var tab1 = document.getElementById('tab1');
+         		var tab2 = document.getElementById('tab2');
+         		var tab3 = document.getElementById('tab3');
+				
+         		switch(t){
+         		case 't' : console.log("함수 호출1"); tab1.className = 'nav-link active'; tab2.className = 'nav-link'; tab3.className = 'nav-link'; break;
+         		case 'p' : console.log("함수 호출2"); tab2.className = 'nav-link active'; tab1.className = 'nav-link'; tab3.className = 'nav-link'; break;
+         		case 'l' : console.log("함수 호출3"); tab3.className = 'nav-link active'; tab1.className = 'nav-link'; tab2.className = 'nav-link'; break;
+         		}
+         	 }
+         	
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

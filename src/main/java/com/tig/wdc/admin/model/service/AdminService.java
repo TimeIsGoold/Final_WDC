@@ -245,6 +245,8 @@ public interface AdminService {
 
 	List<CheeringClassDTO> selectCheeringClass();
 
+	List<Integer> selectUserNoByCheeringClass(int clsNo);
+
 
 
 

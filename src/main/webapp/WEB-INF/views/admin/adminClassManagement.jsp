@@ -17,6 +17,11 @@
 
     </head>
     <body class="sb-nav-fixed">
+      <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if> 
         
         <!-- header -->
 		<%@ include file="commons/header.jsp" %>
@@ -38,7 +43,7 @@
                             <div class="btn-group btn-group-justified">
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=total" class="btn btn-warning">전체 </a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=one" class="btn btn-warning">1차 심사 진행중</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=two" class="btn btn-warning">2차 심사 진행중</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/seconddecision?pc=t" class="btn btn-warning">2차 심사 진행중</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=accept" class="btn btn-warning">승인된 클래스</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=reject" class="btn btn-warning">거절된 클래스</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?ct=lackOfCheering" class="btn btn-warning">응원 미달 클래스</a>

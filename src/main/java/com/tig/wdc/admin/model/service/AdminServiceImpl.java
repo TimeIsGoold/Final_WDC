@@ -371,6 +371,12 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectCheeringClass();
 	}
 
+	@Override
+	public List<Integer> selectUserNoByCheeringClass(int clsNo) {
+		
+		return mapper.selectUserNoByCheeringClass(clsNo);
+	}
+
 
 
 }

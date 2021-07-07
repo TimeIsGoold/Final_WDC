@@ -10,8 +10,9 @@
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>우리동네 클래스</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
-        <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
+    	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script>
             function detailPage() {
@@ -40,9 +41,9 @@
                                 회원관리
                             </div>
                             <div class="btn-group btn-group-justified">
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/memberManagement" class="btn btn-warning">전체 </a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?ut=tc" class="btn btn-warning">강사</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?ut=st" class="btn btn-warning">수강생</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/memberManagement?currentMenu=member" class="btn btn-warning">전체 </a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=tc" class="btn btn-warning">강사</a>
+						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st" class="btn btn-warning">수강생</a>
       						</div>
 
                             <div class="card-body">
@@ -81,7 +82,7 @@
                 </main>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"  crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>

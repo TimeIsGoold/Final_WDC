@@ -968,4 +968,11 @@
 		        , T.TE_NAME
 		        , C.CATEGORY_NO
 	 </select>
+	 
+	 <select id="selectUserNoByCheeringClass" parameterType="_int">
+	 	SELECT 
+		       CH.USER_NO
+		  FROM CHEERING_HISTORY CH
+		 WHERE CH.CLS_NO = #{clsNo}
+	 </select>
 </mapper>
