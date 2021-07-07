@@ -1,7 +1,5 @@
 package com.tig.wdc.admin.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -75,21 +73,6 @@ public class AdminController {
 		model.addAttribute("totalList", realtotalList);
 
 		return "admin/adminMemberManagement";
-	}
-
-	/**
-	 * @author 김현빈
-	 * 클래스 관리
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("classManagement")
-	public String selectClassList(Model model) {
-
-		model.addAttribute("classList", adminService.selectAllClassList());
-
-		return "admin/testClassList";
 	}
 
 	/**
@@ -441,7 +424,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("selectClassBycategory")
-	public String selectClassBycategory(@RequestParam("ct")String type,@RequestParam(value="cnt", defaultValue="0")int result, Model model) {
+	public String selectClassBycategory(@RequestParam(value="ct", defaultValue="total")String type,@RequestParam(value="cnt", defaultValue="0")int result, Model model) {
 		Map<String, String> map = new HashMap<>();
 		map.put("type", type);
 		model.addAttribute("classList", adminService.selectClassBycategory(map));
@@ -588,20 +571,38 @@ public class AdminController {
 	}
 
 	@GetMapping("seconddecision")
-	public String selectCheeringClass(Model model) {
-		List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
+	public String selectCheeringClass(@RequestParam("pc")String result, Model model) {
 		long today = System.currentTimeMillis();
-		// 86400000  하루 밀리 세컨드
-		List<CheeringClassDTO> refinedCheeringClassListt = null;
-		for(int i = 0; i < cheeringClassList.size(); i++ ) {
-			// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-			if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
-				refinedCheeringClassListt = new ArrayList<>();
-				refinedCheeringClassListt.add(cheeringClassList.get(i));
-				model.addAttribute("passedList", refinedCheeringClassListt);
-			// 응원수가 미달인 2차심사 대기중 인 클래스
-			} else if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() < 5) {
-				
+		List<CheeringClassDTO> refinedCheeringClassList = new ArrayList<>();
+		List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
+		if(result.equals("t")) {
+			model.addAttribute("classList", cheeringClassList);
+			model.addAttribute("t", "t");
+		}
+		if(result.equals("p")) {
+			for(int i = 0; i < cheeringClassList.size(); i++ ) {
+				// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
+				if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+					refinedCheeringClassList.add(cheeringClassList.get(i));
+					List<Integer> userNoArr = adminService.selectUserNoByCheeringClass(refinedCheeringClassList.get(i).getClsNo());
+					int[] userArr = null;
+					for(int j = 0; j < userNoArr.size(); j ++) {
+//						userArr += userNoArr.get
+					}
+				} 
+			}
+			model.addAttribute("classList", refinedCheeringClassList);
+			model.addAttribute("t", "p");
+		}
+		// 응원수가 미달인 2차심사 대기중 인 클래스
+		if(result.equals("l")) {
+			for(int i = 0; i < cheeringClassList.size(); i++ ) {
+				// 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
+				if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+					refinedCheeringClassList.add(cheeringClassList.get(i));
+				} 
+				model.addAttribute("classList", refinedCheeringClassList);
+				model.addAttribute("t", "l");
 			}
 		}
 		return "admin/testClassList";
