@@ -252,7 +252,7 @@
           }
         }
         var classCount = existStep.length;
-        document.getElementById("countInfo").innerHTML = "<b>강의 횟수  :  </b>"+classCount+"회 / 총 30회";
+        document.getElementById("countInfo").innerHTML = "<b>강의 횟수  :  </b>"+classCount+"회 / 총 ${ regularInfo.scheduleCount }회";
       }
 
     }

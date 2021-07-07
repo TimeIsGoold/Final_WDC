@@ -3,7 +3,9 @@ package com.tig.wdc.user.controller;
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,27 +98,33 @@ public class UserClassDetailController {
 		List<UserInquiryDTO> qna = new ArrayList<UserInquiryDTO>();
 		qna = classService.selectQnA(clsNo);
 		model.addAttribute("qna", qna);
-
+		
 		// 클래스 스케줄 select
 		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
-
+		
 		return "user/classList/class_detail";
 	}
+	
+	@PostMapping("inquiry/{clsNo}")
+	public String ClassDetail(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, UserInquiryDTO userInquiryDTO) {
+	
+		//로그인 세션 값
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		userInquiryDTO.setClsNo(clsNo);
+		userInquiryDTO.setUserNo(userNo);
+		
+		System.out.println("ccccccccccccccdjfkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" + userInquiryDTO);
+		
+		// 문의 insert
+		int inquiry = classService.insertInquiry(userInquiryDTO);
+		
+		return "redirect:/user/classDetail/{clsNo}";
+	}
 
-//	@RequestMapping(value="${pageContext.servletContext.contextPath}/user/dateTimePicker/${ requestScope.classDetail.clsNo }")
-//    @ResponseBody
-//	public String DateTimePicker(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, HttpServletRequest request, @RequestParam("date") String date) {
-//		
-//		String checkedDate = request.getParameter("date");
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + checkedDate);
-//		
-//		return date;
-//		
-//	}
-
-	@PostMapping(value="classDetail/dateTimePicker",produces = "application/json; charset=utf-8" )
+	@PostMapping(value="classDetail/dateTimePicker", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String DateTimePicker(HttpSession session, Model model,
 			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, HttpServletRequest request) {
@@ -128,14 +136,12 @@ public class UserClassDetailController {
 		// 클래스 날짜에 맞는 시간 select
 		List<ScheduleDTO> time = new ArrayList<ScheduleDTO>();
 		time = classService.selectTime(scheduleDTO);
-		//model.addAttribute("time", time);
 
-		System.out.println("출력????????????????" + time);
 		Gson gson = new Gson();
 		
 		return gson.toJson(time);
 	}
-
+	
 	/**
 	 * 결제페이지 이동용 메소드
 	 * 
@@ -146,7 +152,10 @@ public class UserClassDetailController {
 	@PostMapping("payment")
 	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model,
 			UserClassDTO userClassDTO) {
+		System.out.println("userClassDTO : " + userClassDTO.toString());
+		System.out.println("scheduleDTO : " + scheduleDTO.toString());
 
+		
 		if (session == null) {
 			return "user/login/login";
 		}
@@ -164,14 +173,23 @@ public class UserClassDetailController {
 		model.addAttribute("couponList", couponList);
 
 		// 스케줄 넘버 조회
-		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
-		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO.getStringScheduleDate());
-		model.addAttribute("pasymentScheduleDTO", paymentScheduleDTO);
-
-		model.addAttribute("classApplyDTO", classApplyDTO);
-
-		// stringScheduleDate 용
+		scheduleDTO.setClsNo(userClassDTO.getClsNo());
+		scheduleDTO.setScheduleClsType(userClassDTO.getClsType());
+		System.out.println("scheduleDTO2 : " + scheduleDTO);
 		model.addAttribute("scheduleDTO", scheduleDTO);
+
+		
+		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
+		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO);
+		// paymentScheduleDTO 가 왜 null?
+		
+		System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
+		System.out.println("scheduleDTO3 : " + scheduleDTO);
+		//System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
+		
+		model.addAttribute("classApplyDTO", classApplyDTO);
+		// stringScheduleDate 용
+		model.addAttribute("paymentScheduleDTO", paymentScheduleDTO);
 
 		return "user/payment/payment";
 	}
@@ -314,11 +332,20 @@ public class UserClassDetailController {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
+		System.out.println("userClassDTO : " + userClassDTO);
 
 		// 유저넘버로 유저 정보 조회
 		UserInfoDTO userDTO = new UserInfoDTO();
 		userDTO = infoService.selectUser(userNo);
 		
+		// 스케줄 넘버로 환불금액 계산
+		// 1. 스케줄 넘버로 맥스스텝, 총 회차수 계산
+		UserRefundDTO userRefundDTO = new UserRefundDTO();
+		if(userClassDTO.getClsType().equals("R")) {
+			userRefundDTO = classService.selectRefundAmount(userClassDTO.getScheduleNo(),userClassDTO.getPayPrice());
+		}
+		
+		model.addAttribute("userRefundDTO",userRefundDTO);
 		model.addAttribute("userClassDTO",userClassDTO);
 		model.addAttribute("userDTO",userDTO);
 		
@@ -345,11 +372,14 @@ public class UserClassDetailController {
 		int payNo = userClassDTO.getPayNo();
 		// 2. 페이넘 받기		
 		userRefundDTO.setPayNo(payNo);
+		// 3. 리펀드 어마운트 set*************
+		
 		
 		// payment cancel 테이블 인서트
 		int result = classService.inserRefund(userRefundDTO);
 		
 		// payment -> 취소로 업데이트
+		// 업데이트가 안댐**************
 		int paymentResult = classService.updatePaymentStatus(payNo);
 		
 		if(result + paymentResult == 2) {

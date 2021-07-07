@@ -189,12 +189,7 @@
                     </c:if>
                     <hr>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
-                    	<c:if test="${ requestScope.complateDetailUserClassDTO.refundStatus eq 'Y' }">
-                  		  <li>환불 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/> 원  </li>                                        	
-                    	</c:if>
-                    	<c:if test="${ empty requestScope.complateDetailUserClassDTO.refundStatus eq 'N' }">
-                  		  <li>환불 금액 :  [환불 승인 대기중 입니다.] </li>                                        	
-                    	</c:if>
+                  		  <li>환불 신청 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.refundAmount }" pattern="#,###"/> 원  </li>                                        	
                     <hr>
                     </c:if>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '취소' }">
@@ -330,7 +325,7 @@
 										document.getElementById("star-img5").src="${pageContext.servletContext.contextPath }/resources/user/img/star.png";
 									}
 								</script>
-								<textarea name="reviewContent"class="feedbackArea" style="font-size: 15px; border-color: lightgray; width: 605px;" placeholder="리뷰를 작성해 주세요."></textarea>
+								<textarea name="reviewContent" class="feedbackArea" style="font-size: 15px; border-color: lightgray; width: 605px;" placeholder="리뷰를 작성해 주세요."></textarea>
 								<button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 725px; font-size: 15px; width: 80px;">작성</button>
 							</form>
 							<!-- 리뷰 작성 눌렀을 시-->

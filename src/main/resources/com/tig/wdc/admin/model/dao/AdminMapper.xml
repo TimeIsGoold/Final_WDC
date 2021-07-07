@@ -649,17 +649,17 @@
 	
 	<!-- 정산 미완료 -->
 	<select id="selectNoCalculateList" resultMap="calculateList">
-	    SELECT 
+    	SELECT 
 	    	   A.TUITION_M_NO 번호
 			 , C.TE_TYPE
 			 , C.TE_NAME
 			 , C.TE_ID
-             , TO_CHAR(CLS_START_D, 'YYYY/MM') 정산날짜
+             , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
 			 , A.CALCUL_STATUS 정산여부
 		  FROM TUITION_MANAGEMENT A
 		  JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
           JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
-         WHERE EXTRACT(month FROM SYSDATE) <![CDATA[ < ]]> EXTRACT(month FROM ADD_MONTHS(B.CLS_START_D,1))
+         WHERE A.CALCUL_STATUS = 'N'
            AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
                                     FROM TUITION_MANAGEMENT
                                     GROUP BY CLS_NO)
@@ -967,5 +967,12 @@
 		        , C.CLS_TITLE
 		        , T.TE_NAME
 		        , C.CATEGORY_NO
+	 </select>
+	 
+	 <select id="selectUserNoByCheeringClass" parameterType="_int">
+	 	SELECT 
+		       CH.USER_NO
+		  FROM CHEERING_HISTORY CH
+		 WHERE CH.CLS_NO = #{clsNo}
 	 </select>
 </mapper>

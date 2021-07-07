@@ -16,11 +16,15 @@ public class UserRefundDTO {
 	private String refundStatus;
 	private java.sql.Date refundApplyDate;
 	
+	// 환불금액 계산용
+	private int maxStep;
+	private int scheduleCount;
+	
 	public UserRefundDTO() {}
 
 	public UserRefundDTO(int cancelNo, String cancelReason, int refundAmount, Date refundDate,
 			String cancelReasonDetail, int payNo, String refundAccount, String accountHolder, String bank,
-			String refundStatus, Date refundApplyDate) {
+			String refundStatus, Date refundApplyDate, int maxStep, int scheduleCount) {
 		super();
 		this.cancelNo = cancelNo;
 		this.cancelReason = cancelReason;
@@ -33,6 +37,8 @@ public class UserRefundDTO {
 		this.bank = bank;
 		this.refundStatus = refundStatus;
 		this.refundApplyDate = refundApplyDate;
+		this.maxStep = maxStep;
+		this.scheduleCount = scheduleCount;
 	}
 
 	public int getCancelNo() {
@@ -123,14 +129,31 @@ public class UserRefundDTO {
 		this.refundApplyDate = refundApplyDate;
 	}
 
+	public int getMaxStep() {
+		return maxStep;
+	}
+
+	public void setMaxStep(int maxStep) {
+		this.maxStep = maxStep;
+	}
+
+	public int getScheduleCount() {
+		return scheduleCount;
+	}
+
+	public void setScheduleCount(int scheduleCount) {
+		this.scheduleCount = scheduleCount;
+	}
+
 	@Override
 	public String toString() {
 		return "UserRefundDTO [cancelNo=" + cancelNo + ", cancelReason=" + cancelReason + ", refundAmount="
 				+ refundAmount + ", refundDate=" + refundDate + ", cancelReasonDetail=" + cancelReasonDetail
 				+ ", payNo=" + payNo + ", refundAccount=" + refundAccount + ", accountHolder=" + accountHolder
-				+ ", bank=" + bank + ", refundStatus=" + refundStatus + ", refundApplyDate=" + refundApplyDate + "]";
+				+ ", bank=" + bank + ", refundStatus=" + refundStatus + ", refundApplyDate=" + refundApplyDate
+				+ ", maxStep=" + maxStep + ", scheduleCount=" + scheduleCount + "]";
 	}
-	
+
 
 
 }

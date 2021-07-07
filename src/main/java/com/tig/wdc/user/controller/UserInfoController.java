@@ -309,20 +309,45 @@ public class UserInfoController {
 		return "redirect:/user/mypage/complateClassList";
 	}
 	
+
+	
+	/**
+	 * 내가 찜 목록 클래스 조회
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("likeClassList")
+	public String likeClass(Model model, HttpSession session) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+
+		
+		return "user/classList/likeClassList";
+	}
+	
+	/**
+	 * 응원한 목록 클래스 조회
+	 * @param model
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("cheerClassList")
+	public String cheerClass(Model model, HttpSession session) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		
+		UserClassDTO userClassDTO  = new UserClassDTO();
+		
+		List<UserClassDTO> cheerClassDTOList = classService.selectMyCheerClassList(userNo);
+
+		model.addAttribute("cheerClassDTOList",cheerClassDTOList);
+		
+		return "user/classList/cheerClassList";
+
+	}
 	
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

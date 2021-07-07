@@ -44,7 +44,7 @@
                    	     회원관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/classManagement?currentMenu=class">
+                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=">
                                           클래스관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>

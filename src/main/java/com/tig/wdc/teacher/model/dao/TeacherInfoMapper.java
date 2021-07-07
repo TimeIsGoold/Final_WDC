@@ -25,4 +25,7 @@ public interface TeacherInfoMapper {
 
 	//공지사항 전체 조회
 	int selectNoticeCount();
+
+	//아이디중복확인
+	String selectCheckDoubleId(String checkId);
 }

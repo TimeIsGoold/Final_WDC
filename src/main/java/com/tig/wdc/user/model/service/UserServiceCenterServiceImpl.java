@@ -75,6 +75,11 @@ public class UserServiceCenterServiceImpl implements UserServiceCenterService{
 	public UserReportDTO ReportAnswer(int reportNo) {
 		return mapper.selectReportAnswer(reportNo);
 	}
-	
+
+	@Override
+	public int insertInquiry(UserInquiryDTO userInquiryDTO) {
+		return mapper.insertInquiry(userInquiryDTO);
+	}
+
 
 }
