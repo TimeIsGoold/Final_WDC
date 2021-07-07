@@ -985,7 +985,7 @@
 		        , C.CATEGORY_NO
 	 </select>
 	 
-	 <select id="selectUserNoByCheeringClass" parameterType="_int">
+	 <select id="selectUserNoByCheeringClass" parameterType="_int" resultType="integer">
 	 	SELECT 
 		       CH.USER_NO
 		  FROM CHEERING_HISTORY CH
