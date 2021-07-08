@@ -32,78 +32,129 @@
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>      
   </head>
   <body>
     <!-- header -->
     <div class="page-holder">
       <!-- navbar-->
-      <header class="header bg-white" style="padding-top: 80px;">
-        <div class="container px-0 px-lg-3">
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="index.html"><span class="font-weight-bold text-uppercase text-dark"><h1>우리동네 클래스</h1></span></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                </li>
-                <li class="nav-item">
-                </li>
-                <li class="nav-item"><a class="nav-link" href="#"><h3>강사 페이지</h3></a>
-                </li>
-                <li class="nav-item dropdown">
-                </li>
-              </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"></li>
-                <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>
-                <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>로그인</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <jsp:include page="../commons/header.jsp"/>
 
       <!-- body -->
       <div class="container py-5">
         <div class="col-lg-7" style="margin: auto;">
           <div class="card mb-4" id="forms">
+            <form method="POST" action="${pageContext.servletContext.contextPath }/teacher/setNewPwdPage" onsubmit="return checkAuthentication()">
             <div class="card-body"><br>
               <h4 class="mb-5">비밀번호재설정</h4>
-              <form>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
+                  <label class="col-sm-9 col-form-label" for="tutorId">아이디</label>
                   <div class="col-sm-12">
-                    <input class="form-control" id="tutorId" type="text" placeholder="아이디">
+                    <input class="form-control" id="tutorId" type="text" placeholder="아이디" name="id"> 
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="tutorPwd">휴대폰번호</label>
+                  <label class="col-sm-9 col-form-label" for="tutorPwd">휴대폰번호<small>(회원가입 시 입력한 전화번호 입력하세요.)</small></label>
                   <div class="col-sm-12">
-                    <input class="form-control" type="text" placeholder="휴대폰번호">
+                    <input class="form-control" type="text" placeholder="(-)없이 10자리 또는 11자리 숫자" id="phoneNumber" name="phoneNumber">
+                    <small style="color: red;">회원가입 시 입력한 정보(아이디, 휴대폰번호)와 다른경우 인증번호가 발송되지 않습니다.</small>
                   </div>
                 </div>
                 <br>
                 <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                  <button style="width:100%; height: 38px;">휴대폰 번호로 인증번호 전송</button>
+                <button style="width:100%; height: 38px;" id="authentication" type="button">휴대폰 번호로 인증번호 전송</button>
                 </div>
                 <br>
-                <div class="form-group row">
+                <div class="form-group row" style="display: none;" id="phoneNumberInput">
                   <label class="col-sm-3 col-form-label" for="tutorPwd">인증번호</label>
                   <div class="col-sm-12 form-inline" >
-                    <input class="form-control"style="width: 440px;" type="text" placeholder="인증번호를 입력하세요">
-                    <button style="margin-left: 20px; height: 36px;">인증번호확인</button>
+                    <input class="form-control"style="width: 440px;" type="text" placeholder="인증번호를 입력하세요"  id="checkNum">
+                    <button style="margin-left: 20px; height: 36px;" type="button" id="authenticationCheck" value="0">인증번호확인</button>
                   </div>
                 </div><br><br>
                 <div class="form-group row">
                   <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                    <button style="width:100%; height: 38px;" type="button" class="btn btn-primary" onclick="location.href='t_findPWDsetting.html'">비밀번호 재설정하러 가기</button>
+                    <button style="width:100%; height: 38px;" type="submit" class="btn btn-primary" onclick="location.href='t_findPWDsetting.html'">비밀번호 재설정하러 가기</button>
                   </div>
                 </div>
-              </form>
             </div>
+           </form>
           </div>
         </div>
       </div>
-      
+      <script>
+      //본인인증
+        // $("#authentication").click(function(){
+        //   let tutorId = document.getElementById("tutorId").value;
+        //   let phoneNumber = document.getElementById("phoneNumber").value;
+        //   if(tutorId.length < 1 || phoneNumber.length <1 ){
+        //     alert(" 정보를 정확히 입력해주세요")
+        //     return;
+        //   }
+        //   $.ajax({
+        //     url: "${ pageContext.servletContext.contextPath }/teacher/certification",
+        //     type:"post",
+        //     data: {
+        //             type : "pwd",
+        //             phoneNumber : phoneNumber,
+        //             id : tutorId
+        //           }, 
+        //     success:function(data, textStatus, xhr){
+
+        //       if(data == "no"){
+        //         alert("인증번호 전송에 실패했습니다. 입력한 정보를 확인해주세요."); 
+        //       } else {
+        //         alert("인증번호 전송에 성공했습니다.")
+        //         document.getElementById("phoneNumberInput").style.display=""; 
+        //       }
+        //     },error:function(xhr, status, error){
+        //       console.log(error);
+        //     }
+        //   });
+        // });
+      </script>
+      <script>
+        // $("#authenticationCheck").click(function(){
+        //   let checkNum = document.getElementById("checkNum").value;
+        //   if(checkNum == "" || checkNum.length != 6){
+        //     alert("인증번호 6자리를 입력해주세요.");
+        //     return;
+        //   }
+        //   document.getElementById("authentication").value = Number(document.getElementById("authentication").value)+1;
+        //   let checkCount = document.getElementById("authentication").value;
+        //   $.ajax({
+        //     url : "${ pageContext.servletContext.contextPath }/teacher/messageCertification",
+        //     type : "post",
+        //     data : {
+        //     	     checkNum : checkNum,
+        //     	     checkCount : checkCount
+        //     	    },
+        //     success:function(data, textStatus, xhr){
+        //       switch(data){
+        //         case "초과" : alert("실패횟수 5회 초과. 인증번호를 재요청 해주세요."); break;
+        //         case "불일치" : alert("인증번호와 일치하지 않습니다.\n인증번호를 확인해주세요\n" + checkCount + " / 5회\n(5회초과시 인증번호를 다시 요청해야 합니다.)");break;
+        //         case "일치" : alert("인증번호와 일치합니다");
+        //                       document.getElementById("authenticationCheck").value=1;
+        //                       document.getElementById("authentication").disabled = true;
+        //                       document.getElementById("authenticationCheck").disabled = true;break;
+        //       }
+        //     },error:function(xhr, status, error){
+        //     }
+        //   });
+        //  });
+        </script>
+      <script>
+        function checkAuthentication(){
+          alert("인증번호 풀고 주석풀기")
+          return true;
+          // if(document.getElementById("authenticationCheck").value != 1){
+          //   alert("휴대폰번호 인증 해주세요");
+          //   return false;
+          // } else {
+          //   return true;
+          // }
+        }
+      </script>
       <!-- footer -->
       <footer class="bg-dark text-white">
         <div class="container py-4">

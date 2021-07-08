@@ -99,4 +99,23 @@
              , 'T'
              )
 	</insert>
+	<select id="selectExistingInfo" parameterType="map" resultMap="teacherInfoResult">
+	    SELECT
+	           A.TE_NO
+	         , A.TE_ID
+	         , A.TE_PWD
+	      FROM TEACHER_INFO A
+	      WHERE A.TE_PHONE = #{ phoneNumber } 
+	      <if test='type == "id"'>
+	        AND A.TE_NAME = #{ name }
+	      </if>
+	      <if test='type == "pwd"'>
+	        AND A.TE_ID = #{ id  }
+	      </if>
+	</select>
+	<update id="modifyTeacherPwd" parameterType="TeacherInfoDTO">
+        UPDATE TEACHER_INFO
+           SET TE_PWD = #{ teacherPwd }
+         WHERE TE_NO = #{ teacherNo }	
+	</update>
 </mapper>

@@ -1,5 +1,7 @@
 package com.tig.wdc.teacher.model.dao;
 
+import java.util.Map;
+
 import com.tig.wdc.model.dto.TeacherInfoDTO;
 
 /**
@@ -31,4 +33,10 @@ public interface TeacherInfoMapper {
 	
 	//강사 회원가입
 	int registTeacher(TeacherInfoDTO registInfo);
+
+	//강사 기본정보 확인
+	TeacherInfoDTO selectExistingInfo(Map<String, String> result);
+
+	//비밀번호 재설정
+	int modifyTeacherPwd(TeacherInfoDTO info);
 }

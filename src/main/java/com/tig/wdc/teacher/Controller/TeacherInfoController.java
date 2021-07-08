@@ -86,16 +86,14 @@ public class TeacherInfoController {
 		if (teacherInfo == null) {
 
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
-//        암호화 후 적용
-//		} else if(!passwordEncoder.matches(loginInfo.getTeacherPwd(), teacherInfo.getTeacherPwd())) {
-		} else if (!loginInfo.getTeacherPwd().equals(teacherInfo.getTeacherPwd())) {
+//        암호화 전 
+//		} else if (!loginInfo.getTeacherPwd().equals(teacherInfo.getTeacherPwd())) {
+		} else if(!passwordEncoder.matches(loginInfo.getTeacherPwd(), teacherInfo.getTeacherPwd())) {
 
-			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+			rttr.addFlashAttribute("mwessage", "비밀번호가 일치하지 않습니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherQuitStatus())) {
-			System.out.println("해승 수정수정");
 			rttr.addFlashAttribute("message", "탈퇴된 아이디입니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherBlockStatus())) {
-
 			rttr.addFlashAttribute("message", "신고에 의해 차단된 아이디입니다. 관리자에게 문의하세요");
 		} else {
 
@@ -208,7 +206,22 @@ public class TeacherInfoController {
 	@PostMapping(value="certification",produces ="application/json; charset=UTF-8")
 	@ResponseBody 
 	public String teacherCertification(HttpSession session, @RequestParam Map<String,String> result) {
-
+	
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls().disableHtmlEscaping().create();
+	    String returnMessage = "";
+		
+	    if(result.get("type").equals("id")) {
+			
+	    	if(infoService.selectExistingInfo(result) == null) {
+	    		returnMessage = "no";
+	    		return gson.toJson(returnMessage);
+	    	} 	
+		} else if(result.get("type").equals("pwd")) {
+	    	if(infoService.selectExistingInfo(result) == null) {
+	    		returnMessage = "no";
+	    		return gson.toJson(returnMessage);
+	    	} 
+		}
 		String api_key = "NCSAX4RAHGBBXBIW"; 
 		String api_secret =	"YOW3G0YEJU6PSDLB8PTB88A1SABBHLUE"; 
 		int certificationNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
@@ -228,12 +241,6 @@ public class TeacherInfoController {
 	    //인증내용 세션에 담기
 	    session.setAttribute("certificationNum", certificationNum);
 
-		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls()
-				.disableHtmlEscaping().create();
-	    
-	    String returnMessage = "";
-	    
-	    
 	    try {
 	      JSONObject obj = (JSONObject) coolsms.send(params);
 	      System.out.println(obj.toString());
@@ -296,6 +303,70 @@ public class TeacherInfoController {
 		}
 
 		return "teacher/teacherInfo/t_login";
-
 	}
+	
+	/**
+	 * 아이디 찾기 화면이동
+	 * @return
+	 */
+	@GetMapping("findId")
+	public String moveFindIdPage() {
+		return "teacher/teacherInfo/t_findID";
+	}
+	
+	/**
+	 * 아이디 찾기
+	 * @param findId
+	 * @return
+	 */
+	@PostMapping(value="idFind",produces ="application/json; charset=UTF-8")
+	@ResponseBody 
+	public String idFind(@RequestParam Map<String,String> findId) {
+		
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls().disableHtmlEscaping().create();
+		
+		return gson.toJson(infoService.selectExistingInfo(findId).getTeacherId());
+	}
+	/**
+	 * 비밀번호 찾기 화면으로 이동
+	 * @return
+	 */
+	@GetMapping("findPWD")
+	public String moveFindPwdPage() {
+		return "teacher/teacherInfo/t_findPWD";
+	}
+	
+	/**
+	 * 비밀번호 찾기 
+	 * @param model
+	 * @param info
+	 * @return 비밀번호 설정 화면으로 이동
+	 */
+	@PostMapping("setNewPwdPage")
+	public String movePwdSettingPage(Model model,@RequestParam Map<String, String> info) {
+		info.put("type", "pwd");
+		model.addAttribute("teacherNo", infoService.selectExistingInfo(info).getTeacherNo());
+		
+		return "teacher/teacherInfo/t_findPWDsetting";
+		
+	}
+	
+	/**
+	 * 새비밀번호 설정
+	 * @param rttr 
+	 * @param info
+	 * @return
+	 */
+	@PostMapping("settingNewPwd")
+	public String settingNewPwd(RedirectAttributes rttr, @ModelAttribute TeacherInfoDTO info) {
+		System.out.println("변경전 : " + info);
+		info.setTeacherPwd(passwordEncoder.encode(info.getTeacherPwd()));
+		System.out.println("변경후 " + info);
+		int result = infoService.modifyTeacherPwd(info);
+		rttr.addFlashAttribute("message", "비밀번호가 정상적으로 변경되었습니다.");
+		
+		return "redirect:/teacher";
+	}
+	
+	
 }
