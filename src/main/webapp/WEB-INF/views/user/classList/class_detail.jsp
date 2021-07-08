@@ -504,9 +504,11 @@ i {
 		            	클래스가 오픈되도록 응원해주세요.&nbsp;&nbsp;&nbsp;&nbsp;
 		            	응원한 클래스가 오픈되면 <b>할인 쿠폰</b>까지!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		           		<li class="list-inline-item m-0 p-0">
-							<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-								<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>클래스 응원하기 
-							</button>
+                     <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
+			                               응원하기 
+                           <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
+                           <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>                           
+                     </button>
 						</li>
 					</div>
 	            </c:if>
@@ -780,6 +782,43 @@ i {
             </div>
          </div>
       </section>
+			<script>
+				$("#cheerUp").click(function(){
+					
+			        
+			        if (confirm('응원 하시겠습니까? ')){
+			             // Yes click
+			        const clsNo = document.getElementById('clsNo').value;
+ 			        $.ajax({
+			               url:"${pageContext.servletContext.contextPath}/user/cheerUp",
+			               type:"post",
+			               data:{
+			            	  clsNo : clsNo			
+			               },
+			               success:function(data, textStatus, xhr){
+			            	   if(data == '0'){
+			            		   alert("이미 응원하신 클래스 입니다");
+			            	   }else if(data == '1'){
+			            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
+							  	   location.reload();
+			            	   }else if(data == '2'){
+			            		   alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
+			            	   }
+			               },
+			               error:function(xhr,status,error){
+			                  console.log(error);
+			               }
+			        	});  
+			             
+			        } else {
+						return;
+			        } 
+			        
+			         return;
+			        });
+				
+			</script>
+				
       <br>
       <br>
       <br>

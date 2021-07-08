@@ -204,7 +204,7 @@
 	                        <form action="${ pageContext.servletContext.contextPath }/user/userRefund" style="display: flex;" method="post">
 	                      <button class="btn btn-dark" type="submit" style="display: flex;">구매 취소하기</button>
 	                      <c:choose>
-                          	<c:when test="${ !empty requestScope.scheduleDetailUserClassDTO.scheduleDate }">
+                          	<c:when test="${ requestScope.scheduleDetailUserClassDTO.clsType eq 'O'}">
                           		<input type="hidden" name="scheduleDate" value="${ requestScope.scheduleDetailUserClassDTO.scheduleDate }">
                           	</c:when>
                           </c:choose>

@@ -143,7 +143,7 @@
                         [정규] ${rClassList.title}
                       </a>
                       </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${rClassList.price}" pattern="#,###"/> 원 / ${rClassList.clsPplAmount}명</p>
+                      <p class="small text-muted"><fmt:formatNumber value="${rClassList.payPrice}" pattern="#,###"/> 원 / ${rClassList.clsPplAmount}명</p>
                     </div>
                   </div>
                   </c:forEach>

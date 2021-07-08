@@ -301,15 +301,18 @@ public class UserClassDetailController {
 		System.out.println("cpnNo : " + cpnNo);
 		
 		// 0.1. 쿠폰 넘버로 유저 넘버를 조회해서 쿠폰넘버가 0이면 업데이트 X, 유저 올 쿠폰에 인서트
-		int cpnUserNo = classService.selectUserCpnNo(cpnNo);
 		UserCouponDTO forInsertAllUserCouponDTO  =  new UserCouponDTO();
-		forInsertAllUserCouponDTO.setUserNo(userNo);
-		forInsertAllUserCouponDTO.setCpnNo(cpnNo);
-		
-		if(cpnUserNo == 0) {
-			int result =  classService.insertAllUserCoupon(forInsertAllUserCouponDTO);
-		}else if (cpnNo != 0) {
-			int updateResult = classService.updateCpnUseYn(cpnNo);
+		if(cpnNo != 0) {
+			int cpnUserNo = classService.selectUserCpnNo(cpnNo);
+			
+			forInsertAllUserCouponDTO.setUserNo(userNo);
+			forInsertAllUserCouponDTO.setCpnNo(cpnNo);
+			
+			if(cpnUserNo == 0) {
+				int result =  classService.insertAllUserCoupon(forInsertAllUserCouponDTO);
+			}else if (cpnNo != 0 && cpnUserNo != 0) {
+				int updateResult = classService.updateCpnUseYn(cpnNo);
+			}
 		}
 
 		// 1. 클래스 어플라이 인서트
@@ -441,6 +444,7 @@ public class UserClassDetailController {
 		// 유저넘버로 유저 정보 조회
 		UserInfoDTO userDTO = new UserInfoDTO();
 		userDTO = infoService.selectUser(userNo);
+		System.out.println("userDTO : " + userDTO);
 		
 		// 스케줄 넘버로 환불금액 계산
 		// 1. 스케줄 넘버로 맥스스텝, 총 회차수 계산
@@ -448,7 +452,7 @@ public class UserClassDetailController {
 		if(userClassDTO.getClsType().equals("R")) {
 			userRefundDTO = classService.selectRefundAmount(userClassDTO.getScheduleNo(),userClassDTO.getPayPrice());
 		}
-		
+		System.out.println("userRefundDTO : " + userRefundDTO);
 		model.addAttribute("userRefundDTO",userRefundDTO);
 		model.addAttribute("userClassDTO",userClassDTO);
 		model.addAttribute("userDTO",userDTO);

@@ -93,6 +93,8 @@ public interface UserClassMapper {
 
 	public int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
 
+	public int selectClassProgressCount(int scheduleNo);
+
 
 
 

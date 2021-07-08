@@ -394,12 +394,14 @@ String strDate = formats.format(now); %>
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold">총 환불금액</strong>
                       <span><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span>
+                      <input type="hidden" value="${ requestScope.userClassDTO.payPrice }" name="refundAmount">
                       </li>
                       </c:if>
                       <c:if test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate >= cDate }">
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold">총 환불금액</strong>
                       <span><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span>
+                      <input type="hidden" value="${ requestScope.userClassDTO.payPrice }" name="refundAmount">
                       </li>
                       </c:if>
                       <c:if test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate < cDate }">
