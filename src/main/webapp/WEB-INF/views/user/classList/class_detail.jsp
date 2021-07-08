@@ -208,6 +208,13 @@ i {
   border: none !important;
   color: black !important;
 }
+
+.oneDayPeople{
+	border: 0px;
+    color:#64bcff;
+    width: 120px;
+    font-weight: 600;
+}
 </style>
 </head>
 <body>
@@ -245,6 +252,7 @@ i {
       
 	  <%@include file="../commons/search.jsp" %>
 	  
+	  <form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
 		<section class="py-5">
 			<div class="container">
 				<div class="row mb-5">
@@ -294,7 +302,7 @@ i {
 						<input type="hidden" name="price" value="${ requestScope.classDetail.price }"/>
 						<ul class="list-unstyled small d-inline-block"
 							style="font-size: 16px; display: flex !important; padding-top: 15px;">
-							<div class="class-icon">
+							<div class="class-icon" style="width: 235px;">
 								<div>
 									<img src="${pageContext.servletContext.contextPath }/resources/user/img/calendar.png" width="20px">&nbsp;&nbsp;
 									<c:if test="${ requestScope.classDetail.clsType == 'R' }">
@@ -309,7 +317,7 @@ i {
 									<img src="${pageContext.servletContext.contextPath }/resources/user/img/pin.png" width="22px">&nbsp;&nbsp;${ requestScope.classDetail.address }
 								</div>
 							</div>
-							<div class="class-icon" style="padding-inline: 30px;">
+							<div class="class-icon" style="padding-inline: 10px; width: 200px;">
 								<div>
 									<img src="${pageContext.servletContext.contextPath }/resources/user/img/clock.png" width="20px">&nbsp;&nbsp;${ requestScope.classDetail.time } 소요
 								</div>
@@ -320,14 +328,12 @@ i {
 											최대 ${ schedule.maxPeople } 명
 										</c:forEach>
 									</c:if>
-									<c:set var="loop_flag" value="false" />
 									<c:if test="${ requestScope.classDetail.clsType == 'O' }">
-										최대  명
-										<c:set var="loop_flag" value="true" />
+										최대   ${ requestScope.oneDayMax }명
 									</c:if>
 								</div>
 							</div>
-							<div class="class-icon" style="padding-inline: 30px;">
+							<div class="class-icon" style="padding-inline: 10px;">
 								<div>
 									<li class="list-inline-item m-0 p-0"><a
 										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
@@ -338,28 +344,69 @@ i {
 								</div>
 							</div>
 						</ul>
-					</div>
-				</div>
-
-			<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
+			
 				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
 					<c:if test="${ requestScope.classDetail.clsType == 'O' }">
-						<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+						<div style="background-color: white; width: 500px; height: 220px; border-radius: 50px; padding-top: 22px;">
 							<!-- 날짜, 시간 선택 -->
-							<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-							&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-							<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-							&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<li class="list-inline-item m-0 p-0">
-								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
-									<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
-								</button>
-							</li>
+							<div style="margin-left: 90px;">
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" readonly>&nbsp;&nbsp;
+ 								<input type="text" id="applyCheck" class="oneDayPeople" readonly>
+ 							</div>
+							<br>
+							<div style="margin-left: 90px; margin-top: -5px;">
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+								&nbsp;&nbsp;<input type="number" class="datetimepicker" id="checkPpl" name="ppl" max="4" min="1">
+							</div>
+							<br><br>
+							<div style="margin-left: 155px; margin-top: -15px;">
+								<li class="list-inline-item m-0 p-0">
+									<c:if test="${ !empty sessionScope.userNo }">
+										<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+											<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+											<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+										</button>								
+									</c:if>
+									<c:if test="${ empty sessionScope.userNo }">
+										<button class="btn btn-sm btn-outline-dark" id="btnSave" type="button" onclick="noApply();" style="height: 40px; width: 170px; font-size: 16px;"> 
+											<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+											<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+										</button>
+											
+									</c:if>
+									<script>
+										function noApply() {
+											alert("우리 동네 클래스 회원만 신청이 가능합니다.");
+											return false;
+										}
+										
+										$("#btnSave").click(function(){
+
+											if($("#datetimepicker").val().length == 0){
+												alert("클래스 일정을 선택해주세요.");
+												return false;
+											} 
+										    
+											var zreoTime = document.getElementById("datetimepicker").value;
+											
+										    if(zreoTime.substr(11, 5) == "00:00"){
+												alert("클래스 일정을 다시 선택해주세요.");
+												return false;
+											} 
+										    
+										    if($("#checkPpl").val().length == 0){
+												alert("인원을 입력해주세요.");
+												return false;
+											} 
+										    
+										});
+									</script>
+								</li>
+							</div>
 						</div>
 			            <script>
-			            	$("#num123").on("mouseenter",function(e){
-			            		//2021-07-07 10:00 
+			            	$("#applyCheck").on("mouseenter",function(e){
 			            		//클래스번호, 스케쥴번호, 날짜, 시간넘기기 
 			            		//두번째 에이작스
 	                       		var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
@@ -373,7 +420,20 @@ i {
 			                        		clsNo : ${ requestScope.classDetail.clsNo }
 			                        },
 			                        success:function(data, textStatus, xhr){
-				                        $("#num123").val(data);
+				                        //$("#applyCheck").val(data); //인원선택칸에 가져온 수강 가능인원 값을 넣어줌
+				                        document.getElementById("applyCheck").value = "(" + data + " 명 가능)" ;
+				                        
+				                        if($("#checkPpl").value > data){
+				                        	alert("수강 가능 인원을 초과하였습니다.");
+											return false;
+				                        }
+				                        
+				                        if(data == 4){
+				                        	document.getElementById("checkPpl").value = 0;
+				                        	document.getElementById("checkPpl").setAttribute("readonly","readonly");
+				                        	document.getElementById("btnSave").setAttribute("type","button");
+				                        	document.getElementById("btnSave").value = "신청 마감";
+				                        }
 			                        },
 			                        error:function(xhr,status,error){
 			                            console.log(error);
@@ -391,32 +451,6 @@ i {
 				              days.push("${schedule.scheduleDate}");
 			               </c:forEach>
 			               
-			              /*  time11 = new Array();
-			               $(document).ready(function(){
-			            	   let dayValues = days;
-				               let today = new Date();
-				               console.log("날짜: "+ today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate());
-				               cToday = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
-				               $.ajax({
-				            	  url: "dateTimePicker",
-				            	  type:"post",
-				            	  data: { date :cToday , clsNo : ${ requestScope.classDetail.clsNo } },
-				            	  success:function(data, textStatus, xhr){
-				            		  let tArr = new Array(); 
-				            		  for(var idx in data){
-				            			  tArr.push(data[idx].scheduleStart);
-				            		  }
-				            		  
-				            		  console.log("tArr : " + tArr);
-				            		  timeValues = tArr;
-				            		  console.log("timeValues : " + time11);
-				            	  },
-			                      error:function(xhr,status,error){
-			                         console.log(error);
-			                      }
-				               });
-			               }); */
-		
 			               jQuery('#datetimepicker').datetimepicker({               
 			                  datepicker : true,
 			                  timepicker : true,
@@ -486,42 +520,96 @@ i {
 			    	</c:if>
 			    	
 			    	<c:if test="${ requestScope.classDetail.clsType == 'R' }">
-			    		<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+			    		<div style="background-color: white; width: 500px; height: 220px; border-radius: 50px; padding-top: 22px;">
 							<!-- 날짜, 시간 선택 -->
 							<c:forEach var="schedule" items="${ requestScope.schedule }">
-								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.applyCheck } 명 수강 가능 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-								<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-								&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<div style="margin-left: 90px;">
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+									&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }" readonly>&nbsp;&nbsp; 
+									<b style="color:#64bcff;">(${ requestScope.applyCheck } 명 가능)</b>
+								</div>
+								<br>
+								<div style="margin-left: 90px; margin-top: -5px;">
+									<c:if test="${ requestScope.applyCheck <= 0 }">
+										<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+										&nbsp;&nbsp;<input type="number" class="datetimepicker" id="applyPeople" name="ppl" value="0" readonly>
+									</c:if>
+									<c:if test="${ requestScope.applyCheck > 0 }">
+										<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+										&nbsp;&nbsp;<input type="number" class="datetimepicker" id="applyPeople" name="ppl" max="4" min="1">
+									</c:if>
+								</div>
+								<br><br>
 							</c:forEach>
-							<li class="list-inline-item m-0 p-0">
-								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
-								</button>
-							</li>
+							<div style="margin-left: 155px; margin-top: -15px;">
+								<li class="list-inline-item m-0 p-0">
+									<c:if test="${ !empty sessionScope.userNo }">
+										<c:if test="${ requestScope.applyCheck <= 0 }">
+											<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
+												<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청 마감
+												<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+											</button>	
+										</c:if>							
+										<c:if test="${ requestScope.applyCheck > 0 }">
+											<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+												<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기
+												<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+											</button>	
+										</c:if>							
+									</c:if>
+									<c:if test="${ empty sessionScope.userNo }">
+										<c:if test="${ requestScope.applyCheck <= 0 }">
+											<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" onclick="noApply();" style="height: 40px; width: 170px; font-size: 16px;"> 
+												<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청 마감
+												<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+											</button>
+										</c:if>		
+										<c:if test="${ requestScope.applyCheck > 0 }">
+											<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" onclick="noApply();" style="height: 40px; width: 170px; font-size: 16px;"> 
+												<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+												<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+											</button>
+										</c:if>		
+									</c:if>
+									<script>
+										function noApply() {
+											alert("우리 동네 클래스 회원만 신청이 가능합니다.");
+										}
+										
+										$("#btnSave").click(function(){
+										    
+										    if($("#applyPeople").val().length == 0){
+												alert("인원을 입력해주세요.");
+												return false;
+											} 
+										    
+									 	    if($("#applyPeople").val() > ${ requestScope.applyCheck } ){
+												alert("수강 가능 인원을 초과하였습니다.");
+												return false;
+											}
+										});
+									</script>
+								</li>
+							</div>
 						</div>
 			    	</c:if>
 	            </c:if>
-	            </form>
+	            </div>
+				</div>
+				</form>
 	       
 	            <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
 		            <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 		            	클래스가 오픈되도록 응원해주세요.&nbsp;&nbsp;&nbsp;&nbsp;
 		            	응원한 클래스가 오픈되면 <b>할인 쿠폰</b>까지!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		           		<li class="list-inline-item m-0 p-0">
-                     <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
-			                               응원하기 
-                           <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
-                           <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>                           
-                     </button>
+	                     <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 
+	                         <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
+	                     </button>
 						</li>
 					</div>
 	            </c:if>
 
-            <br>
-            <br>
             <br>
             <!-- DETAILS TABS-->
             <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
@@ -612,7 +700,7 @@ i {
 									<br>
 									<!-- 지도 보기 -->
 									<div id="map" style="width:100%;height:400px;"></div>
-									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a34c5273c140d2e488e6342d6fddf219&libraries=services"></script>
+									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f9c32f3d7241ef20de4f8c2703db2c7&libraries=services"></script>
 									<script>
 									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 									    mapOption = {
@@ -644,7 +732,7 @@ i {
 									
 									        // 인포윈도우로 장소에 대한 설명을 표시합니다
 									        var infowindow = new kakao.maps.InfoWindow({
-									            content: '<div style="width:150px;text-align:center;padding:6px 0;">우동클</div>'
+									            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 동네 클래스</div>'
 									        });
 									        infowindow.open(map, marker);
 									
@@ -653,11 +741,6 @@ i {
 									    } 
 									});    
 									</script>
-									<div style="display: block; text-align: center;">
-										<br>
-										<br> <img
-											src="${pageContext.servletContext.contextPath }/resources/user/img/화면 캡처 2021-06-23 011233.png">
-									</div>
 								</div>
 							</ul>
 						</div>
