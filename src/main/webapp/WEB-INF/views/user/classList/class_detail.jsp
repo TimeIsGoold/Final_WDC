@@ -245,7 +245,6 @@ i {
       
 	  <%@include file="../commons/search.jsp" %>
 	  
-	  <form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
 		<section class="py-5">
 			<div class="container">
 				<div class="row mb-5">
@@ -315,7 +314,10 @@ i {
 									<img src="${pageContext.servletContext.contextPath }/resources/user/img/clock.png" width="20px">&nbsp;&nbsp;${ requestScope.classDetail.time } 소요
 								</div>
 								<div style="padding-top: 15px">
-									<img src="${pageContext.servletContext.contextPath }/resources/user/img/users.png" width="20px">&nbsp;&nbsp;최대 4명
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/users.png" width="20px">&nbsp;&nbsp;
+									<c:forEach var="schedule" items="${ requestScope.schedule }">
+										최대 ${ schedule.maxPeople } 명
+									</c:forEach>
 								</div>
 							</div>
 							<div class="class-icon" style="padding-inline: 30px;">
@@ -332,6 +334,7 @@ i {
 					</div>
 				</div>
 
+			<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
 				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
 					<c:if test="${ requestScope.classDetail.clsType == 'O' }">
 						<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
@@ -346,7 +349,6 @@ i {
 								</button>
 							</li>
 						</div>
-						</form>
 			            <script>
 			            	$("#num123").on("mouseenter",function(e){
 			            		//2021-07-07 10:00 
@@ -481,9 +483,10 @@ i {
 							<c:forEach var="schedule" items="${ requestScope.schedule }">
 								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
 								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.applyCheck } 명 수강 가능 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 								<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
 								&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<div>남은 인원 : ${ schedule.maxPeople }</div>
 							</c:forEach>
 							<li class="list-inline-item m-0 p-0">
 								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
@@ -493,6 +496,7 @@ i {
 						</div>
 			    	</c:if>
 	            </c:if>
+	            </form>
 	            
 	            <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
 		            <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
@@ -509,7 +513,7 @@ i {
 				<br>
 				<br>
 				<br>
-				<!-- DETAILS TABS-->
+				<!-- DETAILS TABS -->
 				<ul class="nav nav-tabs border-0" id="myTab" role="tablist">
 					<li class="nav-item"><a class="nav-link active"
 						id="description-tab" data-toggle="tab" href="#description"
@@ -595,7 +599,50 @@ i {
 										<div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
 											와이파이 가능합니다.</div>
 									</div>
+									<br>
 									<!-- 지도 보기 -->
+									<div id="map" style="width:100%;height:400px;"></div>
+									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a34c5273c140d2e488e6342d6fddf219&libraries=services"></script>
+									<script>
+									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+									    mapOption = {
+									        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+									        level: 3 // 지도의 확대 레벨
+									    };  
+									
+									// 지도를 생성합니다    
+									var map = new kakao.maps.Map(mapContainer, mapOption); 
+									
+									// 주소-좌표 변환 객체를 생성합니다
+									var geocoder = new kakao.maps.services.Geocoder();
+									
+									//주소 저장
+									var classAdress = '${ requestScope.classDetail.address }';
+									// 주소로 좌표를 검색합니다
+									geocoder.addressSearch(classAdress, function(result, status) {
+									
+									    // 정상적으로 검색이 완료됐으면 
+									     if (status === kakao.maps.services.Status.OK) {
+											
+									        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+									
+									        // 결과값으로 받은 위치를 마커로 표시합니다
+									        var marker = new kakao.maps.Marker({
+									            map: map,
+									            position: coords
+									        });
+									
+									        // 인포윈도우로 장소에 대한 설명을 표시합니다
+									        var infowindow = new kakao.maps.InfoWindow({
+									            content: '<div style="width:150px;text-align:center;padding:6px 0;">우동클</div>'
+									        });
+									        infowindow.open(map, marker);
+									
+									        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+									        map.setCenter(coords);
+									    } 
+									});    
+									</script>
 									<div style="display: block; text-align: center;">
 										<br>
 										<br> <img
@@ -663,21 +710,18 @@ i {
 				</div>
 
 					<!-- 문의 탭 -->
-					<div class="tab-pane fade" id="questions" role="tabpanel"
-						aria-labelledby="reviews-tab">
+					<div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="reviews-tab">
 						<div class="p-4 p-lg-5 bg-white">
-							<button onclick="inquiryWrite1();" type="button" class="btn btn-dark"
-								style="margin-left: 88%; width: 112px; font-size: 15px;">문의
-								작성</button>
-							<div id="inquiryWrite"
-								style="width: 200px; height: 180px; display: none; margin-left: -100px;">
-									<textarea class="feedbackArea"
-										style="font-size: 15px; border-color: lightgray"
-										placeholder="문의 사항을 작성해 주세요."></textarea>
-								<form action="">
-									<button class="btn btn-dark" type="submit"
-										style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성
-									</button>
+							<c:if test="${ !empty sessionScope.userNo }">
+								<button onclick="inquiryWrite1();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">문의 작성</button>
+							</c:if>
+							<c:if test="${ empty sessionScope.userNo }">
+								<button onclick="noWrite();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">문의 작성</button>
+							</c:if>
+							<div id="inquiryWrite" style="width: 200px; height: 180px; display: none; margin-left: -100px;">
+								<form action="${ pageContext.servletContext.contextPath }/user/inquiry/${ requestScope.classDetail.clsNo }" method="post">
+									<textarea class="feedbackArea" name="queContent" style="font-size: 15px; border-color: lightgray" placeholder="문의 사항을 작성해 주세요."></textarea>
+									<button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성</button>
 								</form>
 							</div>
 
@@ -690,6 +734,10 @@ i {
 											.getElementById("inquiryWrite").style.display == "block") {
 										document.getElementById("inquiryWrite").style.display = "none";
 									}
+								}
+								
+								function noWrite() {
+									alert("우리 동네 클래스 회원만 문의 작성이 가능합니다.");
 								}
 							</script>
 

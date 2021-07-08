@@ -188,7 +188,6 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.insertInquiry(userInquiryDTO);
 	}
 
-
 	@Override
 	public List<UserClassDTO> selectMyCheerClassList(int userNo) {
 		return mapper.selectMyCheerClassList(userNo);
@@ -224,8 +223,8 @@ public class UserClassServiceImpl implements UserClassService{
 	}
 
 	@Override
-	public ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule) {
-		return mapper.selectAplyPeople(regularSchedule);
+	public ScheduleDTO selectApplyPeople(ScheduleDTO regularSchedule) {
+		return mapper.selectApplyPeople(regularSchedule);
 	}
 
 

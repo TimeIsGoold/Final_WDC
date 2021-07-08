@@ -85,7 +85,7 @@ public interface UserClassMapper {
 
 	public ScheduleDTO selectRegularSchedule(int clsNo);
 
-	public ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule);
+	public ScheduleDTO selectApplyPeople(ScheduleDTO regularSchedule);
 
 
 
