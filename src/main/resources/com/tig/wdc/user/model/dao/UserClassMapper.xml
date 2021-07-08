@@ -214,23 +214,18 @@
     	   AND A.SCHEDULE_NO = #{ scheduleNo }
     </select>
     
-    <select id="selectRegularSchedule" parameterType="_int" resultType="ScheduleDTO">
+    <select id="selectRegularSchedule" parameterType="_int" resultMap="ScheduleResult">
 		SELECT 
 		       * 
 		  FROM SCHEDULE S
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
     
-    <select id="selectAplyPeople" parameterType="ScheduleDTO" resultType="ScheduleDTO">
+    <select id="selectApplyPeople" parameterType="ScheduleDTO" resultMap="ScheduleResult">
         SELECT 
-		       SUM(A.CLS_PPL) AS SUM_PPL
-		  FROM SCHEDULE S
-          JOIN CLASS_APPLY A ON (S.SCHEDULE_NO = A.SCHEDULE_NO)
-          JOIN CLASS C ON (C.CLS_NO = S.CLS_NO)
-         WHERE S.SCHEDULE_DATE = #{ scheduleDate }
-           AND S.SCHEDULE_START = #{ scheduleStart }
-           AND C.CLS_NO = #{ clsNo }
-         GROUP BY A.SCHEDULE_NO
+		       SUM(A.CLS_PPL) AS SUM_PPL 
+		  FROM CLASS_APPLY A
+		 WHERE A.SCHEDULE_NO = #{ scheduleNo }
     </select>
     
     <resultMap type="UserInquiryDTO" id="InquiryResult">

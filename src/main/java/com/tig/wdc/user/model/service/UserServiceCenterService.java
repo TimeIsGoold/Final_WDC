@@ -34,6 +34,8 @@ public interface UserServiceCenterService {
 
 	int insertInquiry(UserInquiryDTO userInquiryDTO);
 
+	int inquiryHistory(UserInquiryDTO userInquiryDTO);
+
 
 
 

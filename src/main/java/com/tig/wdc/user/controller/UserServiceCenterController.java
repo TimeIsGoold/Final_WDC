@@ -122,6 +122,7 @@ public class UserServiceCenterController {
 		userInquiryDTO.setUserNo(userNo);
 		
 		int inquiryWrite = serviceCenter.insertInquiry(userInquiryDTO);
+		int inquiryHistory = serviceCenter.inquiryHistory(userInquiryDTO);
 		
 		return "redirect:/user/serviceCenter/inquiry";
 	}

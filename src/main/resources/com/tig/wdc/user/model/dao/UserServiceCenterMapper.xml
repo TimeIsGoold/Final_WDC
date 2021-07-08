@@ -110,6 +110,21 @@
 		)
 	</insert>
 	
+	<insert id="inquiryHistory" parameterType="UserInquiryDTO">
+		<selectKey keyProperty="queNo" resultType="_int" order="BEFORE">
+			SELECT
+        		   SEQ_Q_NO.CURRVAL
+			  FROM DUAL
+	 	</selectKey>
+		INSERT 
+		  INTO USER_TO_ADMIN_Q
+		VALUES
+		(
+		  #{ userNo }
+		, #{ queNo }
+		)
+	</insert>
+	
 	<resultMap type="UserReportDTO" id="ReportResult">
 		<id column="REPORT_NO" property="reportNo"/>
 		<result column="REPORT_TITLE" property="reportTitle"/>

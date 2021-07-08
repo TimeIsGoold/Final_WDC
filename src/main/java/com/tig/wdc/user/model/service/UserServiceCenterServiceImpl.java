@@ -81,5 +81,10 @@ public class UserServiceCenterServiceImpl implements UserServiceCenterService{
 		return mapper.insertInquiry(userInquiryDTO);
 	}
 
+	@Override
+	public int inquiryHistory(UserInquiryDTO userInquiryDTO) {
+		return mapper.inquiryHistory(userInquiryDTO);
+	}
+
 
 }

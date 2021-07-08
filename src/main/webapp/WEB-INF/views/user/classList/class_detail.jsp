@@ -243,272 +243,273 @@ i {
         </div>
       </header>
       
-     <%@include file="../commons/search.jsp" %>
-     
-     <form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
-      <section class="py-5">
-         <div class="container">
-            <div class="row mb-5">
-               <div class="col-lg-6">
-                  <!-- PRODUCT SLIDER-->
-                  <div class="row m-sm-0">
-                     <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
-                        <div class="owl-thumbs d-flex flex-row flex-sm-column"
-                           data-slider-id="1">
-                           <c:forEach var="classPic" items="${ requestScope.classPic }">
-                           <c:set var="i" value="${i+1}"></c:set>
-                              <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
-                                 <img class="w-100" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
-                                 <input type="hidden" name="titlePic${i}" value="${ classPic.titlePic }"/>
-                              </div>
-                           </c:forEach>
-                        </div>
-                     </div>
-                     <div class="col-sm-10 order-1 order-sm-2">
-                        <div class="owl-carousel product-slider" data-slider-id="1">
-                           <c:forEach var="classPic" items="${ requestScope.classPic }">
-                              <c:set value="${ i+1 }" var="i" ></c:set>
-                              <a class="d-block" href="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }"
-                                 data-lightbox="product" title="Product item ${i}"> <img
-                                 class="img-fluid" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
-                              </a> 
-                           </c:forEach>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- PRODUCT DETAILS-->
-               <div class="col-lg-6">
-               
-                  <!-- 별점 평균 -->
-                  <ul class="list-inline mb-2">
-                     <c:forEach var="i" begin="1" end="${ requestScope.classStar.avgScore }" step="1">
-                        <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                     </c:forEach>
-                     <c:if test="${ requestScope.classStar.avgScore % 1 ne 0 }">
-                        <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                     </c:if>
-                  </ul>
-                  <input type="hidden" name="title" value="${ requestScope.classDetail.title }"/>
-                  <h1>${ requestScope.classDetail.title }</h1>
-                  <p class="text-muted lead"><fmt:formatNumber value="${ requestScope.classDetail.price }" pattern="#,###"/> 원</p>
-                  <input type="hidden" name="price" value="${ requestScope.classDetail.price }"/>
-                  <ul class="list-unstyled small d-inline-block"
-                     style="font-size: 16px; display: flex !important; padding-top: 15px;">
-                     <div class="class-icon">
-                        <div>
-                           <img src="${pageContext.servletContext.contextPath }/resources/user/img/calendar.png" width="20px">&nbsp;&nbsp;
-                           <c:if test="${ requestScope.classDetail.clsType == 'R' }">
-                              <c:out value="정규" />
-                           </c:if>
-                           
-                           <c:if test="${ requestScope.classDetail.clsType == 'O' }">
-                              <c:out value="원데이" />
-                           </c:if>
-                        </div>
-                        <div style="padding-top: 15px">
-                           <img src="${pageContext.servletContext.contextPath }/resources/user/img/pin.png" width="22px">&nbsp;&nbsp;${ requestScope.classDetail.address }
-                        </div>
-                     </div>
-                     <div class="class-icon" style="padding-inline: 30px;">
-                        <div>
-                           <img src="${pageContext.servletContext.contextPath }/resources/user/img/clock.png" width="20px">&nbsp;&nbsp;${ requestScope.classDetail.time } 소요
-                        </div>
-                        <div style="padding-top: 15px">
-                           <img src="${pageContext.servletContext.contextPath }/resources/user/img/users.png" width="20px">&nbsp;&nbsp;최대 4명
-                        </div>
-                     </div>
-                     <div class="class-icon" style="padding-inline: 30px;">
-                        <div>
-                           <li class="list-inline-item m-0 p-0"><a
-                              class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
-                        </div>
-                        <div>
-                           <li class="list-inline-item m-0 p-0"><a
-                              class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
-                        </div>
-                     </div>
-                  </ul>
-               </div>
-            </div>
+	  <%@include file="../commons/search.jsp" %>
+	  
+		<section class="py-5">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-lg-6">
+						<!-- PRODUCT SLIDER-->
+						<div class="row m-sm-0">
+							<div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
+								<div class="owl-thumbs d-flex flex-row flex-sm-column"
+									data-slider-id="1">
+									<c:forEach var="classPic" items="${ requestScope.classPic }">
+									<c:set var="i" value="${i+1}"></c:set>
+										<div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0">
+											<img class="w-100" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
+											<input type="hidden" name="titlePic${i}" value="${ classPic.titlePic }"/>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="col-sm-10 order-1 order-sm-2">
+								<div class="owl-carousel product-slider" data-slider-id="1">
+									<c:forEach var="classPic" items="${ requestScope.classPic }">
+										<c:set value="${ i+1 }" var="i" ></c:set>
+										<a class="d-block" href="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }"
+											data-lightbox="product" title="Product item ${i}"> <img
+											class="img-fluid" src="${ pageContext.servletContext.contextPath }/${ classPic.titlePic }" alt="...">
+										</a> 
+									</c:forEach>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- PRODUCT DETAILS-->
+					<div class="col-lg-6">
+					
+						<!-- 별점 평균 -->
+						<ul class="list-inline mb-2">
+							<c:forEach var="i" begin="1" end="${ requestScope.classStar.avgScore }" step="1">
+								<li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+							</c:forEach>
+							<c:if test="${ requestScope.classStar.avgScore % 1 ne 0 }">
+								<li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+							</c:if>
+						</ul>
+						<input type="hidden" name="title" value="${ requestScope.classDetail.title }"/>
+						<h1>${ requestScope.classDetail.title }</h1>
+						<p class="text-muted lead"><fmt:formatNumber value="${ requestScope.classDetail.price }" pattern="#,###"/> 원</p>
+						<input type="hidden" name="price" value="${ requestScope.classDetail.price }"/>
+						<ul class="list-unstyled small d-inline-block"
+							style="font-size: 16px; display: flex !important; padding-top: 15px;">
+							<div class="class-icon">
+								<div>
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/calendar.png" width="20px">&nbsp;&nbsp;
+									<c:if test="${ requestScope.classDetail.clsType == 'R' }">
+										<c:out value="정규" />
+									</c:if>
+									
+									<c:if test="${ requestScope.classDetail.clsType == 'O' }">
+										<c:out value="원데이" />
+									</c:if>
+								</div>
+								<div style="padding-top: 15px">
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/pin.png" width="22px">&nbsp;&nbsp;${ requestScope.classDetail.address }
+								</div>
+							</div>
+							<div class="class-icon" style="padding-inline: 30px;">
+								<div>
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/clock.png" width="20px">&nbsp;&nbsp;${ requestScope.classDetail.time } 소요
+								</div>
+								<div style="padding-top: 15px">
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/users.png" width="20px">&nbsp;&nbsp;
+									<c:forEach var="schedule" items="${ requestScope.schedule }">
+										최대 ${ schedule.maxPeople } 명
+									</c:forEach>
+								</div>
+							</div>
+							<div class="class-icon" style="padding-inline: 30px;">
+								<div>
+									<li class="list-inline-item m-0 p-0"><a
+										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
+								</div>
+								<div>
+									<li class="list-inline-item m-0 p-0"><a
+										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
+								</div>
+							</div>
+						</ul>
+					</div>
+				</div>
 
-            <c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
-               <c:if test="${ requestScope.classDetail.clsType == 'O' }">
-                  <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
-                     <!-- 날짜, 시간 선택 -->
-                     <img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-                     &nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                     <img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-                     &nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                     <li class="list-inline-item m-0 p-0">
-                        <button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-			                               신청하기 
-                           <input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
-                           <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
-                        </button>
-                     </li>
-                  </div>
-                  </form>
-                     <script>
-                        $("#num123").on("mouseenter",function(e){
-                           //2021-07-07 10:00 
-                           //클래스번호, 스케쥴번호, 날짜, 시간넘기기 
-                           //두번째 에이작스
-                                var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
-                             var dayArray2 = pickDay2.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
-   
-                             $.ajax({
-                                 type: "post",
-                                 url:  "peopleCount",
-                                 data: { date : dayArray2[0],
-                                       time : dayArray2[1], 
-                                       clsNo : ${ requestScope.classDetail.clsNo }
-                                 },
-                                 success:function(data, textStatus, xhr){
-                                    $("#num123").val(data);
-                                 },
-                                 error:function(xhr,status,error){
-                                     console.log(error);
-                                 }
-                               });
-                             
-                             e.stopPropagation();
-                        });
-                        
-                        let times = new Array();
-                        let days = new Array();
-                        
-                        <c:forEach var="schedule" items="${ requestScope.schedule }">
-                           // times.push("${schedule.scheduleStart}");
-                          days.push("${schedule.scheduleDate}");
-                        </c:forEach>
-                        
-                       /*  time11 = new Array();
-                        $(document).ready(function(){
-                           let dayValues = days;
-                           let today = new Date();
-                           console.log("날짜: "+ today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate());
-                           cToday = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
-                           $.ajax({
-                             url: "dateTimePicker",
-                             type:"post",
-                             data: { date :cToday , clsNo : ${ requestScope.classDetail.clsNo } },
-                             success:function(data, textStatus, xhr){
-                                let tArr = new Array(); 
-                                for(var idx in data){
-                                   tArr.push(data[idx].scheduleStart);
-                                }
-                                
-                                console.log("tArr : " + tArr);
-                                timeValues = tArr;
-                                console.log("timeValues : " + time11);
-                             },
-                               error:function(xhr,status,error){
-                                  console.log(error);
-                               }
-                           });
-                        }); */
-      
-                        jQuery('#datetimepicker').datetimepicker({               
-                           datepicker : true,
-                           timepicker : true,
-                           allowTimes : ["00:00"],
-                           
-                           allowDates : days,
-                           format:'Y-m-d',
-                           formatDate:'Y-m-d',
-                           autoClose: false,
-                           scrollMonth:false,
-                           timepickerScrollbar:false,
-                           onGenerate:function(dp,$input){
-                              
-                           },
-                           onChangeDateTime : function(dp, $input) {
-                              
-                             console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
-                              console.log(dp);
-                              
-                              var pickDay = $input.val(); //선택한 날짜를 담아줌
-                              var dayArray = pickDay.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
-                              var test1 = this;
-                                                         
-                              $.ajax({
-                                 type: "post",
-                                 url: "dateTimePicker",
-                                 data: { date : dayArray[0], clsNo : ${ requestScope.classDetail.clsNo } },
-                                 success:function(data, textStatus, xhr){
-                                    console.log(data);
-                                     let tArr = new Array();
-                                     let pArr = new Array();
-                                     for(var idx in data){
-                                        tArr.push(data[idx].scheduleStart);
-                                        //pArr[idx] = data[idx].minPeople;
-                                        //pArr.push(data[idx].scheduleStart + " /남은인원 : " + data[idx].minPeople);
-                                     }
-                                     
-                                     //console.log(timeValues);
-                                     
-                                     if(tArr.length > 0){
-                                       test1.setOptions({
-                                         allowTimes : tArr,
-                                         allowDates : days,
-                                         format:'Y-m-d H:i',
-                                         timepicker : true,
-                                         scrollTime : false,
-                                         autoClose: false
-                                       });
-                                       
-                                    } else {
-                                       test1.setOptions({
-                                          allowDates : days,
-                                          scrollTime : false,
-                                         timepicker : false
-                                       });
-                                    }
-                                    
-                                 },
-                                 error:function(xhr,status,error){
-                                     console.log(error);
-                                 }
-                              });
-                           }
-                        });
-                        
-                     </script>
-                </c:if>
-                
-                <c:if test="${ requestScope.classDetail.clsType == 'R' }">
-                   <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
-                     <!-- 날짜, 시간 선택 -->
-                     <c:forEach var="schedule" items="${ requestScope.schedule }">
-                        <img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-                        &nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                        <img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
-                        &nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <div>남은 인원 : ${ schedule.maxPeople }</div>
-                     </c:forEach>
-                     <li class="list-inline-item m-0 p-0">
-                        <button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-                           <input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
-                        </button>
-                     </li>
-                  </div>
-                </c:if>
-               </c:if>
-               
-               <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
-                  <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
-                     클래스가 오픈되도록 응원해주세요.&nbsp;&nbsp;&nbsp;&nbsp;
-                     응원한 클래스가 오픈되면 <b>할인 쿠폰</b>까지!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <li class="list-inline-item m-0 p-0">
-                     <button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
-			                               신청하기 
-                           <input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
-                           <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
-                     </button>
-                  </li>
-               </div>
-               </c:if>
+			<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
+				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
+					<c:if test="${ requestScope.classDetail.clsType == 'O' }">
+						<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+							<!-- 날짜, 시간 선택 -->
+							<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+							&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+							<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+							&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li class="list-inline-item m-0 p-0">
+								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+									<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
+								</button>
+							</li>
+						</div>
+			            <script>
+			            	$("#num123").on("mouseenter",function(e){
+			            		//2021-07-07 10:00 
+			            		//클래스번호, 스케쥴번호, 날짜, 시간넘기기 
+			            		//두번째 에이작스
+	                       		var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
+		                    	var dayArray2 = pickDay2.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
+	
+		                    	$.ajax({
+			                        type: "post",
+			                        url:  "peopleCount",
+			                        data: { date : dayArray2[0],
+			                        		time : dayArray2[1], 
+			                        		clsNo : ${ requestScope.classDetail.clsNo }
+			                        },
+			                        success:function(data, textStatus, xhr){
+				                        $("#num123").val(data);
+			                        },
+			                        error:function(xhr,status,error){
+			                            console.log(error);
+			                        }
+			                   	});
+		                    	
+		                    	e.stopPropagation();
+			            	});
+			            	
+			               let times = new Array();
+			               let days = new Array();
+			               
+			               <c:forEach var="schedule" items="${ requestScope.schedule }">
+				           	 // times.push("${schedule.scheduleStart}");
+				              days.push("${schedule.scheduleDate}");
+			               </c:forEach>
+			               
+			              /*  time11 = new Array();
+			               $(document).ready(function(){
+			            	   let dayValues = days;
+				               let today = new Date();
+				               console.log("날짜: "+ today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate());
+				               cToday = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+				               $.ajax({
+				            	  url: "dateTimePicker",
+				            	  type:"post",
+				            	  data: { date :cToday , clsNo : ${ requestScope.classDetail.clsNo } },
+				            	  success:function(data, textStatus, xhr){
+				            		  let tArr = new Array(); 
+				            		  for(var idx in data){
+				            			  tArr.push(data[idx].scheduleStart);
+				            		  }
+				            		  
+				            		  console.log("tArr : " + tArr);
+				            		  timeValues = tArr;
+				            		  console.log("timeValues : " + time11);
+				            	  },
+			                      error:function(xhr,status,error){
+			                         console.log(error);
+			                      }
+				               });
+			               }); */
+		
+			               jQuery('#datetimepicker').datetimepicker({               
+			                  datepicker : true,
+			                  timepicker : true,
+			                  allowTimes : ["00:00"],
+			                  
+			                  allowDates : days,
+			                  format:'Y-m-d',
+			                  formatDate:'Y-m-d',
+			                  autoClose: false,
+			                  scrollMonth:false,
+			                  timepickerScrollbar:false,
+			                  onGenerate:function(dp,$input){
+			                	  
+			                  },
+			                  onChangeDateTime : function(dp, $input) {
+			                     
+			                	 console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
+			                     console.log(dp);
+			                     
+			                     var pickDay = $input.val(); //선택한 날짜를 담아줌
+			                     var dayArray = pickDay.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
+			                     var test1 = this;
+			                     		                     
+			                     $.ajax({
+			                        type: "post",
+			                        url: "dateTimePicker",
+			                        data: { date : dayArray[0], clsNo : ${ requestScope.classDetail.clsNo } },
+			                        success:function(data, textStatus, xhr){
+			                        	console.log(data);
+			                            let tArr = new Array();
+			                            let pArr = new Array();
+			                            for(var idx in data){
+			                            	tArr.push(data[idx].scheduleStart);
+			                            	//pArr[idx] = data[idx].minPeople;
+			                            	//pArr.push(data[idx].scheduleStart + " /남은인원 : " + data[idx].minPeople);
+			                            }
+			                            
+			                            //console.log(timeValues);
+			                            
+			                            if(tArr.length > 0){
+			                        		test1.setOptions({
+						                    	allowTimes : tArr,
+						                    	allowDates : days,
+						                    	format:'Y-m-d H:i',
+						                    	timepicker : true,
+						                    	scrollTime : false,
+						                    	autoClose: false
+						                     });
+			                        		
+			                        	} else {
+			                        		test1.setOptions({
+			                        			allowDates : days,
+			                        			scrollTime : false,
+						                    	timepicker : false
+						                     });
+			                        	}
+			                        	
+			                        },
+			                        error:function(xhr,status,error){
+			                            console.log(error);
+			                        }
+			                     });
+			                  }
+			               });
+			               
+			            </script>
+			    	</c:if>
+			    	
+			    	<c:if test="${ requestScope.classDetail.clsType == 'R' }">
+			    		<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+							<!-- 날짜, 시간 선택 -->
+							<c:forEach var="schedule" items="${ requestScope.schedule }">
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
+								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.applyCheck } 명 수강 가능 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
+								&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							</c:forEach>
+							<li class="list-inline-item m-0 p-0">
+								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+								</button>
+							</li>
+						</div>
+			    	</c:if>
+	            </c:if>
+	            </form>
+	       
+	            <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
+		            <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
+		            	클래스가 오픈되도록 응원해주세요.&nbsp;&nbsp;&nbsp;&nbsp;
+		            	응원한 클래스가 오픈되면 <b>할인 쿠폰</b>까지!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		           		<li class="list-inline-item m-0 p-0">
+							<button class="btn btn-sm btn-outline-dark" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
+								<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>클래스 응원하기 
+							</button>
+						</li>
+					</div>
+	            </c:if>
 
             <br>
             <br>
@@ -526,89 +527,132 @@ i {
                   aria-controls="reviews" aria-selected="false">문의</a></li>
             </ul>
 
-            <!-- 상세보기 탭 -->
-            <div class="tab-content mb-5" id="myTabContent">
-               <div class="tab-pane fade show active" id="description"
-                  role="tabpanel" aria-labelledby="description-tab">
-                  <div class="p-4 p-lg-5 bg-white" style="text-align: center;">
-                     <ul class="list-unstyled small d-inline-block"
-                        style="width: 900px;">
-                        <div style="text-align: left">
-                           <div style="width: 550px; height: 70px; margin-top: 20px;">
-                              <h3>※ 상세 정보</h3>
-                           </div>
-                           <pre style="font-size: 16px;">${ requestScope.classDetail.intro }</pre>
-                           <br>
-                           <hr>
-                           <br>
-                           <!-- 완성작 사진 -->
-                           <h3 style="padding-bottom: 20px;">※ 클래스 완성작</h3>
-                           - ${ requestScope.classDetail.cExpl }<br>
-                           <div style="width: 550px; display: flex; margin: auto; text-align: center; justify-content: space-between; font-size: 16px;">
-                              <c:forEach var="classPiece" items="${ requestScope.classPiece }">
-                                 <div>
-                                    <img src="${ pageContext.servletContext.contextPath }/resources/upload/${ classPiece.piecePic }" width="250px" height="250px">
-                                    <br><br>${ classPiece.pieceTitle }
-                                 </div>
-                              </c:forEach>
-                           </div>
-                           <br><br><br>
-                           <hr>
-                           <!-- 커리큘럼 -->
-                           <div>
-                              <br>
-                              <h3>※ 커리큘럼</h3>
-                              <br>
-                              <br>
-                              <c:forEach var="curriculum" items="${ requestScope.curriculum }">
-                                 <div style="display: flex;">
-                                    <img src="${pageContext.servletContext.contextPath }/resources/user/img/gradation10.png" width="25px" height="25px">
-                                    <div style="font-size: large;">${ curriculum.curriStep }단계 : ${ curriculum.curriTitle }</div>
-                                 </div>
-                                 <div style="margin-left: 30px;">
-                                    <small>${ curriculum.curriContent }</small>
-                                 </div>
-                                 <br><br>
-                              </c:forEach>
-                           </div>
-                           <br><br>
-                           <hr>
-                           <br>
-                           <!-- 추가 제공사항 및 유의사항 -->
-                           <div style="font-size: 16px;">
-                           <h3>※ 추가 제공사항 및 유의사항</h3>
-                              <br>
-                              ${ requestScope.classDetail.addInfo }
-                           </div>
-                           <br><br><br>
-                           <hr>
-                           <br>
-                           <h3>※ 편의사항</h3>
-                           <br>
-                           <br>
-                           <div style="display: flex; width: 550px;">
-                           <img src="${pageContext.servletContext.contextPath }/resources/user/img/stayhome.png" alt="home"
-                                 width="23px" height="23px;">
-                              <div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
-                                 ${ requestScope.classDetail.addSup }</div>
-                           </div>
-                           <br>
-                           <div style="display: flex; width: 550px;">
-                              <img src="${pageContext.servletContext.contextPath }/resources/user/img/wifi.png" alt="home" 
-                              width="23px" height="23px">
-                              <div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
-                                 와이파이 가능합니다.</div>
-                           </div>
-                           <!-- 지도 보기 -->
-                           <div style="display: block; text-align: center;">
-                              <br>
-                              <br> <img
-                                 src="${pageContext.servletContext.contextPath }/resources/user/img/화면 캡처 2021-06-23 011233.png">
-                           </div>
-                        </div>
-                     </ul>
-                  </div>
-               </div>
+				<!-- 상세보기 탭 -->
+				<div class="tab-content mb-5" id="myTabContent">
+					<div class="tab-pane fade show active" id="description"
+						role="tabpanel" aria-labelledby="description-tab">
+						<div class="p-4 p-lg-5 bg-white" style="text-align: center;">
+							<ul class="list-unstyled small d-inline-block"
+								style="width: 900px;">
+								<div style="text-align: left">
+									<div style="width: 550px; height: 70px; margin-top: 20px;">
+										<h3>※ 상세 정보</h3>
+									</div>
+									<pre style="font-size: 16px;">${ requestScope.classDetail.intro }</pre>
+									<br>
+									<hr>
+									<br>
+									<!-- 완성작 사진 -->
+									<h3 style="padding-bottom: 20px;">※ 클래스 완성작</h3>
+									- ${ requestScope.classDetail.cExpl }<br>
+									<div style="width: 550px; display: flex; margin: auto; text-align: center; justify-content: space-between; font-size: 16px;">
+										<c:forEach var="classPiece" items="${ requestScope.classPiece }">
+											<div>
+												<img src="${ pageContext.servletContext.contextPath }/resources/upload/${ classPiece.piecePic }" width="250px" height="250px">
+												<br><br>${ classPiece.pieceTitle }
+											</div>
+										</c:forEach>
+									</div>
+									<br><br><br>
+									<hr>
+									<!-- 커리큘럼 -->
+									<div>
+										<br>
+										<h3>※ 커리큘럼</h3>
+										<br>
+										<br>
+										<c:forEach var="curriculum" items="${ requestScope.curriculum }">
+											<div style="display: flex;">
+												<img src="${pageContext.servletContext.contextPath }/resources/user/img/gradation10.png" width="25px" height="25px">
+												<div style="font-size: large;">${ curriculum.curriStep }단계 : ${ curriculum.curriTitle }</div>
+											</div>
+											<div style="margin-left: 30px;">
+												<small>${ curriculum.curriContent }</small>
+											</div>
+											<br><br>
+										</c:forEach>
+									</div>
+									<br><br>
+									<hr>
+									<br>
+									<!-- 추가 제공사항 및 유의사항 -->
+									<div style="font-size: 16px;">
+									<h3>※ 추가 제공사항 및 유의사항</h3>
+										<br>
+										${ requestScope.classDetail.addInfo }
+									</div>
+									<br><br><br>
+									<hr>
+									<br>
+									<h3>※ 편의사항</h3>
+									<br>
+									<br>
+									<div style="display: flex; width: 550px;">
+									<img src="${pageContext.servletContext.contextPath }/resources/user/img/stayhome.png" alt="home"
+											width="23px" height="23px;">
+										<div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
+											${ requestScope.classDetail.addSup }</div>
+									</div>
+									<br>
+									<div style="display: flex; width: 550px;">
+										<img src="${pageContext.servletContext.contextPath }/resources/user/img/wifi.png" alt="home" 
+										width="23px" height="23px">
+										<div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
+											와이파이 가능합니다.</div>
+									</div>
+									<br>
+									<!-- 지도 보기 -->
+									<div id="map" style="width:100%;height:400px;"></div>
+									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a34c5273c140d2e488e6342d6fddf219&libraries=services"></script>
+									<script>
+									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+									    mapOption = {
+									        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+									        level: 3 // 지도의 확대 레벨
+									    };  
+									
+									// 지도를 생성합니다    
+									var map = new kakao.maps.Map(mapContainer, mapOption); 
+									
+									// 주소-좌표 변환 객체를 생성합니다
+									var geocoder = new kakao.maps.services.Geocoder();
+									
+									//주소 저장
+									var classAdress = '${ requestScope.classDetail.address }';
+									// 주소로 좌표를 검색합니다
+									geocoder.addressSearch(classAdress, function(result, status) {
+									
+									    // 정상적으로 검색이 완료됐으면 
+									     if (status === kakao.maps.services.Status.OK) {
+											
+									        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+									
+									        // 결과값으로 받은 위치를 마커로 표시합니다
+									        var marker = new kakao.maps.Marker({
+									            map: map,
+									            position: coords
+									        });
+									
+									        // 인포윈도우로 장소에 대한 설명을 표시합니다
+									        var infowindow = new kakao.maps.InfoWindow({
+									            content: '<div style="width:150px;text-align:center;padding:6px 0;">우동클</div>'
+									        });
+									        infowindow.open(map, marker);
+									
+									        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+									        map.setCenter(coords);
+									    } 
+									});    
+									</script>
+									<div style="display: block; text-align: center;">
+										<br>
+										<br> <img
+											src="${pageContext.servletContext.contextPath }/resources/user/img/화면 캡처 2021-06-23 011233.png">
+									</div>
+								</div>
+							</ul>
+						</div>
+					</div>
 
                <!-- 리뷰 탭 -->
                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
@@ -666,36 +710,37 @@ i {
                </div>
             </div>
 
-               <!-- 문의 탭 -->
-               <div class="tab-pane fade" id="questions" role="tabpanel"
-                  aria-labelledby="reviews-tab">
-                  <div class="p-4 p-lg-5 bg-white">
-                     <button onclick="inquiryWrite1();" type="button" class="btn btn-dark"
-                        style="margin-left: 88%; width: 112px; font-size: 15px;">문의
-                        작성</button>
-                     <div id="inquiryWrite"
-                        style="width: 200px; height: 180px; display: none; margin-left: -100px;">
-                           <textarea class="feedbackArea"
-                              style="font-size: 15px; border-color: lightgray"
-                              placeholder="문의 사항을 작성해 주세요."></textarea>
-                        <form action="">
-                           <button class="btn btn-dark" type="submit"
-                              style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성
-                           </button>
-                        </form>
-                     </div>
+					<!-- 문의 탭 -->
+					<div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="reviews-tab">
+						<div class="p-4 p-lg-5 bg-white">
+							<c:if test="${ !empty sessionScope.userNo }">
+								<button onclick="inquiryWrite1();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">문의 작성</button>
+							</c:if>
+							<c:if test="${ empty sessionScope.userNo }">
+								<button onclick="noWrite();" type="button" class="btn btn-dark" style="margin-left: 88%; width: 112px; font-size: 15px;">문의 작성</button>
+							</c:if>
+							<div id="inquiryWrite" style="width: 200px; height: 180px; display: none; margin-left: -100px;">
+								<form action="${ pageContext.servletContext.contextPath }/user/inquiry/${ requestScope.classDetail.clsNo }" method="post">
+									<textarea class="feedbackArea" name="queContent" style="font-size: 15px; border-color: lightgray" placeholder="문의 사항을 작성해 주세요."></textarea>
+									<button class="btn btn-dark" type="submit" style="display: flex; margin-top: -85px; margin-left: 820px; font-size: 15px; width: 80px;">작성</button>
+								</form>
+							</div>
 
-                     <!-- 문의 작성 눌렀을 시-->
-                     <script>
-                        function inquiryWrite1() {
-                           if (document.getElementById("inquiryWrite").style.display == "none") {
-                              document.getElementById("inquiryWrite").style.display = "block";
-                           } else if (document
-                                 .getElementById("inquiryWrite").style.display == "block") {
-                              document.getElementById("inquiryWrite").style.display = "none";
-                           }
-                        }
-                     </script>
+							<!-- 문의 작성 눌렀을 시-->
+							<script>
+								function inquiryWrite1() {
+									if (document.getElementById("inquiryWrite").style.display == "none") {
+										document.getElementById("inquiryWrite").style.display = "block";
+									} else if (document
+											.getElementById("inquiryWrite").style.display == "block") {
+										document.getElementById("inquiryWrite").style.display = "none";
+									}
+								}
+								
+								function noWrite() {
+									alert("우리 동네 클래스 회원만 문의 작성이 가능합니다.");
+								}
+							</script>
 
                      <div class="row">
                         <div class="col-lg-8">

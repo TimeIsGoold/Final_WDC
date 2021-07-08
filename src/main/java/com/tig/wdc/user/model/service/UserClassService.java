@@ -82,7 +82,7 @@ public interface UserClassService {
 
 	ScheduleDTO selectRegularSchedule(int clsNo);
 	
-	ScheduleDTO selectAplyPeople(ScheduleDTO regularSchedule);
+	ScheduleDTO selectApplyPeople(ScheduleDTO regularSchedule);
 	
 	int selectDoTodayCheer(int userNo);
 
