@@ -115,29 +115,31 @@ public class UserClassDetailController {
 		model.addAttribute("schedule", schedule);
 		
 		//정규 클래스인 경우, 클래스 스케줄 select 
-		ScheduleDTO regularSchedule = new ScheduleDTO();
-		regularSchedule = classService.selectRegularSchedule(clsNo);
-		model.addAttribute("regularSchedule", regularSchedule);
-		
-		//정규 클래스인 경우, 현재 수강 신청 인원 select 
-		ScheduleDTO scheduleDTO = classService.selectApplyPeople(regularSchedule);
-		
-		System.out.println("클래스 수강 정원 select : " + regularSchedule.getMaxPeople());
-		System.out.println("현재 수강 신청 인원 select : " + scheduleDTO.getPeopleCount());
-		
-		if(scheduleDTO == null) {
+		if(classDetail.getClsType() == "R") {
 			
-			scheduleDTO.setPeopleCount(0);
+			ScheduleDTO regularSchedule = new ScheduleDTO();
+			regularSchedule = classService.selectRegularSchedule(clsNo);
+			model.addAttribute("regularSchedule", regularSchedule);
+			
+			//정규 클래스인 경우, 현재 수강 신청 인원 select 
+			ScheduleDTO scheduleDTO = classService.selectApplyPeople(regularSchedule);
+			System.out.println("클래스 수강 정원 select : " + regularSchedule.getMaxPeople());
+			System.out.println("현재 수강 신청 인원 select : " + scheduleDTO.getPeopleCount());
+			
+			if(scheduleDTO == null) {
+				
+				scheduleDTO.setPeopleCount(0);
+			}
+			
+			System.out.println("없으면 0으로 저장 : " + scheduleDTO.getPeopleCount());
+			
+			//정원 - 현재 신청인원 = 남은인원(applyCheck)
+			int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount();
+			model.addAttribute("applyCheck", applyCheck);
+			
+			System.out.println("정원 - 현재 신청인원 = 남은인원 : " + applyCheck);
 		}
-		 
-		System.out.println("없으면 0으로 저장 : " + scheduleDTO.getPeopleCount());
-		
-		//정원 - 현재 신청인원 = 남은인원(applyCheck)
-		int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount();
-		model.addAttribute("applyCheck", applyCheck);
-		
-		System.out.println("정원 - 현재 신청인원 = 남은인원 : " + applyCheck);
-		
+
 		return "user/classList/class_detail";
 	}
 	

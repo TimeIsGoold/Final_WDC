@@ -315,9 +315,16 @@ i {
 								</div>
 								<div style="padding-top: 15px">
 									<img src="${pageContext.servletContext.contextPath }/resources/user/img/users.png" width="20px">&nbsp;&nbsp;
-									<c:forEach var="schedule" items="${ requestScope.schedule }">
-										최대 ${ schedule.maxPeople } 명
-									</c:forEach>
+									<c:if test="${ requestScope.classDetail.clsType == 'R' }">
+										<c:forEach var="schedule" items="${ requestScope.schedule }">
+											최대 ${ schedule.maxPeople } 명
+										</c:forEach>
+									</c:if>
+									<c:set var="loop_flag" value="false" />
+									<c:if test="${ requestScope.classDetail.clsType == 'O' }">
+										최대  명
+										<c:set var="loop_flag" value="true" />
+									</c:if>
 								</div>
 							</div>
 							<div class="class-icon" style="padding-inline: 30px;">
