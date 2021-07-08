@@ -225,6 +225,10 @@ public interface AdminMapper {
 
 	int insertCheeringCoupon(UserClassDTO classDetail);
 
+	int updateClsSecondDecisionReject(int clsNo);
+
+	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
 
 
 

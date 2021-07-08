@@ -595,23 +595,31 @@ public class AdminController {
 	   }
 	
 	@PostMapping("acceptSecondDecision")
-	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo, Model model) {
-		int result = 0;
+	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo,@RequestParam("submit")int num,  Model model) {
 		String[] cheeringInfoArr = cheeringInfo.split(",");
-		for(int i = 0; i < cheeringInfoArr.length; i++) {
-			String[] getClsNo = cheeringInfoArr[i].split("/");			
-//			adminService.updateClsSecondDecision(Integer.parseInt(getClsNo[0])); 
-//			adminService.updateClsSecondDecisionHistory(Integer.parseInt(getClsNo[0])); 
-			UserClassDTO classDetail = new UserClassDTO();
-			String[] getUserNo = getClsNo[1].split("&");
-			for(int j = 0; j < getUserNo.length; j++) {
-				classDetail = classService.selectClassDtail(Integer.parseInt(getClsNo[0]));
-				classDetail.setPrice((int)(classDetail.getPrice() * 0.05));
-				classDetail.setUserNo(Integer.parseInt(getUserNo[j]));
-				result = adminService.insertCheeringCoupon(classDetail);
+		// 승인을 눌렀을시
+		if(num == 1) {
+			for(int i = 0; i < cheeringInfoArr.length; i++) {
+				String[] getClsNo = cheeringInfoArr[i].split("/");			
+				adminService.updateClsSecondDecision(Integer.parseInt(getClsNo[0])); 
+				adminService.updateClsSecondDecisionHistory(Integer.parseInt(getClsNo[0])); 
+				UserClassDTO classDetail = new UserClassDTO();
+				String[] getUserNo = getClsNo[1].split("&");
+				for(int j = 0; j < getUserNo.length; j++) {
+					classDetail = classService.selectClassDtail(Integer.parseInt(getClsNo[0]));
+					classDetail.setPrice((int)(classDetail.getPrice() * 0.05));
+					classDetail.setUserNo(Integer.parseInt(getUserNo[j]));
+					adminService.insertCheeringCoupon(classDetail);
+				}
+			}
+		// 거절을 눌렀을시
+		} else {
+			for(int i = 0; i < cheeringInfoArr.length; i++) {
+				String[] getClsNo = cheeringInfoArr[i].split("/");
+				adminService.updateClsSecondDecisionReject(Integer.parseInt(getClsNo[0]));
+				adminService.updateClsSecondDecisionHistoryRedject(Integer.parseInt(getClsNo[0]));
 			}
 		}
-		if(result >0) model.addAttribute("message" , "2차 심사 승인 완료(쿠폰지급 완료)");
 		return "redirect:seconddecision?pc=t";
 	}
 }

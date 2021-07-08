@@ -376,6 +376,18 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.insertCheeringCoupon(classDetail);
 	}
 
+	@Override
+	public int updateClsSecondDecisionReject(int clsNo) {
+
+		return mapper.updateClsSecondDecisionReject(clsNo);
+	}
+
+	@Override
+	public int updateClsSecondDecisionHistoryRedject(int clsNo) {
+		
+		return mapper.updateClsSecondDecisionHistoryRedject(clsNo);
+	}
+
 
 
 

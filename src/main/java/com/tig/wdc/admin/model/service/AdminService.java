@@ -236,6 +236,10 @@ public interface AdminService {
 
 	int insertCheeringCoupon(UserClassDTO classDetail);
 
+	int updateClsSecondDecisionReject(int clsNo);
+
+	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
 
 
 

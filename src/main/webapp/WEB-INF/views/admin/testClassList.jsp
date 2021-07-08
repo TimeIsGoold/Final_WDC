@@ -66,7 +66,7 @@
  								<table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>전체 선택     <input type="checkbox" name="cheeringInfo"/></th>
+                                            <th>체크박스</th>
                                             <th>클래스 제목</th>
                                             <th>강사 이름</th>
                                             <th>1차 심사통과 날짜</th>
@@ -77,11 +77,19 @@
                                     <tbody>
                      				<c:forEach items="${classList}" var="classList">
 				                            <tr>
-				                                <td><input type="checkbox" name="cheeringInfo" value="${classList.clsNo}/${classList.cheeringUserNo}"/></td>
+				                                <td><input type="checkbox" name="cheeringInfo" onclick="check(this)" value="${classList.clsNo}/${classList.cheeringUserNo}"/></td>
 				                                <td>${classList.title}</td>
 				                                <td>${classList.teName}</td>
 				                                <td>${classList.firstDecision}</td>
-				                                <td>${classList.categoryNo}</td>
+				                                <td><c:choose>
+                                        	<c:when test="${classList.categoryNo  eq '1'}">스포츠</c:when>
+                                        	<c:when test="${classList.categoryNo  eq '2'}">요리/베이킹</c:when>
+                                        	<c:when test="${classList.categoryNo  eq '3'}">미술/공예/공연전시</c:when>
+                                        	<c:when test="${classList.categoryNo  eq '4'}">뷰티</c:when>
+                                        	<c:when test="${classList.categoryNo  eq '5'}">컴퓨터/IT</c:when>
+                                        	<c:when test="${classList.categoryNo  eq '6'}">언어/스피치</c:when>
+                                        	<c:otherwise>재테크/창업</c:otherwise>
+                                        </c:choose></td>
 				                                <td>${classList.cheeringCnt}</td>
 				                            </tr>
 				                        </c:forEach>
@@ -89,8 +97,22 @@
                                 </table>
 
 							</div>
-							<button class="btn btn-primary" type="submit">승인</button>
-							<button class="btn btn-danger" type="button">거절</button>
+							<div align="center">
+								<c:choose>
+									<c:when test="${t eq 't'}">
+										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
+										<button class="btn btn-danger" type="submit" value="2" name="submit" >거절</button>
+									</c:when>
+									<c:when test="${t eq 'p'}">
+										<label>전체 선택 <input type="checkbox" name="cheeringInfo" id="allcheck" onclick="check(this)"/></label>
+										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
+									</c:when>
+									<c:otherwise>
+										<label>전체 선택 <input type="checkbox" name="cheeringInfo" id="allcheck" onclick="check(this)"/></label>
+										<button class="btn btn-danger" type="submit" value="2" name="submit" >거절</button>
+									</c:otherwise>
+								</c:choose>
+							</div>
 							</form>
                             </div>
                         </div>
@@ -117,7 +139,39 @@
          		case 'l' : console.log("함수 호출3"); tab3.className = 'nav-link active'; tab1.className = 'nav-link'; tab2.className = 'nav-link'; break;
          		}
          	 }
-         	
+			
+         	 function check(p){
+         		 var allcheck = document.getElementById('allcheck');
+         		 var list = document.getElementsByName('cheeringInfo');
+				console.log(allcheck);
+				console.log(list);
+
+				if(p.id == "allcheck"){
+
+					if(allcheck.checked){
+						for(var i = 0; list.length; i++) {
+							list[i].checked == true;
+						}
+					} else {
+						for(var i = 0; list.length; i++) {
+							list[i].checked == false;
+						}
+					}
+
+				} else {
+					var cnt = 0;
+					for(var i = 0; i < list.length; i++) {
+						if(list[i].checked) {
+							num++;
+						}
+						if(cnt == list.length) {
+							allcheck.checked == true;
+						} else {
+							allcheck.checked == false;
+						}
+					}
+				}
+         	 }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
