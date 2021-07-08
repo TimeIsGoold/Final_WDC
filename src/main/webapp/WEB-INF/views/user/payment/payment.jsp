@@ -407,6 +407,8 @@ h5, .h5 {
                              	<!-- 2. 페이먼트 인서트용 인풋 히든 -->
                              	<input type="hidden" name="payPrice" id="insertPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl }"/>
                              	<input type="hidden" name="cpnNo" value="0" id="insertCouponNo"/>
+                             	<!-- 3. 수업료 관리용 클래스 넘버 히든 -->
+                             	<input type="hidden" name="clsNo" value="${ requestScope.paymentScheduleDTO.clsNo }" id=""/>
                              	
                              	
                                <!-- </form>--> 
@@ -450,6 +452,7 @@ h5, .h5 {
         const ppl = document.getElementsByName("ppl")[0].value;
         const scheduleNo = document.getElementsByName("scheduleNo")[0].value;
         const cpnNo = document.getElementsByName("cpnNo")[0].value;
+        const clsNo = document.getElementsByName("clsNo")[0].value;
 
         IMP.request_pay({
             pg : 'kakaopay',
@@ -500,7 +503,8 @@ h5, .h5 {
                     	  // 페이먼트 인서트
                           payPrice : payPrice,
                           cpnNo : cpnNo,
-
+                          // 수업료 관리 인서트
+                          clsNo : clsNo
                        },
                        success:function(data, textStatus, xhr){
                           alert("결제 성공하였습니다!!\n예약이 완료었습니다.");

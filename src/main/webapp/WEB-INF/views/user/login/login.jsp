@@ -27,7 +27,8 @@
       <header class="header bg-white">
         <div class="container px-0 px-lg-3">
 
-          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/user/mypage/userLoginSuccessMain"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
+          <a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
@@ -85,13 +86,13 @@
                   </div>
                 </div>
                 <div class="login-find">
-                  <a href="findID.html" style="color: #adb5bd !important;">아이디 찾기</a></li>
+                  <a href="${ pageContext.servletContext.contextPath }/user/mypage/findId" style="color: #adb5bd !important;">아이디 찾기</a></li>
                   <div style="color: #adb5bd">&nbsp;|&nbsp;</div>
                   <a href="findPassword.html" style="color: #adb5bd !important;">비밀번호 찾기</a></li>
                 </div><br>
                 <div class="login-find" style="width: 300px; color: #adb5bd !important;">
                   아직 회원이 아니신가요?
-                  <a href="singup.html" style="color: #adb5bd !important;">회원가입</a></li><br>
+                  <a href="${ pageContext.servletContext.contextPath }/user/mypage/signup" style="color: #adb5bd !important;">회원가입</a></li><br>
                 </div>
                   <a href="${ pageContext.servletContext.contextPath }/teacher" style="color: #adb5bd !important;">강사 페이지 </a></li><br>                  
                   <a href="${ pageContext.servletContext.contextPath }/user/admin" style="color: #adb5bd !important;">관리자 모드</a></li><br>

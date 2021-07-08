@@ -254,6 +254,21 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.insertAllUserCoupon(forInsertAllUserCouponDTO);
 	}
 
+	@Override
+	public int insertTuitionManagement(PaymentDTO insertPaymentDTO) {
+		return mapper.insertTuitionManagement(insertPaymentDTO);
+	}
+
+	@Override
+	public int selectCheerCount(int clsNo) {
+		return mapper.selectCheerCount(clsNo);
+	}
+
+	@Override
+	public List<UserClassDTO> selectMyLikeClassList(int userNo) {
+		return mapper.selectMyLikeClassList(userNo);
+	}
+
 
 
 

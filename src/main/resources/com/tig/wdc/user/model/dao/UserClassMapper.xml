@@ -492,9 +492,9 @@
     </resultMap>
 	<select id="selectMyCheerClassList" parameterType="_int" resultMap="UserCategoryResult">
       SELECT
-            C.*
-          , T.*
-          , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+             C.*
+           , T.*
+           , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
         FROM CHEERING_HISTORY CH
 	    JOIN USER_INFO U ON(CH.USER_NO = U.USER_NO)
 	    JOIN CLASS C ON(CH.CLS_NO = C.CLS_NO)
@@ -505,7 +505,30 @@
          AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '-'
          AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '0'
          AND T.TYPE = 'TITLE'	
+         <![CDATA[
+         AND C.CLS_END_D > SYSDATE
+          ]]>
 	</select>
+	
+	<select id="selectMyLikeClassList" parameterType="_int" resultMap="UserCategoryResult">
+       SELECT
+              L.*
+            , C.*
+            , T.*
+            , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM LIKE_HISTORY L
+         JOIN CLASS C ON(L.CLS_NO = C.CLS_NO)
+         JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
+         JOIN ATTACHMENT T ON(C.CLS_NO = T.CLS_NO)
+        WHERE L.USER_NO = #{ userNo }
+         AND (C.CLS_DICSION_STATUS = 'F'
+          OR C.CLS_DICSION_STATUS = 'S')
+         AND T.TYPE = 'TITLE'
+         <![CDATA[
+         AND C.CLS_END_D > SYSDATE
+         ]]>
+	</select>
+	
 	
 	<resultMap type="UserRefundDTO" id="UserRefundDTOResult">
         <id column="CANCLE_NO" property="cancelNo"/>
@@ -539,7 +562,7 @@
 		SELECT 
 		       COUNT(CHEER_DATE)
 		  FROM CHEERING_HISTORY
-		 WHERE CHEER_DATE = TO_DATE(SYSDATE,'yy/MM/dd')
+		 WHERE TO_DATE(CHEER_DATE,'yy/MM/dd') = TO_DATE(SYSDATE,'yy/MM/dd')
 		   AND USER_NO = #{ userNo }
 	</select>
 	
@@ -567,6 +590,34 @@
 		       COUNT(CLASS_STEP)
 		  FROM REGULAR_CLASS R
 		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
+	</select>
+	
+
+	<insert id="insertTuitionManagement" parameterType="PaymentDTO">
+		<selectKey keyProperty="payNo" resultType="_int" order="BEFORE">
+			SELECT
+			      SEQ_PAY_NO.CURRVAL
+			FROM DUAL
+	 	</selectKey>
+		INSERT
+		  INTO TUITION_MANAGEMENT
+		VALUES
+		(
+		   SEQ_TUITION_M_NO.NEXTVAL
+		, #{ payPrice }
+		, #{ clsAplNo }
+		, #{ payNo }
+		, 'N'
+
+		)
+	</insert>
+	
+	<select id="selectCheerCount" parameterType="_int" resultType="_int">
+          SELECT 
+		         COUNT(*)
+		    FROM CHEERING_HISTORY
+		   WHERE CLS_NO = #{ clsNo }
+	
 	</select>
 
 </mapper>

@@ -95,6 +95,12 @@ public interface UserClassMapper {
 
 	public int selectClassProgressCount(int scheduleNo);
 
+	public int insertTuitionManagement(PaymentDTO insertPaymentDTO);
+
+	public int selectCheerCount(int clsNo);
+
+	public List<UserClassDTO> selectMyLikeClassList(int userNo);
+
 
 
 

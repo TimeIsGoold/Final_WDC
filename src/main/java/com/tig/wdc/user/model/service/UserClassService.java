@@ -90,5 +90,11 @@ public interface UserClassService {
 
 	int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
 
+	int insertTuitionManagement(PaymentDTO insertPaymentDTO);
+
+	int selectCheerCount(int clsNo);
+
+	List<UserClassDTO> selectMyLikeClassList(int userNo);
+
 
 }

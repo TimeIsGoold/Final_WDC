@@ -516,6 +516,7 @@ i {
                            <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
                            <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>                           
                      </button>
+                           	응원 갯수 :${ requestScope.cheerCount }  개              
 						</li>
 					</div>
 	            </c:if>
