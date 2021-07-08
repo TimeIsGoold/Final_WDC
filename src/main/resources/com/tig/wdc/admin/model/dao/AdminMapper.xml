@@ -143,6 +143,20 @@
 		<result column="CLS_TYPE" property="classType"/>
 	</resultMap>
 	
+	<!-- 노정산 상세 -->
+	<resultMap id="noCalculateInfoDetail" type="CalculateDTO">
+		<id column="TE_TYPE" property="teType"/>
+		<result column="TE_NAME" property="teName"/>
+		<result column="TE_ID" property="teId"/>
+		<result column="BANK" property="bank"/>
+		<result column="TE_ACNT_NO" property="teAcntNo"/>
+		<result column="TE_ACNT_HOLDER" property="teAcntHolder"/>
+		<result column="CLS_NO" property="classNo"/>
+		<result column="정산여부" property="calcYN"/>
+		<result column="CLS_TYPE" property="classType"/>
+		<result column="현재날짜" property="today"/>
+	</resultMap>
+	
 	<!-- 정산 상세 -->
 	<resultMap id="calculateInfoDetail" type="CalculateDTO">
 		<id column="TE_TYPE" property="teType"/>
@@ -171,6 +185,7 @@
 		<result column="USER_ID" property="id"/>
 		<result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
 		<result column="REFUND_STATUS" property="refundStatus"/>
+		<result column="CLS_NO" property="classNo"/>
 	</resultMap>
 	
 	<!-- 환불 상세 -->
@@ -187,6 +202,13 @@
 		<result column="REFUND_HOLDER" property="refundHolder"/>
 		<result column="REFUND_BANK" property="refundBank"/>
 		<result column="REFUND_ACCOUNT" property="refundAccount"/>
+		<result column="PAY_NO" property="payNo"/>
+		<result column="CLS_NO" property="classNo"/>
+	</resultMap>
+	
+	<!-- 환불 승인 insert 할 때 필요한 값 -->
+	<resultMap id="refundTotalAmount" type="RefundDTO">
+		<id column="TOTAL_AMOUNT" property="totalAmount"/>
 	</resultMap>
 	
 	<resultMap id="reportDetailDTO" type="ReportDetailDTO">
@@ -708,6 +730,26 @@
 	</select>
 	
 	<!-- 정산 미완료 상세 -->
+	<select id="selectNoCalculateDetail" resultMap="noCalculateInfoDetail" parameterType="_int">
+		SELECT 
+	          C.TE_TYPE
+	        , C.TE_NAME
+	        , C.TE_ID
+            , C.BANK
+            , C.TE_ACNT_NO
+            , C.TE_ACNT_HOLDER
+            , A.CLS_NO
+	        , A.CALCUL_STATUS 정산여부
+	        , B.CLS_TYPE
+            , B.CLS_TYPE
+            , TO_CHAR(SYSDATE,'DD') AS 현재날짜
+         FROM TUITION_MANAGEMENT A
+         JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
+         JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+        WHERE A.CALCUL_STATUS = 'N'
+          AND B.CLS_TYPE = 'O'
+          AND A.TUITION_M_NO = #{no}
+	</select>
 	
 	<!-- 정산 완료 상세 -->
 	<select id="selectYesCalculateDetail" resultMap="calculateInfoDetail" parameterType="_int">
@@ -728,12 +770,6 @@
              , D.CLS_TYPE
              , 'Y' AS 정산여부
              , TO_CHAR(SYSDATE,'DD') AS 현재날짜
-             <!--  <if test='classType == "O"'>
-             
-             </if>
-             <if test='classType == "R"'>
-             
-             </if> -->
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
           JOIN TUITION_MANAGEMENT C ON (A.TUITION_M_NO = C.TUITION_M_NO)
@@ -744,7 +780,13 @@
 	</select>
 	
 	<!-- 정산 승인 - insert -->
-<!-- 	<insert id="insertCalculate" parameterType="CalculateDTO">
+	<insert id="insertCalculate" parameterType="CalculateDTO">
+		<selectKey keyProperty="tuitionMNo" order="BEFORE" resultType="_int">
+			SELECT 
+				   MAX(TUITION_M_NO)
+  			  FROM TUITION_MANAGEMENT
+             WHERE CLS_NO = #{ classNo }
+		</selectKey>
 		INSERT 
   		  INTO CALCULATE
 		VALUES
@@ -758,15 +800,15 @@
 		, #{ teNo }
 		, #{ tuitionMNo }
 		)
-	</insert> -->
+	</insert>
 	
 	<!-- 정산 승인 - update -->
-<!-- 	<update id="updateCalculate" parameterType="CalculateDTO">
+	<update id="updateCalculate" parameterType="CalculateDTO">
 		UPDATE TUITION_MANAGEMENT
            SET 
                CALCUL_STATUS = 'Y'
          WHERE CLS_NO = #{ classNo }
-	</update> -->
+	</update>
 	
 	<!-- 환불 리스트 -->
 	<select id="selectRefundList" resultMap="refundList">
@@ -777,6 +819,7 @@
      		 , D.USER_ID
      		 , A.REFUND_APPLY_DATE
      		 , A.REFUND_STATUS
+     		 , F.CLS_NO
   		  FROM PAYMENT_CANCEL A
   		  JOIN PAYMENT B ON (A.PAY_NO = B.PAY_NO)
   		  JOIN CLASS_APPLY C ON (B.CLS_APL_NO = C.CLS_APL_NO)
@@ -789,7 +832,7 @@
 	
 	<!-- 환불 상세 -->
 	<select id="selectRefundInfoDetail" resultMap="refundInfoDetail" parameterType="hashmap">
-		SELECT
+		 SELECT
 			   A.CANCLE_NO
      		 , F.CLS_TYPE
      		 , F.CLS_TITLE
@@ -802,6 +845,8 @@
              , A.REFUND_HOLDER
              , A.REFUND_BANK
              , A.REFUND_ACCOUNT
+             , B.PAY_NO
+             , F.CLS_NO
   		  FROM PAYMENT_CANCEL A
   		  JOIN PAYMENT B ON (A.PAY_NO = B.PAY_NO)
   		  JOIN CLASS_APPLY C ON (B.CLS_APL_NO = C.CLS_APL_NO)
@@ -812,7 +857,16 @@
            AND A.CANCLE_NO = #{ no }
 	</select>
 	
-	<!-- 환불 승인 -->
+	<!-- 환불 승인 후 TUITION_MANAGEMENT 테이블에 insert 하기위해서 -->
+	<select id="selectRefundTotalAmount" resultMap="refundTotalAmount" parameterType="hashmap">
+		SELECT 
+		       TOTAL_AMOUNT
+  		  FROM TUITION_MANAGEMENT
+ 		 WHERE CLS_NO = #{ classNo }
+           AND TUITION_M_NO = (SELECT MAX(TUITION_M_NO) FROM TUITION_MANAGEMENT WHERE CLS_NO = #{ classNo })
+	</select>
+	
+	<!-- 환불 승인 - update -->
 	<update id="updateRefundApprove" parameterType="RefundDTO">
 		UPDATE PAYMENT_CANCEL
            SET 
@@ -820,6 +874,20 @@
              , REFUND_STATUS = 'Y'
          WHERE CANCLE_NO = #{ cancelNo }
 	</update>
+	
+	<!-- 환불 승인 - insert -->
+	<insert id="insertRefundApprove" parameterType="RefundDTO">
+		 INSERT
+   		   INTO TUITION_MANAGEMENT
+ 		 VALUES
+ 		(
+ 		  SEQ_TUITION_M_NO.NEXTVAL
+ 		, #{ totalAmount }
+ 		, #{ classNo }
+ 		, #{ payNo }
+ 		, 'N'
+ 		)
+	</insert>
 	
 	<select id="selectStudentReportList" resultMap="reportDetailDTO" parameterType="ReportDetailDTO">
 		SELECT

@@ -271,12 +271,32 @@ public class AdminServiceImpl implements AdminService {
 	
 	/**
 	 * @author 송아현
+	 * 환불 승인 insert 하기 위해 필요한 값
+	 */
+	@Override
+	public RefundDTO selectRefundTotalAmount(Map<String, Object> refundDetailMap) {
+
+		return mapper.selectRefundTotalAmount(refundDetailMap);
+	}
+	
+	/**
+	 * @author 송아현
 	 * 환불 승인 - update
 	 */
 	@Override
 	public int updateRefundApprove(RefundDTO refund) {
 
 		return mapper.updateRefundApprove(refund);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - insert
+	 */
+	@Override
+	public int insertRefundApprove(RefundDTO refund) {
+
+		return mapper.insertRefundApprove(refund);
 	}
 
 	@Override

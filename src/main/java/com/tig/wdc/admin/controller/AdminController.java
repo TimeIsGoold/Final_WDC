@@ -366,14 +366,16 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("refundDetail") 
-	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no,@ModelAttribute RefundDTO refund, Model model) {
+	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no, @RequestParam("classNo")int clsno, Model model) {
 	
 		Map<String, Object> refundDetailMap = new HashMap<>();
 		refundDetailMap.put("status", status);
 		refundDetailMap.put("no", no);
+		refundDetailMap.put("classNo", clsno);
 		
-		model.addAttribute("refundInfoDetail",adminService.selectRefundInfoDetail(refundDetailMap));
-	  
+		model.addAttribute("refundInfoDetail", adminService.selectRefundInfoDetail(refundDetailMap));
+		model.addAttribute("refundTotalAmount", adminService.selectRefundTotalAmount(refundDetailMap));
+		
 		return "admin/refundDetail";
 	}
 	
@@ -389,6 +391,7 @@ public class AdminController {
 	public String refundApprove(@ModelAttribute RefundDTO refund, Model model) {
 		
 		model.addAttribute("refundDetail", adminService.updateRefundApprove(refund));
+		model.addAttribute("refundDetail", adminService.insertRefundApprove(refund));
 		
 		return "redirect:/admin/refundManagement?currentMenu=refund&YN=N";
 	}

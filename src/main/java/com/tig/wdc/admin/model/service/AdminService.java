@@ -199,6 +199,15 @@ public interface AdminService {
 	
 	/**
 	 * @author 송아현
+	 * 환불 승인 insert하기 위해 필요한 값
+	 * 
+	 * @param refundDetailMap
+	 * @return
+	 */
+	RefundDTO selectRefundTotalAmount(Map<String, Object> refundDetailMap);
+	
+	/**
+	 * @author 송아현
 	 * 환불 승인 - update
 	 * 
 	 * @param refund
@@ -206,6 +215,15 @@ public interface AdminService {
 	 */
 	int updateRefundApprove(RefundDTO refund);
 
+	/**
+	 * @author 송아현
+	 * 환불 승인 - insert
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	int insertRefundApprove(RefundDTO refund);
+	
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
 
@@ -257,6 +275,8 @@ public interface AdminService {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+
 
 
 
