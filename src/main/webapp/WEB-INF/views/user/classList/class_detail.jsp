@@ -240,10 +240,21 @@ i {
                 </li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/likeClass"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+              <ul class="navbar-nav ml-auto">
+	              <c:if test="${ empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ !empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo ne null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo eq null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+	              </c:if>
               </ul>
             </div>
           </nav>
@@ -329,18 +340,32 @@ i {
 										</c:forEach>
 									</c:if>
 									<c:if test="${ requestScope.classDetail.clsType == 'O' }">
-										최대   ${ requestScope.oneDayMax }명
+										최대   ${ requestScope.oneDayMax } 명
 									</c:if>
 								</div>
 							</div>
 							<div class="class-icon" style="padding-inline: 10px;">
 								<div>
-									<li class="list-inline-item m-0 p-0"><a
-										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
+									<li class="list-inline-item m-0 p-0">
+									<a class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
 								</div>
 								<div>
-									<li class="list-inline-item m-0 p-0"><a
-										class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
+									<li class="list-inline-item m-0 p-0">
+									<a class="btn btn-sm btn-outline-dark" onclick="clip()"><img src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
+									<script>
+										function clip(){ //url 복사 스크립트
+	
+											var url = '';
+											var textarea = document.createElement("textarea");
+											document.body.appendChild(textarea);
+											url = window.document.location.href;
+											textarea.value = url;
+											textarea.select();
+											document.execCommand("copy");
+											document.body.removeChild(textarea);
+											alert("URL이 복사되었습니다.")
+										}
+									</script>
 								</div>
 							</div>
 						</ul>
@@ -559,7 +584,7 @@ i {
 									</c:if>
 									<c:if test="${ empty sessionScope.userNo }">
 										<c:if test="${ requestScope.applyCheck <= 0 }">
-											<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" onclick="noApply();" style="height: 40px; width: 170px; font-size: 16px;"> 
+											<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
 												<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청 마감
 												<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
 											</button>
@@ -594,23 +619,32 @@ i {
 						</div>
 			    	</c:if>
 	            </c:if>
-	            </div>
-				</div>
+
 				</form>
 	       
 	            <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
-		            <div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
-		            	클래스가 오픈되도록 응원해주세요.&nbsp;&nbsp;&nbsp;&nbsp;
-		            	응원한 클래스가 오픈되면 <b>할인 쿠폰</b>까지!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		            <div style="background-color: white; width: 500px; height: 183px; border-radius: 50px; text-align: center; padding-top: 22px;">
+		            	클래스가 오픈되도록 응원해주세요.<br><br>
+		            	<div style="margin-top: -8px;">응원한 클래스가 오픈되면 <b style="color: #64bcff; font-size: 20px;">할인 쿠폰</b>까지!<br><br></div>
 		           		<li class="list-inline-item m-0 p-0">
-	                     <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 
-	                         <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
-	                     </button>
+			           		<c:if test="${ !empty sessionScope.userNo }">
+			                    <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 
+			                    	<input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
+			                    </button>
+			                </c:if>
+			           		<c:if test="${ empty sessionScope.userNo }">
+			                    <button class="btn btn-sm btn-outline-dark" onclick="noApply();" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 </button>
+			                <script>
+				                function noApply() {
+									alert("우리 동네 클래스 회원만 응원이 가능합니다.");
+								}
+			                </script>
+			                </c:if>
 						</li>
 					</div>
 	            </c:if>
-
-            <br>
+	            </div>
+				</div>
             <!-- DETAILS TABS-->
             <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
                <li class="nav-item"><a class="nav-link active"
@@ -669,7 +703,7 @@ i {
 											<br><br>
 										</c:forEach>
 									</div>
-									<br><br>
+									<br>
 									<hr>
 									<br>
 									<!-- 추가 제공사항 및 유의사항 -->
@@ -682,7 +716,6 @@ i {
 									<hr>
 									<br>
 									<h3>※ 편의사항</h3>
-									<br>
 									<br>
 									<div style="display: flex; width: 550px;">
 									<img src="${pageContext.servletContext.contextPath }/resources/user/img/stayhome.png" alt="home"
@@ -874,10 +907,9 @@ i {
       </section>
 			<script>
 				$("#cheerUp").click(function(){
-					
 			        
 			        if (confirm('응원 하시겠습니까? ')){
-			             // Yes click
+			        // Yes click
 			        const clsNo = document.getElementById('clsNo').value;
  			        $.ajax({
 			               url:"${pageContext.servletContext.contextPath}/user/cheerUp",

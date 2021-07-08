@@ -44,11 +44,10 @@ public class UserCategoryController {
 
 		List<UserClassDTO> allClassList = new ArrayList<UserClassDTO>();
 		
-			
 		allClassList = categoryService.selectClassCategory(userClassDTO);			
 		
-		
 		model.addAttribute("allClassList",allClassList);
+		model.addAttribute("searchContent",searchContent);
 		
 		return "user/classList/class_all";
 	}

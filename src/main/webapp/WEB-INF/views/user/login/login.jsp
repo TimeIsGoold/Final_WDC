@@ -19,6 +19,14 @@
     }
 
     *{font-family:'Cafe24SsurroundAir' !important;}
+    
+    .login-type{
+	    text-align: center;
+	    display: flex;
+	    margin: auto;
+	    width: 430px;
+	    justify-content: space-evenly;
+    }
   </style>
   <body>
     <!-- header -->
@@ -45,10 +53,21 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/likeClass"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+              <ul class="navbar-nav ml-auto">
+	              <c:if test="${ empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ !empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo ne null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo eq null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+	              </c:if>
               </ul>
             </div>
           </nav>
@@ -61,48 +80,51 @@
       </c:if>
       <br><br>
       <!-- body -->
-      <div class="container py-5">
-        <div class="col-lg-7" style="margin: auto;">
-          <div class="card mb-4" id="forms">
-            <div class="card-body"><br>
-              <h4 class="mb-5" style="text-align: center; font-size: 1.9rem;">Log In</h4>
-              <form action="${ pageContext.servletContext.contextPath }/user/mypage/login" method="post">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
-                  <div class="col-sm-12">
-                      <input class="form-control" id="tutorId" type="text" placeholder="아이디" name="userId">
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="tutorPwd">비밀번호</label>
-                  <div class="col-sm-12">
-                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호" name="userPwd">
-                  </div>
-                </div><br><br>
-                <div class="form-group row">
-                  <div class="col-sm-3" style="margin: auto;">
-                    <button class="btn btn-primary" type="submit" style="margin-left: 10%;">로그인</button>
-                  </div>
-                </div>
-                <div class="login-find">
-                  <a href="findID.html" style="color: #adb5bd !important;">아이디 찾기</a></li>
-                  <div style="color: #adb5bd">&nbsp;|&nbsp;</div>
-                  <a href="findPassword.html" style="color: #adb5bd !important;">비밀번호 찾기</a></li>
-                </div><br>
-                <div class="login-find" style="width: 300px; color: #adb5bd !important;">
-                  아직 회원이 아니신가요?
-                  <a href="singup.html" style="color: #adb5bd !important;">회원가입</a></li><br>
-                </div>
-                  <a href="${ pageContext.servletContext.contextPath }/teacher" style="color: #adb5bd !important;">강사 페이지 </a></li><br>                  
-                  <a href="${ pageContext.servletContext.contextPath }/user/admin" style="color: #adb5bd !important;">관리자 모드</a></li><br>
-                  <a href="${ pageContext.servletContext.contextPath }/user/check" style="color: #adb5bd !important;">확인용버튼</a></li><br>
-              </form>
+      <form action="${ pageContext.servletContext.contextPath }/user/mypage/login" method="post">
+	     <div class="container py-5">
+	        <div class="col-lg-7" style="margin: auto;">
+	          <div class="card mb-4" id="forms">
+	            <div class="card-body"><br>
+		            <h4 class="mb-5" style="text-align: center; font-size: 1.9rem;">Log In</h4>
+	                <div class="form-group row">
+	                  <label class="col-sm-3 col-form-label" for="tutorId">아이디</label>
+	                  <div class="col-sm-12">
+	                      <input class="form-control" id="tutorId" type="text" placeholder="아이디" name="userId">
+	                  </div>
+	                </div>
+	                <div class="form-group row">
+	                  <label class="col-sm-3 col-form-label" for="tutorPwd">비밀번호</label>
+	                  <div class="col-sm-12">
+	                    <input class="form-control" id="tutorPwd" type="password" placeholder="비밀번호" name="userPwd">
+	                  </div>
+	                </div><br><br>
+	                <div class="form-group row">
+	                  <div class="col-sm-3" style="margin: auto;">
+	                    <button class="btn btn-primary" type="submit" style="margin-left: 10%;">로그인</button>
+	                  </div>
+	                </div>
+	                <div class="login-find">
+	                  <a href="findID.html" style="color: #adb5bd !important;">아이디 찾기</a></li>
+	                  <div style="color: #adb5bd">&nbsp;|&nbsp;</div>
+	                  <a href="findPassword.html" style="color: #adb5bd !important;">비밀번호 찾기</a></li>
+	                </div><br>
+	                <div class="login-find" style="width: 300px; color: #adb5bd !important;">
+	                 	 아직 회원이 아니신가요?
+	                  <a href="singup.html" style="color: #adb5bd !important;">회원가입</a></li><br>
+	                </div>
+	            </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <br><br><br><br>
-      	<%@include file="../commons/footer.jsp" %>
+            <br>
+            <div class="login-type">
+           		* another page &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	            <a href="${ pageContext.servletContext.contextPath }/teacher" style="color: black !important;">강사 페이지</a></li>               
+	            <a href="${ pageContext.servletContext.contextPath }/user/admin" style="color: black !important;">관리자 모드</a></li>
+            </div>
+	      </div>
+	   </div>
+    </form>
+    <br><br><br>
+    <%@include file="../commons/footer.jsp" %>
  </div>
   </body>
 </html>
