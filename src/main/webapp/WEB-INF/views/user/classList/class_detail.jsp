@@ -244,6 +244,7 @@ i {
       </header>
       
 	  <%@include file="../commons/search.jsp" %>
+					<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
 	  
 		<section class="py-5">
 			<div class="container">
@@ -277,8 +278,7 @@ i {
 						</div>
 					</div>
 					<!-- PRODUCT DETAILS-->
-					<div class="col-lg-6">
-					
+					<div class="col-lg-6">					
 						<!-- 별점 평균 -->
 						<ul class="list-inline mb-2">
 							<c:forEach var="i" begin="1" end="${ requestScope.classStar.avgScore }" step="1">
@@ -341,8 +341,8 @@ i {
 					</div>
 				</div>
 
-			<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
-				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
+<%-- 			<form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
+ --%>				<c:if test="${ requestScope.classDetail.dicsionStatus eq 'S'}">
 					<c:if test="${ requestScope.classDetail.clsType == 'O' }">
 						<div style="background-color: white; width: 1110px; height: 90px; border-radius: 50px; text-align: center; padding-top: 22px;">
 							<!-- 날짜, 시간 선택 -->
@@ -364,7 +364,6 @@ i {
 			            		//두번째 에이작스
 	                       		var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
 		                    	var dayArray2 = pickDay2.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
-	
 		                    	$.ajax({
 			                        type: "post",
 			                        url:  "peopleCount",
@@ -492,13 +491,14 @@ i {
 								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
 								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.classDetail.startDate } ${ schedule.scheduleStart }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 								<img src="${pageContext.servletContext.contextPath }/resources/user/img/date.png" style="width: 30px;">
-								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate" value="${ requestScope.applyCheck } 명 수강 가능 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+								&nbsp;&nbsp;<input class="datetimepicker" id="datetimepicker" type="text" name="stringScheduleDate2" value="${ requestScope.applyCheck } 명 수강 가능 ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 								<img src="${pageContext.servletContext.contextPath }/resources/user/img/group.png" style="width: 30px;">
 								&nbsp;&nbsp;<input type="number" class="datetimepicker" id="num123" name="ppl" max="4" min="0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</c:forEach>
 							<li class="list-inline-item m-0 p-0">
 								<button class="btn btn-sm btn-outline-dark" id="btnSave" type="submit" style="height: 40px; width: 170px; font-size: 16px;"> 
 									<input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청하기 
+									 <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
 								</button>
 							</li>
 						</div>
@@ -612,7 +612,7 @@ i {
 									<br>
 									<!-- 지도 보기 -->
 									<div id="map" style="width:100%;height:400px;"></div>
-									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a34c5273c140d2e488e6342d6fddf219&libraries=services"></script>
+									<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f9c32f3d7241ef20de4f8c2703db2c7&libraries=services"></script>
 									<script>
 									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 									    mapOption = {
