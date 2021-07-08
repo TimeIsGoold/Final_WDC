@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
+import com.tig.wdc.admin.model.dto.AdminDTO;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.CheeringClassDTO;
 import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
@@ -27,12 +32,14 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
 @Controller
 @RequestMapping("/admin/*")
+@SessionAttributes("")
 public class AdminController {
 
 	private final AdminService adminService;
@@ -442,15 +449,16 @@ public class AdminController {
 		Map<String, Object> blackMap = new HashMap<>();
 		System.out.println("넘어오는 타입이 뭔지 알수 있을까요???" + type);
 		System.out.println("넘어오는 유저 넘버는요????" + userNo);
-		blackMap.put("type", type);
-		blackMap.put("userNo", userNo);
 		adminService.updateReportStatus(no);
 		int i = adminService.selectReportCnt(userNo);
 		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
 		int chkCnt = 0;
+		blackMap.put("type", type);
+		blackMap.put("userNo", userNo);
+		System.out.println(blackMap);
 		if(i > 2) {
-			adminService.insertBlackList(blackMap);
-			adminService.updateBlackListOnUSerTable(blackMap);
+			adminService.insertBlackListByThreeCnt(blackMap);
+			adminService.updateBlackListOnUSerTableByCnt(blackMap);
 			chkCnt= 1;
 			return "redirect:reportDetail?no="+no+"&type="+ type + "&chkCnt="+chkCnt;
 		} else {
@@ -537,7 +545,9 @@ public class AdminController {
 				
 				// 거절된 클래스
 		} else if(type.equals("R") && decision.equals("Y")) {
-			UserClassDTO classDetail = new UserClassDTO();
+				String reason = adminService.selectRejectReason(clsNo);
+				model.addAttribute("reason" , reason);
+				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
 				//대표사진 3장 select
@@ -572,7 +582,6 @@ public class AdminController {
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
 				path = "admin/LackofcheeringClass";	
-				
 				// 종료된 클래스
 		} else if(decision.equals("E")) {
 				UserClassDTO classDetail = new UserClassDTO();
@@ -674,6 +683,31 @@ public class AdminController {
 			}
 		}
 		return "redirect:seconddecision?pc=t";
+	}
+	
+	@PostMapping("adminSingIn")
+	public String adminSingIn(Model model, @ModelAttribute AdminDTO loginInfo, RedirectAttributes rttr) {
+		AdminDTO adminInfo = adminService.selectAdminInfo(loginInfo);
+		System.out.println(adminInfo);
+		// 로그인 정보 불일치시 로그인 페이지도 다시 이동
+		String returnPage = "redirect:/admin/login";
+		if(adminInfo == null) {
+			rttr.addFlashAttribute("message", "해당 아이디가 존재하지 않습니다.");
+		} else if(!loginInfo.getAdminPwd().equals(adminInfo.getAdminPwd())) {
+			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+		} else {
+			model.addAttribute("adminNo", adminInfo.getAdminNo());
+			returnPage = "admin/adminMain";
+		}
+		return returnPage;
+	}
+	
+	@GetMapping("logout")
+	public String teacherLogout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "admin/adminLogin";
 	}
 }
 

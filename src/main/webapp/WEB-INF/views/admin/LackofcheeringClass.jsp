@@ -44,7 +44,7 @@
                             <section class="py-5">
                               <div class="container">
                                 <div class="">
-                                <div style="font-size: xx-large; color: red; font-weight: bold;">수요조사 (2차심사) 미달 클래스</div>
+                                <div style="font-size: xx-large; color: red; font-weight: bold;margin-bottom: 30px;">수요조사 (2차심사) 미달 클래스</div>
 									<div class="col-lg-6">
 										<!-- PRODUCT SLIDER-->
 												<div class=""
@@ -176,7 +176,7 @@ ${ classDetail.intro }
                                       <div class="col-md-2" style="height: 100px;"></div>
                                       <div class="col-md-8" style="height: 100px;">
 
-	                                        <input type="submit" value="뒤로 가기" style="margin-right: 100px;" class="btn btn-info"/>                       
+	                                        <input type="button" value="뒤로 가기" style="margin-right: 100px;" class="btn btn-info" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering'">                       
                                       </div>
                                       <div class="col-md-2" style=" height: 100px;"></div>
                                     </div>

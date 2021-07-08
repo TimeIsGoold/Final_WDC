@@ -46,7 +46,7 @@
                             <section class="py-5">
                                 <div class="container">
                                 <div class="">
-                                <div style="font-size: xx-large; color: lightseagreen; font-weight: bold;">&nbsp;&nbsp;종료된 클래스</div>
+                                <div style="font-size: xx-large; color: lightseagreen; font-weight: bold;margin-bottom: 30px;">&nbsp;&nbsp;종료된 클래스</div>
 									<div class="col-lg-6">
 										<!-- PRODUCT SLIDER-->
 												<div class=""
@@ -88,12 +88,15 @@
                                         <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/users.png">&nbsp;&nbsp;최대 4명 가능</div>
                                       </div>
                                   </div>
+                                <div>
+	                            <button class="btn btn-primary" style="margin-left: 90%;margin-bottom: 20px;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">뒤로가기</button>
+	                            <br>
+                            </div>
                                 </div>
                             </div>
                             <div style="background-color: #f5f5f5; width: 1200px; height: 200px; margin: auto;font-size: xx-large; padding: 5%;">
                                 이미 종료된 클래스 입니다.
                             </div>
-                            <button class="btn btn-primary" style="margin-left: 90%;">뒤로가기</button>
                               </section>
                         </div>
                     </div>

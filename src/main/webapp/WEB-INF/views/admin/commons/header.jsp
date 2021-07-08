@@ -44,10 +44,19 @@
        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
        <!-- Navbar-->
        <ul>
-           <a class="sb-nav-link-icon" id="navbarDropdown" href="${ pageContext.servletContext.contextPath }/admin/login" role="button">
+           <button class="sb-nav-link-icon" id="navbarDropdown" onclick="logoutCheck()" type="button">
                <img src="${ pageContext.servletContext.contextPath }/resources/admin/img/log-in.png">
-           </a>
+           </button>
        </ul>
+		      <script>
+                  function logoutCheck(){
+                	  if(confirm("로그아웃 하시겠습니까?")){
+                		  location.href = "${pageContext.servletContext.contextPath }/admin/logout";
+                	  } else {
+                		  location.href = "#";
+                	  }
+                  }
+              </script>       
    </nav>
 </body>
 </html>

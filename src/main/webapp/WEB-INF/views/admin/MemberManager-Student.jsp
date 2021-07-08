@@ -44,7 +44,7 @@
                                 <div class="col-md-2" href="#" style="padding-top: 20px; cursor: pointer;" >클래스 바로가기</div>
                             </div>
                             <br><br>
-                            <div class="row">
+                            <div class="row" align="center" >
                                 <div class="col-sm-6" style="margin-left: 40px;">
                                     <br><br><br>
                                     <table class="table table-striped">
@@ -100,6 +100,9 @@
                                             <td></td>
                                         </tr>				
                                     </table>
+                                </div>
+                                 <div>
+                                 <button class="btn btn-primary" style="margin-left: 90%;width: 96px;margin-top: 51px;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st'">뒤로 가기</button>
                                 </div>
                             </div>
                         </div>

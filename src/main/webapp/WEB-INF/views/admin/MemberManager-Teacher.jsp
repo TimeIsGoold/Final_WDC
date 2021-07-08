@@ -113,8 +113,12 @@
                                 <div class="col-sm-5" align="center">
                                     <img src="../startbootstrap-sb-admin-gh-pages/pic/color.jpg" alt="고양이" class="img-responsive img-circle" width="200px" height="200px">
                                     <br><br><br>
-                                    <textarea cols="100" rows="10" style="resize: none;" placeholder="강사님의 프로필 소개를 입력해주세요" readonly>${ memberInfo.teacherIntro }</textarea>
-
+                                    <textarea cols="100" rows="10" style="resize: none;" placeholder="강사님 소개란 입니다." readonly>${ memberInfo.teacherIntro }</textarea>
+									
+                                <div>
+                                 <button class="btn btn-primary" style="margin-left: 90%;width: 96px;margin-top: 51px;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=tc'">뒤로 가기</button>
+                                </div>
+                                	
                                 </div>
                             </div>
                         </div>

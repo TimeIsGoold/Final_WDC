@@ -87,7 +87,7 @@
                                       </div>
                                   </div>
                                 </div>
-                                <button class="btn btn-primary" style="margin-left: 90%;">뒤로 가기</button>
+                                <button class="btn btn-primary" style="margin-left: 90%;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">뒤로 가기</button>
                                 <br><br>
                                 <!-- 상세보기 탭 -->
                                 <div class="tab-content mb-5" id="myTabContent">

@@ -226,6 +226,12 @@
 			<result column="CATEGORY_NO" property="categoryNo"/>
 			<result column="응원갯수" property="cheeringCnt"/>
 	</resultMap>
+	
+	<resultMap id="adminDTO" type="adminDTO">
+			<id column="ADMIN_NO" property="adminNo"/>
+			<result column="ADMIN_ID" property="AdminId"/>
+			<result column="ADMIN_PWD" property="AdminPwd"/>
+	</resultMap>
 		
 	<select id="selectTotalUsertList" resultMap="totalDTO">
 		SELECT 
@@ -872,10 +878,27 @@
 	
 	<insert id="insertBlackList" parameterType="hashmap">
 		INSERT 
-	     <if test='type == "T"|| blackMap.type =="T"'>
+	     <if test=' blackMap.type =="T"'>
 		  INTO TE_BLOCK_LIST
 		  </if>
-	     <if test='type == "U"|| blackMap.type =="U"'>
+	     <if test='blackMap.type =="U"'>
+		  INTO USER_BLOCK_LIST
+		  </if>
+		VALUES
+		(
+		  SEQ_USER_BLOCK_NO.NEXTVAL
+		, #{blackMap.userNo}
+		, #{blackMap.blackReason}
+		, SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertBlackListByThreeCnt" parameterType="hashmap">
+		INSERT 
+	     <if test='type == "T"'>
+		  INTO TE_BLOCK_LIST
+		  </if>
+	     <if test='type == "U"'>
 		  INTO USER_BLOCK_LIST
 		  </if>
 		VALUES
@@ -890,35 +913,41 @@
 		, #{userNo}
 		, '누적 신고 3회로 블랙리스트 추가'
 		  </if>
-		  <if test='blackMap.blackReason != null'>
-		  SEQ_USER_BLOCK_NO.NEXTVAL
-		, #{blackMap.userNo}
-		, #{blackMap.blackReason}
-		</if>
 		, SYSDATE
 		)
 	</insert>
 	
 	<update id="updateBlackListOnUSerTable" parameterType="hashmap">
-	    <if test='type == "T"|| blackMap.type == "T"'>
+	    <if test='blackMap.type == "T"'>
+		UPDATE TEACHER_INFO
+		   SET BLOCK_YN = 'Y'
+		</if>
+		<if test='blackMap.type == "T"'>
+		 WHERE TE_NO = #{blackMap.userNo}
+		</if>
+	    <if test='blackMap.type == "U"'>
+		UPDATE USER_INFO
+		   SET BLOCK_YN = 'Y'
+		</if>
+		<if test='blackMap.type == "U"'>
+		 WHERE USER_NO = #{blackMap.userNo}
+		</if>
+	</update>
+	
+	<update id="updateBlackListOnUSerTableByCnt" parameterType="hashmap">
+	    <if test='type == "T"'>
 		UPDATE TEACHER_INFO
 		   SET BLOCK_YN = 'Y'
 		</if>
 		<if test='type == "T"'>
 		 WHERE TE_NO = #{userNo}
 		</if> 
-		<if test='blackMap.type == "T"'>
-		 WHERE TE_NO = #{blackMap.userNo}
-		</if>
-	    <if test='type == "U"|| blackMap.type == "U"'>
+	    <if test='type == "U"'>
 		UPDATE USER_INFO
 		   SET BLOCK_YN = 'Y'
 		</if>
 		<if test='type == "U"'>		  
 		 WHERE USER_NO = #{userNo} 
-		</if>
-		<if test='blackMap.type == "U"'>
-		 WHERE USER_NO = #{blackMap.userNo}
 		</if>
 	</update>
 	
@@ -1054,4 +1083,17 @@
 	 	       REJECT_REASON = '응원수 부족'
 	 	 WHERE CLS_NO = #{clsNo}	 
 	 </update>
+	 
+	 <select id="selectRejectReason" resultType="string" parameterType="_int">
+	 SELECT 
+	       REJECT_REASON
+	  FROM DISICION_HISTORY
+	 WHERE CLS_NO = #{clsNo}
+	 </select>
+	 <select id="selectAdminInfo" resultMap="adminDTO" parameterType="adminDTO">
+		 SELECT
+		       *
+		  FROM ADMIN_INFO
+		 WHERE ADMIN_ID = #{AdminId}
+	 </select>
 </mapper>
