@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tig.wdc.admin.commons.DateSortDesc;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
+import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.CheeringClassDTO;
 import com.tig.wdc.admin.model.dto.ClsDecisionDTO;
 import com.tig.wdc.admin.model.dto.CouponDTO;
@@ -323,6 +324,23 @@ public class AdminController {
 		
 		return "admin/calculateDetail";
 	 }
+	
+	/**
+	 * @author 송아현
+	 * 정산 승인
+	 * 
+	 * @param calculate
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("calculateDetail")
+	public String calculateApprove(@ModelAttribute CalculateDTO calculate, Model model) {
+		
+		//model.addAttribute("calculateDetail", adminService.insertCalculate(calculate));
+		//model.addAttribute("calculateDetail", adminService.updateCalculate(calculate));
+		
+		return "redirect:/admin/calculateManagement?currentMenu=calculate&YN=N&type=O";
+	}
 	
 	/**
 	 * @author 송아현

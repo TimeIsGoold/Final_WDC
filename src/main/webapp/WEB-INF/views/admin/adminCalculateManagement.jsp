@@ -117,6 +117,7 @@
 				                                <td>${CalculateDTO.teId}</td>
 				                                <td>${CalculateDTO.calcMonth}</td>
 				                                <td>${CalculateDTO.calcYN}</td>
+				                                <input type="hidden" value="${CalculateDTO.classType}" name="classType">
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
