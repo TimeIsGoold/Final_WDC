@@ -566,5 +566,12 @@
 	    , #{ userNo }
 	    )
 	</insert>
+	
+	<select id="selectClassProgressCount" parameterType="_int" resultType="_int">
+		SELECT
+		       COUNT(CLASS_STEP)
+		  FROM REGULAR_CLASS R
+		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
+	</select>
 
 </mapper>

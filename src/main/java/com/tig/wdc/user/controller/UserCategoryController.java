@@ -3,6 +3,8 @@ package com.tig.wdc.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,17 +36,17 @@ public class UserCategoryController {
 	 * @return
 	 */
 	@GetMapping("all")
-	public String ClassCategoryAllSelect(Model model) {
+	public String ClassCategoryAllSelect(Model model, HttpServletRequest request , UserClassDTO userClassDTO) {
 		
+		//String searchContent = request.getParameter("searchContent");
+		String searchContent = userClassDTO.getSearchContent();
+		System.out.println("searchContent : " + searchContent);
 
 		List<UserClassDTO> allClassList = new ArrayList<UserClassDTO>();
 		
-		allClassList = categoryService.selectClassCategory();
+			
+		allClassList = categoryService.selectClassCategory(userClassDTO);			
 		
-		// 저 리스트에서 클래스 넘버만 뽑고 
-		// 해당 리스트의 길이만큼  응원하기 카운팅해주는 매퍼  for 문 돌린 다음에 jsp에 뿌려준다. ㅇㅋ?
-//		for(int i = 0; i < allClassList.size(); i++) {
-//		}
 		
 		model.addAttribute("allClassList",allClassList);
 		

@@ -140,11 +140,14 @@
                 <br><br>
                 <h6 class="text-uppercase mb-4">Price</h6>
                 <div class="price-range pt-4 mb-5">
-                  <div id="range"></div>
-                  <div class="row pt-2">
-                    <div class="col-6"><strong class="small font-weight-bold text-uppercase"></strong></div>
-                    <div class="col-6 text-right"><strong class="small font-weight-bold text-uppercase"></strong></div>
-                  </div>
+                 <form action="${ pageContext.servletContext.contextPath }/user/category/all" method="get">
+                 <input placeholder="최소가격" name="minPrice">
+                 <br>
+                 ~
+                 <br>
+                 <input placeholder="최대가격" name="maxPrice">
+                 <button type="submit" >검색</button>
+				 </form>
                 </div>
                 <br>
                 <h6 class="text-uppercase mb-3">Show Only</h6>
@@ -180,7 +183,10 @@
                     </ul>
                   </div>
                 </div>
-                <div class="row">    
+                <div class="row"> 
+                 <c:if test="${ empty requestScope.allClassList }">
+                <p style="margin-left: 100px; font-size: 30px;">&ouml; 해당 키워드에대한 검색결과가  없습니다.</p>
+                </c:if>      
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.allClassList }">
                   <c:set value="${i+1}" var="i"></c:set>

@@ -160,6 +160,9 @@
                 </div>
                 <div class="row">
                   <!-- PRODUCT-->
+                <c:if test="${ empty requestScope.cookClassList }">
+                <p style="margin-left: 100px; font-size: 30px;">&ouml; 해당 카테고리에 등록된 클래스가 없습니다.</p>
+                </c:if>          
                   <c:forEach  var="classList" items="${ requestScope.cookClassList }">
                   <c:set value="${i+1}" var="i"></c:set>
                  

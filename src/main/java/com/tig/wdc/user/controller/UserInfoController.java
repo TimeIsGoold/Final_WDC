@@ -279,6 +279,7 @@ public class UserInfoController {
 
 		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
 		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
+		System.out.println("scheduleDetailUserClassDTO : " + scheduleDetailUserClassDTO);
 		
 		model.addAttribute("scheduleDetailUserClassDTO",scheduleDetailUserClassDTO);
 		

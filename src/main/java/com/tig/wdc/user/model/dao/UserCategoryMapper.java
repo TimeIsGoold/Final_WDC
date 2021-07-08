@@ -8,7 +8,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 
 public interface UserCategoryMapper {
 
-	public List<UserClassDTO> selectClassCategory();
+	public List<UserClassDTO> selectClassCategory(UserClassDTO userClassDTO);
 	
 	public List<UserClassDTO> selectSportsClassCategory();
 	
