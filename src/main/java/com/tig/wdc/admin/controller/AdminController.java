@@ -389,6 +389,8 @@ public class AdminController {
 	@GetMapping("procsAcceptStatus")
 	public String procsAcceptStatus(@RequestParam("rn")int no, @RequestParam("type")String type, @RequestParam("un")int userNo, Model model) {
 		Map<String, Object> blackMap = new HashMap<>();
+		System.out.println("넘어오는 타입이 뭔지 알수 있을까요???" + type);
+		System.out.println("넘어오는 유저 넘버는요????" + userNo);
 		blackMap.put("type", type);
 		blackMap.put("userNo", userNo);
 		adminService.updateReportStatus(no);
