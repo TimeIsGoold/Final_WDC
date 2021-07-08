@@ -294,13 +294,14 @@ public class AdminController {
 	 * @return
 	 */
 	 @GetMapping("calculateManagement") 
-	 public String calculateManagement(@RequestParam("YN")String type, Model model) {
+	 public String calculateManagement(@RequestParam("YN")String type, @RequestParam("type")String classType, Model model) {
 	  
 		 if(type.equals("N")) {
-			 model.addAttribute("calculateList", adminService.selectNoCalculateList());
+			 model.addAttribute("calculateList", adminService.selectNoCalculateList(classType));
 		 } else if(type.equals("Y")) {
-			 model.addAttribute("calculateList", adminService.selectYesCalculateList());
+			 model.addAttribute("calculateList", adminService.selectYesCalculateList(classType));
 		 }
+		 
 		 return "admin/adminCalculateManagement"; 
 	 }
 	 
@@ -312,12 +313,12 @@ public class AdminController {
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("no")int no, Model model) {
+	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("type")String classType, @RequestParam("no")int no, Model model) {
 		
 		if(type.equals("N")) {
-			//model.addAttribute("calculateDetail", adminService.selectNoCalculateDetail());
+			//model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail(no));
 		} else if(type.equals("Y")) {
-			model.addAttribute("calculateDetail", adminService.selectYesCalculateDetail(no));
+			model.addAttribute("calculateInfoDetail", adminService.selectYesCalculateDetail(no));
 		}
 		
 		return "admin/calculateDetail";

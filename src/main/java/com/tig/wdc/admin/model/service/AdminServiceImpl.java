@@ -150,7 +150,6 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 쿠폰
-	 * 
 	 */
 	@Override
 	public List<CouponDTO> selectAllCouponList() {
@@ -159,8 +158,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	/**
-	 *@author 송아현
-	 *쿠폰 상세
+	 * @author 송아현
+	 * 쿠폰 상세
 	 */
 	@Override
 	public CouponDTO selectCouponInfoDetail(int no) {
@@ -192,7 +191,6 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 공지 상세
-	 *
 	 */
 	@Override
 	public NoticeDTO selectNoticeInfoDetail(int no) {
@@ -203,7 +201,6 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 공지 등록
-	 * 
 	 */
 	@Override
 	public int insertNoticeWrite(NoticeDTO notice) {
@@ -224,29 +221,26 @@ public class AdminServiceImpl implements AdminService {
 	 /**
 	 * @author 송아현
 	 * 미정산
-	 * 
 	 */
 	@Override 
-	 public List<CalculateDTO> selectNoCalculateList() {
+	 public List<CalculateDTO> selectNoCalculateList(String classType) {
 	 
-		 return mapper.selectNoCalculateList(); 
+		 return mapper.selectNoCalculateList(classType); 
 	}
 	
 	 /**
 	 * @author 송아현
 	 * 정산완료
-	 * 
 	 */
 	@Override 
-	 public List<CalculateDTO> selectYesCalculateList() {
+	 public List<CalculateDTO> selectYesCalculateList(String classType) {
 	 
-		 return mapper.selectYesCalculateList(); 
+		 return mapper.selectYesCalculateList(classType); 
 	}
 	
 	/**
 	 * @author 송아현
 	 * 정산 상세
-	 * 
 	 */
 	@Override
 	public CalculateDTO selectYesCalculateDetail(int no) {
@@ -257,7 +251,6 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 환불 관리
-	 * 
 	 */
 	@Override
 	public List<RefundDTO> selectRefundList(String type) {

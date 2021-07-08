@@ -111,7 +111,7 @@
 		<result column="CPN_START" property="startDate"/>
 		<result column="CPN_END" property="endDate"/>
 		<result column="DIS_AMOUNT" property="discount"/>
-		<result column="DIS_CONDITION" property="discountCondition"/>
+		<result column="총합" property="cntUseUser"/>
 	</resultMap>
 	
 	<!-- 공지 -->
@@ -140,13 +140,23 @@
 		<result column="TE_ID" property="teId"/>
 		<result column="정산날짜" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
+		<result column="CLS_TYPE" property="classType"/>
 	</resultMap>
 	
 	<!-- 정산 상세 -->
-<!-- 	<resultMap id="calculateInfoDetail" type="CalculateDTO">
-		<id column="" property=""/>
-		<result column="" property=""/>
-	</resultMap> -->
+	<resultMap id="calculateInfoDetail" type="CalculateDTO">
+		<id column="TE_TYPE" property="teType"/>
+		<result column="TE_NAME" property="teName"/>
+		<result column="TE_ID" property="teId"/>
+		<result column="BANK" property="bank"/>
+		<result column="TE_ACNT_NO" property="teAcntNo"/>
+		<result column="CALC_AMOUNT" property="calcAmount"/>
+		<result column="USE_FEE" property="useFees"/>
+		<result column="TAX" property="tax"/>
+		<result column="CARD_FEE" property="cardFees"/>
+		<result column="CLS_NO" property="classNo"/>
+		<result column="정산날짜" property="calcMonth"/>
+	</resultMap>
 	
 	<!-- 환불 -->
 	<resultMap id="refundList" type="RefundDTO">
@@ -534,10 +544,12 @@
 			 , A.CPN_START
 			 , A.CPN_END
 			 , A.DIS_AMOUNT
-             , A.DIS_CONDITION
+             , COUNT(C.USER_NO) 총합
 		  FROM COUPON A
           JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
-         WHERE A.CPN_NO = #{no}
+          LEFT JOIN ALL_USER_COUPON C ON (A.CPN_NO = C.CPN_NO)
+         WHERE A.CPN_NO = #{no} 
+         GROUP BY B.USER_ID, A.CPN_NAME, A.CPN_START, A.CPN_END, A.DIS_AMOUNT
 	</select>
 	
  	<!-- 쿠폰 발급 -->
@@ -559,7 +571,6 @@
           	  SEQ_CPN_NO.NEXTVAL
         	, #{ couponName }
         	, #{ discount }
-        	, #{ discountCondition }
         	, #{ startDate }
         	, #{ endDate }
         	, 'N'
@@ -649,46 +660,72 @@
 	
 	<!-- 정산 미완료 -->
 	<select id="selectNoCalculateList" resultMap="calculateList">
-    	SELECT 
-	    	   A.TUITION_M_NO 번호
-			 , C.TE_TYPE
-			 , C.TE_NAME
-			 , C.TE_ID
-             , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
-			 , A.CALCUL_STATUS 정산여부
-		  FROM TUITION_MANAGEMENT A
-		  JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
-          JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
-         WHERE A.CALCUL_STATUS = 'N'
-           AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
-                                    FROM TUITION_MANAGEMENT
-                                    GROUP BY CLS_NO)
+		SELECT 
+			   * 
+		  FROM
+	   		  (SELECT 
+	    	          A.TUITION_M_NO 번호
+			        , C.TE_TYPE
+			        , C.TE_NAME
+			        , C.TE_ID
+                    , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
+			        , A.CALCUL_STATUS 정산여부
+			        , B.CLS_TYPE
+		         FROM TUITION_MANAGEMENT A
+		         JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
+                 JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
+                WHERE A.CALCUL_STATUS = 'N'
+                  AND B.CLS_TYPE = #{classType}
+                  AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
+                                           FROM TUITION_MANAGEMENT
+                                          GROUP BY CLS_NO)
+             )
+        ORDER BY 번호
 	</select>
 	
 	<!-- 정산 완료 -->
 	<select id="selectYesCalculateList" resultMap="calculateList">
-		SELECT 
+         SELECT 
 			   A.CALC_NO AS 번호
 			 , B.TE_TYPE
 			 , B.TE_NAME
 			 , B.TE_ID
 			 , A.CALC_MONTH AS 정산날짜
 			 , 'Y' AS 정산여부
+			 , D.CLS_TYPE
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
-         GROUP BY A.CALC_NO, B.TE_TYPE, B.TE_NAME, B.TE_ID, A.CALC_MONTH
+          LEFT JOIN TUITION_MANAGEMENT C ON (A.TUITION_M_NO = C.TUITION_M_NO)
+          LEFT JOIN CLASS D ON (C.CLS_NO = D.CLS_NO)
+         WHERE D.CLS_TYPE = #{classType}
+         GROUP BY A.CALC_NO, B.TE_TYPE, B.TE_NAME, B.TE_ID, A.CALC_MONTH, 'Y'
          ORDER BY A.CALC_NO
 	</select>
 	
 	<!-- 정산 미완료 상세 -->
 	
 	<!-- 정산 완료 상세 -->
-	<!-- <select id="selectYesCalculateDetail" resultMap="calculateInfoDetail" parameterType="_int">
-	
-	</select> -->
+	<select id="selectYesCalculateDetail" resultMap="calculateInfoDetail" parameterType="_int">
+         SELECT 
+			   B.TE_TYPE
+			 , B.TE_NAME
+			 , B.TE_ID
+			 , B.BANK
+			 , B.TE_ACNT_NO
+             , A.CALC_AMOUNT
+             , A.USE_FEE
+             , A.TAX
+             , A.CARD_FEE
+             , C.CLS_NO
+             , A.CALC_MONTH AS 정산날짜
+		  FROM CALCULATE A
+		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
+          JOIN TUITION_MANAGEMENT C ON (A.TUITION_M_NO = C.TUITION_M_NO)
+         WHERE A.CALC_NO = #{no}
+	</select>
 	
 	<!-- 환불 리스트 -->
-	<select id="selectRefundList" resultMap="refundList" parameterType="string">
+	<select id="selectRefundList" resultMap="refundList">
 		SELECT
        		   A.CANCLE_NO
      		 , F.CLS_TYPE
