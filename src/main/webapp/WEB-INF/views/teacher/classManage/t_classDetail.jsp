@@ -72,7 +72,11 @@
     <div class="container">
         <!-- sidebar -->
       <jsp:include page="../commons/sidebar.jsp"/>
-      
+      <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if>          
       <!-- main page -->
      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
@@ -100,7 +104,7 @@
             } 
             switch(p.id){
               case "review" : location.href = ""; break;
-              case "inquiry" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }"; break;
+              case "inquiry" : location.href = "${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }"; break;
               case "studentManage" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }";break;
             }
           }

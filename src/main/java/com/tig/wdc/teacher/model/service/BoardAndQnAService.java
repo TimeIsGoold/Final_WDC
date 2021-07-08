@@ -8,7 +8,9 @@ import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.model.dto.NoticeDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.InquiryAnswerDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 
 /**
  * 공지사항(상세), 관리자 문의(작성,내역) 등 게시판 처리용
@@ -96,5 +98,29 @@ public interface BoardAndQnAService {
 	 * @param string
 	 * @return
 	 */
-	public List<UserInquiryDTO> selectinquiryList(String clsNo);
+	public List<UserInquiryDTO> selectinquiryList(HashMap<String, Object> classInfo);
+
+	/**
+	 * 이용자 문의 전체 수
+	 * @param parseInt
+	 * @return
+	 */
+	public int selectUserInquiryCount(String string);
+
+	/**
+	 * 이용자문의 상세보기
+	 * @param inquiryInfo
+	 * @return
+	 */
+	public UserInquiryDTO selectOneInquiry(HashMap<String, Object> inquiryInfo);
+
+	/**
+	 * 이용자문의 답변
+	 * @param answer
+	 * @return
+	 */
+	public int insertInquiryAnswer(InquiryAnswerDTO answer);
+
+	public int insertReportUser(UserReportDTO reportInfo);
+
 }

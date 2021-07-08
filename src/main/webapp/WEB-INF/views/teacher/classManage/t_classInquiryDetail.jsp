@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +94,12 @@
     <div class="container">
         <!-- sidebar -->
         <jsp:include page="../commons/sidebar.jsp"/>
-      
+   
+      <c:if test="${not empty info.message }">
+          <script>
+              alert("${info.message}");
+          </script>
+      </c:if>      
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
@@ -104,7 +110,7 @@
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
@@ -113,60 +119,77 @@
       </div>  
     
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left;">
-      <form>
-        <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-          <h4>고객문의</h4>
-        </div>
+    <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
         <div class="sol-sm-2" style="text-align: right;">
-          <a href="t_reportWrite.html" style="color: black;">신고하기</a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/reportUser?userNo=${ inquiry.userNo }&clsNo=${ info.clsNo }" style="color: white; background-color: red; border-radius: 5px; padding: 3px 5px 3px 5px;">신고하기</a>
         </div>
-        <table class="table table-hover">
+      <form method="post" action="${pageContext.servletContext.contextPath }/teacher/inquiryAnswer">
+        <table class="table table-hover" style="margin-top: 15px">
           <thead>
             <tr>
               <th>글 번호</th>
-              <td colspan="3">61</td>
+              <td style="width: 25%">${ inquiry.queNo }</td>
               <th>작성일</th>
-              <td style="width: 25%">2021-05-20</td>
+              <td style="width: 25%">${ inquiry.queDate }</td>
             </tr>
             <tr>
-              <th>제목</th>
-              <td colspan="3">정산 일자가 지났는데 아직 입금이 안됐어요</td>
+              <th>작성자</th>
+              <td style="width: 25%">${ inquiry.userName }</td>
+              
               <th>답변일</th>
-              <td style="width: 25%"></td>
+              <c:choose>
+				<c:when test="${ empty inquiry.answer.answerTime  }">
+              	<td style="width: 25%">-</td>
+				</c:when>
+				<c:otherwise>
+               	<td style="width: 25%">${ inquiry.answer.answerTime }</td>
+				</c:otherwise>              
+              </c:choose>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px;">
-                동해 물과 백두산이 마르고 닳도록
-                하느님이 보우하사 우리나라 만세.
-                무궁화 삼천리 화려 강산
-                대한 사람, 대한으로 길이 보전하세.<br>
-                
-                남산 위에 저 소나무, 철갑을 두른 듯
-                바람 서리 불변함은 우리 기상일세.
-                무궁화 삼천리 화려 강산
-                대한 사람, 대한으로 길이 보전하세.<br><br>
-                
-                남산 위에 저 소나무, 철갑을 두른 듯
-                바람 서리 불변함은 우리 기상일세.
-                무궁화 삼천리 화려 강산
-                대한 사람, 대한으로 길이 보전하세.   
+${ inquiry.queContent }
               </td>
             </tr>
             <tr>
               <td colspan="6" rowspan="" style="padding-top: 20px;">
-                <textarea></textarea>
+              <c:choose>
+				<c:when test="${ empty inquiry.answer.answerContent  }">
+                <textarea style="resize: none;" name="answerContent" required="required" ></textarea>
+				</c:when>
+				<c:otherwise>
+                <textarea style="resize: none;" name="answerContent" readonly="readonly">${ inquiry.answer.answerContent }</textarea>
+				</c:otherwise>              
+              </c:choose>
               </td>
             </tr>
           </tbody>
         </table><br>
-        <button class="btn btn-primary" type="button" style="margin-left: 45%;" onclick="location.href='t_classInquiryReply.html'">완료</button>
+        <input type="hidden" name="queNo" value="${ inquiry.queNo }">
+        <input type="hidden" name="classType" value="${ info.classType }">
+        <input type="hidden" name="clsNo" value="${ info.clsNo }">
+        <input type="hidden" name="qNo" value="${ info.qNo }">
+        <div style="display: flex; padding-left: 35%; margin: auto">
+        <button class="btn btn-primary" type="button"  onclick="goBack();">이전</button>
+        <c:choose>
+		<c:when test="${ empty inquiry.answer.answerContent }">
+        <button class="btn btn-primary" type="submit" style="margin-left: 10%;">답변작성</button>
+		</c:when>
+		<c:otherwise>
+        <button class="btn btn-primary" type="submit" style="margin-left: 10%;" disabled="disabled">답변작성</button>
+		</c:otherwise>              
+        </c:choose>        
+        </div>
       </form>
     </div>
 
-
+	<script>
+	  function goBack(){
+		  location.href = "${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${ info.classType }&clsNo=${ info.clsNo }&queNo=${ info.queNo }";
+	  }
+	</script>
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -179,6 +202,6 @@
   </div>
   </div>
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

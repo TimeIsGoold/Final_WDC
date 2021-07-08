@@ -124,6 +124,7 @@
 		<result column="내용" property="queContent"/>
 		<result column="공개여부" property="queVisibleYn"/>
 		<result column="문의자번호" property="userNo"/>
+		<result column="작성자" property="userName"/>
 		<association property="answer" javaType="InquiryAnswerDTO">
 			<id column="문의번호" property="queNo"/>
 	        <result column="답변내용" property="answerContent"/>
@@ -204,8 +205,35 @@
           FROM NOTICE A
          WHERE NOTICE_NO = #{ noticeNo }         
     </select>
-    <select id="selectinquiryList" resultMap="inquiry" parameterType="string">
+    <select id="selectUserInquiryCount" resultType="_int" parameterType="string">
         SELECT 
+                COUNT(A.QUESTION_NO)
+          FROM USER_TO_TEACHER_Q A
+         WHERE CLS_NO  = #{ clsNo }  
+    </select>
+    <select id="selectinquiryList" resultMap="inquiry" parameterType="hashmap">
+        SELECT 
+               A.*
+          FROM (SELECT ROWNUM RNUM
+                     , B.*
+                  FROM (SELECT C.QUESTION_NO 문의번호
+                             , C.QUESTION_CONTENT 내용
+                             , C.QUESTION_DATE 문의날짜
+                             , C.QUESTION_VISIABLE_YN 공개여부
+                             , C.USER_NO 문의자번호
+                             , D.ANSWER_CONTENT 답변내용
+                             , E.USER_NAME 작성자
+                          FROM USER_TO_TEACHER_Q  C
+                          LEFT JOIN TE_ANSWER D ON (C.QUESTION_NO = D.QUESTION_NO)
+                          JOIN USER_INFO E ON (C.USER_NO = E.USER_NO)
+                         WHERE C.CLS_NO  = #{ clsNo }
+                         ORDER BY C.QUESTION_NO DESC
+                        ) B
+               ) A
+         WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow } 
+    </select>
+    <select id="selectOneInquiry" resultMap="inquiry" parameterType="hashmap">
+        SELECT
                A.QUESTION_NO 문의번호
              , A.QUESTION_CONTENT 내용
              , A.QUESTION_DATE 문의날짜
@@ -213,8 +241,51 @@
              , A.USER_NO 문의자번호
              , B.ANSWER_CONTENT 답변내용
              , B.ANSER_TIME 답변날짜
+             , C.USER_NAME 작성자
           FROM USER_TO_TEACHER_Q A
           LEFT JOIN TE_ANSWER B ON (A.QUESTION_NO = B.QUESTION_NO)
-         WHERE CLS_NO = { clsNo }    
+          JOIN USER_INFO C ON (A.USER_NO = C.USER_NO)
+         WHERE A.QUESTION_NO = #{queNo}
     </select>
+    <insert id="insertInquiryAnswer" parameterType="InquiryAnswerDTO">
+        INSERT
+          INTO TE_ANSWER
+        VALUES
+             (
+               SEQ_ANSWER_NO.NEXTVAL
+             , #{ answerContent }
+             , #{ queNo }
+             , SYSDATE  
+             )  
+    </insert>
+    <insert id="insertReportUser" parameterType="UserReportDTO">
+        INSERT
+          INTO REPORT
+        VALUES
+             (
+               SEQ_REPORT_NO.NEXTVAL
+             , #{ reportTitle }
+             , #{ reportReason }
+             , #{ reportType }
+             , #{ reportFromNo }
+             , #{ reportToNo }
+             , null
+             , #{ status }
+             , SYSDATE  
+             )  
+    </insert>
+    <insert id="insertReportHistory" parameterType="UserReportDTO">
+        <selectKey keyProperty="reportNo" order="BEFORE" resultType="_int">
+            SELECT
+                   SEQ_REPORT_NO.CURRVAL
+              FROM DUAL
+        </selectKey>  
+        INSERT
+          INTO USER_REPORT_HISTORY
+        VALUES
+             (
+               #{ reportToNo }  
+             , #{ reportNo }
+             )  
+    </insert>
 </mapper>

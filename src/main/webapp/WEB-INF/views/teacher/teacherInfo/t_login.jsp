@@ -120,7 +120,7 @@
     </div>
     
     <!-- footer -->
-    <jsp:include page="../commons/footer.jsp"/>
+    <jsp:include page="../commons/footer2.jsp"/>
     
   </body>
 </html>

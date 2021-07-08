@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.common.PageNation;
@@ -25,6 +26,9 @@ import com.tig.wdc.teacher.model.service.BalanceService;
 import com.tig.wdc.teacher.model.service.BoardAndQnAService;
 import com.tig.wdc.teacher.model.service.ClassRegistManageService;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.InquiryAnswerDTO;
+import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
 /**
@@ -191,45 +195,50 @@ public class TeacherMyPageController {
 	 * @return
 	 */
 	@PostMapping("/regularAttendance")
-	public String regularAttendanceUpdate(Model model, @RequestParam @Nullable String attendanceInfo,@RequestParam int scheduleNo, @RequestParam String attendanceDate, @RequestParam String clsNo) {
+	public String regularAttendanceUpdate(Model model, @RequestParam @Nullable String attendanceInfo,@RequestParam int scheduleNo, @RequestParam String attendanceDate, @RequestParam String clsNo, @RequestParam("lastCount") int lastCount) {
 		
-			String applyNo = "";
-			String userNo = "";
-			int classStep = 0;
+		HashMap<String, Object> attendInfo = new HashMap<>();
+		
+		String applyNo = "";
+		String userNo = "";
+		int classStep = 0;
+		
+		/* 1. 출석인원은 없지만 수업은 진행한 경우*/
+		if(attendanceInfo == null) {
+			userNo = "0";
+			applyNo = "0";
+			classStep = lastCount + 1;
 			
-			if(attendanceInfo != null && attendanceInfo.length() >0) {
+		} else if(attendanceInfo != null && attendanceInfo.length() >0) {
+			/*2. 출석인원이 있는경우*/
+			String[] infoList = attendanceInfo.split(",");
+			for(int i = 0; i < infoList.length; i++) {
+			
+				String[] oneInfo = infoList[i].split("/");
+				if(i != (infoList.length -1 )) {
 				
-				String[] infoList = attendanceInfo.split(",");
-				for(int i = 0; i < infoList.length; i++) {
-					
-					String[] oneInfo = infoList[i].split("/");
-					if(i != (infoList.length -1 )) {
-						
-						applyNo += oneInfo[1] + ",";
-						userNo += oneInfo[2] + ",";
-					} else {
-						classStep = Integer.parseInt(oneInfo[0]);
-						applyNo += oneInfo[1];
-						userNo += oneInfo[2];
-					}
+					applyNo += oneInfo[1] + ",";
+					userNo += oneInfo[2] + ",";
+				} else {
+					classStep = Integer.parseInt(oneInfo[0]);
+					applyNo += oneInfo[1];
+					userNo += oneInfo[2];
 				}
-				
-				String[] updateList = applyNo.split(",");
-				
-				classManage.updateRegularApplyStatus(updateList);
 			}
 		
-			HashMap<String, Object> attendInfo = new HashMap<>();
+			String[] updateList = applyNo.split(",");
+		
+			classManage.updateRegularApplyStatus(updateList);
+		}
 			
-			attendInfo.put("classStep", classStep);
-			attendInfo.put("applyNo", applyNo);
-			attendInfo.put("userNo", userNo);
-			attendInfo.put("applyNo", applyNo);
-			attendInfo.put("attendanceDate", java.sql.Date.valueOf(attendanceDate));
-			attendInfo.put("scheduleNo", scheduleNo);
-			classManage.insertRegularClassAttendance(attendInfo);
-			model.addAttribute("clsNo", clsNo);
-			
+		attendInfo.put("classStep", classStep);
+		attendInfo.put("applyNo", applyNo);
+		attendInfo.put("userNo", userNo);
+		attendInfo.put("attendanceDate", java.sql.Date.valueOf(attendanceDate));
+		attendInfo.put("scheduleNo", scheduleNo);
+		classManage.insertRegularClassAttendance(attendInfo);
+		model.addAttribute("clsNo", clsNo);
+		
 		return "redirect:/teacher/studentManagement?classType=R&clsNo="+clsNo;
 	}
 	
@@ -334,12 +343,102 @@ public class TeacherMyPageController {
 		return "teacher/classManage/t_classNotice";
 	}
 	
+	/**
+	 * 고객이 클래스에 한 문의리스트(이해승)
+	 * @param model
+	 * @param classInfo
+	 * @return
+	 */
 	@GetMapping("/userInquiry")
-	public String userInquiryList(Model model,@RequestParam HashMap<String,String> classInfo ) {
-		
-		model.addAttribute("inquiryList", boardService.selectinquiryList(classInfo.get("clsNo")));
+	public String userInquiryList(Model model,@RequestParam HashMap<String,Object> classInfo, @RequestParam(defaultValue = "1") int currentPage) {
+		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectUserInquiryCount((String)classInfo.get("clsNo")), 10, 5);
+		classInfo.put("pageInfo", pageInfo);
+		model.addAttribute("inquiryList", boardService.selectinquiryList(classInfo));
 		model.addAttribute("classType", classInfo.get("classType"));
+		model.addAttribute("pageInfo",pageInfo);
+		model.addAttribute("clsNo",classInfo.get("clsNo"));
+
 		return "teacher/classManage/t_classInquiry";
+	}
+	
+	/**
+	 * 고객이 클래스에 한 문의 상세(이해승)
+	 * @param model
+	 * @param inquiryInfo
+	 * @return
+	 */
+	@GetMapping("/userInquiryDetail")
+	public String userInquiryDetail(Model model, @RequestParam HashMap<String, Object> inquiryInfo) {
+		System.out.println("여기는 상세보기 " + inquiryInfo);
+		model.addAttribute("inquiry", boardService.selectOneInquiry(inquiryInfo));
+		model.addAttribute("info", inquiryInfo);
+		return "teacher/classManage/t_classInquiryDetail";
 		
 	}
+	
+	/**
+	 * 고객이 클래스에 한 문의 답변(이해승)
+	 * @param model
+	 * @param answer
+	 * @param inquiryInfo
+	 * @return
+	 */
+	@PostMapping("/inquiryAnswer")
+	public String inquiryAnswer(Model model, @ModelAttribute InquiryAnswerDTO answer, @RequestParam HashMap<String, Object> inquiryInfo) {
+		System.out.println("여기는 답변작성 :  " + inquiryInfo);
+		int result = boardService.insertInquiryAnswer(answer);
+		if(result > 0) {
+			model.addAttribute("message", "답변작성성공!");
+		} else {
+			model.addAttribute("message", "답변작성실패!");
+		}
+		model.addAttribute("queNo", inquiryInfo.get("queNo"));
+		model.addAttribute("classType", inquiryInfo.get("classType"));
+		model.addAttribute("clsNo", inquiryInfo.get("clsNo"));
+	
+		return "redirect:/teacher/userInquiryDetail";
+	}
+	
+	/**
+	 * 신고페이지로이동
+	 * @param model
+	 * @param info
+	 * @return
+	 */
+	@GetMapping("/reportUser")
+	public String reportUserPage(Model model, @RequestParam HashMap<String, Integer> info) {
+		
+		model.addAttribute("userNo", info.get("userNo"));
+		model.addAttribute("clsNo", info.get("clsNo"));
+		
+		return "teacher/reportInquiry/t_reportWrite";
+	}
+	
+	/**
+	 * 신고글 작성
+	 * @param session
+	 * @param model
+	 * @param reportInfo
+	 * @param clsNo
+	 * @return
+	 */
+	@PostMapping("/reportWrite")
+	public String reportWrite(HttpSession session, RedirectAttributes rttr, @ModelAttribute UserReportDTO reportInfo, @RequestParam int clsNo) {
+		
+		reportInfo.setReportType("강사");
+		reportInfo.setReportFromNo((Integer)session.getAttribute("teacherNo"));
+		reportInfo.setStatus("N");
+		int result = boardService.insertReportUser(reportInfo);
+		
+		if(result > 0) {
+			
+			rttr.addFlashAttribute("message", "신고가 정상적으로 접수되었습니다.");
+		} else {
+			
+			rttr.addFlashAttribute("message", "신고 작성에 실패하였습니다.");
+		}
+		return "redirect:/teacher/classDetail/"+clsNo;
+	}
+
+
 }

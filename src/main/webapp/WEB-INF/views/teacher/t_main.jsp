@@ -281,7 +281,7 @@
                                   <input type="hidden" value="${ teacherInfo.teacherPicture }" name="beforePic">
 	                          </c:otherwise>
 	                      </c:choose>
-	                      <button  style="margin-top: 10px;" type="button">사진등록</button>
+	                      <button  style="margin-top: 10px;" type="button" class="btn">사진등록</button>
 	                      </div>
 
 	                      <div class="thumbnail-file-area">

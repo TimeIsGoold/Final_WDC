@@ -89,8 +89,7 @@ public class TeacherInfoController {
 //        암호화 전 
 //		} else if (!loginInfo.getTeacherPwd().equals(teacherInfo.getTeacherPwd())) {
 		} else if(!passwordEncoder.matches(loginInfo.getTeacherPwd(), teacherInfo.getTeacherPwd())) {
-
-			rttr.addFlashAttribute("mwessage", "비밀번호가 일치하지 않습니다.");
+			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherQuitStatus())) {
 			rttr.addFlashAttribute("message", "탈퇴된 아이디입니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherBlockStatus())) {
