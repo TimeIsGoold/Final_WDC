@@ -89,14 +89,22 @@
                                             <th>사용 기한</th>
                                             <td>${ couponDetail.startDate } ~ ${ couponDetail.endDate }</td>
                                         </tr>
-                                        <tr>
-                                            <th>제한 조건</th>
-                                            <td>${ couponDetail.discountCondition }원 이상의 클래스</td>
-                                        </tr>
                                         <tr>    
                                             <th>할인 금액</th>
                                             <td>${ couponDetail.discount }원</td>
                                         </tr>
+                                        <c:if test="${ couponDetail.couponType eq 'TOTAL'}">
+                                        	<c:choose>
+                                        		<c:when test="${couponDetail.cntUseUser eq 0}">
+                                        			<th>사용인원</th>
+                                        			<td>아직 아무도 사용하지 않았습니다</td>
+                                        		</c:when>
+                                        		<c:when test="${couponDetail.cntUseUser ne 0}">
+                                        			<th>사용인원</th>
+                                        			<td>총 ${couponDetail.cntUseUser}명</td>
+                                        		</c:when>
+                                        	</c:choose>
+                                        </c:if>
                                     </tbody>
                                 </table>
 
@@ -113,9 +121,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>

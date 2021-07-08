@@ -63,6 +63,7 @@
         <result column="REFUND_AMOUNT" property="refundAmount"/>
         <result column="REFUND_STATUS" property="refundStatus"/>
         <result column="PAY_NO" property="payNo"/>
+        <result column="SCHEDULE_NO" property="scheduleNo"/>
     </resultMap>
     
     <resultMap type="UserReviewDTO" id="ReviewResult">
@@ -135,7 +136,7 @@
            AND P.PAY_STATUS = '완료'
            AND CLS_TYPE = 'R'  
            <![CDATA[
-           AND (L.CLS_START_D < SYSDATE)
+           AND (L.CLS_START_D > SYSDATE)
            ]]>
 	</select>
 	
@@ -174,7 +175,7 @@
            AND CLS_TYPE = 'R'  
            <![CDATA[
            AND (L.CLS_START_D < SYSDATE)
-           AND (L.CLS_END_D > SYSDATE)
+           AND (L.CLS_END_D >= SYSDATE)
            ]]>
 	</select>
 	
@@ -190,8 +191,8 @@
            AND A.TYPE = 'TITLE'
            AND C.ATT_STATUS = 'Y'
           <![CDATA[
-           AND (S.SCHEDULE_DATE < SYSDATE
-            OR L.CLS_END_D < SYSDATE)
+           AND (S.SCHEDULE_DATE <= SYSDATE
+            OR L.CLS_END_D <= SYSDATE)
             ]]>
            AND P.PAY_STATUS = '완료'
 	</select>
@@ -247,6 +248,21 @@
 		)
     </insert>
     
+    
+    <select id="selectAllUserCouponList" resultMap="CouponResult">
+ 		SELECT 
+		       *
+		  FROM COUPON A
+         WHERE A.USER_NO = 0 
+    </select>
 
+	<select id="selectUseAllUserCoupon" parameterType="UserCouponDTO" resultType="_int">
+	    SELECT 
+               COUNT(*)
+          FROM ALL_USER_COUPON
+         WHERE USER_NO = #{ userNo }
+           AND CPN_NO = #{ cpnNo }
+	
+	</select>
 
 </mapper>

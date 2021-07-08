@@ -80,12 +80,26 @@
                      					<c:forEach items="${couponList}" var="CouponDTO">
 				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponDetail?currentMenu=coupon&no=${ CouponDTO.couponNo }'">
 				                                <td>${CouponDTO.couponNo}</td>
-				                                <td>${CouponDTO.couponType}</td>
+				                                <c:choose>
+				                                	<c:when test="${CouponDTO.couponType eq 'TOTAL'}">
+				                                		<td>고객 전체</td>
+				                                	</c:when>
+				                                	<c:when test="${CouponDTO.couponType ne 'TOTAL'}">
+				                                		<td>${CouponDTO.couponType}</td>
+				                                	</c:when>
+				                                </c:choose>
 				                                <td>${CouponDTO.couponName}</td>
 				                                <td>${CouponDTO.discount}</td>
 				                                <td>${CouponDTO.issueDate}</td>
 				                                <td>${CouponDTO.startDate} ~ ${CouponDTO.endDate}</td>
-				                                <td>${CouponDTO.useStatus}</td>
+				                                <c:choose>
+				                                	<c:when test="${CouponDTO.couponType eq 'TOTAL'}">
+				                                		<td>상세페이지에서 확인</td>
+				                                	</c:when>
+				                                	<c:when test="${CouponDTO.couponType ne 'TOTAL'}">
+				                                		<td>${CouponDTO.useStatus}</td>
+				                                	</c:when>
+				                                </c:choose>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>
@@ -100,9 +114,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>

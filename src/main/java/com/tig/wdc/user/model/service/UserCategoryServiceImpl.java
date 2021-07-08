@@ -18,8 +18,8 @@ public class UserCategoryServiceImpl implements UserCategoryService {
 	}
 
 	@Override
-	public List<UserClassDTO> selectClassCategory() {
-		return mapper.selectClassCategory();
+	public List<UserClassDTO> selectClassCategory(UserClassDTO userClassDTO) {
+		return mapper.selectClassCategory(userClassDTO);
 	}
 
 	@Override

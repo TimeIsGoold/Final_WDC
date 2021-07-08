@@ -70,4 +70,52 @@
 	         , A.TE_PIC = #{ teacherPicture, jdbcType=VARCHAR }
 	     WHERE A.TE_NO = #{ teacherNo }
 	</update>
+	<select id="selectCheckDoubleId" parameterType="string" resultType="string">
+        SELECT 
+               A.TE_ID 
+          FROM TEACHER_INFO A
+         WHERE A.TE_ID = #{ checkId }
+	</select>
+	<insert id="registTeacher" parameterType="TeacherInfoDTO">
+    	INSERT 
+          INTO TEACHER_INFO
+        VALUES 
+             (
+               SEQ_TE_NO.NEXTVAL
+             , #{ teacherId }
+             , #{ teacherPwd }
+             , #{ teacherType }
+             , #{ teacherIdNo }
+             , #{ teacherName }
+             , #{ teacherPhone }
+             , #{ teacherAccountNo }
+             , #{ teacherAccountName }
+             , #{ teacherAccountBANK }
+             , null
+             , 'N'
+             , 'N'
+             , null
+             , SYSDATE
+             , 'T'
+             )
+	</insert>
+	<select id="selectExistingInfo" parameterType="map" resultMap="teacherInfoResult">
+	    SELECT
+	           A.TE_NO
+	         , A.TE_ID
+	         , A.TE_PWD
+	      FROM TEACHER_INFO A
+	      WHERE A.TE_PHONE = #{ phoneNumber } 
+	      <if test='type == "id"'>
+	        AND A.TE_NAME = #{ name }
+	      </if>
+	      <if test='type == "pwd"'>
+	        AND A.TE_ID = #{ id  }
+	      </if>
+	</select>
+	<update id="modifyTeacherPwd" parameterType="TeacherInfoDTO">
+        UPDATE TEACHER_INFO
+           SET TE_PWD = #{ teacherPwd }
+         WHERE TE_NO = #{ teacherNo }	
+	</update>
 </mapper>

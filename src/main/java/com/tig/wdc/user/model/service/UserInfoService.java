@@ -33,4 +33,8 @@ public interface UserInfoService {
 
 	public int selectReviewYn(int aplNo);
 
+	public List<UserCouponDTO> selectAllUserCouponList();
+
+	public int selectUseAllUserCoupon(UserCouponDTO alluserCouponDTO);
+
 }

@@ -77,21 +77,34 @@
      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
      <%-- <%@ include file="../commons/sidebar.jsp" %> --%>
-          <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
+      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
         <!-- 상단 메뉴바 -->
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="font-size: 15; color: black" ><b>상세정보</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+          <a id="review" style="font-size: 15; color: black" onclick="disicionCheck(this);" ><b>후기</b></a>          
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
+          <a id="inquiry"style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }" style="font-size: 15; color: black"><b>수강생 관리</b></a>
-        </div>            
+          <a id="studentManage"  style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>수강생 관리</b></a>
+        </div>
+        <script>
+          function disicionCheck(p){
+            if("${classDetail.dicsionStatus}" != "S" ){
+              alert("심사가 완료되지 않아 조회할 수 없습니다.");
+              return;
+            } 
+            switch(p.id){
+              case "review" : location.href = "";
+              case "inquiry" : location.href = ""; 
+              case "studentManage" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }";
+            }
+          }
+        </script>        
       </div>
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left;">

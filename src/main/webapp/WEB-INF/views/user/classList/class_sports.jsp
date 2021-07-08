@@ -161,7 +161,9 @@
                   </div>
                 </div>
                 <div class="row">
-                
+                <c:if test="${ empty requestScope.sportsClassList }">
+                <p style="margin-left: 100px; font-size: 30px;">&ouml; 해당 카테고리에 등록된 클래스가 없습니다.</p>
+                </c:if>                          
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.sportsClassList }">
                   <c:set value="${i+1}" var="i"></c:set>

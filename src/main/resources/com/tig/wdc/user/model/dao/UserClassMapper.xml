@@ -25,6 +25,7 @@
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
         <result column="SAVE_PATH" property="titlePic"/>
         <result column="AVG_SCORE" property="avgScore"/>
+        <result column="D_DAY" property="dDay"/>
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
@@ -156,12 +157,12 @@
 		     , T.TE_NAME
 		     , T.TE_PIC
 		     , U.USER_NAME
-		  FROM REVIEW_ANSWER A
-		  JOIN REVIEW R ON (R.REVIEW_NO = A.REVIEW_NO)
-		  JOIN TEACHER_INFO T ON (T.TE_NO = A.TE_NO)
-		  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
-		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
-		  JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
+		  FROM REVIEW R
+		  LEFT JOIN REVIEW_ANSWER A ON (R.REVIEW_NO = A.REVIEW_NO)
+		  LEFT JOIN TEACHER_INFO T ON (T.TE_NO = A.TE_NO)
+		  LEFT JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
+		  LEFT JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
+		  LEFT JOIN USER_INFO U ON (U.USER_NO = C.USER_NO)
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
    
@@ -174,6 +175,7 @@
         <result column="MAX_PEOPLE" property="maxPeople"/>
         <result column="CLS_NO" property="clsNo"/>
         <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+        <result column="SUM_PPL" property="peopleCount"/>
     </resultMap>
     
     <select id="selectSchedule" parameterType="_int" resultMap="ScheduleResult">
@@ -189,6 +191,41 @@
 		  FROM SCHEDULE S
 		 WHERE S.CLS_NO = #{ clsNo }
            AND SCHEDULE_DATE = #{ scheduleDate }
+    </select>
+    
+    <select id="selectPeople" parameterType="ScheduleDTO" resultMap="ScheduleResult">
+        SELECT 
+		       SUM(A.CLS_PPL) AS SUM_PPL
+             , A.SCHEDULE_NO
+		  FROM SCHEDULE S
+          JOIN CLASS_APPLY A ON (S.SCHEDULE_NO = A.SCHEDULE_NO)
+          JOIN CLASS C ON (C.CLS_NO = S.CLS_NO)
+         WHERE S.SCHEDULE_DATE = #{ scheduleDate }
+           AND S.SCHEDULE_START = #{ scheduleStart }
+           AND C.CLS_NO = #{ clsNo }
+         GROUP BY A.SCHEDULE_NO
+    </select>
+    
+    <select id="selectMaxUserSize" parameterType="hashmap" resultType="_int">
+    	SELECT
+    	       A.MAX_PEOPLE
+    	  FROM SCHEDULE A
+    	 WHERE A.CLS_NO = #{ clsNo }
+    	   AND A.SCHEDULE_NO = #{ scheduleNo }
+    </select>
+    
+    <select id="selectRegularSchedule" parameterType="_int" resultMap="ScheduleResult">
+		SELECT 
+		       * 
+		  FROM SCHEDULE S
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
+    
+    <select id="selectApplyPeople" parameterType="ScheduleDTO" resultMap="ScheduleResult">
+        SELECT 
+		       SUM(A.CLS_PPL) AS SUM_PPL 
+		  FROM CLASS_APPLY A
+		 WHERE A.SCHEDULE_NO = #{ scheduleNo }
     </select>
     
     <resultMap type="UserInquiryDTO" id="InquiryResult">
@@ -210,26 +247,47 @@
     </resultMap>
     
     <select id="selectQnA" parameterType="_int" resultMap="InquiryResult">
-		SELECT
+        SELECT
 		       U.*
 		     , A.*
 		     , T.TE_NAME
 		     , T.TE_PIC
 		     , I.USER_NAME
 		  FROM USER_TO_TEACHER_Q U
-		  JOIN CLASS C ON (U.CLS_NO = C.CLS_NO)
-		  JOIN TE_ANSWER A ON (A.QUESTION_NO = U.QUESTION_NO)
-		  JOIN TEACHER_INFO T ON (C.TE_NO = T.TE_NO)
-		  JOIN USER_INFO I ON (U.USER_NO = I.USER_NO)
+		  LEFT JOIN CLASS C ON (U.CLS_NO = C.CLS_NO)
+		  LEFT JOIN TE_ANSWER A ON (A.QUESTION_NO = U.QUESTION_NO)
+		  LEFT JOIN TEACHER_INFO T ON (C.TE_NO = T.TE_NO)
+		  LEFT JOIN USER_INFO I ON (U.USER_NO = I.USER_NO)
 		 WHERE C.CLS_NO = #{ clsNo }
     </select>
     
-	<select id="selectscheduleNo" parameterType="string" resultMap="ScheduleResult">
+    <insert id="insertInquiry" parameterType="UserInquiryDTO">
+	    INSERT 
+	    	INTO USER_TO_TEACHER_Q(QUESTION_NO,QUESTION_CONTENT,QUESTION_DATE,QUESTION_VISIABLE_YN,USER_NO,CLS_NO)
+		VALUES
+		( 
+		  SEQ_QUESTION_NO.NEXTVAL
+		, #{ queContent }
+		, SYSDATE
+		, 'Y'
+		, #{ userNo }
+		, #{ clsNo }
+		)
+    </insert>
+    
+	<select id="selectscheduleNo" parameterType="ScheduleDTO" resultMap="ScheduleResult">
 		SELECT
-		       *
-		  FROM SCHEDULE
-		 WHERE SCHEDULE_DATE = SUBSTR(#{value},0,10)
-		   AND SCHEDULE_START = SUBSTR(#{value},12,15)
+		       S.*
+		  FROM SCHEDULE S
+		  JOIN CLASS C ON(S.CLS_NO = C.CLS_NO)
+		 WHERE S.SCHEDULE_START = SUBSTR(#{stringScheduleDate},12,15)
+		 <if test='scheduleClsType == "O"'>		 
+		   AND S.SCHEDULE_DATE = SUBSTR(#{stringScheduleDate},0,10)
+		 </if>
+		 <if test='scheduleClsType == "R"'>		 
+		   AND C.CLS_START_D = SUBSTR(#{stringScheduleDate},0,10)
+		 </if>
+		   AND S.CLS_NO = #{ clsNo }
 	</select>
     
 	<insert id="insertClassApply" parameterType="ClassApplyDTO">
@@ -356,7 +414,7 @@
 	   (
 	     SEQ_CANCLE_NO.NEXTVAL
 	   , #{ cancelReason }
-	   , NULL
+	   , #{ refundAmount }
 	   , NULL
 	   , #{ cancelReasonDetail }
 	   , #{ payNo }
@@ -393,8 +451,122 @@
 	   , #{ clsNo }
 	   , 'Y'
 	   , #{ userNo }
+	   , SYSDATE
 	   )
-	
 	</insert>
+	
+    <resultMap type="UserClassDTO" id="UserCategoryResult">
+        <id column="CLS_NO" property="clsNo"/>
+        <result column="CLS_TITLE" property="title"/>
+        <result column="CLS_ADDRESS" property="address"/>
+        <result column="CLS_INTRO" property="intro"/>
+        <result column="CLS_C_EXPL" property="cExpl"/>
+        <result column="CLS_TIME" property="time"/>
+        <result column="CLS_START_D" property="startDate"/>
+        <result column="CLS_END_D" property="endDate"/>
+        <result column="CLS_PRICE" property="price"/>
+        <result column="CLS_ADD_INFO" property="addInfo"/>
+        <result column="CLS_ADD_SUP" property="addSup"/>
+        <result column="CLS_DICSION_STATUS" property="dicsionStatus"/>
+        <result column="CLS_TYPE" property="clsType"/>
+        <result column="DATE_APLCT" property="dateAplct"/>
+        <result column="CLS_STATUS" property="status"/>
+        <result column="TE_NO" property="teNo"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
+        <result column="SAVE_PATH" property="titlePic"/>
+        <result column="D_DAY" property="dDay"/>
+        <result column="SCHEDULE_DATE" property="scheduleDate"/>
+        <result column="SCHEDULE_START" property="scheduleStart"/>
+        <result column="CLS_PPL" property="clsPplAmount"/>
+        <result column="PAY_PRICE" property="payPrice"/>
+        <result column="CLS_APL_NO" property="aplNo"/>
+        <result column="TE_NAME" property="teName"/>
+        <result column="CLS_APL_D" property="clsAplDate"/>
+        <result column="CLS_PPL" property="ppl"/>
+        <result column="PAY_STATUS" property="payStatus"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="REFUND_STATUS" property="refundStatus"/>
+        <result column="PAY_NO" property="payNo"/>
+        <result column="D_DAY" property="dDay"/>
+    </resultMap>
+	<select id="selectMyCheerClassList" parameterType="_int" resultMap="UserCategoryResult">
+      SELECT
+            C.*
+          , T.*
+          , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+        FROM CHEERING_HISTORY CH
+	    JOIN USER_INFO U ON(CH.USER_NO = U.USER_NO)
+	    JOIN CLASS C ON(CH.CLS_NO = C.CLS_NO)
+        JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
+        JOIN ATTACHMENT T ON(C.CLS_NO = T.CLS_NO)
+       WHERE U.USER_NO = #{ userNo }
+         AND CLS_DICSION_STATUS = 'F'
+         AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '-'
+         AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '0'
+         AND T.TYPE = 'TITLE'	
+	</select>
+	
+	<resultMap type="UserRefundDTO" id="UserRefundDTOResult">
+        <id column="CANCLE_NO" property="cancelNo"/>
+        <result column="CANCLE_REASON" property="cancelReason"/>
+        <result column="REFUND_AMOUNT" property="refundAmount"/>
+        <result column="REFUND_DATE" property="refundDate"/>
+        <result column="CANCLE_REASON_DETAIL" property="cancelReasonDetail"/>
+        <result column="PAY_NO" property="payNo"/>
+        <result column="REFUND_ACCOUNT" property="refundAccount"/>
+        <result column="REFUND_HOLDER" property="accountHolder"/>
+        <result column="REFUND_BANK" property="bank"/>
+        <result column="REFUND_STATUS" property="refundStatus"/>
+        <result column="REFUND_APPLY_DATE" property="refundApplyDate"/>
+        <result column="MAX_STEP" property="maxStep"/>
+        <result column="SCHEDULE_COUNT" property="scheduleCount"/>
+        
+	</resultMap>
+	
+	<select id="selectMaxStep" parameterType="_int" resultMap="UserRefundDTOResult">
+		SELECT
+		       MAX(CLASS_STEP) MAX_STEP
+		     , S.SCHEDULE_COUNT SCHEDULE_COUNT
+		  FROM REGULAR_CLASS R
+		  JOIN SCHEDULE S ON(S.SCHEDULE_NO = R.SCHEDULE_NO)
+		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
+		   AND S.SCHEDULE_NO = #{ scheduleNo }
+		 GROUP BY S.SCHEDULE_COUNT
+	</select>
+	
+	<select id="selectDoTodayCheer" parameterType="_int" resultType="_int">
+		SELECT 
+		       COUNT(CHEER_DATE)
+		  FROM CHEERING_HISTORY
+		 WHERE CHEER_DATE = TO_DATE(SYSDATE,'yy/MM/dd')
+		   AND USER_NO = #{ userNo }
+	</select>
+	
+	
+	<select id="selectUserCpnNo" parameterType="_int" resultType="_int">
+	      SELECT
+                 USER_NO
+            FROM COUPON
+           WHERE CPN_NO = #{ cpnNo }
+	</select>
+	
+	<insert id="insertAllUserCoupon" parameterType="UserCouponDTO">
+	    INSERT
+	      INTO ALL_USER_COUPON
+	    VALUES
+	    (
+	      SEQ_USE_NO.NEXTVAL
+	    , #{ cpnNo }
+	    , #{ userNo }
+	    )
+	</insert>
+	
+	<select id="selectClassProgressCount" parameterType="_int" resultType="_int">
+		SELECT
+		       COUNT(CLASS_STEP)
+		  FROM REGULAR_CLASS R
+		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
+	</select>
 
 </mapper>

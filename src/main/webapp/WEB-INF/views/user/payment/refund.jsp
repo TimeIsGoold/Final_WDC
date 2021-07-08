@@ -217,7 +217,6 @@ String strDate = formats.format(now); %>
               </div>
               <!-- 신청자 정보-->
               <form action="${pageContext.servletContext.contextPath}/user/refundInsert" method="post">
-              <input type="hidden" value="${ requestScope.userClassDTO.payNo}" name="payNo">
               <table class="table">
                 <thead class="bg-light">
                   <tr>
@@ -395,23 +394,29 @@ String strDate = formats.format(now); %>
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold">총 환불금액</strong>
                       <span><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span>
+                      <input type="hidden" value="${ requestScope.userClassDTO.payPrice }" name="refundAmount">
                       </li>
                       </c:if>
                       <c:if test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate >= cDate }">
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold">총 환불금액</strong>
                       <span><fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</span>
+                      <input type="hidden" value="${ requestScope.userClassDTO.payPrice }" name="refundAmount">
                       </li>
                       </c:if>
                       <c:if test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate < cDate }">
                       <li class="d-flex align-items-center justify-content-between mb-4">
                       <strong class="text-uppercase small font-weight-bold"></strong>
-                      <span>환불 승인 시 남은 기간을 계산해서 알려드립니다.</span>
+                      <span><fmt:formatNumber value="${ requestScope.userRefundDTO.refundAmount }" pattern="#,###"/> 원</span>
+                      <input type="hidden" value="${ requestScope.userRefundDTO.refundAmount}" name="refundAmount">
                       </li>
                       </c:if>
                       <li>
                           <div class="form-group mb-0">
                           <br>
+                            <input type="hidden" value="${ requestScope.userClassDTO.payNo}" name="payNo">
+                            <input type="hidden" value="${ requestScope.userClassDTO.payPrice}" name="payPrice">
+                            <input type="hidden" value="${ requestScope.userClassDTO.clsType}" name="clsType">
                             <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal" type="button"><b>환불 신청하기</b></button>
                           </div>
                       </li>
@@ -450,7 +455,7 @@ String strDate = formats.format(now); %>
                                 <p class="text-muted">신청 인원 : ${ userClassDTO.ppl } 명</p>
                             <c:choose>
                             	<c:when test="${ requestScope.userClassDTO.clsType eq 'R' && requestScope.userClassDTO.startDate < cDate }">
-                                <p class="text-muted">환불 금액 : 환불 승인 시 남은 기간을 계산해서 알려드립니다.</p>
+                                <p class="text-muted">환불 금액 : <fmt:formatNumber value="${ requestScope.userRefundDTO.refundAmount }" pattern="#,###"/> 원</span>
                             	</c:when>
                             	<c:otherwise>
                                 <p class="text-muted">환불 금액 : <fmt:formatNumber value="${ requestScope.userClassDTO.payPrice }" pattern="#,###"/> 원</p>                            	
@@ -461,13 +466,12 @@ String strDate = formats.format(now); %>
                             <ul style="font-size: 15px;">
 								<li style="margin-left: -30px;">환불 신청시 취소 할 수 없습니다. 신중히 결정해 주세요</li>
 								<li style="margin-left: -30px;">영업일 기준 1~7일 후 취소 금액 확인 가능합니다.</li>
-								<li style="margin-left: -30px;">정규 클래스 취소 시 환불 규정을 상세히 읽어주세요. 남은 강의 기간이 1/2 이하인 경우에 환불금액은 0원이며, 취소 신청 시 취소 해제 불가능합니다.</li>
+								<li style="margin-left: -30px;">정규 클래스 취소 시 환불 규정을 상세히 읽어주세요. 강의 진행이 1/2 이상인 경우에 환불금액은 0원이며, 취소 신청 시 취소 해제 불가능합니다.</li>
 							</ul>
                             <hr>
                             <div>
 								<button onclick="location.href='#none';" class="btn btn-dark" style="background-color: lightgray; border: lightgray; margin-left: 50px;"></a>취소</button>
-                                <!-- 카카오 페이 연결 -->
-								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick="paymentSuccess();">환불하기</button>
+								<button id = "doPay"type = "submit" class="btn btn-dark" style="margin-left: 50px;" onclick=paymentSuccess();>환불하기</button>
 								</form>
                             </div>
                           </div>
@@ -516,8 +520,11 @@ String strDate = formats.format(now); %>
                 return;
  		    }
     	     
-    		       
         }
+         
+ 		function paymentSuccess(){
+			alert("환불 신청 되었습니다.");
+		};
 
 
     </script>

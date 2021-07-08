@@ -43,6 +43,10 @@ public class UserClassDTO {
 	private int refundAmount;
 	private String refundStatus;
 	private int payNo;
+	private int scheduleNo;
+	
+	// 검색용
+	private String searchContent;
 
 	private String titlePic1; // 페이먼트 용 
 	private int userNo; // 페이먼트 용 
@@ -54,7 +58,7 @@ public class UserClassDTO {
 			String clsType, Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro,
 			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
 			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, int refundAmount,
-			String refundStatus, int payNo, String titlePic1, int userNo) {
+			String refundStatus, int payNo, int scheduleNo, String searchContent, String titlePic1, int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -89,6 +93,8 @@ public class UserClassDTO {
 		this.refundAmount = refundAmount;
 		this.refundStatus = refundStatus;
 		this.payNo = payNo;
+		this.scheduleNo = scheduleNo;
+		this.searchContent = searchContent;
 		this.titlePic1 = titlePic1;
 		this.userNo = userNo;
 	}
@@ -357,6 +363,22 @@ public class UserClassDTO {
 		this.payNo = payNo;
 	}
 
+	public int getScheduleNo() {
+		return scheduleNo;
+	}
+
+	public void setScheduleNo(int scheduleNo) {
+		this.scheduleNo = scheduleNo;
+	}
+
+	public String getSearchContent() {
+		return searchContent;
+	}
+
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
+
 	public String getTitlePic1() {
 		return titlePic1;
 	}
@@ -384,8 +406,10 @@ public class UserClassDTO {
 				+ scheduleStart + ", clsPplAmount=" + clsPplAmount + ", payPrice=" + payPrice + ", aplNo=" + aplNo
 				+ ", teName=" + teName + ", clsAplDate=" + clsAplDate + ", ppl=" + ppl + ", payStatus=" + payStatus
 				+ ", refundAmount=" + refundAmount + ", refundStatus=" + refundStatus + ", payNo=" + payNo
-				+ ", titlePic1=" + titlePic1 + ", userNo=" + userNo + "]";
+				+ ", scheduleNo=" + scheduleNo + ", searchContent=" + searchContent + ", titlePic1=" + titlePic1
+				+ ", userNo=" + userNo + "]";
 	}
+
 
 
 

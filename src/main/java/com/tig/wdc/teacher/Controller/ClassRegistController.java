@@ -138,8 +138,6 @@ public class ClassRegistController {
 
 				try {
 					img.transferTo(new File(filePath + "\\" + classPiece.getPiecePicture()));
-					System.out.println(img);
-					System.out.println("완성작 인설트 완료!!!!!!!!!!!!!!");
 					insertCount += classService.insertCompletePiece(classPiece);
 					
 				} catch (Exception e) {

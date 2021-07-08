@@ -1,15 +1,20 @@
 package com.tig.wdc.user.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.tig.wdc.common.Encryption;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -46,11 +52,17 @@ public class UserClassDetailController {
 
 	private final UserClassService classService;
 	private final UserInfoMapper infoService;
+	private final BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private Encryption aes;
+
 
 	@Autowired
-	public UserClassDetailController(UserClassService classService,UserInfoMapper infoService) {
+	public UserClassDetailController(UserClassService classService,UserInfoMapper infoService,BCryptPasswordEncoder passwordEncoder) {
 		this.classService = classService;
 		this.infoService = infoService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	/**
@@ -96,31 +108,46 @@ public class UserClassDetailController {
 		List<UserInquiryDTO> qna = new ArrayList<UserInquiryDTO>();
 		qna = classService.selectQnA(clsNo);
 		model.addAttribute("qna", qna);
-
+		
 		// 클래스 스케줄 select
 		List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
+		
+		//정규 클래스인 경우, 클래스 스케줄 select 
+		if(classDetail.getClsType() == "R") {
+			
+			ScheduleDTO regularSchedule = new ScheduleDTO();
+			regularSchedule = classService.selectRegularSchedule(clsNo);
+			model.addAttribute("regularSchedule", regularSchedule);
+			
+			//정규 클래스인 경우, 현재 수강 신청 인원 select 
+			ScheduleDTO scheduleDTO = classService.selectApplyPeople(regularSchedule);
+			System.out.println("클래스 수강 정원 select : " + regularSchedule.getMaxPeople());
+			System.out.println("현재 수강 신청 인원 select : " + scheduleDTO.getPeopleCount());
+			
+			if(scheduleDTO == null) {
+				
+				scheduleDTO.setPeopleCount(0);
+			}
+			
+			System.out.println("없으면 0으로 저장 : " + scheduleDTO.getPeopleCount());
+			
+			//정원 - 현재 신청인원 = 남은인원(applyCheck)
+			int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount();
+			model.addAttribute("applyCheck", applyCheck);
+			
+			System.out.println("정원 - 현재 신청인원 = 남은인원 : " + applyCheck);
+		}
 
 		return "user/classList/class_detail";
 	}
-
-//	@RequestMapping(value="${pageContext.servletContext.contextPath}/user/dateTimePicker/${ requestScope.classDetail.clsNo }")
-//    @ResponseBody
-//	public String DateTimePicker(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, HttpServletRequest request, @RequestParam("date") String date) {
-//		
-//		String checkedDate = request.getParameter("date");
-//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : " + checkedDate);
-//		
-//		return date;
-//		
-//	}
-
-	@PostMapping(value="classDetail/dateTimePicker",produces = "application/json; charset=utf-8" )
+	
+	@PostMapping(value="classDetail/dateTimePicker", produces = "application/json; charset=utf-8" )
 	@ResponseBody
 	public String DateTimePicker(HttpSession session, Model model,
 			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, HttpServletRequest request) {
-		
+		System.out.println("날짜 확인 : " + date);
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setClsNo(clsNo);
 		scheduleDTO.setScheduleDate(date);
@@ -128,12 +155,57 @@ public class UserClassDetailController {
 		// 클래스 날짜에 맞는 시간 select
 		List<ScheduleDTO> time = new ArrayList<ScheduleDTO>();
 		time = classService.selectTime(scheduleDTO);
-		//model.addAttribute("time", time);
 
-		System.out.println("출력????????????????" + time);
 		Gson gson = new Gson();
 		
 		return gson.toJson(time);
+	}
+	
+	@PostMapping(value="classDetail/peopleCount", produces = "application/json; charset=utf-8" )
+	@ResponseBody
+	public String PeopleCount(HttpSession session, Model model,
+			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, 
+			@RequestParam("time") String time, HttpServletRequest request) {
+		System.out.println("들어오노");
+		ScheduleDTO scheduleDTO = new ScheduleDTO();
+		scheduleDTO.setClsNo(clsNo);
+		scheduleDTO.setScheduleDate(date);
+		scheduleDTO.setScheduleStart(time);
+		
+		//스케쥴 신청 인원 select
+		ScheduleDTO people = classService.selectPeople(scheduleDTO);
+		
+		//int remain = max - people.setPeopleCount(peopleCount);
+		
+		System.out.println("출력????????????????" + people);
+		
+		// 스케쥴에서 최대 인원 조회
+		Map<String,Integer> hmap = new HashMap<>();
+		hmap.put("clsNo", clsNo);
+		hmap.put("scheduleNo",people.getScheduleNo());
+		
+		int maxUserSize = classService.selectMaxUserSize(hmap);
+		System.out.println("maxUserSize : " + maxUserSize);
+		
+		int peopleCount = maxUserSize - people.getPeopleCount();
+		Gson gson = new Gson();
+		
+		return gson.toJson(peopleCount);
+	}
+	
+	@PostMapping("inquiry/{clsNo}")
+	public String ClassInquiry(HttpSession session, @PathVariable("clsNo") int clsNo, Model model, UserInquiryDTO userInquiryDTO) {
+	
+		//로그인 세션 값
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		userInquiryDTO.setClsNo(clsNo);
+		userInquiryDTO.setUserNo(userNo);
+		
+		// 문의 insert
+		int inquiry = classService.insertInquiry(userInquiryDTO);
+		
+		return "redirect:/user/classDetail/{clsNo}";
 	}
 
 	/**
@@ -146,32 +218,73 @@ public class UserClassDetailController {
 	@PostMapping("payment")
 	public String payment(HttpSession session, ScheduleDTO scheduleDTO, ClassApplyDTO classApplyDTO, Model model,
 			UserClassDTO userClassDTO) {
+		System.out.println("userClassDTO : " + userClassDTO.toString());
+		System.out.println("scheduleDTO : " + scheduleDTO.toString());
 
-		if (session == null) {
-			return "user/login/login";
-		}
+//		
+//		if (session == null) {
+//			return "user/login/login";
+//		}
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		// 유저 넘버로 이름과 전화번호 조회
 		UserInfoDTO userInfo = new UserInfoDTO();
 		userInfo = classService.selectUserInfo(userNo);
 		model.addAttribute("userInfo", userInfo);
+		System.out.println("1. userInfo" + userInfo);
 
+		
 		// 유저 넘버로 보유 쿠폰 조회
 		List<UserCouponDTO> couponList = new ArrayList<UserCouponDTO>();
 		userClassDTO.setUserNo(userNo);
 		couponList = classService.selectCouponList(userClassDTO);
+		System.out.println("2.couponList :  " + couponList);
+		
+		// 전체 쿠폰 리스트중 사용가능 쿠폰 리스트 조회
+		List<UserCouponDTO> allUserCouponList = new ArrayList<UserCouponDTO>();
+		allUserCouponList = infoService.selectAllUserCouponList();
+		
+		for(int i = 0; i < allUserCouponList.size(); i++) {
+			// 해당 리스트의 쿠폰 번호 빼와서  카운트 조회
+			UserCouponDTO alluserCouponDTO = new UserCouponDTO();
+			alluserCouponDTO.setCpnNo(allUserCouponList.get(i).getCpnNo());
+			alluserCouponDTO.setUserNo(userNo);
+		
+			// 해당 유저가 전체 쿠폰 넘버의 사용이력이 이력 테이블에 있는지 조회
+			int allUserCouponCount = infoService.selectUseAllUserCoupon(alluserCouponDTO);
+			System.out.println("쿠폰 넘버 : " + allUserCouponList.get(i).getCpnNo());
+			
+			// 사용하지 않았다면(카운트가 0이라면) 쿠폰 리스트에 해당 쿠폰 추가
+			if(allUserCouponCount <= 0) {
+				couponList.add(allUserCouponList.get(i));
+			}else {
+				System.out.println("넘어가");
+			}
+
+		}
 		model.addAttribute("couponList", couponList);
-
+		System.out.println("3. couponList : " + couponList);
+		
 		// 스케줄 넘버 조회
-		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
-		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO.getStringScheduleDate());
-		model.addAttribute("pasymentScheduleDTO", paymentScheduleDTO);
-
-		model.addAttribute("classApplyDTO", classApplyDTO);
-
-		// stringScheduleDate 용
+		System.out.println("userClassDTO : " + userClassDTO);
+		scheduleDTO.setClsNo(userClassDTO.getClsNo());
+		scheduleDTO.setScheduleClsType(userClassDTO.getClsType());
+		System.out.println("4. 스케줄넘버 조회 scheduleDTO2 : " + scheduleDTO);
 		model.addAttribute("scheduleDTO", scheduleDTO);
+
+		System.out.println("여기까진 옴?");
+		ScheduleDTO paymentScheduleDTO = new ScheduleDTO();
+		paymentScheduleDTO = classService.selectscheduleNo(scheduleDTO);
+		// paymentScheduleDTO 가 왜 null?
+		
+		
+		System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
+		System.out.println("scheduleDTO3 : " + scheduleDTO);
+		//System.out.println("paymentScheduleDTO : " + paymentScheduleDTO);
+		
+		model.addAttribute("classApplyDTO", classApplyDTO);
+		// stringScheduleDate 용
+		model.addAttribute("paymentScheduleDTO", paymentScheduleDTO);
 
 		return "user/payment/payment";
 	}
@@ -186,9 +299,22 @@ public class UserClassDetailController {
 		int userNo = (Integer) session.getAttribute("userNo");
 		// 0 .쿠폰 no 가 0 이 아니라면 사용으로 업데이트
 		int cpnNo = Integer.parseInt(request.getParameter("cpnNo"));
-
-		if (cpnNo != 0) {
-			int updateResult = classService.updateCpnUseYn(cpnNo);
+		System.out.println(request.getParameter("cpnNo") + "@@");
+		System.out.println("cpnNo : " + cpnNo);
+		
+		// 0.1. 쿠폰 넘버로 유저 넘버를 조회해서 쿠폰넘버가 0이면 업데이트 X, 유저 올 쿠폰에 인서트
+		UserCouponDTO forInsertAllUserCouponDTO  =  new UserCouponDTO();
+		if(cpnNo != 0) {
+			int cpnUserNo = classService.selectUserCpnNo(cpnNo);
+			
+			forInsertAllUserCouponDTO.setUserNo(userNo);
+			forInsertAllUserCouponDTO.setCpnNo(cpnNo);
+			
+			if(cpnUserNo == 0) {
+				int result =  classService.insertAllUserCoupon(forInsertAllUserCouponDTO);
+			}else if (cpnNo != 0 && cpnUserNo != 0) {
+				int updateResult = classService.updateCpnUseYn(cpnNo);
+			}
 		}
 
 		// 1. 클래스 어플라이 인서트
@@ -276,7 +402,8 @@ public class UserClassDetailController {
 		/* 파일명 변경 처리 */
 		String originFileName = singleFile.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		String saveName = /* UUID.randomUUID().toString() */originFileName.replace("-", "")/* + ext */;
+		String saveName = UUID.randomUUID().toString().replace("-", "") + ext;
+
 
 		/* 파일을 저장한다. */
 		try {
@@ -314,11 +441,21 @@ public class UserClassDetailController {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
+		System.out.println("userClassDTO : " + userClassDTO);
 
 		// 유저넘버로 유저 정보 조회
 		UserInfoDTO userDTO = new UserInfoDTO();
 		userDTO = infoService.selectUser(userNo);
+		System.out.println("userDTO : " + userDTO);
 		
+		// 스케줄 넘버로 환불금액 계산
+		// 1. 스케줄 넘버로 맥스스텝, 총 회차수 계산
+		UserRefundDTO userRefundDTO = new UserRefundDTO();
+		if(userClassDTO.getClsType().equals("R")) {
+			userRefundDTO = classService.selectRefundAmount(userClassDTO.getScheduleNo(),userClassDTO.getPayPrice());
+		}
+		System.out.println("userRefundDTO : " + userRefundDTO);
+		model.addAttribute("userRefundDTO",userRefundDTO);
 		model.addAttribute("userClassDTO",userClassDTO);
 		model.addAttribute("userDTO",userDTO);
 		
@@ -343,8 +480,28 @@ public class UserClassDetailController {
 		userRefundDTO.setAccountHolder(userInfoDTO.getUserName());
 		
 		int payNo = userClassDTO.getPayNo();
+		System.out.println("payNo = " + payNo);
+		
 		// 2. 페이넘 받기		
 		userRefundDTO.setPayNo(payNo);
+		// 3. 리펀드 어마운트 set
+		if(userClassDTO.getClsType().equals("O")) {
+			userRefundDTO.setRefundAmount(userClassDTO.getPayPrice());
+		}else if(userClassDTO.getClsType().equals("R")) {
+			userRefundDTO.setRefundAmount(userRefundDTO.getRefundAmount());			
+		}
+		
+		// 4. 계좌 번호 암호화
+		System.out.println("암호화 전 : " + userRefundDTO.getRefundAccount());
+		
+		try {
+			userRefundDTO.setRefundAccount(aes.encrypt(userRefundDTO.getRefundAccount()));
+			System.out.println("암호화 후 : " + userRefundDTO.getRefundAccount());
+			System.out.println("복호화 후 : " + aes.decrypt(userRefundDTO.getRefundAccount()));
+
+		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+			e.printStackTrace();
+		}
 		
 		// payment cancel 테이블 인서트
 		int result = classService.inserRefund(userRefundDTO);
@@ -406,13 +563,22 @@ public class UserClassDetailController {
 		//1. 해당 클래스 응원했는지 조회
 		int cheerHistory = classService.selectCheerHistory(cheerUpHisInsertDTO);
 		System.out.println("cheerHistory : " + cheerHistory);
+		// 이클래스에 응원한적 있으면 cheerHistory = 1, 없으면 cheerHistory = 0.
 		
+		// 2. 오늘 응원했는지 조회  <- 카운트가 0인 경우에만 응원 가능
+		int selectDoTodayCheer = classService.selectDoTodayCheer(userNo);
+		
+		// 에이작스에 반환할 결과
 		int cheerUpResult = 0;
-		// 해당 클래스 응원 카운트가 0이면
-		if(cheerHistory == 0) {
+		
+		// 해당 클래스 응원 카운트가 0이고 오늘 응원을 하지 않았다면
+		if(cheerHistory == 0 && selectDoTodayCheer == 0) {
 			cheerUpResult = classService.insertCheerHistory(cheerUpHisInsertDTO);
+			// cheerUpResult = 1
 		}else if(cheerHistory == 1) {
-		}else if( session.getAttribute("userNo").equals("null")) {
+			cheerUpResult = 0;
+			// 없으면 cheerUpResult = 0 으로 반환 (이미 응원하셨습니다)
+		}else if(selectDoTodayCheer >= 1 ) {
 			cheerUpResult = 2;
 		}
 		

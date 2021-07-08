@@ -27,7 +27,7 @@
         <result column="D_DAY" property="dDay"/>
     </resultMap>
 
-	<select id="selectClassCategory" resultMap="UserCategoryResult">
+	<select id="selectClassCategory" resultMap="UserCategoryResult" parameterType="UserClassDTO">
        SELECT
               A.*
             , T.* 
@@ -42,6 +42,9 @@
           AND A.CLS_DICSION_STATUS != 'L'
           AND A.CLS_DICSION_STATUS != 'R'
           AND T.TYPE = 'TITLE'
+         <if test="searchContent != null">
+          AND A.CLS_TITLE LIKE '%${ searchContent }%'
+         </if>
     </select>
     
     <select id="selectSportsClassCategory" resultMap="UserCategoryResult">

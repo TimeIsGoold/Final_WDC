@@ -1,10 +1,16 @@
 package com.tig.wdc.teacher.model.service;
 
+import java.util.Map;
+
 import com.tig.wdc.model.dto.TeacherInfoDTO;
 
 /**
  * @author 이해승
  * 강사정보 처리
+ */
+/**
+ * @author user
+ *
  */
 public interface TeacherInfoService {
 
@@ -43,5 +49,34 @@ public interface TeacherInfoService {
 	 */
 	public int updateTeacherProfile(TeacherInfoDTO profileInfo);
 
+	/**
+	 * 아이디 중복확인
+	 * @param checkId : 확인할 아이디
+	 * @return
+	 */
+	public String selectCheckDoubleId(String checkId);
+
+	/**
+	 * 강사회원가입
+	 * @param registInfo
+	 * @return
+	 */
+	public int registTeacher(TeacherInfoDTO registInfo);
+
+	/**
+	 * 강사 기존정보 일치확인
+	 * @param result
+	 * @return
+	 */
+	public TeacherInfoDTO selectExistingInfo(Map<String, String> result);
+
+	/**
+	 * 강사 비밀번호 재설정
+	 * @param info 재설정정보
+	 * @return
+	 */
+	public int modifyTeacherPwd(TeacherInfoDTO info);
+
+	
 
 }

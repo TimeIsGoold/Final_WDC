@@ -18,14 +18,21 @@
 	   		function drawColor(){
 	   			var documentUrl = document.URL; 
 	   			var NdocumentUrl = new URL(documentUrl);  
-	   			var currentMenu = NdocumentUrl .searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
+	   			var currentMenu = NdocumentUrl.searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
 	   			 
-	   			const sideBar = document.getElementsByClassName('nav-link');
+	   			//const sideBar = document.getElementsByClassName('nav-link');
 	   			
 	   			const currentMenuBar = document.getElementById(currentMenu);
 	   			currentMenuBar.style.color = '#fef0ae';
 	   		}
 	   	</script>
+	   	<style>
+	   		#pageMove {
+	   		    margin-left: 6%;
+		   	    margin-bottom: 3%;
+		   	    opacity: 40%;
+	   		}
+	   	</style>
     </head>
 <body>
     <div id="layoutSidenav_nav">
@@ -61,7 +68,7 @@
                                            공지사항
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="calculate" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N">
+                   <a class="nav-link collapsed" id="calculate" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N&type=O">
                                            정산
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
@@ -72,6 +79,9 @@
                </div>
            </div>
            <div class="sb-sidenav-footer">
+           	   <div id="pageMove">
+				<input type="button" value="고객홈페이지로 이동" onclick="location.href='${ pageContext.servletContext.contextPath }'">           	   
+           	   </div>
                <div class="small">
                	Copyright &copy; 우리동네 클래스
                </div>

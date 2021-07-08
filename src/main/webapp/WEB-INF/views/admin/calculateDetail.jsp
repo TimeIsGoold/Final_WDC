@@ -198,7 +198,14 @@
                                             <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
                                             <td colspan="4">${ calculateInfoDetail.teName }</td>
                                             <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
-                                            <td colspan="4">${ calculateInfoDetail.teType }</td>
+                                            <c:choose>
+				                                	<c:when test="${ calculateInfoDetail.teType eq 'FREE'}">
+				                                		<td colspan="4">프리랜서</td>
+				                                	</c:when>
+				                                	<c:when test="${ calculateInfoDetail.teType eq 'INDI'}">
+				                                		<td colspan="4">사업자</td>
+				                                	</c:when>
+				                            </c:choose>
                                         </tr>
                                         <tr>
                                             <th>아&nbsp;&nbsp;이&nbsp;디</th>
@@ -218,7 +225,7 @@
                                             <th>최종정산</th>
                                             <td>
                                                 <div class="detailCalculate">총 매출</div>
-                                                <div class="detailCalculate">${ calculateInfoDetail.totalSales }</div>
+                                                <div class="detailCalculate"></div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
@@ -277,16 +284,12 @@
                         <td>클래스명</td>
                         <td>인원</td>
                         <td>근무일수</td>
-                        <td>근무시간</td>
-                        <td>매출액</td>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="classTitle">${ calculateInfoDetail.className }</td>
-                            <td id="count">${ calculateInfoDetail.count }</td>
-                            <td id="workDay">${ calculateInfoDetail.workDay }</td>
-                            <td id="workTime">${ calculateInfoDetail.workTime }</td>
-                            <td id="price">${ calculateInfoDetail.price }</td>
+                            <td id="classTitle"></td>
+                            <td id="count"></td>
+                            <td id="workDay"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -298,9 +301,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>

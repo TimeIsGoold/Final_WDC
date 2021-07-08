@@ -2,12 +2,15 @@
     pageEncoding="UTF-8"%>
 
       <!-- 검색 -->
+      
       <div class="container h-100">
+      <form action="${ pageContext.servletContext.contextPath }/user/category/all" method="get">
         <div class="d-flex justify-content-center h-100">
           <div class="searchbar">
-            <input class="search_input" type="text" name="" placeholder="우리 동네 클래스를 검색해보세요!">
-            <a href="#" class="search_icon" style="text-decoration:none"><i class="fas fa-search"></i></a>
+            <input class="search_input" type="text" name="searchContent" placeholder="우리 동네 클래스를 검색해보세요!">
+            <button type="submit"  class="search_icon" style="text-decoration:none; border: 0px;"><i class="fas fa-search"></i></button>
           </div>
         </div>
+      </form>
       </div>
       <br>

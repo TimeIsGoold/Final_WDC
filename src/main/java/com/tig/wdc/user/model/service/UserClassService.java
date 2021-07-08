@@ -48,7 +48,7 @@ public interface UserClassService {
 
 	List<UserInquiryDTO> selectQnA(int clsNo);
 
-	ScheduleDTO selectscheduleNo(String stringScheduleDate);
+	ScheduleDTO selectscheduleNo(ScheduleDTO scheduleDTO);
 
 	int insertClassApply(ClassApplyDTO paymentClassApplyDTO);
 
@@ -69,5 +69,26 @@ public interface UserClassService {
 	int selectCheerHistory(UserClassDTO cheerUpHisInsertDTO);
 
 	int insertCheerHistory(UserClassDTO cheerUpHisInsertDTO);
+
+	ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
+
+	int selectMaxUserSize(Map hmap);
+
+	int insertInquiry(UserInquiryDTO userInquiryDTO);
+	
+	List<UserClassDTO> selectMyCheerClassList(int userNo);
+
+	UserRefundDTO selectRefundAmount(int scheduleNo, int payPrice);
+
+	ScheduleDTO selectRegularSchedule(int clsNo);
+	
+	ScheduleDTO selectApplyPeople(ScheduleDTO regularSchedule);
+	
+	int selectDoTodayCheer(int userNo);
+
+	int selectUserCpnNo(int cpnNo);
+
+	int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
+
 
 }

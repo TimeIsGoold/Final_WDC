@@ -7,7 +7,7 @@ import com.tig.wdc.user.model.dto.UserClassDTO;
 
 public interface UserCategoryService {
 
-	public List<UserClassDTO> selectClassCategory();
+	public List<UserClassDTO> selectClassCategory(UserClassDTO userClassDTO);
 	
 	public List<UserClassDTO> selectClassSportsCategory();
 	

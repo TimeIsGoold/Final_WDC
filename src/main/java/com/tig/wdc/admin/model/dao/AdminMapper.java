@@ -104,6 +104,7 @@ public interface AdminMapper {
 	/**
 	 * @author 송아현
 	 * 쿠폰 상세
+	 * 
 	 * @param no
 	 * @return
 	 */
@@ -146,11 +147,20 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 공지 수정 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int updateNoticeReWrite(NoticeDTO notice);
+	
+	/**
+	 * @author 송아현
 	 * 미정산
 	 * 
 	 * @return
 	 */
-	List<CalculateDTO> selectNoCalculateList();
+	List<CalculateDTO> selectNoCalculateList(String classType);
 	
 	/**
 	 * @author 송아현
@@ -158,7 +168,7 @@ public interface AdminMapper {
 	 * 
 	 * @return
 	 */
-	List<CalculateDTO> selectYesCalculateList();
+	List<CalculateDTO> selectYesCalculateList(String classType);
 
 	/**
 	 * @author 송아현
@@ -166,7 +176,7 @@ public interface AdminMapper {
 	 * 
 	 * @return
 	 */
-	CalculateDTO selectCalculateDetail();
+	CalculateDTO selectYesCalculateDetail(int no);
 	
 	/**
 	 * @author 송아현
@@ -183,7 +193,16 @@ public interface AdminMapper {
 	 * @param refund
 	 * @return
 	 */
-	RefundDTO selectRefundInfoDetail(RefundDTO refund);
+	RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap);
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	int updateRefundApprove(RefundDTO refund);
 	
 	StudentDTO selectOneStudent(int no);
 
@@ -228,6 +247,9 @@ public interface AdminMapper {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+
+
 
 
 

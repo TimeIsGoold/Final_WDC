@@ -32,6 +32,10 @@ public interface UserServiceCenterService {
 
 	UserReportDTO ReportAnswer(int reportNo);
 
+	int insertInquiry(UserInquiryDTO userInquiryDTO);
+
+	int inquiryHistory(UserInquiryDTO userInquiryDTO);
+
 
 
 

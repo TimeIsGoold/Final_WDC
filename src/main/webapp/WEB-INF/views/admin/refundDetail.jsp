@@ -100,17 +100,40 @@
 	                                        	<th>환불신청일</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundApplyDate }</td>
 	                                            <th>환 불 일</th>
-	                                            <td colspan="4">${ refundInfoDetail.refundDate }</td>
+	                                            <td colspan="4">
+	                                            	<c:choose>
+	                                            		<c:when test="${ empty refundInfoDetail.refundDate }">
+	                                            			아직 승인되지 않았습니다
+	                                            		</c:when>
+	                                            		<c:when test="${ not empty refundInfoDetail.refundDate }">
+	                                            			${ refundInfoDetail.refundDate }
+	                                            		</c:when>
+	                                            	</c:choose>
+	                                            </td>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>취소&nbsp;&nbsp;&nbsp;사유</th>
 	                                            <td colspan="4">${ refundInfoDetail.cancelReason }</td>
 	                                            <th>상세사유</th>
-	                                            <td colspan="4">${ refundInfoDetail.cancelReasonDetail }</td>
+	                                            <c:choose>
+	                                            	<c:when test="${ empty refundInfoDetail.cancelReasonDetail }">
+	                                            		<td colspan="4">상세 사유가 없습니다</td>
+	                                            	</c:when>
+	                                            	<c:when test="${ not empty refundInfoDetail.cancelReasonDetail }">
+	                                            		<td colspan="4">${ refundInfoDetail.cancelReasonDetail }</td>
+	                                            	</c:when>
+	                                            </c:choose>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>클래스타입</th>
-	                                            <td colspan="4">${ refundInfoDetail.classType }</td>
+	                                            <c:choose>
+	                                            	<c:when test="${ refundInfoDetail.classType eq 'O' }">
+	                                            		<td colspan="4">원데이</td>
+	                                            	</c:when>
+	                                            	<c:when test="${ refundInfoDetail.classType eq 'R' }">
+	                                            		<td colspan="4">정규</td>
+	                                            	</c:when>
+	                                            </c:choose>
 	                                            <th>클래스명</th>
 	                                            <td colspan="4">${ refundInfoDetail.className }</td>
 	                                        </tr>
@@ -124,8 +147,7 @@
 	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundAccount }</td>
 	                                            <th>환 불 액</th>
-	                                            <td colspan="4">${ refundInfoDetail.refundAmount }</td>
-	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
+	                                            <td colspan="4">${ refundInfoDetail.refundAmount }원</td>
 	                                        </tr>
 	                                    </tbody>
                                     </form>
@@ -145,14 +167,11 @@
         </div>
         <script>
         	$("#approveBtn").on("click",function(){
-        		$("#area").attr("action","/wdc/admin/couponIssue").submit();
+        		$("#area").attr("action","/wdc/admin/refundDetail").submit();
         	});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-area-demo.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/admin/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/datatables-simple-demo.js"></script>
     </body>

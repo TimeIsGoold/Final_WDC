@@ -103,7 +103,7 @@
       <div class="container">
         <section class="py-5">
           <div class="container p-0">
-            <div class="row">
+            <div class="row">             
               <!-- SHOP SIDEBAR-->
               <div class="col-lg-3 order-2 order-lg-1">
                 <h5 class="text-uppercase mb-4">Category</h5>
@@ -159,6 +159,9 @@
                   </div>
                 </div>
                 <div class="row">
+                <c:if test="${ empty requestScope.revenuClassList }">
+                <p style="margin-left: 100px; font-size: 30px;">&ouml; 해당 카테고리에 등록된 클래스가 없습니다.</p>
+                </c:if>                         
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.revenuClassList }">
                   <c:set value="${i+1}" var="i"></c:set>

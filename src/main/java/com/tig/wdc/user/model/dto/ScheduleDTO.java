@@ -19,10 +19,12 @@ public class ScheduleDTO {
 	private int maxPeople;
 	private int clsNo;
 	private int scheduleCount;
+	private int peopleCount;
 
 	private String inputDate;
 	private String inputMin;
 	private String inputMax;
+	private String scheduleClsType;
 
 	private String stringScheduleDate; // 페이먼트용
 
@@ -30,8 +32,8 @@ public class ScheduleDTO {
 	}
 
 	public ScheduleDTO(int scheduleNo, String scheduleType, Date scheduleDate, String scheduleStart, int minPeople,
-			int maxPeople, int clsNo, int scheduleCount, String inputDate, String inputMin, String inputMax,
-			String stringScheduleDate) {
+			int maxPeople, int clsNo, int scheduleCount, int peopleCount, String inputDate, String inputMin,
+			String inputMax, String scheduleClsType, String stringScheduleDate) {
 		super();
 		this.scheduleNo = scheduleNo;
 		this.scheduleType = scheduleType;
@@ -41,9 +43,11 @@ public class ScheduleDTO {
 		this.maxPeople = maxPeople;
 		this.clsNo = clsNo;
 		this.scheduleCount = scheduleCount;
+		this.peopleCount = peopleCount;
 		this.inputDate = inputDate;
 		this.inputMin = inputMin;
 		this.inputMax = inputMax;
+		this.scheduleClsType = scheduleClsType;
 		this.stringScheduleDate = stringScheduleDate;
 	}
 
@@ -108,7 +112,15 @@ public class ScheduleDTO {
 	}
 
 	public void setScheduleCount(int scheduleCount) {
-		scheduleCount = scheduleCount;
+		this.scheduleCount = scheduleCount;
+	}
+
+	public int getPeopleCount() {
+		return peopleCount;
+	}
+
+	public void setPeopleCount(int peopleCount) {
+		this.peopleCount = peopleCount;
 	}
 
 	public String getInputDate() {
@@ -135,6 +147,14 @@ public class ScheduleDTO {
 		this.inputMax = inputMax;
 	}
 
+	public String getScheduleClsType() {
+		return scheduleClsType;
+	}
+
+	public void setScheduleClsType(String scheduleClsType) {
+		this.scheduleClsType = scheduleClsType;
+	}
+
 	public String getStringScheduleDate() {
 		return stringScheduleDate;
 	}
@@ -147,9 +167,10 @@ public class ScheduleDTO {
 	public String toString() {
 		return "ScheduleDTO [scheduleNo=" + scheduleNo + ", scheduleType=" + scheduleType + ", scheduleDate="
 				+ scheduleDate + ", scheduleStart=" + scheduleStart + ", minPeople=" + minPeople + ", maxPeople="
-				+ maxPeople + ", clsNo=" + clsNo + ", scheduleCount=" + scheduleCount + ", inputDate=" + inputDate
-				+ ", inputMin=" + inputMin + ", inputMax=" + inputMax + ", stringScheduleDate=" + stringScheduleDate
-				+ "]";
+				+ maxPeople + ", clsNo=" + clsNo + ", scheduleCount=" + scheduleCount + ", peopleCount=" + peopleCount
+				+ ", inputDate=" + inputDate + ", inputMin=" + inputMin + ", inputMax=" + inputMax
+				+ ", scheduleClsType=" + scheduleClsType + ", stringScheduleDate=" + stringScheduleDate + "]";
 	}
+
 
 }

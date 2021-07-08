@@ -151,7 +151,6 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 쿠폰
-	 * 
 	 */
 	@Override
 	public List<CouponDTO> selectAllCouponList() {
@@ -160,8 +159,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	/**
-	 *@author 송아현
-	 *쿠폰 상세
+	 * @author 송아현
+	 * 쿠폰 상세
 	 */
 	@Override
 	public CouponDTO selectCouponInfoDetail(int no) {
@@ -193,7 +192,6 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 공지 상세
-	 *
 	 */
 	@Override
 	public NoticeDTO selectNoticeInfoDetail(int no) {
@@ -204,51 +202,56 @@ public class AdminServiceImpl implements AdminService {
 	/**
 	 * @author 송아현
 	 * 공지 등록
-	 * 
 	 */
 	@Override
 	public int insertNoticeWrite(NoticeDTO notice) {
 
 		return mapper.insertNoticeWrite(notice);
 	}
+	
+	/**
+	 * @author 송아현
+	 * 공지 수정 등록
+	 */
+	@Override
+	public int updateNoticeReWrite(NoticeDTO notice) {
+
+		return mapper.updateNoticeReWrite(notice);
+	}
 
 	 /**
 	 * @author 송아현
 	 * 미정산
-	 * 
 	 */
 	@Override 
-	 public List<CalculateDTO> selectNoCalculateList() {
+	 public List<CalculateDTO> selectNoCalculateList(String classType) {
 	 
-		 return mapper.selectNoCalculateList(); 
+		 return mapper.selectNoCalculateList(classType); 
 	}
 	
 	 /**
 	 * @author 송아현
 	 * 정산완료
-	 * 
 	 */
 	@Override 
-	 public List<CalculateDTO> selectYesCalculateList() {
+	 public List<CalculateDTO> selectYesCalculateList(String classType) {
 	 
-		 return mapper.selectYesCalculateList(); 
+		 return mapper.selectYesCalculateList(classType); 
 	}
 	
 	/**
 	 * @author 송아현
 	 * 정산 상세
-	 * 
 	 */
 	@Override
-	public CalculateDTO selectCalculateDetail() {
+	public CalculateDTO selectYesCalculateDetail(int no) {
 		
-		return mapper.selectCalculateDetail();
+		return mapper.selectYesCalculateDetail(no);
 	}
 	
 	/**
 	 * @author 송아현
 	 * 환불 관리
-	 * 
 	 */
 	@Override
 	public List<RefundDTO> selectRefundList(String type) {
@@ -261,9 +264,19 @@ public class AdminServiceImpl implements AdminService {
 	 * 환불 상세
 	 */
 	@Override
-	public RefundDTO selectRefundInfoDetail(RefundDTO refund) {
+	public RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap) {
 
-		return mapper.selectRefundInfoDetail(refund);
+		return mapper.selectRefundInfoDetail(refundDetailMap);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 */
+	@Override
+	public int updateRefundApprove(RefundDTO refund) {
+
+		return mapper.updateRefundApprove(refund);
 	}
 
 	@Override

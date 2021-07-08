@@ -109,9 +109,22 @@ public class UserServiceCenterController {
 	}
 	
 	@GetMapping("inquiryWrite")
-	public String InquiryWrite() {
+	public String InquiryWrite(HttpSession session, UserInquiryDTO userInquiryDTO) {
 		
 		return "user/serviceCenter/inquiry_write";
+	}
+	
+	@GetMapping("insertWrite")
+	public String InsertWrite(HttpSession session, UserInquiryDTO userInquiryDTO) {
+		
+		//문의 insert
+		int userNo= (Integer) session.getAttribute("userNo");
+		userInquiryDTO.setUserNo(userNo);
+		
+		int inquiryWrite = serviceCenter.insertInquiry(userInquiryDTO);
+		int inquiryHistory = serviceCenter.inquiryHistory(userInquiryDTO);
+		
+		return "redirect:/user/serviceCenter/inquiry";
 	}
 	
 	@GetMapping("report")
@@ -151,11 +164,4 @@ public class UserServiceCenterController {
 		return "user/serviceCenter/report_detail";
 	}
 	
-//	@GetMapping("reportWrite")
-//	public String ReportWrite() {
-//		
-//		return "user/serviceCenter/report_write";
-//	}
-	
-
 }

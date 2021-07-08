@@ -120,7 +120,7 @@ public interface AdminService {
 	 * @return
 	 */
 	int insertCouponIssue(CouponDTO coupon);
-
+	
 	/**
 	 * @author 송아현
 	 * 공지
@@ -146,6 +146,15 @@ public interface AdminService {
 	 * @return
 	 */
 	int insertNoticeWrite(NoticeDTO notice);
+	
+	/**
+	 * @author 송아현
+	 * 공지 수정 등록
+	 * 
+	 * @param notice
+	 * @return
+	 */
+	int updateNoticeReWrite(NoticeDTO notice);
 
 	/**
 	 * @author 송아현
@@ -153,7 +162,7 @@ public interface AdminService {
 	 * 
 	 * @return
 	 */
-	List<CalculateDTO> selectNoCalculateList();
+	List<CalculateDTO> selectNoCalculateList(String classType);
 	
 	/**
 	 * @author 송아현
@@ -161,7 +170,7 @@ public interface AdminService {
 	 * 
 	 * @return
 	 */
-	List<CalculateDTO> selectYesCalculateList();
+	List<CalculateDTO> selectYesCalculateList(String classType);
 	
 	/**
 	 * @author 송아현
@@ -169,7 +178,7 @@ public interface AdminService {
 	 * 
 	 * @return
 	 */
-	CalculateDTO selectCalculateDetail();
+	CalculateDTO selectYesCalculateDetail(int no);
 	
 	/**
 	 * @author 송아현
@@ -183,10 +192,19 @@ public interface AdminService {
 	 * @author 송아현
 	 * 환불 상세
 	 * 
+	 * @param refundDetailMap
+	 * @return
+	 */
+	RefundDTO selectRefundInfoDetail(Map<String, Object> refundDetailMap);
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - update
+	 * 
 	 * @param refund
 	 * @return
 	 */
-	RefundDTO selectRefundInfoDetail(RefundDTO refund);
+	int updateRefundApprove(RefundDTO refund);
 
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
@@ -239,6 +257,8 @@ public interface AdminService {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+
 
 
 

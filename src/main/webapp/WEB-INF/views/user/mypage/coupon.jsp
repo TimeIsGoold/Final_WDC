@@ -166,7 +166,12 @@
                         <tr class="tr-hover">
                           <th>${i}</th>
                           <th><button class="coupon-modal" type="button" data-toggle="modal" data-target="#coupon_detail${i}">${couponList.cpnName}</button></th>
+                          <c:if test="${couponList.userNo ne '0'}">
                           <td onclick="location.href='detail.html'" style="cursor:pointer;">${couponList.couponClassName}</td>
+                          </c:if>                          
+                          <c:if test="${couponList.userNo eq '0'}">
+                          <td onclick="location.href='detail.html'" style="cursor:pointer;">전체 강의</td>
+                          </c:if>                          
                           <td>${couponList.cpnEnd}</td>
                         </tr>   
                               <!-- 쿠폰팝업 -->
@@ -178,9 +183,16 @@
 				                <h4><i class="fas mr-2 fa-gift"> 5% 할인 쿠폰 </i></h4>
 				
 				                <h6>${couponList.cpnName}</h6>
-				                <br>
-				                	적용 강좌명 : ${couponList.couponClassName}
-				                <br>
+				                <c:if test="${couponList.userNo eq '0'}">
+					                <br>
+					                	적용 강좌명 : 전체
+					                <br>
+				                </c:if>
+				                <c:if test="${couponList.userNo ne '0'}">
+					                <br>
+					                	적용 강좌명 : ${couponList.couponClassName}
+					                <br>
+				                </c:if>
 				                ${couponList.cpnEnd} 까지
 				            </div>
 				            </div>
