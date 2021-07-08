@@ -90,7 +90,7 @@ public class TeacherInfoController {
 //		} else if (!loginInfo.getTeacherPwd().equals(teacherInfo.getTeacherPwd())) {
 		} else if(!passwordEncoder.matches(loginInfo.getTeacherPwd(), teacherInfo.getTeacherPwd())) {
 
-			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
+			rttr.addFlashAttribute("mwessage", "비밀번호가 일치하지 않습니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherQuitStatus())) {
 			rttr.addFlashAttribute("message", "탈퇴된 아이디입니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherBlockStatus())) {
@@ -351,6 +351,12 @@ public class TeacherInfoController {
 		
 	}
 	
+	/**
+	 * 새비밀번호 설정
+	 * @param rttr 
+	 * @param info
+	 * @return
+	 */
 	@PostMapping("settingNewPwd")
 	public String settingNewPwd(RedirectAttributes rttr, @ModelAttribute TeacherInfoDTO info) {
 		System.out.println("변경전 : " + info);
