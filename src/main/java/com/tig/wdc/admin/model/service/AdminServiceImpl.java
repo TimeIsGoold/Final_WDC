@@ -20,6 +20,7 @@ import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
+import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 
 @Service
@@ -369,6 +370,37 @@ public class AdminServiceImpl implements AdminService {
 		
 		return mapper.selectUserNoByCheeringClass(clsNo);
 	}
+
+	@Override
+	public int updateClsSecondDecision(int clsNo) {
+		
+		return mapper.updateClsSecondDecision(clsNo);
+	}
+
+	@Override
+	public int updateClsSecondDecisionHistory(int clsNo) {
+		
+		return mapper.updateClsSecondDecisionHistory(clsNo);
+	}
+
+	@Override
+	public int insertCheeringCoupon(UserClassDTO classDetail) {
+		
+		return mapper.insertCheeringCoupon(classDetail);
+	}
+
+	@Override
+	public int updateClsSecondDecisionReject(int clsNo) {
+
+		return mapper.updateClsSecondDecisionReject(clsNo);
+	}
+
+	@Override
+	public int updateClsSecondDecisionHistoryRedject(int clsNo) {
+		
+		return mapper.updateClsSecondDecisionHistoryRedject(clsNo);
+	}
+
 
 
 

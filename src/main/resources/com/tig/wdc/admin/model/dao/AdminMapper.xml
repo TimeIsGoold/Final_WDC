@@ -1012,4 +1012,46 @@
 		  FROM CHEERING_HISTORY CH
 		 WHERE CH.CLS_NO = #{clsNo}
 	 </select>
+	 
+	 <update id="updateClsSecondDecision" parameterType="_int">
+	 	UPDATE CLASS
+	 	   SET CLS_DICSION_STATUS = 'S'
+	 	 WHERE CLS_NO = #{clsNo}
+	 </update>
+	 
+	 <update id="updateClsSecondDecisionHistory" parameterType="_int">
+	 	UPDATE DISICION_HISTORY 
+	 	   SET SECOND_DICSION_DATE = SYSDATE
+	 	 WHERE CLS_NO = #{clsNo}
+	 </update>
+	 
+	 <insert id="insertCheeringCoupon" parameterType="UserClassDTO">
+		INSERT
+		  INTO COUPON
+		VALUES
+		(
+		  SEQ_CPN_NO.NEXTVAL
+		, '응원강의 개설 축하 쿠폰'
+		, #{price}
+		, SYSDATE
+		, #{endDate}
+		, 'N'
+		, #{clsNo}
+		, #{userNo}
+		, SYSDATE
+		)
+	 </insert>
+	 
+	 <update id="updateClsSecondDecisionReject" parameterType="_int">
+	 	UPDATE CLASS
+	 	   SET CLS_DICSION_STATUS = 'L'
+	 	 WHERE CLS_NO = #{clsNo}	 
+	 </update>
+	 
+	 <update id="updateClsSecondDecisionHistoryRedject" parameterType="_int">
+	 	UPDATE DISICION_HISTORY 
+	 	   SET SECOND_DICSION_DATE = SYSDATE,
+	 	       REJECT_REASON = '응원수 부족'
+	 	 WHERE CLS_NO = #{clsNo}	 
+	 </update>
 </mapper>
