@@ -22,6 +22,11 @@
         	.card-header {
         		 font-size: x-large;
         	}
+        	
+        	#tabMenu {
+        		 margin-left: 0px;
+        		 margin-bottom: 1%;
+        	}
         
             .calculateNo {
                 width: 49.8%;
@@ -70,11 +75,21 @@
                             </div>
                             
                             <div class="sideMenu">
-                            	<input type="button" id="N" class="calculateNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
-                            	<input type="button" id="Y" class="calculateYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y'">
+                            	<input type="button" id="N" class="calculateNo" value="예정" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N&type=O'">
+                            	<input type="button" id="Y" class="calculateYes" value="완료" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=Y&type=O'">
       						</div>
                             
                             <div class="card-body">
+                            
+                            	<ul class="nav nav-tabs" id="tabMenu">
+								  <li class="nav-item">
+								    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=${calculateList[0].calcYN}&type=O" id="O">원데이</a>
+								  </li>
+								  <li class="nav-item">
+								    <a class="nav-link" data-toggle="tab" href="${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=${calculateList[0].calcYN}&type=R" id="R">정규</a>
+								  </li>
+								</ul>
+                            
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -88,7 +103,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${calculateList}" var="CalculateDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/calculateDetail?currentMenu=calculate&YN=${CalculateDTO.calcYN}&no=${CalculateDTO.calcNo}'">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/calculateDetail?currentMenu=calculate&YN=${CalculateDTO.calcYN}&type=${CalculateDTO.classType}&no=${CalculateDTO.calcNo}'">
 				                                <td>${CalculateDTO.calcNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${CalculateDTO.teType eq 'FREE'}">
@@ -118,11 +133,15 @@
     		function drawColor(){
     			var documentUrl = document.URL; 
     			var NdocumentUrl = new URL(documentUrl);  
-    			var currentTab = NdocumentUrl .searchParams.get("YN");  //url에 있는 name이란 파라미터값을 가지고옴
+    			var currentTab = NdocumentUrl.searchParams.get("YN");  //url에 있는 name이란 파라미터값을 가지고옴
+    			var currentTabTab = NdocumentUrl.searchParams.get("type");
     			
     			const currentTabBar = document.getElementById(currentTab);
     			currentTabBar.style.background = '#ffe163';
     			currentTabBar.style.fontWeight = 'bolder';
+    			
+    			const currentTabTabBar = document.getElementById(currentTabTab);
+    			currentTabTabBar.className = 'nav-link active';
     		}
     	</script>
     	<script>drawColor();</script>

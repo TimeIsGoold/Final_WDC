@@ -19,6 +19,7 @@ public class CalculateDTO {
 	private int calcAmount;
 	private int classNo;
 	private String className;
+	private String classType;
 	private int count;
 	private int workDay;
 	private int workTime;
@@ -30,7 +31,7 @@ public class CalculateDTO {
 
 	public CalculateDTO(int calcNo, String teType, String teName, String teId, String calcMonth, String calcYN,
 			String bank, String teAcntNo, int totalSales, int tax, int useFees, int cardFees, int calcAmount,
-			int classNo, String className, int count, int workDay, int workTime, int price) {
+			int classNo, String className, String classType, int count, int workDay, int workTime, int price) {
 		super();
 		this.calcNo = calcNo;
 		this.teType = teType;
@@ -47,6 +48,7 @@ public class CalculateDTO {
 		this.calcAmount = calcAmount;
 		this.classNo = classNo;
 		this.className = className;
+		this.classType = classType;
 		this.count = count;
 		this.workDay = workDay;
 		this.workTime = workTime;
@@ -173,6 +175,14 @@ public class CalculateDTO {
 		this.className = className;
 	}
 
+	public String getClassType() {
+		return classType;
+	}
+
+	public void setClassType(String classType) {
+		this.classType = classType;
+	}
+
 	public int getCount() {
 		return count;
 	}
@@ -210,8 +220,9 @@ public class CalculateDTO {
 		return "CalculateDTO [calcNo=" + calcNo + ", teType=" + teType + ", teName=" + teName + ", teId=" + teId
 				+ ", calcMonth=" + calcMonth + ", calcYN=" + calcYN + ", bank=" + bank + ", teAcntNo=" + teAcntNo
 				+ ", totalSales=" + totalSales + ", tax=" + tax + ", useFees=" + useFees + ", cardFees=" + cardFees
-				+ ", calcAmount=" + calcAmount + ", classNo=" + classNo + ", className=" + className + ", count="
-				+ count + ", workDay=" + workDay + ", workTime=" + workTime + ", price=" + price + "]";
+				+ ", calcAmount=" + calcAmount + ", classNo=" + classNo + ", className=" + className + ", classType="
+				+ classType + ", count=" + count + ", workDay=" + workDay + ", workTime=" + workTime + ", price="
+				+ price + "]";
 	}
 
 }

@@ -159,7 +159,7 @@ public interface AdminMapper {
 	 * 
 	 * @return
 	 */
-	List<CalculateDTO> selectNoCalculateList();
+	List<CalculateDTO> selectNoCalculateList(String classType);
 	
 	/**
 	 * @author 송아현
@@ -167,7 +167,7 @@ public interface AdminMapper {
 	 * 
 	 * @return
 	 */
-	List<CalculateDTO> selectYesCalculateList();
+	List<CalculateDTO> selectYesCalculateList(String classType);
 
 	/**
 	 * @author 송아현

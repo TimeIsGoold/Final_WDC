@@ -223,9 +223,9 @@ public class AdminServiceImpl implements AdminService {
 	 * 미정산
 	 */
 	@Override 
-	 public List<CalculateDTO> selectNoCalculateList() {
+	 public List<CalculateDTO> selectNoCalculateList(String classType) {
 	 
-		 return mapper.selectNoCalculateList(); 
+		 return mapper.selectNoCalculateList(classType); 
 	}
 	
 	 /**
@@ -233,9 +233,9 @@ public class AdminServiceImpl implements AdminService {
 	 * 정산완료
 	 */
 	@Override 
-	 public List<CalculateDTO> selectYesCalculateList() {
+	 public List<CalculateDTO> selectYesCalculateList(String classType) {
 	 
-		 return mapper.selectYesCalculateList(); 
+		 return mapper.selectYesCalculateList(classType); 
 	}
 	
 	/**

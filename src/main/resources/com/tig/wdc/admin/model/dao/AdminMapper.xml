@@ -140,6 +140,7 @@
 		<result column="TE_ID" property="teId"/>
 		<result column="정산날짜" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
+		<result column="CLS_TYPE" property="classType"/>
 	</resultMap>
 	
 	<!-- 정산 상세 -->
@@ -669,10 +670,12 @@
 			        , C.TE_ID
                     , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
 			        , A.CALCUL_STATUS 정산여부
+			        , B.CLS_TYPE
 		         FROM TUITION_MANAGEMENT A
 		         JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
                  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
                 WHERE A.CALCUL_STATUS = 'N'
+                  AND B.CLS_TYPE = #{classType}
                   AND A.TUITION_M_NO IN (SELECT MAX(TUITION_M_NO)
                                            FROM TUITION_MANAGEMENT
                                           GROUP BY CLS_NO)
@@ -682,16 +685,20 @@
 	
 	<!-- 정산 완료 -->
 	<select id="selectYesCalculateList" resultMap="calculateList">
-		SELECT 
+         SELECT 
 			   A.CALC_NO AS 번호
 			 , B.TE_TYPE
 			 , B.TE_NAME
 			 , B.TE_ID
 			 , A.CALC_MONTH AS 정산날짜
 			 , 'Y' AS 정산여부
+			 , D.CLS_TYPE
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
-         GROUP BY A.CALC_NO, B.TE_TYPE, B.TE_NAME, B.TE_ID, A.CALC_MONTH
+          LEFT JOIN TUITION_MANAGEMENT C ON (A.TUITION_M_NO = C.TUITION_M_NO)
+          LEFT JOIN CLASS D ON (C.CLS_NO = D.CLS_NO)
+         WHERE D.CLS_TYPE = #{classType}
+         GROUP BY A.CALC_NO, B.TE_TYPE, B.TE_NAME, B.TE_ID, A.CALC_MONTH, 'Y'
          ORDER BY A.CALC_NO
 	</select>
 	
@@ -718,7 +725,7 @@
 	</select>
 	
 	<!-- 환불 리스트 -->
-	<select id="selectRefundList" resultMap="refundList" parameterType="string">
+	<select id="selectRefundList" resultMap="refundList">
 		SELECT
        		   A.CANCLE_NO
      		 , F.CLS_TYPE
