@@ -81,6 +81,11 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 		return mapper.selectNoticeDetail(noticeNo);
 	}
 
+	@Override
+	public List<UserInquiryDTO> selectinquiryList(String clsNo) {
+		return mapper.selectinquiryList(clsNo);
+	}
+
 
 
 }

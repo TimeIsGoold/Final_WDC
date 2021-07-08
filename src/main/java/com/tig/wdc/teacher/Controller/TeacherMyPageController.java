@@ -144,6 +144,7 @@ public class TeacherMyPageController {
 			model.addAttribute("onedayInfo", onedayInfoList);
 			pageName = "teacher/classManage/t_classAttendance";
 		}
+		
 		return pageName;
 	}
 	
@@ -227,11 +228,12 @@ public class TeacherMyPageController {
 			attendInfo.put("attendanceDate", java.sql.Date.valueOf(attendanceDate));
 			attendInfo.put("scheduleNo", scheduleNo);
 			classManage.insertRegularClassAttendance(attendInfo);
+			model.addAttribute("clsNo", clsNo);
 			
 		return "redirect:/teacher/studentManagement?classType=R&clsNo="+clsNo;
 	}
 	
-	/* 정산관리 */
+	/* 정산관리(강현우) */
 	@GetMapping("/teacherBalanceList")
 	public String teacherBalanceList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
 		
@@ -248,7 +250,6 @@ public class TeacherMyPageController {
 		
 		/* 정산내역 조회 */
 		model.addAttribute("balanceList", myPageService.selectBalanceList(map));
-		
 		
 		return "teacher/balanace/t_balanceList";
 	}
@@ -270,6 +271,7 @@ public class TeacherMyPageController {
 		content.setQuestionId(Integer.toString(teacherNo));
 		boardService.insertAdminQuestion(content);
 		boardService.insertAdminQuestionHistory(content);
+		
 		return "redirect:/teacher/teacherInquiryList";
 	}
 	
@@ -298,7 +300,7 @@ public class TeacherMyPageController {
 	}
 	
 	/**
-	 * 문의내용상세조회(이해승)
+	 * 관리자문의내용상세조회(이해승)
 	 * @param model
 	 * @param serachInfo
 	 * @return
@@ -307,6 +309,7 @@ public class TeacherMyPageController {
 	public String teacherInquiryDetail(Model model, @RequestParam Map<String, String> serachInfo) {
 		
 		model.addAttribute("QnADetail",boardService.selectQnADetail(serachInfo));
+		
 		return "teacher/reportInquiry/t_inquiryDetail";
 	}
 	
@@ -317,6 +320,12 @@ public class TeacherMyPageController {
 		return "teacher/reportInquiry/t_FAQ";
 	}
 	
+	/**
+	 * 공지상세보기(이해승)
+	 * @param model
+	 * @param noticeNo
+	 * @return
+	 */
 	@GetMapping("/noticeDetail")
 	public String noticeDetail(Model model, @RequestParam int noticeNo) {
 		
@@ -325,4 +334,12 @@ public class TeacherMyPageController {
 		return "teacher/classManage/t_classNotice";
 	}
 	
+	@GetMapping("/userInquiry")
+	public String userInquiryList(Model model,@RequestParam HashMap<String,String> classInfo ) {
+		
+		model.addAttribute("inquiryList", boardService.selectinquiryList(classInfo.get("clsNo")));
+		model.addAttribute("classType", classInfo.get("classType"));
+		return "teacher/classManage/t_classInquiry";
+		
+	}
 }

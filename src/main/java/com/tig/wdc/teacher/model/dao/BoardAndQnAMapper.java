@@ -34,4 +34,6 @@ public interface BoardAndQnAMapper {
 
 	NoticeDTO selectNoticeDetail(int noticeNo);
 
+	List<UserInquiryDTO> selectinquiryList(String clsNo);
+
 }

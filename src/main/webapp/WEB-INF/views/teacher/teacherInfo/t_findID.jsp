@@ -196,48 +196,7 @@
           </script>
       <!-- /아이디찾기 -->
       <!-- footer -->
-      <footer class="bg-dark text-white">
-        <div class="container py-4">
-          <div class="row py-5">
-            <div class="col-md-1 mb-3 mb-md-0">
-              <h5 class="text-uppercase mb-3"><p> </p></h5>
-            </div>
-            <div class="col-md-2 mb-3 mb-md-0">
-              <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-                공지사항</a></h3>
-            </div>
-            <div class="col-md-2 mb-3 mb-md-0">
-              <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-                서비스 약관</a></h3>
-            </div>
-            <div class="col-md-2 mb-3 mb-md-0">
-              <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-                개인정보<br>처리약관</a></h3>
-            </div>
-            <div class="col-md-2 mb-3 mb-md-0">
-              <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-                자주 묻는<br>질문</a></h3>
-            </div>
-            <div class="col-md-2 mb-3 mb-md-0">
-              <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-                문의하기</a></h3>
-            </div>
-            <div class="col-md-1 mb-3 mb-md-0">
-              <h3 class="text-uppercase mb-3"><p> </p></h3>
-            </div>
-          </div>
-          <div class="border-top pt-4" style="border-color: #1d1d1d !important">
-            <div class="row">
-              <div class="col-lg-6">
-                <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
-              </div>
-              <div class="col-lg-6 text-lg-right">
-                <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+<jsp:include page="../commons/footer.jsp"/>
       <!-- JavaScript files-->
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

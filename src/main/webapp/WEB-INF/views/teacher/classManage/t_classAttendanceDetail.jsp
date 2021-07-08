@@ -78,7 +78,7 @@
         
         <!-- 상단 메뉴바 -->
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classDetail.html" style="font-size: 15; color: black"><b>상세정보</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teahcer/classDetail/${clsNo}" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
@@ -87,7 +87,7 @@
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+          <a href="#" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
       </div>  
     

@@ -254,6 +254,13 @@ public class TeacherInfoController {
 		return gson.toJson(returnMessage);
 	}
 	
+	/**
+	 * 문자인증
+	 * @param session
+	 * @param model
+	 * @param check
+	 * @return
+	 */
 	@PostMapping(value = "messageCertification", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String messageCertification(HttpSession session, Model model, @RequestParam Map<String,String> check) {

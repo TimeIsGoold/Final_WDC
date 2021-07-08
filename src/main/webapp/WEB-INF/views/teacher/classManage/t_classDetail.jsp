@@ -99,9 +99,9 @@
               return;
             } 
             switch(p.id){
-              case "review" : location.href = "";
-              case "inquiry" : location.href = ""; 
-              case "studentManage" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }";
+              case "review" : location.href = ""; break;
+              case "inquiry" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }"; break;
+              case "studentManage" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }";break;
             }
           }
         </script>        

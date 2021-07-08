@@ -13,6 +13,11 @@ import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.service.BoardAndQnAService;
 import com.tig.wdc.teacher.model.service.TeacherInfoService;
 
+/**
+ * 강사 메인
+ * @author 이해승
+ *
+ */
 @Controller
 public class TeacherMainController {
 
@@ -27,13 +32,25 @@ public class TeacherMainController {
 		this.pageInfo = pageInfo; 
 	}
 
+	/**
+	 * 로그인화면으로이동
+	 * @return
+	 */
 	@GetMapping("teacher")
 	public String teacherlogin() {
 		return "teacher/teacherInfo/t_login";
 	}
 	
+	/**
+	 * 메인화면
+	 * @param session
+	 * @param model
+	 * @param currentPage
+	 * @return
+	 */
 	@GetMapping("teacher/main")
 	public String teacherMain(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
+
 		int teacherNo= (Integer) session.getAttribute("teacherNo");
 		//공지사항 페이징처리
 		pageInfo = PageNation.getPageInfo(currentPage, noticeService.selectNoticeCount(), 5, 5);
