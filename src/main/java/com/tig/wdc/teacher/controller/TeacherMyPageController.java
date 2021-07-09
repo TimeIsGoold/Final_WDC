@@ -1,4 +1,4 @@
-package com.tig.wdc.teacher.Controller;
+package com.tig.wdc.teacher.controller;
 
 import java.util.HashMap;
 import java.util.List;

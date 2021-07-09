@@ -1,4 +1,4 @@
-package com.tig.wdc.teacher.Controller;
+package com.tig.wdc.teacher.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.tig.wdc.common.PageNation;
 import com.tig.wdc.model.dto.PageInfoDTO;
@@ -69,10 +70,9 @@ public class TeacherMainController {
 	}
 	
 	@GetMapping("teacher/logout")
-	public String teacherLogout(HttpSession session) {
+	public String teacherLogout(SessionStatus sessionStatus) {
 		
-		session.invalidate();
-		
+		sessionStatus.setComplete();;
 		return "redirect:/teacher";
 	}
 }
