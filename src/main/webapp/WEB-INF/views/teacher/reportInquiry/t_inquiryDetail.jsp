@@ -83,7 +83,6 @@
     <div class="container">
       <!-- sidebar -->
       <%@ include file="../commons/sidebar.jsp" %>
-      
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; height: 800px">
 

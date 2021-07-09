@@ -85,10 +85,21 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/likeClass"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+              <ul class="navbar-nav ml-auto">
+	              <c:if test="${ empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ !empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo ne null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo eq null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+	              </c:if>
               </ul>
             </div>
           </nav>
@@ -121,140 +132,39 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
                   <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="badge text-white badge-primary">06.21 / 16:00</div>
-                      <div class="position-relative mb-3">
-                      <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/macaron.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="detail.html">[원데이]마카롱 만들기 체험</a></h6>
-                      <p class="small text-muted">30000원</p>
-                    </div>
-                  </div>
+                  <c:choose>
+                  	<c:when test="${ empty requestScope.likeClassDTOList }">
+                  		응원한  클래스가 없습니다.
+                  	</c:when>
+                  </c:choose>
                   <!-- PRODUCT-->
+                  <c:forEach  var="classList" items="${ requestScope.likeClassDTOList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/dance.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
+                    <div class="productNoneOpacity text-center">
+                    <c:if test="${ requestScope.classList.dicsionStatus eq 'F' }">
+                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+                    </c:if>
+
+                      <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
+                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
-                      <h6> <a class="reset-anchor" href="detail.html">[원데이]아이돌 댄스 배우기</a></h6>
-                      <p class="small text-muted">40000원</p>
+                      <h6> 
+                      <c:if test="${classList.clsType eq 'O'}">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
+                        [원데이] ${classList.title}
+                      </a>
+                      </c:if>
+                      <c:if test="${classList.clsType eq 'R'}">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
+                        [정규] ${classList.title}
+                      </a>
+                      </c:if>
+                      </h6>
                     </div>
                   </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/baking.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="detail.html">[원데이]백종원의 베이킹 수업</a></h6>
-                      <p class="small text-muted">30000원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <div class="badge text-white badge-primary">06.28 / 13:00</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/macaron2.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <h6> <a class="reset-anchor" href="detail.html">[정규]마카롱 만들기 체험2</a></h6>
-                      <p class="small text-muted">100000원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                      <!-- <div class="badge text-white badge-danger">Sold</div> -->
-                      <div class="badge text-white badge-danger">받은 찜♥ : 50개</div>
-                      <div class="bottom_badge text-white badge-primary">클래스 종료일 : 06/30</div>
-                      <div class="position-relative mb-3">
-                        <a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/macaron3.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <p style="margin-bottom: 50px;"></p>
-                      <h6> <a class="reset-anchor" href="detail.html">[원데이]마카롱 만들기 체험3</a></h6>
-                      <p class="small text-muted">50000원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                        <div class="badge text-white badge-danger">받은 찜♥ : 50개</div>
-                        <div class="bottom_badge text-white badge-primary">클래스 종료일 : 06/30</div>
-                        <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/macaron4.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <p style="margin-bottom: 50px;"></p>
-                      <h6> <a class="reset-anchor" href="detail.html">[원데이]마카롱 만들기 체험4</a></h6>
-                      <p class="small text-muted">50000원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                        <div class="badge text-white badge-danger">받은 응원 : 1개</div>
-                        <div class="bottom_badge text-white badge-primary">클래스 폐강까지 10일</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/macaron5.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <p style="margin-bottom: 50px;"></p>
-                      <h6> <a class="reset-anchor" href="detail.html">[원데이]마카롱 만들기 체험5</a></h6>
-                      <p class="small text-muted">100000원</p>
-                    </div>
-                  </div>
-                  <!-- PRODUCT-->
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="product text-center">
-                        <div class="badge text-white badge-danger">받은 응원 : 1개</div>
-                        <div class="bottom_badge text-white badge-primary">클래스 폐강까지 10일</div>
-                      <div class="position-relative mb-3">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.html"><img class="img-fluid w-100" src="img/macaron6.jpg" alt="..."></a>
-                        <div class="product-overlay">
-                          <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <p style="margin-bottom: 50px;"></p>
-                      <h6> <a class="reset-anchor" href="detail.html">[정규]마카롱 만들기 체험6</a></h6>
-                      <p class="small text-muted">500000원</p>
-                    </div>
-                  </div>
+                  </c:forEach>
+
+
                 </div>
                 <br><br>
                 <!-- PAGINATION-->

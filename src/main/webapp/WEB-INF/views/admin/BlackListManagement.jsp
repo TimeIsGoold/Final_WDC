@@ -47,6 +47,7 @@
                                             <th>아이디</th>
                                             <th>성명</th>
                                             <th>블랙리스트 등록 날짜</th>
+                                            <th>블랙 리스트 사유</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,6 +61,7 @@
 				                                <td>${allBlackList.blackId}</td>
 				                                <td>${allBlackList.blackName}</td>
 				                                <td>${allBlackList.enrollDate}</td>
+				                                <td>${allBlackList.blackReason}</td>
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

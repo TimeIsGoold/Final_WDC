@@ -36,15 +36,46 @@
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
+         <if test="searchCheckBox == null">
         WHERE (A.CLS_DICSION_STATUS = 'S'
            OR  A.CLS_DICSION_STATUS = 'F')
+          <![CDATA[
+          AND A.CLS_END_D > SYSDATE
+          ]]>
+         </if>
+         <if test="searchCheckBox == 'proceeding' and searchCheckBox != null">
+        WHERE A.CLS_DICSION_STATUS = 'S'
+          <![CDATA[
+          AND A.CLS_END_D > SYSDATE
+          ]]>
+         </if>
+         <if test="searchCheckBox == 'scheduledToOpen' and searchCheckBox != null">
+        WHERE A.CLS_DICSION_STATUS = 'F'
+          <![CDATA[
+          AND A.CLS_END_D > SYSDATE
+          ]]>
+         </if>
+         <if test="searchCheckBox == 'endClass' and searchCheckBox != null">
+        WHERE (A.CLS_DICSION_STATUS = 'S'
+           OR  A.CLS_DICSION_STATUS = 'F')
+          <![CDATA[
+          AND A.CLS_END_D < SYSDATE
+          ]]>
+         </if>
           AND DH.DICISION_DATE IS NOT NULL
           AND A.CLS_DICSION_STATUS != 'L'
           AND A.CLS_DICSION_STATUS != 'R'
           AND T.TYPE = 'TITLE'
          <if test="searchContent != null">
           AND A.CLS_TITLE LIKE '%${ searchContent }%'
-         </if>
+         </if> 
+         <if test="minPrice != 0 and  maxPrice != 0">
+         <![CDATA[
+          AND A.CLS_PRICE >= #{ minPrice }
+          AND A.CLS_PRICE <= #{ maxPrice }
+          ]]>
+         </if> 
+         
     </select>
     
     <select id="selectSportsClassCategory" resultMap="UserCategoryResult">
@@ -63,6 +94,7 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 1
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
     </select>
 
     <select id="selectClassBeautyCategory" resultMap="UserCategoryResult">
@@ -81,6 +113,7 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 4
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
     </select>
     
     <select id="selectClassArtCategory" resultMap="UserCategoryResult">
@@ -99,6 +132,7 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 3
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
     </select>
     
     <select id="selectClassCookCategory" resultMap="UserCategoryResult">
@@ -117,6 +151,8 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 2
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
+          
     </select>
     
     <select id="selectClassComputerCategory" resultMap="UserCategoryResult">
@@ -135,6 +171,8 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 5
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
+          
     </select>
     
     <select id="selectClassLanguageCategory" resultMap="UserCategoryResult">
@@ -153,6 +191,7 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 6
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
     </select>
     
         <select id="selectClassRevenuCategory" resultMap="UserCategoryResult">
@@ -171,5 +210,6 @@
           AND A.CLS_DICSION_STATUS != 'R'
 		  AND A.CATEGORY_NO = 7
           AND T.TYPE = 'TITLE'
+          AND A.CLS_END_D > SYSDATE
     </select>
 </mapper>

@@ -78,6 +78,10 @@ public class UserClassDetailController {
 		UserClassDTO classDetail = new UserClassDTO();
 		classDetail = classService.selectClassDtail(clsNo);
 		model.addAttribute("classDetail", classDetail);
+		if(classDetail.getDicsionStatus().equals("F")) {
+			int cheerCount = classService.selectCheerCount(clsNo);
+			model.addAttribute("cheerCount",cheerCount);
+		}
 
 		// 대표사진 3장 select
 		List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
@@ -114,30 +118,35 @@ public class UserClassDetailController {
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
 		
+		int oneDayMax = classService.selectOneDayMax(clsNo);
+		model.addAttribute("oneDayMax", oneDayMax);
+		
+		System.out.println("무슨클래스?????????????????????????" + classDetail.getClsType());
+		
 		//정규 클래스인 경우, 클래스 스케줄 select 
-		if(classDetail.getClsType() == "R") {
+		if(classDetail.getClsType().equals("R")) {
 			
+			//클래스 정보 담아오기
 			ScheduleDTO regularSchedule = new ScheduleDTO();
 			regularSchedule = classService.selectRegularSchedule(clsNo);
 			model.addAttribute("regularSchedule", regularSchedule);
 			
 			//정규 클래스인 경우, 현재 수강 신청 인원 select 
 			ScheduleDTO scheduleDTO = classService.selectApplyPeople(regularSchedule);
-			System.out.println("클래스 수강 정원 select : " + regularSchedule.getMaxPeople());
-			System.out.println("현재 수강 신청 인원 select : " + scheduleDTO.getPeopleCount());
 			
-			if(scheduleDTO == null) {
+			if(scheduleDTO == null) { //신청 인원이 없으면
 				
-				scheduleDTO.setPeopleCount(0);
+				int applyCheck = regularSchedule.getMaxPeople(); //applyCheck = 정원
+				model.addAttribute("applyCheck", applyCheck);
+				System.out.println("신청 가능 인원 : " + applyCheck);
+
+				
+			} else {
+				
+				int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount(); //남은인원(applyCheck) = 정원 - 현재 신청인원 
+				model.addAttribute("applyCheck", applyCheck);
+				System.out.println("신청 가능 인원 : " + applyCheck);
 			}
-			
-			System.out.println("없으면 0으로 저장 : " + scheduleDTO.getPeopleCount());
-			
-			//정원 - 현재 신청인원 = 남은인원(applyCheck)
-			int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount();
-			model.addAttribute("applyCheck", applyCheck);
-			
-			System.out.println("정원 - 현재 신청인원 = 남은인원 : " + applyCheck);
 		}
 
 		return "user/classList/class_detail";
@@ -166,28 +175,31 @@ public class UserClassDetailController {
 	public String PeopleCount(HttpSession session, Model model,
 			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, 
 			@RequestParam("time") String time, HttpServletRequest request) {
-		System.out.println("들어오노");
+		
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setClsNo(clsNo);
 		scheduleDTO.setScheduleDate(date);
 		scheduleDTO.setScheduleStart(time);
 		
+		//최대 인원 select
+		int maxUserSize = classService.selectMaxUserSize(scheduleDTO);
+		System.out.println("출력????????????????" + maxUserSize);
+		
 		//스케쥴 신청 인원 select
-		ScheduleDTO people = classService.selectPeople(scheduleDTO);
+		ScheduleDTO applyPeople = classService.selectPeople(scheduleDTO);
+		System.out.println("출력????????????????" + applyPeople);
 		
-		//int remain = max - people.setPeopleCount(peopleCount);
+		if(applyPeople == null) {
+			
+			int peopleCount = maxUserSize;
+			
+			Gson gson = new Gson();
+			
+			return gson.toJson(peopleCount);
+		}
+			
+		int peopleCount = maxUserSize - applyPeople.getPeopleCount();
 		
-		System.out.println("출력????????????????" + people);
-		
-		// 스케쥴에서 최대 인원 조회
-		Map<String,Integer> hmap = new HashMap<>();
-		hmap.put("clsNo", clsNo);
-		hmap.put("scheduleNo",people.getScheduleNo());
-		
-		int maxUserSize = classService.selectMaxUserSize(hmap);
-		System.out.println("maxUserSize : " + maxUserSize);
-		
-		int peopleCount = maxUserSize - people.getPeopleCount();
 		Gson gson = new Gson();
 		
 		return gson.toJson(peopleCount);
@@ -286,6 +298,7 @@ public class UserClassDetailController {
 		// stringScheduleDate 용
 		model.addAttribute("paymentScheduleDTO", paymentScheduleDTO);
 
+		System.out.println("userClassDTO : " + userClassDTO);
 		return "user/payment/payment";
 	}
 
@@ -337,6 +350,14 @@ public class UserClassDetailController {
 		insertPaymentDTO.setCpnNo(cpnNo);
 
 		int paymentInsertResult = classService.insertPayment(insertPaymentDTO);
+		System.out.println("페이먼트 인서트는 된다?");
+		
+		// 3. 수업료 관리 인서트
+		int clsNo = Integer.parseInt(request.getParameter("clsNo"));
+		insertPaymentDTO.setClsAplNo(clsNo);
+		System.out.println("clsNo : " + clsNo);
+		System.out.println("insertPaymentDTO : " + insertPaymentDTO);
+		int tuitionManagementInsertResult = classService.insertTuitionManagement(insertPaymentDTO);
 
 		// 클래스 어플라이랑 페이먼트 둘다 인서트 잘 됐다면 이동 -> ajax 라 필요 없음
 		if (classApplyInsertResult + paymentInsertResult == 2) {
@@ -555,6 +576,7 @@ public class UserClassDetailController {
 	public String cheerUp(HttpServletRequest request, HttpSession session) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
+		System.out.println("userNo : " + userNo);
 		int clsNo = Integer.parseInt(request.getParameter("clsNo"));
 		UserClassDTO cheerUpHisInsertDTO = new UserClassDTO();
 		cheerUpHisInsertDTO.setUserNo(userNo);
@@ -574,14 +596,16 @@ public class UserClassDetailController {
 		// 해당 클래스 응원 카운트가 0이고 오늘 응원을 하지 않았다면
 		if(cheerHistory == 0 && selectDoTodayCheer == 0) {
 			cheerUpResult = classService.insertCheerHistory(cheerUpHisInsertDTO);
-			// cheerUpResult = 1
+			// cheerUpResult = 1 ->응원 성공
+			
 		}else if(cheerHistory == 1) {
 			cheerUpResult = 0;
 			// 없으면 cheerUpResult = 0 으로 반환 (이미 응원하셨습니다)
-		}else if(selectDoTodayCheer >= 1 ) {
-			cheerUpResult = 2;
-		}
 		
+		}else if(selectDoTodayCheer >= 1 ) {
+			cheerUpResult = 2; // 오늘 응원 했습니다.
+			
+		}
 		String result = Integer.toString(cheerUpResult); 
 		return result; 
 

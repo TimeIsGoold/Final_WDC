@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -58,6 +59,11 @@
 			}
     	</style>
     </head>
+          <c:if test="${not empty message }">
+          <script>
+              alert("${message}");
+          </script>
+      </c:if>
     <body class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
@@ -69,13 +75,13 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4" id="title">LOGIN</h3></div>
                                     <div class="card-body">
-                                        <form>
+                                        <form method="POST" action="${pageContext.servletContext.contextPath}/admin/adminSingIn">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="ID" />
+                                                <input class="form-control" id="inputEmail" type="text" name="AdminId" placeholder="ID" />
                                                 <label for="inputEmail">ID</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                                <input class="form-control" id="inputPassword" type="password" name="AdminPwd" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">
@@ -83,8 +89,8 @@
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="btn btn-primary" id="loginBtn" href="${ pageContext.servletContext.contextPath }/user/admin">Login</a>
-                                                <a class="btn btn-primary" id="retunPageBtn" href="${ pageContext.servletContext.contextPath }/user/admin">Main</a>
+                                                <button class="btn btn-primary" type="submit" id="loginBtn">Login</button>
+                                                <a class="btn btn-primary" id="retunPageBtn" href="${ pageContext.servletContext.contextPath }/user/login">Main</a>
                                             </div>
                                         </form>
                                     </div>

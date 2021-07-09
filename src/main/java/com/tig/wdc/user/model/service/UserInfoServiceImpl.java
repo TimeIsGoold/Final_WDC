@@ -1,10 +1,12 @@
 package com.tig.wdc.user.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
@@ -99,6 +101,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public int selectUseAllUserCoupon(UserCouponDTO alluserCouponDTO) {
 		return mapper.selectUseAllUserCoupon(alluserCouponDTO);
+	}
+
+
+	@Override
+	public UserInfoDTO selectExistingInfo(Map<String, String> result) {
+		return mapper.selectExistingInfo(result);
+	}
+
+
+	@Override
+	public String selectCheckDoubleId(String checkId) {
+		return mapper.selectCheckDoubleId(checkId);
+	}
+
+
+	@Override
+	public int registUser(UserInfoDTO registInfo) {
+		return mapper.registUser(registInfo);
 	}
 
 

@@ -153,6 +153,11 @@
 		<result column="TE_ACNT_HOLDER" property="teAcntHolder"/>
 		<result column="CLS_NO" property="classNo"/>
 		<result column="정산여부" property="calcYN"/>
+		<result column="TOTAL_AMOUNT" property="totalSales"/>
+		<result column="USE_FEE" property="useFees"/>
+		<result column="CARD_FEE" property="cardFees"/>
+		<result column="TAX" property="tax"/>
+		<result column="CALC_AMOUNT" property="calcAmount"/>
 		<result column="CLS_TYPE" property="classType"/>
 		<result column="CLS_TITLE" property="className"/>
 		<result column="정산날짜" property="calcMonth"/>
@@ -166,16 +171,16 @@
 		<result column="TE_ID" property="teId"/>
 		<result column="BANK" property="bank"/>
 		<result column="TE_ACNT_NO" property="teAcntNo"/>
-		<result column="CALC_AMOUNT" property="calcAmount"/>
-		<result column="USE_FEE" property="useFees"/>
-		<result column="TAX" property="tax"/>
-		<result column="CARD_FEE" property="cardFees"/>
-		<result column="CLS_NO" property="classNo"/>
-		<result column="정산날짜" property="calcMonth"/>
 		<result column="TE_ACNT_HOLDER" property="teAcntHolder"/>
-		<result column="CLS_TITLE" property="className"/>
-		<result column="CLS_TYPE" property="classType"/>
+		<result column="CLS_NO" property="classNo"/>
 		<result column="정산여부" property="calcYN"/>
+		<result column="USE_FEE" property="useFees"/>
+		<result column="CARD_FEE" property="cardFees"/>
+		<result column="TAX" property="tax"/>
+		<result column="CALC_AMOUNT" property="calcAmount"/>		
+		<result column="CLS_TYPE" property="classType"/>		
+		<result column="CLS_TITLE" property="className"/>
+		<result column="정산날짜" property="calcMonth"/>
 		<result column="현재날짜" property="today"/>
 	</resultMap>
 	
@@ -254,6 +259,12 @@
 			<result column="TE_NAME" property="teName"/>
 			<result column="CATEGORY_NO" property="categoryNo"/>
 			<result column="응원갯수" property="cheeringCnt"/>
+	</resultMap>
+	
+	<resultMap id="adminDTO" type="adminDTO">
+			<id column="ADMIN_NO" property="adminNo"/>
+			<result column="ADMIN_ID" property="AdminId"/>
+			<result column="ADMIN_PWD" property="AdminPwd"/>
 	</resultMap>
 		
 	<select id="selectTotalUsertList" resultMap="totalDTO">
@@ -742,6 +753,11 @@
             , C.TE_ACNT_HOLDER
             , A.CLS_NO
 	        , A.CALCUL_STATUS 정산여부
+	        , TO_CHAR(A.TOTAL_AMOUNT, 'FM999,999,999,999') AS TOTAL_AMOUNT
+            , TO_CHAR(A.TOTAL_AMOUNT * 0.1, 'FM999,999,999,999') AS USE_FEE
+            , TO_CHAR(A.TOTAL_AMOUNT * 0.021, 'FM999,999,999,999') AS CARD_FEE
+            , A.TOTAL_AMOUNT * 0 AS TAX
+            , TO_CHAR(A.TOTAL_AMOUNT - (A.TOTAL_AMOUNT * 0.1) - (A.TOTAL_AMOUNT * 0.021), 'FM999,999,999,999') AS CALC_AMOUNT
 	        , B.CLS_TYPE
             , B.CLS_TITLE
             <if test="cday lte 3">
@@ -767,16 +783,17 @@
 			 , B.TE_ID
 			 , B.BANK
 			 , B.TE_ACNT_NO
-             , A.CALC_AMOUNT
-             , A.USE_FEE
+			 , B.TE_ACNT_HOLDER
+			 , C.CLS_NO
+			 , 'Y' AS 정산여부
+			 , TO_CHAR((A.CALC_AMOUNT + A.USE_FEE + A.CARD_FEE + A.TAX), 'FM999,999,999,999') AS TOTAL_AMOUNT
+			 , TO_CHAR(A.CALC_AMOUNT, 'FM999,999,999,999') AS CALC_AMOUNT
+             , TO_CHAR(A.USE_FEE, 'FM999,999,999,999') AS USE_FEE
+             , TO_CHAR(A.CARD_FEE, 'FM999,999,999,999') AS CARD_FEE
              , A.TAX
-             , A.CARD_FEE
-             , C.CLS_NO
-             , A.CALC_MONTH AS 정산날짜
-             , B.TE_ACNT_HOLDER
-             , D.CLS_TITLE
              , D.CLS_TYPE
-             , 'Y' AS 정산여부
+             , D.CLS_TITLE
+             , A.CALC_MONTH AS 정산날짜
              , TO_CHAR(SYSDATE,'DD') AS 현재날짜
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
@@ -990,10 +1007,27 @@
 	
 	<insert id="insertBlackList" parameterType="hashmap">
 		INSERT 
-	     <if test='type == "T"|| blackMap.type =="T"'>
+	     <if test=' blackMap.type =="T"'>
 		  INTO TE_BLOCK_LIST
 		  </if>
-	     <if test='type == "U"|| blackMap.type =="U"'>
+	     <if test='blackMap.type =="U"'>
+		  INTO USER_BLOCK_LIST
+		  </if>
+		VALUES
+		(
+		  SEQ_USER_BLOCK_NO.NEXTVAL
+		, #{blackMap.userNo}
+		, #{blackMap.blackReason}
+		, SYSDATE
+		)
+	</insert>
+	
+	<insert id="insertBlackListByThreeCnt" parameterType="hashmap">
+		INSERT 
+	     <if test='type == "T"'>
+		  INTO TE_BLOCK_LIST
+		  </if>
+	     <if test='type == "U"'>
 		  INTO USER_BLOCK_LIST
 		  </if>
 		VALUES
@@ -1008,35 +1042,41 @@
 		, #{userNo}
 		, '누적 신고 3회로 블랙리스트 추가'
 		  </if>
-		  <if test='blackMap.blackReason != null'>
-		  SEQ_USER_BLOCK_NO.NEXTVAL
-		, #{blackMap.userNo}
-		, #{blackMap.blackReason}
-		</if>
 		, SYSDATE
 		)
 	</insert>
 	
 	<update id="updateBlackListOnUSerTable" parameterType="hashmap">
-	    <if test='type == "T"|| blackMap.type == "T"'>
+	    <if test='blackMap.type == "T"'>
+		UPDATE TEACHER_INFO
+		   SET BLOCK_YN = 'Y'
+		</if>
+		<if test='blackMap.type == "T"'>
+		 WHERE TE_NO = #{blackMap.userNo}
+		</if>
+	    <if test='blackMap.type == "U"'>
+		UPDATE USER_INFO
+		   SET BLOCK_YN = 'Y'
+		</if>
+		<if test='blackMap.type == "U"'>
+		 WHERE USER_NO = #{blackMap.userNo}
+		</if>
+	</update>
+	
+	<update id="updateBlackListOnUSerTableByCnt" parameterType="hashmap">
+	    <if test='type == "T"'>
 		UPDATE TEACHER_INFO
 		   SET BLOCK_YN = 'Y'
 		</if>
 		<if test='type == "T"'>
 		 WHERE TE_NO = #{userNo}
 		</if> 
-		<if test='blackMap.type == "T"'>
-		 WHERE TE_NO = #{blackMap.userNo}
-		</if>
-	    <if test='type == "U"|| blackMap.type == "U"'>
+	    <if test='type == "U"'>
 		UPDATE USER_INFO
 		   SET BLOCK_YN = 'Y'
 		</if>
 		<if test='type == "U"'>		  
 		 WHERE USER_NO = #{userNo} 
-		</if>
-		<if test='blackMap.type == "U"'>
-		 WHERE USER_NO = #{blackMap.userNo}
 		</if>
 	</update>
 	
@@ -1172,4 +1212,17 @@
 	 	       REJECT_REASON = '응원수 부족'
 	 	 WHERE CLS_NO = #{clsNo}	 
 	 </update>
+	 
+	 <select id="selectRejectReason" resultType="string" parameterType="_int">
+	 SELECT 
+	       REJECT_REASON
+	  FROM DISICION_HISTORY
+	 WHERE CLS_NO = #{clsNo}
+	 </select>
+	 <select id="selectAdminInfo" resultMap="adminDTO" parameterType="adminDTO">
+		 SELECT
+		       *
+		  FROM ADMIN_INFO
+		 WHERE ADMIN_ID = #{AdminId}
+	 </select>
 </mapper>

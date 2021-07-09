@@ -3,6 +3,7 @@ package com.tig.wdc.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tig.wdc.admin.model.dto.AdminDTO;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.CalculateDTO;
 import com.tig.wdc.admin.model.dto.CheeringClassDTO;
@@ -284,6 +285,14 @@ public interface AdminService {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+	int insertBlackListByThreeCnt(Map<String, Object> blackMap);
+
+	int updateBlackListOnUSerTableByCnt(Map<String, Object> blackMap);
+
+	String selectRejectReason(int clsNo);
+
+	AdminDTO selectAdminInfo(AdminDTO loginInfo);
 
 
 

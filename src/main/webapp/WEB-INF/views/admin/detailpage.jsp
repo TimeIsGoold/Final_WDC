@@ -87,7 +87,7 @@
                                       </div>
                                   </div>
                                 </div>
-                                <button class="btn btn-primary" style="margin-left: 90%;">뒤로 가기</button>
+                                <button class="btn btn-primary" style="margin-left: 90%;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept'">뒤로 가기</button>
                                 <br><br>
                                 <!-- 상세보기 탭 -->
                                 <div class="tab-content mb-5" id="myTabContent">
@@ -99,7 +99,7 @@
 						                    <pre style="font-size: 16px;">${ classDetail.simpleIntro }</pre>
 						                    
 						                    <hr style="margin: 15px 0px 15px 0px">
-						                    <h4> <b style="font-size: 13px; ">●</b> 클래스소개</h4>
+						                    <h4> <b style="font-size: 13px;">●</b> 클래스소개</h4>
 						                      
 						                      <pre style="font-size: 16px;">
 ${ classDetail.intro }

@@ -147,14 +147,15 @@
 				console.log(list);
 
 				if(p.id == "allcheck"){
-
+						console.log("이프문 확인")
+						
 					if(allcheck.checked){
 						for(var i = 0; list.length; i++) {
-							list[i].checked == true;
+							list[i].checked = true;
 						}
 					} else {
 						for(var i = 0; list.length; i++) {
-							list[i].checked == false;
+							list[i].checked = false;
 						}
 					}
 
@@ -162,14 +163,14 @@
 					var cnt = 0;
 					for(var i = 0; i < list.length; i++) {
 						if(list[i].checked) {
-							num++;
-						}
-						if(cnt == list.length) {
-							allcheck.checked == true;
-						} else {
-							allcheck.checked == false;
+							cnt++;
 						}
 					}
+						if(cnt == list.length -1) {
+							allcheck.checked = true;
+						} else {
+							allcheck.checked = false;
+						}
 				}
          	 }
         </script>

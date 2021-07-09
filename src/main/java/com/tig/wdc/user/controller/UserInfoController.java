@@ -1,12 +1,19 @@
 package com.tig.wdc.user.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +21,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.tig.wdc.common.Encryption;
+import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.teacher.model.service.TeacherInfoService;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
@@ -25,9 +40,12 @@ import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 import com.tig.wdc.user.model.service.UserInfoService;
 
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
 /**
  * @author 민연준
- * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 강사정보수정용, 참여진행/완료/예정 클래스조회 / 찜 및 응원 클래스 조회용 컨트롤러
+ * 유저 회원가입, 로그인,로그아웃, 아이디찾기, 비밀번호 찾기, 강사정보수정용, 참여진행/완료/예정 클래스조회 / 찜 및 응원 클래스 조회용 컨트롤러
  */
 @Controller
 @RequestMapping("/user/mypage/*")
@@ -36,11 +54,17 @@ public class UserInfoController {
 	
 	private final UserInfoService infoService;
 	private final UserClassService classService;
+	private final BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private Encryption aes;
+	
 	
 	@Autowired
-	public UserInfoController(UserInfoService infoService, UserClassService classService) {
+	public UserInfoController(UserInfoService infoService, UserClassService classService,BCryptPasswordEncoder passwordEncoder) {
 		this.infoService = infoService;
 		this.classService = classService;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	
@@ -88,8 +112,8 @@ public class UserInfoController {
 			
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
 //        암호화 후 적용
-//		} else if(!passwordEncoder.matches(loginInfo.getTeacherPwd(), teacherInfo.getTeacherPwd())) {
-		} else if(!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
+		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
+//		} else if(!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
 			
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if("Y".equals(userInfoDTO.getQuitYn())) {
@@ -103,43 +127,183 @@ public class UserInfoController {
 			//로그인 입력 정보와 회원정보 일치 시 메인페이지 핸들러로 이동
 			model.addAttribute("userNo",userInfoDTO.getUserNo());
 			
-			returnPage = "redirect:userLoginSuccessMain";
+			returnPage = "redirect:/";
 		}
 		return returnPage;
 	}
 	
+	
 	/**
-	 * 로그인 성공 시 메인 페이지 이동용 메소드
+	 * 로그아웃용 메소드
+	 * @SessionAttributes로 생성한 세션은 SessionStatus의 setComplete로 제거해 준다.
 	 * @param model
 	 * @param session
+	 * @param sessionStatus
 	 * @return
 	 */
-	@GetMapping("userLoginSuccessMain")
-	public String main(Model model, HttpSession session) {
-
-		
-		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
-		newClassList = classService.selectNewClassList();
-		model.addAttribute("newClassList",newClassList);
-		
-		List<UserClassDTO> topClassList = new ArrayList<UserClassDTO>();
-		topClassList = classService.selectTopClassList();
-		model.addAttribute("topClassList",topClassList);
-		
-		List<UserClassDTO> cheerClassList = new ArrayList<UserClassDTO>();
-		cheerClassList = classService.selectCheerClassList();
-		model.addAttribute("cheerClassList",cheerClassList);
-		
-		return "user/main/main";
-	}
-	
 	@GetMapping("logout")
-	public String logout(Model model, HttpSession session) {
-		session.invalidate();
+	public String logout(Model model, HttpSession session, SessionStatus sessionStatus) {
+
+		sessionStatus.setComplete(); 
+		
 		System.out.println("로그아웃 으로 넘어옴");
 		
+		String returnPage = "redirect:/user/login";
+		return returnPage;
+
+
+	}
+	
+	
+	/**
+	 * 아이디 찾기 페이지 이동용 메소드
+	 * @return
+	 */
+	@GetMapping("findId")
+	public String findId() {
+		return "user/login/findID";
+	}
+	
+	
+	@PostMapping(value="certification",produces ="application/json; charset=UTF-8")
+	@ResponseBody 
+	public String teacherCertification(HttpSession session, @RequestParam Map<String,String> result) {
+		
+		
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls().disableHtmlEscaping().create();
+	    String returnMessage = "";
+		
+	    if(result.get("type").equals("id")) {
+			
+	    	if(infoService.selectExistingInfo(result) == null) {
+	    		returnMessage = "no";
+	    		return gson.toJson(returnMessage);
+	    	} 	
+		} else if(result.get("type").equals("pwd")) {
+	    	if(infoService.selectExistingInfo(result) == null) {
+	    		returnMessage = "no";
+	    		return gson.toJson(returnMessage);
+	    	} 
+		}
+		String api_key = "NCSAX4RAHGBBXBIW"; 
+		String api_secret =	"YOW3G0YEJU6PSDLB8PTB88A1SABBHLUE"; 
+		int certificationNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
+	    Message coolsms = new Message(api_key, api_secret);
+
+	    HashMap<String, String> params = new HashMap<String, String>();
+	    //수신자
+	    params.put("to", result.get("phoneNumber"));
+	    //발신자
+	    params.put("from", "01048147030");
+	    //타입
+	    params.put("type", "SMS");
+	    //내용
+	    params.put("text", "[우동클] 인증번호 ["+ certificationNum +"]를 입력해주세요");
+	    //버전
+	    params.put("app_version", "test app 1.2"); // application name and version
+	    //인증내용 세션에 담기
+	    session.setAttribute("certificationNum", certificationNum);
+
+	    try {
+	      JSONObject obj = (JSONObject) coolsms.send(params);
+	      System.out.println(obj.toString());
+	      returnMessage = "인증번호 전송 성공!";
+	      
+	    } catch (CoolsmsException e) {
+	    	returnMessage = "인증번호 전송 실패!";
+	      System.out.println(e.getMessage());
+	      System.out.println(e.getCode());
+	    }
+		return gson.toJson(returnMessage);
+	}
+	
+	@PostMapping(value = "messageCertification", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String messageCertification(HttpSession session, Model model, @RequestParam Map<String,String> check) {
+		
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls()
+				.disableHtmlEscaping().create();
+
+		String returnMessage = "";
+		
+		if(Integer.parseInt(check.get("checkCount") )> 5) {
+			returnMessage = "초과";
+			session.invalidate();
+		} else if(Integer.parseInt(check.get("checkNum")) == (Integer) session.getAttribute("certificationNum")) {
+			returnMessage = "일치";
+			session.invalidate();
+		} else {
+			returnMessage = "불일치";
+		}
+		
+		return gson.toJson(returnMessage);
+	}
+	
+	/**
+	 * 아이디찾기
+	 * @param findId
+	 * @return
+	 */
+	@PostMapping(value="idFind",produces ="application/json; charset=UTF-8")
+	@ResponseBody 
+	public String idFind(@RequestParam Map<String,String> findId) {
+	
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls().disableHtmlEscaping().create();
+		
+		return gson.toJson(infoService.selectExistingInfo(findId).getUserId());
+	}
+	
+	/**
+	 * 회원가입 페이지 이동용 메소드
+	 * @return
+	 */
+	@GetMapping("signup")
+	public String signUp() {
+		return "user/login/signup";
+	}
+	
+	/**
+	 * 아이디 중복확인
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(value = "idDoubleCheck/{checkId}", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String idDoubleCheck(Model model, @PathVariable("checkId") String checkId) {
+
+		int result = 0;
+		if (infoService.selectCheckDoubleId(checkId) != null) {
+			
+			result = 1;
+		}
+		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls()
+				.disableHtmlEscaping().create();
+
+		return gson.toJson(result);
+	}
+
+	@PostMapping("signUpInsert")
+	public String signUpMove(Model model, @ModelAttribute UserInfoDTO registInfo ) {
+
+		registInfo.setUserPwd(passwordEncoder.encode(registInfo.getUserPwd()));
+
+		
+		System.out.println(registInfo);
+		int result = infoService.registUser(registInfo);
+		
+		if(result > 0) {
+			model.addAttribute("message", "회원가입성공!");
+		} else {
+			model.addAttribute("message", "회원가입실패!");
+		}
+
 		return "user/login/login";
 	}
+	
+	
+	
+	
 	
 	/**
 	 * 쿠폰 목록 조회용 메소드
@@ -350,7 +514,12 @@ public class UserInfoController {
 	public String likeClass(Model model, HttpSession session) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
+		
+		UserClassDTO userClassDTO = new UserClassDTO();
+		
+		List<UserClassDTO> likeClassDTOList = classService.selectMyLikeClassList(userNo);
 
+		model.addAttribute("likeClassDTOList",likeClassDTOList);
 		
 		return "user/classList/likeClassList";
 	}
@@ -376,6 +545,26 @@ public class UserInfoController {
 
 	}
 	
+	
+	/**
+	 * 유저 탈퇴용 메소드
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("userWithdraw")
+	public String userWithdraw(HttpSession session, SessionStatus sessionStatus) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+
+		int withdrawResult = classService.updateUserWithdraw(userNo);
+		
+		session.invalidate();
+		sessionStatus.setComplete();
+		
+		return "user/login/login";
+	}
+	
+
 	
 	
 }

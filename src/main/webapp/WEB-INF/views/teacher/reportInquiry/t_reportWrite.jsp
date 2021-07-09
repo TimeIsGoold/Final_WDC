@@ -56,17 +56,19 @@
 
 <body>
   <div class="page-holder">
+    <form method="post" action="${pageContext.servletContext.contextPath }/teacher/reportWrite">
     <!-- navbar-->
-	<jsp:forward page="../commons/header.jsp"/>
-
-    <div class="hello" style="width: 90%; margin: 10% 10% 10% 10%; display: flex;">
+	<jsp:include page="../commons/header.jsp"/>
+	
+    <div class="hello" style="width: 90%; margin: 3% 3% 10% 10%; display: flex; height: 850px">
       
       <!-- SIDEBAR-->
-      	<jsp:forward page="../commons/sidebar.jsp"/>
+      	<jsp:include page="../commons/sidebar.jsp"/>
       <!-- /SIDEBAR -->
 
       <!-- 본문 -->
-      <div class="container" style="width: 80%; margin-left: 10px;">
+     
+      <div class="container" style="width: 80%; margin-left: 0px;">
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-9 form-group infogroup">
@@ -76,13 +78,13 @@
                 <tr>
                   <th style="width: 10%;">제목</th>
                   <th>
-                    <input class="form-control" type="text">
+                    <input class="form-control" type="text" name="reportTitle">
                   </th>
                 </tr>
                 <tr>
                   <td style="width: 10%;">내용</td>
                   <td>
-                    <textarea class="form-control" rows="15"></textarea>
+                    <textarea class="form-control" rows="15" style="resize: none;"  name="reportReason"></textarea>
                   </td>
                 </tr>
               </tbody>
@@ -92,73 +94,18 @@
           <div class="col-md-2"></div>
           <div class="col-md-5"></div>
           <div class="col-md-2">
-            <button>이전</button>
-            <button>저장</button>
+            <button type="button" style="background-color:white; border-radius: 5px; border: 1px solid rgba(0,0,0,0.08)">이전</button>
+            <button type="submit" style="background-color:#fef0ae; border-radius: 5px; border: 1px solid #fef0ae">저장</button>
+            <input type="hidden" name="reportToNo"; value="${ userNo }">
+            <input type="hidden" name="clsNo"; value="${ clsNo }">
           </div>
           </div>
-
         </div>
       </div>
+      </form>
     </div>
-  </div>
-</section>
-</div>
 
-      </div>
-    </div>
-    <br>
-    <br>
-    <!-- //정규클래스등록1-->
-  </div>
-  <!-- //본문 -->
 
-  <footer class="bg-dark text-white">
-    <div class="container py-4">
-      <div class="row py-5">
-        <div class="col-md-1 mb-3 mb-md-0">
-          <h5 class="text-uppercase mb-3">
-            <p> </p>
-          </h5>
-        </div>
-        <div class="col-md-2 mb-3 mb-md-0">
-          <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-              공지사항</a></h3>
-        </div>
-        <div class="col-md-2 mb-3 mb-md-0">
-          <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-              서비스 약관</a></h3>
-        </div>
-        <div class="col-md-2 mb-3 mb-md-0">
-          <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-              개인정보<br>처리약관</a></h3>
-        </div>
-        <div class="col-md-2 mb-3 mb-md-0">
-          <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-              자주 묻는<br>질문</a></h3>
-        </div>
-        <div class="col-md-2 mb-3 mb-md-0">
-          <h3 class="text-uppercase mb-3"><a class="footer-link" href="#" style="font-size: 25px;">
-              문의하기</a></h3>
-        </div>
-        <div class="col-md-1 mb-3 mb-md-0">
-          <h3 class="text-uppercase mb-3">
-            <p> </p>
-          </h3>
-        </div>
-      </div>
-      <div class="border-top pt-4" style="border-color: #1d1d1d !important">
-        <div class="row">
-          <div class="col-lg-6">
-            <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
-          </div>
-          <div class="col-lg-6 text-lg-right">
-            <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor"
-                href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
   <!-- JavaScript files-->
   <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -177,7 +124,7 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   </div>
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 
 </html>

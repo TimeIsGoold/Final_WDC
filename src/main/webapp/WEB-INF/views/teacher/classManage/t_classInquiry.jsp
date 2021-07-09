@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +88,7 @@
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
@@ -96,44 +97,60 @@
       </div>  
     
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left;">
-      <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-        <h4>고객문의</h4>
-      </div>
-      <form>
-        <div class='col-sm-10' style="margin-left: 10px;">
+    <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
+        <div class='col-sm-10' >
           <div class="form-group">
             <div class="row">
-              <div class="col-sm-3" style="margin-left: 10px;">
-                <h5>답변 상태 검색</h5>
-              </div>
               <div class='col-sm-3'>
                 <select class="form-control" name="답변 상태" id="reply">
-                	<option value="notyet">답변 대기중</option>
+                	<option value="notyet">답변 대기</option>
                 	<option value="completed">답변 완료</option>
                 </select>
               </div>
               <div class='col-sm-3'>
+              
                 <button type="submit" class="btn btn-primary">검색</button>   
               </div>
             </div>
             </div>
         </div>
-      </form>
-
-      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px;">
+	<br>
+      <div class="col-sm-12" id="content-formatting" style="float: left;">
         <table class="table table-hover" style="text-align: center;">
           <thead>
             <tr>
               <th>번호</th>
-              <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
               <th>답변</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+          <c:choose>
+          <c:when test="${ empty inquiryList }">
+          <tr>
+            <td colspan="5">등록된 문의가 없습니다.</td>
+          </tr>
+          </c:when>
+          <c:otherwise>
+            <c:forEach var="inquiry" items="${ inquiryList }" varStatus="status">
+              <tr>
+                <td>${ pageInfo.startRow + status.index }</td>
+                <td><a href="${pageContext.servletContext.contextPath }/teacher/userInquiryDetail?classType=${ classType }&clsNo=${ clsNo }&queNo=${ inquiry.queNo }">${ inquiry.userName }</a></td>
+                <td>${ inquiry.queDate }</td>
+                <c:choose>
+                <c:when test="${ not empty inquiry.answer.answerContent}">
+                  <td>답변완료</td>
+                </c:when>
+                <c:otherwise>
+                  <td>답변대기</td>
+                </c:otherwise>
+                </c:choose>
+              </tr>
+            </c:forEach>
+          </c:otherwise>
+          </c:choose>
+<!--             <tr>
               <td>1</td>
               <td><a href="t_classInquiryDetail.html">클래스 재료는 준비 안해도 되나요?</a></td>
               <td>유승제</td>
@@ -167,7 +184,7 @@
               <td>조준형</td>
               <td>2021-04-02</td>
               <td>답변 완료</td>
-            </tr>
+            </tr> -->
           </tbody>
         </table><br><br>
         <nav aria-label="...">
@@ -197,6 +214,6 @@
   </div>
   </div>
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

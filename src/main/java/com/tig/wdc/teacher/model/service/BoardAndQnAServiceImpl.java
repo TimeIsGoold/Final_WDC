@@ -14,7 +14,9 @@ import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.teacher.model.dao.BoardAndQnAMapper;
 import com.tig.wdc.teacher.model.dao.TeacherInfoMapper;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.InquiryAnswerDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 
 @Service
 public class BoardAndQnAServiceImpl implements BoardAndQnAService {
@@ -79,6 +81,32 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 	@Override
 	public NoticeDTO selectNoticeDetail(int noticeNo) {
 		return mapper.selectNoticeDetail(noticeNo);
+	}
+
+	@Override
+	public int selectUserInquiryCount(String clsNo) {
+		return mapper.selectUserInquiryCount(clsNo);
+	}
+
+	@Override
+	public List<UserInquiryDTO> selectinquiryList(HashMap<String, Object> classInfo) {
+		return mapper.selectinquiryList(classInfo);
+	}
+
+	@Override
+	public UserInquiryDTO selectOneInquiry(HashMap<String, Object> inquiryInfo) {
+		return mapper.selectOneInquiry(inquiryInfo);
+	}
+
+	@Override
+	public int insertInquiryAnswer(InquiryAnswerDTO answer) {
+		return mapper.insertInquiryAnswer(answer);
+	}
+
+	@Override
+	public int insertReportUser(UserReportDTO reportInfo) {
+		mapper.insertReportUser(reportInfo);
+		return mapper.insertReportHistory(reportInfo);
 	}
 
 

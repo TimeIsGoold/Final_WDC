@@ -8,7 +8,9 @@ import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.model.dto.NoticeDTO;
 import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.InquiryAnswerDTO;
 import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.UserReportDTO;
 
 public interface BoardAndQnAMapper {
 
@@ -33,5 +35,17 @@ public interface BoardAndQnAMapper {
 	int insertAdminQuestionHistory(QuestionDTO content);
 
 	NoticeDTO selectNoticeDetail(int noticeNo);
+
+	List<UserInquiryDTO> selectinquiryList(HashMap<String, Object> classInfo);
+
+	int selectUserInquiryCount(String clsNo);
+
+	UserInquiryDTO selectOneInquiry(HashMap<String, Object> inquiryInfo);
+
+	int insertInquiryAnswer(InquiryAnswerDTO answer);
+
+	int insertReportUser(UserReportDTO reportInfo);
+
+	int insertReportHistory(UserReportDTO reportInfo);
 
 }
