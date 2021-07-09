@@ -37,6 +37,12 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
   <style>
+     html {
+
+		position: relative;
+		margin: 0;
+		background: white;
+	}
     table {
       text-align: center;
     }
@@ -144,7 +150,6 @@
           <tbody>
             <c:choose>
             <c:when test="${ empty applyUserInfoList }">
-            <td class=>
               <td>신청인원이 없음</td>
             </c:when>
             <c:otherwise>
@@ -169,13 +174,23 @@
         <div class='col-sm-3' style="margin:auto; padding-top: 70px; padding-bottom: 50px;">
         <input type="hidden" value="${ regularInfo.scheduleNo }" name="scheduleNo">
         <input type="hidden" value="${ clsNo }" name="clsNo">
-          <button type="submit" class="btn btn-primary">출석체크</button>
+                    <c:choose>
+            <c:when test="${ empty applyUserInfoList }">
+            
+     	     <button type="submit" class="btn btn-primary" disabled="disabled">출석체크</button>
+            </c:when>
+            <c:otherwise>
+     	     <button type="submit" class="btn btn-primary">출석체크</button>
+            </c:otherwise>
+            </c:choose>
         </div>
       </div>
     </div>
+    <input type="hidden" name="lastCount" id="lastCount" value="0">
     </form>
 	<script>
     window.onload = function () {
+    	
       if ("${ existingInfo }" != null && "${ existingInfo }".length > 0) {
         let existStep = [];
         let existApplyNo = [];
@@ -253,6 +268,7 @@
         }
         var classCount = existStep.length;
         document.getElementById("countInfo").innerHTML = "<b>강의 횟수  :  </b>"+classCount+"회 / 총 ${ regularInfo.scheduleCount }회";
+        document.getElementById("lastCount").value = classCount;
       }
 
     }
@@ -265,7 +281,7 @@
 		if(id.checked){
 			for(var i = 0; i < classUser.length; i++){
 				classUser[i].checked = true;
-			}
+			} 
 		} else {
 			for(var i = 0; i < classUser.length; i++){
 				classUser[i].checked = false;
@@ -284,5 +300,6 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
+    <jsp:include page="../commons/footer.jsp"/>
 </body>
 </html>

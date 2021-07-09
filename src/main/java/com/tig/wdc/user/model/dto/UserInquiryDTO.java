@@ -18,7 +18,7 @@ public class UserInquiryDTO {
 	private String answerYn;
 	private InquiryAnswerDTO answer;
 	private int userNo;
-
+	
 	public UserInquiryDTO() {
 		super();
 	}
