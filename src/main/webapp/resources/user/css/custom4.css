@@ -37,55 +37,6 @@
   border: none !important;
   color: black !important;
 }
-
-<!-- 검색 -->
-.searchbar{
-  margin-bottom: auto;
-  margin-top: auto;
-  height: 60px;
-  background-color: #fef0ae;
-  border-radius: 30px;
-  padding: 10px;
-  }
-
-  .search_input{
-  color: black;
-  border: 0;
-  outline: 0;
-  background: none;
-  width: 500px;
-  caret-color:black;
-  line-height: 40px;
-  transition: width 0.4s linear;
-  margin-top: -3px;
-  margin-left: 15px;
-  }
-
-  /* .searchbar:hover > .search_input{
-  padding: 0 10px;
-  width: 450px;
-  caret-color:black;
-  transition: width 0.4s linear;
-  } */
-
-  /* .searchbar:hover > .search_icon{
-  background: white;
-  color: #e74c3c;
-  } */
-
-  .search_icon{
-  height: 40px;
-  width: 40px;
-  float: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  color:#e74c3c;
-  text-decoration:none;
-  background: white;
-  }
- <!-- 검색 -->
  
  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-bottom: 0.5rem;

@@ -114,30 +114,35 @@ public class UserClassDetailController {
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
 		
+		int oneDayMax = classService.selectOneDayMax(clsNo);
+		model.addAttribute("oneDayMax", oneDayMax);
+		
+		System.out.println("무슨클래스?????????????????????????" + classDetail.getClsType());
+		
 		//정규 클래스인 경우, 클래스 스케줄 select 
-		if(classDetail.getClsType() == "R") {
+		if(classDetail.getClsType().equals("R")) {
 			
+			//클래스 정보 담아오기
 			ScheduleDTO regularSchedule = new ScheduleDTO();
 			regularSchedule = classService.selectRegularSchedule(clsNo);
 			model.addAttribute("regularSchedule", regularSchedule);
 			
 			//정규 클래스인 경우, 현재 수강 신청 인원 select 
 			ScheduleDTO scheduleDTO = classService.selectApplyPeople(regularSchedule);
-			System.out.println("클래스 수강 정원 select : " + regularSchedule.getMaxPeople());
-			System.out.println("현재 수강 신청 인원 select : " + scheduleDTO.getPeopleCount());
 			
-			if(scheduleDTO == null) {
+			if(scheduleDTO == null) { //신청 인원이 없으면
 				
-				scheduleDTO.setPeopleCount(0);
+				int applyCheck = regularSchedule.getMaxPeople(); //applyCheck = 정원
+				model.addAttribute("applyCheck", applyCheck);
+				System.out.println("신청 가능 인원 : " + applyCheck);
+
+				
+			} else {
+				
+				int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount(); //남은인원(applyCheck) = 정원 - 현재 신청인원 
+				model.addAttribute("applyCheck", applyCheck);
+				System.out.println("신청 가능 인원 : " + applyCheck);
 			}
-			
-			System.out.println("없으면 0으로 저장 : " + scheduleDTO.getPeopleCount());
-			
-			//정원 - 현재 신청인원 = 남은인원(applyCheck)
-			int applyCheck = regularSchedule.getMaxPeople() - scheduleDTO.getPeopleCount();
-			model.addAttribute("applyCheck", applyCheck);
-			
-			System.out.println("정원 - 현재 신청인원 = 남은인원 : " + applyCheck);
 		}
 
 		return "user/classList/class_detail";
@@ -166,28 +171,31 @@ public class UserClassDetailController {
 	public String PeopleCount(HttpSession session, Model model,
 			@RequestParam("date") Date date, @RequestParam("clsNo") int clsNo, 
 			@RequestParam("time") String time, HttpServletRequest request) {
-		System.out.println("들어오노");
+		
 		ScheduleDTO scheduleDTO = new ScheduleDTO();
 		scheduleDTO.setClsNo(clsNo);
 		scheduleDTO.setScheduleDate(date);
 		scheduleDTO.setScheduleStart(time);
 		
+		//최대 인원 select
+		int maxUserSize = classService.selectMaxUserSize(scheduleDTO);
+		System.out.println("출력????????????????" + maxUserSize);
+		
 		//스케쥴 신청 인원 select
-		ScheduleDTO people = classService.selectPeople(scheduleDTO);
+		ScheduleDTO applyPeople = classService.selectPeople(scheduleDTO);
+		System.out.println("출력????????????????" + applyPeople);
 		
-		//int remain = max - people.setPeopleCount(peopleCount);
+		if(applyPeople == null) {
+			
+			int peopleCount = maxUserSize;
+			
+			Gson gson = new Gson();
+			
+			return gson.toJson(peopleCount);
+		}
+			
+		int peopleCount = maxUserSize - applyPeople.getPeopleCount();
 		
-		System.out.println("출력????????????????" + people);
-		
-		// 스케쥴에서 최대 인원 조회
-		Map<String,Integer> hmap = new HashMap<>();
-		hmap.put("clsNo", clsNo);
-		hmap.put("scheduleNo",people.getScheduleNo());
-		
-		int maxUserSize = classService.selectMaxUserSize(hmap);
-		System.out.println("maxUserSize : " + maxUserSize);
-		
-		int peopleCount = maxUserSize - people.getPeopleCount();
 		Gson gson = new Gson();
 		
 		return gson.toJson(peopleCount);

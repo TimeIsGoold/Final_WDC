@@ -173,15 +173,11 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectPeople(scheduleDTO);
 	}
 	
-	/**
-	 * 스케쥴 최대인원수 조회
-	 */
 	@Override
-	public int selectMaxUserSize(Map hmap) {
+	public int selectMaxUserSize(ScheduleDTO scheduleDTO) {
 		
-		return mapper.selectMaxUserSize(hmap);
+		return mapper.selectMaxUserSize(scheduleDTO);
 	}
-
 
 	@Override
 	public int insertInquiry(UserInquiryDTO userInquiryDTO) {
@@ -252,6 +248,11 @@ public class UserClassServiceImpl implements UserClassService{
 	@Override
 	public int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO) {
 		return mapper.insertAllUserCoupon(forInsertAllUserCouponDTO);
+	}
+
+	@Override
+	public int selectOneDayMax(int clsNo) {
+		return mapper.selectOneDayMax(clsNo);
 	}
 
 

@@ -75,7 +75,7 @@
         color: #fff;
       }
 
-      button {
+      .modal-btn {
         z-index: 1;
         width: 50px;
         border: 0 none;
@@ -88,7 +88,7 @@
         -webkit-transition-duration: 0.3s;
                 transition-duration: 0.3s;
       }
-
+      
       .hover-btn:hover{
         color: #ffc107;
       }
@@ -135,22 +135,47 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <c:if test="${ sessionScope.userNo ne null }">
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
-                </c:if>
-                <c:if test="${ sessionScope.userNo eq null }">
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
-                </c:if>
+              <ul class="navbar-nav ml-auto">
+	              <c:if test="${ empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ !empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo ne null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo eq null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+	              </c:if>
               </ul>
             </div>
           </nav>
         </div>
       </header>
 
-	 <%@include file="../commons/search.jsp" %>
+ 	  <!-- 검색 -->
+      <div class="container h-100">
+      <form action="${ pageContext.servletContext.contextPath }/user/category/all" method="get">
+        <div class="d-flex justify-content-center h-100">
+          <div class="searchbar">
+            <input class="search_input" type="text" name="searchContent" id="searchContent" placeholder="우리 동네 클래스를 검색해보세요!" style="margin-top: -5px !important;">
+            <button type="submit" id="searchContent" class="search_icon" style="text-decoration:none; border: 0px;"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+      </div>
+      <br>
+		<script>
+			$("#searchClass").click(function(){
+				if($("#searchContent").val().length < 1 ){
+					alert("검색할 클래스를 입력해주세요.");
+					return false;
+				}
+			}
+		</script>
 		
       <!-- HERO SECTION-->
       <div class="container">
@@ -181,20 +206,14 @@
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
 		              <div class="row align-items-stretch">
-		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ newClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ newClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a></div>
  		                <div class="col-lg-6">
-		                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+		                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
-		                    <ul class="list-inline mb-2">
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                    </ul>
 		                    <h2 class="h4">${ newClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ newClassList.simpleIntro }</p>
+		                    <br><br>
 		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ newClassList.clsNo }">클래스 보기</a></div>
 		                  </div>
 		                </div>
@@ -214,7 +233,9 @@
                     </ul>
                   </div>
                 </div>
-                <h6> <a class="reset-anchor" href="detail.html">${ newClassList.title }</a></h6>
+                <h6> <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ newClassList.clsNo }">
+                	<c:if test="${ newClassList.clsType eq 'O' }">[원데이] ${ newClassList.title }</c:if>
+                    <c:if test="${ newClassList.clsType eq 'R' }">[정규] ${ newClassList.title }</c:if></a></h6>
                 <p class="small text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>
@@ -238,20 +259,14 @@
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
 		              <div class="row align-items-stretch">
-		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ topClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ topClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a></div>
 		                <div class="col-lg-6">
-		                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+		                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
-		                    <ul class="list-inline mb-2">
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                    </ul>
 		                    <h2 class="h4">${ topClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ topClassList.simpleIntro }</p>
+		                    <br><br>
 		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ topClassList.clsNo }">클래스 보기</a></div>
 		                  </div>
 		                </div>
@@ -271,7 +286,9 @@
                     </ul>
                   </div>
                 </div>
-                <h6> <a class="reset-anchor" href="detail.html">${ topClassList.title }</a></h6>
+                <h6> <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ topClassList.clsNo }">
+                	<c:if test="${ topClassList.clsType eq 'O' }">[원데이] ${ topClassList.title }</c:if>
+                    <c:if test="${ topClassList.clsType eq 'R' }">[정규] ${ topClassList.title }</c:if></a></h6>
                 <p class="small text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>
@@ -295,20 +312,14 @@
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
 		              <div class="row align-items-stretch">
-		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+		                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a></div>
 		                <div class="col-lg-6">
-		                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+		                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
-		                    <ul class="list-inline mb-2">
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-		                    </ul>
 		                    <h2 class="h4">${ cheerClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ cheerClassList.simpleIntro }</p>
+		                    <br><br>
 		                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }">클래스 보기</a></div>
 		                  </div>
 		                </div>
@@ -328,7 +339,9 @@
                     </ul>
                   </div>
                 </div>
-                <h6> <a class="reset-anchor" href="detail.html">${ cheerClassList.title }</a></h6>
+                <h6> <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }">
+                	<c:if test="${ cheerClassList.clsType eq 'O' }">[오픈예정][원데이] ${ cheerClassList.title }</c:if>
+                    <c:if test="${ cheerClassList.clsType eq 'R' }">[오픈예정][정규] ${ cheerClassList.title }</c:if></a></h6>
                 <p class="small text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>

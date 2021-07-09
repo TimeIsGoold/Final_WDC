@@ -72,7 +72,7 @@ public interface UserClassService {
 
 	ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
 
-	int selectMaxUserSize(Map hmap);
+	int selectMaxUserSize(ScheduleDTO scheduleDTO);
 
 	int insertInquiry(UserInquiryDTO userInquiryDTO);
 	
@@ -89,6 +89,8 @@ public interface UserClassService {
 	int selectUserCpnNo(int cpnNo);
 
 	int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
+
+	int selectOneDayMax(int clsNo);
 
 
 }

@@ -76,10 +76,21 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/likeClass"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+              <ul class="navbar-nav ml-auto">
+	              <c:if test="${ empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ !empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo ne null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo eq null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+	              </c:if>
               </ul>
             </div>
           </nav>
@@ -95,13 +106,6 @@
                 <div class="col-lg-6">
                   <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                   <div class="p-5 my-md-4">
-                    <ul class="list-inline mb-2">
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                    </ul>
                     <h2 class="h4">스포츠 클래스</h2>
                     <p class="text-muted">42,500 원</p>
                     <p class="text-small mb-4">
@@ -170,6 +174,7 @@
                   <div class="col-lg-6 mb-2 mb-lg-0">
                     <!-- <p class="text-small text-muted mb-0">Showing 1–12 of 53 results</p> -->
                   </div>
+                  
                   <div class="col-lg-6">
                     <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
                       <li class="list-inline-item">
@@ -183,10 +188,22 @@
                     </ul>
                   </div>
                 </div>
-                <div class="row"> 
-                 <c:if test="${ empty requestScope.allClassList }">
-                <p style="margin-left: 100px; font-size: 30px;">&ouml; 해당 키워드에대한 검색결과가  없습니다.</p>
-                </c:if>      
+                <div>
+                <c:if test="${ !empty requestScope.searchContent }">
+	                <c:if test="${ empty requestScope.allClassList }">
+	               	<div style="font-size: 18px;">' ${ requestScope.searchContent} ' 검색 결과</div>
+	               	<br><br><br><br><br><br>
+	                <div style="margin-left: 235px; font-size: 18px; color: #6c757dcc;">&ouml; 해당 키워드에 대한 검색결과가  없습니다.<div>
+	                <br><br><br><br>
+                	</c:if>
+                </c:if>
+	            </div>
+	            <c:if test="${ !empty requestScope.allClassList }">
+             		<c:if test="${ !empty requestScope.searchContent }">
+	                <div style="font-size: 18px;">' ${ requestScope.searchContent} ' 검색 결과</div>
+	               	<br><br>
+	               	</c:if>
+                <div class="row">
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.allClassList }">
                   <c:set value="${i+1}" var="i"></c:set>
@@ -225,7 +242,7 @@
                       <c:choose>
                       <c:when test="${ classList.dicsionStatus eq 'S' }">                      
                         <h6 style="margin-top: 15px;"> 
-                        <a class="reset-anchor" href="detail.html" style="margin-top: -20px;">
+                        <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }" style="margin-top: -20px;">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [원데이] ${classList.title}
                         </c:if>
@@ -236,7 +253,7 @@
                         </h6>
                       </c:when>
                       <c:when test="${ classList.dicsionStatus eq 'F' }">
-                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="detail.html">
+                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [오픈예정][원데이] ${classList.title}
                         </c:if>
@@ -250,10 +267,9 @@
                       <p class="small text-muted"><fmt:formatNumber value="${classList.price}" pattern="#,###"/> 원</p>
                     </div>
                   </div>
-			<script>
+				<script>
 				$("#cheerUp" + ${i}).click(function(){
 					
-			        
 			        if (confirm('응원 하시겠습니까? ')){
 			             // Yes click
 			        const clsNo = document.getElementById('clsNo' + ${i}).value;
@@ -291,7 +307,6 @@
                   
                 </div>
                 
-                
                 <!-- PAGINATION-->
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center justify-content-lg-end">
@@ -302,6 +317,7 @@
                     <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                   </ul>
                 </nav>
+                </c:if>
               </div>
             </div>
           </div>
