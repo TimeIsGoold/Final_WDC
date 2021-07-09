@@ -806,12 +806,6 @@
 	
 	<!-- 정산 승인 - insert -->
 	<insert id="insertCalculate" parameterType="CalculateDTO">
-		<selectKey keyProperty="tuitionMNo" order="BEFORE" resultType="_int">
-			SELECT 
-				   MAX(TUITION_M_NO)
-  			  FROM TUITION_MANAGEMENT
-             WHERE CLS_NO = #{ classNo }
-		</selectKey>
 		INSERT 
   		  INTO CALCULATE
 		VALUES
