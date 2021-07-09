@@ -75,7 +75,7 @@ public interface UserClassMapper {
 
 	public ScheduleDTO selectPeople(ScheduleDTO scheduleDTO);
 
-	public int selectMaxUserSize(Map hmap);
+	public int selectMaxUserSize(ScheduleDTO scheduleDTO);
 
 	public int insertInquiry(UserInquiryDTO userInquiryDTO);
 	
@@ -94,6 +94,16 @@ public interface UserClassMapper {
 	public int insertAllUserCoupon(UserCouponDTO forInsertAllUserCouponDTO);
 
 	public int selectClassProgressCount(int scheduleNo);
+
+	public int selectOneDayMax(int clsNo);
+
+	public int insertTuitionManagement(PaymentDTO insertPaymentDTO);
+
+	public int selectCheerCount(int clsNo);
+
+	public List<UserClassDTO> selectMyLikeClassList(int userNo);
+
+	public int updateUserWithdraw(int userNo);
 
 
 

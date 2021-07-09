@@ -75,10 +75,21 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/serviceCenter/notice"> <i class="fas mr-1 text-gray"></i>고객센터</a></li>
               </ul>
-              <ul class="navbar-nav ml-auto">               
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/likeClass"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+              <ul class="navbar-nav ml-auto">
+	              <c:if test="${ empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" onClick="alert('우리 동네 클래스 회원 전용 메뉴입니다.')"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ !empty sessionScope.userNo }">               
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList"> <i class="far fa-heart mr-1 icon1"></i><small class="text-gray"></small></a></li>
+	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo ne null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              </c:if>
+	              <c:if test="${ sessionScope.userNo eq null }">
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+	              </c:if>
               </ul>
             </div>
           </nav>
@@ -147,21 +158,20 @@
             	<hr>
                 <li>&nbsp;&nbsp;&nbsp;강의 날짜  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <c:if test="${ requestScope.userClassDTO.clsType eq 'O' }">
-                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 250px;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleDate }" disabled></li>
+                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 260px !important;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleDate }" disabled></li>
                 </c:if>
                 <c:if test="${ requestScope.userClassDTO.clsType eq 'R' }">
-                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 250px;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.startDate } ~ ${ requestScope.userClassDTO.endDate }" disabled></li>
+                <input type="text" style="margin-bottom: 10px; margin-top: 10px; width: 260px !important;" id="name" class="refunderInfo" value="${ requestScope.userClassDTO.startDate } ~ ${ requestScope.userClassDTO.endDate }" disabled></li>
                 </c:if>
                 
                 <hr>
                 <li>&nbsp;&nbsp;&nbsp;수업 시작 시간 &nbsp;&nbsp;&nbsp;
-                <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleStart }" disabled> </li>
+                <input type="text" style="width: 260px !important;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.scheduleStart }" disabled> </li>
                 
                 <hr>
                 <li>&nbsp;&nbsp;&nbsp;수업 소요 시간 &nbsp;&nbsp;&nbsp;
-                <input type="text" style="width: 250px;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.time }" disabled> </li>
+                <input type="text" style="width: 260px !important;" id="phone" class="refunderInfo" value="${ requestScope.userClassDTO.time }" disabled> </li>
                 <hr>
-                <br>
               </div>
               <!-- 신청자 정보-->
               <div class="bg-light px-4 py-3">
@@ -194,12 +204,12 @@
 			</div>
             <input type="hidden" name="reportToNo" value="${ requestScope.userClassDTO.teNo}">
             </div>
-<br>
+			<br>
           </div>
         </section>
       </div>
-
-</div>
+	</div>
+	<br><br>
 <script>
     function writeComplate(){
         alert("신고 작성되었습니다.")

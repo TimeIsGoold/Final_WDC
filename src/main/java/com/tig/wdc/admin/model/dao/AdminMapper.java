@@ -173,6 +173,15 @@ public interface AdminMapper {
 
 	/**
 	 * @author 송아현
+	 * 미정산 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	CalculateDTO selectNoCalculateDetail(Map<String, Object> calculateDetailMap);
+	
+	/**
+	 * @author 송아현
 	 * 정산 상세
 	 * 
 	 * @return
@@ -198,12 +207,30 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 환불 승인 insert 하기 위해 필요한 값
+	 * 
+	 * @param refundDetailMap
+	 * @return
+	 */
+	RefundDTO selectRefundTotalAmount(Map<String, Object> refundDetailMap);
+	
+	/**
+	 * @author 송아현
 	 * 환불 승인 - update
 	 * 
 	 * @param refund
 	 * @return
 	 */
-	int updateRefundApprove(RefundDTO refund);
+	int updateRefundApprove(Map<String, Object> refundMap);
+	
+	/**
+	 * @author 송아현
+	 * 환불 승인 - insert
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	int insertRefundApprove(Map<String, Object> refundMap);
 	
 	StudentDTO selectOneStudent(int no);
 
@@ -256,6 +283,10 @@ public interface AdminMapper {
 	String selectRejectReason(int clsNo);
 
 	AdminDTO selectAdminInfo(AdminDTO loginInfo);
+
+
+
+
 
 
 

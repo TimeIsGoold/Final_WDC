@@ -88,7 +88,7 @@
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${refundList}" var="RefundDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund&status=${RefundDTO.refundStatus}&no=${RefundDTO.cancelNo}'">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/refundDetail?currentMenu=refund&status=${RefundDTO.refundStatus}&no=${RefundDTO.cancelNo}&classNo=${RefundDTO.classNo}'">
 				                                <td>${RefundDTO.cancelNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${RefundDTO.classType eq 'O'}">
@@ -102,6 +102,7 @@
 				                                <td>${RefundDTO.id}</td>
 				                                <td>${RefundDTO.refundApplyDate}</td>
 				                                <td>${RefundDTO.refundStatus}</td>
+				                                <input type="hidden" name="classNo" value="${ RefundDTO.classNo }">
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

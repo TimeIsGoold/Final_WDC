@@ -1,7 +1,9 @@
 package com.tig.wdc.user.model.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
@@ -36,5 +38,11 @@ public interface UserInfoService {
 	public List<UserCouponDTO> selectAllUserCouponList();
 
 	public int selectUseAllUserCoupon(UserCouponDTO alluserCouponDTO);
+
+	public UserInfoDTO selectExistingInfo(Map<String, String> result);
+
+	public Object selectCheckDoubleId(String checkId);
+
+	public int registUser(UserInfoDTO registInfo);
 
 }

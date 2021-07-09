@@ -1,10 +1,9 @@
 package com.tig.wdc.admin.model.dto;
 
-import java.sql.Date;
-
 public class CalculateDTO {
 
 	private int calcNo;
+	private int teNo;
 	private String teType;
 	private String teName;
 	private String teId;
@@ -12,6 +11,7 @@ public class CalculateDTO {
 	private String calcYN;
 	private String bank;
 	private String teAcntNo;
+	private String teAcntHolder;
 	private int totalSales;
 	private int tax;
 	private int useFees;
@@ -20,20 +20,21 @@ public class CalculateDTO {
 	private int classNo;
 	private String className;
 	private String classType;
-	private int count;
-	private int workDay;
-	private int workTime;
-	private int price;
+	private int countStudent;
+	private int cday;
+	private String today;
 	
 	public CalculateDTO() {
 		super();
 	}
 
-	public CalculateDTO(int calcNo, String teType, String teName, String teId, String calcMonth, String calcYN,
-			String bank, String teAcntNo, int totalSales, int tax, int useFees, int cardFees, int calcAmount,
-			int classNo, String className, String classType, int count, int workDay, int workTime, int price) {
+	public CalculateDTO(int calcNo, int teNo, String teType, String teName, String teId, String calcMonth,
+			String calcYN, String bank, String teAcntNo, String teAcntHolder, int totalSales, int tax, int useFees,
+			int cardFees, int calcAmount, int classNo, String className, String classType, int countStudent,
+			int cday, String today) {
 		super();
 		this.calcNo = calcNo;
+		this.teNo = teNo;
 		this.teType = teType;
 		this.teName = teName;
 		this.teId = teId;
@@ -41,6 +42,7 @@ public class CalculateDTO {
 		this.calcYN = calcYN;
 		this.bank = bank;
 		this.teAcntNo = teAcntNo;
+		this.teAcntHolder = teAcntHolder;
 		this.totalSales = totalSales;
 		this.tax = tax;
 		this.useFees = useFees;
@@ -49,10 +51,9 @@ public class CalculateDTO {
 		this.classNo = classNo;
 		this.className = className;
 		this.classType = classType;
-		this.count = count;
-		this.workDay = workDay;
-		this.workTime = workTime;
-		this.price = price;
+		this.countStudent = countStudent;
+		this.cday = cday;
+		this.today = today;
 	}
 
 	public int getCalcNo() {
@@ -61,6 +62,14 @@ public class CalculateDTO {
 
 	public void setCalcNo(int calcNo) {
 		this.calcNo = calcNo;
+	}
+
+	public int getTeNo() {
+		return teNo;
+	}
+
+	public void setTeNo(int teNo) {
+		this.teNo = teNo;
 	}
 
 	public String getTeType() {
@@ -117,6 +126,14 @@ public class CalculateDTO {
 
 	public void setTeAcntNo(String teAcntNo) {
 		this.teAcntNo = teAcntNo;
+	}
+
+	public String getTeAcntHolder() {
+		return teAcntHolder;
+	}
+
+	public void setTeAcntHolder(String teAcntHolder) {
+		this.teAcntHolder = teAcntHolder;
 	}
 
 	public int getTotalSales() {
@@ -183,46 +200,38 @@ public class CalculateDTO {
 		this.classType = classType;
 	}
 
-	public int getCount() {
-		return count;
+	public int getCountStudent() {
+		return countStudent;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
+	public void setCountStudent(int countStudent) {
+		this.countStudent = countStudent;
 	}
 
-	public int getWorkDay() {
-		return workDay;
+	public int getcday() {
+		return cday;
 	}
 
-	public void setWorkDay(int workDay) {
-		this.workDay = workDay;
+	public void setcday(int cday) {
+		this.cday = cday;
 	}
 
-	public int getWorkTime() {
-		return workTime;
+	public String getToday() {
+		return today;
 	}
 
-	public void setWorkTime(int workTime) {
-		this.workTime = workTime;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
+	public void setToday(String today) {
+		this.today = today;
 	}
 
 	@Override
 	public String toString() {
-		return "CalculateDTO [calcNo=" + calcNo + ", teType=" + teType + ", teName=" + teName + ", teId=" + teId
-				+ ", calcMonth=" + calcMonth + ", calcYN=" + calcYN + ", bank=" + bank + ", teAcntNo=" + teAcntNo
-				+ ", totalSales=" + totalSales + ", tax=" + tax + ", useFees=" + useFees + ", cardFees=" + cardFees
-				+ ", calcAmount=" + calcAmount + ", classNo=" + classNo + ", className=" + className + ", classType="
-				+ classType + ", count=" + count + ", workDay=" + workDay + ", workTime=" + workTime + ", price="
-				+ price + "]";
+		return "CalculateDTO [calcNo=" + calcNo + ", teNo=" + teNo + ", teType=" + teType + ", teName=" + teName
+				+ ", teId=" + teId + ", calcMonth=" + calcMonth + ", calcYN=" + calcYN + ", bank=" + bank
+				+ ", teAcntNo=" + teAcntNo + ", teAcntHolder=" + teAcntHolder + ", totalSales=" + totalSales + ", tax="
+				+ tax + ", useFees=" + useFees + ", cardFees=" + cardFees + ", calcAmount=" + calcAmount + ", classNo="
+				+ classNo + ", className=" + className + ", classType=" + classType + ", countStudent=" + countStudent
+				+ ", cday=" + cday + ", today=" + today + "]";
 	}
 
 }

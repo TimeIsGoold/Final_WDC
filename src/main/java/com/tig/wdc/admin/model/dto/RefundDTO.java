@@ -7,6 +7,7 @@ public class RefundDTO {
 	private int cancelNo;
 	private String cancelReason;
 	private int refundAmount;
+	private int totalAmount;
 	private java.sql.Date refundDate;
 	private String cancelReasonDetail;
 	private int payNo;
@@ -17,19 +18,21 @@ public class RefundDTO {
 	private java.sql.Date refundApplyDate;
 	private String classType;
 	private String className;
+	private int classNo;
 	private String id;
 	
 	public RefundDTO() {
 		super();
 	}
 
-	public RefundDTO(int cancelNo, String cancelReason, int refundAmount, Date refundDate, String cancelReasonDetail,
-			int payNo, String refundAccount, String refundHolder, String refundBank, String refundStatus,
-			Date refundApplyDate, String classType, String className, String id) {
+	public RefundDTO(int cancelNo, String cancelReason, int refundAmount, int totalAmount, Date refundDate,
+			String cancelReasonDetail, int payNo, String refundAccount, String refundHolder, String refundBank,
+			String refundStatus, Date refundApplyDate, String classType, String className, int classNo, String id) {
 		super();
 		this.cancelNo = cancelNo;
 		this.cancelReason = cancelReason;
 		this.refundAmount = refundAmount;
+		this.totalAmount = totalAmount;
 		this.refundDate = refundDate;
 		this.cancelReasonDetail = cancelReasonDetail;
 		this.payNo = payNo;
@@ -40,6 +43,7 @@ public class RefundDTO {
 		this.refundApplyDate = refundApplyDate;
 		this.classType = classType;
 		this.className = className;
+		this.classNo = classNo;
 		this.id = id;
 	}
 
@@ -65,6 +69,14 @@ public class RefundDTO {
 
 	public void setRefundAmount(int refundAmount) {
 		this.refundAmount = refundAmount;
+	}
+
+	public int getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
 	}
 
 	public java.sql.Date getRefundDate() {
@@ -147,6 +159,14 @@ public class RefundDTO {
 		this.className = className;
 	}
 
+	public int getClassNo() {
+		return classNo;
+	}
+
+	public void setClassNo(int classNo) {
+		this.classNo = classNo;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -158,10 +178,11 @@ public class RefundDTO {
 	@Override
 	public String toString() {
 		return "RefundDTO [cancelNo=" + cancelNo + ", cancelReason=" + cancelReason + ", refundAmount=" + refundAmount
-				+ ", refundDate=" + refundDate + ", cancelReasonDetail=" + cancelReasonDetail + ", payNo=" + payNo
-				+ ", refundAccount=" + refundAccount + ", refundHolder=" + refundHolder + ", refundBank=" + refundBank
-				+ ", refundStatus=" + refundStatus + ", refundApplyDate=" + refundApplyDate + ", classType=" + classType
-				+ ", className=" + className + ", id=" + id + "]";
+				+ ", totalAmount=" + totalAmount + ", refundDate=" + refundDate + ", cancelReasonDetail="
+				+ cancelReasonDetail + ", payNo=" + payNo + ", refundAccount=" + refundAccount + ", refundHolder="
+				+ refundHolder + ", refundBank=" + refundBank + ", refundStatus=" + refundStatus + ", refundApplyDate="
+				+ refundApplyDate + ", classType=" + classType + ", className=" + className + ", classNo=" + classNo
+				+ ", id=" + id + "]";
 	}
 
 }

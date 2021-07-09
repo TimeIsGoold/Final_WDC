@@ -36,27 +36,35 @@
 		         FROM CLASS C
 		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
 		        WHERE C.CLS_DICSION_STATUS = 'S'
-		          AND A.TYPE = 'TITLE'
+                  AND (C.CLS_STATUS = 'P'
+                   OR C.CLS_STATUS = 'Y')
+ 		          AND A.TYPE = 'TITLE'
 		        ORDER BY C.CLS_NO DESC)
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
 	
 	<select id="selectTopClassList" parameterType="UserClassDTO" resultMap="ClassResult">
-		SELECT
-		       *
+        SELECT
+		       Y.*
 		  FROM (SELECT
-		               A.SAVE_PATH
+                       X.AVG_SCORE
+		             , A.SAVE_PATH
 		             , L.*
 		          FROM (SELECT 
-		                       AVG(R.REVIEW_SCORE)
+		                       AVG(R.REVIEW_SCORE) AS AVG_SCORE
 		                     , S.CLS_NO
 		                  FROM REVIEW R
 		                  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
 		                  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
-		                 GROUP BY S.CLS_NO) P
-		          JOIN ATTACHMENT A ON(P.CLS_NO = A.CLS_NO)
+		                 GROUP BY S.CLS_NO
+                         ORDER BY AVG(R.REVIEW_SCORE) DESC) X
+		          JOIN ATTACHMENT A ON(X.CLS_NO = A.CLS_NO)
 		          JOIN CLASS L ON(L.CLS_NO = A.CLS_NO)
-		         WHERE A.TYPE = 'TITLE')
+		         WHERE A.TYPE = 'TITLE'
+                   AND L.CLS_DICSION_STATUS = 'S'
+                   AND (L.CLS_STATUS = 'P'
+                    OR L.CLS_STATUS = 'Y')
+                 ORDER BY AVG_SCORE DESC) Y
 		 WHERE ROWNUM <![CDATA[ <= ]]>4 
 	</select>
 	
@@ -69,6 +77,8 @@
 		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
 		        WHERE C.CLS_DICSION_STATUS = 'F'
 		          AND A.TYPE = 'TITLE'
+		          AND (C.CLS_STATUS = 'P'
+                   OR C.CLS_STATUS = 'Y')
 		        ORDER BY C.CLS_NO DESC)
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
@@ -185,6 +195,13 @@
 		 WHERE S.CLS_NO = #{ clsNo }
     </select>
     
+    <select id="selectOneDayMax" parameterType="_int" resultType="_int">
+        SELECT 
+               MAX(S.MAX_PEOPLE)  
+		  FROM SCHEDULE S
+		 WHERE S.CLS_NO = #{ clsNo }
+    </select>
+    
     <select id="selectTime" parameterType="ScheduleDTO" resultMap="ScheduleResult">
         SELECT 
 		       * 
@@ -206,12 +223,14 @@
          GROUP BY A.SCHEDULE_NO
     </select>
     
-    <select id="selectMaxUserSize" parameterType="hashmap" resultType="_int">
-    	SELECT
-    	       A.MAX_PEOPLE
-    	  FROM SCHEDULE A
-    	 WHERE A.CLS_NO = #{ clsNo }
-    	   AND A.SCHEDULE_NO = #{ scheduleNo }
+    <select id="selectMaxUserSize" parameterType="scheduleDTO" resultType="_int">
+        SELECT 
+		       S.MAX_PEOPLE
+		  FROM SCHEDULE S
+          JOIN CLASS C ON (C.CLS_NO = S.CLS_NO)
+         WHERE S.SCHEDULE_DATE = #{ scheduleDate }
+           AND S.SCHEDULE_START = #{ scheduleStart }
+           AND C.CLS_NO = #{ clsNo }
     </select>
     
     <select id="selectRegularSchedule" parameterType="_int" resultMap="ScheduleResult">
@@ -259,6 +278,7 @@
 		  LEFT JOIN TEACHER_INFO T ON (C.TE_NO = T.TE_NO)
 		  LEFT JOIN USER_INFO I ON (U.USER_NO = I.USER_NO)
 		 WHERE C.CLS_NO = #{ clsNo }
+		 ORDER BY U.QUESTION_NO DESC
     </select>
     
     <insert id="insertInquiry" parameterType="UserInquiryDTO">
@@ -492,9 +512,9 @@
     </resultMap>
 	<select id="selectMyCheerClassList" parameterType="_int" resultMap="UserCategoryResult">
       SELECT
-            C.*
-          , T.*
-          , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+             C.*
+           , T.*
+           , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
         FROM CHEERING_HISTORY CH
 	    JOIN USER_INFO U ON(CH.USER_NO = U.USER_NO)
 	    JOIN CLASS C ON(CH.CLS_NO = C.CLS_NO)
@@ -505,7 +525,30 @@
          AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '-'
          AND SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) != '0'
          AND T.TYPE = 'TITLE'	
+         <![CDATA[
+         AND C.CLS_END_D > SYSDATE
+          ]]>
 	</select>
+	
+	<select id="selectMyLikeClassList" parameterType="_int" resultMap="UserCategoryResult">
+       SELECT
+              L.*
+            , C.*
+            , T.*
+            , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+         FROM LIKE_HISTORY L
+         JOIN CLASS C ON(L.CLS_NO = C.CLS_NO)
+         JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
+         JOIN ATTACHMENT T ON(C.CLS_NO = T.CLS_NO)
+        WHERE L.USER_NO = #{ userNo }
+         AND (C.CLS_DICSION_STATUS = 'F'
+          OR C.CLS_DICSION_STATUS = 'S')
+         AND T.TYPE = 'TITLE'
+         <![CDATA[
+         AND C.CLS_END_D > SYSDATE
+         ]]>
+	</select>
+	
 	
 	<resultMap type="UserRefundDTO" id="UserRefundDTOResult">
         <id column="CANCLE_NO" property="cancelNo"/>
@@ -539,7 +582,7 @@
 		SELECT 
 		       COUNT(CHEER_DATE)
 		  FROM CHEERING_HISTORY
-		 WHERE CHEER_DATE = TO_DATE(SYSDATE,'yy/MM/dd')
+		 WHERE TO_DATE(CHEER_DATE,'yy/MM/dd') = TO_DATE(SYSDATE,'yy/MM/dd')
 		   AND USER_NO = #{ userNo }
 	</select>
 	
@@ -568,5 +611,38 @@
 		  FROM REGULAR_CLASS R
 		 WHERE R.SCHEDULE_NO = #{ scheduleNo }
 	</select>
+	
+
+	<insert id="insertTuitionManagement" parameterType="PaymentDTO">
+		<selectKey keyProperty="payNo" resultType="_int" order="BEFORE">
+			SELECT
+			      SEQ_PAY_NO.CURRVAL
+			FROM DUAL
+	 	</selectKey>
+		INSERT
+		  INTO TUITION_MANAGEMENT
+		VALUES
+		(
+		   SEQ_TUITION_M_NO.NEXTVAL
+		, #{ payPrice }
+		, #{ clsAplNo }
+		, #{ payNo }
+		, 'N'
+
+		)
+	</insert>
+	
+	<select id="selectCheerCount" parameterType="_int" resultType="_int">
+          SELECT 
+		         COUNT(*)
+		    FROM CHEERING_HISTORY
+		   WHERE CLS_NO = #{ clsNo }
+	</select>
+	
+	<update id="updateUserWithdraw" parameterType="_int">
+       UPDATE USER_INFO
+          SET USER_QUIT_YN = 'Y'
+        WHERE USER_NO = #{ userNo }
+	</update>
 
 </mapper>

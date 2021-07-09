@@ -140,10 +140,12 @@ public class UserServiceCenterController {
 		//페이지 정보를 담아옴
 		model.addAttribute("pageInfo", pageInfo);
 		
-		//받아온 페이지 정보를 가지고 문의 select
+		//받아온 페이지 정보를 가지고 신고 select
 		List<UserReportDTO> report = new ArrayList<UserReportDTO>();
 		report = serviceCenter.selectReport(pageInfo);
 		model.addAttribute("report",report);
+		
+		System.out.println(report);
 		
 		return "user/serviceCenter/report";
 	}
