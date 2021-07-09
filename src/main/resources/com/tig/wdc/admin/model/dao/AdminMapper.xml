@@ -744,7 +744,7 @@
 	        , A.CALCUL_STATUS 정산여부
 	        , B.CLS_TYPE
             , B.CLS_TITLE
-            <if test="cday le 3">
+            <if test="cday lte 3">
             , TO_CHAR(SYSDATE, 'YYYY/MM') AS 정산날짜
             </if>
             <if test="cday gt 3">
