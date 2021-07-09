@@ -248,7 +248,6 @@
 		)
     </insert>
     
-    
     <select id="selectAllUserCouponList" resultMap="CouponResult">
  		SELECT 
 		       *

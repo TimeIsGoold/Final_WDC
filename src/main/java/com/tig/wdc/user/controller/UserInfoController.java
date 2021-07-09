@@ -1,11 +1,14 @@
 package com.tig.wdc.user.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.FieldNamingPolicy;
@@ -112,8 +116,8 @@ public class UserInfoController {
 			
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
 //        암호화 후 적용
-		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
-//		} else if(!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
+//		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
+		} else if(!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
 			
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if("Y".equals(userInfoDTO.getQuitYn())) {
@@ -489,20 +493,46 @@ public class UserInfoController {
 	 * @return
 	 */
 	@PostMapping("ComplateClassReview/{aplNo}")
-	public String writeReview(Model model, HttpSession session, @PathVariable("aplNo") int aplNo, UserReviewDTO userReviewDTO) {
+	public String writeReview(Model model, @RequestParam MultipartFile singleFile, HttpSession session, HttpServletRequest request, @PathVariable("aplNo") int aplNo, UserReviewDTO userReviewDTO) {
 		
 		//리뷰 insert
 		int userNo= (Integer) session.getAttribute("userNo");
 		
-		userReviewDTO.setUserNo(userNo);
-		userReviewDTO.setAplNo(aplNo);
+        /* 사진 추가할 경로 */
+        // 루트 경로
+        String root = request.getServletContext().getRealPath("resources");
+
+        // 파일저장할 경로(없을 경우 생성)
+        String filePath = root + "\\upload";
+        File mkdir = new File(filePath);
+        if (!mkdir.exists()) {
+           mkdir.mkdirs();
+        }
+
+        /* 파일명 변경 처리 */
+        String originFileName = singleFile.getOriginalFilename(); //원본 이름 저장
+        String ext = originFileName.substring(originFileName.lastIndexOf(".")); //확장자만 저장 (.png)
+        String saveName = UUID.randomUUID().toString().replace("-", "") + ext; //랜덤하게 파일 명을 지정하고 확장자 더해줌
 		
-		int reviewWrite = infoService.insertReview(userReviewDTO);
+		try {
+			singleFile.transferTo(new File(filePath + "\\" + saveName));
+			
+			System.out.println(aplNo);
+			
+			userReviewDTO.setUserNo(userNo);
+			userReviewDTO.setAplNo(aplNo);
+			userReviewDTO.setReviewPic(saveName);
+			
+			int reviewWrite = infoService.insertReview(userReviewDTO);
+			
+			return "redirect:/user/mypage/complateClassList";
+			
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
 		
 		return "redirect:/user/mypage/complateClassList";
 	}
-	
-
 	
 	/**
 	 * 내가 찜 목록 클래스 조회
