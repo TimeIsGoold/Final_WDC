@@ -27,7 +27,7 @@ import com.tig.wdc.teacher.model.service.BoardAndQnAService;
 import com.tig.wdc.teacher.model.service.ClassRegistManageService;
 import com.tig.wdc.user.model.dto.ClassDTO;
 import com.tig.wdc.user.model.dto.InquiryAnswerDTO;
-import com.tig.wdc.user.model.dto.UserInquiryDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.UserReportDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
@@ -101,8 +101,8 @@ public class TeacherMyPageController {
 	 */
 	@GetMapping("/studentManagement")
 	public String attendanceManageMent(Model model, @RequestParam(defaultValue = "1") int currentPage, @RequestParam Map<String,String> info) {
-		
-		String pageName = "";
+		System.out.println("클래스 참여정보 : " + info);
+		String pageName = ""; 
 		if(info.get("classType") != null && info.get("classType").equals("R")) {
 			
 			/* 정규클래스 스케쥴*/
@@ -112,7 +112,7 @@ public class TeacherMyPageController {
 				regularClassinfo.setApplyCount(classApplyInfo.getApplyCount());
 			}
 			model.addAttribute("regularInfo", regularClassinfo);
-			model.addAttribute("applyUserInfoList",classManage.selectApplyUserInfo(regularClassinfo.getScheduleNo()));
+			model.addAttribute("applyUserInfoList",classManage.selectApplyUserInfo(((Integer)regularClassinfo.getScheduleNo()).toString()));
 			model.addAttribute("existingInfo", classManage.selectExistingInfo(regularClassinfo.getScheduleNo()));
 			model.addAttribute("clsNo", Integer.parseInt(info.get("clsNo")));
 			
@@ -148,6 +148,8 @@ public class TeacherMyPageController {
 			model.addAttribute("onedayInfo", onedayInfoList);
 			pageName = "teacher/classManage/t_classAttendance";
 		}
+		model.addAttribute("classType", info.get("classType"));
+
 		
 		return pageName;
 	}
@@ -158,11 +160,13 @@ public class TeacherMyPageController {
 	 * @param scheduleNo 스케쥴번호
 	 * @return 
 	 */
-	@GetMapping("/oneDayAttendanceList/{scheduleNo}")
-	public String oneDayAttendancdManange(Model model, @PathVariable("scheduleNo") int scheduleNo) {
+	@GetMapping("/oneDayAttendanceList")
+	public String oneDayAttendancdManange(Model model, @RequestParam HashMap<String,String> info) {
 		
-		model.addAttribute("applyInfoList", classManage.selectApplyUserInfo(scheduleNo));
-		model.addAttribute("scheduleNo",scheduleNo);
+		model.addAttribute("applyInfoList", classManage.selectApplyUserInfo((String)info.get("scheduleNo")));
+		model.addAttribute("scheduleNo",info.get("scheduleNo"));
+		model.addAttribute("classType", info.get("classType"));
+		model.addAttribute("clsNo", info.get("clsNo"));
 		return "teacher/classManage/t_classAttendanceDetail";
 	}
 	
@@ -263,7 +267,7 @@ public class TeacherMyPageController {
 		return "teacher/balanace/t_balanceList";
 	}
 	
-	/* 문의하기 */
+	/* 문의하기(강현우) */
 	@GetMapping("/teacherInquiry")
 	public String teacherInquiry() {
 	
@@ -276,6 +280,7 @@ public class TeacherMyPageController {
 	 */
 	@PostMapping("/inquiryWrite")
 	public String inquiryWrite(Model model, @ModelAttribute QuestionDTO content, HttpSession session) {
+		
 		int teacherNo = (Integer)session.getAttribute("teacherNo");
 		content.setQuestionId(Integer.toString(teacherNo));
 		boardService.insertAdminQuestion(content);
@@ -293,8 +298,8 @@ public class TeacherMyPageController {
 	 */
 	@GetMapping("/teacherInquiryList")
 	public String teacherInquiryList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
-		int teacherNo = (Integer) session.getAttribute("teacherNo");
 		
+		int teacherNo = (Integer) session.getAttribute("teacherNo");
 		
 		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectAdminQnACount(teacherNo), 10, 5);
 		
@@ -322,7 +327,7 @@ public class TeacherMyPageController {
 		return "teacher/reportInquiry/t_inquiryDetail";
 	}
 	
-	/* 자주 묻는 질문 */
+	/* 자주 묻는 질문(강현우) */
 	@GetMapping("/teacherFAQ")
 	public String teacherFAQ() {
 		
@@ -351,6 +356,7 @@ public class TeacherMyPageController {
 	 */
 	@GetMapping("/userInquiry")
 	public String userInquiryList(Model model,@RequestParam HashMap<String,Object> classInfo, @RequestParam(defaultValue = "1") int currentPage) {
+		
 		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectUserInquiryCount((String)classInfo.get("clsNo")), 10, 5);
 		classInfo.put("pageInfo", pageInfo);
 		model.addAttribute("inquiryList", boardService.selectinquiryList(classInfo));
@@ -369,11 +375,11 @@ public class TeacherMyPageController {
 	 */
 	@GetMapping("/userInquiryDetail")
 	public String userInquiryDetail(Model model, @RequestParam HashMap<String, Object> inquiryInfo) {
-		System.out.println("여기는 상세보기 " + inquiryInfo);
+		
 		model.addAttribute("inquiry", boardService.selectOneInquiry(inquiryInfo));
 		model.addAttribute("info", inquiryInfo);
+	
 		return "teacher/classManage/t_classInquiryDetail";
-		
 	}
 	
 	/**
@@ -415,7 +421,7 @@ public class TeacherMyPageController {
 	}
 	
 	/**
-	 * 신고글 작성
+	 * 신고글 작성(이해승)
 	 * @param session
 	 * @param model
 	 * @param reportInfo
@@ -440,5 +446,50 @@ public class TeacherMyPageController {
 		return "redirect:/teacher/classDetail/"+clsNo;
 	}
 
-
+	/**
+	 * 클래스 리뷰목록 조회
+	 * @param info 클래스 정보
+	 * @param currentPage 현재 페이지
+	 * @return
+	 */
+	@GetMapping("/classReviewList")
+	public String classReviewList(Model model, @RequestParam HashMap<String,String> info, @RequestParam(value = "currentPage",defaultValue = "1") int currentPage) {
+		
+		int reviewCount = classManage.selectReviewCount(info.get("clsNo"));
+		pageInfo = PageNation.getPageInfo(currentPage, reviewCount, 5, 5);
+		
+		HashMap<String, Object> searchInfo = new HashMap<String, Object>();
+		
+		searchInfo.put("pageInfo", pageInfo);
+		searchInfo.put("clsNo", info.get("clsNo"));
+		
+		model.addAttribute("classType",info.get("classType"));
+		model.addAttribute("clsNo", info.get("clsNo"));
+		model.addAttribute("reviewCount",reviewCount);
+		model.addAttribute("avgScore", classManage.selectReviewAvgScore(info.get("clsNo")));
+		model.addAttribute("reviewList", classManage.selectReviewList(searchInfo));
+		
+		return "teacher/classManage/t_classReview";
+	}
+	
+	@PostMapping("/reviewAnswer")
+	public String reviewAnswer(HttpSession session, RedirectAttributes rttr,Model model, @ModelAttribute ReviewAnswerDTO reviewInfo, @RequestParam HashMap<String, String> info) {
+		
+		
+		reviewInfo.setTeNo((Integer)session.getAttribute("teacherNo"));
+		int result = classManage.insertReviewAnswer(reviewInfo);
+		
+		if(result > 0) {
+			
+			model.addAttribute("message","답변이 정상적으로 등록되었습니다.");
+		} else {
+			model.addAttribute("message","답변등록에 실패했습니다.");
+		}
+		
+		model.addAttribute("clsNo", info.get("clsNo"));
+		model.addAttribute("classType", info.get("classType"));
+		model.addAttribute("currentPage", info.get("currentPage"));
+		
+		return "redirect:/teacher/classReviewList";
+	}
 }

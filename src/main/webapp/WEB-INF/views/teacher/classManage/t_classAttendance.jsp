@@ -54,7 +54,6 @@
       color: black;
     }
     .btn {
-    .btn {
       border-radius: 5px !important;
       background-color: #fef0ae !important;
       border-color: #fef0ae !important;
@@ -91,44 +90,23 @@
         
         <!-- 상단 메뉴바 -->
         <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teahcer/classDetail/${clsNo}" style="font-size: 15; color: black"><b>상세정보</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${clsNo}" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
         <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+          <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
         <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;" >
           <a href="#" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
-    
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left;">
-<!--       <div class="page-header" style="margin-bottom: 3px; margin-left: 40px;">
-        <h4>수강생 관리</h4>
-      </div> -->
-<!--         <div class='col-sm-10' style="margin-left: 10px;">
-           <div class="form-group">
-            <div class="row">
-              <div class="col-sm-3" style="margin-left: 10px;">
-                <h5>클래스 검색</h5>
-              </div>
-               <div class='col-sm-3'>
-                <select class="form-control" id="classStatus">상태검색
-                  <option value="todo">강의 전</option>
-                  <option value="done">완료</option>
-                </select>
-              </div>
-              <div class='col-sm-3'>
-                <button type="submit" class="btn btn-primary">검색</button>   
-              </div>
-            </div>
-            </div> 
-        </div> -->
 
-      <div class="col-sm-10" id="content-formatting" style="float: left; padding-top: 50px; height: 1000px">
+
+      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 1000px">
         <table class="table table-hover" style="text-align: center;" >
           <thead>
             <tr>
@@ -143,7 +121,7 @@
             <c:forEach var="schedule" items="${ onedayInfo }" varStatus="status">
             <tr>
               <td>${ pageInfo.startRow + status.index }</td>
-              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList/${ schedule.scheduleNo}">${ schedule.classTitle}</a></td>
+              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList?scheduleNo=${ schedule.scheduleNo}&classType=${classType}&clsNo=${ clsNo }">${ schedule.classTitle}</a></td>
               <td>${ pageInfo.startRow + status.index }회차</td>
               <td>${ schedule.start }</td>
               <td>${ schedule.applyCount}/${ schedule.maxPeople}</td>

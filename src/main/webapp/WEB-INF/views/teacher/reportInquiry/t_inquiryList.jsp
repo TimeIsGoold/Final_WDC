@@ -99,9 +99,7 @@
             <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
               <P style="font-size: 20px; font-weight: bold;" >문의내역<P>
             </div>
-            <div class="row" style="margin-left: 40px;">
-              <div class='col-sm-3'><P style="font-size: 15px; font-weight: bold;" >문의내역 확인<P>
-              </div>
+            <div class="row" style="margin-left: 20px;">
               <div class='col-sm-2'>
                 <select class="form-group" id="inquiryReply">
                 	<option value="" selected disable hidden>선택하세요</option>
@@ -117,7 +115,7 @@
               </div> -->
             </div>
             
-            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 800px">
+            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 800px">
               <table class="table table-hover" style="text-align: center;">
                 <thead>
                   <tr>

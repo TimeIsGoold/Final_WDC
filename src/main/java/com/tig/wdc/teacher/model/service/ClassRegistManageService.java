@@ -10,7 +10,9 @@ import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
 import com.tig.wdc.model.dto.ClassScheduleInfoDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
  * @author 이해승
@@ -37,7 +39,7 @@ public interface ClassRegistManageService {
 	ClassScheduleInfoDTO selectRegularScheduleinfo(int clsNo);
 
 	//클래스 신청한 정보
-	List<ClassApplyDTO> selectApplyUserInfo(int scheduleNoo);
+	List<ClassApplyDTO> selectApplyUserInfo(String string);
 
 	//원데이클래스 스케쥴리스트
 	List<ClassScheduleInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
@@ -57,7 +59,20 @@ public interface ClassRegistManageService {
 	//정규클래스 신청인원
 	ClassScheduleInfoDTO selectRegularApplyCount(int scheduleNo);
 
+	//정규클래스 신청 상태값 update
 	int updateRegularApplyStatus(String[] updateList);
+
+	//리뷰 전체 수 카운트
+	int selectReviewCount(String string);
+
+	//리뷰 리스트
+	List<UserReviewDTO> selectReviewList(HashMap<String, Object> searchInfo);
+
+	//리뷰 평점
+	Double selectReviewAvgScore(String string);
+
+	//리뷰 답변
+	int insertReviewAnswer(ReviewAnswerDTO reviewInfo);
 
 	
 }

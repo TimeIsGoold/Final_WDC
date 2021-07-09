@@ -147,7 +147,7 @@
         <result column="USER_NAME" property="userName"/>
         <result column="USER_PHONE" property="userPhone"/>
     </resultMap>
-    <select id="selectApplyUserInfo" resultMap="applyInfo" parameterType="_int">
+    <select id="selectApplyUserInfo" resultMap="applyInfo" parameterType="string">
         SELECT
                A.CLS_APL_NO
              , A.ATT_STATUS
@@ -259,4 +259,99 @@
              #{ item }
          </foreach>
     </update>
+    <select id="selectReviewCount" resultType="_int" parameterType="string">
+        SELECT
+              COUNT(A.REVIEW_NO)
+         FROM REVIEW A
+         JOIN CLASS_APPLY C ON (A.CLS_APL_NO = C.CLS_APL_NO)
+         JOIN SCHEDULE D ON (C.SCHEDULE_NO = D.SCHEDULE_NO)
+        WHERE D.CLS_NO = #{ clsNo }
+    </select>
+    
+    <resultMap type="UserReviewDTO" id="ReviewResult">
+        <id column="REVIEW_NO" property="reviewNo"/>
+        <result column="REVIEW_CONTENT" property="reviewContent"/>
+        <result column="REVIEW_PIC" property="reviewPic"/>
+        <result column="REVIEW_SCORE" property="reviewScore"/>
+        <result column="REVIEW_ENROLLDATE" property="reviewEnrollDate"/>
+        <result column="CLS_APL_NO" property="aplNo"/>
+        <result column="USER_NAME" property="userName"/>
+        <!-- 리뷰답변 DTO association 함 -->
+        <association property="answer" javaType="ReviewAnswerDTO">
+        	<id column="RE_ANS_NO" property="ansNo"/>
+	        <result column="RE_ANS_D" property="ansDate"/>
+	        <result column="RE_ANS_CONTENT" property="ansContent"/>
+	        <result column="REVIEW_NO" property="reviewNo"/>
+	        <result column="TE_NO" property="teNo"/>
+	        <result column="TE_NAME" property="teName"/>
+	        <result column="TE_PIC" property="tePic"/>
+        </association>
+    </resultMap>    
+    <select id="selectReviewList" resultMap="ReviewResult" parameterType="hashmap">
+        SELECT 
+               A.REVIEW_NO
+             , A.REVIEW_CONTENT
+             , A.REVIEW_PIC
+             , A.REVIEW_SCORE
+             , A.REVIEW_ENROLLDATE
+             , A.RE_ANS_D
+             , A.RE_ANS_CONTENT
+             , A.TE_NO
+             , A.TE_PIC
+             , A.USER_NAME
+          FROM (SELECT ROWNUM RNUM
+                     , B.REVIEW_NO
+                     , B.REVIEW_CONTENT
+                     , B.REVIEW_PIC
+                     , B.REVIEW_SCORE
+                     , B.REVIEW_ENROLLDATE
+                     , B.RE_ANS_D
+                     , B.RE_ANS_CONTENT
+                     , B.TE_NO
+                     , B.TE_PIC
+                     , B.USER_NAME
+                  FROM (SELECT C.REVIEW_NO
+                             , C.REVIEW_CONTENT
+                             , C.REVIEW_PIC
+                             , C.REVIEW_SCORE
+                             , C.REVIEW_ENROLLDATE
+                             , D.RE_ANS_D
+                             , D.RE_ANS_CONTENT
+                             , D.TE_NO
+                             , H.TE_PIC
+                             , I.USER_NAME
+                          FROM REVIEW C
+                          LEFT JOIN REVIEW_ANSWER D ON (C.REVIEW_NO = D.REVIEW_NO)
+                          JOIN CLASS_APPLY E ON (C.CLS_APL_NO = E.CLS_APL_NO)
+                          JOIN SCHEDULE F ON (E.SCHEDULE_NO = F.SCHEDULE_NO)
+                          JOIN CLASS G ON (F.CLS_NO = G.CLS_NO)
+                          JOIN TEACHER_INFO H ON (G.TE_NO = H.TE_NO)
+                          JOIN USER_INFO I ON(E.USER_NO = I.USER_NO)
+                         WHERE G.CLS_NO = #{ clsNo }
+                         ORDER BY C.REVIEW_NO DESC
+                        ) B
+               ) A
+         WHERE A.RNUM BETWEEN #{ pageInfo.startRow } AND #{ pageInfo.endRow }      
+    </select>
+    <select id="selectReviewAvgScore" parameterType="string" resultType="_double">
+        SELECT
+               NVL(ROUND(AVG(A.REVIEW_SCORE),1),0)
+          FROM REVIEW A
+          JOIN CLASS_APPLY C ON (A.CLS_APL_NO = C.CLS_APL_NO)
+          JOIN SCHEDULE D ON (C.SCHEDULE_NO = D.SCHEDULE_NO)
+         WHERE D.CLS_NO = #{ clsNo }    
+    </select>
+    <insert id="insertReviewAnswer" parameterType="ReviewAnswerDTO">
+        INSERT
+          INTO REVIEW_ANSWER
+        VALUES 
+             (
+               SEQ_RE_ANS_NO.NEXTVAL
+             , SYSDATE
+             , #{ ansContent }
+             , #{ reviewNo }
+             , #{ teNo }
+             )  
+    
+    </insert>
 </mapper>
