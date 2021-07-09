@@ -617,7 +617,12 @@
 		         COUNT(*)
 		    FROM CHEERING_HISTORY
 		   WHERE CLS_NO = #{ clsNo }
-	
 	</select>
+	
+	<update id="updateUserWithdraw" parameterType="_int">
+       UPDATE USER_INFO
+          SET USER_QUIT_YN = 'Y'
+        WHERE USER_NO = #{ userNo }
+	</update>
 
 </mapper>

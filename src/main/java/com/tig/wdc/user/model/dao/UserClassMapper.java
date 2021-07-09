@@ -101,6 +101,8 @@ public interface UserClassMapper {
 
 	public List<UserClassDTO> selectMyLikeClassList(int userNo);
 
+	public int updateUserWithdraw(int userNo);
+
 
 
 

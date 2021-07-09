@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.FieldNamingPolicy;
@@ -44,7 +45,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 /**
  * @author 민연준
- * 유저 회원가입, 로그인, 아이디찾기, 비밀번호 찾기, 강사정보수정용, 참여진행/완료/예정 클래스조회 / 찜 및 응원 클래스 조회용 컨트롤러
+ * 유저 회원가입, 로그인,로그아웃, 아이디찾기, 비밀번호 찾기, 강사정보수정용, 참여진행/완료/예정 클래스조회 / 찜 및 응원 클래스 조회용 컨트롤러
  */
 @Controller
 @RequestMapping("/user/mypage/*")
@@ -126,46 +127,29 @@ public class UserInfoController {
 			//로그인 입력 정보와 회원정보 일치 시 메인페이지 핸들러로 이동
 			model.addAttribute("userNo",userInfoDTO.getUserNo());
 			
-			returnPage = "redirect:userLoginSuccessMain";
+			returnPage = "redirect:/";
 		}
 		return returnPage;
 	}
 	
+	
 	/**
-	 * 로그인 성공 시 메인 페이지 이동용 메소드
+	 * 로그아웃용 메소드
+	 * @SessionAttributes로 생성한 세션은 SessionStatus의 setComplete로 제거해 준다.
 	 * @param model
 	 * @param session
+	 * @param sessionStatus
 	 * @return
 	 */
-	@GetMapping("userLoginSuccessMain")
-	public String main(Model model, HttpSession session) {
-
-		
-		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
-		newClassList = classService.selectNewClassList();
-		model.addAttribute("newClassList",newClassList);
-		
-		List<UserClassDTO> topClassList = new ArrayList<UserClassDTO>();
-		topClassList = classService.selectTopClassList();
-		model.addAttribute("topClassList",topClassList);
-		
-		List<UserClassDTO> cheerClassList = new ArrayList<UserClassDTO>();
-		cheerClassList = classService.selectCheerClassList();
-		model.addAttribute("cheerClassList",cheerClassList);
-		
-		return "user/main/main";
-	}
-	
 	@GetMapping("logout")
-	public String logout(Model model, HttpSession session) {
-		
-		session.removeAttribute("userNo");
-		session.invalidate();
+	public String logout(Model model, HttpSession session, SessionStatus sessionStatus) {
+
+		sessionStatus.setComplete(); 
 		
 		System.out.println("로그아웃 으로 넘어옴");
 		
-		return "user/login/login";
-		//return "redirect:serviceCenter/report";
+		String returnPage = "redirect:/user/login";
+		return returnPage;
 
 
 	}
@@ -559,6 +543,25 @@ public class UserInfoController {
 		
 		return "user/classList/cheerClassList";
 
+	}
+	
+	
+	/**
+	 * 유저 탈퇴용 메소드
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("userWithdraw")
+	public String userWithdraw(HttpSession session, SessionStatus sessionStatus) {
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+
+		int withdrawResult = classService.updateUserWithdraw(userNo);
+		
+		session.invalidate();
+		sessionStatus.setComplete();
+		
+		return "user/login/login";
 	}
 	
 

@@ -237,67 +237,39 @@
               
                             <div class="cont-step cont-step_02" id="contStep02" style="display: block;">
                               <div class="cont-step_preface">
-                                <h3>왜 떠나시는지 이유가 있을까요? </h3>
+                                <h3>탈퇴 하시겠습니까? </h3>
                               </div>
                               <!-- 탈퇴이유 -->
                               <ul class="reason-list" style="text-align: left;">
-                                <li>
-                                  <input id="reasonRdo0" type="radio" name="radios" value="UN_USE_FREQUENTLY">
-                                  <label for="reasonRdo0">사용을 잘 안하게 돼요</label>
-                                </li>
-                                <li>
-                                  <input id="reasonRdo1" type="radio" name="radios" value="HAVE_NO_LIKED_HOTEL">
-                                  <label for="reasonRdo1">예약하고 싶은 숙소가 없어요</label>
-                                </li>
-                                <li>
-                                  <input id="reasonRdo2" type="radio" name="radios" value="DIFFICULT_TO_USE">
-                                  <label for="reasonRdo2">예약, 취소, 혜택받기 등 사용이 어려워요</label>
-                                </li>
-                                <li>
-                                  <input id="reasonRdo3" type="radio" name="radios" value="POINT_COUPON_TOO_LITTLE">
-                                  <label for="reasonRdo3">혜택(쿠폰, 포인트)이 너무 적어요</label>
-                                </li>
-                                <li>
-                                  <input id="reasonRdo4" type="radio" name="radios" value="INFO_TO_DELETE">
-                                  <label for="reasonRdo4">개인정보 보호를 위해 삭제할 정보가 있어요</label>
-                                </li>
-                                <li>
-                                  <input id="reasonRdo5" type="radio" name="radios" value="EXISTING_ID">
-                                  <label for="reasonRdo5">다른 계정이 있어요</label>
-                                </li>
-                                <li>
-                                  <input id="reasonRdo6" type="radio" name="radios" value="OTHER" checked>
-                                  <label for="reasonRdo6">기타</label>
+
+                                  <input id="reasonCheckbox" type="checkbox" name="radios" value="OTHER">
+                                  <label for="reasonCheckbox">안내문구를 확인했습니다.</label>
                                   <div class="reason-innder-box reason-innder-box6"  style="margin-bottom: 10px;">
-                                    <!-- <textarea class="inner-textarea" id="reasonTextarea6" name="innerTextarea" maxlength="80" placeholder="(선택사항) 서비스 이용 중 아쉬운 점에 대해 알려주세요. 고객님의 소리에 귀 기울일게요. 80자 이내"></textarea> -->
-                                    <input name="reason" style="width:100%;float: left;" placeholder="사유를 입력해주세요">
+                                  <textarea class="inner-textarea" id="reasonTextarea6" name="innerTextarea" style="resize: none; height: 150px; width: 400px; white-space:pre-line;;" 
+                                  readonly="readonly">약관 : 탈퇴 시 잔여 강의 금액 환불 불가. 
+ 									잔여 강의가 존재 시 환불 신청 후 환불 완료 확인 하시고 탈퇴 해 주세요.</textarea>
                                   </div>
-                                </li>
                                 </ul>
                               <div class="password-wrap">
-                                <div class="button-wrap"><button class="btn_submit disabled withdrawbtn" onclick=withdraw();>탈퇴하기</button></div>
+                                <div class="button-wrap">
+                                <button class="btn_submit disabled withdrawbtn btn-dark" onclick=withdraw();>탈퇴하기</button>
+                                </div>
                               </div>
                             </div>
                             <script>
-                            $(document).ready(function(){
-               
-                              // 라디오버튼 클릭시 이벤트 발생
-                              $("input:radio[name=radios]").click(function(){
-                             
-                                if($("input[name=radios]:checked").val() == "OTHER"){
-                                  $("input:text[name=reason]").attr("disabled",false);
-                                  // radio 버튼의 value 값이 OTHER이라면 활성화
-                             
-                                }else {
-                                    $("input:text[name=reason]").attr("disabled",true);
-                                  // 그 외에는 비활성화
-                                }
-                              });
-                            });
-
                             function withdraw(){
-                              alert("탈퇴 되었습니다")
-                              location.href="login.html";
+                            	
+                                const check = document.getElementById("reasonCheckbox").checked;
+                            	
+                            	if(check == false){
+                              		alert("약관에 동의 하셔야 탈퇴 가능 합니다.")
+                              		return;
+                              		
+                            	}else if(check == true){
+                              		alert("탈퇴 되었습니다.")
+                            		location.href='${ pageContext.servletContext.contextPath }/user/mypage/userWithdraw';
+
+                            	}
                             }
                           </script>
                             

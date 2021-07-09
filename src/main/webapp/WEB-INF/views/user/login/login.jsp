@@ -92,6 +92,7 @@
                 </div><br>
                 <div class="login-find" style="width: 300px; color: #adb5bd !important;">
                   아직 회원이 아니신가요?
+                  
                   <a href="${ pageContext.servletContext.contextPath }/user/mypage/signup" style="color: #adb5bd !important;">회원가입</a></li><br>
                 </div>
                   <a href="${ pageContext.servletContext.contextPath }/teacher" style="color: #adb5bd !important;">강사 페이지 </a></li><br>                  

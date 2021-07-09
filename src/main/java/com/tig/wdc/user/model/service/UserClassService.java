@@ -96,5 +96,7 @@ public interface UserClassService {
 
 	List<UserClassDTO> selectMyLikeClassList(int userNo);
 
+	int updateUserWithdraw(int userNo);
+
 
 }

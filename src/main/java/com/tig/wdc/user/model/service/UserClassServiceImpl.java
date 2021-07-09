@@ -269,6 +269,11 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.selectMyLikeClassList(userNo);
 	}
 
+	@Override
+	public int updateUserWithdraw(int userNo) {
+		return mapper.updateUserWithdraw(userNo);
+	}
+
 
 
 
