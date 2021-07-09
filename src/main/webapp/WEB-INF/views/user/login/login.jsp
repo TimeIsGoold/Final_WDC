@@ -118,7 +118,7 @@
             <div class="login-type">
            		* another page &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	            <a href="${ pageContext.servletContext.contextPath }/teacher" style="color: black !important;">강사 페이지</a></li>               
-	            <a href="${ pageContext.servletContext.contextPath }/user/admin" style="color: black !important;">관리자 모드</a></li>
+	            <a href="${ pageContext.servletContext.contextPath }/admin/login" style="color: black !important;">관리자 모드</a></li>
             </div>
 	      </div>
 	   </div>
