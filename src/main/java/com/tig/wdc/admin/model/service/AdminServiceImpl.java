@@ -21,6 +21,7 @@ import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.admin.model.dto.AdminDTO;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 
 @Service
@@ -429,6 +430,30 @@ public class AdminServiceImpl implements AdminService {
 	public int updateClsSecondDecisionHistoryRedject(int clsNo) {
 		
 		return mapper.updateClsSecondDecisionHistoryRedject(clsNo);
+	}
+
+	@Override
+	public int insertBlackListByThreeCnt(Map<String, Object> blackMap) {
+		
+		return mapper.insertBlackListByThreeCnt(blackMap);
+	}
+
+	@Override
+	public int updateBlackListOnUSerTableByCnt(Map<String, Object> blackMap) {
+		
+		return mapper.updateBlackListOnUSerTableByCnt(blackMap);
+	}
+
+	@Override
+	public String selectRejectReason(int clsNo) {
+		
+		return mapper.selectRejectReason(clsNo);
+	}
+
+	@Override
+	public AdminDTO selectAdminInfo(AdminDTO loginInfo) {
+		
+		return mapper.selectAdminInfo(loginInfo);
 	}
 
 

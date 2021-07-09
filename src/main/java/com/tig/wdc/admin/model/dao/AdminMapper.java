@@ -16,6 +16,7 @@ import com.tig.wdc.admin.model.dto.StudentDTO;
 import com.tig.wdc.admin.model.dto.TeacherDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
+import com.tig.wdc.admin.model.dto.AdminDTO;
 import com.tig.wdc.admin.model.dto.BlackListDTO;
 import com.tig.wdc.admin.model.dto.QuestionDTO;
 import com.tig.wdc.admin.model.dto.RefundDTO;
@@ -274,6 +275,14 @@ public interface AdminMapper {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+	int insertBlackListByThreeCnt(Map<String, Object> blackMap);
+
+	int updateBlackListOnUSerTableByCnt(Map<String, Object> blackMap);
+
+	String selectRejectReason(int clsNo);
+
+	AdminDTO selectAdminInfo(AdminDTO loginInfo);
 
 
 

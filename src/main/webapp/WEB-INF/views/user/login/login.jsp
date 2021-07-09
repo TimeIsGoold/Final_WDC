@@ -94,7 +94,7 @@
                   <a href="singup.html" style="color: #adb5bd !important;">회원가입</a></li><br>
                 </div>
                   <a href="${ pageContext.servletContext.contextPath }/teacher" style="color: #adb5bd !important;">강사 페이지 </a></li><br>                  
-                  <a href="${ pageContext.servletContext.contextPath }/user/admin" style="color: #adb5bd !important;">관리자 모드</a></li><br>
+                  <a href="${ pageContext.servletContext.contextPath }/admin/login" style="color: #adb5bd !important;">관리자 모드</a></li><br>
                   <a href="${ pageContext.servletContext.contextPath }/user/check" style="color: #adb5bd !important;">확인용버튼</a></li><br>
               </form>
             </div>
