@@ -205,12 +205,14 @@
 		<result column="CANCLE_REASON" property="cancelReason"/>
 		<result column="CANCLE_REASON_DETAIL" property="cancelReasonDetail"/>
 		<result column="REFUND_AMOUNT" property="refundAmount"/>
+		<result column="환불금액" property="toCharRefundAmount"/>
 		<result column="REFUND_DATE" property="refundDate"/>
 		<result column="REFUND_HOLDER" property="refundHolder"/>
 		<result column="REFUND_BANK" property="refundBank"/>
 		<result column="REFUND_ACCOUNT" property="refundAccount"/>
 		<result column="PAY_NO" property="payNo"/>
 		<result column="CLS_NO" property="classNo"/>
+		<result column="REFUND_STATUS" property="refundStatus"/>
 	</resultMap>
 	
 	<!-- 환불 승인 insert 할 때 필요한 값 -->
@@ -860,12 +862,14 @@
              , A.CANCLE_REASON
              , A.CANCLE_REASON_DETAIL
              , A.REFUND_AMOUNT
+             , TO_CHAR(A.REFUND_AMOUNT, 'FM999,999,999,999') AS 환불금액
              , A.REFUND_DATE
              , A.REFUND_HOLDER
              , A.REFUND_BANK
              , A.REFUND_ACCOUNT
              , B.PAY_NO
              , F.CLS_NO
+             , A.REFUND_STATUS
   		  FROM PAYMENT_CANCEL A
   		  JOIN PAYMENT B ON (A.PAY_NO = B.PAY_NO)
   		  JOIN CLASS_APPLY C ON (B.CLS_APL_NO = C.CLS_APL_NO)
