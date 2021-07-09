@@ -32,9 +32,7 @@
     <!-- header -->
     <div class="page-holder">
       <!-- navbar-->
-      
 	<%@include file="../commons/header2.jsp" %>
-	
       <c:if test="${not empty message }">
           <script>
               alert("${message}");

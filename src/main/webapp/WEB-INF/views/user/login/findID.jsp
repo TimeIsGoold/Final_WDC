@@ -26,7 +26,6 @@
     <div class="page-holder">
       <!-- navbar-->
 	<%@include file="../commons/header2.jsp" %>
-
       <br><br>
       <!-- body -->
       <div class="container py-5">

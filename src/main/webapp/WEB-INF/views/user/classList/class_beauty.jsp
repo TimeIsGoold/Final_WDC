@@ -39,7 +39,6 @@
     <div class="page-holder">
       <!-- navbar-->
 	<%@include file="../commons/header2.jsp" %>
-
       <!-- Modal -->
       <div class="modal fade" id="classView" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

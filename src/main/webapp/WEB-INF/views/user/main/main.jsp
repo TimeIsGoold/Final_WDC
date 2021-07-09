@@ -114,11 +114,7 @@
   </head>
   <body>
     <div class="page-holder">
-      <!-- navbar-->
-	<%@include file="../commons/header2.jsp" %>
-
-
-
+    <%@include file="../commons/header2.jsp" %>
  	  <!-- 검색 -->
       <div class="container h-100">
       <form action="${ pageContext.servletContext.contextPath }/user/category/all" method="get">
@@ -137,7 +133,7 @@
 					alert("검색할 클래스를 입력해주세요.");
 					return false;
 				}
-			};
+			}
 		</script>
 		
       <!-- HERO SECTION-->

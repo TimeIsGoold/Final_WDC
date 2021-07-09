@@ -231,7 +231,6 @@ i {
     <div class="page-holder bg-light">
       <!-- navbar-->
 	<%@include file="../commons/header2.jsp" %>
-
       
 	  <%@include file="../commons/search.jsp" %>
 	  
@@ -379,7 +378,16 @@ i {
 										}
 										
 										$("#btnSave").click(function(){
+<<<<<<< HEAD
+											
+											if($("#checkPpl").val() > check){
+					                        	alert("수강 가능 인원을 초과하였습니다.");
+												return false;
+											}
+											
+=======
 
+>>>>>>> refs/remotes/Final_WDC/ahyun
 											if($("#datetimepicker").val().length == 0){
 												alert("클래스 일정을 선택해주세요.");
 												return false;
@@ -403,7 +411,13 @@ i {
 							</div>
 						</div>
 			            <script>
+<<<<<<< HEAD
+							var check;	
+							
+			            	$("#checkPpl").on("mouseenter",function(e){
+=======
 			            	$("#applyCheck").on("mouseenter",function(e){
+>>>>>>> refs/remotes/Final_WDC/ahyun
 			            		//클래스번호, 스케쥴번호, 날짜, 시간넘기기 
 			            		//두번째 에이작스
 	                       		var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
@@ -412,6 +426,7 @@ i {
 		                    	$.ajax({
 			                        type: "post",
 			                        url:  "peopleCount",
+			                        async: false,
 			                        data: { date : dayArray2[0],
 			                        		time : dayArray2[1], 
 			                        		clsNo : ${ requestScope.classDetail.clsNo }
@@ -420,12 +435,18 @@ i {
 				                        //$("#applyCheck").val(data); //인원선택칸에 가져온 수강 가능인원 값을 넣어줌
 				                        document.getElementById("applyCheck").value = "(" + data + " 명 가능)" ;
 				                        
+<<<<<<< HEAD
+				                        check = data;
+				                        
+				                        if(data <= 0){
+=======
 				                        if($("#checkPpl").value > data){
 				                        	alert("수강 가능 인원을 초과하였습니다.");
 											return false;
 				                        }
 				                        
 				                        if(data == 4){
+>>>>>>> refs/remotes/Final_WDC/ahyun
 				                        	document.getElementById("checkPpl").value = 0;
 				                        	document.getElementById("checkPpl").setAttribute("readonly","readonly");
 				                        	document.getElementById("btnSave").setAttribute("type","button");
@@ -448,20 +469,53 @@ i {
 				              days.push("${schedule.scheduleDate}");
 			               </c:forEach>
 			               
+<<<<<<< HEAD
+			               //오늘 날짜에 수업이 있으면 바로 시간을 띄워줌
+			               var todayTime = new Array();
+		                    
+		                   let dayValues = days;
+		                   let today = new Date();
+		                   console.log("날짜: "+ today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate());
+		                   cToday = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+		                   $.ajax({
+		                   	 url: "dateTimePicker",
+		                     type:"post",
+		                     async: false,
+		                     data: { date :cToday , clsNo : ${ requestScope.classDetail.clsNo } },
+		                     success:function(data, textStatus, xhr){
+		                     	
+		                    	 let tArr = new Array(); 
+		                     	
+		                     	for(var idx in data){
+		                     		tArr.push(data[idx].scheduleStart);
+		                     	}
+		                          
+		                        console.log("tArr : " + tArr);
+		                        
+		                        if(tArr.length > 0){
+		                        	todayTime = tArr;
+		                        }else {
+		                        	todayTime = ["00:00"];
+		                        }
+		                        console.log("timeValues : " + todayTime);
+		                     },
+		                     error:function(xhr,status,error){
+		                     	console.log(error);
+		                     }
+		                   });
+		                   
+=======
+>>>>>>> refs/remotes/Final_WDC/ahyun
 			               jQuery('#datetimepicker').datetimepicker({               
 			                  datepicker : true,
 			                  timepicker : true,
-			                  allowTimes : ["00:00"],
-			                  
+			                  allowTimes : todayTime,
 			                  allowDates : days,
 			                  format:'Y-m-d',
 			                  formatDate:'Y-m-d',
 			                  autoClose: false,
 			                  scrollMonth:false,
 			                  timepickerScrollbar:false,
-			                  onGenerate:function(dp,$input){
-			                	  
-			                  },
 			                  onChangeDateTime : function(dp, $input) {
 			                     
 			                	 console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
@@ -518,7 +572,10 @@ i {
 			    	</c:if>
 			    	
 			    	<c:if test="${ requestScope.classDetail.clsType == 'R' }">
+<<<<<<< HEAD
 			    		<c:if test="${ requestScope.classDetail.endDate > cDate }">
+=======
+>>>>>>> refs/remotes/Final_WDC/ahyun
 			    		<div style="background-color: white; width: 500px; height: 220px; border-radius: 50px; padding-top: 22px;">
 							<!-- 날짜, 시간 선택 -->
 							<c:forEach var="schedule" items="${ requestScope.schedule }">
@@ -620,6 +677,7 @@ i {
 						</li>
 					</div>
 	            </c:if>
+<<<<<<< HEAD
 	            <c:if test="${ requestScope.classDetail.endDate < cDate }">
 	            	<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
 					강의 종료
@@ -627,6 +685,8 @@ i {
 	            </c:if>
 	            
 
+=======
+>>>>>>> refs/remotes/Final_WDC/ahyun
 	            </div>
 				</div>
             <!-- DETAILS TABS-->

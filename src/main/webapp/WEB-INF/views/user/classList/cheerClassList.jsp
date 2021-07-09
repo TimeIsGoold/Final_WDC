@@ -66,7 +66,6 @@
     <div class="page-holder">
       <!-- navbar-->
 	<%@include file="../commons/header2.jsp" %>
-
       <%@include file="../commons/search.jsp" %>
       <div class="container">
         <!-- HERO SECTION-->
