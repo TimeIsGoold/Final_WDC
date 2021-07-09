@@ -84,8 +84,8 @@
                             
                             <div class="sideMenu">
                             	<input type="button" id="to" class="totalQuestion" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=to'">
-                            	<input type="button" id="tc" class="teacherQuestion" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc'">
-                            	<input type="button" id="st" class="studentQuestion" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st'">
+                            	<input type="button" id="tc" class="totalQuestion" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=tc'">
+                            	<input type="button" id="st" class="totalQuestion" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/questionManagement?currentMenu=question&mt=st'">
       						</div>
 
                             <div class="card-body">

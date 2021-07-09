@@ -12,11 +12,11 @@ public class CalculateDTO {
 	private String bank;
 	private String teAcntNo;
 	private String teAcntHolder;
-	private int totalSales;
+	private String totalSales;
 	private int tax;
-	private int useFees;
-	private int cardFees;
-	private int calcAmount;
+	private String useFees;
+	private String cardFees;
+	private String calcAmount;
 	private int classNo;
 	private String className;
 	private String classType;
@@ -29,9 +29,9 @@ public class CalculateDTO {
 	}
 
 	public CalculateDTO(int calcNo, int teNo, String teType, String teName, String teId, String calcMonth,
-			String calcYN, String bank, String teAcntNo, String teAcntHolder, int totalSales, int tax, int useFees,
-			int cardFees, int calcAmount, int classNo, String className, String classType, int countStudent,
-			int cday, String today) {
+			String calcYN, String bank, String teAcntNo, String teAcntHolder, String totalSales, int tax,
+			String useFees, String cardFees, String calcAmount, int classNo, String className, String classType,
+			int countStudent, int cday, String today) {
 		super();
 		this.calcNo = calcNo;
 		this.teNo = teNo;
@@ -136,11 +136,11 @@ public class CalculateDTO {
 		this.teAcntHolder = teAcntHolder;
 	}
 
-	public int getTotalSales() {
+	public String getTotalSales() {
 		return totalSales;
 	}
 
-	public void setTotalSales(int totalSales) {
+	public void setTotalSales(String totalSales) {
 		this.totalSales = totalSales;
 	}
 
@@ -152,27 +152,27 @@ public class CalculateDTO {
 		this.tax = tax;
 	}
 
-	public int getUseFees() {
+	public String getUseFees() {
 		return useFees;
 	}
 
-	public void setUseFees(int useFees) {
+	public void setUseFees(String useFees) {
 		this.useFees = useFees;
 	}
 
-	public int getCardFees() {
+	public String getCardFees() {
 		return cardFees;
 	}
 
-	public void setCardFees(int cardFees) {
+	public void setCardFees(String cardFees) {
 		this.cardFees = cardFees;
 	}
 
-	public int getCalcAmount() {
+	public String getCalcAmount() {
 		return calcAmount;
 	}
 
-	public void setCalcAmount(int calcAmount) {
+	public void setCalcAmount(String calcAmount) {
 		this.calcAmount = calcAmount;
 	}
 
@@ -208,11 +208,11 @@ public class CalculateDTO {
 		this.countStudent = countStudent;
 	}
 
-	public int getcday() {
+	public int getCday() {
 		return cday;
 	}
 
-	public void setcday(int cday) {
+	public void setCday(int cday) {
 		this.cday = cday;
 	}
 

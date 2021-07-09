@@ -186,7 +186,7 @@
                                                 <div>-</div>
                                             </td>
                                             <td>
-                                                <div class="detailCalculate">카드 수수료</div>
+                                                <div class="detailCalculate">카드 수수료(2.1%)</div>
                                                 <div class="detailCalculate">${ calculateInfoDetail.cardFees }</div>
                                             </td>
                                             <td class="signCalculate">
