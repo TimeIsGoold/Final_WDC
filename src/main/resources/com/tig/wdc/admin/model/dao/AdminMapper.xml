@@ -143,27 +143,6 @@
 		<result column="현재날짜" property="cday"/>
 	</resultMap>
 	
-	<!-- 미정산 상세 -->
-	<resultMap id="noCalculateInfoDetail" type="CalculateDTO">
-		<id column="TE_TYPE" property="teType"/>
-		<result column="TE_NAME" property="teName"/>
-		<result column="TE_ID" property="teId"/>
-		<result column="BANK" property="bank"/>
-		<result column="TE_ACNT_NO" property="teAcntNo"/>
-		<result column="TE_ACNT_HOLDER" property="teAcntHolder"/>
-		<result column="CLS_NO" property="classNo"/>
-		<result column="정산여부" property="calcYN"/>
-		<result column="TOTAL_AMOUNT" property="totalSales"/>
-		<result column="USE_FEE" property="useFees"/>
-		<result column="CARD_FEE" property="cardFees"/>
-		<result column="TAX" property="tax"/>
-		<result column="CALC_AMOUNT" property="calcAmount"/>
-		<result column="CLS_TYPE" property="classType"/>
-		<result column="CLS_TITLE" property="className"/>
-		<result column="정산날짜" property="calcMonth"/>
-		<result column="현재날짜" property="today"/>
-	</resultMap>
-	
 	<!-- 정산 상세 -->
 	<resultMap id="calculateInfoDetail" type="CalculateDTO">
 		<id column="TE_TYPE" property="teType"/>
@@ -174,6 +153,7 @@
 		<result column="TE_ACNT_HOLDER" property="teAcntHolder"/>
 		<result column="CLS_NO" property="classNo"/>
 		<result column="정산여부" property="calcYN"/>
+		<result column="TOTAL_AMOUNT" property="totalSales"/>
 		<result column="USE_FEE" property="useFees"/>
 		<result column="CARD_FEE" property="cardFees"/>
 		<result column="TAX" property="tax"/>
@@ -745,7 +725,7 @@
 	</select>
 	
 	<!-- 정산 미완료 상세 -->
-	<select id="selectNoCalculateDetail" resultMap="noCalculateInfoDetail" parameterType="hashmap">
+	<select id="selectNoCalculateDetail" resultMap="calculateInfoDetail" parameterType="hashmap">
 		SELECT 
 	          C.TE_TYPE
 	        , C.TE_NAME
@@ -773,7 +753,7 @@
          JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
          JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
         WHERE A.CALCUL_STATUS = 'N'
-          AND B.CLS_TYPE = 'O'
+          AND B.CLS_TYPE = #{type}
           AND A.TUITION_M_NO = #{no}
 	</select>
 	
@@ -789,10 +769,10 @@
 			 , C.CLS_NO
 			 , 'Y' AS 정산여부
 			 , TO_CHAR((A.CALC_AMOUNT + A.USE_FEE + A.CARD_FEE + A.TAX), 'FM999,999,999,999') AS TOTAL_AMOUNT
-			 , TO_CHAR(A.CALC_AMOUNT, 'FM999,999,999,999') AS CALC_AMOUNT
              , TO_CHAR(A.USE_FEE, 'FM999,999,999,999') AS USE_FEE
              , TO_CHAR(A.CARD_FEE, 'FM999,999,999,999') AS CARD_FEE
              , A.TAX
+			 , TO_CHAR(A.CALC_AMOUNT, 'FM999,999,999,999') AS CALC_AMOUNT
              , D.CLS_TYPE
              , D.CLS_TITLE
              , A.CALC_MONTH AS 정산날짜

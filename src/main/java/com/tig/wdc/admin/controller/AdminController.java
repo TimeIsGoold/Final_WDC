@@ -332,6 +332,7 @@ public class AdminController {
 		Map<String, Object> calculateDetailMap = new HashMap<String, Object>();
 		calculateDetailMap.put("no",no);
 		calculateDetailMap.put("cday", cday);
+		calculateDetailMap.put("type", classType);
 		
 		if(type.equals("N")) {
 			model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail(calculateDetailMap));
@@ -353,8 +354,8 @@ public class AdminController {
 	@RequestMapping("calculateDetail")
 	public String calculateApprove(@ModelAttribute CalculateDTO calculate, Model model) {
 		
-		//model.addAttribute("calculateDetail", adminService.insertCalculate(calculate));
-		//model.addAttribute("calculateDetail", adminService.updateCalculate(calculate));
+		model.addAttribute("calculateDetail", adminService.insertCalculate(calculate));
+		model.addAttribute("calculateDetail", adminService.updateCalculate(calculate));
 		
 		return "redirect:/admin/calculateManagement?currentMenu=calculate&YN=N&type=O";
 	}
