@@ -16,6 +16,20 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     </head>
+    <style>
+        	.category {
+        		margin-top: 0.5%;
+                width: 33%;
+                border-radius: 5px;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
+            }
+
+            .category:hover {
+                background: rgb(112, 112, 112);
+            }    
+    </style>
     <body class="sb-nav-fixed">
       <c:if test="${not empty message }">
           <script>
@@ -40,7 +54,18 @@
                                 <i class="fas fa-table me-1"></i>
                                 클래스 관리
                             </div>
-                            <div class="btn-group btn-group-justified">
+                             <div class="btn-group btn-group-justified">
+                            	<input type="button" id="" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
+                            	<input type="button" class="category" value="1차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">
+                            	<input type="button" class="category" value="2차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t'">
+                            	<input type="button" class="category" value="승인된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept'">
+                            	<input type="button" class="category" value="거절된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject'">
+                            	<input type="button" class="category" value="응원 미달 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering'">
+                            	<input type="button" class="category" value="완료 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">
+      						</div>
+                            
+
+<%--                             <div class="btn-group btn-group-justified">
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total" class="btn btn-warning">전체 </a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one" class="btn btn-warning">1차 심사 진행중</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t" class="btn btn-warning">2차 심사 진행중</a>
@@ -48,7 +73,7 @@
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject" class="btn btn-warning">거절된 클래스</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering" class="btn btn-warning">응원 미달 클래스</a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate" class="btn btn-warning">완료 클래스</a>
-      						</div>
+      						</div> --%>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
@@ -121,6 +146,18 @@
                 </main>
             </div>
         </div>
+        <script>
+    		function drawColor(){
+    			var documentUrl = document.URL; 
+    			var NdocumentUrl = new URL(documentUrl);  
+    			var currentTab = NdocumentUrl .searchParams.get("mt");  //url에 있는 name이란 파라미터값을 가지고옴
+    			
+    			const currentTabBar = document.getElementById(currentTab);
+    			currentTabBar.style.background = '#ffe163';
+    			currentTabBar.style.fontWeight = 'bolder';
+    		}
+    	</script>
+    	<script>drawColor();</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

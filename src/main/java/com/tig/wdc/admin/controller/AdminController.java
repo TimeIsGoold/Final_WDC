@@ -36,6 +36,7 @@ import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
 import com.tig.wdc.common.Encryption;
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.service.UserClassService;
@@ -546,6 +547,10 @@ public class AdminController {
 	
 	@GetMapping("classDetail")
 	public String classDetail(Model model, @RequestParam("cn")int clsNo, @RequestParam("ct")String type, @RequestParam("cd")String decision) {
+		
+		System.out.println(type);
+		System.out.println(clsNo);
+		System.out.println(decision);
 		String path = "";
 		if(type.equals("W") && decision.equals("Y")) {
 		//클래스 정보 select
@@ -567,7 +572,9 @@ public class AdminController {
 				path = "admin/BeforeDicision";	
 				
 				
-		}  else if(type.equals("S") && decision.equals("P")) {
+		}  else if(type.equals("S") && decision.equals("P") ||decision.equals("Y")) {
+			
+			System.out.println("fjiodsajgiofjgoidjgiodsajgiodfjfidjfd 일로와라 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -605,6 +612,26 @@ public class AdminController {
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
 				path = "admin/denyClassManagement";	
+				
+		} else if(type.equals("P") && decision.equals("P")) {
+			String reason = adminService.selectRejectReason(clsNo);
+			model.addAttribute("reason" , reason);
+			UserClassDTO classDetail = new UserClassDTO();
+			classDetail = classService.selectClassDtail(clsNo);
+			model.addAttribute("classDetail",classDetail);
+			//대표사진 3장 select
+			List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
+			classPic = classService.selectClassPic(clsNo);
+			model.addAttribute("classPic",classPic);
+			//완성작 select
+			List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
+			classPiece = classService.selectClassPiece(clsNo);
+			model.addAttribute("classPiece",classPiece);
+			//커리큘럼 select
+			List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
+			curriculum = classService.selectCurriculum(clsNo);
+			model.addAttribute("curriculum",curriculum);
+			path = "admin/denyClassManagement";	
 				
 				// 응원 갯수 부족 클래스
 		} else if(type.equals("L") && decision.equals("Y")) {
