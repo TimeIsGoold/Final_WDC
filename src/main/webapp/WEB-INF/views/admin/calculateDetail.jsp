@@ -14,23 +14,6 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script>
-            function classCalculateInfo(){
-                var pop3 = document.getElementsByClassName("bg")[0];
-                var pop4 = document.getElementsByClassName("classCalculateInfo")[0];
-
-                pop3.style.display='block';
-                pop4.style.display='block';
-            }
-
-            function cancel(){
-                var pop1 = document.getElementsByClassName("bg")[0];
-                var pop2 = document.getElementsByClassName("classCalculateInfo")[0];
-
-                pop1.style.display='none';
-                pop2.style.display='none';
-            }
-        </script>
         <style>
         .container-fluid {
         	margin-top: 30px;
@@ -40,64 +23,28 @@
         	font-size: x-large;
         }
         
+        #tabMenu {
+       		 margin-left: 0px;
+       		 margin-bottom: 0.5%;
+        }
+        
         .table {
         	border: 1px solid lightgray;
         }
         
         th {
             text-align: center !important;
-            border: 1px solid lightgray;
-            width: 150px;
+            border: 1px solid lightgray !important;
             vertical-align: middle;
+            width: 130px !important;
             background: #fef0ae !important;
         }
 
         td {
             text-align: center;
-            width: 180px;
+            width: 215px;
         }
 
-        .classCalculateInfo td {
-            border: 1px solid lightgray;
-        }
-
-        .bg {
-         	display: none;
-            background-color: black;
-            opacity: 70%;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: none;
-        }
-
-        .classCalculateInfo {
-            display: none;
-            position: fixed;
-            width: 600px;
-            height: 500px;
-            z-index: 2;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-        }
-
-		.listDetailBtn {
-			background: #fef0ae; 
-			border: 1px solid lightgrey;
-			padding: 5px 17px 5px 17px;
-		}
-
-        .listDetailBtn:hover {
-            background: rgb(112, 112, 112);
-        }
-        
         .detailCalculate {
         	border: 1px solid lightgray;
         }
@@ -121,55 +68,6 @@
         .returnPageBtn:hover {
             background: rgb(112, 112, 112);
         }
-        
-        #modalTitle {
-        	font-size: x-large; 
-        	font-weight: bolder; 
-        	margin-top: 10px; 
-        	margin-left: 172px;
-        }
-        
-        .modalInfoArea {
-        	margin-top: 10px;
-        }
-        
-        .modalTable {
-        	border: 1px solid; 
-        	margin-left: 25px; 
-        	width: 550px;
-        }
-        
-        thead {
-        	background: #fef0ae;
-        }
-        
-        #classTitle {
-        	width: 55%;
-        }
-        
-        #count {
-        	width: 15%;
-        }
-        
-        #price {
-        	width: 30%;
-        }
-        
-        .close {
-        	margin-top: 10px; 
-        	margin-left: 25px; 
-        	margin-bottom: 10px;
-        }
-        
-        #closeBtn {
-        	width: 550px; 
-        	background: #fef0ae; 
-        	border: 1px solid lightgrey;
-        }
-
-        #closeBtn:hover {
-            background: rgb(112, 112, 112);  
-        }
         </style>
     </head>
     <body class="sb-nav-fixed">
@@ -192,47 +90,90 @@
                             </div>
 
                             <div class="card-body">
-                                <table class="table">
+                            
+                            	<ul class="nav nav-tabs" id="tabMenu">
+	                            	<li class="nav-item">
+									    <a class="nav-link active" data-toggle="tab">클 래 스</a>
+									</li>
+								</ul>
+                                <table class="table" id="classTable">
                                     <tbody>
                                         <tr>
-                                            <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
-                                            <td colspan="4">${ calculateInfoDetail.teName }</td>
-                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
+                                            <th>타 입</th>
+                                            <c:choose>
+			                                	<c:when test="${ calculateInfoDetail.classType eq 'O'}">
+			                                		<td>원데이</td>
+			                                	</c:when>
+			                                	<c:when test="${ calculateInfoDetail.classType eq 'R'}">
+			                                		<td>정규</td>
+			                                	</c:when>
+				                            </c:choose>
+                                            <th>제 목</th>
+                                            <td>${ calculateInfoDetail.className }</td>
+                                            <th>수강인원</th>
+                                            <td>${ calculateInfoDetail.countStudent }</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <ul class="nav nav-tabs" id="tabMenu">
+	                            	<li class="nav-item">
+									    <a class="nav-link active" data-toggle="tab">강 사</a>
+									</li>
+								</ul>
+                                <table class="table" id="teacherTable">
+                                	<tbody>
+                                		<tr>
+                                			<th>이 름</th>
+                                            <td>${ calculateInfoDetail.teName }</td>
+                                            <th>타 입</th>
                                             <c:choose>
 				                                	<c:when test="${ calculateInfoDetail.teType eq 'FREE'}">
-				                                		<td colspan="4">프리랜서</td>
+				                                		<td>프리랜서</td>
 				                                	</c:when>
 				                                	<c:when test="${ calculateInfoDetail.teType eq 'INDI'}">
-				                                		<td colspan="4">사업자</td>
+				                                		<td>사업자</td>
 				                                	</c:when>
 				                            </c:choose>
-                                        </tr>
-                                        <tr>
-                                            <th>아&nbsp;&nbsp;이&nbsp;디</th>
-                                            <td colspan="4">${ calculateInfoDetail.teId }</td>
-                                            <th>은&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;행</th>
-                                            <td colspan="4">${ calculateInfoDetail.bank }</td>
-                                        </tr>
-                                        <tr>
-                                            <th>클&nbsp;&nbsp;래&nbsp;스</th>
-                                            <td colspan="4">
-                                                <input type="submit" class="listDetailBtn" value="상세 정보" onclick="classCalculateInfo();">
-                                            </td>
-                                            <th>계좌번호</th>
-                                            <td colspan="4">${ calculateInfoDetail.teAcntNo }</td>
-                                        </tr>
-                                        <tr>
-                                            <th>최종정산</th>
+                                            <th>아이디</th>
+                                            <td>${ calculateInfoDetail.teId }</td>
+                                            <th>수업일수</th>
+                                            <td>${ calculateInfoDetail.cday }</td>
+                                		</tr>
+                                	</tbody>
+                                </table>
+                                
+                                <ul class="nav nav-tabs" id="tabMenu">
+	                            	<li class="nav-item">
+									    <a class="nav-link active" data-toggle="tab">정 산</a>
+									</li>
+								</ul>
+                                <table class="table" id="calculateTable">
+                                	<tbody>
+                                		<tr>
+                                			<th class="th">정산날짜</th>
+                                            <td class="td">${ calculateInfoDetail.calcMonth }</td>
+                                            <th class="th">은행</th>
+                                            <td class="td">${ calculateInfoDetail.bank }</td>
+                                            <th class="th">계좌번호</th>
+                                            <td class="td">${ calculateInfoDetail.teAcntNo }</td>
+                                            <th class="th">예금주</th>
+                                            <td class="td">${ calculateInfoDetail.teAcntHolder }</td>
+                                		</tr>
+                                		<tr>
+                                			<th colspan="9">상세 정산 정보</th>
+                                		</tr>
+                                		<tr>
                                             <td>
                                                 <div class="detailCalculate">총 매출</div>
-                                                <div class="detailCalculate"></div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.totalSales }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
                                             </td>
                                             <td>
                                                 <div class="detailCalculate">소비세</div>
-                                                <div class="detailCalculate">${ calculateInfoDetail.tax}</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.tax }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
@@ -256,12 +197,18 @@
                                                 <div class="detailCalculate">${ calculateInfoDetail.calcAmount }</div>
                                             </td>
                                         </tr>
-                                    </tbody>
+                                	</tbody>
                                 </table>
 
                                 <div class="submitBtn">
-                                	<input type="submit" class="returnPageBtn" value="정산하기">
-                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                                	<c:choose>
+                                		<c:when test="${ calculateInfoDetail.calcYN eq 'Y'}">
+                                			<c:if test="${ calculateInfoDetail.today eq '03'}">
+			                                	<input type="submit" class="returnPageBtn" value="정산하기">
+                                			</c:if>
+                                		</c:when>
+                                	</c:choose>
+                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N&type=O'">
                                 </div>
                             </div>
 
@@ -270,34 +217,6 @@
                 </main>
             </div>
 
-        </div>
-
-        <!-- modal -->
-        <div class="bg"></div>
-        <div class="classCalculateInfo" style="overflow: auto;">
-
-            <div id="modalTitle">클래스 상세 정산 정보</div>
-            
-            <div class="modalInfoArea">
-                <table class="modalTable">
-                    <thead>
-                        <td>클래스명</td>
-                        <td>인원</td>
-                        <td>근무일수</td>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td id="classTitle"></td>
-                            <td id="count"></td>
-                            <td id="workDay"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="close">
-                <input type="submit" value="닫기" id="closeBtn" onclick="cancel();">
-            </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>

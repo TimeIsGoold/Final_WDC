@@ -155,7 +155,7 @@ public interface AdminService {
 	 * @return
 	 */
 	int updateNoticeReWrite(NoticeDTO notice);
-
+	
 	/**
 	 * @author 송아현
 	 * 미정산
@@ -171,6 +171,15 @@ public interface AdminService {
 	 * @return
 	 */
 	List<CalculateDTO> selectYesCalculateList(String classType);
+	
+	/**
+	 * @author 송아현
+	 * 미정산 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	CalculateDTO selectNoCalculateDetail(Map<String, Object> calculateDetailMap);
 	
 	/**
 	 * @author 송아현
@@ -199,13 +208,31 @@ public interface AdminService {
 	
 	/**
 	 * @author 송아현
+	 * 환불 승인 insert하기 위해 필요한 값
+	 * 
+	 * @param refundDetailMap
+	 * @return
+	 */
+	RefundDTO selectRefundTotalAmount(Map<String, Object> refundDetailMap);
+	
+	/**
+	 * @author 송아현
 	 * 환불 승인 - update
 	 * 
 	 * @param refund
 	 * @return
 	 */
-	int updateRefundApprove(RefundDTO refund);
+	int updateRefundApprove(Map<String, Object> refundMap);
 
+	/**
+	 * @author 송아현
+	 * 환불 승인 - insert
+	 * 
+	 * @param refund
+	 * @return
+	 */
+	int insertRefundApprove(Map<String, Object> refundMap);
+	
 	ReportDetailDTO selectStudentReportList(ReportDetailDTO rd);
 
 
@@ -257,6 +284,10 @@ public interface AdminService {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+
+
+
 
 
 
