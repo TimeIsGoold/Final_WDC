@@ -452,7 +452,7 @@ i {
 											return false;
 				                        }
 				                        
-				                        if(data == 4){
+				                        if(data <= 0){
 				                        	document.getElementById("checkPpl").value = 0;
 				                        	document.getElementById("checkPpl").setAttribute("readonly","readonly");
 				                        	document.getElementById("btnSave").setAttribute("type","button");
@@ -475,11 +475,44 @@ i {
 				              days.push("${schedule.scheduleDate}");
 			               </c:forEach>
 			               
+			               //오늘 날짜에 수업이 있으면 바로 시간을 띄워줌
+			               var todayTime = new Array();
+		                    
+		                   let dayValues = days;
+		                   let today = new Date();
+		                   console.log("날짜: "+ today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate());
+		                   cToday = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate();
+		                   $.ajax({
+		                   	 url: "dateTimePicker",
+		                     type:"post",
+		                     async: false,
+		                     data: { date :cToday , clsNo : ${ requestScope.classDetail.clsNo } },
+		                     success:function(data, textStatus, xhr){
+		                     	
+		                    	 let tArr = new Array(); 
+		                     	
+		                     	for(var idx in data){
+		                     		tArr.push(data[idx].scheduleStart);
+		                     	}
+		                          
+		                        console.log("tArr : " + tArr);
+		                        
+		                        if(tArr.length > 0){
+		                        	todayTime = tArr;
+		                        }else {
+		                        	todayTime = ["00:00"];
+		                        }
+		                        console.log("timeValues : " + todayTime);
+		                     },
+		                     error:function(xhr,status,error){
+		                     	console.log(error);
+		                     }
+		                   });
+		                   
 			               jQuery('#datetimepicker').datetimepicker({               
 			                  datepicker : true,
 			                  timepicker : true,
-			                  allowTimes : ["00:00"],
-			                  
+			                  allowTimes : todayTime,
 			                  allowDates : days,
 			                  format:'Y-m-d',
 			                  formatDate:'Y-m-d',
