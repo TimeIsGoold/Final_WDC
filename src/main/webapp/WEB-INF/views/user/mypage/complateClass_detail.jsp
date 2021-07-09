@@ -274,7 +274,7 @@
 						<div id="reviewWrite" style="width: 200px; height: 180px; display: none; margin-left: 200px; margin-bottom: 40px; margin-top: 65px;">
 							<form action="${ pageContext.servletContext.contextPath }/user/mypage/ComplateClassReview/${ requestScope.complateDetailUserClassDTO.aplNo }" method="post">
 								<div class="file-upload">
-									▷ 수강 사진을 첨부해주세요. (1장 필수)&nbsp;:&nbsp;&nbsp;<input name="reviewPic" type="file">
+									▷ 수강 사진을 첨부해주세요. (1장 필수)&nbsp;:&nbsp;&nbsp;<input name="singleFile" type="file" >
 								</div>
 								<div class="star-count">
 									▷ 클래스는 어떠셨나요?&nbsp;:&nbsp;

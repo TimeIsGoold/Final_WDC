@@ -406,7 +406,12 @@ i {
 										}
 										
 										$("#btnSave").click(function(){
-
+											
+											if($("#checkPpl").val() > check){
+					                        	alert("수강 가능 인원을 초과하였습니다.");
+												return false;
+											}
+											
 											if($("#datetimepicker").val().length == 0){
 												alert("클래스 일정을 선택해주세요.");
 												return false;
@@ -430,7 +435,9 @@ i {
 							</div>
 						</div>
 			            <script>
-			            	$("#applyCheck").on("mouseenter",function(e){
+							var check;	
+							
+			            	$("#checkPpl").on("mouseenter",function(e){
 			            		//클래스번호, 스케쥴번호, 날짜, 시간넘기기 
 			            		//두번째 에이작스
 	                       		var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
@@ -439,6 +446,7 @@ i {
 		                    	$.ajax({
 			                        type: "post",
 			                        url:  "peopleCount",
+			                        async: false,
 			                        data: { date : dayArray2[0],
 			                        		time : dayArray2[1], 
 			                        		clsNo : ${ requestScope.classDetail.clsNo }
@@ -447,10 +455,7 @@ i {
 				                        //$("#applyCheck").val(data); //인원선택칸에 가져온 수강 가능인원 값을 넣어줌
 				                        document.getElementById("applyCheck").value = "(" + data + " 명 가능)" ;
 				                        
-				                        if($("#checkPpl").value > data){
-				                        	alert("수강 가능 인원을 초과하였습니다.");
-											return false;
-				                        }
+				                        check = data;
 				                        
 				                        if(data <= 0){
 				                        	document.getElementById("checkPpl").value = 0;
@@ -519,9 +524,6 @@ i {
 			                  autoClose: false,
 			                  scrollMonth:false,
 			                  timepickerScrollbar:false,
-			                  onGenerate:function(dp,$input){
-			                	  
-			                  },
 			                  onChangeDateTime : function(dp, $input) {
 			                     
 			                	 console.log($input.val()); //인풋에 담긴 값 콘솔에 출력
