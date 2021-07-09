@@ -97,13 +97,12 @@
                                             <th>분류</th>
                                             <th>성명</th>
                                             <th>아이디</th>
-                                            <th>정산 날짜</th>
                                             <th>정산여부</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                      					<c:forEach items="${calculateList}" var="CalculateDTO">
-				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/calculateDetail?currentMenu=calculate&YN=${CalculateDTO.calcYN}&type=${CalculateDTO.classType}&no=${CalculateDTO.calcNo}'">
+				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath}/admin/calculateDetail?currentMenu=calculate&YN=${CalculateDTO.calcYN}&type=${CalculateDTO.classType}&no=${CalculateDTO.calcNo}&cday=${CalculateDTO.cday}'">
 				                                <td>${CalculateDTO.calcNo}</td>
 				                                <c:choose>
 				                                	<c:when test="${CalculateDTO.teType eq 'FREE'}">
@@ -115,9 +114,9 @@
 				                                </c:choose>
 				                                <td>${CalculateDTO.teName}</td>
 				                                <td>${CalculateDTO.teId}</td>
-				                                <td>${CalculateDTO.calcMonth}</td>
 				                                <td>${CalculateDTO.calcYN}</td>
 				                                <input type="hidden" value="${CalculateDTO.classType}" name="classType">
+				                                <input type="hidden" value="${CalculateDTO.cday}" name="cday">
 				                            </tr>
 				                        </c:forEach>
                                     </tbody>

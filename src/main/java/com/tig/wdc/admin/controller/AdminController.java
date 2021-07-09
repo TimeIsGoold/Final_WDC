@@ -1,5 +1,7 @@
 package com.tig.wdc.admin.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import com.tig.wdc.admin.model.dto.RefundDTO;
 import com.tig.wdc.admin.model.dto.ReportDetailDTO;
 import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
+import com.tig.wdc.common.Encryption;
 import com.tig.wdc.model.dto.CurriculumDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
@@ -38,6 +41,9 @@ public class AdminController {
 
 	private final AdminService adminService;
 	private final UserClassService classService;
+	
+	@Autowired
+	private Encryption aes;
 
 	@Autowired
 	public AdminController(AdminService adminService, UserClassService classService) {
@@ -296,7 +302,7 @@ public class AdminController {
 	 */
 	 @GetMapping("calculateManagement") 
 	 public String calculateManagement(@RequestParam("YN")String type, @RequestParam("type")String classType, Model model) {
-	  
+		 
 		 if(type.equals("N")) {
 			 model.addAttribute("calculateList", adminService.selectNoCalculateList(classType));
 		 } else if(type.equals("Y")) {
@@ -314,10 +320,14 @@ public class AdminController {
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("type")String classType, @RequestParam("no")int no, Model model) {
+	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("type")String classType, @RequestParam("no")int no, @RequestParam("cday")int cday, Model model) {
+		
+		Map<String, Object> calculateDetailMap = new HashMap<String, Object>();
+		calculateDetailMap.put("no",no);
+		calculateDetailMap.put("cday", cday);
 		
 		if(type.equals("N")) {
-			//model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail(no));
+			model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail(calculateDetailMap));
 		} else if(type.equals("Y")) {
 			model.addAttribute("calculateInfoDetail", adminService.selectYesCalculateDetail(no));
 		}
@@ -366,12 +376,18 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("refundDetail") 
-	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no, @RequestParam("classNo")int clsno, Model model) {
+	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no, @RequestParam("classNo")int clsno, @ModelAttribute RefundDTO refund, Model model) {
 	
 		Map<String, Object> refundDetailMap = new HashMap<>();
 		refundDetailMap.put("status", status);
 		refundDetailMap.put("no", no);
 		refundDetailMap.put("classNo", clsno);
+		
+//		try {
+//			System.out.println("확인 : " + aes.encrypt(refund.getRefundAccount()));
+//		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+//			e.printStackTrace();
+//		}
 		
 		model.addAttribute("refundInfoDetail", adminService.selectRefundInfoDetail(refundDetailMap));
 		model.addAttribute("refundTotalAmount", adminService.selectRefundTotalAmount(refundDetailMap));
@@ -381,7 +397,7 @@ public class AdminController {
 	
 	/**
 	 * @author 송아현
-	 * 환불 승인 - update
+	 * 환불 승인 
 	 * 
 	 * @param refund
 	 * @param model
@@ -390,8 +406,14 @@ public class AdminController {
 	@RequestMapping("refundDetail")
 	public String refundApprove(@ModelAttribute RefundDTO refund, Model model) {
 		
-		model.addAttribute("refundDetail", adminService.updateRefundApprove(refund));
-		model.addAttribute("refundDetail", adminService.insertRefundApprove(refund));
+		System.out.println("refund : " + refund);
+		
+		Map<String, Object> refundMap = new HashMap<String, Object>();
+		refundMap.put("finalPrice", (refund.getTotalAmount() - refund.getRefundAmount()));
+		refundMap.put("refund", refund);
+		
+		model.addAttribute("refundDetail", adminService.updateRefundApprove(refundMap));
+		model.addAttribute("refundDetail", adminService.insertRefundApprove(refundMap));
 		
 		return "redirect:/admin/refundManagement?currentMenu=refund&YN=N";
 	}

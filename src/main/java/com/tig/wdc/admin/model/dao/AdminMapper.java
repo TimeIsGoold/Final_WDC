@@ -172,6 +172,15 @@ public interface AdminMapper {
 
 	/**
 	 * @author 송아현
+	 * 미정산 상세
+	 * 
+	 * @param no
+	 * @return
+	 */
+	CalculateDTO selectNoCalculateDetail(Map<String, Object> calculateDetailMap);
+	
+	/**
+	 * @author 송아현
 	 * 정산 상세
 	 * 
 	 * @return
@@ -211,7 +220,7 @@ public interface AdminMapper {
 	 * @param refund
 	 * @return
 	 */
-	int updateRefundApprove(RefundDTO refund);
+	int updateRefundApprove(Map<String, Object> refundMap);
 	
 	/**
 	 * @author 송아현
@@ -220,7 +229,7 @@ public interface AdminMapper {
 	 * @param refund
 	 * @return
 	 */
-	int insertRefundApprove(RefundDTO refund);
+	int insertRefundApprove(Map<String, Object> refundMap);
 	
 	StudentDTO selectOneStudent(int no);
 
@@ -265,6 +274,8 @@ public interface AdminMapper {
 	int updateClsSecondDecisionReject(int clsNo);
 
 	int updateClsSecondDecisionHistoryRedject(int clsNo);
+
+
 
 
 

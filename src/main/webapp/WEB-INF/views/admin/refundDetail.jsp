@@ -151,7 +151,7 @@
 	                                            <th>환 불 액</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundAmount }원</td>
 	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
-												<input type="hidden" name="totalAmount" value="${ refundInfoDetail.totalAmount }">
+												<input type="hidden" name="totalAmount" value="${ refundTotalAmount.totalAmount }">
 	                                        </tr>
 	                                    </tbody>
                                     </form>

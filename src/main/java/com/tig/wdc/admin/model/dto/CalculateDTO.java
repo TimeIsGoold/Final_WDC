@@ -1,7 +1,5 @@
 package com.tig.wdc.admin.model.dto;
 
-import java.sql.Date;
-
 public class CalculateDTO {
 
 	private int calcNo;
@@ -23,7 +21,7 @@ public class CalculateDTO {
 	private String className;
 	private String classType;
 	private int countStudent;
-	private int workDay;
+	private int cday;
 	private String today;
 	
 	public CalculateDTO() {
@@ -33,7 +31,7 @@ public class CalculateDTO {
 	public CalculateDTO(int calcNo, int teNo, String teType, String teName, String teId, String calcMonth,
 			String calcYN, String bank, String teAcntNo, String teAcntHolder, int totalSales, int tax, int useFees,
 			int cardFees, int calcAmount, int classNo, String className, String classType, int countStudent,
-			int workDay, String today) {
+			int cday, String today) {
 		super();
 		this.calcNo = calcNo;
 		this.teNo = teNo;
@@ -54,7 +52,7 @@ public class CalculateDTO {
 		this.className = className;
 		this.classType = classType;
 		this.countStudent = countStudent;
-		this.workDay = workDay;
+		this.cday = cday;
 		this.today = today;
 	}
 
@@ -210,12 +208,12 @@ public class CalculateDTO {
 		this.countStudent = countStudent;
 	}
 
-	public int getWorkDay() {
-		return workDay;
+	public int getcday() {
+		return cday;
 	}
 
-	public void setWorkDay(int workDay) {
-		this.workDay = workDay;
+	public void setcday(int cday) {
+		this.cday = cday;
 	}
 
 	public String getToday() {
@@ -233,7 +231,7 @@ public class CalculateDTO {
 				+ ", teAcntNo=" + teAcntNo + ", teAcntHolder=" + teAcntHolder + ", totalSales=" + totalSales + ", tax="
 				+ tax + ", useFees=" + useFees + ", cardFees=" + cardFees + ", calcAmount=" + calcAmount + ", classNo="
 				+ classNo + ", className=" + className + ", classType=" + classType + ", countStudent=" + countStudent
-				+ ", workDay=" + workDay + ", today=" + today + "]";
+				+ ", cday=" + cday + ", today=" + today + "]";
 	}
 
 }

@@ -241,6 +241,16 @@ public class AdminServiceImpl implements AdminService {
 	
 	/**
 	 * @author 송아현
+	 * 미정산 상세
+	 */
+	@Override
+	public CalculateDTO selectNoCalculateDetail(Map<String, Object> calculateDetailMap) {
+
+		return mapper.selectNoCalculateDetail(calculateDetailMap);
+	}
+	
+	/**
+	 * @author 송아현
 	 * 정산 상세
 	 */
 	@Override
@@ -284,9 +294,9 @@ public class AdminServiceImpl implements AdminService {
 	 * 환불 승인 - update
 	 */
 	@Override
-	public int updateRefundApprove(RefundDTO refund) {
+	public int updateRefundApprove(Map<String, Object> refundMap) {
 
-		return mapper.updateRefundApprove(refund);
+		return mapper.updateRefundApprove(refundMap);
 	}
 	
 	/**
@@ -294,9 +304,9 @@ public class AdminServiceImpl implements AdminService {
 	 * 환불 승인 - insert
 	 */
 	@Override
-	public int insertRefundApprove(RefundDTO refund) {
+	public int insertRefundApprove(Map<String, Object> refundMap) {
 
-		return mapper.insertRefundApprove(refund);
+		return mapper.insertRefundApprove(refundMap);
 	}
 
 	@Override

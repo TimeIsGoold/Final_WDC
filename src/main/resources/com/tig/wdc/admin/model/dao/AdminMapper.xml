@@ -138,12 +138,12 @@
 		<result column="TE_TYPE" property="teType"/>
 		<result column="TE_NAME" property="teName"/>
 		<result column="TE_ID" property="teId"/>
-		<result column="정산날짜" property="calcMonth"/>
 		<result column="정산여부" property="calcYN"/>
 		<result column="CLS_TYPE" property="classType"/>
+		<result column="현재날짜" property="cday"/>
 	</resultMap>
 	
-	<!-- 노정산 상세 -->
+	<!-- 미정산 상세 -->
 	<resultMap id="noCalculateInfoDetail" type="CalculateDTO">
 		<id column="TE_TYPE" property="teType"/>
 		<result column="TE_NAME" property="teName"/>
@@ -154,6 +154,8 @@
 		<result column="CLS_NO" property="classNo"/>
 		<result column="정산여부" property="calcYN"/>
 		<result column="CLS_TYPE" property="classType"/>
+		<result column="CLS_TITLE" property="className"/>
+		<result column="정산날짜" property="calcMonth"/>
 		<result column="현재날짜" property="today"/>
 	</resultMap>
 	
@@ -695,9 +697,9 @@
 			        , C.TE_TYPE
 			        , C.TE_NAME
 			        , C.TE_ID
-                    , TO_CHAR(ADD_MONTHS(B.CLS_START_D,1),'YYYY/MM') 정산날짜
 			        , A.CALCUL_STATUS 정산여부
 			        , B.CLS_TYPE
+			        , TO_NUMBER(TO_CHAR(SYSDATE,'DD')) AS 현재날짜
 		         FROM TUITION_MANAGEMENT A
 		         JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
                  JOIN TEACHER_INFO C ON (B.TE_NO = C.TE_NO)
@@ -717,9 +719,9 @@
 			 , B.TE_TYPE
 			 , B.TE_NAME
 			 , B.TE_ID
-			 , A.CALC_MONTH AS 정산날짜
 			 , 'Y' AS 정산여부
 			 , D.CLS_TYPE
+			 , TO_NUMBER(TO_CHAR(SYSDATE,'DD')) AS 현재날짜
 		  FROM CALCULATE A
 		  JOIN TEACHER_INFO B ON (A.TE_NO = B.TE_NO)
           LEFT JOIN TUITION_MANAGEMENT C ON (A.TUITION_M_NO = C.TUITION_M_NO)
@@ -730,7 +732,7 @@
 	</select>
 	
 	<!-- 정산 미완료 상세 -->
-	<select id="selectNoCalculateDetail" resultMap="noCalculateInfoDetail" parameterType="_int">
+	<select id="selectNoCalculateDetail" resultMap="noCalculateInfoDetail" parameterType="hashmap">
 		SELECT 
 	          C.TE_TYPE
 	        , C.TE_NAME
@@ -741,7 +743,13 @@
             , A.CLS_NO
 	        , A.CALCUL_STATUS 정산여부
 	        , B.CLS_TYPE
-            , B.CLS_TYPE
+            , B.CLS_TITLE
+            <if test="cday le 3">
+            , TO_CHAR(SYSDATE, 'YYYY/MM') AS 정산날짜
+            </if>
+            <if test="cday gt 3">
+            , TO_CHAR(ADD_MONTHS(SYSDATE, 1),'YYYY/MM') 정산날짜
+            </if>
             , TO_CHAR(SYSDATE,'DD') AS 현재날짜
          FROM TUITION_MANAGEMENT A
          JOIN CLASS B ON (A.CLS_NO = B.CLS_NO)
@@ -872,7 +880,7 @@
            SET 
                REFUND_DATE = SYSDATE
              , REFUND_STATUS = 'Y'
-         WHERE CANCLE_NO = #{ cancelNo }
+         WHERE CANCLE_NO = #{ refund.cancelNo }
 	</update>
 	
 	<!-- 환불 승인 - insert -->
@@ -882,9 +890,9 @@
  		 VALUES
  		(
  		  SEQ_TUITION_M_NO.NEXTVAL
- 		, #{ totalAmount }
- 		, #{ classNo }
- 		, #{ payNo }
+ 		, #{ finalPrice }
+ 		, #{ refund.classNo }
+ 		, #{ refund.payNo }
  		, 'N'
  		)
 	</insert>

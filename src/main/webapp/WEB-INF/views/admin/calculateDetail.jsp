@@ -111,7 +111,7 @@
                                             <th>제 목</th>
                                             <td>${ calculateInfoDetail.className }</td>
                                             <th>수강인원</th>
-                                            <td></td>
+                                            <td>${ calculateInfoDetail.countStudent }</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -138,7 +138,7 @@
                                             <th>아이디</th>
                                             <td>${ calculateInfoDetail.teId }</td>
                                             <th>수업일수</th>
-                                            <td></td>
+                                            <td>${ calculateInfoDetail.cday }</td>
                                 		</tr>
                                 	</tbody>
                                 </table>
@@ -166,14 +166,14 @@
                                 		<tr>
                                             <td>
                                                 <div class="detailCalculate">총 매출</div>
-                                                <div class="detailCalculate"></div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.totalSales }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
                                             </td>
                                             <td>
                                                 <div class="detailCalculate">소비세</div>
-                                                <div class="detailCalculate">${ calculateInfoDetail.tax}</div>
+                                                <div class="detailCalculate">${ calculateInfoDetail.tax }</div>
                                             </td>
                                             <td class="signCalculate">
                                                 <div>-</div>
@@ -208,7 +208,7 @@
                                 			</c:if>
                                 		</c:when>
                                 	</c:choose>
-                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N'">
+                                    <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/calculateManagement?currentMenu=calculate&YN=N&type=O'">
                                 </div>
                             </div>
 
