@@ -205,7 +205,7 @@
               <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                 <div class="p-4 p-lg-5 bg-white" style="text-align: center;">
                   <ul class="list-unstyled small d-inline-block" style="width: 900px;">
-                    <div style="text-align:left">
+                    <div style="text-align:left; height: 2100px;">
                     <h4> <b style="font-size: 13px; ">●</b> 간단소개글</h4>
                     <pre style="font-size: 16px;">${ classDetail.simpleIntro }</pre>
                     
@@ -280,9 +280,9 @@ ${ classDetail.intro }
                         </div>
                         <div style="margin-left: 30px;">
                           <small>식힌 후 시식 후 포장합니다.</small>
-                        </div>
+                        </div>-->
                       </div>
-                      <br><br> -->
+                      <br><br> 
                       <hr>
                       <br>
                       <!-- 추가 제공사항 및 유의사항 -->

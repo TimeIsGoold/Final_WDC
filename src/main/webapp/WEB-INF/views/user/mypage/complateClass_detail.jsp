@@ -259,22 +259,22 @@
 		                          <input type="hidden" name="endDate" value="${ requestScope.complateDetailUserClassDTO.endDate }">
 	                        </form>
 	                    </div>           
-	                    <c:if test="${ requestScope.reviewYn eq 0 }">      
+	                    <c:if test="${ requestScope.reviewYn eq '0' }">      
 	                     	<div style="display: inline-flex;">
 								<button onclick="reviewWrite1();" type="button" class="btn btn-dark" style="width: 112px; font-size: 15px;">리뷰 작성</button>
 							</div>
 						</c:if>
-						<c:if test="${ requestScope.reviewYn ne 0 }">
+						<c:if test="${ requestScope.reviewYn ne '0' }">
 							<div style="display: inline-flex;">
 								<button type="button" class="btn btn-dark" style="width: 145px; font-size: 15px; background-color: #e9ecef; border-color: #e9ecef;">리뷰 작성 완료</button>
 							</div>
 						</c:if>
 					  </c:if>
 					</div>
-						<div id="reviewWrite" style="width: 200px; height: 180px; display: none; margin-left: 200px; margin-bottom: 40px; margin-top: 65px;">
-							<form action="${ pageContext.servletContext.contextPath }/user/mypage/ComplateClassReview/${ requestScope.complateDetailUserClassDTO.aplNo }" method="post">
+						<div id="reviewWrite" style="width: 200px; height: 180px; display: none; margin-left:-100px; margin-bottom: 40px; margin-top: 65px;">
+							<form action="${ pageContext.servletContext.contextPath }/user/mypage/ComplateClassReview/${ requestScope.complateDetailUserClassDTO.aplNo }" method="post" encType="multipart/form-data">
 								<div class="file-upload">
-									▷ 수강 사진을 첨부해주세요. (1장 필수)&nbsp;:&nbsp;&nbsp;<input name="reviewPic" type="file">
+									▷ 수강 사진을 첨부해주세요. (1장 필수)&nbsp;:&nbsp;&nbsp;<input name="singleFile" type="file">
 								</div>
 								<div class="star-count">
 									▷ 클래스는 어떠셨나요?&nbsp;:&nbsp;
