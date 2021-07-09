@@ -95,9 +95,9 @@
 	<!-- 쿠폰 -->
 	<resultMap id="couponList" type="CouponDTO">
 		<id column="CPN_NO" property="couponNo"/>
-		<result column="USER_ID" property="couponType"/>
+		<result column="USER_ID" property="userId"/>
 		<result column="CPN_NAME" property="couponName"/>
-		<result column="DIS_AMOUNT" property="discount"/>
+		<result column="DIS_AMOUNT" property="disamount"/>
 		<result column="CPN_ISSUE_DATE" property="issueDate"/>
 		<result column="CPN_START" property="startDate"/>
 		<result column="CPN_END" property="endDate"/>
@@ -106,11 +106,11 @@
 	
 	<!-- 쿠폰 상세 -->
 	<resultMap id="couponInfoDetail" type="CouponDTO">
-		<id column="USER_ID" property="couponType"/>
+		<id column="USER_ID" property="userId"/>
 		<result column="CPN_NAME" property="couponName"/>
 		<result column="CPN_START" property="startDate"/>
 		<result column="CPN_END" property="endDate"/>
-		<result column="DIS_AMOUNT" property="discount"/>
+		<result column="DIS_AMOUNT" property="disamount"/>
 		<result column="총합" property="cntUseUser"/>
 	</resultMap>
 	
@@ -566,7 +566,7 @@
 			   A.CPN_NO
 			 , B.USER_ID
 			 , A.CPN_NAME
-			 , A.DIS_AMOUNT
+             , TO_CHAR(A.DIS_AMOUNT, 'FM999,999,999,999') AS DIS_AMOUNT
 			 , A.CPN_ISSUE_DATE
 			 , A.CPN_START
 			 , A.CPN_END
@@ -583,7 +583,7 @@
 			 , A.CPN_NAME
 			 , A.CPN_START
 			 , A.CPN_END
-			 , A.DIS_AMOUNT
+			 , TO_CHAR(A.DIS_AMOUNT, 'FM999,999,999,999') AS DIS_AMOUNT
              , COUNT(C.USER_NO) 총합
 		  FROM COUPON A
           JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
@@ -601,7 +601,7 @@
          	 WHERE USER_ID = ''
          	  </if>
          	  <if test="type == 'certain'">
-         	 WHERE USER_ID = #{ couponType }
+         	 WHERE USER_ID = #{ userId }
          	  </if>
 		</selectKey>
 		INSERT

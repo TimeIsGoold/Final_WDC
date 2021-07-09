@@ -97,7 +97,7 @@
 	                                            <td colspan="4">
 	                                                <input type="radio" name="type" value="total" class="radioBtn">전체 회원
 	                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
-	                                                <input type="text" name="couponType" id="certainArea" placeholder="ID를 입력하세요.">
+	                                                <input type="text" name="userId" id="certainArea" placeholder="ID를 입력하세요.">
 	                                            </td>
 	                                        </tr>
 	                                        <tr>
