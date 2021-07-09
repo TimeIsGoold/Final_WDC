@@ -92,5 +92,12 @@ public interface UserClassService {
 
 	int selectOneDayMax(int clsNo);
 
+	int insertTuitionManagement(PaymentDTO insertPaymentDTO);
+
+	int selectCheerCount(int clsNo);
+
+	List<UserClassDTO> selectMyLikeClassList(int userNo);
+
+	int updateUserWithdraw(int userNo);
 
 }

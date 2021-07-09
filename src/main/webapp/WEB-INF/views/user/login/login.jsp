@@ -104,13 +104,13 @@
 	                  </div>
 	                </div>
 	                <div class="login-find">
-	                  <a href="findID.html" style="color: #adb5bd !important;">아이디 찾기</a></li>
+                      <a href="${ pageContext.servletContext.contextPath }/user/mypage/findId" style="color: #adb5bd !important;">아이디 찾기</a></li>
 	                  <div style="color: #adb5bd">&nbsp;|&nbsp;</div>
 	                  <a href="findPassword.html" style="color: #adb5bd !important;">비밀번호 찾기</a></li>
 	                </div><br>
 	                <div class="login-find" style="width: 300px; color: #adb5bd !important;">
 	                 	 아직 회원이 아니신가요?
-	                  <a href="singup.html" style="color: #adb5bd !important;">회원가입</a></li><br>
+                      <a href="${ pageContext.servletContext.contextPath }/user/mypage/signup" style="color: #adb5bd !important;">회원가입</a></li><br>
 	                </div>
 	            </div>
             </div>

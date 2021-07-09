@@ -78,6 +78,10 @@ public class UserClassDetailController {
 		UserClassDTO classDetail = new UserClassDTO();
 		classDetail = classService.selectClassDtail(clsNo);
 		model.addAttribute("classDetail", classDetail);
+		if(classDetail.getDicsionStatus().equals("F")) {
+			int cheerCount = classService.selectCheerCount(clsNo);
+			model.addAttribute("cheerCount",cheerCount);
+		}
 
 		// 대표사진 3장 select
 		List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
@@ -294,6 +298,7 @@ public class UserClassDetailController {
 		// stringScheduleDate 용
 		model.addAttribute("paymentScheduleDTO", paymentScheduleDTO);
 
+		System.out.println("userClassDTO : " + userClassDTO);
 		return "user/payment/payment";
 	}
 
@@ -345,6 +350,14 @@ public class UserClassDetailController {
 		insertPaymentDTO.setCpnNo(cpnNo);
 
 		int paymentInsertResult = classService.insertPayment(insertPaymentDTO);
+		System.out.println("페이먼트 인서트는 된다?");
+		
+		// 3. 수업료 관리 인서트
+		int clsNo = Integer.parseInt(request.getParameter("clsNo"));
+		insertPaymentDTO.setClsAplNo(clsNo);
+		System.out.println("clsNo : " + clsNo);
+		System.out.println("insertPaymentDTO : " + insertPaymentDTO);
+		int tuitionManagementInsertResult = classService.insertTuitionManagement(insertPaymentDTO);
 
 		// 클래스 어플라이랑 페이먼트 둘다 인서트 잘 됐다면 이동 -> ajax 라 필요 없음
 		if (classApplyInsertResult + paymentInsertResult == 2) {
@@ -563,6 +576,7 @@ public class UserClassDetailController {
 	public String cheerUp(HttpServletRequest request, HttpSession session) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
+		System.out.println("userNo : " + userNo);
 		int clsNo = Integer.parseInt(request.getParameter("clsNo"));
 		UserClassDTO cheerUpHisInsertDTO = new UserClassDTO();
 		cheerUpHisInsertDTO.setUserNo(userNo);
@@ -582,14 +596,16 @@ public class UserClassDetailController {
 		// 해당 클래스 응원 카운트가 0이고 오늘 응원을 하지 않았다면
 		if(cheerHistory == 0 && selectDoTodayCheer == 0) {
 			cheerUpResult = classService.insertCheerHistory(cheerUpHisInsertDTO);
-			// cheerUpResult = 1
+			// cheerUpResult = 1 ->응원 성공
+			
 		}else if(cheerHistory == 1) {
 			cheerUpResult = 0;
 			// 없으면 cheerUpResult = 0 으로 반환 (이미 응원하셨습니다)
-		}else if(selectDoTodayCheer >= 1 ) {
-			cheerUpResult = 2;
-		}
 		
+		}else if(selectDoTodayCheer >= 1 ) {
+			cheerUpResult = 2; // 오늘 응원 했습니다.
+			
+		}
 		String result = Integer.toString(cheerUpResult); 
 		return result; 
 

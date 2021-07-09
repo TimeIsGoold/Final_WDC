@@ -535,7 +535,7 @@ String strDate = formats.format(now); %>
          
  		function paymentSuccess(){
 			alert("환불 신청 되었습니다.");
-		};
+		}
 
 
     </script>

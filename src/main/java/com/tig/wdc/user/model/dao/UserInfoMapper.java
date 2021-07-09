@@ -1,6 +1,7 @@
 package com.tig.wdc.user.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
@@ -36,5 +37,11 @@ public interface UserInfoMapper {
 	List<UserCouponDTO> selectAllUserCouponList();
 
 	int selectUseAllUserCoupon(UserCouponDTO alluserCouponDTO);
+
+	UserInfoDTO selectExistingInfo(Map<String, String> result);
+
+	String selectCheckDoubleId(String checkId);
+
+	int registUser(UserInfoDTO registInfo);
 
 }

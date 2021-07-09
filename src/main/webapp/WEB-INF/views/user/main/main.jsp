@@ -145,7 +145,7 @@
 	                <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/mypageMain"> <i class="fas fa-user-alt mr-1 text-gray hover-btn icon1" ></i></a></li>
 	              </c:if>
 	              <c:if test="${ sessionScope.userNo ne null }">
-	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout">로그아웃</a></li>
+	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/mypage/logout" onclick=logout();>로그아웃</a></li>
 	              </c:if>
 	              <c:if test="${ sessionScope.userNo eq null }">
 	              	<li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
@@ -155,6 +155,11 @@
           </nav>
         </div>
       </header>
+      <script>
+      function logout() {
+		alert("로그아웃 되었습니다.");
+	}
+      </script>
 
  	  <!-- 검색 -->
       <div class="container h-100">

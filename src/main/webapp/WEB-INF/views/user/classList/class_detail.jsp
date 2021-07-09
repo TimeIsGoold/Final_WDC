@@ -296,8 +296,7 @@ i {
 						</div>
 					</div>
 					<!-- PRODUCT DETAILS-->
-					<div class="col-lg-6">
-					
+					<div class="col-lg-6">					
 						<!-- 별점 평균 -->
 						<ul class="list-inline mb-2">
 							<c:forEach var="i" begin="1" end="${ requestScope.classStar.avgScore }" step="1">
@@ -630,6 +629,7 @@ i {
 			           		<c:if test="${ !empty sessionScope.userNo }">
 			                    <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 
 			                    	<input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
+                          			<input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>                           
 			                    </button>
 			                </c:if>
 			           		<c:if test="${ empty sessionScope.userNo }">
@@ -640,6 +640,7 @@ i {
 								}
 			                </script>
 			                </c:if>
+                           	응원 갯수 :${ requestScope.cheerCount }  개              
 						</li>
 					</div>
 	            </c:if>

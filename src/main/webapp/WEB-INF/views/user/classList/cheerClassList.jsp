@@ -134,8 +134,8 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
                   <c:choose>
-                  	<c:when test="${ empty requestScope.cheerClassDTOList && empty requestScope.cheerClassDTOList }">
-                  		진행 예정 클래스가 없습니다.
+                  	<c:when test="${ empty requestScope.cheerClassDTOList }">
+                  		응원한  클래스가 없습니다.
                   	</c:when>
                   </c:choose>
                   <!-- PRODUCT-->
@@ -149,12 +149,12 @@
                       <h6> 
                       <c:if test="${classList.clsType eq 'O'}">
                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
-                        [원데이] ${classList.title}
+                        [오픈예정][원데이] ${classList.title}
                       </a>
                       </c:if>
                       <c:if test="${classList.clsType eq 'R'}">
                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
-                        [정규] ${classList.title}
+                        [오픈예정][정규] ${classList.title}
                       </a>
                       </c:if>
                       </h6>

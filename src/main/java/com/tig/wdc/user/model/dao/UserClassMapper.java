@@ -97,6 +97,14 @@ public interface UserClassMapper {
 
 	public int selectOneDayMax(int clsNo);
 
+	public int insertTuitionManagement(PaymentDTO insertPaymentDTO);
+
+	public int selectCheerCount(int clsNo);
+
+	public List<UserClassDTO> selectMyLikeClassList(int userNo);
+
+	public int updateUserWithdraw(int userNo);
+
 
 
 

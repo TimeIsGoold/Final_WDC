@@ -40,7 +40,9 @@ public class UserCategoryController {
 		
 		//String searchContent = request.getParameter("searchContent");
 		String searchContent = userClassDTO.getSearchContent();
+		System.out.println("ac userClassDTO : " + userClassDTO);
 		System.out.println("searchContent : " + searchContent);
+		System.out.println("searchCheckBox :" + userClassDTO.getSearchCheckBox());
 
 		List<UserClassDTO> allClassList = new ArrayList<UserClassDTO>();
 		

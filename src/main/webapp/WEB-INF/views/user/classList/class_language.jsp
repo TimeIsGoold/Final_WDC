@@ -127,29 +127,8 @@
                   <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/language">언어 · 스피치</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/category/revenu">재태크 · 창업</a></strong></div>
                 <br><br>
-                <h6 class="text-uppercase mb-4">Price range</h6>
-                <div class="price-range pt-4 mb-5">
-                  <div id="range"></div>
-                  <div class="row pt-2">
-                    <div class="col-6"><strong class="small font-weight-bold text-uppercase"></strong></div>
-                    <div class="col-6 text-right"><strong class="small font-weight-bold text-uppercase"></strong></div>
-                  </div>
-                </div>
-                <br>
-                <h6 class="text-uppercase mb-3">Show Only</h6>
-                <div class="custom-control custom-checkbox mb-1">
-                  <input class="custom-control-input" id="customCheck1" type="checkbox">
-                  <label class="custom-control-label text-small" for="customCheck1">진행 중인 클래스</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-1">
-                  <input class="custom-control-input" id="customCheck2" type="checkbox">
-                  <label class="custom-control-label text-small" for="customCheck2">오픈 예정 클래스</label>
-                </div>
-                <div class="custom-control custom-checkbox mb-1">
-                  <input class="custom-control-input" id="customCheck3" type="checkbox">
-                  <label class="custom-control-label text-small" for="customCheck3">마감된 클래스</label>
-                </div>
-              </div>
+	 			<%@include file="../commons/searchCondition.jsp" %>
+
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row mb-3 align-items-center">
