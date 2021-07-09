@@ -70,9 +70,9 @@ public class TeacherMainController {
 	}
 	
 	@GetMapping("teacher/logout")
-	public String teacherLogout(SessionStatus sessionStatus) {
+	public String teacherLogout(HttpSession session) {
 		
-		sessionStatus.setComplete();;
+		session.invalidate();
 		return "redirect:/teacher";
 	}
 }
