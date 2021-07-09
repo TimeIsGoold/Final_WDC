@@ -23,7 +23,7 @@
 	
 	<style>
 		table td{
-			font-size: small;
+			font-size: large;
 		}
 	</style>
 
@@ -116,7 +116,7 @@
 					<div class="col-sm-6" align="center" style="height: 1000px;">
 						<img
 							src="${ pageContext.servletContext.contextPath }/resources/upload/${memberInfo.imgPath}"
-							alt="고양이" width="500" height="500" !important/> <br>
+							alt="강사 프로필" width="400" height="400"/> <br>
 						<br>
 						<br>
 						<textarea cols="100" rows="10" style="resize: none;"

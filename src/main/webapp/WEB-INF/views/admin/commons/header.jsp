@@ -30,7 +30,7 @@
     			 height: 31px; 
     		}
     		
-    		img {
+    		#logoutIcon1 {
     			 width: 30px; 
     			 height: 26px;
     		}
@@ -45,7 +45,7 @@
        <!-- Navbar-->
        <ul>
            <button class="sb-nav-link-icon" id="navbarDropdown" onclick="logoutCheck()" type="button">
-               <img src="${ pageContext.servletContext.contextPath }/resources/admin/img/log-in.png">
+               <img src="${ pageContext.servletContext.contextPath }/resources/admin/img/log-in.png" id="logoutIcon1">
            </button>
        </ul>
 		      <script>
