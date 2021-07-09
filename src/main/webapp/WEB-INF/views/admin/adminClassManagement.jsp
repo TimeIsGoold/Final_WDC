@@ -55,7 +55,7 @@
                                 클래스 관리
                             </div>
                              <div class="btn-group btn-group-justified">
-                            	<input type="button" id="" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
+                            	<input type="button" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
                             	<input type="button" class="category" value="1차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">
                             	<input type="button" class="category" value="2차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t'">
                             	<input type="button" class="category" value="승인된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept'">
@@ -64,7 +64,7 @@
                             	<input type="button" class="category" value="완료 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">
       						</div>
                             
-
+                            
 <%--                             <div class="btn-group btn-group-justified">
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total" class="btn btn-warning">전체 </a>
 						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one" class="btn btn-warning">1차 심사 진행중</a>
