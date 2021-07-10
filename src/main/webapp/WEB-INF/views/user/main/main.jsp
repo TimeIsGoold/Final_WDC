@@ -157,6 +157,7 @@
           </header>
           <div class="row">
             <!-- PRODUCT-->
+            <c:set value="0" var="i"></c:set>
             <c:forEach  var="newClassList" items="${ requestScope.newClassList }">
             <c:set value="${ i+1 }" var="i"></c:set>
               <!-- Modal -->
@@ -169,6 +170,8 @@
  		                <div class="col-lg-6">
 		                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
+		                  	<c:if test="${ newClassList.clsType eq 'O' }"><b>[ 원데이클래스 ]</b></c:if>
+                    		<c:if test="${ newClassList.clsType eq 'R' }"><b>[ 정규클래스 ]</b></c:if>
 		                    <h2 class="h4">${ newClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ newClassList.simpleIntro }</p>
@@ -187,7 +190,8 @@
                   <div class="badge text-white badge-info">New</div><a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ newClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ newClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <input type="hidden" value="${ newClassList.clsNo }" id="clsNo${i}">
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark"><i class="far fa-heart icon1" id="like${i}"></i></a></li>
                       <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#classView${i}"><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
@@ -198,6 +202,47 @@
                 <p class="small text-muted"><fmt:formatNumber value="${ newClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>
+            <script>
+	            $("#like" + ${i}).click(function(){
+					if ("${ sessionScope.userNo }" == "") { //로그인 안했을 경우
+		  				
+						if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
+		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
+		  				} else { 
+		  					// 거부하면 해당 페이지 새로고침 
+		  					location.reload(); 
+		  				}
+					} else{ //로그인 한 경우
+						
+				        const clsNo = document.getElementById('clsNo' + ${i}).value;
+				        
+				        $.ajax({
+				            url:"${pageContext.servletContext.contextPath}/user/mypage/likeClass",
+				            type:"post",
+				            data:{
+				         		clsNo : clsNo	
+				            },
+				            success:function(data, textStatus, xhr){
+				            	if(data == '0'){
+					            	if (confirm("클래스 찜♡ 찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
+					    			} else { 
+					    				//거부하면 해당 페이지 새로고침 
+					    				location.reload();
+					    				//return;
+					    			} 
+					            } else if(data == '1'){
+				         			alert("찜 목록에서 삭제되었습니다.")
+					  	   			location.reload();
+				         		}
+				        	},
+				            error:function(xhr,status,error){
+				            	console.log(error);
+				       		}
+		        		});  
+					}
+				});
+	        </script>
             </c:forEach>
            </div>
           </section>
@@ -210,10 +255,11 @@
             </header>
             <div class="row">
             <!-- PRODUCT-->
+            <c:set value="4" var="i"></c:set>
             <c:forEach  var="topClassList" items="${ requestScope.topClassList }">
-            <c:set value="${ j+5 }" var="j"></c:set>
+            <c:set value="${ i+1 }" var="i"></c:set>
              <!-- Modal -->
-		      <div class="modal fade" id="classView${j}" tabindex="-1" role="dialog" aria-hidden="true">
+		      <div class="modal fade" id="classView${i}" tabindex="-1" role="dialog" aria-hidden="true">
 		        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
@@ -222,6 +268,8 @@
 		                <div class="col-lg-6">
 		                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
+		                  	<c:if test="${ topClassList.clsType eq 'O' }"><b>[ 원데이클래스 ]</b></c:if>
+                    		<c:if test="${ topClassList.clsType eq 'R' }"><b>[ 정규클래스 ]</b></c:if>
 		                    <h2 class="h4">${ topClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ topClassList.simpleIntro }</p>
@@ -240,8 +288,9 @@
                   <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ topClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ topClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${j}><i class="fas fa-expand icon1"></i></a></li>
+                      <input type="hidden" value="${ topClassList.clsNo }" id="clsNo${i}">
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${i}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -251,6 +300,47 @@
                 <p class="small text-muted"><fmt:formatNumber value="${ topClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>
+            <script>
+	            $("#like" + ${i}).click(function(){
+					if ("${ sessionScope.userNo }" == "") { //로그인 안했을 경우
+		  				
+						if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
+		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
+		  				} else { 
+		  					// 거부하면 해당 페이지 새로고침 
+		  					location.reload(); 
+		  				}
+					} else{ //로그인 한 경우
+						
+				        const clsNo = document.getElementById('clsNo' + ${i}).value;
+				        
+				        $.ajax({
+				            url:"${pageContext.servletContext.contextPath}/user/likeClass",
+				            type:"post",
+				            data:{
+				         		clsNo : clsNo	
+				            },
+				            success:function(data, textStatus, xhr){
+				            	if(data == '0'){
+					            	if (confirm("클래스 찜♡  찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
+					    			} else { 
+					    				//거부하면 해당 페이지 새로고침 
+					    				location.reload();
+					    				//return;
+					    			} 
+					            } else if(data == '1'){
+				         			alert("찜 목록에서 삭제되었습니다.")
+					  	   			location.reload();
+				         		}
+				        	},
+				            error:function(xhr,status,error){
+				            	console.log(error);
+				       		}
+		        		});  
+					}
+				});
+	        </script>
             </c:forEach>
            </div>
           </section>
@@ -263,10 +353,11 @@
             </header>
             <div class="row">
             <!-- PRODUCT-->
+            <c:set value="8" var="i"></c:set>
             <c:forEach  var="cheerClassList" items="${ requestScope.cheerClassList }">
-            <c:set value="${ k+9 }" var="k"></c:set>
+            <c:set value="${ i+1 }" var="i"></c:set>
              <!-- Modal -->
-		      <div class="modal fade" id="classView${k}" tabindex="-1" role="dialog" aria-hidden="true">
+		      <div class="modal fade" id="classView${i}" tabindex="-1" role="dialog" aria-hidden="true">
 		        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 		          <div class="modal-content">
 		            <div class="modal-body p-0">
@@ -275,6 +366,8 @@
 		                <div class="col-lg-6">
 		                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 		                  <div class="p-5 my-md-4">
+		                    <c:if test="${ cheerClassList.clsType eq 'O' }"><b>[ 원데이클래스 ]</b></c:if>
+                    		<c:if test="${ cheerClassList.clsType eq 'R' }"><b>[ 정규클래스 ]</b></c:if>
 		                    <h2 class="h4">${ cheerClassList.title }</h2>
 		                    <p class="text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
 		                    <p class="text-small mb-4">${ cheerClassList.simpleIntro }</p>
@@ -293,8 +386,9 @@
                   <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
+                      <input type="hidden" value="${ cheerClassList.clsNo }" id="clsNo${i}">
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
-                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${k}><i class="fas fa-expand icon1"></i></a></li>
+                      <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${i}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -304,6 +398,47 @@
                 <p class="small text-muted"><fmt:formatNumber value="${ cheerClassList.price }" pattern="#,###"/> 원</p>
               </div>
             </div>
+            <script>
+	            $("#like" + ${i}).click(function(){
+					if ("${ sessionScope.userNo }" == "") { //로그인 안했을 경우
+		  				
+						if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
+		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
+		  				} else { 
+		  					// 거부하면 해당 페이지 새로고침 
+		  					location.reload(); 
+		  				}
+					} else{ //로그인 한 경우
+						
+				        const clsNo = document.getElementById('clsNo' + ${i}).value;
+				        
+				        $.ajax({
+				            url:"${pageContext.servletContext.contextPath}/user/likeClass",
+				            type:"post",
+				            data:{
+				         		clsNo : clsNo	
+				            },
+				            success:function(data, textStatus, xhr){
+				            	if(data == '0'){
+					            	if (confirm("클래스 찜♡  찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
+					    			} else { 
+					    				//거부하면 해당 페이지 새로고침 
+					    				location.reload();
+					    				//return;
+					    			} 
+					            } else if(data == '1'){
+				         			alert("찜 목록에서 삭제되었습니다.")
+					  	   			location.reload();
+				         		}
+				        	},
+				            error:function(xhr,status,error){
+				            	console.log(error);
+				       		}
+		        		});  
+					}
+				});
+	        </script>
            </c:forEach>
           </div>
          </section>
@@ -357,7 +492,7 @@
         </section>        
       </div>
       <br><br><br>
-      
+
       <%@include file="../commons/footer.jsp" %>
 
     </div>

@@ -40,6 +40,7 @@ import com.tig.wdc.teacher.model.service.TeacherInfoService;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserLikeClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 import com.tig.wdc.user.model.service.UserInfoService;
@@ -534,6 +535,47 @@ public class UserInfoController {
 		return "redirect:/user/mypage/complateClassList";
 	}
 	
+	@PostMapping("likeClass")
+	@ResponseBody
+	public String likeClass(Model model, HttpSession session, HttpServletRequest request) {
+		System.out.println("들어오니??????????????????????");
+		
+		int userNo= (Integer) session.getAttribute("userNo");
+		int clsNo = Integer.parseInt(request.getParameter("clsNo"));
+		
+		UserLikeClassDTO likeClassDTO = new UserLikeClassDTO();
+		likeClassDTO.setUserNo(userNo);
+		likeClassDTO.setClsNo(clsNo);
+		
+		System.out.println(likeClassDTO);
+		
+		//유저가 찜한 클래스인지 확인
+		int likeStatus = infoService.selectLikeStatus(likeClassDTO);
+		System.out.println("likeStatus : " + likeStatus);
+		
+		if(likeStatus == 0) {//찜한 클래스가 아닌 상태
+			
+			//찜을 취소한 기록이 있는지 확인
+			int likeHistory = infoService.selectLikeHistory(likeClassDTO);
+			
+			if(likeHistory == 0) { //찜한 기록이 없으면 새 찜 insert
+				int insertLike = infoService.insertLike(likeClassDTO);
+				
+			} else { //찜한 기록이 있으면 Y로 update
+				likeClassDTO.setLikeStatus('N');
+				int yesLike = infoService.updateLikeYn(likeClassDTO);
+			}
+			
+			return Integer.toString(likeStatus);
+			
+		} else {//찜한 상태이므로 상태 N으로 update
+			likeClassDTO.setLikeStatus('Y');
+			int noLike = infoService.updateLikeYn(likeClassDTO);
+			
+			return Integer.toString(likeStatus);
+		}
+	}
+	
 	/**
 	 * 내가 찜 목록 클래스 조회
 	 * @param model
@@ -541,7 +583,7 @@ public class UserInfoController {
 	 * @return
 	 */
 	@GetMapping("likeClassList")
-	public String likeClass(Model model, HttpSession session) {
+	public String likeClassList(Model model, HttpSession session) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		

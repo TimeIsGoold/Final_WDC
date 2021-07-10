@@ -7,6 +7,7 @@ import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserLikeClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 public interface UserInfoService {
@@ -44,5 +45,13 @@ public interface UserInfoService {
 	public Object selectCheckDoubleId(String checkId);
 
 	public int registUser(UserInfoDTO registInfo);
+
+	public int selectLikeStatus(UserLikeClassDTO likeClassDTO);
+
+	public int selectLikeHistory(UserLikeClassDTO likeClassDTO);
+
+	public int insertLike(UserLikeClassDTO likeClassDTO);
+
+	public int updateLikeYn(UserLikeClassDTO likeClassDTO);
 
 }

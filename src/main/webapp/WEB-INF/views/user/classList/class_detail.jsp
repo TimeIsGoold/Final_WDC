@@ -576,7 +576,7 @@ i {
                         <li class="list-inline-item m-0 p-0">
                            <c:if test="${ !empty sessionScope.userNo }">
                               <c:if test="${ requestScope.applyCheck <= 0 }">
-                                 <button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
+                                 <button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px; background-color: #dee2e6; border: 1px #dee2e6; cursor: default;"> 
                                     <input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청 마감
                                     <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
                                  </button>   
@@ -590,7 +590,7 @@ i {
                            </c:if>
                            <c:if test="${ empty sessionScope.userNo }">
                               <c:if test="${ requestScope.applyCheck <= 0 }">
-                                 <button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
+                                 <button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px; background-color: #dee2e6; border: 1px #dee2e6; cursor: default;"> 
                                     <input type="hidden" name="clsNo" value="${ requestScope.classDetail.clsNo }"/>신청 마감
                                     <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>
                                  </button>
@@ -629,14 +629,14 @@ i {
              </c:if>
             </form>
             	<c:if test="${ requestScope.classDetail.endDate < cDate }">
-	            	<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px;"> 
-					강의 종료
+	            	<button class="btn btn-sm btn-outline-dark" id="noBtnSave" type="button" style="height: 40px; width: 170px; font-size: 16px; margin-left: 115px; background-color: #dee2e6; border: 1px #dee2e6; cursor: default;"> 
+						클래스 종료
 					</button>
 	            </c:if>
           
                <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
                   <div style="background-color: white; width: 500px; height: 183px; border-radius: 50px; text-align: center; padding-top: 22px;">
-                     클래스가 오픈되도록 응원해주세요.<br><br>
+                    	 클래스가 오픈되도록 응원해주세요.<br><br>
                      <div style="margin-top: -8px;">응원한 클래스가 오픈되면 <b style="color: #64bcff; font-size: 20px;">할인 쿠폰</b>까지!<br><br></div>
                        <li class="list-inline-item m-0 p-0">
                           <c:if test="${ !empty sessionScope.userNo }">

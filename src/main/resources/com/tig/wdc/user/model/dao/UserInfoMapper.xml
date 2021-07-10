@@ -75,6 +75,14 @@
         <result column="CLS_APL_NO" property="aplNo"/>
         <result column="USER_NAME" property="userName"/>
     </resultMap>
+    
+    <resultMap type="UserLikeClassDTO" id="LikeClassResult">
+        <id column="LIKE_NO" property="likeNo"/>
+        <result column="CLS_NO" property="clsNo"/>
+        <result column="LIKE_STATUS" property="likeStatus"/>
+        <result column="USER_NO" property="userNo"/>
+        <result column="RNUM" property="rowNum"/>
+    </resultMap>
 
 	<select id="selectUser" parameterType="UserInfoDTO" resultMap="UserInfoResult">
 		SELECT
@@ -301,6 +309,46 @@
 	   , SYSDATE
 	   , 'U'
 	   )
-	
 	</insert>
+	
+	<select id="selectLikeStatus" parameterType="UserLikeClassDTO" resultType="_int">
+		SELECT
+		       COUNT(LIKE_STATUS)
+		  FROM LIKE_HISTORY
+		 WHERE USER_NO = #{ userNo }
+		   AND CLS_NO = #{ clsNo }
+		   AND LIKE_STATUS = 'Y'
+	</select>
+	
+	<select id="selectLikeHistory" parameterType="UserLikeClassDTO" resultType="_int">
+		SELECT
+		       COUNT(LIKE_STATUS)
+		  FROM LIKE_HISTORY
+		 WHERE USER_NO = #{ userNo }
+		   AND CLS_NO = #{ clsNo }
+		   AND LIKE_STATUS = 'N'
+	</select>
+	
+	<insert id="insertLike" parameterType="UserLikeClassDTO">
+		INSERT INTO LIKE_HISTORY
+		VALUES
+		(
+		  SEQ_LIKE_NO.NEXTVAL
+		, #{ clsNo }
+		, 'Y'
+		, #{ userNo }
+		)
+	</insert>
+	
+	<update id="updateLikeYn" parameterType="UserLikeClassDTO">
+		UPDATE LIKE_HISTORY 
+		<if test="likeStatus == 'Y'">
+		   SET LIKE_STATUS = 'N'
+		</if>
+		<if test="likeStatus == 'N'">
+		   SET LIKE_STATUS = 'Y'
+		</if>
+		 WHERE USER_NO = #{ userNo }
+		   AND CLS_NO = #{ clsNo }
+	</update>
 </mapper>
