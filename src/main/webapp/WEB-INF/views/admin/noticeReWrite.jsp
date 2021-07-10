@@ -148,13 +148,6 @@
             </div>
 
         </div>
-        <script>
-        /*
-        	$("#btnNotice").on("click",function(){
-        		$("#area").attr("action","/wdc/admin/noticeReWrite").submit();
-        	});
-        */
-        </script>
         <script type="text/javascript">
        		const type = '${noticeDetail.noticeType}';
        		const important = '${noticeDetail.importantYN}';

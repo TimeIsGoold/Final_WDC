@@ -119,7 +119,7 @@
 		                                        <tr>
 		                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
 		                                            <td>
-		                                                <input type="text" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
+		                                                <input type="text" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요." required>
 		                                            </td>
 		                                        </tr>
 		                                        <tr>
@@ -127,7 +127,7 @@
 		                                        </tr>
 		                                        <tr>
 		                                        	<td colspan="2">
-		  												<textarea id="summernote" name="noticeContent"></textarea>
+		  												<textarea id="summernote" name="noticeContent" required ></textarea>
 		                                            </td>
 		                                        </tr>
 		                                    </tbody>
@@ -147,13 +147,6 @@
             </div>
 
         </div>
-        <script>
-        /*
-        	$("#btnNotice").on("click",function(){
-        		$("#area").attr("action","/wdc/admin/noticeWrite").submit();
-        	});
-        */
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

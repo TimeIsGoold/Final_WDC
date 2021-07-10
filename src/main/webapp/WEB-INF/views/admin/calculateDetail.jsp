@@ -9,6 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>우리동네 클래스</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Favicon-->
     	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -111,8 +112,9 @@
 					                            </c:choose>
 	                                            <th>제 목</th>
 	                                            <td>${ calculateInfoDetail.className }</td>
-	                                            <th>수강인원</th>
-	                                            <td>${ calculateInfoDetail.countStudent }</td>
+	                                            <%-- <th>수강인원</th>
+	                                            <td>${ calculateInfoDetail.countStudent }</td> --%>
+	                                            <input type="hidden" name="classNo" value="${ calculateInfoDetail.classNo }">
 	                                        </tr>
 	                                     </tbody>
 	                                 </table>
@@ -138,8 +140,9 @@
 					                            </c:choose>
 	                                            <th>아이디</th>
 	                                            <td>${ calculateInfoDetail.teId }</td>
-	                                            <th>수업일수</th>
-	                                            <td>${ calculateInfoDetail.cday }</td>
+	                                            <%-- <th>수업일수</th>
+	                                            <td>${ calculateInfoDetail.cday }</td> --%>
+	                                            <input type="hidden" name="teNo" value="${ calculateInfoDetail.teNo }">
 	                                		</tr>
 	                                	</tbody>
 	                                </table>
@@ -175,6 +178,7 @@
 	                                            <td>
 	                                                <div class="detailCalculate">소비세</div>
 	                                                <div class="detailCalculate">${ calculateInfoDetail.tax }</div>
+	                                            	<input type="hidden" name="tax" value="${ calculateInfoDetail.tax }">
 	                                            </td>
 	                                            <td class="signCalculate">
 	                                                <div>-</div>
@@ -182,6 +186,7 @@
 	                                            <td>
 	                                                <div class="detailCalculate">사용 수수료(10%)</div>
 	                                                <div class="detailCalculate">${ calculateInfoDetail.useFees }</div>
+	                                            	<input type="hidden" name="useFees" value="${ calculateInfoDetail.useFees }">
 	                                            </td>
 	                                            <td class="signCalculate">
 	                                                <div>-</div>
@@ -189,6 +194,7 @@
 	                                            <td>
 	                                                <div class="detailCalculate">카드 수수료(2.1%)</div>
 	                                                <div class="detailCalculate">${ calculateInfoDetail.cardFees }</div>
+	                                            	<input type="hidden" name="cardFees" value="${ calculateInfoDetail.cardFees }">
 	                                            </td>
 	                                            <td class="signCalculate">
 	                                                <div>=</div>
@@ -196,6 +202,8 @@
 	                                            <td>
 	                                                <div class="detailCalculate">최종 금액</div>
 	                                                <div class="detailCalculate">${ calculateInfoDetail.calcAmount }</div>
+	                                                <input type="hidden" name="calcAmount" value="${ calculateInfoDetail.calcAmount }">
+	                                                <input type="hidden" name="tuitionMNo" value="${ calculateInfoDetail.tuitionMNo }">
 	                                            </td>
 	                                        </tr>
 	                                	</tbody>
@@ -204,7 +212,7 @@
 	                                <div class="submitBtn">
 	                                	<c:choose>
 	                                		<c:when test="${ calculateInfoDetail.calcYN eq 'N'}">
-	                                			<c:if test="${ calculateInfoDetail.today eq '10'}">
+	                                			<c:if test="${ calculateInfoDetail.today eq '03'}">
 				                                	<input type="button" id="calculateBtn" class="returnPageBtn" value="정산하기">
 	                                			</c:if>
 	                                		</c:when>
