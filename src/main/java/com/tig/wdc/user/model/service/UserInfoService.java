@@ -54,4 +54,12 @@ public interface UserInfoService {
 
 	public int updateLikeYn(UserLikeClassDTO likeClassDTO);
 
+	public int selectPhone(UserInfoDTO infoDTO);
+
+	public int updatePhone(UserInfoDTO infoDTO);
+
+	public int updatePwd(UserInfoDTO infoDTO);
+
+	public int selectPwd(UserInfoDTO infoDTO);
+
 }

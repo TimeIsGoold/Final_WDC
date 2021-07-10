@@ -232,7 +232,7 @@
 					    				//return;
 					    			} 
 					            } else if(data == '1'){
-				         			alert("찜 목록에서 삭제되었습니다.")
+				         			alert("찜 목록에서 삭제되었습니다.");
 					  	   			location.reload();
 				         		}
 				        	},
@@ -330,7 +330,7 @@
 					    				//return;
 					    			} 
 					            } else if(data == '1'){
-				         			alert("찜 목록에서 삭제되었습니다.")
+				         			alert("찜 목록에서 삭제되었습니다.");
 					  	   			location.reload();
 				         		}
 				        	},
@@ -428,7 +428,7 @@
 					    				//return;
 					    			} 
 					            } else if(data == '1'){
-				         			alert("찜 목록에서 삭제되었습니다.")
+				         			alert("찜 목록에서 삭제되었습니다.");
 					  	   			location.reload();
 				         		}
 				        	},

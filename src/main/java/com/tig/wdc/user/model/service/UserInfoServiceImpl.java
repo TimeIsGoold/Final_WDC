@@ -129,4 +129,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return mapper.updateLikeYn(likeClassDTO);
 	}
 
+	@Override
+	public int selectPhone(UserInfoDTO infoDTO) {
+		return mapper.selectPhone(infoDTO);
+	}
+
+	@Override
+	public int updatePhone(UserInfoDTO infoDTO) {
+		return mapper.updatePhone(infoDTO);
+	}
+
+	@Override
+	public int updatePwd(UserInfoDTO infoDTO) {
+		return mapper.updatePwd(infoDTO);
+	}
+
+	@Override
+	public int selectPwd(UserInfoDTO infoDTO) {
+		return mapper.selectPwd(infoDTO);
+	}
+
 }

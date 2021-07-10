@@ -53,6 +53,14 @@ public interface UserInfoMapper {
 
 	int updateLikeYn(UserLikeClassDTO likeClassDTO);
 
+	int selectPhone(UserInfoDTO infoDTO);
+
+	int updatePhone(UserInfoDTO infoDTO);
+
+	int updatePwd(UserInfoDTO infoDTO);
+
+	int selectPwd(UserInfoDTO infoDTO);
+
 
 
 }
