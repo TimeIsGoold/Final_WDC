@@ -114,7 +114,7 @@
           <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${info.classType}&clsNo=${ info.clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${info.classType}&clsNo=${ info.clsNo }" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${info.classType}&clsNo=${ info.clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     

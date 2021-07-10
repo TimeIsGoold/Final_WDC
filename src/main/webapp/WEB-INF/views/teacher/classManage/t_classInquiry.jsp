@@ -92,12 +92,13 @@
           <a href="#" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
+    <form>
         <div class='col-sm-10' >
           <div class="form-group">
             <div class="row">
@@ -107,13 +108,14 @@
                 	<option value="completed">답변 완료</option>
                 </select>
               </div>
-              <div class='col-sm-3'>
-              
+              <div class='col-sm-6'>
                 <button type="submit" class="btn btn-primary">검색</button>   
+                <button type="reset" class="btn btn-primary" onclick="${pageContext.servletContext.contextPath }/teacher/userInquiry">초기화</button>   
               </div>
             </div>
             </div>
         </div>
+    </form>
 	<br>
       <div class="col-sm-12" id="content-formatting" style="float: left;">
         <table class="table table-hover" style="text-align: center;">

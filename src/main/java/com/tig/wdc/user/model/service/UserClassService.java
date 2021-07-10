@@ -100,4 +100,5 @@ public interface UserClassService {
 
 	int updateUserWithdraw(int userNo);
 
+
 }

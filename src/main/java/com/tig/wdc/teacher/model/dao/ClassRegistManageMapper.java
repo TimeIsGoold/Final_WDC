@@ -56,4 +56,8 @@ public interface ClassRegistManageMapper {
 
 	int insertReviewAnswer(ReviewAnswerDTO reviewInfo);
 
+	String selectRejectReason(int clsNo);
+
+	int selectCheeringCount(int clsNo);
+
 }

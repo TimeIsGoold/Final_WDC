@@ -74,5 +74,11 @@ public interface ClassRegistManageService {
 	//리뷰 답변
 	int insertReviewAnswer(ReviewAnswerDTO reviewInfo);
 
+	//거절사유
+	String selectRejectReason(int clsNo);
+ 
+	//응원수
+	int selectCheeringCount(int clsNo);
+
 	
 }

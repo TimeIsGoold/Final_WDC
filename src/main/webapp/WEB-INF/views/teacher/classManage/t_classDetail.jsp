@@ -94,12 +94,12 @@
           <a id="inquiry"style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a id="studentManage"  style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>수강생 관리</b></a>
+          <a id="studentManage"  style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>출석 관리</b></a>
         </div>
         <script>
           function disicionCheck(p){
             if("${classDetail.dicsionStatus}" != "S" ){
-              alert("심사가 완료되지 않아 조회할 수 없습니다.");
+              alert("개설되지 않은 클래스로 조회할 수 없습니다.");
               return;
             } 
             switch(p.id){
@@ -113,7 +113,28 @@
     <!-- 문의 게시판 -->
     <div class="col-sm-12" id="content-formatting" style="float: left;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
+      <c:choose>
+        <c:when test="${ classDetail.dicsionStatus eq 'W' }">
         <h4>상세정보</h4>
+        <p style="color: gray;">심사대기중</p>
+        </c:when>
+        <c:when test="${ classDetail.dicsionStatus eq 'F' }">
+        <h4>상세정보</h4>
+        <p style="color: #fef0ae;">응원진행 중(현재 응원 수 : ${ cheeringCount })</p>
+        </c:when>
+        <c:when test="${ classDetail.dicsionStatus eq 'L' }">
+        <h4>상세정보</h4>
+        <p style="color: red;">응원 수 미달(최종 응원 수 : ${ cheeringCount })</p>
+        </c:when>
+        <c:when test="${ classDetail.dicsionStatus eq 'R' }">
+        <h4>상세정보</h4>
+        <p ><b style="color: red;">심사거절</b>(사유 : ${ rejectReason }) </p>
+        </c:when>
+        <c:otherwise>
+        <h4>상세정보</h4>
+        <p ><b style="color: green;">승인완료</b>(최종 응원 수 : ${ cheeringCount }) </p>
+        </c:otherwise>
+      </c:choose>
       </div>
 
       <div class="col-sm-12">

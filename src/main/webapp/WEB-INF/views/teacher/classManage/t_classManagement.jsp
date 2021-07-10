@@ -105,31 +105,42 @@
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
           <div class="col-sm-12" id="content-formatting" style="float: left;">
-            <div class="page-header" ; margin-left: 40px;">
+            <div class="page-header" ; style="margin-left: 40px;">
               <p style="font-size: 20px; font-weight: bold;">클래스 관리하기 </p>
             </div>
             <hr>
             <div class="row" style="margin-left: 40px;">
               
-              <form>
-              <div class="row">   
-                <div class='col-sm-3'  float: left;">
-                  <a style="margin-left: 15px;">클래스 타입</a>
-                  <div class="col-auto my-1">
-                    <select class="custom-select mr-sm-2" id="classType" style="width:120px" name="">
-                      <option selected>선택</option>
-                      <option value="I">개별일정</option>
-                      <option value="D">요일반복</option>
-                      <option value="R">정규모집</option>
-                    </select>
-                  </div>
+              <form method="get" action="${pageContext.servletContext.contextPath }/teacher/teacherClassManagement">
+              <div class="row"> 
+              <div class='col-sm-2' style="float: left;">
+                <a style="margin-left: 15px;" >클래스 타입</a>              
+                <div class="col-auto my-1">
+                    <select class="custom-select mr-sm-2" id="classType" style="width:120px" name="classType">
+                      <option selected value="none">선택</option>
+                      <option value="O">원데이</option>
+                      <option value="R">정규일정</option>
+                    </select>  
                 </div>
-
-                <div class='col-sm-3' style="float: left;">
+              </div>  
+              <div class='col-sm-2'  float: left;">
+                <a style="margin-left: 15px;">심사 상태</a>
+                <div class="col-auto my-1">
+                  <select class="custom-select mr-sm-2" id="decision" style="width:120px" name="decision">
+                    <option selected value="none">선택</option>
+                    <option value="W">대기</option>
+                    <option value="F">응원진행중</option>
+                    <option value="S">승인완료</option>
+                    <option value="L">응원수미달</option>
+                    <option value="R">거절</option>
+                  </select>
+                </div>
+              </div>
+                <div class='col-sm-2' style="float: left;">
                   <a style="margin-left: 15px;">클래스 상태</a>              
                   <div class="col-auto my-1">
-                      <select class="custom-select mr-sm-2" id="classStatus" style="width:100px">
-                        <option selected>선택</option>
+                      <select class="custom-select mr-sm-2" id="proceed" style="width:120px" name="proceed">
+                        <option selected value="none">선택</option>
                         <option value="Y">진행전</option>
                         <option value="P">진행중</option>
                         <option value="E">종료</option>
@@ -140,7 +151,7 @@
                   <h5 style="margin-left: 15px;"></h5>
                   <div class="col-auto my-3" style="padding-top: 15px;">
                     <!-- <input type="text" class="form-control" id="search"> -->
-                    <button type="submit" class="btn btn-primary">검색</button>
+                    <button type="submit" class="btn btn-primary" >적용</button>
                     <button type="reset" class="btn btn-primary" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/teacherClassManagement'">초기화</button>
                   </div>
                 </div>
@@ -149,12 +160,12 @@
                </form>  
               
               <!-- 결과 게시판 -->
-              <div class="col-sm-12" id="content-formatting" style="float: left; padding-bottom: 280px">
-                <table class="table table-hover">
+              <div class="col-sm-12" id="content-formatting" style="float: left; padding-bottom: 280px; height: 950px">
+                <table class="table table-hover" style="margin-bottom: 50px">
                   <thead>
                     <tr>
                       <th>번호</th>
-                      <th>클래스 이름</th>
+                      <th style="width : 300px">클래스 이름</th>
                       <th>타입</th>
                       <th>가격</th>
                       <th>상태</th>
@@ -162,6 +173,11 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <c:choose>
+                  <c:when test="${ empty classList }">
+                  <td colspan="6">조회된 결과 없음</td>
+                  </c:when>
+                  <c:otherwise>
                   <c:forEach items="${ classList }" var="classList"  varStatus="status">
                     <tr>
                       <td><c:out value="${ pageInfo.startRow + status.index }"/></td>
@@ -186,12 +202,14 @@
                       <c:choose>
                           <c:when test="${ classList.dicsionStatus eq 'W' }"><td>대기</td></c:when>
                           <c:when test="${ classList.dicsionStatus eq 'R' }"><td>거절</td></c:when>
-                          <c:when test="${ classList.dicsionStatus eq 'F' }"><td>1차승인</td></c:when>
+                          <c:when test="${ classList.dicsionStatus eq 'F' }"><td>응원진행중</td></c:when>
                           <c:when test="${ classList.dicsionStatus eq 'S' }"><td>승인완료</td></c:when>
                           <c:when test="${ classList.dicsionStatus eq 'L' }"><td>응원수미달</td></c:when>
                       </c:choose>
                     </tr>
                   </c:forEach>
+                  </c:otherwise>
+                  </c:choose>
                   </tbody>
                 </table>
                 <nav aria-label="...">
@@ -289,70 +307,80 @@
   
   <jsp:include page="../commons/footer.jsp"/>
   <script>
-    const link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";	
+    const link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";
+    const classType = document.getElementById("classType").value;
+    const proceed = document.getElementById("proceed").value;
+    const decision = document.getElementById("decision").value;
 	if(document.getElementById("startPage")) {
 		const $startPage = document.getElementById("startPage");
 		$startPage.onclick = function() {
-			location.href = link + "?currentPage=1";
+			location.href = link + "?currentPage=1" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
 	
 	if(document.getElementById("prevPage")) {
 		const $prevPage = document.getElementById("prevPage");
 		$prevPage.onclick = function() {
-			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
 	
 	if(document.getElementById("nextPage")) {
 		const $nextPage = document.getElementById("nextPage");
 		$nextPage.onclick = function() {
-			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
 	
 	if(document.getElementById("maxPage")) {
 		const $maxPage = document.getElementById("maxPage");
 		$maxPage.onclick = function() {
-			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
-	
-	if(document.getElementById("searchStartPage")) {
-		const $searchStartPage = document.getElementById("searchStartPage");
-		$searchStartPage.onclick = function() {
-			location.href = searchLink + "?currentPage=1&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
-		}
-	}
-	
-	if(document.getElementById("searchPrevPage")) {
-		const $searchPrevPage = document.getElementById("searchPrevPage");
-		$searchPrevPage.onclick = function() {
-			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
-		}
-	}
-	
-	if(document.getElementById("searchNextPage")) {
-		const $searchNextPage = document.getElementById("searchNextPage");
-		$searchNextPage.onclick = function() {
-			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
-		}
-	}
-	
-	if(document.getElementById("searchMaxPage")) {
-		const $searchMaxPage = document.getElementById("searchMaxPage");
-		$searchMaxPage.onclick = function() {
-			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
-		}
-	}
-	
 	
 	function pageButtonAction(text) {
-		location.href = link + "?currentPage=" + text;
+		location.href = link + "?currentPage=" + text  + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 	}
-	function seachPageButtonAction(text) {
-		location.href = searchLink + "currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
-	}
+	</script>
+	<script>
+	  window.onload = function(){
+		  let beforeClassType = "${ classType }";
+		  let beforeDecision = "${ decision }";
+		  let beforeProceed = "${ proceed }";
+
+		  if(beforeClassType != null && beforeClassType.length > 0){
+		  
+			  let classType = document.getElementById("classType");
+			  
+			  for(var i = 0; i < classType.length; i++){
+				  if(classType[i].value == beforeClassType){
+					  classType[i].selected = true;					  
+				  }
+			  }
+		  }
+
+		  if(beforeDecision != null && beforeDecision.length > 0){
+		  
+			  let decision = document.getElementById("decision");
+			  
+			  for(var i = 0; i < decision.length; i++){
+				  if(decision[i].value == beforeDecision){
+					  decision[i].selected = true;					  
+				  }
+			  }
+		  }
+		  if(beforeProceed != null && beforeProceed.length > 0){
+		  
+			  let proceed = document.getElementById("proceed");
+			  
+			  for(var i = 0; i < proceed.length; i++){
+				  if(proceed[i].value == beforeProceed){
+					  proceed[i].selected = true;					  
+				  }
+			  }
+		  }
+	  }
 	</script>  	
 </body>
 </html>

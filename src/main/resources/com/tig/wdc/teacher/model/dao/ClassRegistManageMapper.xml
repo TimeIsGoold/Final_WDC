@@ -354,4 +354,16 @@
              )  
     
     </insert>
+    <select id="selectRejectReason" resultType="string" parameterType="_int">
+        SELECT
+               REJECT_REASON 
+          FROM DISICION_HISTORY
+         WHERE CLS_NO = #{ clsNo }    
+    </select>
+    <select id="selectCheeringCount" resultType="_int" parameterType="_int">
+        SELECT 
+               COUNT(CLS_NO) 
+          FROM CHEERING_HISTORY 
+         WHERE CLS_NO = #{ clsNo }
+    </select>
 </mapper>

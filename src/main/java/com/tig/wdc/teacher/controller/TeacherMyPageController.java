@@ -61,16 +61,26 @@ public class TeacherMyPageController {
 	 * @return 클래스 리스트
 	 */
 	@GetMapping("/teacherClassManagement")
-	public String teacherClassManagement(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage ) {
+	public String teacherClassManagement(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage, @RequestParam HashMap<String, Object> searchInfo) {
 		
-
 		int teacherNo = (Integer) session.getAttribute("teacherNo");
-		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectClassCount(teacherNo), 10, 5);
-		classInfo.setTeNo(teacherNo);
-		classInfo.setPageInfo(pageInfo);
+		searchInfo.put("teacherNo", teacherNo);
+		System.out.println(searchInfo);
+		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectClassCount(searchInfo), 10, 5);
+		searchInfo.put("pageInfo", pageInfo);
+		
+		if(searchInfo.get("classType") != null) {
+			model.addAttribute("classType", searchInfo.get("classType"));
+		}
+		if(searchInfo.get("decision") != null) {
+			model.addAttribute("decision", searchInfo.get("decision"));
+		}
+		if(searchInfo.get("proceed") != null) {
+			model.addAttribute("proceed", searchInfo.get("proceed"));
+		}
 		
 		model.addAttribute("pageInfo", pageInfo);
-		model.addAttribute("classList",boardService.selectClassList(classInfo));
+		model.addAttribute("classList",boardService.selectClassList(searchInfo));
 	
 		return "teacher/classManage/t_classManagement";
 	}
@@ -89,6 +99,8 @@ public class TeacherMyPageController {
 		model.addAttribute("titlePicture", classService.selectClassPic(clsNo));
 		model.addAttribute("classPiece", classService.selectClassPiece(clsNo));
 		model.addAttribute("curriculum", classService.selectCurriculum(clsNo));
+		model.addAttribute("rejectReason", classManage.selectRejectReason(clsNo));
+		model.addAttribute("cheeringCount", classManage.selectCheeringCount(clsNo));
 
 		return "teacher/classManage/t_classDetail";
 	}
@@ -297,17 +309,20 @@ public class TeacherMyPageController {
 	 * @return
 	 */
 	@GetMapping("/teacherInquiryList")
-	public String teacherInquiryList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage) {
+	public String teacherInquiryList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int currentPage, @RequestParam HashMap<String, Object> searchInfo) {
 		
 		int teacherNo = (Integer) session.getAttribute("teacherNo");
+		searchInfo.put("teacherNo", teacherNo);
+		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectAdminQnACount(searchInfo), 10, 5);
 		
-		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectAdminQnACount(teacherNo), 10, 5);
+		searchInfo.put("pageInfo", pageInfo);
+		searchInfo.put("teacherNo", teacherNo);
 		
-		HashMap<String,Object> searchCondition = new HashMap<>();
-		searchCondition.put("pageInfo", pageInfo);
-		searchCondition.put("teacherNo", teacherNo);
-		
-		model.addAttribute("adminQnAList", boardService.selectAdminQnAList(searchCondition));
+		if(searchInfo.get("inquiryReply") != null) {
+			
+			model.addAttribute("inquiryReply",searchInfo.get("inquiryReply"));
+		}
+		model.addAttribute("adminQnAList",boardService.selectAdminQnAList(searchInfo));
 		model.addAttribute("pageInfo", pageInfo);
 		
 		return "teacher/reportInquiry/t_inquiryList";
@@ -447,7 +462,7 @@ public class TeacherMyPageController {
 	}
 
 	/**
-	 * 클래스 리뷰목록 조회
+	 * 클래스 리뷰목록 조회(이해승)
 	 * @param info 클래스 정보
 	 * @param currentPage 현재 페이지
 	 * @return
@@ -472,6 +487,15 @@ public class TeacherMyPageController {
 		return "teacher/classManage/t_classReview";
 	}
 	
+	/**
+	 * 리뷰답변 작성(이해승)
+	 * @param session
+	 * @param rttr
+	 * @param model
+	 * @param reviewInfo
+	 * @param info
+	 * @return
+	 */
 	@PostMapping("/reviewAnswer")
 	public String reviewAnswer(HttpSession session, RedirectAttributes rttr,Model model, @ModelAttribute ReviewAnswerDTO reviewInfo, @RequestParam HashMap<String, String> info) {
 		

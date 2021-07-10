@@ -186,6 +186,22 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	public int insertReviewAnswer(ReviewAnswerDTO reviewInfo) {
 		return mapper.insertReviewAnswer(reviewInfo);
 	}
+
+	/**
+	 * 거절사유
+	 */
+	@Override
+	public String selectRejectReason(int clsNo) {
+		return mapper.selectRejectReason(clsNo);
+	}
+
+	/**
+	 * 응원수
+	 */
+	@Override
+	public int selectCheeringCount(int clsNo) {
+		return mapper.selectCheeringCount(clsNo);
+	}
 	
 	
 

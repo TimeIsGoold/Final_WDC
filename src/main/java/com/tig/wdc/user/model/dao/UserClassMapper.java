@@ -105,6 +105,8 @@ public interface UserClassMapper {
 
 	public int updateUserWithdraw(int userNo);
 
+	public String selectRejectReason(int clsNo);
+
 
 
 

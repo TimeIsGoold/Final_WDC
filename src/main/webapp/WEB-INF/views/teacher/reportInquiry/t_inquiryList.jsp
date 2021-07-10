@@ -59,6 +59,11 @@
       background-color: #fef0ae !important;
       border-color: #fef0ae !important;
     }
+    .pagingArea button {
+	background-color: #fef0ae;
+	border: 1px solid #fef0ae;
+	border-radius: 5px;
+}
   </style>
 
 
@@ -94,19 +99,25 @@
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
-        <form>
           <div class="col-sm-12" id="content-formatting" style="float: left;">
+        <form action="${pageContext.servletContext.contextPath }/teacher/teacherInquiryList" method="get">
             <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
               <P style="font-size: 20px; font-weight: bold;" >문의내역<P>
             </div>
             <div class="row" style="margin-left: 20px;">
               <div class='col-sm-2'>
-                <select class="form-group" id="inquiryReply">
-                	<option value="" selected disable hidden>선택하세요</option>
-                	<option value="notyet">처리 중</option>
-                	<option value="completed">답변완료</option>
+                <select class="custom-select mr-sm-2" id="inquiryReply" name="inquiryReply">
+                	<option value="none" selected>전체</option>
+                	<option value="N" onclick="alert()">처리 중</option>
+                	<option value="Y">답변완료</option>
                 </select>
               </div>
+              <div class='col-sm-6' style="float: left;">
+                <!-- <input type="text" class="form-control" id="search"> -->
+                  <button type="submit" class="btn btn-primary">적용</button>
+                  <button type="reset" class="btn btn-primary" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/teacherInquiryList'">초기화</button>
+              </div>
+              
          <!-- <div class='col-sm-6'>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">검색</button>
@@ -114,9 +125,9 @@
                 </div>
               </div> -->
             </div>
-            
+          </form>
             <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 800px">
-              <table class="table table-hover" style="text-align: center;">
+              <table class="table table-hover" style="text-align: center; margin-bottom: 30px">
                 <thead>
                   <tr>
                     <th>번호</th>
@@ -143,21 +154,83 @@
                 </c:forEach>
                 </tbody>
               </table>
-              <nav aria-label="...">
-                <ul class="pagination" style="justify-content: center;">
-                  <li class="page-item"><span class="page-link"><</span></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">></a></li>
-                </ul>
-              </nav>
+            <nav aria-label="...">
+			<div class="pagingArea" align="center">
+				<c:choose>
+					<c:when test="${ empty requestScope.searchValue }">
+						<button id="startPage"><<</button>
+
+						<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+							<button  disabled ><</button>
+						</c:if>
+						<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+							<button id="prevPage"><</button>
+						</c:if>
+
+						<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }"	end="${ requestScope.pageInfo.endPage }" step="1">
+							<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+								<button disabled>
+									<c:out value="${ p }" />
+								</button>
+							</c:if>
+							<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+								<button onclick="pageButtonAction(this.innerText);">
+									<c:out value="${ p }" />
+								</button>
+							</c:if>
+						</c:forEach>
+
+						<c:if
+							test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+							<button disabled >></button>
+						</c:if>
+						<c:if
+							test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+							<button id="nextPage">></button>
+						</c:if>
+
+						<button id="maxPage">>></button>
+					</c:when>
+					<c:otherwise>
+						<button id="searchStartPage"><<</button>
+
+						<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+							<button  disabled><</button>
+						</c:if>
+						<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+							<button id="searchPrevPage" ><</button>
+						</c:if>
+
+						<c:forEach var="p"	begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+							<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+								<button disabled>
+									<c:out value="${ p }" />
+								</button>
+							</c:if>
+							<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+								<button  onclick="seachPageButtonAction(this.innerText);">
+									<c:out value="${ p }" />
+								</button>
+							</c:if>
+						</c:forEach>
+
+						<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+							<button disabled>></button>
+						</c:if>
+						<c:if
+							test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+							<button id="searchNextPage" >></button>
+						</c:if>
+
+						<button id="searchMaxPage" >>></button>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			</nav>
             
             </div>
           </div>
-        </form>
+
       </div>
     </div>  
   
@@ -176,5 +249,58 @@
   </div>
   
   <jsp:include page="../commons/footer.jsp"/>
+	<script>
+	  window.onload = function(){
+		  let beforeInquiryReply = "${ inquiryReply }";
+
+		  if(beforeInquiryReply != null && beforeInquiryReply.length > 0){
+		  
+			  let inquiryReply = document.getElementById("inquiryReply");
+			  
+			  for(var i = 0; i < inquiryReply.length; i++){
+				  if(inquiryReply[i].value == beforeInquiryReply){
+					  inquiryReply[i].selected = true;					  
+				  }
+			  }
+		  }
+		  
+	  }
+	</script>
+	<script>
+    const link = "${pageContext.servletContext.contextPath }/teacher/teacherInquiryList";
+    const inquiryReply = document.getElementById("inquiryReply").value;
+
+    if(document.getElementById("startPage")) {
+		const $startPage = document.getElementById("startPage");
+		$startPage.onclick = function() {
+			location.href = link + "?currentPage=1"+ "&inquiryReply="+inquiryReply;
+		}
+	}
+	
+	if(document.getElementById("prevPage")) {
+		const $prevPage = document.getElementById("prevPage");
+		$prevPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }"+ "&inquiryReply="+inquiryReply;
+		}
+	}
+	
+	if(document.getElementById("nextPage")) {
+		const $nextPage = document.getElementById("nextPage");
+		$nextPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }"+ "&inquiryReply="+inquiryReply;
+		}
+	}
+	
+	if(document.getElementById("maxPage")) {
+		const $maxPage = document.getElementById("maxPage");
+		$maxPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }"+ "&inquiryReply="+inquiryReply;
+		}
+	}
+	
+	function pageButtonAction(text) {
+		location.href = link + "?currentPage=" + text + "&inquiryReply="+inquiryReply;
+	}
+	</script>    
 </body>
-<html>
+</html>
