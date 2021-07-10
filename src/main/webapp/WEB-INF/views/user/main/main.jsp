@@ -309,7 +309,6 @@
          </section>
          <br><br>
  		
-
         <!-- SERVICES-->
         <section class="py-5 bg-light" style="padding-bottom: 3rem!important;">
           <div class="container">
@@ -359,7 +358,7 @@
       </div>
       <br><br><br>
       
-        	<%@include file="../commons/footer.jsp" %>
+      <%@include file="../commons/footer.jsp" %>
 
     </div>
   </body>

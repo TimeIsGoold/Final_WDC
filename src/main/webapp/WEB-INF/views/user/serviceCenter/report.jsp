@@ -127,11 +127,14 @@
 		                        <td>
 		                          <a href="${ pageContext.servletContext.contextPath }/user/serviceCenter/reportDetail/${ report.reportNo }">${ report.reportTitle }</a></td>
 		                        <td>${ report.reportDate }</td>
-		                        <c:if test="${ report.status eq 'Y' }">
-		                          <td>처리완료</td>
+		                        <c:if test="${ report.status eq 'S' }">
+		                          <td>반려</td>
 		                      	</c:if>
 	                          	<c:if test="${ report.status eq 'N' }">
-		                          <td>대기중</td>
+		                          <td>대기</td>
+		                      	</c:if>
+		                      	<c:if test="${ report.status eq 'Y' }">
+		                          <td>완료</td>
 		                      	</c:if>
 		                      </tr>   
 	                    </c:forEach> 
