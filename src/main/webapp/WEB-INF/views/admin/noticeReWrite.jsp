@@ -97,50 +97,50 @@
                                 <i class="fas fa-table me-1"></i>공지사항 수정
                             </div>
 
-                            <div class="card-body">
-                                <table class="table">
-                                    <form id="area" method="post">
-	                                    <tbody>
-	                                        <tr>
-	                                        	<input type="hidden" name="noticeNo" value="${ noticeDetail.noticeNo }">
-	                                            <th>공개&nbsp;&nbsp;대상</th>
-	                                            <td>
-	                                                <input type="radio" name="noticeType" value="A" id="A" class="radioBtnType">전체 회원용
-	                                                <input type="radio" name="noticeType" value="T" id="T" class="radioBtnType">강사 회원용
-	                                                <input type="radio" name="noticeType" value="C" id="C" class="radioBtnType">일반 회원용
-	                                            </td>
-	                                        </tr>
-	                                        <tr>
-	                                            <th>상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
-	                                            <td>
-	                                                <input type="radio" name="importantYN" id="N" value="N" class="radioBtnCondition">보통
-	                                                <input type="radio" name="importantYN" id="Y" value="Y" class="radioBtnCondition">중요
-	                                            </td>
-	                                        </tr>
-	                                        <tr>
-	                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
-	                                            <td>
-	                                                <input type="text" value="${ noticeDetail.noticeTitle }" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요.">
-	                                            </td>
-	                                        </tr>
-	                                        <tr>
-	                                            <td id="contextArea" colspan="2">내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td>
-	                                        </tr>
-	                                        <tr>
-	                                        	<td colspan="2">
-	  												<textarea id="summernote" name="noticeContent"></textarea>
-	                                            </td>
-	                                        </tr>
-	                                    </tbody>
-                                    </form>
-                                </table>     
-                
-                                <div class="noticeBtnArea">
-                                    <input type="button" id="btnNotice" class="noticeBtn" value="수정하기">
-                                    <input type="button" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
-                                </div>
-
-                            </div>
+                            <form id="area" method="POST" action="/wdc/admin/noticeReWrite">
+	                            <div class="card-body">
+	                                <table class="table">
+		                                    <tbody>
+		                                        <tr>
+		                                        	<input type="hidden" name="noticeNo" value="${ noticeDetail.noticeNo }">
+		                                            <th>공개&nbsp;&nbsp;대상</th>
+		                                            <td>
+		                                                <input type="radio" name="noticeType" value="A" id="A" class="radioBtnType" required>전체 회원용
+		                                                <input type="radio" name="noticeType" value="T" id="T" class="radioBtnType">강사 회원용
+		                                                <input type="radio" name="noticeType" value="C" id="C" class="radioBtnType">일반 회원용
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <th>상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태</th>
+		                                            <td>
+		                                                <input type="radio" name="importantYN" id="N" value="N" class="radioBtnCondition" required>보통
+		                                                <input type="radio" name="importantYN" id="Y" value="Y" class="radioBtnCondition">중요
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <th>제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;목</th>
+		                                            <td>
+		                                                <input type="text" value="${ noticeDetail.noticeTitle }" name="noticeTitle" id="titleArea" placeholder="공지사항의 제목을 입력하세요." required>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td id="contextArea" colspan="2">내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+		                                        </tr>
+		                                        <tr>
+		                                        	<td colspan="2">
+		  												<textarea id="summernote" name="noticeContent" required ></textarea>
+		                                            </td>
+		                                        </tr>
+		                                    </tbody>
+	                                </table>     
+	                
+	                                <div class="noticeBtnArea">
+	                                    <input type="submit" id="btnNotice" class="noticeBtn" value="수정하기">
+	                                    <input type="button" class="noticeBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/noticeManagement?currentMenu=notice'" value="리스트보기">
+	                                </div>
+	
+	                            </div>
+	                        </form>
 
                         </div>
                     </div>
@@ -149,9 +149,11 @@
 
         </div>
         <script>
+        /*
         	$("#btnNotice").on("click",function(){
         		$("#area").attr("action","/wdc/admin/noticeReWrite").submit();
         	});
+        */
         </script>
         <script type="text/javascript">
        		const type = '${noticeDetail.noticeType}';
