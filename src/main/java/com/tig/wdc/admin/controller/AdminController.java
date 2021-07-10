@@ -327,7 +327,7 @@ public class AdminController {
 	* @return
 	*/
 	@GetMapping("calculateDetail")
-	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("type")String classType, @RequestParam("no")int no, @RequestParam("cday")int cday, Model model) {
+	 public String calculateInfoDetail(@RequestParam("YN")String type, @RequestParam("type")String classType, @RequestParam("no")int no, @RequestParam("cday")int cday, @ModelAttribute CalculateDTO calculate, Model model) {
 		
 		Map<String, Object> calculateDetailMap = new HashMap<String, Object>();
 		calculateDetailMap.put("no",no);
@@ -335,9 +335,28 @@ public class AdminController {
 		calculateDetailMap.put("type", classType);
 		
 		if(type.equals("N")) {
-			model.addAttribute("calculateInfoDetail", adminService.selectNoCalculateDetail(calculateDetailMap));
+			
+			calculate = adminService.selectNoCalculateDetail(calculateDetailMap);
+			model.addAttribute("calculateInfoDetail", calculate);
+			
+			try {
+				 System.out.println(aes.encrypt("1002-011-111111"));
+				
+				calculate.setTeAcntNo(aes.decrypt(calculate.getTeAcntNo()));
+			} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}
+			
 		} else if(type.equals("Y")) {
-			model.addAttribute("calculateInfoDetail", adminService.selectYesCalculateDetail(no));
+			
+			calculate = adminService.selectYesCalculateDetail(no);
+			model.addAttribute("calculateInfoDetail", calculate);
+			
+			try {
+				calculate.setTeAcntNo(aes.decrypt(calculate.getTeAcntNo()));
+			} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return "admin/calculateDetail";
@@ -391,14 +410,19 @@ public class AdminController {
 		refundDetailMap.put("no", no);
 		refundDetailMap.put("classNo", clsno);
 		
-//		try {
-//			System.out.println("확인 : " + aes.encrypt(refund.getRefundAccount()));
-//		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
-//			e.printStackTrace();
-//		}
+		refund = adminService.selectRefundInfoDetail(refundDetailMap);
+		model.addAttribute("refundInfoDetail", refund);
 		
-		model.addAttribute("refundInfoDetail", adminService.selectRefundInfoDetail(refundDetailMap));
 		model.addAttribute("refundTotalAmount", adminService.selectRefundTotalAmount(refundDetailMap));
+		
+		try {
+			System.out.println("아현 : " + refund.getRefundAccount());
+			System.out.println("확인 : " + aes.decrypt(refund.getRefundAccount()));
+			
+			refund.setRefundAccount(aes.decrypt(refund.getRefundAccount()));
+		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
+			e.printStackTrace();
+		}
 		
 		return "admin/refundDetail";
 	}
