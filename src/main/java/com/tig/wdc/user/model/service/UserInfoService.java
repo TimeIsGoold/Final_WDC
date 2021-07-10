@@ -62,4 +62,6 @@ public interface UserInfoService {
 
 	public int selectPwd(UserInfoDTO infoDTO);
 
+	public int selectlikeClassCount(int userNo);
+
 }

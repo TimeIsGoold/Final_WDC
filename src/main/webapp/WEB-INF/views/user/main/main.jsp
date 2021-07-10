@@ -224,7 +224,7 @@
 				            },
 				            success:function(data, textStatus, xhr){
 				            	if(data == '0'){
-					            	if (confirm("클래스 찜♡ 찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+					            	if (confirm("클래스 찜♡\n찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
 					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
 					    			} else { 
 					    				//거부하면 해당 페이지 새로고침 
@@ -247,10 +247,10 @@
            </div>
           </section>
 
-          <!-- 리뷰 많은 클래스  -->
+          <!-- 찜 많은 클래스  -->
           <section class="py-5">
             <header>
-              <p class="small text-muted small text-uppercase mb-1">우동클 별점왕★</p>
+              <p class="small text-muted small text-uppercase mb-1">가장 많은 관심을 받은 클래스는 ?!</p>
               <h2 class="h5 text-uppercase mb-4">우동클 인기 클래스</h2>
             </header>
             <div class="row">
@@ -315,14 +315,14 @@
 				        const clsNo = document.getElementById('clsNo' + ${i}).value;
 				        
 				        $.ajax({
-				            url:"${pageContext.servletContext.contextPath}/user/likeClass",
+				            url:"${pageContext.servletContext.contextPath}/user/mypage/likeClass",
 				            type:"post",
 				            data:{
 				         		clsNo : clsNo	
 				            },
 				            success:function(data, textStatus, xhr){
 				            	if(data == '0'){
-					            	if (confirm("클래스 찜♡  찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+					            	if (confirm("클래스 찜♡\n찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
 					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
 					    			} else { 
 					    				//거부하면 해당 페이지 새로고침 
@@ -413,14 +413,14 @@
 				        const clsNo = document.getElementById('clsNo' + ${i}).value;
 				        
 				        $.ajax({
-				            url:"${pageContext.servletContext.contextPath}/user/likeClass",
+				            url:"${pageContext.servletContext.contextPath}/user/mypage/likeClass",
 				            type:"post",
 				            data:{
 				         		clsNo : clsNo	
 				            },
 				            success:function(data, textStatus, xhr){
 				            	if(data == '0'){
-					            	if (confirm("클래스 찜♡  찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+					            	if (confirm("클래스 찜♡\n찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
 					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
 					    			} else { 
 					    				//거부하면 해당 페이지 새로고침 

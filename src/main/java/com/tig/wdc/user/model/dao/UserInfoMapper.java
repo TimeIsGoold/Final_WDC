@@ -61,6 +61,6 @@ public interface UserInfoMapper {
 
 	int selectPwd(UserInfoDTO infoDTO);
 
-
+	int selectlikeClassCount(int userNo);
 
 }

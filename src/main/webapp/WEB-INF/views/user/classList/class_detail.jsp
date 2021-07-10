@@ -220,19 +220,16 @@ i {
 </style>
 </head>
 <body>
-                <!-- 현재 시간  -->
-              <%Timestamp now = new Timestamp(System.currentTimeMillis());
+  <!-- 현재 시간  -->
+<%Timestamp now = new Timestamp(System.currentTimeMillis());
+SimpleDateFormat formats = new SimpleDateFormat("yyyy-MM-dd");
+String strDate = formats.format(now); %>
 
-				SimpleDateFormat formats = new SimpleDateFormat("yyyy-MM-dd");
-
-				String strDate = formats.format(now); %>
-			<c:set value="<%=strDate %>" var="cDate"></c:set>
-    <div class="page-holder bg-light">
-      <!-- navbar-->
+ <c:set value="<%=strDate %>" var="cDate"></c:set>
+ <div class="page-holder bg-light">
+    <!-- navbar-->
 	<%@include file="../commons/header2.jsp" %>
-
      <%@include file="../commons/search.jsp" %>
-     
      <form action="${ pageContext.servletContext.contextPath }/user/payment" method="post">
       <section class="py-5">
          <div class="container">
@@ -305,23 +302,63 @@ i {
                            <img src="${pageContext.servletContext.contextPath }/resources/user/img/users.png" width="20px">&nbsp;&nbsp;
                            <c:if test="${ requestScope.classDetail.clsType == 'R' }">
                               <c:forEach var="schedule" items="${ requestScope.schedule }">
-                                 최대 ${ schedule.maxPeople } 명
+                                 	최대 ${ schedule.maxPeople } 명
                               </c:forEach>
                            </c:if>
                            <c:if test="${ requestScope.classDetail.clsType == 'O' }">
-                              최대   ${ requestScope.oneDayMax } 명
+                              	최대   ${ requestScope.oneDayMax } 명
                            </c:if>
                         </div>
                      </div>
                      <div class="class-icon" style="padding-inline: 10px;">
                         <div>
                            <li class="list-inline-item m-0 p-0">
-                           <a class="btn btn-sm btn-outline-dark"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
+                           <a class="btn btn-sm btn-outline-dark" id="like"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
                         </div>
                         <div>
                            <li class="list-inline-item m-0 p-0">
                            <a class="btn btn-sm btn-outline-dark" onclick="clip()"><img src="${pageContext.servletContext.contextPath }/resources/user/img/share.png" width="18px">&nbsp;&nbsp;공유</a></li>
                            <script>
+		           	            $("#like").click(function(){ //찜 스크립트
+		        					if ("${ sessionScope.userNo }" == "") { //로그인 안했을 경우
+		        		  				
+		        						if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
+		        		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
+		        		  				} else { 
+		        		  					// 거부하면 해당 페이지 새로고침 
+		        		  					location.reload(); 
+		        		  				}
+		        					} else{ //로그인 한 경우
+		        						
+		        				        const clsNo = ${ requestScope.classDetail.clsNo };
+		        				        
+		        				        $.ajax({
+		        				            url:"${pageContext.servletContext.contextPath}/user/mypage/likeClass",
+		        				            type:"post",
+		        				            data:{
+		        				         		clsNo : clsNo	
+		        				            },
+		        				            success:function(data, textStatus, xhr){
+		        				            	if(data == '0'){
+		        					            	if (confirm("클래스 찜♡ \n찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+		        					    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
+		        					    			} else { 
+		        					    				//거부하면 해당 페이지 새로고침 
+		        					    				location.reload();
+		        					    				//return;
+		        					    			} 
+		        					            } else if(data == '1'){
+		        				         			alert("찜 목록에서 삭제되었습니다.");
+		        					  	   			location.reload();
+		        				         		}
+		        				        	},
+		        				            error:function(xhr,status,error){
+		        				            	console.log(error);
+		        				       		}
+		        		        		});  
+		        					}
+		        				});
+                           
                               function clip(){ //url 복사 스크립트
    
                                  var url = '';
@@ -635,29 +672,30 @@ i {
 	            </c:if>
           
                <c:if test="${ requestScope.classDetail.dicsionStatus eq 'F'}">
-                  <div style="background-color: white; width: 500px; height: 183px; border-radius: 50px; text-align: center; padding-top: 22px;">
+                  <div style="background-color: white; width: 500px; height: 216px; border-radius: 50px; text-align: center; padding-top: 22px;">
                     	 클래스가 오픈되도록 응원해주세요.<br><br>
                      <div style="margin-top: -8px;">응원한 클래스가 오픈되면 <b style="color: #64bcff; font-size: 20px;">할인 쿠폰</b>까지!<br><br></div>
-                       <li class="list-inline-item m-0 p-0">
-                          <c:if test="${ !empty sessionScope.userNo }">
-                             <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 
-                                <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
-                                   <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>                           
-                             </button>
-                         </c:if>
-                          <c:if test="${ empty sessionScope.userNo }">
-                             <button class="btn btn-sm btn-outline-dark" onclick="noApply();" type="button" style="height: 40px; width: 170px; font-size: 16px;">클래스 응원하기 </button>
-                         <script>
-                            function noApply() {
-                           alert("우리 동네 클래스 회원만 응원이 가능합니다.");
-                        }
-                         </script>
-                         </c:if>
-                              응원 갯수 :${ requestScope.cheerCount }  개              
-                  </li>
-               </div>
+                     <div style="margin-top: 10px; margin-left: 17px;"><b>현재 응원수 : ${ requestScope.cheerCount } 개</b><br><br></div>
+                     <img src="${pageContext.servletContext.contextPath }/resources/user/img/cheer.png" style="width: 100px; margin-left: -95px; margin-top: -55px;">
+                     <li class="list-inline-item m-0 p-0">
+                        <c:if test="${ !empty sessionScope.userNo }">
+                           <button class="btn btn-sm btn-outline-dark" id="cheerUp" type="button" style="height: 40px; width: 170px; font-size: 16px; margin-top: -35px; margin-left: 10px;">클래스 응원하기 
+                              <input type="hidden" name="clsNo"  id="clsNo" value="${ requestScope.classDetail.clsNo }"/>               
+                                 <input type="hidden" name="clsType" value="${ requestScope.classDetail.clsType }"/>                           
+                           </button>
+                       </c:if>
+                       <c:if test="${ empty sessionScope.userNo }">
+                           <button class="btn btn-sm btn-outline-dark" onclick="noApply();" type="button" style="height: 40px; width: 170px; font-size: 16px; margin-top: -35px; margin-left: 10px;">클래스 응원하기 </button>
+	                       <script>
+	                          function noApply() {
+	                         		alert("우리 동네 클래스 회원만 응원이 가능합니다.");
+	                      	}
+	                       </script>
+                       </c:if>
+                	 </li>
+              	  </div>
                </c:if>
-               </div>
+              </div>
             </div>
             <!-- DETAILS TABS-->
             <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
@@ -689,7 +727,7 @@ i {
                            <br>
                            <!-- 완성작 사진 -->
                            <h3 style="padding-bottom: 20px;">※ 클래스 완성작</h3>
-                           - ${ requestScope.classDetail.cExpl }<br>
+                           - ${ requestScope.classDetail.cExpl }<br><br>
                            <div style="width: 550px; display: flex; margin: auto; text-align: center; justify-content: space-between; font-size: 16px;">
                               <c:forEach var="classPiece" items="${ requestScope.classPiece }">
                                  <div>
@@ -742,7 +780,8 @@ i {
                               <img src="${pageContext.servletContext.contextPath }/resources/user/img/wifi.png" alt="home" 
                               width="23px" height="23px">
                               <div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
-                                 와이파이 가능합니다.</div>
+                               	  와이파이 가능합니다.
+                              </div>
                            </div>
                            <br>
                            <!-- 지도 보기 -->
@@ -933,12 +972,12 @@ i {
                         },
                         success:function(data, textStatus, xhr){
                            if(data == '0'){
-                              alert("이미 응원하신 클래스 입니다");
+                              alert("이미 응원하신 클래스 입니다.");
                            }else if(data == '1'){
-                              alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
+                              alert("응원에 성공 했습니다.\n해당 클래스가 오픈될 수 있게 응원해주세요!!")
                              location.reload();
                            }else if(data == '2'){
-                              alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
+                              alert("오늘 이미 응원하셨습니다.\n응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요.")
                            }
                         },
                         error:function(xhr,status,error){

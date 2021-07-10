@@ -35,6 +35,8 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tig.wdc.common.Encryption;
+import com.tig.wdc.common.PageNation;
+import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.teacher.model.service.TeacherInfoService;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
@@ -60,16 +62,18 @@ public class UserInfoController {
 	private final UserInfoService infoService;
 	private final UserClassService classService;
 	private final BCryptPasswordEncoder passwordEncoder;
+	private PageInfoDTO pageInfo;
 
 	@Autowired
 	private Encryption aes;
 
 	@Autowired
 	public UserInfoController(UserInfoService infoService, UserClassService classService,
-			BCryptPasswordEncoder passwordEncoder) {
+			BCryptPasswordEncoder passwordEncoder, PageInfoDTO pageInfo) {
 		this.infoService = infoService;
 		this.classService = classService;
 		this.passwordEncoder = passwordEncoder;
+		this.pageInfo = pageInfo;
 	}
 
 	/**
@@ -584,14 +588,19 @@ public class UserInfoController {
 	 * @return
 	 */
 	@GetMapping("likeClassList")
-	public String likeClassList(Model model, HttpSession session) {
+	public String likeClassList(Model model, HttpSession session, @RequestParam(defaultValue = "1") int currentPage) {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 
-		UserClassDTO userClassDTO = new UserClassDTO();
-
-		List<UserClassDTO> likeClassDTOList = classService.selectMyLikeClassList(userNo);
-
+		//현재 페이지, 전체 게시글 수, 보여줄 게시글 수, 보여줄 버튼 수
+		pageInfo = PageNation.getPageInfo(currentPage, infoService.selectlikeClassCount(userNo), 8, 5);
+		pageInfo.setUserNo(userNo);
+		
+		//페이지 정보를 담아옴
+		model.addAttribute("pageInfo", pageInfo);
+		
+		//받아온 페이지 정보를 가지고 찜 목록 select
+		List<UserClassDTO> likeClassDTOList = classService.selectMyLikeClassList(pageInfo);
 		model.addAttribute("likeClassDTOList", likeClassDTOList);
 
 		return "user/classList/likeClassList";

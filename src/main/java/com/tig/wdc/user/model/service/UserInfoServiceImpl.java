@@ -149,4 +149,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return mapper.selectPwd(infoDTO);
 	}
 
+	@Override
+	public int selectlikeClassCount(int userNo) {
+		return mapper.selectlikeClassCount(userNo);
+	}
+
 }

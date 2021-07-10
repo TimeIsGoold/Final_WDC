@@ -343,10 +343,12 @@
 	<update id="updateLikeYn" parameterType="UserLikeClassDTO">
 		UPDATE LIKE_HISTORY 
 		<if test="likeStatus == 'Y'">
-		   SET LIKE_STATUS = 'N'
+		   SET LIKE_STATUS = 'N',
+		       LIKE_NO = SEQ_LIKE_NO.NEXTVAL
 		</if>
 		<if test="likeStatus == 'N'">
-		   SET LIKE_STATUS = 'Y'
+		   SET LIKE_STATUS = 'Y',
+		       LIKE_NO = SEQ_LIKE_NO.NEXTVAL
 		</if>
 		 WHERE USER_NO = #{ userNo }
 		   AND CLS_NO = #{ clsNo }
@@ -378,4 +380,11 @@
 		   SET USER_PWD = #{ userPwd }
 		 WHERE USER_NO = #{ userNo }
 	</update>
+	
+	<select id="selectlikeClassCount" parameterType="_int" resultType="_int">
+		SELECT 
+		       COUNT(USER_NO)
+		  FROM LIKE_HISTORY
+		 WHERE USER_NO = #{ userNo }
+	</select>
 </mapper>

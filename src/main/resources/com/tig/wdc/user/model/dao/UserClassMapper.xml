@@ -26,6 +26,7 @@
         <result column="SAVE_PATH" property="titlePic"/>
         <result column="AVG_SCORE" property="avgScore"/>
         <result column="D_DAY" property="dDay"/>
+        <result column="LIKE_STATUS" property="likeStatus"/>
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
@@ -44,28 +45,22 @@
 	</select>
 	
 	<select id="selectTopClassList" parameterType="UserClassDTO" resultMap="ClassResult">
-        SELECT
-		       Y.*
-		  FROM (SELECT
-                       X.AVG_SCORE
-		             , A.SAVE_PATH
-		             , L.*
-		          FROM (SELECT 
-		                       AVG(R.REVIEW_SCORE) AS AVG_SCORE
-		                     , S.CLS_NO
-		                  FROM REVIEW R
-		                  JOIN CLASS_APPLY C ON(R.CLS_APL_NO = C.CLS_APL_NO)
-		                  JOIN SCHEDULE S ON(S.SCHEDULE_NO = C.SCHEDULE_NO)
-		                 GROUP BY S.CLS_NO
-                         ORDER BY AVG(R.REVIEW_SCORE) DESC) X
-		          JOIN ATTACHMENT A ON(X.CLS_NO = A.CLS_NO)
-		          JOIN CLASS L ON(L.CLS_NO = A.CLS_NO)
-		         WHERE A.TYPE = 'TITLE'
-                   AND L.CLS_DICSION_STATUS = 'S'
-                   AND (L.CLS_STATUS = 'P'
-                    OR L.CLS_STATUS = 'Y')
-                 ORDER BY AVG_SCORE DESC) Y
-		 WHERE ROWNUM <![CDATA[ <= ]]>4 
+		SELECT
+		       *
+		 FROM (SELECT
+		              COUNT(LIKE_NO) AS RANKING
+		            , CLS_NO
+		         FROM LIKE_HISTORY
+		        WHERE LIKE_STATUS = 'Y'
+		        GROUP BY CLS_NO
+		        ORDER BY RANKING DESC)L
+		 JOIN CLASS C ON (L.CLS_NO = C.CLS_NO)
+		 JOIN ATTACHMENT A ON(C.CLS_NO = A.CLS_NO)
+		WHERE A.TYPE = 'TITLE'
+		  AND C.CLS_DICSION_STATUS = 'S'
+		  AND (C.CLS_STATUS = 'P'
+		   OR C.CLS_STATUS = 'Y')
+		  AND ROWNUM <![CDATA[ <= ]]>4 
 	</select>
 	
 	<select id="selectCheerClassList" parameterType="UserClassDTO" resultMap="ClassResult">
@@ -511,6 +506,7 @@
         <result column="PAY_NO" property="payNo"/>
         <result column="D_DAY" property="dDay"/>
     </resultMap>
+    
 	<select id="selectMyCheerClassList" parameterType="_int" resultMap="UserCategoryResult">
       SELECT
              C.*
@@ -531,23 +527,32 @@
           ]]>
 	</select>
 	
-	<select id="selectMyLikeClassList" parameterType="_int" resultMap="UserCategoryResult">
-       SELECT
-              L.*
-            , C.*
-            , T.*
-            , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
-         FROM LIKE_HISTORY L
-         JOIN CLASS C ON(L.CLS_NO = C.CLS_NO)
-         JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
-         JOIN ATTACHMENT T ON(C.CLS_NO = T.CLS_NO)
-        WHERE L.USER_NO = #{ userNo }
-         AND (C.CLS_DICSION_STATUS = 'F'
-          OR C.CLS_DICSION_STATUS = 'S')
-         AND T.TYPE = 'TITLE'
-         <![CDATA[
-         AND C.CLS_END_D > SYSDATE
-         ]]>
+	<select id="selectMyLikeClassList" parameterType="PageInfoDTO" resultMap="UserCategoryResult">
+		SELECT
+		      *
+		  FROM (SELECT
+		               ROWNUM RNUM
+		             , X.*
+		         FROM (SELECT
+		                      C.*
+		                    , L.LIKE_NO
+		                    , L.LIKE_STATUS
+		                    , T.SAVE_PATH
+		                    , SUBSTR(((DH.DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+		                FROM LIKE_HISTORY L
+		                JOIN CLASS C ON(L.CLS_NO = C.CLS_NO)
+		                JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
+		                JOIN ATTACHMENT T ON(C.CLS_NO = T.CLS_NO)
+		               WHERE L.USER_NO = #{ userNo }
+		                 AND L.LIKE_sTATUS = 'Y'
+		                 AND (C.CLS_DICSION_STATUS = 'F'
+		                  OR C.CLS_DICSION_STATUS = 'S')
+		                 AND T.TYPE = 'TITLE'
+		                 <![CDATA[
+		                 AND C.CLS_END_D > SYSDATE
+		                 ]]>
+		               ORDER BY LIKE_NO DESC) X) Y
+		 WHERE RNUM BETWEEN #{ startRow } AND #{ endRow }
 	</select>
 	
 	
@@ -586,7 +591,6 @@
 		 WHERE TO_DATE(CHEER_DATE,'yy/MM/dd') = TO_DATE(SYSDATE,'yy/MM/dd')
 		   AND USER_NO = #{ userNo }
 	</select>
-	
 	
 	<select id="selectUserCpnNo" parameterType="_int" resultType="_int">
 	      SELECT
