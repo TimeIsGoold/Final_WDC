@@ -101,36 +101,42 @@
 		 ORDER BY CPN_NO
 	</select>
 	
-	<select id="selectScheduledOneDayClassList" parameterType="UserClassDTO" resultMap="UserClassResult">
-		SELECT 
-		       *
+	<select id="selectScheduledClassList" parameterType="UserClassDTO" resultMap="UserClassResult">
+	    SELECT 
+		       C.*
+             , S.*
+             , A.*
+             , L.*
+             , P.*
 		  FROM CLASS_APPLY C
 		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
 		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
 		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
           JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
-		 WHERE C.USER_NO = #{userNo}
+		 WHERE C.USER_NO = #{ userNo }
 		   AND C.ATT_STATUS = 'N'
            AND TO_CHAR(S.SCHEDULE_DATE,'yy/MM/dd') != (SELECT
                                                              TO_CHAR(SYSDATE,'yy/MM/dd')
-                                                        FROM DUAL)		
-                                                         
-		   AND (S.SCHEDULE_DATE <![CDATA[>]]> SYSDATE )
+                                                        FROM DUAL)	
+           <![CDATA[
+		   AND (S.SCHEDULE_DATE > SYSDATE )
+		   ]]>
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
 		   AND L.CLS_TYPE = 'O'
-		 ORDER BY S.SCHEDULE_DATE
-	</select>
-	
-	<select id="selectScheduledRegularClassList" parameterType="_int" resultMap="UserClassResult">
+         UNION ALL
         SELECT 
-		       *
+	           C.*
+             , S.*
+             , A.*
+             , L.*
+             , P.*
 		  FROM CLASS_APPLY C
 		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
 		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
 		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
           JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
-		 WHERE C.USER_NO = #{userNo}
+		 WHERE C.USER_NO = #{ userNo }
 		   AND C.ATT_STATUS = 'N'
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
@@ -138,10 +144,10 @@
            <![CDATA[
            AND (L.CLS_START_D > SYSDATE)
            ]]>
+           
 	</select>
-	
 
-	<select id="selectparticipatingOneDayClassList" parameterType="_int" resultMap="UserClassResult">
+	<select id="selectparticipatingClassList" parameterType="_int" resultMap="UserClassResult">
         SELECT 
 		       *
 		  FROM CLASS_APPLY C
@@ -149,7 +155,7 @@
 		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
 		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
           JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
-		 WHERE C.USER_NO = #{userNo}
+		 WHERE C.USER_NO = #{ userNo }
            AND C.ATT_STATUS = 'N'
            AND CLS_TYPE = 'O'  
            AND TO_CHAR(S.SCHEDULE_DATE,'yy/MM/dd') = (SELECT
@@ -157,58 +163,67 @@
                                                         FROM DUAL)
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
-		 ORDER BY SCHEDULE_DATE
-	</select>
-	
-	<select id="selectparticipatingRegularClassList" parameterType="_int" resultMap="UserClassResult">
-        SELECT 
+         UNION ALL
+         SELECT 
 		       *
 		  FROM CLASS_APPLY C
 		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
 		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
 		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
           JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
-		 WHERE C.USER_NO = #{userNo}
+		 WHERE C.USER_NO = #{ userNo }
            AND C.ATT_STATUS = 'Y' -- 한번이라도 출석 시 Y
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
-           AND CLS_TYPE = 'R'  
-           <![CDATA[
+           AND CLS_TYPE = 'R' 
+           <![CDATA[            
            AND (L.CLS_START_D < SYSDATE)
            AND (L.CLS_END_D >= SYSDATE)
            ]]>
 	</select>
 	
-	<select id="selectComplateClassList" parameterType="_int" resultMap="UserClassResult">
-        SELECT 
-		       *
-		  FROM CLASS_APPLY C
-		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
-		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
-		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
-          JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
-		 WHERE C.USER_NO = #{userNo}
-           AND A.TYPE = 'TITLE'
-           AND C.ATT_STATUS = 'Y'
-          <![CDATA[
-           AND (S.SCHEDULE_DATE <= SYSDATE
-            OR L.CLS_END_D <= SYSDATE)
-            ]]>
-           AND P.PAY_STATUS = '완료'
+	<!-- 참여 완료, 환불한 클래스 조회용  -->
+	<select id="selectComplateClassList" parameterType="PageInfoDTO" resultMap="UserClassResult">
+        SELECT
+               Z.RNUM
+             , Z.*
+             , QCSJ_C000000001200000 CLS_APL_NO
+         FROM (SELECT
+                      ROWNUM RNUM
+                    , Y.*
+                 FROM (SELECT
+                              X.*
+			             FROM (SELECT 
+			                          *
+			                     FROM CLASS_APPLY C
+			                     JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+			                     JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+			                     JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+			                     JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
+			                    WHERE C.USER_NO = #{ userNo }
+			                      AND A.TYPE = 'TITLE'
+			                      AND C.ATT_STATUS = 'Y'
+			   	            <![CDATA[
+			                      AND (S.SCHEDULE_DATE <= SYSDATE
+			                       OR L.CLS_END_D <= SYSDATE)
+			            			]]>
+			                      AND P.PAY_STATUS = '완료'
+			                    UNION ALL   
+			                   SELECT 
+			                          *
+			                     FROM CLASS_APPLY C
+			                     JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+			                     JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+			                     JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+			                     JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
+			                    WHERE C.USER_NO = #{ userNo }
+			                      AND A.TYPE = 'TITLE'
+			                      AND P.PAY_STATUS = '취소') X
+                 		 ORDER BY X.PAY_STATUS ASC
+                                , X.CLS_APL_D DESC)Y ) Z
+         WHERE Z.RNUM BETWEEN #{ startRow } AND #{ endRow }
 	</select>
-	
-	<select id="selectRefundClassList" parameterType="_int" resultMap="UserClassResult">
-	    SELECT 
-		       *
-		  FROM CLASS_APPLY C
-		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
-		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
-		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
-          JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
-		 WHERE C.USER_NO = #{userNo}
-           AND A.TYPE = 'TITLE'
-           AND P.PAY_STATUS = '취소'
-	</select>
+
 	
 	<select id="selectScheduleDetail" parameterType="UserClassDTO" resultMap="UserClassResult">
         SELECT 
@@ -301,7 +316,37 @@
 	   , 'N'
 	   , SYSDATE
 	   , 'U'
-	   )
-	
+	   )	
 	</insert>
+	
+	<select id="selectCompleteClssCount" parameterType="_int" resultType="_int">
+        SELECT 
+		       COUNT(*)
+		  FROM CLASS_APPLY C
+		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+          JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
+		 WHERE C.USER_NO = #{ userNo }
+           AND A.TYPE = 'TITLE'
+           AND C.ATT_STATUS = 'Y'
+          <![CDATA[           
+           AND (S.SCHEDULE_DATE <= SYSDATE
+            OR L.CLS_END_D <= SYSDATE)
+            ]]>
+           AND P.PAY_STATUS = '완료'
+	</select>
+	
+	<select id="selectRefundClassCount" parameterType="_int" resultType="_int">
+	    SELECT 
+		       COUNT(*)
+		  FROM CLASS_APPLY C
+		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+		  JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+          JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
+		 WHERE C.USER_NO = #{ userNo }
+           AND A.TYPE = 'TITLE'
+           AND P.PAY_STATUS = '취소'
+	</select>
 </mapper>

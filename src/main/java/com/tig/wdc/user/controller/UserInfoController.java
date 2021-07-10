@@ -31,6 +31,8 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tig.wdc.common.Encryption;
+import com.tig.wdc.common.PageNation;
+import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.teacher.model.service.TeacherInfoService;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
@@ -55,16 +57,19 @@ public class UserInfoController {
 	private final UserInfoService infoService;
 	private final UserClassService classService;
 	private final BCryptPasswordEncoder passwordEncoder;
+	private PageInfoDTO pageInfo;
+
 
 	@Autowired
 	private Encryption aes;
 	
 	
 	@Autowired
-	public UserInfoController(UserInfoService infoService, UserClassService classService,BCryptPasswordEncoder passwordEncoder) {
+	public UserInfoController(UserInfoService infoService, UserClassService classService,BCryptPasswordEncoder passwordEncoder,PageInfoDTO pageInfo) {
 		this.infoService = infoService;
 		this.classService = classService;
 		this.passwordEncoder = passwordEncoder;
+		this.pageInfo = pageInfo;
 	}
 
 	
@@ -112,8 +117,8 @@ public class UserInfoController {
 			
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
 //        암호화 후 적용
-		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
-//		} else if(!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
+//		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
+		} else if(!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
 			
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if("Y".equals(userInfoDTO.getQuitYn())) {
@@ -362,17 +367,12 @@ public class UserInfoController {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		
-		List<UserClassDTO> scheduledOneDayClassList = new ArrayList<UserClassDTO>();
-		List<UserClassDTO> scheduledRegularClassList = new ArrayList<UserClassDTO>();
+		List<UserClassDTO> scheduledClassList = new ArrayList<UserClassDTO>();
 		
-		// 1. 원데이용
-		scheduledOneDayClassList = infoService.selectScheduledOneDayClassList(userNo);
-		// 2. 정규용
-		scheduledRegularClassList = infoService.selectScheduledRegularClassList(userNo);
+		// 1. 원데이용, 정규용 한번에 조회
+		scheduledClassList = infoService.selectScheduledClassList(userNo);
 		
-		model.addAttribute("scheduledOneDayClassList",scheduledOneDayClassList);
-		model.addAttribute("scheduledRegularClassList",scheduledRegularClassList);
-		
+		model.addAttribute("scheduledClassList",scheduledClassList);		
 		return "user/mypage/scheduledClass";
 
 	}
@@ -388,16 +388,12 @@ public class UserInfoController {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		
-		List<UserClassDTO> participatingOneDayClassList = new ArrayList<UserClassDTO>();
-		List<UserClassDTO> participatingRegularClassList = new ArrayList<UserClassDTO>();
+		List<UserClassDTO> participatingClassList = new ArrayList<UserClassDTO>();
 		
-		// 1. 원데이용
-		participatingOneDayClassList = infoService.selectparticipatingOneDayClassList(userNo);
-		// 2. 정규용
-		participatingRegularClassList = infoService.selectparticipatingRegularClassList(userNo);
+		// 1. 원데이 정규 한번에 조회
+		participatingClassList = infoService.selectparticipatingClassList(userNo);
 		
-		model.addAttribute("participatingOneDayClassList",participatingOneDayClassList);
-		model.addAttribute("participatingRegularClassList",participatingRegularClassList);
+		model.addAttribute("participatingClassList",participatingClassList);
 		
 		return "user/mypage/participatingClass";
 	}
@@ -409,19 +405,25 @@ public class UserInfoController {
 	 * @return
 	 */
 	@GetMapping("complateClassList")
-	public String complateClassList(Model model, HttpSession session) {
+	public String complateClassList(Model model, HttpSession session, @RequestParam(defaultValue = "1") int currentPage) {
 		
 		int userNo= (Integer) session.getAttribute("userNo");
 		
+		int countSelectCompleteClssCount = infoService.selectCompleteClssCount(userNo);
+		int countSelectRefundClassCount = infoService.selectRefundClassCount(userNo);
+		int sumCount = countSelectCompleteClssCount + countSelectRefundClassCount;
+		
+		//현재 페이지, 전체 게시글 수, 보여줄 게시글 수, 보여줄 버튼 수
+		pageInfo = PageNation.getPageInfo(currentPage, sumCount, 8, 5);
+		//페이지 정보를 담아옴
+		model.addAttribute("pageInfo", pageInfo);
+		pageInfo.setUserNo(userNo);
+		
 		List<UserClassDTO> complateClassList = new ArrayList<UserClassDTO>();
-		List<UserClassDTO> refundClassList = new ArrayList<>();
 		
-		complateClassList = infoService.selectComplateClassList(userNo);
-		refundClassList = infoService.selectRefundClassList(userNo);
-		System.out.println("refundClassList : " + refundClassList);
-		
+		complateClassList = infoService.selectComplateClassList(pageInfo);
+
 		model.addAttribute("complateClassList",complateClassList);
-		model.addAttribute("refundClassList",refundClassList);
 		
 		return "user/mypage/complateClass";
 
@@ -465,13 +467,15 @@ public class UserInfoController {
 		int userNo= (Integer) session.getAttribute("userNo");
 		userClassDTO.setUserNo(userNo);
 		userClassDTO.setAplNo(aplNo);
+		
 		userClassDTO.setPayStatus(payStatus);
+		System.out.println("payStatus" + payStatus);
 		
 		System.out.println("userClassDTO : " + userClassDTO);
 		
 		UserClassDTO scheduleDetailUserClassDTO = new UserClassDTO();
 		scheduleDetailUserClassDTO = infoService.selectScheduleDetail(userClassDTO);
-		
+		System.out.println("scheduleDetailUserClassDTO : " + scheduleDetailUserClassDTO);
 		model.addAttribute("complateDetailUserClassDTO",scheduleDetailUserClassDTO);
 		
 		int reviewYn = infoService.selectReviewYn(aplNo);

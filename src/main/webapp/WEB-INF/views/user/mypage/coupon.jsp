@@ -151,8 +151,8 @@
 				        <div class="modal-dialog modal-sm">
 				          <div class="modal-content">
 				            <div class="modal-header">
-				              <div class="couponList" >
-				                <h4><i class="fas mr-2 fa-gift"> 5% 할인 쿠폰 </i></h4>
+				              <div class="couponList">
+				                <h4><i class="fas mr-2 fa-gift">할인금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/> 원</i></h4>
 				
 				                <h6>${couponList.cpnName}</h6>
 				                <c:if test="${couponList.userNo eq '0'}">
