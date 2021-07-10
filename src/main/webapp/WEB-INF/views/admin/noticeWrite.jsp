@@ -155,7 +155,7 @@
             $('#summernote').summernote({
               placeholder: '공지사항을 입력하세요.',
               lang: "ko-KR",
-              height: 350
+              height: 350,
             });
           </script>  
     </body>
