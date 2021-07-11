@@ -122,8 +122,8 @@ public class UserInfoController {
 
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
 //        암호화 후 적용
-//		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
-		} else if (!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
+		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
+//		} else if (!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
 
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if ("Y".equals(userInfoDTO.getQuitYn())) {
