@@ -12,7 +12,7 @@
         <!-- Favicon-->
     	<link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles2.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	   	<script>
 	   		function drawColor(){
@@ -20,8 +20,6 @@
 	   			var NdocumentUrl = new URL(documentUrl);  
 	   			var currentMenu = NdocumentUrl.searchParams.get("currentMenu");  //url에 있는 name이란 파라미터값을 가지고옴
 	   			 
-	   			//const sideBar = document.getElementsByClassName('nav-link');
-	   			
 	   			const currentMenuBar = document.getElementById(currentMenu);
 	   			currentMenuBar.style.color = '#fef0ae';
 	   		}
