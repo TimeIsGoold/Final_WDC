@@ -58,7 +58,7 @@ public interface UserInfoMapper {
 
 	int updatePwd(UserInfoDTO infoDTO);
 
-	int selectPwd(UserInfoDTO infoDTO);
+	String selectPwd(UserInfoDTO infoDTO);
 
 	int selectlikeClassCount(int userNo);
 	
