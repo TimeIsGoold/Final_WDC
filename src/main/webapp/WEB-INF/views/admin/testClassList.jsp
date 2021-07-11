@@ -13,8 +13,8 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
         <style>
+
         	.category {
         		margin-top: 0.5%;
                 width: 33%;
@@ -28,6 +28,7 @@
                 background: rgb(112, 112, 112);
             }    
     </style>
+    </head>
           <c:if test="${not empty message }">
           <script>
               alert("${message}");
@@ -52,7 +53,7 @@
                                 <i class="fas fa-table me-1"></i>
                                 클래스 관리
                             </div>
-                             <div class="btn-group btn-group-justified">
+                             <div class="sideMenu">
                             	<input type="button" id="total" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
                             	<input type="button" id="one" class="category" value="1차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">
                             	<input type="button" id="t" class="category" value="2차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t'">
@@ -114,16 +115,14 @@
 							<div align="center">
 								<c:choose>
 									<c:when test="${t eq 't'}">
-										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
-										<button class="btn btn-danger" type="submit" value="2" name="submit" >거절</button>
 									</c:when>
 									<c:when test="${t eq 'p'}">
-										<label>전체 선택 <input type="checkbox" name="cheeringInfo" id="allcheck" onclick="check(this)"/></label>
+										<input type="button" class="btn btn-primary" value="전체선택" id="allcheck" onclick="check(this)"/>
 										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
 									</c:when>
 									<c:otherwise>
-										<label>전체 선택 <input type="checkbox" name="cheeringInfo" id="allcheck" onclick="check(this)"/></label>
-										<button class="btn btn-danger" type="submit" value="2" name="submit" >거절</button>
+										<input type="button" class="btn btn-danger" value="전체선택" id="allcheck" onclick="check(this)"/>
+										<button class="btn btn-danger" type="submit" value="2" name="submit">거절</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -164,11 +163,11 @@
 						console.log("이프문 확인")
 						
 					if(allcheck.checked){
-						for(var i = 0; list.length; i++) {
+						for(var i = 0; i < list.length; i++) {
 							list[i].checked = true;
 						}
 					} else {
-						for(var i = 0; list.length; i++) {
+						for(var i = 0; i < list.length; i++) {
 							list[i].checked = false;
 						}
 					}
@@ -180,7 +179,7 @@
 							cnt++;
 						}
 					}
-						if(cnt == list.length -1) {
+						if(cnt == list.length) {
 							allcheck.checked = true;
 						} else {
 							allcheck.checked = false;

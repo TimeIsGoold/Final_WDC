@@ -241,6 +241,7 @@
 			<result column="USER_ID" property="blackId"/>
 			<result column="USER_NAME" property="blackName"/>
 			<result column="USER_BLOCK_D" property="enrollDate"/>
+			<result column="USER_BLOCK_REASON" property="blackReason"/>
 	</resultMap>
 	
 	<resultMap id="BlockedTeacherDTO" type="blackListDTO" >
@@ -249,6 +250,7 @@
 			<result column="TE_ID" property="blackId"/>
 			<result column="TE_NAME" property="blackName"/>
 			<result column="TE_BLOCK_D" property="enrollDate"/>
+			<result column="TE_BLOCK_REASON" property="blackReason"/>
 	</resultMap>
 	
 	<resultMap id="cheeringCLassDTO" type="CheeringCLassDTO" >
@@ -294,9 +296,10 @@
 		      , U.USER_ENROLL_DATE
               , U.BLOCK_YN
 		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
-		    FROM USER_INFO U
+		  FROM USER_INFO U
 		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
 		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 WHERE U.USER_NO NOT IN 0  
 		 GROUP BY U.USER_NO
 		      , U.TYPE
 		      , U.USER_ID
@@ -549,9 +552,10 @@
 		      , U.USER_ENROLL_DATE
 		      , COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
 		      , U.BLOCK_YN
-		    FROM USER_INFO U
+		   FROM USER_INFO U
 		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
 		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+		 WHERE U.USER_NO NOT IN 0  
 		 GROUP BY U.USER_NO
 		      , U.TYPE
 		      , U.USER_ID
@@ -964,6 +968,7 @@
 		     , U.USER_ID
 		     , U.USER_NAME
 		     , UB.USER_BLOCK_D
+             , UB.USER_BLOCK_REASON
 		  FROM USER_BLOCK_LIST UB
 		  JOIN USER_INFO U ON (UB.USER_NO = U.USER_NO)
 		 UNION ALL
@@ -972,6 +977,7 @@
 		     , T.TE_ID
 		     , T.TE_NAME
 		     , TB.TE_BLOCK_D
+             , TB.TE_BLOCK_REASON
 		  FROM TE_BLOCK_LIST TB
 		  JOIN TEACHER_INFO T ON (TB.TE_NO = T.TE_NO)
 	</select>
@@ -982,6 +988,7 @@
 		     , T.TE_ID
 		     , T.TE_NAME
 		     , TB.TE_BLOCK_D
+		     , TB.TE_BLOCK_REASON
 		  FROM TE_BLOCK_LIST TB
 		  JOIN TEACHER_INFO T ON (TB.TE_NO = T.TE_NO)
 	</select>
@@ -996,13 +1003,23 @@
 		  JOIN USER_INFO U ON (UB.USER_NO = U.USER_NO)
 	</select>
 	
-	<select id="selectReportCnt"  resultType="_int">
+	<select id="selectReportCnt"  resultType="_int" parameterType="hashmap">
+		<if test='type == "T"'>
 		SELECT 
                COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
 		  FROM TEACHER_INFO T
 		  LEFT JOIN TE_REPORT_HISTORY TH ON (TH.TE_NO = T.TE_NO)
 		  LEFT JOIN REPORT R ON (TH.REPORT_NO = R.REPORT_NO)
-         where T.TE_NO = #{no}
+         WHERE T.TE_NO = #{userNo}
+        </if>
+        <if test='type == "U"'>
+		SELECT 
+               COUNT(DECODE(R.PROCS_STATUS,'Y',1)) 누적신고
+		  FROM USER_INFO U
+		  LEFT JOIN USER_REPORT_HISTORY UH ON (UH.USER_NO = U.USER_NO)
+		  LEFT JOIN REPORT R ON (UH.REPORT_NO = R.REPORT_NO)
+         WHERE U.USER_NO = #{userNo}
+        </if>
 	</select>
 	
 	<insert id="insertBlackList" parameterType="hashmap">
@@ -1173,7 +1190,8 @@
 	 
 	 <update id="updateClsSecondDecision" parameterType="_int">
 	 	UPDATE CLASS
-	 	   SET CLS_DICSION_STATUS = 'S'
+	 	   SET CLS_DICSION_STATUS = 'S',
+	 	       CLS_STATUS = 'P'
 	 	 WHERE CLS_NO = #{clsNo}
 	 </update>
 	 

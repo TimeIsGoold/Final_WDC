@@ -19,7 +19,7 @@
     <style>
         	.category {
         		margin-top: 0.5%;
-                width: 33%;
+                width: 13.9%;
                 border-radius: 5px;
                 background: #fef0ae;
                 border: none;
@@ -54,14 +54,14 @@
                                 <i class="fas fa-table me-1"></i>
                                 클래스 관리
                             </div>
-                             <div class="btn-group btn-group-justified">
-                            	<input type="button" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
-                            	<input type="button" class="category" value="1차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">
-                            	<input type="button" class="category" value="2차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t'">
-                            	<input type="button" class="category" value="승인된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept'">
-                            	<input type="button" class="category" value="거절된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject'">
-                            	<input type="button" class="category" value="응원 미달 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering'">
-                            	<input type="button" class="category" value="완료 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">
+                             <div class="sideMenu">
+                             	<input type="button" id="total" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
+                            	<input type="button" id="one" class="category" value="1차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">
+                            	<input type="button" id="t" class="category" value="2차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t'">
+                            	<input type="button" id="accept" class="category" value="승인된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept'">
+                            	<input type="button" id="reject" class="category" value="거절된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject'">
+                            	<input type="button" id="lackOfCheering" class="category" value="응원 미달 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering'">
+                            	<input type="button" id="complate" class="category" value="완료 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">
       						</div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -139,7 +139,7 @@
     		function drawColor(){
     			var documentUrl = document.URL; 
     			var NdocumentUrl = new URL(documentUrl);  
-    			var currentTab = NdocumentUrl .searchParams.get("mt");  //url에 있는 name이란 파라미터값을 가지고옴
+    			var currentTab = NdocumentUrl .searchParams.get("ct");  //url에 있는 name이란 파라미터값을 가지고옴
     			
     			const currentTabBar = document.getElementById(currentTab);
     			currentTabBar.style.background = '#ffe163';

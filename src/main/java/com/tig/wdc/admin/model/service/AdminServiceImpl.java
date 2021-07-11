@@ -357,9 +357,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int selectReportCnt(int no) {
+	public int selectReportCnt(Map<String, Object> getCnt) {
 		
-		return mapper.selectReportCnt(no);
+		return mapper.selectReportCnt(getCnt);
 	}
 
 	@Override
