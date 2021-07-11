@@ -58,32 +58,6 @@
       <!-- navbar-->
 	<%@include file="../commons/header2.jsp" %>
       <!-- Modal -->
-      <div class="modal fade" id="classView" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body p-0">
-              <div class="row align-items-stretch">
-                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
-                <div class="col-lg-6">
-                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                  <div class="p-5 my-md-4">
-                    <h2 class="h4">스포츠 클래스</h2>
-                    <p class="text-muted">42,500 원</p>
-                    <p class="text-small mb-4">
-                      이런 분들을 위한 클래스예요<br>
-                      내몸의 상태 점검이 필요한 분들<br>
-                      어깨와 목이 항상 뻐근한 분들<br>
-                      고관절, 골반통, 허리통증을 달고 사시는 분<br>
-                      체중감량이 필요한 분, 몸에 탄력을 찾고 싶은 분들<br>
-                    </p>
-                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 보기</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       
 	  <%@include file="../commons/search.jsp" %>
 
@@ -145,6 +119,57 @@
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.allClassList }">
                   <c:set value="${i+1}" var="i"></c:set>
+                  <!-- modal -->
+	               <div class="modal fade" id="classPreview${i}" tabindex="-1" role="dialog" aria-hidden="true">
+			        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			          <div class="modal-content">
+			            <div class="modal-body p-0">
+			              <div class="row align-items-stretch">
+			                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(${ pageContext.servletContext.contextPath }/${ classList.titlePic })" href="${ pageContext.servletContext.contextPath }/${ classList.titlePic }" data-lightbox="productview" title="Red digital smartwatch"></a></div>
+	 		                <div class="col-lg-6">
+			                  <button class="close p-4 modal-btn" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+			                  <div class="p-5 my-md-4">
+			                  	<c:if test="${ classList.clsType eq 'O' }"><b>[ 원데이클래스 ]</b></c:if>
+	                    		<c:if test="${ classList.clsType eq 'R' }"><b>[ 정규클래스 ]</b></c:if>
+			                    <h2 class="h4">${ classList.title }</h2>
+			                    <p class="text-muted"><fmt:formatNumber value="${ classList.price }" pattern="#,###"/> 원</p>
+			                    <p class="text-small mb-4">${ classList.simpleIntro }</p>
+			                    <br><br>
+			                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">클래스 보기</a></div>
+			                  </div>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			      
+			            <div class="modal fade" id="classView" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <div class="row align-items-stretch">
+                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
+                <div class="col-lg-6">
+                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <div class="p-5 my-md-4">
+                    <h2 class="h4">스포츠 클래스</h2>
+                    <p class="text-muted">42,500 원</p>
+                    <p class="text-small mb-4">
+                      이런 분들을 위한 클래스예요<br>
+                      내몸의 상태 점검이 필요한 분들<br>
+                      어깨와 목이 항상 뻐근한 분들<br>
+                      고관절, 골반통, 허리통증을 달고 사시는 분<br>
+                      체중감량이 필요한 분, 몸에 탄력을 찾고 싶은 분들<br>
+                    </p>
+                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 보기</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
                  
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
@@ -165,13 +190,13 @@
                            <c:when test="${ classList.dicsionStatus eq 'S' }">
                           <ul class="mb-0 list-inline">
                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
-                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classView" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview${i}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                           </ul>
                            </c:when>
                            <c:when test="${ classList.dicsionStatus eq 'F' }">
                            <ul class="mb-0 list-inline">
                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="cheerUp${i}">응원하기</a></li>
-                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
+                            <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview${i}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                             </ul>
                            </c:when>
                           </c:choose>
