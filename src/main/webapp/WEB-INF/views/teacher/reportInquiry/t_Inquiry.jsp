@@ -80,7 +80,8 @@
         <form method="post" action="${pageContext.servletContext.contextPath }/teacher/inquiryWrite">
         <div class="col-lg-8 order-1 order-lg-1 mb-5 mb-lg-0" style="margin: auto; padding-top: 10px; height: 950px;">
           <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-            <h3>관리자에게 문의하기</h3>
+            <P style="font-size: 20px; font-weight: bold;" >문의작성<P>
+          <hr>
           </div>
           <div class="col-lg-12" style="margin: auto; margin:20px;">
             <div class="col-mb-12">

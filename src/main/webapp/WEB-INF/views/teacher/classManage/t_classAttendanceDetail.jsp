@@ -77,17 +77,17 @@
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teahcer/classDetail/${clsNo}" style="font-size: 15; color: black"><b>상세정보</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="#" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
+          <a href="#" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
@@ -96,8 +96,11 @@
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
         <p style="font-size: 18px; float: right;">진행일자 : 2021년 6월 1일</p>
       </div>
+      <div align="right">
+        <button id="attendanceButton"type="button" class="btn btn-primary" style="margin-right: 50px" onclick="attendanceChange(this);" value="0">전체출석</button>
+      </div>
       <form method="post" action="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceUpdate">
-      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 1000px">
+      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 1000px">
         <table class="table table-hover" style="text-align: center;">
           <thead>
             <tr>
@@ -109,6 +112,11 @@
             </tr>
           </thead>
           <tbody>
+          <c:choose>
+          <c:when test="${ empty applyInfoList }">
+            <td colspan="5">신청인원이 없습니다.</td>
+          </c:when>
+          <c:otherwise>
             <c:forEach var="applyUser" items="${ applyInfoList }" varStatus="status">
             <input type="hidden" value=${ applyUser.aplNo} name="allApplyNo">
             <tr>
@@ -128,6 +136,8 @@
             </tr>
             
             </c:forEach>
+          </c:otherwise>
+          </c:choose>
 
           </tbody>
 <!--           <tfoot>
@@ -141,9 +151,17 @@
           </tfoot> -->
         </table><br><br>
         <div class='col-sm-12' style="margin:auto; padding-bottom: 50px; ">
-          <input type="hidden" name="scheduleNo" value=${scheduleNo }>
-          <button type="submit" class="btn btn-primary" style="margin-left: 350px">수업시작</button>   
-          <button id="attendanceButton"type="button" class="btn btn-primary" style="margin-left: 240px" onclick="attendanceChange(this);" value="0">전체출석</button>   
+        <input type="hidden" name="scheduleNo" value=${scheduleNo }>
+        <c:choose>
+          <c:when test="${ empty applyInfoList }">
+          <button type="button" class="btn btn-primary" style="margin-left: 0px" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classType}&clsNo=${ clsNo }'">목록으로</button>   
+          </c:when>
+          <c:otherwise>
+          <button type="button" class="btn btn-primary" style="margin-left: 0px" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classType}&clsNo=${ clsNo }'">목록으로</button>   
+          <button type="submit" class="btn btn-primary" style="margin-left: 250px">수업시작</button>   
+             
+          </c:otherwise>
+          </c:choose>
         </div>
 
       </div>

@@ -18,13 +18,13 @@ public interface BoardAndQnAMapper {
 
 	List<NoticeDTO> selectNoticeList(PageInfoDTO pageInfo);
 
-	int selectClassCount(int teacherNo);
+	int selectClassCount(HashMap<String, Object> searchInfo);
 
-	List<ClassDTO> selectClassList(ClassDTO classInfo);
+	List<ClassDTO> selectClassList(HashMap<String, Object> classInfo);
 
 	int selectScheduleCount(int clsNo);
 
-	int selectAdminQnACount(int teacherNo);
+	int selectAdminQnACount(HashMap<String, Object> searchInfo);
 
 	List<UserInquiryDTO> selectAdminQnAList(HashMap<String, Object> searchCondition);
 

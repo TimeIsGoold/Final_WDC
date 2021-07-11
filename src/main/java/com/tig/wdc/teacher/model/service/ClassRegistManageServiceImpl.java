@@ -14,7 +14,9 @@ import com.tig.wdc.model.dto.ClassScheduleInfoDTO;
 import com.tig.wdc.teacher.model.dao.ClassRegistManageMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
  * @author 이해승
@@ -82,7 +84,7 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 	 *  클래스 신청자 정보
 	 */
 	@Override
-	public List<ClassApplyDTO> selectApplyUserInfo(int scheduleNo) {
+	public List<ClassApplyDTO> selectApplyUserInfo(String scheduleNo) {
 		return mapper.selectApplyUserInfo(scheduleNo);
 	}
 
@@ -112,30 +114,93 @@ public class ClassRegistManageServiceImpl implements ClassRegistManageService {
 		}
 	}
 
+	/**
+	 * 정규클래스 출석 insert
+	 */
 	@Override
 	public int insertRegularClassAttendance(HashMap<String, Object> attendInfo) {
 		return mapper.insertRegularClassAttendance(attendInfo);
 		
 	}
 
+	/**
+	 * 정규클래스 기존 정보 select
+	 */
 	@Override
 	public List<RegularClassAttendanceDTO> selectExistingInfo(int scheduleNo) {
 		return mapper.selectExistingInfo(scheduleNo);
 	}
 
+	/**
+	 * 원데이 스케쥴 카운트
+	 */
 	@Override
 	public List<ClassScheduleInfoDTO> selectOnedayApplyCount(List<ClassScheduleInfoDTO> onedayInfoList) {
 		return mapper.selectOnedayApplyCount(onedayInfoList);
 	}
 
+	/**
+	 * 원데이 스케쥴 신청정보
+	 */
 	@Override
 	public ClassScheduleInfoDTO selectRegularApplyCount(int scheduleNo) {
 		return mapper.selectRegularApplyCount(scheduleNo);
 	}
 
+	/**
+	 * 정규클래스 신청상태 변경
+	 */
 	@Override
 	public int updateRegularApplyStatus(String[] updateList) {
 		return mapper.updateRegularApplyStatus(updateList);
+	}
+
+	/**
+	 * 리뷰 전체 수 카운트
+	 */
+	@Override
+	public int selectReviewCount(String clsNo) {
+		return mapper.selectReviewCount(clsNo);
+	}
+
+	/**
+	 * 리뷰 리스트 조회
+	 */
+	@Override
+	public List<UserReviewDTO> selectReviewList(HashMap<String, Object> searchInfo) {
+		return mapper.selectReviewList(searchInfo);
+	}
+
+	/**
+	 * 리뷰평점
+	 */
+	@Override
+	public Double selectReviewAvgScore(String clsNo) {
+		return mapper.selectReviewAvgScore(clsNo);
+	}
+
+	/**
+	 * 리뷰답변 작성
+	 */
+	@Override
+	public int insertReviewAnswer(ReviewAnswerDTO reviewInfo) {
+		return mapper.insertReviewAnswer(reviewInfo);
+	}
+
+	/**
+	 * 거절사유
+	 */
+	@Override
+	public String selectRejectReason(int clsNo) {
+		return mapper.selectRejectReason(clsNo);
+	}
+
+	/**
+	 * 응원수
+	 */
+	@Override
+	public int selectCheeringCount(int clsNo) {
+		return mapper.selectCheeringCount(clsNo);
 	}
 	
 	
