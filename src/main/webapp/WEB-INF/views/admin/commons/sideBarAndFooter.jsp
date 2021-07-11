@@ -40,11 +40,11 @@
 
            <div class="sb-sidenav-menu">
                <div class="nav">
-                   <a class="nav-link collapsed" id="member" href="${ pageContext.servletContext.contextPath }/admin/memberManagement?currentMenu=member">
+                   <a class="nav-link collapsed" id="member" href="${ pageContext.servletContext.contextPath }/admin/memberManagement?currentMenu=member&ut=total">
                    	     회원관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=">
+                   <a class="nav-link collapsed" id="class" href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total">
                                           클래스관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
@@ -52,7 +52,7 @@
                                            신고관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>
-                   <a class="nav-link collapsed" id="report" href="${ pageContext.servletContext.contextPath }/admin/blackListMenagement?currentMenu=blacklist&ut=to">
+                   <a class="nav-link collapsed" id="blacklist" href="${ pageContext.servletContext.contextPath }/admin/blackListMenagement?currentMenu=blacklist&ut=to">
                                           블랙리스트 관리
                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                    </a>

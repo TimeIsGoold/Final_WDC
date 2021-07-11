@@ -262,6 +262,26 @@ public class AdminServiceImpl implements AdminService {
 	
 	/**
 	 * @author 송아현
+	 * 정산 승인 - insert
+	 */
+	@Override
+	public int insertCalculate(CalculateDTO calculate) {
+		
+		return mapper.insertCalculate(calculate);
+	}
+	
+	/**
+	 * @author 송아현
+	 * 정산 승인 - update
+	 */
+	@Override
+	public int updateCalculate(CalculateDTO calculate) {
+
+		return mapper.updateCalculate(calculate);
+	}
+	
+	/**
+	 * @author 송아현
 	 * 환불 관리
 	 */
 	@Override
@@ -357,9 +377,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int selectReportCnt(int no) {
+	public int selectReportCnt(Map<String, Object> getCnt) {
 		
-		return mapper.selectReportCnt(no);
+		return mapper.selectReportCnt(getCnt);
 	}
 
 	@Override

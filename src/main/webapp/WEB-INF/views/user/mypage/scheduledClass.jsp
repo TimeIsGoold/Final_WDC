@@ -81,45 +81,38 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
                   <c:choose>
-                  	<c:when test="${ empty requestScope.scheduledOneDayClassList && empty requestScope.scheduledRegularClassList }">
+                  	<c:when test="${ empty requestScope.scheduledClassList }">
                   		<div style="margin-left: 315px; margin-top: 100px; margin-bottom: 110px;">진행 예정 클래스가 없습니다.</div>
                   	</c:when>
                   </c:choose>
-                  <!-- 원데이 클래스  -->
-                  <c:forEach  var="classList" items="${ requestScope.scheduledOneDayClassList }">
+                  <c:forEach  var="classList" items="${ requestScope.scheduledClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
+                      <c:if test="${ classList.clsType eq 'O' }">
                       <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
+                      </c:if>
+                      <c:if test="${ classList.clsType eq 'R' }">                    
+                      <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)} </div>
+                      </c:if>  
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
                         <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
                       <h6> 
+                      <c:if test="${ classList.clsType eq 'O' }">
                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo} ">
                         [원데이] ${classList.title}
                       </a>
+                      </c:if>
+                      <c:if test="${ classList.clsType eq 'R' }">
+                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo} ">
+                        [정규] ${classList.title}
+                      </a>
+                      </c:if>
                       </h6>
                       <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
                   </c:forEach>
-                  <!-- 정규 클래스 -->
-                  <c:forEach  var="rClassList" items="${ requestScope.scheduledRegularClassList }">
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-primary">${fn:substring(rClassList.startDate,5,10)} ~ ${fn:substring(rClassList.endDate,5,10)} </div>
-                      <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
-                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ rClassList.aplNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${rClassList.titlePic}" alt="..."></a>
-                      </div>
-                      <h6> 
-                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ rClassList.aplNo }">
-                        [정규] ${rClassList.title}
-                      </a>
-                      </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${rClassList.payPrice}" pattern="#,###"/> 원 / ${rClassList.clsPplAmount}명</p>
-                    </div>
-                  </div>
-                  </c:forEach>
-
 
                 </div>
                 <br><br>

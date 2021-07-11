@@ -13,6 +13,21 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <style>
+
+        	.category {
+        		margin-top: 0.5%;
+                width: 33%;
+                border-radius: 5px;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
+            }
+
+            .category:hover {
+                background: rgb(112, 112, 112);
+            }    
+    </style>
     </head>
           <c:if test="${not empty message }">
           <script>
@@ -38,14 +53,14 @@
                                 <i class="fas fa-table me-1"></i>
                                 클래스 관리
                             </div>
-                            <div class="btn-group btn-group-justified">
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total" class="btn btn-warning">전체 </a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one" class="btn btn-warning">1차 심사 진행중</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t" class="btn btn-warning">2차 심사 진행중</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept" class="btn btn-warning">승인된 클래스</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject" class="btn btn-warning">거절된 클래스</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering" class="btn btn-warning">응원 미달 클래스</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate" class="btn btn-warning">완료 클래스</a>
+                             <div class="sideMenu">
+                            	<input type="button" id="total" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=total'">
+                            	<input type="button" id="one" class="category" value="1차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">
+                            	<input type="button" id="t" class="category" value="2차 심사 진행중" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/seconddecision?currentMenu=class&pc=t'">
+                            	<input type="button" id="accept" class="category" value="승인된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=accept'">
+                            	<input type="button" id="reject" class="category" value="거절된 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=reject'">
+                            	<input type="button" id="lackOfCheering" class="category" value="응원 미달 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=lackOfCheering'">
+                            	<input type="button" id="complate" class="category" value="완료 클래스" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">
       						</div>
                             <div class="card-body">
                             <ul class="nav nav-tabs" style=" margin-left: 0px; ">
@@ -100,16 +115,14 @@
 							<div align="center">
 								<c:choose>
 									<c:when test="${t eq 't'}">
-										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
-										<button class="btn btn-danger" type="submit" value="2" name="submit" >거절</button>
 									</c:when>
 									<c:when test="${t eq 'p'}">
-										<label>전체 선택 <input type="checkbox" name="cheeringInfo" id="allcheck" onclick="check(this)"/></label>
+										<input type="button" class="btn btn-primary" value="전체선택" id="allcheck" onclick="check(this)"/>
 										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
 									</c:when>
 									<c:otherwise>
-										<label>전체 선택 <input type="checkbox" name="cheeringInfo" id="allcheck" onclick="check(this)"/></label>
-										<button class="btn btn-danger" type="submit" value="2" name="submit" >거절</button>
+										<input type="button" class="btn btn-danger" value="전체선택" id="allcheck" onclick="check(this)"/>
+										<button class="btn btn-danger" type="submit" value="2" name="submit">거절</button>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -150,11 +163,11 @@
 						console.log("이프문 확인")
 						
 					if(allcheck.checked){
-						for(var i = 0; list.length; i++) {
+						for(var i = 0; i < list.length; i++) {
 							list[i].checked = true;
 						}
 					} else {
-						for(var i = 0; list.length; i++) {
+						for(var i = 0; i < list.length; i++) {
 							list[i].checked = false;
 						}
 					}
@@ -166,7 +179,7 @@
 							cnt++;
 						}
 					}
-						if(cnt == list.length -1) {
+						if(cnt == list.length) {
 							allcheck.checked = true;
 						} else {
 							allcheck.checked = false;
@@ -174,6 +187,19 @@
 				}
          	 }
         </script>
+        <script>
+    		function drawColor(){
+    			var documentUrl = document.URL; 
+    			var NdocumentUrl = new URL(documentUrl);  
+    			var currentTab = NdocumentUrl .searchParams.get("ct");  //url에 있는 name이란 파라미터값을 가지고옴
+    			
+    			console.log(currentTab);
+    			const currentTabBar = document.getElementById(currentTab);
+    			currentTabBar.style.background = '#ffe163';
+    			currentTabBar.style.fontWeight = 'bolder';
+    		}
+    	</script>
+    	<script>drawColor();</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

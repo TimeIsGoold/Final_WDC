@@ -75,15 +75,15 @@
                                     <p class="text-muted lead">강의 마지막 날짜 : ${ classDetail.endDate }  </p>
                                     <p class="text-muted lead">클래스 가격 : <fmt:formatNumber value="${ classDetail.price }" pattern="#,###"/> 원</p><br>
                                       <div style="display:flex;">
-                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/calendar.png">&nbsp;&nbsp;
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/calendar.png" id="logoutIcon1">&nbsp;&nbsp;
                                         <c:choose>
                                         	<c:when test="${classDetail.clsType  eq 'O'}">원데이 클래스</c:when>
                                         	<c:otherwise>정규 클래스</c:otherwise>
                                         </c:choose>
                                         </div>
-                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/pin.png">&nbsp;&nbsp;${classDetail.address }</div>
-                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/clock.png">&nbsp;&nbsp;${classDetail.time }</div>
-                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/users.png">&nbsp;&nbsp;최대 4명 가능</div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/pin.png" id="logoutIcon1">&nbsp;&nbsp;${classDetail.address }</div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/clock.png" id="logoutIcon1">&nbsp;&nbsp;${classDetail.time }</div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/users.png" id="logoutIcon1">&nbsp;&nbsp;최대 4명 가능</div>
                                       </div>
                                   </div>
                                 </div>
@@ -208,6 +208,7 @@ ${ classDetail.intro }
 										        <textarea cols="50" rows="10" style="resize:none;" name="rejectReason"></textarea>
 										        <input type="hidden" name="clsNo" value="${ classDetail.clsNo }"/>
 										        <input type="hidden" name="status" value="reject"/>
+										        <input type="hidden" name="yn" value="1"/>
 										      </div>
 										      <div class="modal-footer">
 										        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
