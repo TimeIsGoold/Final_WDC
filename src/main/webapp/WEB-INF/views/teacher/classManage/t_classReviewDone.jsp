@@ -121,7 +121,7 @@
       <form>
         
         <!-- 리뷰 탭 -->
-          <div class="p-4 p-lg-5 bg-white">
+          <div class="p-4 p-lg-5 bg-white" style="height: 3000px">
             <div class="row">
               <div class="col-lg-12">
                 <div style="display:flex;">

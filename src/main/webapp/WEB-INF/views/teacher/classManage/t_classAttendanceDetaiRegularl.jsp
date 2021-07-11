@@ -90,17 +90,17 @@
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="#" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+          <a href="#" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
@@ -189,7 +189,7 @@
     <input type="hidden" name="lastCount" id="lastCount" value="0">
     </form>
 	<script>
-    window.onload = function () {
+    window.onload = function(){
     	
       if ("${ existingInfo }" != null && "${ existingInfo }".length > 0) {
         let existStep = [];

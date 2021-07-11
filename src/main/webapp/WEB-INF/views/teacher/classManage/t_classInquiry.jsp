@@ -82,22 +82,23 @@
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classDetail.html" style="font-size: 15; color: black"><b>상세정보</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
+          <a href="#" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
+    <form>
         <div class='col-sm-10' >
           <div class="form-group">
             <div class="row">
@@ -107,13 +108,14 @@
                 	<option value="completed">답변 완료</option>
                 </select>
               </div>
-              <div class='col-sm-3'>
-              
+              <div class='col-sm-6'>
                 <button type="submit" class="btn btn-primary">검색</button>   
+                <button type="reset" class="btn btn-primary" onclick="${pageContext.servletContext.contextPath }/teacher/userInquiry">초기화</button>   
               </div>
             </div>
             </div>
         </div>
+    </form>
 	<br>
       <div class="col-sm-12" id="content-formatting" style="float: left;">
         <table class="table table-hover" style="text-align: center;">

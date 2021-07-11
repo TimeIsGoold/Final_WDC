@@ -149,7 +149,7 @@
 	                                            <th>계좌&nbsp;&nbsp;&nbsp;번호</th>
 	                                            <td colspan="4">${ refundInfoDetail.refundAccount }</td>
 	                                            <th>환 불 액</th>
-	                                            <td colspan="4">${ refundInfoDetail.refundAmount }원</td>
+	                                            <td colspan="4">${ refundInfoDetail.toCharRefundAmount }원</td>
 	                                            <input type="hidden" name="refundAmount" value="${ refundInfoDetail.refundAmount }">
 												<input type="hidden" name="totalAmount" value="${ refundTotalAmount.totalAmount }">
 	                                        </tr>
@@ -158,7 +158,13 @@
                                 </table>
 
                                 <div class="submitBtn">
-                                	<input type="button" id="approveBtn" class="returnPageBtn" value="환불승인">
+                                	<c:choose>
+                                		<c:when test="${ refundInfoDetail.refundStatus eq 'N' }">
+		                                	<input type="button" id="approveBtn" class="returnPageBtn" value="환불승인">
+                                		</c:when>
+                                		<c:when test="${ refundInfoDetail.refundStatus eq 'Y' }">
+                                		</c:when>
+                                	</c:choose>
                                     <input type="button" class="returnPageBtn" value="리스트보기" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/refundManagement?currentMenu=refund&YN=N'">
                                 </div>
                             </div>

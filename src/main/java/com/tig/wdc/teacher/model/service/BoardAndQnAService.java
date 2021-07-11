@@ -32,16 +32,16 @@ public interface BoardAndQnAService {
 	public List<NoticeDTO> selectNoticeList(PageInfoDTO pageInfo);
 
 	/**
-	 * @param teacherNo 강사번호
+	 * @param searchInfo 강사번호
 	 * @return 강사가 보유한 강의 전체목록
 	 */
-	public int selectClassCount(int teacherNo);
+	public int selectClassCount(HashMap<String, Object> searchInfo);
 
 	/**
-	 * @param classInfo 강사번호, 페이지번호
+	 * @param searchInfo 강사번호, 페이지번호
 	 * @return 클래스 리스트
 	 */
-	public List<ClassDTO> selectClassList(ClassDTO classInfo);
+	public List<ClassDTO> selectClassList(HashMap<String, Object> searchInfo);
 
 	/**
 	 * 원데이 클래스 전체 스케쥴 수 카운트
@@ -53,10 +53,10 @@ public interface BoardAndQnAService {
 	
 	/**
 	 * 강사가 관리자에게 문의한 전체 수
-	 * @param teacherNo
+	 * @param searchInfo
 	 * @return
 	 */
-	public int selectAdminQnACount(int teacherNo);
+	public int selectAdminQnACount(HashMap<String, Object> searchInfo);
 
 	/**
 	 * 강사가 관리자에게 문의한 리스트

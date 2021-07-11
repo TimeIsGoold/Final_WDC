@@ -75,9 +75,9 @@
                                         <tr>
                                             <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
                                             <td>
-                                            	<c:if test="${ couponDetail.couponType eq 'TOTAL'}">고객 전체</c:if>
-                                            	<c:if test="${ couponDetail.couponType ne 'TOTAL'}">
-                                            		${ couponDetail.couponType }
+                                            	<c:if test="${ couponDetail.userId eq 'TOTAL'}">고객 전체</c:if>
+                                            	<c:if test="${ couponDetail.userId ne 'TOTAL'}">
+                                            		${ couponDetail.userId }
                                             	</c:if>
                                             </td>
                                         </tr>
@@ -91,9 +91,9 @@
                                         </tr>
                                         <tr>    
                                             <th>할인 금액</th>
-                                            <td>${ couponDetail.discount }원</td>
+                                            <td>${ couponDetail.disamount }원</td>
                                         </tr>
-                                        <c:if test="${ couponDetail.couponType eq 'TOTAL'}">
+                                        <c:if test="${ couponDetail.userId eq 'TOTAL'}">
                                         	<c:choose>
                                         		<c:when test="${couponDetail.cntUseUser eq 0}">
                                         			<th>사용인원</th>

@@ -46,21 +46,28 @@
     color: inherit;
 }
 
-    .bottom_badgeDicsionS{
-        position: absolute;
-        top: 15rem;
-        right: 4.7rem;
-        z-index: 999;
-        font-size: 7px;
-      }
-      
-    .bottom_badgeCheer{
-        position: absolute;
-        top: 15rem;
-        right: 5.5rem;
-        z-index: 999;
-        font-size: 12.5px;
-        background-color: #f8f9fa !important;
-        color: black !important;
-        height: 26px;
-      }
+.bottom_badgeDicsionS{
+    position: absolute;
+    top: 15rem;
+    right: 4.7rem;
+    z-index: 999;
+    font-size: 7px;
+  }
+  
+.bottom_badgeCheer{
+    position: absolute;
+    top: 15rem;
+    right: 5.5rem;
+    z-index: 999;
+    font-size: 12.5px;
+    background-color: #f8f9fa !important;
+    color: black !important;
+    height: 26px;
+  }
+ 
+.noList{
+	height: 200px;
+    text-align: center;
+    width: 830px;
+    margin-top: 100px;
+}

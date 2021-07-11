@@ -101,17 +101,29 @@
                       <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
                     </c:if>
                       <div class="position-relative mb-3">
-                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/${ classList.payStatus }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
-                      
+                        <c:if test="${ classList.payStatus eq '완료' }">
+                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/${ classList.payStatus }">
+                       <img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+						</c:if>                      
+                        <c:if test="${ classList.payStatus eq '취소' }">
+                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/${ classList.payStatus }">
+                       <img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+						</c:if>                      
                       </div>
                       <h6> 
-                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }">
-                        <c:if test="${ classList.clsType eq 'O' }">
+                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/">
+                        <c:if test="${ classList.clsType eq 'O' && classList.payStatus eq '완료' }">
                         [원데이] ${classList.title}
                         </c:if>
-                        <c:if test="${ classList.clsType eq 'R' }">
+                        <c:if test="${ classList.clsType eq 'R' && classList.payStatus eq '완료' }">
                         [정규] ${classList.title}
                         </c:if>
+                        <c:if test="${ classList.clsType eq 'O' &&  classList.payStatus eq '취소'}">
+                        [취소][원데이] ${classList.title}
+                        </c:if>
+                        <c:if test="${ classList.clsType eq 'R' && classList.payStatus eq '취소' }">
+                        [취소][정규] ${classList.title}
+                        </c:if>                        
                        </a>
                       </h6>
                       <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
@@ -119,7 +131,7 @@
                   </div>
                   </c:forEach>
 				<!-- 취소 클래스 -->
-				<c:forEach  var="classList" items="${ requestScope.refundClassList }">
+<%-- 				<c:forEach  var="classList" items="${ requestScope.refundClassList }">
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
                     <c:if test="${classList.clsType eq 'O' }">                    
@@ -129,7 +141,8 @@
                       <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
                     </c:if>
                       <div class="position-relative mb-3">
-                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/${ classList.payStatus }"><img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/${ classList.payStatus 
+                       }"><img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>
                       <h6> 
                        <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }">
@@ -144,20 +157,148 @@
                       <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
                   </div>
-                  </c:forEach>
+                  </c:forEach> --%>
+                  
+                  
+                  		        <!-- 페이지 처리 -->
+				<div class="pagingArea" align="center">
+		 	       <nav aria-label="Page navigation example" style="margin-left: 300px; margin-top: 50px;">
+		           		<ul class="pagination justify-content-center justify-content-lg-end">
+							<c:choose>
+							    <c:when test="${ empty requestScope.searchValue }">
+								    <li id="startPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+					
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<li id="prevPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+						
+									<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<li class="page-item active"><a class="page-link"><c:out value="${ p }"/></a></li>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<li class="page-item" style="cursor:pointer;"><a class="page-link" onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></a></li>
+										</c:if>
+									</c:forEach>
+									
+									<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<li id="nextPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									
+									<li id="maxPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							     </c:when>
+							   	 <c:otherwise>
+				   				    <li id="searchStartPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+					
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<li id="searchPrevPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+						
+									<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<li class="page-item active"><a class="page-link"><c:out value="${ p }"/></a></li>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<li class="page-item" style="cursor:pointer;"><a class="page-link" onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></a></li>
+										</c:if>
+									</c:forEach>
+									
+									<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<li id="searchNextPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									
+									<li id="searchMaxPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							    </c:otherwise>
+							</c:choose>   
+						</ul>
+					</nav>
+				</div>
+				<%-- 페이지 처리 --%>
+                  
+			   <!-- 페이징 스크립트 -->
+		       <script>
+					const link = "/wdc/user/mypage/complateClassList";
+					//const searchLink = "${ pageContext.servletContext.contextPath }/board/search";
+						
+					if(document.getElementById("startPage")) {
+						const $startPage = document.getElementById("startPage");
+						$startPage.onclick = function() {
+							location.href = link + "?currentPage=1";
+						}
+					}
+					
+					if(document.getElementById("prevPage")) {
+						const $prevPage = document.getElementById("prevPage");
+						$prevPage.onclick = function() {
+							location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+						}
+					}
+					
+					if(document.getElementById("nextPage")) {
+						const $nextPage = document.getElementById("nextPage");
+						$nextPage.onclick = function() {
+							location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+						}
+					}
+					
+					if(document.getElementById("maxPage")) {
+						const $maxPage = document.getElementById("maxPage");
+						$maxPage.onclick = function() {
+							location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
+						}
+					}
+					
+					if(document.getElementById("searchStartPage")) {
+						const $searchStartPage = document.getElementById("searchStartPage");
+						$searchStartPage.onclick = function() {
+							location.href = searchLink + "?currentPage=1&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					if(document.getElementById("searchPrevPage")) {
+						const $searchPrevPage = document.getElementById("searchPrevPage");
+						$searchPrevPage.onclick = function() {
+							location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					if(document.getElementById("searchNextPage")) {
+						const $searchNextPage = document.getElementById("searchNextPage");
+						$searchNextPage.onclick = function() {
+							location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					if(document.getElementById("searchMaxPage")) {
+						const $searchMaxPage = document.getElementById("searchMaxPage");
+						$searchMaxPage.onclick = function() {
+							location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					function pageButtonAction(text) {
+						location.href = link + "?currentPage=" + text;
+					}
+					function seachPageButtonAction(text) {
+						location.href = searchLink + "?currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+					}
+				</script>
                   
                 </div>
                 <br><br>
-                <!-- PAGINATION-->
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center justify-content-lg-end">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                  </ul>
-                </nav>
+
               </div>
             </div>
           </div>

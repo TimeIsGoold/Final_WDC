@@ -96,7 +96,7 @@
 	background-color: #fef0ae;
 	border: 1px solid #fef0ae;
 	border-radius: 5px;
-}
+	}
   </style>
   </head>
   <body>
@@ -479,7 +479,6 @@
 //			}
 			
 //			$tds[i].onclick = function() {
-//				/* 게시물 번호까지 알아왔으니 이제 상세보기는 할 수 있겠지? */
 //				alert(this.parentNode.children[0].innerText);
 //			}
 			

@@ -81,22 +81,22 @@
 				                            <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponDetail?currentMenu=coupon&no=${ CouponDTO.couponNo }'">
 				                                <td>${CouponDTO.couponNo}</td>
 				                                <c:choose>
-				                                	<c:when test="${CouponDTO.couponType eq 'TOTAL'}">
+				                                	<c:when test="${CouponDTO.userId eq 'TOTAL'}">
 				                                		<td>고객 전체</td>
 				                                	</c:when>
-				                                	<c:when test="${CouponDTO.couponType ne 'TOTAL'}">
-				                                		<td>${CouponDTO.couponType}</td>
+				                                	<c:when test="${CouponDTO.userId ne 'TOTAL'}">
+				                                		<td>${CouponDTO.userId}</td>
 				                                	</c:when>
 				                                </c:choose>
 				                                <td>${CouponDTO.couponName}</td>
-				                                <td>${CouponDTO.discount}</td>
+				                                <td>${CouponDTO.disamount}</td>
 				                                <td>${CouponDTO.issueDate}</td>
 				                                <td>${CouponDTO.startDate} ~ ${CouponDTO.endDate}</td>
 				                                <c:choose>
-				                                	<c:when test="${CouponDTO.couponType eq 'TOTAL'}">
+				                                	<c:when test="${CouponDTO.userId eq 'TOTAL'}">
 				                                		<td>상세페이지에서 확인</td>
 				                                	</c:when>
-				                                	<c:when test="${CouponDTO.couponType ne 'TOTAL'}">
+				                                	<c:when test="${CouponDTO.userId ne 'TOTAL'}">
 				                                		<td>${CouponDTO.useStatus}</td>
 				                                	</c:when>
 				                                </c:choose>

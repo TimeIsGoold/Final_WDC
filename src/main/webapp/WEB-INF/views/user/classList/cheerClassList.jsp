@@ -60,6 +60,7 @@
       }
 
       *{font-family:'Cafe24SsurroundAir' !important;}
+      
     </style>
   </head>
   <body>
@@ -85,22 +86,21 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
-  
-                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="likeClassList.html">찜 목록</a></strong></div>
-                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="cheerClassList.html">응원한 클래스</a></strong></div>
-
-
+                  <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList">찜 목록</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/cheerClassList">응원한 클래스</a></strong></div>
               </div>
               <!-- SHOP LISTING-->
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
                   <c:choose>
                   	<c:when test="${ empty requestScope.cheerClassDTOList }">
-                  		응원한  클래스가 없습니다.
+                  		<c:set var="num" value="0"/>
+                  		<div class="noList">응원한  클래스가 없습니다.</div>
                   	</c:when>
                   </c:choose>
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.cheerClassDTOList }">
+                  <c:set var="num" value="1"/>
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
                       <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
@@ -122,20 +122,20 @@
                     </div>
                   </div>
                   </c:forEach>
-
-                   
                   </div>
                 <br><br>
-                <!-- PAGINATION-->
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center justify-content-lg-end">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                  </ul>
-                </nav>
+                <c:if test="${num == 1}">
+	                <!-- PAGINATION-->
+	                <nav aria-label="Page navigation example">
+	                  <ul class="pagination justify-content-center justify-content-lg-end">
+	                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+	                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+	                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+	                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+	                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+	                  </ul>
+	                </nav>
+                </c:if>
               </div>
             </div>
           </div>

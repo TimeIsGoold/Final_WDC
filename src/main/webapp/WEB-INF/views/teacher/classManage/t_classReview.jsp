@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,13 +56,7 @@
       color: black;
     }
     
-    .review-img {
-      height: 50px;
-      border-radius: 10%!important;
-      margin-top: 8px;
-      width: 50px;
-    }
-    
+   
     nav {
       padding-top: 50px;
     }
@@ -81,6 +76,12 @@
       background-color: #fef0ae !important;
       border-color: #fef0ae !important;
     }
+    
+    .pagingArea button {
+	background-color: #fef0ae;
+	border: 1px solid #fef0ae;
+	border-radius: 5px;
+	}
   </style>
 
 
@@ -96,149 +97,250 @@
         <jsp:include page="../commons/sidebar.jsp"/>
       
       <!-- main page -->
-      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
+      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 0px;">
         
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classDetail.html" style="font-size: 15; color: black"><b>상세정보</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
+          <a href="#" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classInquiry.html" style="font-size: 15; color: black"><b>고객문의</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classAttendance.html" style="font-size: 15; color: black"><b>수강생 관리</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
+    <c:if test="${not empty message }">
+    <script>
+        alert("${message}");
+    </script>
+    </c:if>
     <div class="col-sm-10" id="content-formatting" style="float: left;">
-      <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-        <h4>후기 관리</h4>
-      </div>
-      <form>
-        
         <!-- 리뷰 탭 -->
           <div class="p-4 p-lg-5 bg-white">
-            <div class="row">
-              <div class="col-lg-8">
+          <div style="display: flex;">
+          <p>평점 : ${ avgScore }</p>
+          <ul class="list-inline mb-2" style="margin: 0px 10px 0px 10px;">
+          <c:forEach var="i" begin="1" end="${ requestScope.avgScore }" step="1">
+            <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+          </c:forEach>
+          <c:if test="${ requestScope.classStar.avgScore % 1 ne 0 }">
+            <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+          </c:if>
+          </ul>
+          <p> / 리뷰 수 : ${ reviewCount } 개</p>
+          </div>
+          <hr>
+          <br>
+            <div class="row" style="height: 2700px">
+              <div class="col-lg-12">
                 <div style="display:flex;">
                 </div>
+                <c:choose>
+                <c:when test="${ reviewCount eq 0 }">
+                <p>등록된 리뷰가 없습니다.</p>
+                </c:when>
+                <c:otherwise>
+               
                 <!-- 리뷰1 -->
+                <c:forEach var="review" items="${ reviewList }">
                 <div class="media mb-3">
-                  <a href="img/review.png">
-                    <img class="review-img" src="img/review.png">
-                  </a>
                   <div class="media-body ml-3">
                     <div class="col-sm-12">
-                      <h6 class="mb-0 text-uppercase">아무개</h6>
-                      <p class="small text-muted mb-0 text-uppercase">2021-06-22</p>
-                      <ul class="list-inline mb-1 text-xs">
-                        <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                        <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                        <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                        <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                        <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                      <div style="display: flex;">
+                      <h6 class="mb-0 text-uppercase">${ review.userName } 수강생</h6>
+                      <p class="small text-muted mb-0 text-uppercase" style="margin-left: 20px;">${ review.reviewEnrollDate }</p>
+                      </div>
+					  <ul class="list-inline mb-2" style="margin: 10px 0px 0px 0px; display: flex;">
+					  <c:forEach var="i" begin="1" end="${ review.reviewScore }" step="1">
+                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                      </c:forEach>
+                      <c:if test="${ requestScope.classStar.avgScore % 1 ne 0 }">
+                      <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                      </c:if>
+                      <li style="margin-left: 10px"><p>${ review.reviewScore }</p></li>
                       </ul>
-                      <p class="text-small mb-0 text-muted">초보도 쉽게 그림을 그릴수 있어서 좋았어요!</p>
+                      <img class="review-img" width="150px" height="150px" style="border-radius: 10%; margin-top: 8px" src="${pageContext.servletContext.contextPath }/resources/upload/${ review.reviewPic }">
+                      <p class="text-small mb-0 text-muted" style="margin-top: 15px">${ review.reviewContent }</p>
+                      <br>
+                      <c:choose>
+                      <c:when test="${ empty review.answer.ansContent }">
+                      <form method="post" action="${pageContext.servletContext.contextPath }/teacher/reviewAnswer" onsubmit="return contentCheck(${review.reviewNo});">
                       <div class="col-sm-12" style="padding: 0px;">
-                        <textarea style="resize: none;"></textarea>
+                        <textarea style="resize: none;" name="ansContent" id="content${ review.reviewNo }"></textarea>
                       </div>
                       <div class="col-sm-12" style="padding: 0px; text-align: center;">
-                        <button class="btn btn-sm btn-primary" type="button" onclick="location.href='t_classReviewDone.html'">완료</button>
+                      <input type="hidden" value="${ clsNo }" name="clsNo">
+                      <input type="hidden" value="${ classType }" name = "classType">
+                      <input type="hidden" value="${ review.reviewNo }" name = "reviewNo">
+                      <input type="hidden" value="${ pageInfo.currentPage }" name = "currentPage">
+                      <button class="btn btn-sm btn-primary" type="submit">답변작성</button>
                       </div>                    
+                      </form>
+                      </c:when>
+                      <c:otherwise>
+                      <div class="media mb-3" style="border: 1px solid rgba(0,0,0,0.08); padding: 10px 10px 10px 10px">
+                          <img class="review-img" width="50px" height="50px" src="${pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }">
+                        <div class="media-body ml-3">
+                          <div class="col-sm-12">
+                            <p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
+                            <p class="text-small mb-0 text-muted">
+                            ${ review.answer.ansContent }
+                          </div>
+                          <div class="col-sm-12" style="padding: 20px; text-align: center;">
+                             
+                          </div>   
+                        </div>
+                      </div>
+                      </c:otherwise>
+                      </c:choose>
                     </div>
                   </div>
                 </div>
+                <hr>
+                </c:forEach>
+                </c:otherwise>
+                 </c:choose>
+                <script>
+                    function contentCheck(p){
+                    	
+                    	let content = "content"+p;
+                    	console.log(document.getElementById(content).value.length);
+                    	
+                    	if(document.getElementById(content).value == "" || document.getElementById(content).value.length == 0){
+                    		
+                    		alert("답변 내용을 입력해주세요");
+	                    	return false;
+                    	} else {
+                    		
+	                    	return true;
+                    	}
+                    	
+                    	
+                    }
+                </script>
+                <!-- 삭제예정(테스트용)  -->
+
+<!--                 <div class="media mb-3">
+                  <div class="media-body ml-3">
+                    <div class="col-sm-12">
+                      <div style="display: flex;">
+                      <h6 class="mb-0 text-uppercase"> 수강생</h6>
+                      <p class="small text-muted mb-0 text-uppercase" style="margin-left: 20px;">aa</p>
+                      </div>
+					  <ul class="list-inline mb-2" style="margin: 10px 0px 0px 0px; display: flex;">
+                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                      <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
+                      <li style="margin-left: 10px"><p>별좀</p></li>
+                      </ul>
+                      <img class="review-img" width="150px" height="150px" style="border-radius: 10%; margin-top: 8px" >
+                      <p class="text-small mb-0 text-muted" style="margin-top: 15px">내용내용</p>
+                      <br>
+                      <div class="media mb-3" style="border: 1px solid rgba(0,0,0,0.08); padding: 10px 10px 10px 10px">
+                          <img class="review-img" width="50px" height="50px">
+                        <div class="media-body ml-3">
+                          <div class="col-sm-12">
+                            <p class="small text-muted mb-0 text-uppercase">작성일</p>
+                            <p class="text-small mb-0 text-muted">
+                            답변애용
+                          </div>
+                          <div class="col-sm-12" style="padding: 20px; text-align: center;">
+                             
+                          </div>   
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr>    -->  
+                <!-- //삭제예정  -->           
                 <!-- 리뷰2 -->
-                <div class="media mb-3">
-                  <a href="img/review2.png">
-                    <img class="review-img" src="img/review2.png">
-                  </a>
-                  <div class="media-body ml-3">
-                    <h6 class="mb-0 text-uppercase">홍길동</h6>
-                    <p class="small text-muted mb-0 text-uppercase">2021-06-24</p>
-                    <ul class="list-inline mb-1 text-xs">
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                    </ul>
-                    <p class="text-small mb-0 text-muted">초보도 쉽게 그림을 그릴수 있고 작가님께서 그림 기본 틀부터 완성까지 그릴수 있도록 그리는 방법도 알려주시기 때문에 어렵지 않아서 좋았어요!</p>
-                    <div class="col-sm-12" style="padding: 0px;">
-                      <textarea style="resize: none;"></textarea>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0px; text-align: center;">
-                      <button class="btn btn-sm btn-primary" type="button" onclick="location.href='t_classReviewDone.html'">완료</button>
-                    </div>      
-                  </div>
-                </div>
-                <!-- 리뷰3 -->
-                <div class="media mb-3">
-                  <a href="">
-                    <img class="review-img" src="">
-                  </a>
-                  <div class="media-body ml-3">
-                    <h6 class="mb-0 text-uppercase">홍길동</h6>
-                    <p class="small text-muted mb-0 text-uppercase">2021-06-24</p>
-                    <ul class="list-inline mb-1 text-xs">
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                    </ul>
-                    <p class="text-small mb-0 text-muted">초보도 쉽게 그림을 그릴수 있고 작가님께서 그림 기본 틀부터 완성까지 그릴수 있도록 그리는 방법도 알려주시기 때문에 어렵지 않아서 좋았어요!</p>
-                    <div class="col-sm-12" style="padding: 0px;">
-                      <textarea style="resize: none;"></textarea>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0px; text-align: center;">
-                      <button class="btn btn-sm btn-primary" type="button" onclick="location.href='t_classReviewDone.html'">완료</button>
-                    </div>     
-                  </div>
-                </div>
-                <!-- 리뷰4 -->
-                <div class="media mb-3">
-                  <a href="img/review2.png">
-                    <img class="review-img" src="img/review2.png">
-                  </a>
-                  <div class="media-body ml-3">
-                    <h6 class="mb-0 text-uppercase">아무개</h6>
-                    <p class="small text-muted mb-0 text-uppercase">2021-06-22</p>
-                    <ul class="list-inline mb-1 text-xs">
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                    </ul>
-                    <p class="text-small mb-0 text-muted">초보도 쉽게 그림을 그릴수 있고 작가님께서 그림 기본 틀부터 완성까지 그릴수 있도록 그리는 방법도 알려주시기 때문에 어렵지 않아서 좋았어요!</p>
-                    <div class="col-sm-12" style="padding: 0px;">
-                      <textarea style="resize: none;"></textarea>
-                    </div>
-                    <div class="col-sm-12" style="padding: 0px; text-align: center;">
-                      <button class="btn btn-sm btn-primary" type="button" onclick="location.href='t_classReviewDone.html'">완료</button>
-                    </div>      
-                  </div>
-                </div>
-                <nav aria-label="...">
-                  <ul class="pagination" style="justify-content: center;">
-                    <li class="page-item"><span class="page-link"><</span></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">></a></li>
-                  </ul>
-                </nav>
+					<nav aria-label="...">
+						<div class="pagingArea" align="center">
+							<c:choose>
+								<c:when test="${ empty requestScope.searchValue }">
+									<button id="startPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled ><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="prevPage"><</button>
+									</c:if>
+
+									<c:forEach var="p"
+										begin="${ requestScope.pageInfo.startPage }"
+										end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button onclick="pageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if
+										test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled >></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="nextPage">></button>
+									</c:if>
+
+									<button id="maxPage">>></button>
+								</c:when>
+								<c:otherwise>
+									<button id="searchStartPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="searchPrevPage" ><</button>
+									</c:if>
+
+									<c:forEach var="p"
+										begin="${ requestScope.pageInfo.startPage }"
+										end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button  onclick="seachPageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if
+										test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled>></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="searchNextPage" >></button>
+									</c:if>
+
+									<button id="searchMaxPage" >>></button>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</nav>
               </div>
             </div>
           </div>
-      </form>
     </div>
 
 
@@ -254,7 +356,72 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   </div>
   </div>
+  <script>
+	const link = "${pageContext.servletContext.contextPath }/teacher/classReviewList";
+		
+	if(document.getElementById("startPage")) {
+		const $startPage = document.getElementById("startPage");
+		$startPage.onclick = function() {
+			location.href = link + "?currentPage=1";
+		}
+	}
+	
+	if(document.getElementById("prevPage")) {
+		const $prevPage = document.getElementById("prevPage");
+		$prevPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+		}
+	}
+	
+	if(document.getElementById("nextPage")) {
+		const $nextPage = document.getElementById("nextPage");
+		$nextPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+		}
+	}
+	
+	if(document.getElementById("maxPage")) {
+		const $maxPage = document.getElementById("maxPage");
+		$maxPage.onclick = function() {
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
+		}
+	}
+	
+	if(document.getElementById("searchStartPage")) {
+		const $searchStartPage = document.getElementById("searchStartPage");
+		$searchStartPage.onclick = function() {
+			location.href = searchLink + "?currentPage=1&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchPrevPage")) {
+		const $searchPrevPage = document.getElementById("searchPrevPage");
+		$searchPrevPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchNextPage")) {
+		const $searchNextPage = document.getElementById("searchNextPage");
+		$searchNextPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	if(document.getElementById("searchMaxPage")) {
+		const $searchMaxPage = document.getElementById("searchMaxPage");
+		$searchMaxPage.onclick = function() {
+			location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+		}
+	}
+	
+	function pageButtonAction(text) {
+		
+		location.href = link + "?currentPage=" + text + "&classType=${ classType }&clsNo=${ clsNo }";
+	}
+
+	</script>  	
   
-  <jsp:forward page="../commons/footer.jsp"/>
+  <jsp:include page="../commons/footer.jsp"/>
 </body>
 <html>

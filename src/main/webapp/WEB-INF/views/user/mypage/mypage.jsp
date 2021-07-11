@@ -177,27 +177,28 @@
                         <input class="form-control form-control-lg" id="phone" type="tel"  value="${ requestScope.userInfoDTO.phone }" disabled>
                       </div>
                       <div class="col-lg-8 form-group">
-                        <form>
                           <label class="text-small text-uppercase" for="company">변경할 휴대폰  번호</label>
                           <div class="btn-left">
-                            <input class="form-control form-control-lg" id="company" type="text" placeholder="변경할 휴대전화 번호를 입력해 주세요">
-                            &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-dark"style="float: right;">변경</button>
+                            <input class="form-control form-control-lg" name="changePhone" id="changePhone" type="text" placeholder="변경할 전화번호를 입력해주세요.">
+                            &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-dark" id="changePhoneBtn" style="float: right;">변경</button>
                           </div>
-                        </form>
+                          <small id="phoneMent" style="color: red; display: none;" value="0"></small>
                       </div>
-                      <div class="col-lg-8 form-group">
-                        <label class="text-small text-uppercase" for="address">비밀번호 변경</label>
-                        <input class="form-control form-control-lg" id="address" type="text" placeholder="변경할 비밀번호">
-                      </div>
-                      <div class="col-lg-8 form-group">
-                        <form>
-                          <label class="text-small text-uppercase" for="address">비밀번호 확인</label>
-                          <div class="btn-left">
-                            <input class="form-control form-control-lg" id="addressalt" type="text" placeholder="변경할 비밀번호">
-                            &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-dark"style="float: right;">변경</button>
-                          </div>
-                        </form>
-                      </div>
+	                  <form action="${ pageContext.servletContext.contextPath }/user/mypage/changePwd" method="post">
+	                      <div class="col-lg-8 form-group">
+	                        <label class="text-small text-uppercase" for="address">비밀번호 변경</label>
+	                        <input class="form-control form-control-lg" name="changePwd" id="changePwd" type="password" placeholder="변경할 비밀번호를 입력해주세요.">
+		                    <small id="pwdMent" style="color: red;" value="0"></small>
+	                      </div>
+	                      <div class="col-lg-8 form-group">
+	                          <label class="text-small text-uppercase" for="address">비밀번호 확인</label>
+	                          <div class="btn-left">
+	                            <input class="form-control form-control-lg" name="checkPwd" id="checkPwd" type="password" placeholder="입력한 비밀번호를 한번 더 입력해주세요.">
+	                            &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-dark" id="changePwdBtn" style="float: right;">변경</button>
+	                          </div>
+	                      	  <small id="pwdMent2" style="color: red;" value="0"></small>
+	                      </div>
+                      </form>
                       <br><br><br>
                       <button type="submit" class="btn btn-dark" style="margin-left:195px; background-color:#e9ecef; border-color: #e9ecef;"  onclick="location.href='#pop01'">탈퇴하기</button>
                       <!-- 회원탈퇴 팝업창 -->
@@ -254,6 +255,137 @@
         </section>
       </div>
       <br>
+      <script>
+	  	  //휴대폰번호 유효성검사
+	      $("#changePhone").keyup(function(){
+	         //var regPhone = /^(?=.{12,13}$)(\d{3,3})+[-]+(\d{3,4})+[-]+(\d{4,4})/
+	         var regPhone = /^[0-9]{10,11}$/
+	        
+	         if(regPhone.test(document.getElementById("changePhone").value)){
+	           document.getElementById("phoneMent").value = 1;
+	           document.getElementById("phoneMent").innerHTML = ""; 
+	           document.getElementById("phoneMent").display = "none"; 
+	         } else {
+	           document.getElementById("phoneMent").value = 0;
+	           document.getElementById("phoneMent").style.display = "";
+	           document.getElementById("phoneMent").innerHTML = "특수문자(-) 없이 10자리 또는 11자리를 입력해주세요.";
+	         }
+	         
+	         if(document.getElementById("changePhone").value==""){
+	           document.getElementById("phoneMent").value = 0;
+	           document.getElementById("phoneMent").style.display = "none";
+	         }
+	      });
+	  	  
+          $("#changePhoneBtn").click(function(){
+		        var phoneNum = document.getElementById('changePhone').value;
+		        
+		        $.ajax({
+		            url:"${ pageContext.servletContext.contextPath }/user/mypage/changePhone",
+		            type:"post",
+		            data:{
+		            	phoneNum : phoneNum	
+		            },
+		            success:function(data, textStatus, xhr){
+		            	if(data == '1'){
+		            		alert("입력하신 번호는 이미 등록된 번호입니다.");
+			            } else{
+			            	alert("휴대폰 번호가 변경되었습니다.");
+			            }
+			  	   		location.reload();
+		        	},
+		            error:function(xhr,status,error){
+		            	console.log(error);
+		       		}
+      			});  
+		  });
+          
+          //비밀번호 유효성검사
+          $("#changePwd").keyup(function(){
+             var regPwd =/(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,50}$/;
+             
+             if(regPwd.test(document.getElementById("changePwd").value)){
+               document.getElementById("pwdMent").innerHTML="";
+               document.getElementById("pwdMent").value="1";
+               document.getElementById("pwdMent").display="none";
+              } else{
+                document.getElementById("pwdMent").innerHTML="최소 8자, 영문, 숫자, 특수문자 각각 하나 이상 포함되어 있어야 합니다.";
+                document.getElementById("pwdMent").value="0";
+                document.getElementById("pwdMent").display="";
+              }
+              
+              if(document.getElementById("changePwd").value ==""){
+                
+                document.getElementById("pwdMent").innerHTML="최소 8자, 영문, 숫자, 특수문자 각각 하나 이상 포함되어 있어야 합니다.";
+                document.getElementById("pwdMent").value="0";
+                document.getElementById("pwdMent").display="";
+                pwdMent2.innerHTML ="";
+             }
+  
+           });
+
+           //비밀번호 일치검사
+           $("#checkPwd").keyup(function(){
+              var pwd1 = document.getElementById("changePwd").value;
+              var pwd2 = document.getElementById("checkPwd").value;
+              var pwdMent2 = document.getElementById("pwdMent2");
+              if(pwd1 == ""){
+                pwdMent2.innerHTML ="";
+                pwdMent2.value = 0;
+              }
+
+              if(pwd1 != pwd2){
+                pwdMent2.innerHTML ="입력한 비밀번호와 일치하지 않습니다.";
+                pwdMent2.style.color ="red";
+                pwdMent2.value = 0;
+              }
+              
+              if(pwd1 == pwd2){
+                pwdMent2.innerHTML ="입력한 비밀번호와 일치합니다.";
+                pwdMent2.style.color ="green";
+                pwdMent2.value = 1;
+              }
+              
+              if(pwd2==""){
+                pwdMent2.innerHTML ="입력한 비밀번호와 일치하지 않습니다.";
+                pwdMent2.style.color ="red";
+                pwdMent2.value = 0;
+              }
+           });
+           
+           $("#changePwdBtn").click(function(){
+               
+      	   	  if(document.getElementById("pwdMent").value != 1){
+              	alert("비밀번호 형식에 맞춰 입력해주세요")
+              	return false;
+              }
+              if(document.getElementById("pwdMent2").value != 1){
+                alert("비밀번호 일치여부를 확인해주세요");
+                return false;
+              }
+                 
+		        var newPwd = document.getElementById('checkPwd').value;
+		        
+		        $.ajax({
+		            url:"${ pageContext.servletContext.contextPath }/user/mypage/changePwd",
+		            type:"post",
+		            data:{
+		            	newPwd : newPwd	
+		            },
+		            success:function(data, textStatus, xhr){
+		            	if(data == '1'){
+		            		alert("현재 비밀번호와 일치합니다.");
+			            } else{
+			            	alert("비밀번호가 변경되었습니다.");
+			            }
+			  	   		location.reload();
+		        	},
+		            error:function(xhr,status,error){
+		            	console.log(error);
+		       		}
+      			});  
+ 		  });
+        </script>
       	<%@include file="../commons/footer.jsp" %>
  </div>
   </body>

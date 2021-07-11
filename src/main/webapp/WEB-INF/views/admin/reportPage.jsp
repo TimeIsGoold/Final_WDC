@@ -116,8 +116,14 @@
 								            </tr>
 								            <tr>
 								                <th id="title">내 용 </th>
-								                <td>
-								                	<img src="${ pageContext.servletContext.contextPath }/resources/teacher/img/user.png"/>
+								                <td><c:choose>
+								                		<c:when test="${not empty reportDetail.imgPath}">
+								                			<img src="${ pageContext.servletContext.contextPath }/resources/upload/${reportDetail.imgPath}" width="400" height="400"/>
+								                		</c:when>
+								                		<c:otherwise>
+								                		</c:otherwise>
+								                </c:choose>
+								                	
 								                <p>${reportDetail.reason}<p></td>      
 								                  
 								            </tr>

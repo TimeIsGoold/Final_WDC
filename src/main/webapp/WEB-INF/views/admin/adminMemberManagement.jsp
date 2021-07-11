@@ -14,11 +14,20 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        <script>
-            function detailPage() {
-                location.href="MemberManager-admin.html";
+    <style>
+        	.category {
+        		margin-top: 0.5%;
+                width: 33%;
+                border-radius: 5px;
+                background: #fef0ae;
+                border: none;
+                height: 30px;
             }
-        </script>
+
+            .category:hover {
+                background: rgb(112, 112, 112);
+            }    
+    </style>
         
     </head>
     <body class="sb-nav-fixed">
@@ -40,10 +49,10 @@
                                 <i class="fas fa-table me-1"></i>
                                 회원관리
                             </div>
-                            <div class="btn-group btn-group-justified">
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/memberManagement?currentMenu=member" class="btn btn-warning">전체 </a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=tc" class="btn btn-warning">강사</a>
-						        <a  href="${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st" class="btn btn-warning">수강생</a>
+                             <div class="sideMenu">
+                            	<input type="button" id="total" class="category" value="전체" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/memberManagement?currentMenu=member&ut=total'">
+                            	<input type="button" id="tc" class="category" value="강사" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=tc'">
+                            	<input type="button" id="st" class="category" value="수강생" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st'">
       						</div>
 
                             <div class="card-body">
@@ -82,6 +91,19 @@
                 </main>
             </div>
         </div>
+        <script>
+    		function drawColor(){
+    			var documentUrl = document.URL; 
+    			var NdocumentUrl = new URL(documentUrl);  
+    			var currentTab = NdocumentUrl .searchParams.get("ut");  //url에 있는 name이란 파라미터값을 가지고옴
+    			
+    			console.log(currentTab);
+    			const currentTabBar = document.getElementById(currentTab);
+    			currentTabBar.style.background = '#ffe163';
+    			currentTabBar.style.fontWeight = 'bolder';
+    		}
+    	</script>
+    	<script>drawColor();</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

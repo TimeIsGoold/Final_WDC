@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.user.model.dao.UserClassMapper;
 import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
@@ -266,14 +267,15 @@ public class UserClassServiceImpl implements UserClassService{
 	}
 
 	@Override
-	public List<UserClassDTO> selectMyLikeClassList(int userNo) {
-		return mapper.selectMyLikeClassList(userNo);
+	public List<UserClassDTO> selectMyLikeClassList(PageInfoDTO pageInfo) {
+		return mapper.selectMyLikeClassList(pageInfo);
 	}
 
 	@Override
 	public int updateUserWithdraw(int userNo) {
 		return mapper.updateUserWithdraw(userNo);
 	}
+
 
 
 

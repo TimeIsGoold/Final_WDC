@@ -81,29 +81,29 @@
      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
      <%-- <%@ include file="../commons/sidebar.jsp" %> --%>
-      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
+      <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
         <!-- 상단 메뉴바 -->
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="font-size: 15; color: black" ><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
           <a id="review" style="font-size: 15; color: black" onclick="disicionCheck(this);" ><b>후기</b></a>          
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
           <a id="inquiry"style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3" id="content-formatting" style="float: left; margin: auto;">
-          <a id="studentManage"  style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>수강생 관리</b></a>
+        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+          <a id="studentManage"  style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>출석 관리</b></a>
         </div>
         <script>
           function disicionCheck(p){
             if("${classDetail.dicsionStatus}" != "S" ){
-              alert("심사가 완료되지 않아 조회할 수 없습니다.");
+              alert("개설되지 않은 클래스로 조회할 수 없습니다.");
               return;
             } 
             switch(p.id){
-              case "review" : location.href = ""; break;
+              case "review" : location.href = "${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }"; break;
               case "inquiry" : location.href = "${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }"; break;
               case "studentManage" : location.href = "${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classDetail.clsType}&clsNo=${ classDetail.clsNo }";break;
             }
@@ -111,12 +111,33 @@
         </script>        
       </div>
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left;">
+    <div class="col-sm-12" id="content-formatting" style="float: left;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
+      <c:choose>
+        <c:when test="${ classDetail.dicsionStatus eq 'W' }">
         <h4>상세정보</h4>
+        <p style="color: gray;">심사대기중</p>
+        </c:when>
+        <c:when test="${ classDetail.dicsionStatus eq 'F' }">
+        <h4>상세정보</h4>
+        <p style="color: #fef0ae;">응원진행 중(현재 응원 수 : ${ cheeringCount })</p>
+        </c:when>
+        <c:when test="${ classDetail.dicsionStatus eq 'L' }">
+        <h4>상세정보</h4>
+        <p style="color: red;">응원 수 미달(최종 응원 수 : ${ cheeringCount })</p>
+        </c:when>
+        <c:when test="${ classDetail.dicsionStatus eq 'R' }">
+        <h4>상세정보</h4>
+        <p ><b style="color: red;">심사거절</b>(사유 : ${ rejectReason }) </p>
+        </c:when>
+        <c:otherwise>
+        <h4>상세정보</h4>
+        <p ><b style="color: green;">승인완료</b>(최종 응원 수 : ${ cheeringCount }) </p>
+        </c:otherwise>
+      </c:choose>
       </div>
 
-      <div class="col-sm-10">
+      <div class="col-sm-12">
         <!-- PRODUCT SLIDER-->
         <div class="row">
           <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">

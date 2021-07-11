@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tig.wdc.model.dto.CurriculumDTO;
+import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
 import com.tig.wdc.user.model.dto.PaymentDTO;
@@ -101,9 +102,11 @@ public interface UserClassMapper {
 
 	public int selectCheerCount(int clsNo);
 
-	public List<UserClassDTO> selectMyLikeClassList(int userNo);
+	public List<UserClassDTO> selectMyLikeClassList(PageInfoDTO pageInfo);
 
 	public int updateUserWithdraw(int userNo);
+
+	public String selectRejectReason(int clsNo);
 
 
 

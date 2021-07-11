@@ -114,9 +114,17 @@
 						</table>
 					</div>
 					<div class="col-sm-6" align="center" style="height: 1000px;">
-						<img
-							src="${ pageContext.servletContext.contextPath }/resources/upload/${memberInfo.imgPath}"
-							alt="강사 프로필" width="400" height="400"/> <br>
+						<c:choose>
+							<c:when test="${not empty memberInfo.imgPath}">
+							<img src="${ pageContext.servletContext.contextPath }/resources/upload/${memberInfo.imgPath}"
+							alt="강사 프로필" width="400" height="400"/>
+							</c:when>
+							<c:otherwise>
+							<img src="${ pageContext.servletContext.contextPath }/resources/teacher/img/user.png"
+							alt="강사 프로필" width="400" height="400"/>
+							</c:otherwise>
+						</c:choose>
+						<br>
 						<br>
 						<br>
 						<textarea cols="100" rows="10" style="resize: none;"
