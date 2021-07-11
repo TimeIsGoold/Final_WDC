@@ -36,12 +36,12 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
   </head>
   <style>
-     html {
+/*      html {
 
 		position: relative;
 		margin: 0;
 		background: white;
-	}
+	} */
     body {
       font-size: 15px;
     }
@@ -117,7 +117,6 @@
 	  
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    </div>
     <br><br><br><br>
     <!-- footer -->
     <jsp:include page="../commons/footer2.jsp"/>

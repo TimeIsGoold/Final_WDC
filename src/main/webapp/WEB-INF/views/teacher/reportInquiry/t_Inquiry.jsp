@@ -78,9 +78,9 @@
 
         <!-- main for FAQ-->
         <form method="post" action="${pageContext.servletContext.contextPath }/teacher/inquiryWrite">
-        <div class="col-lg-8 order-1 order-lg-1 mb-5 mb-lg-0" style="margin: auto; padding-top: 10px; height: 950px;">
+        <div class="col-lg-8 order-1 order-lg-1 mb-5 mb-lg-0" style="margin: auto; padding-top: 10px;">
           <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-            <P style="font-size: 20px; font-weight: bold;" >문의작성<P>
+            <P style="font-size: 20px; font-weight: bold; margin-top: 25px;" >문의작성<P>
           <hr>
           </div>
           <div class="col-lg-12" style="margin: auto; margin:20px;">

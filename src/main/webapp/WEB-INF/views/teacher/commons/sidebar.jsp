@@ -40,21 +40,22 @@
       font-weight: bold;
       margin: 0px;
     }
-    .side-head {
-      height: 45px;
-      width: 130px;
-      margin: 20px;
-      padding: 5px;
-      background: #f7f6f5;
-      
+	.side-head {
+	    height: 45px;
+	    width: 130px;
+	    margin: 20px;
+	    padding: 5px;
+	    background: #f7f6f5;
+	    text-align: center;
     }
-    .side-body {
-      margin-left: 20px;
-    }
+	.side-body {
+	    text-align: right;
+	    font-size: 16px;
+	}
   </style>
 </head>
 <body>
-  <div class="col-lg-2 order-1 order-lg-0" style="float: left;">
+  <div class="col-lg-2 order-1 order-lg-0" style="float: left; margin-left: -60px; margin-top: 10px;">
     <div class="py-2 side-head"><p>클래스 관리</p></div>
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal">
       <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherClassManagement">클래스 관리</a></li>

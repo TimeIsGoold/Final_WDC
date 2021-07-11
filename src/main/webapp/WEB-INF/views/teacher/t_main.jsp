@@ -3,38 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Boutique | Ecommerce bootstrap template</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Lightbox-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/lightbox2/css/lightbox.min.css">
-    <!-- Range slider-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/nouislider/nouislider.min.css">
-    <!-- Bootstrap select-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap-select/css/bootstrap-select.min.css">
-    <!-- Owl Carousel-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/assets/owl.theme.default.css">
-    <!-- Google fonts-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-  <style>
-  
+
+<style>  
+
+.reset-anchor {
+    color: inherit;
+    transition: all 0.3s;
+    font-size: 16px;
+}
    html {
 
 		position: relative;
@@ -46,8 +22,12 @@
         font-size: 15px;
 		min-height: 100%;
     }
-    container {
-    	height: 100%;
+    .container {
+	    width: 100%;
+	    padding-right: 15px;
+	    padding-left: 15px;
+	    margin-right: auto;
+	    margin-left: auto;
     }
 
     table {
@@ -83,6 +63,7 @@
     .card-header {
       	font-weight: bold;
       	font-size: 17px;
+      	background-color: transparent !important;
     }
 
     .card-img-top {
@@ -97,25 +78,31 @@
 	border: 1px solid #fef0ae;
 	border-radius: 5px;
 	}
+	
+	.side-body {
+    text-align: right;
+	}
+	
+	.col-sm-4 {
+	    flex: 0 0 33.333333%;
+	    max-width: 41% !important;
+	 }
   </style>
   </head>
   <body>
-  	
-    <div class="wrapper">
-		
-		<!-- header -->
+  	<div class="page-holder">
+  		<!-- header -->
 		<%@ include file="commons/header.jsp" %>
-
-      	<div class="container">
-        
+<!--     <div class="wrapper">
+ -->      	<div class="container">
         	<!-- sidebar -->
 			<%@ include file="commons/sidebar.jsp" %>
 
         	<!-- main page -->
-	        <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left;">
-	          <div class="col-mb-12" id="notice">
-	            <div class="card-header">공지사항</div>
-	              <div class="card-body">
+	        <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; margin-left: 50px;">
+	          <div class="col-mb-12" id="notice" style="margin-top: 25px;">
+	            <div class="card-header">▣ 공지사항</div>
+	              <div class="card-body" style="padding: 0;">
 	                <table class="table table-hover">
 	                  <thead>
 	                    <tr>
@@ -223,11 +210,11 @@
 					</nav>
 					</div>
 	            </div>
+	          <br><br>
 	          </div>        
-	          
 	          <!-- 메인 하단 프로필 및 기타 정보 -->
-	          <div class="col-sm-4" id="content-formatting" style="float: left; margin-left: 6%;">
-	            <div class="card-header">강사 프로필
+	          <div class="col-sm-4" id="content-formatting" style="float: left; width: 435px; margin-left: 50px;">
+	            <div class="card-header">▣ 강사 프로필
 	            </div>
 	            <div class="card-body" >
 	            <c:choose>
@@ -314,7 +301,7 @@
         	  </c:if>			  
 	          <!-- /프로필편집 안내 -->
 	          <div class="col-sm-4" style="float: left; margin-bottom: 30px; margin-left: 3%;">
-	            <div class="card-header" id="profile">정산 정보
+	            <div class="card-header" id="profile">▣ 정산 정보
 	            </div>
 	            <div class="card-body" style="vertical-align: auto; height: 150px;">
 	              <b>누적 정산 금액 : </b><br>
@@ -326,16 +313,16 @@
 	          </div>
 	
 	          <div class="col-sm-4" style="float: left; margin-left: 3%">
-	            <div class="card-header" id="totalClass">클래스 정보         
+	            <div class="card-header" id="totalClass">▣ 클래스 정보         
 	            </div>
-	            <div class="card-body" style="margin-bottom: 300px">
+	            <div class="card-body" style="margin-bottom: 100px">
 	              <b>운영중인 클래스 수</b><br>
 	              <p>${ RegistedClassCount }</p>
 	            <div class="card-body"></div>
 	              <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#classRegist">클래스 등록</button>
 	            </div>
 	          </div>
-	        </div>
+	        
 
         	<!-- 클래스1단계 등록 팝업 -->
 	        <div id="classRegist"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
@@ -402,9 +389,9 @@
       		<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
-    
+
  	<!-- footer -->
-	<%@ include file="commons/footer.jsp" %> 
+	<%@ include file="commons/footer2.jsp" %> 
 	<script>
 	const link = "/wdc/teacher/main";
 		
