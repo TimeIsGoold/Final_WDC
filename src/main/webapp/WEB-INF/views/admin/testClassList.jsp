@@ -137,8 +137,6 @@
          	 window.onload = function(){
          		 
          		 const t = "${t}";
-         		 console.log("함수 호출");
-         		 console.log(t);
          		var tab1 = document.getElementById("tab1");
          		var tab2 = document.getElementById("tab2");
          		var tab3 = document.getElementById("tab3");
@@ -147,9 +145,9 @@
          		 console.log(tab2.className);
          		 console.log(tab3.className);
          		switch(t){
-         		case 't' : console.log("함수 호출1"); tab1.className = 'nav-link active'; tab2.className = 'nav-link'; tab3.className = 'nav-link'; break;
-         		case 'p' : console.log("함수 호출2"); tab2.className = 'nav-link active'; tab1.className = 'nav-link'; tab3.className = 'nav-link'; break;
-         		case 'l' : console.log("함수 호출3"); tab3.className = 'nav-link active'; tab1.className = 'nav-link'; tab2.className = 'nav-link'; break;
+         		case 't' : tab1.className = 'nav-link active'; tab2.className = 'nav-link'; tab3.className = 'nav-link'; break;
+         		case 'p' : tab2.className = 'nav-link active'; tab1.className = 'nav-link'; tab3.className = 'nav-link'; break;
+         		case 'l' : tab3.className = 'nav-link active'; tab1.className = 'nav-link'; tab2.className = 'nav-link'; break;
          		}
          	 }
 			
@@ -160,7 +158,6 @@
 				console.log(list);
 
 				if(p.id == "allcheck"){
-						console.log("이프문 확인")
 						
 					if(allcheck.checked){
 						for(var i = 0; i < list.length; i++) {
