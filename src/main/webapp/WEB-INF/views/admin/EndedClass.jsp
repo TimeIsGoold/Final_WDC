@@ -80,7 +80,16 @@
                                         </div>
                                         <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/pin.png" id="logoutIcon1">&nbsp;&nbsp;${classDetail.address }</div>
                                         <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/clock.png" id="logoutIcon1">&nbsp;&nbsp;${classDetail.time }</div>
-                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/users.png" id="logoutIcon1">&nbsp;&nbsp;${schedule.maxPeople}</div>
+                                        <div style="margin-left:50px"><img src="${ pageContext.servletContext.contextPath }/resources/user/img/users.png" id="logoutIcon1">&nbsp;&nbsp;
+			                           <c:if test="${ requestScope.classDetail.clsType == 'R' }">
+			                              <c:forEach var="schedule" items="${ requestScope.schedule }">
+			                                 	최대 ${ schedule.maxPeople } 명
+			                              </c:forEach>
+			                           </c:if>
+			                           <c:if test="${ requestScope.classDetail.clsType == 'O' }">
+			                              	최대   ${ requestScope.oneDayMax } 명
+			                           </c:if>
+                         			  </div>
                                       </div>
                                   </div>
                                 <div>

@@ -599,6 +599,8 @@ public class AdminController {
 				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 				schedule = classService.selectSchedule(clsNo);
 				model.addAttribute("schedule", schedule);
+				int oneDayMax = classService.selectOneDayMax(clsNo);
+				model.addAttribute("oneDayMax", oneDayMax);	
 				path = "admin/BeforeDicision";	
 				// 2차 심사 완료  진행중인 클래스(클래스 승인 완료)
 		}  else if(type.equals("S") && decision.equals("P")) {
@@ -621,6 +623,8 @@ public class AdminController {
 				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 				schedule = classService.selectSchedule(clsNo);
 				model.addAttribute("schedule", schedule);
+				int oneDayMax = classService.selectOneDayMax(clsNo);
+				model.addAttribute("oneDayMax", oneDayMax);	
 				path = "admin/detailpage";	
 				// 거절된 클래스
 		} else if(type.equals("R") && decision.equals("Y")) {
@@ -641,6 +645,8 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
+				int oneDayMax = classService.selectOneDayMax(clsNo);
+				model.addAttribute("oneDayMax", oneDayMax);	
 				// 클래스 스케줄 select
 				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 				schedule = classService.selectSchedule(clsNo);
@@ -667,6 +673,8 @@ public class AdminController {
 				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 				schedule = classService.selectSchedule(clsNo);
 				model.addAttribute("schedule", schedule);
+				int oneDayMax = classService.selectOneDayMax(clsNo);
+				model.addAttribute("oneDayMax", oneDayMax);	
 				path = "admin/LackofcheeringClass";	
 				// 종료된 클래스
 		} else if(decision.equals("E")) {
@@ -681,6 +689,8 @@ public class AdminController {
 				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
 				schedule = classService.selectSchedule(clsNo);
 				model.addAttribute("schedule", schedule);
+				int oneDayMax = classService.selectOneDayMax(clsNo);
+				model.addAttribute("oneDayMax", oneDayMax);				
 				path = "admin/EndedClass";	
 		}
 		return path;
