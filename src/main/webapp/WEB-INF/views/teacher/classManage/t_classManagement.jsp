@@ -308,12 +308,12 @@
   <jsp:include page="../commons/footer.jsp"/>
   <script>
     const link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";
-    const classType = document.getElementById("classType").value;
-    const proceed = document.getElementById("proceed").value;
-    const decision = document.getElementById("decision").value;
 	if(document.getElementById("startPage")) {
 		const $startPage = document.getElementById("startPage");
 		$startPage.onclick = function() {
+    		let classType = document.getElementById("classType").value;
+    		let proceed = document.getElementById("proceed").value;
+    		let decision = document.getElementById("decision").value;
 			location.href = link + "?currentPage=1" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
@@ -321,6 +321,9 @@
 	if(document.getElementById("prevPage")) {
 		const $prevPage = document.getElementById("prevPage");
 		$prevPage.onclick = function() {
+			let classType = document.getElementById("classType").value;
+			let proceed = document.getElementById("proceed").value;
+			let decision = document.getElementById("decision").value;
 			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
@@ -328,6 +331,9 @@
 	if(document.getElementById("nextPage")) {
 		const $nextPage = document.getElementById("nextPage");
 		$nextPage.onclick = function() {
+			let classType = document.getElementById("classType").value;
+			let proceed = document.getElementById("proceed").value;
+			let decision = document.getElementById("decision").value;
 			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
@@ -335,12 +341,20 @@
 	if(document.getElementById("maxPage")) {
 		const $maxPage = document.getElementById("maxPage");
 		$maxPage.onclick = function() {
+			let classType = document.getElementById("classType").value;
+			let proceed = document.getElementById("proceed").value;
+			let decision = document.getElementById("decision").value;
 			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }" + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 		}
 	}
 	
 	function pageButtonAction(text) {
-		location.href = link + "?currentPage=" + text  + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
+   		
+		let classType = document.getElementById("classType").value;
+		let proceed = document.getElementById("proceed").value;
+		let decision = document.getElementById("decision").value;
+
+   		location.href = link + "?currentPage=" + text  + "&classType="+classType+"&decision="+decision+"&proceed="+proceed;
 	}
 	</script>
 	<script>
