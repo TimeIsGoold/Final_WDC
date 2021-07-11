@@ -36,8 +36,8 @@ import com.tig.wdc.admin.model.dto.TotalDTO;
 import com.tig.wdc.admin.model.service.AdminService;
 import com.tig.wdc.common.Encryption;
 import com.tig.wdc.model.dto.CurriculumDTO;
-import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dto.ClassPieceDTO;
+import com.tig.wdc.user.model.dto.ScheduleDTO;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.service.UserClassService;
 
@@ -518,7 +518,10 @@ public class AdminController {
 		System.out.println("넘어오는 타입이 뭔지 알수 있을까요???" + type);
 		System.out.println("넘어오는 유저 넘버는요????" + userNo);
 		adminService.updateReportStatus(no);
-		int i = adminService.selectReportCnt(userNo);
+		Map<String, Object> getCnt = new HashMap<>();
+		getCnt.put("type", type);
+		getCnt.put("userNo", userNo);
+		int i = adminService.selectReportCnt(getCnt);
 		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
 		int chkCnt = 0;
 		blackMap.put("type", type);
@@ -557,7 +560,8 @@ public class AdminController {
 		Map<String, String> map = new HashMap<>();
 		map.put("type", type);
 		model.addAttribute("classList", adminService.selectClassBycategory(map));
-		if(result > 0)  model.addAttribute("message","1차 심사를 승인하셨습니다.");
+		if(result == 2)  model.addAttribute("message","클래스 1차 심사를 승인하였습니다.");
+		if(result == 1)  model.addAttribute("message","클래스 1차 심사를 거절하였습니다.");
 		return "admin/adminClassManagement";
 	}
 	
@@ -572,11 +576,8 @@ public class AdminController {
 	
 	@GetMapping("classDetail")
 	public String classDetail(Model model, @RequestParam("cn")int clsNo, @RequestParam("ct")String type, @RequestParam("cd")String decision) {
-		
-		System.out.println(type);
-		System.out.println(clsNo);
-		System.out.println(decision);
 		String path = "";
+		// 1차 심사 대기중인 클래스 리스트
 		if(type.equals("W") && decision.equals("Y")) {
 		//클래스 정보 select
 				UserClassDTO classDetail = new UserClassDTO();
@@ -594,12 +595,13 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
+				// 클래스 스케줄 select
+				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+				schedule = classService.selectSchedule(clsNo);
+				model.addAttribute("schedule", schedule);
 				path = "admin/BeforeDicision";	
-				
-				
-		}  else if(type.equals("S") && decision.equals("P") ||decision.equals("Y")) {
-			
-			System.out.println("fjiodsajgiofjgoidjgiodsajgiodfjfidjfd 일로와라 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				// 2차 심사 완료  진행중인 클래스(클래스 승인 완료)
+		}  else if(type.equals("S") && decision.equals("P")) {
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -615,8 +617,11 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
+				// 클래스 스케줄 select
+				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+				schedule = classService.selectSchedule(clsNo);
+				model.addAttribute("schedule", schedule);
 				path = "admin/detailpage";	
-				
 				// 거절된 클래스
 		} else if(type.equals("R") && decision.equals("Y")) {
 				String reason = adminService.selectRejectReason(clsNo);
@@ -636,28 +641,11 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
+				// 클래스 스케줄 select
+				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+				schedule = classService.selectSchedule(clsNo);
+				model.addAttribute("schedule", schedule);
 				path = "admin/denyClassManagement";	
-				
-		} else if(type.equals("P") && decision.equals("P")) {
-			String reason = adminService.selectRejectReason(clsNo);
-			model.addAttribute("reason" , reason);
-			UserClassDTO classDetail = new UserClassDTO();
-			classDetail = classService.selectClassDtail(clsNo);
-			model.addAttribute("classDetail",classDetail);
-			//대표사진 3장 select
-			List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
-			classPic = classService.selectClassPic(clsNo);
-			model.addAttribute("classPic",classPic);
-			//완성작 select
-			List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
-			classPiece = classService.selectClassPiece(clsNo);
-			model.addAttribute("classPiece",classPiece);
-			//커리큘럼 select
-			List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
-			curriculum = classService.selectCurriculum(clsNo);
-			model.addAttribute("curriculum",curriculum);
-			path = "admin/denyClassManagement";	
-				
 				// 응원 갯수 부족 클래스
 		} else if(type.equals("L") && decision.equals("Y")) {
 				UserClassDTO classDetail = new UserClassDTO();
@@ -675,6 +663,10 @@ public class AdminController {
 				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
 				curriculum = classService.selectCurriculum(clsNo);
 				model.addAttribute("curriculum",curriculum);
+				// 클래스 스케줄 select
+				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+				schedule = classService.selectSchedule(clsNo);
+				model.addAttribute("schedule", schedule);
 				path = "admin/LackofcheeringClass";	
 				// 종료된 클래스
 		} else if(decision.equals("E")) {
@@ -685,24 +677,20 @@ public class AdminController {
 				List<UserClassDTO> classPic = new ArrayList<UserClassDTO>();
 				classPic = classService.selectClassPic(clsNo);
 				model.addAttribute("classPic",classPic);
-				//완성작 select
-				List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
-				classPiece = classService.selectClassPiece(clsNo);
-				model.addAttribute("classPiece",classPiece);
-				//커리큘럼 select
-				List<CurriculumDTO> curriculum = new ArrayList<CurriculumDTO>();
-				curriculum = classService.selectCurriculum(clsNo);
-				model.addAttribute("curriculum",curriculum);
+				// 클래스 스케줄 select
+				List<ScheduleDTO> schedule = new ArrayList<ScheduleDTO>();
+				schedule = classService.selectSchedule(clsNo);
+				model.addAttribute("schedule", schedule);
 				path = "admin/EndedClass";	
 		}
 		return path;
 	}
 	
 	@PostMapping("firstDecision")
-	public String firstDecicsion(@ModelAttribute ClsDecisionDTO clsDecisionDTO, Model model) {
+	public String firstDecicsion(@ModelAttribute ClsDecisionDTO clsDecisionDTO,@RequestParam(value="yn", defaultValue="0")int no, Model model) {
 		 int result = adminService.updateFirstDecision(clsDecisionDTO);
 		 if(result > 0)  adminService.insertClassDecision(clsDecisionDTO);
-		return "redirect:selectClassBycategory?ct=tw&cnt="+result;
+		return "redirect:selectClassBycategory?ct=tw&cnt=" + no;
 	}
 
 	@GetMapping("seconddecision")
@@ -717,7 +705,7 @@ public class AdminController {
 	      if(result.equals("p")) {
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
 	            // 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) >= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) < today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	               List<Integer> userNoArr = null;
 	               for(int j = 0; j < refinedCheeringClassList.size(); j ++) {
@@ -740,7 +728,7 @@ public class AdminController {
 	      // 응원수가 미달인 2차심사 대기중 인 클래스
 	      if(result.equals("l")) {
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) < today && cheeringClassList.get(i).getCheeringCnt() < 5) {
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	            } 
 	            model.addAttribute("classList", refinedCheeringClassList);
@@ -751,12 +739,12 @@ public class AdminController {
 	   }
 	
 	@PostMapping("acceptSecondDecision")
-	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo,@RequestParam("submit")int num,  Model model) {
+	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo, @RequestParam("submit")int num,  Model model) {
 		String[] cheeringInfoArr = cheeringInfo.split(",");
 		// 승인을 눌렀을시
 		if(num == 1) {
 			for(int i = 0; i < cheeringInfoArr.length; i++) {
-				String[] getClsNo = cheeringInfoArr[i].split("/");			
+				String[] getClsNo = cheeringInfoArr[i].split("/");
 				adminService.updateClsSecondDecision(Integer.parseInt(getClsNo[0])); 
 				adminService.updateClsSecondDecisionHistory(Integer.parseInt(getClsNo[0])); 
 				UserClassDTO classDetail = new UserClassDTO();

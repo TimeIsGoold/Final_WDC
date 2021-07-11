@@ -268,7 +268,7 @@ public interface AdminMapper {
 
 	List<BlackListDTO> selectBlockedStudentList();
 
-	int selectReportCnt(int no);
+	int selectReportCnt(Map<String, Object> getCnt);
 
 	int insertBlackList(Map<String, Object> blackMap);
 
