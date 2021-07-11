@@ -142,8 +142,13 @@
           <div class="container py-5">
             <div class="row px-4 px-lg-5">
               <div class="col-lg-6">
-                <p class="text-muted small text-uppercase mb-2">New Inspiration 2020</p>
-                <h1 class="h2 text-uppercase mb-3">응원한 클래스가 개설되면 파격 할인 쿠폰 제공!!</h1><a class="btn btn-dark" href="shop.html">Browse collections</a>
+                <p class="text-muted small text-uppercase mb-2">WDC 2021 EVENT</p>
+                <h1 class="h2 text-uppercase mb-3">응원한 클래스가 개설되면 파격 할인 쿠폰 제공!!</h1>
+                 <form action="${ pageContext.servletContext.contextPath }/user/category/all" method="get">
+<!--                 <a class="btn btn-dark" href="shop.html">Browse collections</a>
+ -->                  <input name="searchCheckBox" value="endClass" type="hidden">
+                  <a class="btn btn-dark"><button style="width: 230px; height: 50px;" class="btn btn-darkt" id="customCheck3btn" type="submit" >응원클래스 목록보러가기</button></a>
+                  </form>
               </div>
             </div>
           </div>

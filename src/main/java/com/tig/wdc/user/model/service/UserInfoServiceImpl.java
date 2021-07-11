@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tig.wdc.model.dto.PageInfoDTO;
 import com.tig.wdc.model.dto.TeacherInfoDTO;
 import com.tig.wdc.user.model.dao.UserInfoMapper;
 import com.tig.wdc.user.model.dto.UserClassDTO;
@@ -40,33 +41,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public List<UserClassDTO> selectScheduledOneDayClassList(int userNo) {
-		return mapper.selectScheduledOneDayClassList(userNo);
+	public List<UserClassDTO> selectScheduledClassList(int userNo) {
+		return mapper.selectScheduledClassList(userNo);
+	}
+	
+	@Override
+	public List<UserClassDTO> selectparticipatingClassList(int userNo) {
+		return mapper.selectparticipatingClassList(userNo);
 	}
 
 	@Override
-	public List<UserClassDTO> selectScheduledRegularClassList(int userNo) {
-		return mapper.selectScheduledRegularClassList(userNo);
-	}
-
-	@Override
-	public List<UserClassDTO> selectparticipatingOneDayClassList(int userNo) {
-		return mapper.selectparticipatingOneDayClassList(userNo);
-	}
-
-	@Override
-	public List<UserClassDTO> selectparticipatingRegularClassList(int userNo) {
-		return mapper.selectparticipatingRegularClassList(userNo);
-	}
-
-	@Override
-	public List<UserClassDTO> selectComplateClassList(int userNo) {
-		return mapper.selectComplateClassList(userNo);
-	}
-
-	@Override
-	public List<UserClassDTO> selectRefundClassList(int userNo) {
-		return mapper.selectRefundClassList(userNo);
+	public List<UserClassDTO> selectComplateClassList(PageInfoDTO pageInfo) {
+		return mapper.selectComplateClassList(pageInfo);
 	}
 
 	@Override
@@ -107,6 +93,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public int registUser(UserInfoDTO registInfo) {
 		return mapper.registUser(registInfo);
+	}
+	
+	@Override
+	public int selectCompleteClssCount(int userNo) {
+		return mapper.selectCompleteClssCount(userNo);
+	}
+
+
+	@Override
+	public int selectRefundClassCount(int userNo) {
+		return mapper.selectRefundClassCount(userNo);
 	}
 
 	@Override
