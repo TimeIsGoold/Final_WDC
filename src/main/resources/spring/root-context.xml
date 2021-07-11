@@ -84,10 +84,8 @@
 	</tx:advice> 
 
 	<aop:config proxy-target-class="true">
-		<aop:pointcut id="serviceMethod"
-			expression="execution(* com.tig.wdc..*ServiceImpl.*(..))" />
-		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
-			advice-ref="txAdvice" />
+		<aop:pointcut id="serviceMethod" expression="execution(* com.tig.wdc..*ServiceImpl.*(..))" />
+		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice" />
 	</aop:config>
 
 	<mybatis-spring:scan
