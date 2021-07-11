@@ -10,6 +10,7 @@
         <meta name="description" content=""/>
         <meta name="author" content=""/>
         <title>우리동네 클래스</title>
+        <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/user/img/favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -95,7 +96,7 @@
                                         <tr>
                                             <td>쿠폰 발급하기</td>
                                             <td colspan="" align="right"><c:choose><c:when test="${memberInfo.blockYn eq 'N'}">
-                                            <a class="btn btn-primary" href="couponIssue.html" role="button">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                            <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/issueCouponSpecificIndividual?id=${ memberInfo.id }'">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</button>
                                             </c:when><c:otherwise></c:otherwise></c:choose></td>
                                             <td></td>
                                         </tr>				

@@ -17,7 +17,7 @@
 
         	.category {
         		margin-top: 0.5%;
-                width: 33%;
+                width: 13.9%;
                 border-radius: 5px;
                 background: #fef0ae;
                 border: none;
@@ -191,7 +191,7 @@
     		function drawColor(){
     			var documentUrl = document.URL; 
     			var NdocumentUrl = new URL(documentUrl);  
-    			var currentTab = NdocumentUrl .searchParams.get("ct");  //url에 있는 name이란 파라미터값을 가지고옴
+    			var currentTab = NdocumentUrl .searchParams.get("pc");  //url에 있는 name이란 파라미터값을 가지고옴
     			
     			console.log(currentTab);
     			const currentTabBar = document.getElementById(currentTab);
