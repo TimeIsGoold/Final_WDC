@@ -21,7 +21,7 @@
     		.title {
     			font-weight: bolder;
     			font-size: 66px; 
-    			margin-left: 35.5%;
+    			margin-left: 37.3%;
     			margin-top: 70px;
     		}
     		
@@ -32,6 +32,11 @@
     		#title {
     			font-weight: bolder;
     			font-size: xxx-large;
+    		}
+    		
+    		.form-check {
+    			font-size: x-small;
+				padding: 0 !important;
     		}
     		
     		#loginBtn {
@@ -85,12 +90,12 @@
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                                <a href="${pageContext.servletContext.contextPath}/user/login">관리자가 아니신 분은 여기를 클릭해주세요!!</a>
+                                                <label class="form-check-label" for="inputRememberPassword"></label>
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <button class="btn btn-primary" type="submit" id="loginBtn">Login</button>
-                                                <a class="btn btn-primary" id="retunPageBtn" href="${ pageContext.servletContext.contextPath }/user/login">Main</a>
+                                                <a class="btn btn-primary" id="retunPageBtn" href="${ pageContext.servletContext.contextPath }">Main</a>
                                             </div>
                                         </form>
                                     </div>
