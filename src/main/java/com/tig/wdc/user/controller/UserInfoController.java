@@ -122,8 +122,8 @@ public class UserInfoController {
 
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
 //        암호화 후 적용
-//		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
-		} else if (!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
+		} else if(!passwordEncoder.matches(loginInfo.getUserPwd(), userInfoDTO.getUserPwd())) {
+//		} else if (!loginInfo.getUserPwd().equals(userInfoDTO.getUserPwd())) {
 
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if ("Y".equals(userInfoDTO.getQuitYn())) {
@@ -686,25 +686,24 @@ public class UserInfoController {
 	@PostMapping("changePwd")
 	@ResponseBody
 	public String changePwd(HttpSession session, HttpServletRequest request) {
-
+		
 		int userNo = (Integer) session.getAttribute("userNo");
 		String newPwd = request.getParameter("newPwd");
 
 		UserInfoDTO infoDTO = new UserInfoDTO();
 		infoDTO.setUserNo(userNo);
-		infoDTO.setUserPwd(newPwd);
-
-		//현재 비밀번호와 같은지 확인
-		int selectPwd = infoService.selectPwd(infoDTO);
 		
-		if(selectPwd == 1) { //현재 비밀번호와 입력한 비밀번호가 같음
-			return Integer.toString(selectPwd); // 1
+         try {
+            infoDTO.setUserPwd(passwordEncoder.encode(newPwd)); //비밀번호 암호화해서 값 전달
+            
+         }catch(Exception e){
+            e.printStackTrace();
+         }
+
+         //새 비밀번호이므로 update
+		 int updatePwd = infoService.updatePwd(infoDTO);
 			
-		} else { //새 비밀번호이므로 update
-			int updatePwd = infoService.updatePwd(infoDTO);
-			
-			return Integer.toString(selectPwd); // 0
-		}
+		 return Integer.toString(0); // 0
 	}
 
 }

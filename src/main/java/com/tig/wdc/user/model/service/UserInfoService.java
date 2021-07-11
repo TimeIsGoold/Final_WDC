@@ -59,7 +59,7 @@ public interface UserInfoService {
 
 	public int updatePwd(UserInfoDTO infoDTO);
 
-	public int selectPwd(UserInfoDTO infoDTO);
+	public String selectPwd(UserInfoDTO infoDTO);
 
 	public int selectlikeClassCount(int userNo);
 

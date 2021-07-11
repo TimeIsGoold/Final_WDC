@@ -142,7 +142,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public int selectPwd(UserInfoDTO infoDTO) {
+	public String selectPwd(UserInfoDTO infoDTO) {
 		return mapper.selectPwd(infoDTO);
 	}
 

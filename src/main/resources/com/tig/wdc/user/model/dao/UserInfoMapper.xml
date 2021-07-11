@@ -418,12 +418,11 @@
 		 WHERE USER_PHONE = #{ phone }
 	</select>
 	
-	<select id="selectPwd" parameterType="UserInfoDTO" resultType="_int">
+	<select id="selectPwd" parameterType="UserInfoDTO" resultType="String">
 		SELECT
-		       COUNT(USER_NO)
+		       USER_PWD
 		  FROM USER_INFO
-		 WHERE USER_PWD = #{ userPwd }
-		   AND USER_NO = #{ userNo }
+		 WHERE USER_NO = #{ userNo }
 	</select>
 	
 	<update id="updatePhone" parameterType="UserInfoDTO">
