@@ -40,10 +40,9 @@ public class MainController {
 		
 		String date = dateFormat.format(new Date(System.currentTimeMillis()));
 		
-		System.out.println(date);
 		HashMap<String, String> searchDate = new HashMap<>();
 		searchDate.put("searchDate", date);
-		if(classService.selectClassUpdate(searchDate) != null) {
+		if(classService.selectClassUpdate(searchDate) == null) {
 			
 			classService.updateClass(searchDate);
 			classService.insertUpdateClass(searchDate);
