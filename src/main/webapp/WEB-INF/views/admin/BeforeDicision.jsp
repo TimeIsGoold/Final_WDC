@@ -91,7 +91,7 @@
                                       </div>
                                   </div>
                                 </div>
-                                <button class="btn btn-primary" style="margin-left: 90%;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">뒤로 가기</button>
+
                                 <br><br>
                                 <!-- 상세보기 탭 -->
                                 <div class="tab-content mb-5" id="myTabContent">
@@ -166,11 +166,49 @@ ${ classDetail.intro }
                                             <img src="../관리자/img/no-coffee.png" alt="home" width="23px" height="23px">
                                             <div style="font-size: large;">&nbsp;&nbsp;&nbsp;커피/음료는 별도 구매하셔야합니다.</div>
                                           </div>
-                                          <!-- 지도 보기 -->
-                                          <div style="display: block; text-align: center;">
-                                            <br><br>
-                                            <img src="../관리자/img/화면 캡처 2021-06-23 011233.png">
-                                          </div>
+                           <!-- 지도 보기 -->
+                           <div id="map" style="width:100%;height:400px;"></div>
+                           <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f9c32f3d7241ef20de4f8c2703db2c7&libraries=services"></script>
+                           <script>
+                           var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                               mapOption = {
+                                   center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                   level: 3 // 지도의 확대 레벨
+                               };  
+                           
+                           // 지도를 생성합니다    
+                           var map = new kakao.maps.Map(mapContainer, mapOption); 
+                           
+                           // 주소-좌표 변환 객체를 생성합니다
+                           var geocoder = new kakao.maps.services.Geocoder();
+                           
+                           //주소 저장
+                           var classAdress = '${ requestScope.classDetail.address }';
+                           // 주소로 좌표를 검색합니다
+                           geocoder.addressSearch(classAdress, function(result, status) {
+                           
+                               // 정상적으로 검색이 완료됐으면 
+                                if (status === kakao.maps.services.Status.OK) {
+                                 
+                                   var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                           
+                                   // 결과값으로 받은 위치를 마커로 표시합니다
+                                   var marker = new kakao.maps.Marker({
+                                       map: map,
+                                       position: coords
+                                   });
+                           
+                                   // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                   var infowindow = new kakao.maps.InfoWindow({
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 동네 클래스</div>'
+                                   });
+                                   infowindow.open(map, marker);
+                           
+                                   // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                   map.setCenter(coords);
+                               } 
+                           });    
+                           </script>
                                         </div>
                                       </ul>
                                       <br><br><br><br><br>
@@ -181,10 +219,10 @@ ${ classDetail.intro }
 	                                        <input type="submit" value="&nbsp;승&nbsp;&nbsp;인&nbsp;" style="margin-right: 100px;" class="btn btn-info"/>
                                         
                       
-	                                        <input type="button" data-bs-toggle="modal" data-bs-target="#insertReason" value="&nbsp;반&nbsp;&nbsp;려&nbsp;" class="btn btn-danger"/>
+	                                        <input type="button"  style="margin-right: 100px;" data-bs-toggle="modal" data-bs-target="#insertReason" value="&nbsp;반&nbsp;&nbsp;려&nbsp;" class="btn btn-danger"/>
 	                                        <input type="hidden" name="clsNo" value="${classDetail.clsNo }"/>
 	                                        <input type="hidden" name="status" value="accept"/>
-	                   
+	                                        <button class="btn btn-primary" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">뒤로 가기</button>
                                         </form>
                                       </div>
                                       <div class="col-md-2" style=" height: 100px;"></div>

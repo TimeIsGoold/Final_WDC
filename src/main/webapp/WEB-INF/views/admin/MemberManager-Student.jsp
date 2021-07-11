@@ -96,7 +96,7 @@
                                         <tr>
                                             <td>쿠폰 발급하기</td>
                                             <td colspan="" align="right"><c:choose><c:when test="${memberInfo.blockYn eq 'N'}">
-                                            <a class="btn btn-primary" href="couponIssue.html" role="button">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                            <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/issueCouponSpecificIndividual?id=${ memberInfo.id }'">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</button>
                                             </c:when><c:otherwise></c:otherwise></c:choose></td>
                                             <td></td>
                                         </tr>				

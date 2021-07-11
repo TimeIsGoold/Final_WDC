@@ -96,8 +96,16 @@
 		                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
 		                                            <td colspan="4">
 		                                                <input type="radio" name="type" value="total" class="radioBtn" required>전체 회원
-		                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
-		                                                <input type="text" name="userId" id="certainArea" placeholder="ID를 입력하세요.">
+		                                                <c:choose>
+		                                                	<c:when test="${not empty id}">
+			                                                <input type="radio" name="type" value="certain" class="radioBtn" checked>특정 회원
+			                                                <input type="text" name="userId" id="certainArea" placeholder="ID를 입력하세요." value="${id}">
+		                                                	</c:when>
+		                                                	<c:otherwise>
+			                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
+			                                                <input type="text" name="userId" id="certainArea" placeholder="ID를 입력하세요." value="">
+		                                                	</c:otherwise>
+		                                                </c:choose>
 		                                            </td>
 		                                        </tr>
 		                                        <tr>

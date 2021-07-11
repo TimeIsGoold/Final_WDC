@@ -801,6 +801,14 @@ public class AdminController {
 		
 		return "admin/adminLogin";
 	}
+	
+	@GetMapping("issueCouponSpecificIndividual")
+	public String issueCouponSpecificIndividual(@RequestParam("id")String id, Model model) {
+		
+		System.out.println("여기입니다 경찰아조씨 잡아주셍 : " + id);
+		model.addAttribute("id" ,id);
+		return "admin/couponIssue";
+	}
 }
 
 
