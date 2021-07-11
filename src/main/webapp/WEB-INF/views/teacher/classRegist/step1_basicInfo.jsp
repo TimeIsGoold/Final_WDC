@@ -81,12 +81,12 @@
 
 
 		<form method="post"	action="${pageContext.servletContext.contextPath }/classRegist/classInsert" enctype="multipart/form-data">
-		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;" >
+		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;"  >
 			<!-- SIDEBAR-->
 		<%-- 	<jsp:include page="../commons/sidebar.jsp" /> 
  --%>
 			<!-- 본문 -->
-			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px; display: none;" id="registPage1" >
+			<div class="container" style="width: 80%; margin :0 auto; max-height: 5000px;" id="registPage1" >
 				<!-- 정규클래스등록1-->
 				<div class="row">
 					<div class="col-md-2 nowStep">클래스 기본정보</div>
