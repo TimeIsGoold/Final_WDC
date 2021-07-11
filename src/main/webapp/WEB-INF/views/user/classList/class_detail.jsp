@@ -326,7 +326,7 @@ String strDate = formats.format(now); %>
 		        		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
 		        		  				} else { 
 		        		  					// 거부하면 해당 페이지 새로고침 
-		        		  					location.reload(); 
+		        		  					//location.reload(); 
 		        		  				}
 		        					} else{ //로그인 한 경우
 		        						
@@ -529,6 +529,7 @@ String strDate = formats.format(now); %>
                            allowDates : days,
                            format:'Y-m-d',
                            formatDate:'Y-m-d',
+                           minDate: 0,
                            autoClose: false,
                            scrollMonth:false,
                            timepickerScrollbar:false,
@@ -868,7 +869,12 @@ String strDate = formats.format(now); %>
                                  <c:if test="${ !empty review.answer.teName }">
                                     <!-- 답변 -->
                                     <div class="media mb-3 answer">
-                                       <img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50" height="50">
+                                       <c:if test="${ review.answer.tePic ne null }">
+                                       	<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }" alt="" width="50" height="50">
+                                       </c:if>
+                                       <c:if test="${ review.answer.tePic eq null }">
+                                       	<img class="rounded-circle" src="${ pageContext.servletContext.contextPath }/resources/user/img/user.png" alt="" width="50" height="50">
+                                       </c:if>
                                        <div class="media-body ml-3">
                                           <h6 class="mb-0 text-uppercase">${ review.answer.teName }</h6>
                                           <p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
