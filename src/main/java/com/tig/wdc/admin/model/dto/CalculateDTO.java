@@ -23,6 +23,7 @@ public class CalculateDTO {
 	private int countStudent;
 	private int cday;
 	private String today;
+	private int tuitionMNo;
 	
 	public CalculateDTO() {
 		super();
@@ -31,7 +32,7 @@ public class CalculateDTO {
 	public CalculateDTO(int calcNo, int teNo, String teType, String teName, String teId, String calcMonth,
 			String calcYN, String bank, String teAcntNo, String teAcntHolder, String totalSales, int tax,
 			String useFees, String cardFees, String calcAmount, int classNo, String className, String classType,
-			int countStudent, int cday, String today) {
+			int countStudent, int cday, String today, int tuitionMNo) {
 		super();
 		this.calcNo = calcNo;
 		this.teNo = teNo;
@@ -54,6 +55,7 @@ public class CalculateDTO {
 		this.countStudent = countStudent;
 		this.cday = cday;
 		this.today = today;
+		this.tuitionMNo = tuitionMNo;
 	}
 
 	public int getCalcNo() {
@@ -224,6 +226,14 @@ public class CalculateDTO {
 		this.today = today;
 	}
 
+	public int getTuitionMNo() {
+		return tuitionMNo;
+	}
+
+	public void setTuitionMNo(int tuitionMNo) {
+		this.tuitionMNo = tuitionMNo;
+	}
+
 	@Override
 	public String toString() {
 		return "CalculateDTO [calcNo=" + calcNo + ", teNo=" + teNo + ", teType=" + teType + ", teName=" + teName
@@ -231,7 +241,7 @@ public class CalculateDTO {
 				+ ", teAcntNo=" + teAcntNo + ", teAcntHolder=" + teAcntHolder + ", totalSales=" + totalSales + ", tax="
 				+ tax + ", useFees=" + useFees + ", cardFees=" + cardFees + ", calcAmount=" + calcAmount + ", classNo="
 				+ classNo + ", className=" + className + ", classType=" + classType + ", countStudent=" + countStudent
-				+ ", cday=" + cday + ", today=" + today + "]";
+				+ ", cday=" + cday + ", today=" + today + ", tuitionMNo=" + tuitionMNo + "]";
 	}
 
 }

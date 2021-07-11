@@ -88,46 +88,47 @@
                                 <i class="fas fa-table me-1"></i>쿠폰 상세
                             </div>
 
-							<div class="card-body">
-                                <table class="table">
-                                    <form id="area" method="post">
-	                                    <tbody>
-	                                        <tr>
-	                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
-	                                            <td colspan="4">
-	                                                <input type="radio" name="type" value="total" class="radioBtn">전체 회원
-	                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
-	                                                <input type="text" name="couponType" id="certainArea" placeholder="ID를 입력하세요.">
-	                                            </td>
-	                                        </tr>
-	                                        <tr>
-	                                            <th>쿠 &nbsp;폰 &nbsp;명</th>
-	                                            <td colspan="4">
-	                                            	<input type="text" name="couponName" class="couponInfoArea">
-	                                            </td>
-	                                        </tr>
-	                                        <tr>
-	                                            <th>사용 기한</th>
-	                                            <td class="day">시작일</td>
-	                                            <td><input type="date" name="startDate"></td>
-	                                            <td class="day">종료일</td>
-	                                            <td><input type="date" name="endDate"></td>
-	                                        </tr>
-	                                        <tr>
-	                                            <th>할인 금액</th>
-	                                            <td colspan="4">
-	                                            	<input type="text" name="discount" class="couponInfoArea">
-	                                            </td>
-	                                        </tr>
-	                                    </tbody>
-                                    </from>
-                                </table>
-
-                                <div class="couponIssueBtnArea">
-                                    <input type="button" id="btnCoupon" class="couponIssueBtn"  value="발급하기">
-                                    <input type="button" class="couponIssueBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon'" value="리스트보기">
-                                </div>
-                            </div>
+                            <form id="area" method="POST" action="/wdc/admin/couponIssue">
+								<div class="card-body">
+	                                <table class="table">
+		                                    <tbody>
+		                                        <tr>
+		                                            <th>대 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;상</th>
+		                                            <td colspan="4">
+		                                                <input type="radio" name="type" value="total" class="radioBtn" required>전체 회원
+		                                                <input type="radio" name="type" value="certain" class="radioBtn">특정 회원
+		                                                <input type="text" name="userId" id="certainArea" placeholder="ID를 입력하세요.">
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <th>쿠 &nbsp;폰 &nbsp;명</th>
+		                                            <td colspan="4">
+		                                            	<input type="text" name="couponName" class="couponInfoArea" required>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <th>사용 기한</th>
+		                                            <td class="day">시작일</td>
+		                                            <td><input type="date" name="startDate" required></td>
+		                                            <td class="day">종료일</td>
+		                                            <td><input type="date" name="endDate" required></td>
+		                                        </tr>
+		                                        <tr>
+		                                            <th>할인 금액</th>
+		                                            <td colspan="4">
+		                                            	<input type="text" name="discount" class="couponInfoArea" required>
+		                                            </td>
+		                                        </tr>
+		                                    </tbody>
+	                                    
+	                                </table>
+	
+	                                <div class="couponIssueBtnArea">
+	                                	<input type="submit" id="btnCoupon" class="couponIssueBtn"  value="발급하기">
+	                                    <input type="button" class="couponIssueBtn" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/couponManagement?currentMenu=coupon'" value="리스트보기">
+	                                </div>
+	                            </div>
+                            </form>
 						
                         </div>
                     </div>
@@ -135,11 +136,6 @@
             </div>
 
         </div>
-        <script>
-        	$("#btnCoupon").on("click",function(){
-        		$("#area").attr("action","/wdc/admin/couponIssue").submit();
-        	});
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
