@@ -65,13 +65,22 @@
                ) A
          WHERE A.RNUM BETWEEN #{ startRow } AND #{ endRow }	
 	</select>
-	<select id="selectClassCount" resultType="_int" parameterType="_int">
+	<select id="selectClassCount" resultType="_int" parameterType="hashmap">
         SELECT 
                COUNT(CLS_NO) 
           FROM CLASS 
          WHERE TE_NO = #{ teacherNo }
+         <if test="classType != null and classType != 'none'">
+           AND CLS_TYPE = #{ classType }
+         </if>
+         <if test="decision != null and decision != 'none'">
+           AND CLS_DICSION_STATUS = #{ decision }
+         </if>
+         <if test="proceed != null and proceed != 'none'">
+           AND CLS_STATUS = #{ proceed }
+         </if>
     </select>
-    <select id="selectClassList" parameterType="ClassDTO" resultMap="classInfo">
+    <select id="selectClassList" parameterType="hashmap" resultMap="classInfo">
         SELECT 
                A.CLS_NO
              , A.CLS_TITLE
@@ -97,7 +106,16 @@
                              , D.SCHEDULE_TYPE
                           FROM CLASS C
                           JOIN SCHEDULE D ON (C.CLS_NO = D.CLS_NO)
-                         WHERE C.TE_NO = #{ teNo }
+                         WHERE C.TE_NO = #{ teacherNo }
+                         <if test="classType != null and classType != 'none'">
+                           AND CLS_TYPE = #{ classType }
+                         </if>
+                         <if test="decision != null and decision != 'none'">
+                           AND CLS_DICSION_STATUS = #{ decision }
+                         </if>
+                         <if test="proceed != null and proceed != 'none'">
+                           AND CLS_STATUS = #{ proceed }
+                         </if>
                          ORDER BY C.CLS_NO DESC
                         ) B
                ) A
@@ -115,6 +133,9 @@
          FROM ADMIN_Q 
         WHERE MEMBER_TYPE = 'TEACHER' 
           AND MEMBER_NO = #{ teacherNo }
+        <if test="inquiryReply != null and inquiryReply != 'none'">
+          AND ANSWER_YN = #{ inquiryReply }
+        </if>
     </select>
     <resultMap type="UserInquiryDTO" id="inquiry">
     	<id column="문의번호" property="queNo"/>
@@ -131,7 +152,7 @@
 	        <result column="답변날짜" property="answerTime"/>
 		</association>
     </resultMap>
-    <select id="selectAdminQnAList" resultMap="inquiry">
+    <select id="selectAdminQnAList" resultMap="inquiry" parameterType="hashmap">
         SELECT 
                A.*
           FROM (SELECT ROWNUM RNUM
@@ -146,6 +167,9 @@
                           FROM ADMIN_Q C
                          WHERE C.MEMBER_NO = #{ teacherNo }
                            AND MEMBER_TYPE = 'TEACHER'
+                         <if test="inquiryReply != null and inquiryReply != 'none'">
+                           AND C.ANSWER_YN = #{ inquiryReply }
+                         </if>                           
                          ORDER BY C.Q_NO DESC
                         ) B
                ) A

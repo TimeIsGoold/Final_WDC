@@ -39,12 +39,12 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 	}
 
 	@Override
-	public int selectClassCount(int teacherNo) {
-		return mapper.selectClassCount(teacherNo);
+	public int selectClassCount(HashMap<String, Object> searchInfo) {
+		return mapper.selectClassCount(searchInfo);
 	}
 
 	@Override
-	public List<ClassDTO> selectClassList(ClassDTO classInfo) {
+	public List<ClassDTO> selectClassList(HashMap<String, Object> classInfo) {
 		return mapper.selectClassList(classInfo);
 	}
 
@@ -54,8 +54,8 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 	}
 
 	@Override
-	public int selectAdminQnACount(int teacherNo) {
-		return mapper.selectAdminQnACount(teacherNo);
+	public int selectAdminQnACount(HashMap<String, Object> searchInfo) {
+		return mapper.selectAdminQnACount(searchInfo);
 	}
 
 	@Override

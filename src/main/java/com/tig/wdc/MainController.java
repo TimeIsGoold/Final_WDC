@@ -32,7 +32,6 @@ public class MainController {
 	@GetMapping(value= {"/"})
 	public String main(Model model, HttpSession session) {
 
-		
 		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
 		newClassList = classService.selectNewClassList();
 		model.addAttribute("newClassList",newClassList);
@@ -51,6 +50,5 @@ public class MainController {
 		
 		return "user/main/main";
 	}
-	
 	
 }

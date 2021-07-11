@@ -190,6 +190,24 @@ public interface AdminMapper {
 	
 	/**
 	 * @author 송아현
+	 * 정산 승인 - insert
+	 * 
+	 * @param calculate
+	 * @return
+	 */
+	int insertCalculate(CalculateDTO calculate);
+	
+	/**
+	 * @author 송아현
+	 * 정산 승인 - update
+	 * 
+	 * @param calculate
+	 * @return
+	 */
+	int updateCalculate(CalculateDTO calculate);
+	
+	/**
+	 * @author 송아현
 	 * 환불 관리
 	 * 
 	 * @return
@@ -283,6 +301,8 @@ public interface AdminMapper {
 	String selectRejectReason(int clsNo);
 
 	AdminDTO selectAdminInfo(AdminDTO loginInfo);
+
+
 
 
 

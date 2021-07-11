@@ -12,11 +12,13 @@ public class UserInfoDTO {
 	private String blockYn;
 	private String quitYn;
 	private java.sql.Date enrollDate;
-	
-	public UserInfoDTO() {}
+	private String checkPwd;
+
+	public UserInfoDTO() {
+	}
 
 	public UserInfoDTO(int userNo, String userId, String userPwd, String userName, String phone, Date birthDate,
-			String blockYn, String quitYn, Date enrollDate) {
+			String blockYn, String quitYn, Date enrollDate, String checkPwd) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -27,6 +29,7 @@ public class UserInfoDTO {
 		this.blockYn = blockYn;
 		this.quitYn = quitYn;
 		this.enrollDate = enrollDate;
+		this.checkPwd = checkPwd;
 	}
 
 	public int getUserNo() {
@@ -101,14 +104,19 @@ public class UserInfoDTO {
 		this.enrollDate = enrollDate;
 	}
 
+	public String getCheckPwd() {
+		return checkPwd;
+	}
+
+	public void setCheckPwd(String checkPwd) {
+		this.checkPwd = checkPwd;
+	}
+
 	@Override
 	public String toString() {
 		return "UserInfoDTO [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName="
 				+ userName + ", phone=" + phone + ", birthDate=" + birthDate + ", blockYn=" + blockYn + ", quitYn="
-				+ quitYn + ", enrollDate=" + enrollDate + "]";
+				+ quitYn + ", enrollDate=" + enrollDate + ", checkPwd=" + checkPwd + "]";
 	}
-
-
-	
 
 }

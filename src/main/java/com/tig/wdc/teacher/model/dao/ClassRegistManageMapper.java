@@ -10,11 +10,13 @@ import com.tig.wdc.model.dto.RegularClassAttendanceDTO;
 import com.tig.wdc.model.dto.ClassScheduleInfoDTO;
 import com.tig.wdc.user.model.dto.ClassApplyDTO;
 import com.tig.wdc.user.model.dto.ClassDTO;
+import com.tig.wdc.user.model.dto.ReviewAnswerDTO;
 import com.tig.wdc.user.model.dto.ScheduleDTO;
+import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 /**
  * @author 이해승
- * 클래스등록용 Mapper
+ * 클래스등록,관리용 Mapper
  */
 public interface ClassRegistManageMapper {
 
@@ -30,7 +32,7 @@ public interface ClassRegistManageMapper {
 
 	ClassScheduleInfoDTO selectRegularScheduleinfo(int clsNo);
 
-	List<ClassApplyDTO> selectApplyUserInfo(int scheduleNo);
+	List<ClassApplyDTO> selectApplyUserInfo(String scheduleNo);
 
 	List<ClassScheduleInfoDTO> selectOneDayScheduleList(ClassDTO classInfo);
 
@@ -45,5 +47,17 @@ public interface ClassRegistManageMapper {
 	ClassScheduleInfoDTO selectRegularApplyCount(int scheduleNo);
 
 	int updateRegularApplyStatus(String[] updateList);
+
+	int selectReviewCount(String clsNo);
+
+	List<UserReviewDTO> selectReviewList(HashMap<String, Object> searchInfo);
+
+	Double selectReviewAvgScore(String clsNo);
+
+	int insertReviewAnswer(ReviewAnswerDTO reviewInfo);
+
+	String selectRejectReason(int clsNo);
+
+	int selectCheeringCount(int clsNo);
 
 }

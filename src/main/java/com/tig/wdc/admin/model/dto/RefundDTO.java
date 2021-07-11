@@ -7,6 +7,7 @@ public class RefundDTO {
 	private int cancelNo;
 	private String cancelReason;
 	private int refundAmount;
+	private String toCharRefundAmount;
 	private int totalAmount;
 	private java.sql.Date refundDate;
 	private String cancelReasonDetail;
@@ -25,13 +26,15 @@ public class RefundDTO {
 		super();
 	}
 
-	public RefundDTO(int cancelNo, String cancelReason, int refundAmount, int totalAmount, Date refundDate,
-			String cancelReasonDetail, int payNo, String refundAccount, String refundHolder, String refundBank,
-			String refundStatus, Date refundApplyDate, String classType, String className, int classNo, String id) {
+	public RefundDTO(int cancelNo, String cancelReason, int refundAmount, String toCharRefundAmount, int totalAmount,
+			Date refundDate, String cancelReasonDetail, int payNo, String refundAccount, String refundHolder,
+			String refundBank, String refundStatus, Date refundApplyDate, String classType, String className,
+			int classNo, String id) {
 		super();
 		this.cancelNo = cancelNo;
 		this.cancelReason = cancelReason;
 		this.refundAmount = refundAmount;
+		this.toCharRefundAmount = toCharRefundAmount;
 		this.totalAmount = totalAmount;
 		this.refundDate = refundDate;
 		this.cancelReasonDetail = cancelReasonDetail;
@@ -69,6 +72,14 @@ public class RefundDTO {
 
 	public void setRefundAmount(int refundAmount) {
 		this.refundAmount = refundAmount;
+	}
+
+	public String getToCharRefundAmount() {
+		return toCharRefundAmount;
+	}
+
+	public void setToCharRefundAmount(String toCharRefundAmount) {
+		this.toCharRefundAmount = toCharRefundAmount;
 	}
 
 	public int getTotalAmount() {
@@ -178,11 +189,11 @@ public class RefundDTO {
 	@Override
 	public String toString() {
 		return "RefundDTO [cancelNo=" + cancelNo + ", cancelReason=" + cancelReason + ", refundAmount=" + refundAmount
-				+ ", totalAmount=" + totalAmount + ", refundDate=" + refundDate + ", cancelReasonDetail="
-				+ cancelReasonDetail + ", payNo=" + payNo + ", refundAccount=" + refundAccount + ", refundHolder="
-				+ refundHolder + ", refundBank=" + refundBank + ", refundStatus=" + refundStatus + ", refundApplyDate="
-				+ refundApplyDate + ", classType=" + classType + ", className=" + className + ", classNo=" + classNo
-				+ ", id=" + id + "]";
+				+ ", toCharRefundAmount=" + toCharRefundAmount + ", totalAmount=" + totalAmount + ", refundDate="
+				+ refundDate + ", cancelReasonDetail=" + cancelReasonDetail + ", payNo=" + payNo + ", refundAccount="
+				+ refundAccount + ", refundHolder=" + refundHolder + ", refundBank=" + refundBank + ", refundStatus="
+				+ refundStatus + ", refundApplyDate=" + refundApplyDate + ", classType=" + classType + ", className="
+				+ className + ", classNo=" + classNo + ", id=" + id + "]";
 	}
 
 }
