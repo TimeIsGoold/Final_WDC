@@ -85,7 +85,7 @@
           <div class="container p-0">
             <div class="row">
               <div class="col-lg-3 order-2 order-lg-1">
-                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="likeClassList.html">찜 목록</a></strong></div>
+                  <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/likeClassList">찜 목록</a></strong></div>
                   <div class="py-2 px-4 bg-light mb-3"><strong class="small text-uppercase font-weight-bold"><a class="class-link" href="${ pageContext.servletContext.contextPath }/user/mypage/cheerClassList">응원한 클래스</a></strong></div>
               </div>
               <!-- SHOP LISTING-->
@@ -94,55 +94,182 @@
                   <!-- PRODUCT-->
                   <c:choose>
                   	<c:when test="${ empty requestScope.likeClassDTOList }">
-                  		응원한  클래스가 없습니다.
+                  		<c:set var="num" value="0"/>
+                  		<div class="noList">찜한 클래스가 없습니다.</div>
                   	</c:when>
                   </c:choose>
                   <!-- PRODUCT-->
                   <c:forEach  var="classList" items="${ requestScope.likeClassDTOList }">
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                    <c:if test="${ requestScope.classList.dicsionStatus eq 'F' }">
-                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
-                    </c:if>
-
-                      <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
-                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
-                      </div>
-                      <h6> 
-                      <c:if test="${classList.clsType eq 'O'}">
-                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
-                        [원데이] ${classList.title}
-                      </a>
-                      </c:if>
-                      <c:if test="${classList.clsType eq 'R'}">
-                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
-                        [정규] ${classList.title}
-                      </a>
-                      </c:if>
-                      </h6>
-                    </div>
-                  </div>
+                  	  <c:set var="num" value="1"/>
+	                  <div class="col-xl-3 col-lg-4 col-sm-6">
+	                    <div class="productNoneOpacity text-center">
+	                    <c:if test="${ requestScope.classList.dicsionStatus eq 'F' }">
+	                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+	                    </c:if>
+	                      <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
+	                        <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
+	                      </div>
+	                      <h6> 
+	                      <c:if test="${classList.clsType eq 'O'}">
+	                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
+	                        [원데이] ${classList.title}
+	                      </a>
+	                      </c:if>
+	                      <c:if test="${classList.clsType eq 'R'}">
+	                      <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
+	                        [정규] ${classList.title}
+	                      </a>
+	                      </c:if>
+	                      </h6>
+	                    </div>
+	                  </div>
                   </c:forEach>
-
-
                 </div>
                 <br><br>
-                <!-- PAGINATION-->
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center justify-content-lg-end">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                  </ul>
-                </nav>
+                
+                <c:if test="${num == 1}">
+                <!-- 페이지 처리 -->
+				<div class="pagingArea" align="center">
+		 	       <nav aria-label="Page navigation example" style="margin-top: 50px;">
+		           		<ul class="pagination justify-content-center justify-content-lg-end">
+							<c:choose>
+							    <c:when test="${ empty requestScope.searchValue }">
+								    <li id="startPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+					
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<li id="prevPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+						
+									<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<li class="page-item active"><a class="page-link"><c:out value="${ p }"/></a></li>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<li class="page-item" style="cursor:pointer;"><a class="page-link" onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></a></li>
+										</c:if>
+									</c:forEach>
+									
+									<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<li id="nextPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									
+									<li id="maxPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							     </c:when>
+							   	 <c:otherwise>
+				   				    <li id="searchStartPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+					
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<li id="searchPrevPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true"><</span></a></li>
+									</c:if>
+						
+									<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<li class="page-item active"><a class="page-link"><c:out value="${ p }"/></a></li>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<li class="page-item" style="cursor:pointer;"><a class="page-link" onclick="pageButtonAction(this.innerText);"><c:out value="${ p }"/></a></li>
+										</c:if>
+									</c:forEach>
+									
+									<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<li class="page-item active"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<li id="searchNextPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Previous"><span aria-hidden="true">></span></a></li>
+									</c:if>
+									
+									<li id="searchMaxPage" class="page-item" style="cursor:pointer;"><a class="page-link" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							    </c:otherwise>
+							</c:choose>   
+						</ul>
+					</nav>
+				</div>
+				<%-- 페이지 처리 --%>
+                  
+			   <!-- 페이징 스크립트 -->
+		       <script>
+					const link = "/wdc/user/mypage/likeClassList";
+					//const searchLink = "${ pageContext.servletContext.contextPath }/board/search";
+						
+					if(document.getElementById("startPage")) {
+						const $startPage = document.getElementById("startPage");
+						$startPage.onclick = function() {
+							location.href = link + "?currentPage=1";
+						}
+					}
+					
+					if(document.getElementById("prevPage")) {
+						const $prevPage = document.getElementById("prevPage");
+						$prevPage.onclick = function() {
+							location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }";
+						}
+					}
+					
+					if(document.getElementById("nextPage")) {
+						const $nextPage = document.getElementById("nextPage");
+						$nextPage.onclick = function() {
+							location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
+						}
+					}
+					
+					if(document.getElementById("maxPage")) {
+						const $maxPage = document.getElementById("maxPage");
+						$maxPage.onclick = function() {
+							location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }";
+						}
+					}
+					
+					if(document.getElementById("searchStartPage")) {
+						const $searchStartPage = document.getElementById("searchStartPage");
+						$searchStartPage.onclick = function() {
+							location.href = searchLink + "?currentPage=1&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					if(document.getElementById("searchPrevPage")) {
+						const $searchPrevPage = document.getElementById("searchPrevPage");
+						$searchPrevPage.onclick = function() {
+							location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					if(document.getElementById("searchNextPage")) {
+						const $searchNextPage = document.getElementById("searchNextPage");
+						$searchNextPage.onclick = function() {
+							location.href = searchLink + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					if(document.getElementById("searchMaxPage")) {
+						const $searchMaxPage = document.getElementById("searchMaxPage");
+						$searchMaxPage.onclick = function() {
+							location.href = searchLink + "?currentPage=${ requestScope.pageInfo.maxPage }&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+						}
+					}
+					
+					function pageButtonAction(text) {
+						location.href = link + "?currentPage=" + text;
+					}
+					function seachPageButtonAction(text) {
+						location.href = searchLink + "?currentPage=" + text + "&searchCondition=${ requestScope.searchCondition}&searchValue=${ requestScope.searchValue}";
+					}
+				</script>
+				</c:if>
               </div>
             </div>
           </div>
         </section>
       </div>
-      
+      <br><br><br>
        	<%@include file="../commons/footer.jsp" %>
  </div>
   </body>

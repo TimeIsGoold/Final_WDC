@@ -6,6 +6,7 @@ import java.util.Map;
 import com.tig.wdc.user.model.dto.UserClassDTO;
 import com.tig.wdc.user.model.dto.UserCouponDTO;
 import com.tig.wdc.user.model.dto.UserInfoDTO;
+import com.tig.wdc.user.model.dto.UserLikeClassDTO;
 import com.tig.wdc.user.model.dto.UserReviewDTO;
 
 public interface UserInfoMapper {
@@ -43,5 +44,23 @@ public interface UserInfoMapper {
 	String selectCheckDoubleId(String checkId);
 
 	int registUser(UserInfoDTO registInfo);
+
+	int selectLikeStatus(UserLikeClassDTO likeClassDTO);
+	
+	int selectLikeHistory(UserLikeClassDTO likeClassDTO);
+
+	int insertLike(UserLikeClassDTO likeClassDTO);
+
+	int updateLikeYn(UserLikeClassDTO likeClassDTO);
+
+	int selectPhone(UserInfoDTO infoDTO);
+
+	int updatePhone(UserInfoDTO infoDTO);
+
+	int updatePwd(UserInfoDTO infoDTO);
+
+	int selectPwd(UserInfoDTO infoDTO);
+
+	int selectlikeClassCount(int userNo);
 
 }
