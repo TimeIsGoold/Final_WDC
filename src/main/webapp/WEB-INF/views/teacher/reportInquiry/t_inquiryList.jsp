@@ -126,7 +126,7 @@
               </div> -->
             </div>
           </form>
-            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 800px">
+            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 900px">
               <table class="table table-hover" style="text-align: center; margin-bottom: 30px">
                 <thead>
                   <tr>
@@ -268,11 +268,11 @@
 	</script>
 	<script>
     const link = "${pageContext.servletContext.contextPath }/teacher/teacherInquiryList";
-    const inquiryReply = document.getElementById("inquiryReply").value;
-
+	console.log(inquiryReply);
     if(document.getElementById("startPage")) {
 		const $startPage = document.getElementById("startPage");
 		$startPage.onclick = function() {
+	    	let inquiryReply = document.getElementById("inquiryReply").value;
 			location.href = link + "?currentPage=1"+ "&inquiryReply="+inquiryReply;
 		}
 	}
@@ -280,6 +280,7 @@
 	if(document.getElementById("prevPage")) {
 		const $prevPage = document.getElementById("prevPage");
 		$prevPage.onclick = function() {
+	    	let inquiryReply = document.getElementById("inquiryReply").value;
 			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }"+ "&inquiryReply="+inquiryReply;
 		}
 	}
@@ -287,6 +288,7 @@
 	if(document.getElementById("nextPage")) {
 		const $nextPage = document.getElementById("nextPage");
 		$nextPage.onclick = function() {
+	    	let inquiryReply = document.getElementById("inquiryReply").value;
 			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }"+ "&inquiryReply="+inquiryReply;
 		}
 	}
@@ -294,11 +296,13 @@
 	if(document.getElementById("maxPage")) {
 		const $maxPage = document.getElementById("maxPage");
 		$maxPage.onclick = function() {
-			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }"+ "&inquiryReply="+inquiryReply;
+			    let inquiryReply = document.getElementById("inquiryReply").value;
+				location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }"+ "&inquiryReply="+inquiryReply;
 		}
 	}
 	
 	function pageButtonAction(text) {
+	    let inquiryReply = document.getElementById("inquiryReply").value;
 		location.href = link + "?currentPage=" + text + "&inquiryReply="+inquiryReply;
 	}
 	</script>    
