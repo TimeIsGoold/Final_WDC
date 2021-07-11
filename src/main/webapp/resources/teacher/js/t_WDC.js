@@ -64,6 +64,16 @@ function loadImg(value, num) {
 function scheduleChange(t){
     let type = t.id;
     var a = "";
+
+    switch(type){
+        case "individual" : 
+            document.getElementById("individual").className = "schedule-select"; 
+            document.getElementById("repeat").className ="schedule-none"; break;
+        case "repeat" :
+            document.getElementById("individual").className = "schedule-none"; 
+            document.getElementById("repeat").className ="schedule-select"; break;
+    }
+
     if(document.getElementById("scheduleType").value.length > 0){
         
         switch(document.getElementById("scheduleType").value){
@@ -75,7 +85,19 @@ function scheduleChange(t){
         if(a==type){
             return;
         }
-        alert("기존에 등록된 스케쥴이 모두 삭제됩니다. 변경하시겠습니까?");
+        if(confirm("기존에 등록된 스케쥴이 모두 삭제됩니다. 변경하시겠습니까?")){
+            
+        } else {
+            switch(a){
+                case "individual" :  
+                document.getElementById("individual").className = "schedule-select"; 
+                document.getElementById("repeat").className ="schedule-none"; break;
+                case "repeat" : 
+                document.getElementById("individual").className = "schedule-none"; 
+                document.getElementById("repeat").className ="schedule-select"; break;
+            }
+            return;
+        }
     }
     
     document.getElementById("scheduleList").innerHTML = "스케쥴을 등록해주세요";
@@ -146,6 +168,15 @@ function setCurriculum(){
     let curriContent = document.getElementById("curriContent").value;
     let step = document.getElementById("selectStep").value;
     
+    if(curriName == null || curriName.length ==0){
+        alert("커리큘럼 제목을 입력하세요.");
+        return;
+    }
+    if(curriContent == null || curriContent.length ==0){
+        alert("커리큘럼 내용을 입력하세요.");
+        return;
+    }
+
     let curriTable = document.getElementById("curriculum");
     
     if(document.getElementById("noneCurri") != null){
@@ -159,12 +190,22 @@ function setCurriculum(){
     curriTable.innerHTML += "<tr><td>" 
                          + step +"단계</td><td>" 
                          + curriName + "</td><td>" 
-                         + curriContent +"</td><td><button type='button'>수정</button></td></tr>"
+                         + curriContent +"</td></tr>"
                          + hiddeName + hiddeContent + hiddeStep;
     document.getElementById("curriName").value = "";   
     document.getElementById("curriContent").value ="";                  
     document.getElementById("selectStep").value = Number(step)+1;                    
 };
+
+function resetCurriculum(){
+
+    if(confirm("등록된 커리큘럼이 모두 사라집니다.\n초기화 하시겠습니까?")){
+        let curriTable = document.getElementById("curriculum");
+        curriTable.innerHTML = "<tr><th>순서</th><th>제목</th><th style='width: 60%;'>내용</th></tr><tr><td colspan='3'align='center' id='noneCurri' value='0' name='curriStep'>등록된 커리큘럼이 없습니다.</td></tr>"
+    } else {
+        return;
+    }
+}
 
 function addSchedule(){
     let addInfo = document.getElementsByName("lectureSchedule");
