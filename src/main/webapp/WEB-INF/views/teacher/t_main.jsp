@@ -126,21 +126,30 @@
 	                    </tr>
 	                  </thead>
 	                  <tbody>
-	                  <c:forEach var="notice" items="${ noticeList }" varStatus="status">
-	                  <tr>
-	                  <td><c:out value="${ status.index + pageInfo.startRow}"/></td>
 	                  <c:choose>
-	                      <c:when test="${ notice.important eq 'Y'}">
-	                          <td><b style="color: red">[중요]</b></td>  
-	                      </c:when>
-	                      <c:otherwise>
-	                          <td>[일반]</td>  
-	                      </c:otherwise>
+	                  <c:when test="${ empty noticeList }">
+	                    <tr>
+	                      <td colspan="4">등록된 공지사항이 없습니다. </td>
+	                    </tr>
+	                  </c:when>
+	                  <c:otherwise>
+	                    <c:forEach var="notice" items="${ noticeList }" varStatus="status">
+	                    <tr>
+	                      <td><c:out value="${ status.index + pageInfo.startRow}"/></td>
+	                      <c:choose>
+	                          <c:when test="${ notice.important eq 'Y'}">
+	                              <td><b style="color: red">[중요]</b></td>  
+	                          </c:when>
+	                          <c:otherwise>
+	                              <td>[일반]</td>  
+	                          </c:otherwise>
+	                      </c:choose>
+	                          <td><a href="${pageContext.servletContext.contextPath }/teacher/noticeDetail?noticeNo=${ notice.no}"><c:out value="${ notice.title }"/></a></td>  
+	                          <td><c:out value="${ notice.writeDate }"/></td>  
+	                      </tr>
+	                    </c:forEach>
+	                  </c:otherwise>
 	                  </c:choose>
-	                      <td><a href="${pageContext.servletContext.contextPath }/teacher/noticeDetail?noticeNo=${ notice.no}"><c:out value="${ notice.title }"/></a></td>  
-	                      <td><c:out value="${ notice.writeDate }"/></td>  
-	                  </tr>
-	                  </c:forEach>
 	                  </tbody>
 	                </table>
 					<nav aria-label="...">

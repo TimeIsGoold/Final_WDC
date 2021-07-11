@@ -70,9 +70,9 @@
         <div class="row" style="border: 1px solid rgba(0, 0, 0, 0.2); padding: 20px 20px 20px 20px;">
           <div class="col-md-1"></div>
           <div class="col-md-2">스케쥴선택<br>
-            <div class="btn">정규모집</div>
+            <div class="btn1" align="center" style="padding-top: 7px">정규모집</div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3" >
             수업소요시간<br>
             <div class="form-inline">
               <div class="form-group">
@@ -105,7 +105,7 @@
           <div class="col-md-1"></div>
           <div class="col-md-1"></div>
           <div class="col-md-3">
-            <button id="dateTimeSetting"type="button" class="btn btn-primary" data-toggle="modal" data-target="#regularCourse">날짜/시간 설정하기</button>
+            <button id="dateTimeSetting"type="button" class="btn1 btn-primary" data-toggle="modal" data-target="#regularCourse" style="width: 250px;">날짜/시간 설정하기</button>
           </div>
         </div>
         <!-- 클래스스케쥴 팝업창 -->
@@ -181,7 +181,7 @@
                             <input type="number" name="regularInputInfo" class="form-inline" style="width: 50px; padding-left: 10px; margin-right: 10px; font-size: 14px;">
                             <div>회</div>
                           </div>
-                          <div class="col-md-2"><button type="button" onclick="regularScheduleAdd();"class="btn btn-primary">추가</button></div>
+                          <div class="col-md-2"><button type="button" onclick="regularScheduleAdd();"class="addbtn">추가</button></div>
                         </div>
                         <br>
                         <!-- /스케쥴정보입력 -->       
@@ -212,7 +212,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btnBack btn-default" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="regularRegist();">스케줄등록</button>
+                <button type="button" class="btn1 btn-primary" data-dismiss="modal" onclick="regularRegist();" style="width:120px;">스케줄등록</button>
               </div>
             </div>
           </div>
@@ -233,7 +233,7 @@
 
             </div>
             <button type="button" onclick="movePage(1)" class="btnBack btn-primary">이전</button>
-            <button type="button" onclick="movePage(3)" class="btn btn-primary">다음</button>
+            <button type="button" onclick="movePage(3)" class="btn1 btn-primary">다음</button>
       </div>
     <br>
     <br>

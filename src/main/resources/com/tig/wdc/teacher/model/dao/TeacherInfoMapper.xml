@@ -35,7 +35,8 @@
 		SELECT 
 		       COUNT(A.TE_NO) 
 		  FROM CLASS A
-		 WHERE TE_NO = #{teacherNo}
+		 WHERE A.TE_NO = #{teacherNo}
+		   AND A.CLS_DICSION_STATUS = 'S'
 	</select>
 	<select id="selectSumClassCalculate" resultType="string">
 	    SELECT 

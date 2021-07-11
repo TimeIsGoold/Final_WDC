@@ -104,13 +104,13 @@
 		<br><br><br>
 		<h6>꼭 확인해주세요!</h6>
 		<div>
-			* 작성하신 내용은 우동클 운영진의 검수츨 통해 오픈 됩니다. 승인/반려될 수 있습니다.(평일기준 ~ 일 소요)<br>
+			* 작성하신 내용은 우동클 운영진의 검수츨 통해 오픈 됩니다. 승인/반려될 수 있습니다.(평일기준 7일 소요)<br>
 			* 클래스 검수 요청 전 입력하신 정보를 마지막으로 확인해주세요. 검수 요청 후에는 수정이 불가합니다.<br>
 		</div>
 		<br><br><hr><br><br>
 
 		<button type="button"onclick="movePage(3);" class="btnBack btn-primary">이전</button>
-		<button class="btn btn-primary">클래스 검수 요청하기</button>
+		<button class="btn1 btn-primary" style="width:200px;">클래스 검수 요청하기</button>
 	</div>
 
 </body>

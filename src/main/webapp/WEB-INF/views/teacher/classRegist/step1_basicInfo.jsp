@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Boutique | Ecommerce bootstrap template</title>
+<title>우리 동네 클래스 | W.D.C </title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
@@ -60,15 +60,25 @@
     width: 80.4px;
     height: 38px;
   }  
-  .btn {
+  .btn1 {
+    border-radius: 5px !important;
+    background-color: #fef0ae !important;
+    border-color: #fef0ae !important;
+    width: 80.4px;
+    height: 38px;
+  }
+  .addbtn{
     border-radius: 5px !important;
     background-color: #fef0ae !important;
     border-color: #fef0ae !important;
   }
     
-  .btn-primary:hover {
+/*   .btn-primary:hover {
     background-color: #fef0ae !important;
     border-color: #fef0ae !important;
+  } */
+  img {
+    cursor: pointer
   }
 </style>
 </head>
@@ -98,7 +108,7 @@
 				<br>
 				<br>
 				<br>
-				<h6>카테고리 선택</h6>
+				<h6>카테고리 선택<b style="color: red">*</b></h6>
 				
 					<div class="form-inline">
 
@@ -125,45 +135,42 @@
 
 					</div>
 				<br><hr><br>
-				<h6>클래스 타이틀</h6>
+				<h6>클래스 타이틀<b style="color: red">*</b></h6>
 				<div class="form-group">
-				<input style="width: 80%;" type="text" name="title"	>
+				<input style="width: 80%;" type="text" name="title"	maxlength="100">
 				</div>
 				<br>
 				<hr>
 				<br>
-				<h6>클래스 간략소개</h6>
+				<h6>클래스 간략소개<b style="color: red">*</b></h6>
 				<div class="form-group">
-				    <input style="width: 80%;" type="text" name="simpleIntro" >
+				    <input style="width: 80%;" type="text" name="simpleIntro" maxlength="100">
 				</div>
 				<br><hr><br>
-				<h6>대표사진등록<b>*</b></h6>
+				<h6>대표사진등록<b style="color: red">*</b></h6>
 				<div style="font-size: 15px; opacity: .7">
 				- 분할사진 사진내에 텍스트가 포함된 사진, 클래스와 관련없는 사진은 클래스 승인 반려 사유가 되니	주의해주세요.<br> 
 				- 사진은 대표이미지 포함 최대 3장까지 첨부 할 수 있습니다.<br>
 				- 1:1 배율사진을 권장합니다.
 				</div>
 				<br>
-				<div>
-					<button type="button">전체삭제(되나?)</button>
-				</div>
 				<br>
 				<div>
 					<table>
 					    <tr>
 					        <td>
 							<div class="content-img-area1" id="contentImgArea1">
-								<img id="contentImg1" width="150" height="120">
+								<img id="contentImg1" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/teacher/img/addImage.png" >
 							</div>
 						</td>
 						<td>
 							<div class="content-img-area2" id="contentImgArea2">
-								<img id="contentImg2" width="150" height="120">
+								<img id="contentImg2" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/teacher/img/addImage.png" >
 							</div>
 						</td>
 						<td>
 							<div class="content-img-area3" id="contentImgArea3">
-								<img id="contentImg3" width="150" height="120">
+								<img id="contentImg3" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/teacher/img/addImage.png" >
 							</div>
 						</td>
 						</tr>
@@ -175,18 +182,18 @@
 					</div>
 				</div>
 				<br><hr><br>
-				<h6>클래스주소</h6>
+				<h6>클래스주소<b style="color: red">*</b></h6>
 				<div class="form-horizontal">
 					<div class="form-group">
-						<input id="zipCode" type="text" class="select-nomalsize" style="margin-bottom: 8px;" name="zipCode" placeholder="우편번호">
-						<button id="searchZipCode" class="submit-btn" type="button"	style="margin-left: 10px;">주소 검색</button>
+						<input id="zipCode" type="text" class="select-nomalsize" style="margin-bottom: 8px; width:20%" name="zipCode" placeholder="우편번호">
+						<button id="searchZipCode" class="submit-btn btn1" type="button"	style="margin-left: 10px;width: 120px;height: 30px;" >주소 검색</button>
 						<input id="address1" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="주소" name="address"> 
 						<input id="address2" type="text" class="form-control" style="width: 50%; margin-bottom: 8px;" placeholder="상세주소" name="address">
 					</div>
 				</div>
 				<br><hr><br>
-				<button type="button" onclick="goMain();">메인으로</button>
-				<button type="button" onclick="movePage(1);" class="btn btn-primary">다음</button>
+				<button type="button" onclick="goMain();" class="btnBack">메인으로</button>
+				<button type="button" onclick="movePage(1);" class="btn1 btn-primary">다음</button>
 				</div>
 				<jsp:include page="step2_classInfo.jsp" />
 			    <c:choose>
