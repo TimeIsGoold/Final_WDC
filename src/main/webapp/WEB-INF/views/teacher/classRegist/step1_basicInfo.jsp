@@ -42,7 +42,7 @@
 	href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
 <!-- Favicon-->
 <link rel="shortcut icon"
-	href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
+	href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png">
 <!-- Tweaks for older IEs-->
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

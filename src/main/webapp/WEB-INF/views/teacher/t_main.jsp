@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
 <style>  
 
 .reset-anchor {
@@ -228,10 +227,10 @@
 	            <div class="card-body" >
 	            <c:choose>
 	            	<c:when test="${empty teacherInfo.teacherPicture }">
-	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png" alt="Card image" style="height: 200px"><br><br>
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png" alt="Card image" style="height: 150px; width: 150px; border-radius: 100px"" ><br><br>
 	            	</c:when>
 	            	<c:otherwise>
-	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/upload/${ teacherInfo.teacherPicture }" alt="Card image" style="height: 200px"><br><br>
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/upload/${ teacherInfo.teacherPicture }" alt="Card image" style="height: 150px; width: 150px; border-radius: 100px"><br><br>
 	            	</c:otherwise>
 	            </c:choose>
 	              <h5>${ teacherInfo.teacherName}</h5>
@@ -270,10 +269,10 @@
 	                      <div class="content-img-area1 col-md-6" id="contentImgArea1" align="center">
 	                      <c:choose>
 	                          <c:when test="${empty teacherInfo.teacherPicture }">
-        	                      <img id="contentImg1" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png"">
+        	                      <img id="contentImg1" width="150" height="150" style="border-radius: 100px; cursor: pointer;" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png"">
 	                          </c:when>
 	                          <c:otherwise>
-        	                      <img id="contentImg1" width="150" height="120" src="${pageContext.servletContext.contextPath }/resources/upload/${teacherInfo.teacherPicture}">
+        	                      <img id="contentImg1" width="150" height="150;" style="border-radius: 100px; cursor: pointer;" src="${pageContext.servletContext.contextPath }/resources/upload/${teacherInfo.teacherPicture}" >
                                   <input type="hidden" value="${ teacherInfo.teacherPicture }" name="beforePic">
 	                          </c:otherwise>
 	                      </c:choose>
