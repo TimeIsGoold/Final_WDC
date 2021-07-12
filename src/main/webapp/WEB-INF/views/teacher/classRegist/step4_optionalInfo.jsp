@@ -96,7 +96,7 @@
 		</div>
 		<br><br><hr><br>
 		<button type="button" onclick="movePage(2)" class="btnBack btn-primary">이전</button>
-		<button type="button" onclick="movePage(4)" class="btn btn-primary">다음</button>
+		<button type="button" onclick="movePage(4)" class="btn1 btn-primary">다음</button>
 	</div>
 </body>
 

@@ -133,6 +133,7 @@
 	      	   *
 	 	  FROM CURRICULUM
 	     WHERE CLS_NO = #{clsNo} 
+	    ORDER BY CRCLM_STEP 
     </select>
     
     <resultMap type="UserReviewDTO" id="ReviewResult">

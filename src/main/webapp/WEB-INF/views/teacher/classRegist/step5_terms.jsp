@@ -65,8 +65,7 @@
 				<br>
 			</div>
 			<div class="col-md-2">
-				<label> 전체동의 <input type="checkbox"
-					style="margin-left: 10px;">
+				<label> 전체동의 <input type="checkbox"	style="margin-left: 10px;" id="allCheck" onclick="allTermCheck(this);" value="0">
 				</label>
 			</div>
 			<table>
@@ -75,27 +74,23 @@
 						<td>[필수]</td>
 						<td style="font-size: 14px;">서비스 이용약관동의</td>
 						<td style="width: 100px;"></td>
-						<td colspan="2"><label>동의합니다.<input type="checkbox"
-								style="margin-left: 4px;"></label></td>
+						<td colspan="2"><label>동의합니다.<input type="checkbox" style="margin-left: 4px;" class="indiviCheck" onclick="clickCheck();"></label></td>
 					</tr>
 					<tr>
 						<td>[필수]</td>
 						<td style="font-size: 14px;">서비스 개인정보 처리방침 동의</td>
 						<td style="width: 100px;"></td>
-						<td colspan="2"><label>동의합니다.<input type="checkbox"
-								style="margin-left: 4px;"></label></td>
+						<td colspan="2"><label>동의합니다.<input type="checkbox" style="margin-left: 4px;" class="indiviCheck" onclick="clickCheck();"></label></td>
 					</tr>
 					<tr>
 						<td>[필수]</td>
 						<td style="font-size: 14px;">환불은 규정에 따라 처리됩니다.</td>
 						<td style="width: 100px;"></td>
-						<td colspan="2"><label>동의합니다.<input type="checkbox"
-								style="margin-left: 4px;"></label></td>
+						<td colspan="2"><label>동의합니다.<input type="checkbox" style="margin-left: 4px;" class="indiviCheck" onclick="clickCheck();"></label></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td style="width: 600px; font-size: 14px;">따로 설정하실 수 없으며,
-							우동클 환불 규정에 따라 처리되오니 꼭 확인 해 주시기 바랍니다.</td>
+						<td style="width: 600px; font-size: 14px;">따로 설정하실 수 없으며,	우동클 환불 규정에 따라 처리되오니 꼭 확인 해 주시기 바랍니다.</td>
 						<td style="width: 100px;"></td>
 					</tr>
 				</tbody>
@@ -104,14 +99,49 @@
 		<br><br><br>
 		<h6>꼭 확인해주세요!</h6>
 		<div>
-			* 작성하신 내용은 우동클 운영진의 검수츨 통해 오픈 됩니다. 승인/반려될 수 있습니다.(평일기준 ~ 일 소요)<br>
+			* 작성하신 내용은 우동클 운영진의 검수츨 통해 오픈 됩니다. 승인/반려될 수 있습니다.(평일기준 7일 소요)<br>
 			* 클래스 검수 요청 전 입력하신 정보를 마지막으로 확인해주세요. 검수 요청 후에는 수정이 불가합니다.<br>
 		</div>
 		<br><br><hr><br><br>
 
 		<button type="button"onclick="movePage(3);" class="btnBack btn-primary">이전</button>
-		<button class="btn btn-primary">클래스 검수 요청하기</button>
+		<button class="btn1 btn-primary" style="width:200px;">클래스 검수 요청하기</button>
 	</div>
+	<script>
+	  function allTermCheck(p){
+		  var check = document.getElementsByClassName("indiviCheck");
+		if(p.value == 0){
+			for(var i = 0; i < check.length; i++){
+				check[i].checked = true;
+			}
+			p.value = 1;
+		} else {
+			for(var i = 0; i < check.length; i++){
+				check[i].checked = false;
+			}
+			p.value = 0;
+		}
+	  }
+    </script>
+	<script>
+		function clickCheck(){
+			var check = document.getElementsByClassName("indiviCheck");
+			var cnt = 0;
+			for(var i = 0; i < check.length; i++){
+				if(check[i].checked){
+					cnt++;
+				}
+			}
+
+			if(cnt == check.length){
+				document.getElementById("allCheck").checked = true;
+				document.getElementById("allCheck").value = 1;
+			} else {
+				document.getElementById("allCheck").checked = false;
+				document.getElementById("allCheck").value = 0;
+			}
+		}
+	</script>
 
 </body>
 

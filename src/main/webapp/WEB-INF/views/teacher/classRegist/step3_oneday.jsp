@@ -104,11 +104,13 @@ input[name="dayName"] {
 }
 .schedule-none{
     background-color: white;
-    border : 5px solid #fef0ae;
+    border-radius : 5px;
+	border-color:  #fef0ae;
 }
 .schedule-select{
     background-color: #fef0ae;
-    border : 5px solid #fef0ae;
+    border-radius: 5px;
+	border-color:  #fef0ae;
 }
 </style>
 
@@ -169,7 +171,7 @@ input[name="dayName"] {
 			스케쥴을 등록해주세요
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="dateTimeSetting" type="button" class="btn btn-primary" data-toggle="modal" onclick="doPopUP();" data-target=""	style="margin-left: 30px;">날짜/시간 설정하기</button>
+				<button type="button" id="dateTimeSetting" type="button" class="btn1 btn-primary" data-toggle="modal" onclick="doPopUP();" data-target=""	style="margin-left: 30px; width: 250px;">날짜/시간 설정하기</button>
 			</div>
 		</div>
 		<!-- 개별일정 -->
@@ -240,7 +242,7 @@ input[name="dayName"] {
 											</div>
 										</div>
 										<div class="col-md-2">
-											<button type="button" onclick="addSchedule();">추가</button>
+											<button type="button" onclick="addSchedule();" class="addbtn">추가</button>
 										</div>
 									</div>
 									<!-- /스케쥴정보입력 -->
@@ -265,8 +267,8 @@ input[name="dayName"] {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" onclick="scheduleWrite();" data-dismiss="modal">스케줄등록</button>
+						<button type="button" class="btnBack btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn1 btn-primary" onclick="scheduleWrite();" data-dismiss="modal" style="width: 126.8px">스케줄등록</button>
 					</div>
 				</div>
 			</div>
@@ -298,7 +300,7 @@ input[name="dayName"] {
 										<div class="col-md-12">
 											<p>강의요일</p>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" > 
 												<input type="checkbox" name="dayName" value="0" />일</label> 
 												<label class="btn btn-default day"> 
 												<input type="checkbox" name="dayName" value="1" />월</label>
@@ -363,7 +365,7 @@ input[name="dayName"] {
 											</div>
 										</div>
 										<div class="col-md-2">
-											<button onclick="addDayRepeat();" type="button">추가</button>
+											<button onclick="addDayRepeat();" type="button" class="addbtn">추가</button>
 										</div>
 									</div>
 									<!-- /스케쥴정보입력 -->
@@ -386,8 +388,8 @@ input[name="dayName"] {
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" onclick="scheduleWrite();" data-dismiss="modal">스케줄등록</button>
+						<button type="button" class="btnBack btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn1 btn-primary" onclick="scheduleWrite();" data-dismiss="modal" style="width: 126.8px">스케줄등록</button>
 					</div>
 				</div>
 			</div>
@@ -403,7 +405,7 @@ input[name="dayName"] {
 		<br><br><hr><br>
 		<div></div>
 		<button type="button" onclick="movePage(1)" class="btnBack btn-primary">이전</button>
-		<button type="button" onclick="movePage(3)" class="btn btn-primary">다음</button>
+		<button type="button" onclick="movePage(3)" class="btn1 btn-primary">다음</button>
 	</div>
 </body>
 

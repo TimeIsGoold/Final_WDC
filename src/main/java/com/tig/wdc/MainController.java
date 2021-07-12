@@ -2,6 +2,7 @@ package com.tig.wdc;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,9 +37,9 @@ public class MainController {
 	public String main(Model model, HttpSession session) {
 
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		
-		String date = dateFormat.format(new Date(System.currentTimeMillis()));
+		Calendar yesterday = Calendar.getInstance();
+		yesterday.add(Calendar.DATE, -1);
+		String date = new SimpleDateFormat("yyyy-MM-dd").format(yesterday.getTime());
 		
 		System.out.println(date);
 		HashMap<String, String> searchDate = new HashMap<>();

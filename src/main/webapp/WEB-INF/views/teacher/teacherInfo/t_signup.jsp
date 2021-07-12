@@ -479,7 +479,7 @@
 
       		
 <!-- footer -->
-    <jsp:include page="../commons/footer.jsp"/>
+   <%--  <jsp:include page="../commons/footer.jsp"/> --%>
       <!-- JavaScript files-->
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
       <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

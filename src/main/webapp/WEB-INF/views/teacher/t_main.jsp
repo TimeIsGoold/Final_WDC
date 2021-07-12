@@ -126,21 +126,30 @@
 	                    </tr>
 	                  </thead>
 	                  <tbody>
-	                  <c:forEach var="notice" items="${ noticeList }" varStatus="status">
-	                  <tr>
-	                  <td><c:out value="${ status.index + pageInfo.startRow}"/></td>
 	                  <c:choose>
-	                      <c:when test="${ notice.important eq 'Y'}">
-	                          <td><b style="color: red">[중요]</b></td>  
-	                      </c:when>
-	                      <c:otherwise>
-	                          <td>[일반]</td>  
-	                      </c:otherwise>
+	                  <c:when test="${ empty noticeList }">
+	                    <tr>
+	                      <td colspan="4">등록된 공지사항이 없습니다. </td>
+	                    </tr>
+	                  </c:when>
+	                  <c:otherwise>
+	                    <c:forEach var="notice" items="${ noticeList }" varStatus="status">
+	                    <tr>
+	                      <td><c:out value="${ status.index + pageInfo.startRow}"/></td>
+	                      <c:choose>
+	                          <c:when test="${ notice.important eq 'Y'}">
+	                              <td><b style="color: red">[중요]</b></td>  
+	                          </c:when>
+	                          <c:otherwise>
+	                              <td>[일반]</td>  
+	                          </c:otherwise>
+	                      </c:choose>
+	                          <td><a href="${pageContext.servletContext.contextPath }/teacher/noticeDetail?noticeNo=${ notice.no}"><c:out value="${ notice.title }"/></a></td>  
+	                          <td><c:out value="${ notice.writeDate }"/></td>  
+	                      </tr>
+	                    </c:forEach>
+	                  </c:otherwise>
 	                  </c:choose>
-	                      <td><a href="${pageContext.servletContext.contextPath }/teacher/noticeDetail?noticeNo=${ notice.no}"><c:out value="${ notice.title }"/></a></td>  
-	                      <td><c:out value="${ notice.writeDate }"/></td>  
-	                  </tr>
-	                  </c:forEach>
 	                  </tbody>
 	                </table>
 					<nav aria-label="...">
@@ -363,13 +372,13 @@
 	                  <h6>클래스등록을 시작해볼까요?</h6>
 	                  <p style="font-size: 12px;">등록하려는 클래스의 카테고리를 선택해주세요.</p>
 	                  <div class="row">
-	                    <div class="col-md-11" style="border: 2px solid #fef0ae; border-radius: 5px; padding: 10px 20px 10px 20px; font-size: 13px;" onclick="location.href='${ pageContext.servletContext.contextPath}/classRegist/step1/O'">
+	                    <div class="col-md-11" style="border: 2px solid #fef0ae; border-radius: 5px; padding: 10px 20px 10px 20px; font-size: 13px; cursor: pointer;" onclick="location.href='${ pageContext.servletContext.contextPath}/classRegist/step1/O'">
 	                        	원데이<br>
 	                        *원데이란? 수강생과 하루 & 최대 6시간 내외로 수업하는 경우 선택해주세요.
 	                    </div>
 	                    <div class="col-md-1">
 	                    </div>
-	                    <div class="col-md-11" style="border: 2px solid #fef0ae; border-radius: 5px; margin-top: 20px; padding: 10px 20px 10px 20px; font-size: 13px;" onclick="location.href='${ pageContext.servletContext.contextPath}/classRegist/step1/R'">
+	                    <div class="col-md-11" style="border: 2px solid #fef0ae; border-radius: 5px; margin-top: 20px; padding: 10px 20px 10px 20px; font-size: 13px; cursor: pointer;" onclick="location.href='${ pageContext.servletContext.contextPath}/classRegist/step1/R'">
 	                      	정규과정<br>
 	                      *정규과정이란? 수강생과 최소 2일 이상 수업하는 경우 선택해주세요.
 	                    </div>
