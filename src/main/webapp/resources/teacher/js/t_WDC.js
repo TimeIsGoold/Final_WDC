@@ -218,7 +218,7 @@ function addSchedule(){
     let maxP = "<input type='hidden' value='" + addInfo[4].value + "' name='inputMax'>";
     scheduleTable.innerHTML += "<tr><td name='scheduleTable1'>"+addInfo[0].value + "(" + dayOfWeek + ")"
                              + "</td><td name='scheduleTable2'>"+addInfo[1].value + " : "+ addInfo[2].value 
-                             + "</td><td name='scheduleTable3'> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>"
+                             + "</td><td name='scheduleTable3'> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button' >삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP
 };
 
@@ -268,7 +268,7 @@ function addDayRepeat(){
                 
                 repeatTable.innerHTML += "<tr><td name='scheduleTable1'>"+ purchaseDay + "(" + dayOfWeek + ")"
                              + "</td><td name='scheduleTable2'>"+inputData[0].value + " : "+ inputData[1].value 
-                             + "</td><td name='scheduleTable3'> 최소 "+ inputData[2].value + "명 ~ 최대 " + inputData[3].value + "명 </td></td><td><button type='button'>삭제</button></td></tr>"
+                             + "</td><td name='scheduleTable3'> 최소 "+ inputData[2].value + "명 ~ 최대 " + inputData[3].value + "명 </td></td><td><button class='addbtn' type='button' >삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP;
             }
         }
@@ -307,7 +307,7 @@ function regularScheduleAdd(){
     regulsrScheduleTable.innerHTML += "<tr><td name='regularTable1'>"+startDate + "(" + dayOfWeekStart + ")  ~  " + endDate +"(" + dayOfWeekEnd + ")" 
                              + "</td><td name='regularTable2'>"+regurlaScheduleInfo[0].value + " : "+ regurlaScheduleInfo[1].value 
                              + "</td><td name='regularTable3'> 최소 "+ regurlaScheduleInfo[2].value + "명 ~ 최대 " + regurlaScheduleInfo[3].value 
-                             + "명 </td><td name='regularTable4'>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button' onclick='deleteSchedule();' style='background-color: red; color : white;border-color : red;border-radius:5px;'>삭제</button></td></tr>"
+                             + "명 </td><td name='regularTable4'>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button' onclick='deleteSchedule();' style='background-color: red; color : white;border-color : red;border-radius:5px;' class='btn1'>삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP + expectCount;
 
 }
