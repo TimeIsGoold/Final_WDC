@@ -89,8 +89,23 @@
 		<!-- navbar-->
 		<jsp:include page="../commons/header.jsp" />
 
-
-		<form method="post"	action="${pageContext.servletContext.contextPath }/classRegist/classInsert" enctype="multipart/form-data">
+		<script>
+		  function termAgree(){
+			  if( document.getElementById("allCheck").value == 1){
+				 if(confirm("검수 요청 후에는 수정이 불가합니다.\n요청하시겠습니까? ")){
+					 return true;
+				 } else {
+					 return false;
+				 }
+			  } else {
+				  alert("모든 약관에 동의해야 요청가능합니다.");
+				  return false;
+			  }
+			  
+		  }
+		</script>
+		
+		<form method="post"	action="${pageContext.servletContext.contextPath }/classRegist/classInsert" enctype="multipart/form-data" onsubmit="return termAgree();">
 		<div class="hello"	style="width: 90%;  margin: 1% 10% 1% 5%; display: flex;"  >
 			<!-- SIDEBAR-->
 		<%-- 	<jsp:include page="../commons/sidebar.jsp" /> 

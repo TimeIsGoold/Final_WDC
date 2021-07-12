@@ -58,8 +58,8 @@
               <li class="nav-item"> 강사페이지</li>
             </ul>
             <ul class="navbar-nav ml-auto">               
-              <li class="nav-item"><a class="nav-link" href="t_InfoEdit.html"><i class="fas fa-user-alt mr-1 text-gray"></i>마이 페이지</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-              <li class="nav-item"><a class="nav-link" onclick="logoutCheck();"><i class="fas fa-user-alt mr-1 text-gray"></i>로그아웃</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="t_InfoEdit.html"><i class="fas fa-user-alt mr-1 text-gray"></i>마이 페이지</a></li>&nbsp;&nbsp;&nbsp;&nbsp; -->
+              <li class="nav-item"><a class="nav-link" onclick="logoutCheck();" style="cursor: pointer;"><i class="fas fa-user-alt mr-1 text-gray"></i>로그아웃</a></li>
             </ul>
           </div>
               <script>

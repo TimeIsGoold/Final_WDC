@@ -86,8 +86,6 @@ public class TeacherInfoController {
 		if (teacherInfo == null) {
 
 			rttr.addFlashAttribute("message", "등록된 아이디가 없습니다.");
-//        암호화 전 
-//		} else if (!loginInfo.getTeacherPwd().equals(teacherInfo.getTeacherPwd())) {
 		} else if(!passwordEncoder.matches(loginInfo.getTeacherPwd(), teacherInfo.getTeacherPwd())) {
 			rttr.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
 		} else if ("Y".equals(teacherInfo.getTeacherQuitStatus())) {
@@ -95,7 +93,6 @@ public class TeacherInfoController {
 		} else if ("Y".equals(teacherInfo.getTeacherBlockStatus())) {
 			rttr.addFlashAttribute("message", "신고에 의해 차단된 아이디입니다. 관리자에게 문의하세요");
 		} else {
-
 			// 로그인 입력 정보와 회원정보 일치 시 메인페이지 핸들러로 이동
 			model.addAttribute("teacherNo", teacherInfo.getTeacherNo());
 			returnPage = "redirect:main";
