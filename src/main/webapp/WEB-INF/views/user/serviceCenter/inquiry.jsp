@@ -125,8 +125,8 @@
                       <thead>
                         <tr>
                           <th><b>번호</b></th>
-                          <th><b>신고제목</b></th>
-                          <th><b>신고일자</b></th>
+                          <th><b>문의제목</b></th>
+                          <th><b>문의일자</b></th>
                           <th><b>답변</b></th>
                         </tr>
                       </thead>
