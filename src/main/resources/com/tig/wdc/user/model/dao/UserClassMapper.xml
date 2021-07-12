@@ -681,4 +681,10 @@
 	         , #{ today }  
 	         )  
 	</insert>
+	
+	<update id="updatePplZero" parameterType="_int">
+	   UPDATE CLASS_APPLY
+	      SET CLS_PPL = 0
+	    WHERE CLS_APL_NO = #{ aplNo } 
+	</update>
 </mapper>

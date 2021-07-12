@@ -109,6 +109,9 @@ public interface UserClassService {
 	int insertUpdateClass(HashMap<String, String> searchDate);
 
 	int updateStartClass(HashMap<String, String> searchDate);
+	
+	int updatePplZero(int aplNo);
+
 
 
 }

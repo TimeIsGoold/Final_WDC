@@ -116,6 +116,9 @@ public interface UserClassMapper {
 	public int insertUpdateClass(HashMap<String, String> searchDate);
 
 	public int updateStartClass(HashMap<String, String> searchDate);
+	
+	public int updatePplZero(int aplNo);
+
 
 
 

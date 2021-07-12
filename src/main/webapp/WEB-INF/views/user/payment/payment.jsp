@@ -164,7 +164,6 @@ h5, .h5 {
                     </th>
                     <td style="border-top: 0px !important">
                       <input type="text"style="width: 250px;" name="phone" id="phone" value="${ requestScope.userInfo.phone }" disabled="disabled">
-                      <input type="text"style="width: 250px;" name="phone" id="phone" value="${ requestScope.paymentScheduleDTO.scheduleNo }" disabled="disabled">
                     </td>
                   </tr>
                 </tbody>
@@ -172,13 +171,34 @@ h5, .h5 {
               <br>
               
 
+
               <!-- 쿠폰 적용-->
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
-                  <button id="discount" class="btn btn-dark btn-sm btn-block" type="button">적용하기</button>
-                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;"><i class="fas mr-2 fa-gift"></i><b>쿠폰선택</b> 
-                  <h6 style="font-size: 13px; font-weight:200 !important;"> * 적용하기를 누르셔야 쿠폰 적용 가능합니다. </h6>
-                   <script>
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-left" style="font-size: 15px;" ><!-- <i class="fas mr-2 fa-gift" ></i> -->
+                  <b style="display: inline-flex;" >쿠폰선택<p style="font-size: 13px; font-weight:200 !important;"> &nbsp; * 적용하기를 누르셔야 쿠폰 적용 가능합니다.</p></b>                             
+                  <select style="height: 25px;  margin-left: 55px;" class="couponDis" id="discountCoupon">
+                   <c:choose>
+                  	<c:when test="${empty couponList}">
+                  	   <option>사용 가능한 쿠폰이 없습니다.</option>
+                  	</c:when>
+                  	<c:otherwise>
+                    	<option>선택</option>
+                    	<c:forEach var="couponList" items="${ requestScope.couponList }">
+                        <option id="coupon" value="${ couponList.cpnNo }">
+                        ${ couponList.cpnName } (할인 금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/>원)
+                        </option>
+                        <c:set var="couponDisAmountTotalPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl -  couponList.disAmount }"></c:set>
+                        <option id="couponTotalPrice" hidden="" value="${ couponDisAmountTotalPrice}"></option>
+                        <option id="couponDisAmount" hidden="" value="${ couponList.disAmount }"></option>
+                    	</c:forEach>
+                  	</c:otherwise>
+                   </c:choose>
+                  </select>
+                </div>
+               <button id="discount" class="btn btn-dark btn-sm btn-block" type="button" style="width: 100px; margin-left: 25%">적용하기</button>
+                </div>
+                <script>
                   	$("#discount").click(function() {
 						var couponNo = "0"; 
 						var couponDisTotalPrice = "0";
@@ -218,27 +238,7 @@ h5, .h5 {
 						} 
 						
 					});
-                  </script>                  
-                  <select style="height: 25px;  margin-left: 55px;" class="couponDis" id="discountCoupon">
-                   <c:choose>
-                  	<c:when test="${empty couponList}">
-                  	   <option>사용 가능한 쿠폰이 없습니다.</option>
-                  	</c:when>
-                  	<c:otherwise>
-                    	<option>선택</option>
-                    	<c:forEach var="couponList" items="${ requestScope.couponList }">
-                        <option id="coupon" value="${ couponList.cpnNo }">
-                        ${ couponList.cpnName } (할인 금액 : <fmt:formatNumber value="${ couponList.disAmount }" pattern="#,###"/>원)
-                        </option>
-                        <c:set var="couponDisAmountTotalPrice" value="${ requestScope.userClassDTO.price * requestScope.classApplyDTO.ppl -  couponList.disAmount }"></c:set>
-                        <option id="couponTotalPrice" hidden="" value="${ couponDisAmountTotalPrice}"></option>
-                        <option id="couponDisAmount" hidden="" value="${ couponList.disAmount }"></option>
-                    	</c:forEach>
-                  	</c:otherwise>
-                   </c:choose>
-                  </select>
-                </div>
-                </div>
+                  </script>      
               </div>
               
               

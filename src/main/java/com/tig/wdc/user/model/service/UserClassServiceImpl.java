@@ -297,6 +297,10 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.updateStartClass(searchDate);
 	}
 
+	@Override
+	public int updatePplZero(int aplNo) {
+		return mapper.updatePplZero(aplNo);
+	}
 
 
 

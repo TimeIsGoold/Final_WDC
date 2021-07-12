@@ -117,8 +117,8 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
 
                 <div class="row">
-                  <div class="col-xl-10 col-lg-4 col-sm-6" style="margin-left: 30px; ">
-                  <div class="row" style="height: 200px;">
+                 <div class="col-xl-10 col-lg-4 col-sm-6" style="margin-left: 30px; ">
+                  <div class="row" style="height: 200px;  width: 1500px;">
                     <img class="w-100" src="${pageContext.servletContext.contextPath }/${scheduleDetailUserClassDTO.titlePic}"  alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
                     <ul class="list-inline mb-2">
                       <li class="list-inline-item m-0">
@@ -126,7 +126,7 @@
                           <p style="margin-left: 10px; margin-top: 2px;"> 강의명</p>
                         </i>
                       </li> 
-                      <h4><a href="detail.html" style="color: black;">${ requestScope.scheduleDetailUserClassDTO.title }</a></h4>
+                      <h4 style="overflow: hidden;"><a href="detail.html" style="color: black;">${ requestScope.scheduleDetailUserClassDTO.title }</a></h4>
                       <br>  
                       <li class="list-inline-item m-0">
                         <i class="fas fa-caret-right small text-dark" style="display: flex; margin-left: 3px; ">
@@ -158,7 +158,6 @@
                     <hr>
                     </div>
                     <br>
-
                     <div style="margin-left: 25%;">
                      <c:choose>
                          <c:when test="${ requestScope.scheduleDetailUserClassDTO.clsType eq 'O' && requestScope.scheduleDetailUserClassDTO.scheduleDate == cDate }">
@@ -193,6 +192,7 @@
                           <input type="hidden" name="payPrice" value="${ requestScope.scheduleDetailUserClassDTO.payPrice }">
                           <input type="hidden" name="payNo" value="${ requestScope.scheduleDetailUserClassDTO.payNo }">
                           <input type="hidden" name="scheduleNo" value="${ requestScope.scheduleDetailUserClassDTO.scheduleNo }">
+                          <input type="hidden" name="aplNo" value="${ requestScope.scheduleDetailUserClassDTO.aplNo }">
 	                        </form>
 	                      </div>
                          </c:otherwise>
@@ -216,6 +216,7 @@
                           <input type="hidden" name="clsType" value="${ requestScope.scheduleDetailUserClassDTO.clsType }">
                           <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
                           <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
+                          <input type="hidden" name="aplNo" value="${ requestScope.scheduleDetailUserClassDTO.aplNo }">
                         </form>
                       </div>
                     </div>
