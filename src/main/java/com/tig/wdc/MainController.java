@@ -37,15 +37,19 @@ public class MainController {
 	public String main(Model model, HttpSession session) {
 
 		
-		Calendar yesterday = Calendar.getInstance();
-		yesterday.add(Calendar.DATE, -1);
-		String date = new SimpleDateFormat("yyyy-MM-dd").format(yesterday.getTime());
-		
-		System.out.println(date);
+		Calendar date = Calendar.getInstance();
+		date.add(Calendar.DATE, 0);
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(date.getTime());
 		HashMap<String, String> searchDate = new HashMap<>();
-		searchDate.put("searchDate", date);
+		searchDate.put("today", today);
+		
 		if(classService.selectClassUpdate(searchDate) == null) {
 			
+			date.add(Calendar.DATE, -1);
+			String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(date.getTime());
+			searchDate.put("yesterday", yesterday);
+			
+			classService.updateStartClass(searchDate);
 			classService.updateClass(searchDate);
 			classService.insertUpdateClass(searchDate);
 		}

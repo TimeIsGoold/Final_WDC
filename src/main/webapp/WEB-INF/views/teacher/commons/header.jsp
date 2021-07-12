@@ -53,11 +53,11 @@
         <div class="container px-0 px-lg-3">
     <c:choose>
         <c:when test="${ sessionScope.teacherNo gt 0 }">
-        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
+        <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/teacher/main"><span class=" text-uppercase text-dark" style="font-size: 32px; font-family: Cafe24SsurroundAir;"><img src="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png" width="33px" height="33px">&nbsp;우리 동네 클래스</span></a>
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a href="${pageContext.servletContext.contextPath }/teacher/">강사페이지</a></li>
+              <li class="nav-item"><a href="${pageContext.servletContext.contextPath }/teacher/main">강사페이지</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">               
               <!-- <li class="nav-item"><a class="nav-link" href="t_InfoEdit.html"><i class="fas fa-user-alt mr-1 text-gray"></i>마이 페이지</a></li>&nbsp;&nbsp;&nbsp;&nbsp; -->
@@ -82,7 +82,7 @@
           <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a href="${pageContext.servletContext.contextPath }/teacher/">${ sessionScope.teacherNo }강사페이지</a></li>
+              <li class="nav-item"><a href="${pageContext.servletContext.contextPath }/teacher/">강사페이지</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">               
               <li class="nav-item"><a class="nav-link" href="${ pageContext.servletContext.contextPath }/teacher/registTeacher"> <i class="fas fa-user-alt mr-1 text-gray"></i>회원가입</a></li>

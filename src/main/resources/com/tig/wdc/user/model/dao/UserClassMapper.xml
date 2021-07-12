@@ -655,22 +655,29 @@
         SELECT
                UPDATE_NO
           FROM CLASS_UPDATE
-         WHERE UPDATE_DATE = #{ searchDate }      	
+         WHERE UPDATE_DATE = #{ today }      	
 	</select>
 	<update id="updateClass" parameterType="hashmap">
 	    UPDATE CLASS
            SET CLS_STATUS = 'E'
          WHERE CLS_DICSION_STATUS = 'S'
            AND CLS_STATUS = 'P'
-           AND CLS_END_D = #{ searchDate }
+           AND CLS_END_D = #{ yesterday }
+	</update>
+	<update id="updateStartClass" parameterType="hashmap">
+	    UPDATE CLASS
+           SET CLS_STATUS = 'P'
+         WHERE CLS_DICSION_STATUS = 'S'
+           AND CLS_STATUS = 'W'
+           AND CLS_START_D = #{ today }	
 	</update>
 	<insert id="insertUpdateClass" parameterType="hashmap">
-	  INSERT
-	    INTO CLASS_UPDATE
-	  VALUES
-	       (
-	         SEQ_UPDATE_NO.NEXTVAL
-	       , #{ searchDate }  
-	       )  
+	    INSERT
+	      INTO CLASS_UPDATE
+	    VALUES
+	         (
+	           SEQ_UPDATE_NO.NEXTVAL
+	         , #{ today }  
+	         )  
 	</insert>
 </mapper>
