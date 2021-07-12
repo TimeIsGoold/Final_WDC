@@ -704,7 +704,8 @@ public class AdminController {
 	}
 
 	@GetMapping("seconddecision")
-	   public String selectCheeringClass(@RequestParam("pc")String result, Model model) {
+	   public String selectCheeringClass(@RequestParam("pc")String result, @RequestParam(value="deci", defaultValue="0")int num,Model model) {
+		System.out.println("asdgmkdangi;adgopdsfdmlsagmadngkjdsanfkdnkcasdnvkdsanjknvdjklvnjsdk;ndsmfkdlsn"+num);
 	      long today = System.currentTimeMillis();
 	      List<CheeringClassDTO> refinedCheeringClassList = new ArrayList<>();
 	      List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
@@ -715,7 +716,7 @@ public class AdminController {
 	      if(result.equals("p")) {
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
 	            // 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	               List<Integer> userNoArr = null;
 	               for(int j = 0; j < refinedCheeringClassList.size(); j ++) {
@@ -731,6 +732,7 @@ public class AdminController {
 	            	   cheeringClassList.get(i).setCheeringUserNo(userNoString);
 	               }
 	            } 
+	            
 	         }
 	         model.addAttribute("classList", refinedCheeringClassList);
 	         model.addAttribute("t", "p");
@@ -745,12 +747,16 @@ public class AdminController {
 	            model.addAttribute("t", "l");
 	         }
 	      }
+	      if(num == 1) model.addAttribute("message", "수요조사(2차심사)를 통과 하셨습니다. 해당 클래스를 응원한 유저들에게 쿠폰이 발급됩니다.");
+	      if(num == 2) model.addAttribute("message", "해당 클래스는 수요조사(2차심사)를 통과 하지 못하였습니다.");
+
 	      return "admin/testClassList";
 	   }
 	
 	@PostMapping("acceptSecondDecision")
 	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo, @RequestParam("submit")int num,  Model model) {
 		String[] cheeringInfoArr = cheeringInfo.split(",");
+		int result= 0;
 		// 승인을 눌렀을시
 		if(num == 1) {
 			for(int i = 0; i < cheeringInfoArr.length; i++) {
@@ -764,6 +770,8 @@ public class AdminController {
 					classDetail.setPrice((int)(classDetail.getPrice() * 0.05));
 					classDetail.setUserNo(Integer.parseInt(getUserNo[j]));
 					adminService.insertCheeringCoupon(classDetail);
+					result = 1;
+					
 				}
 			}
 		// 거절을 눌렀을시
@@ -772,9 +780,10 @@ public class AdminController {
 				String[] getClsNo = cheeringInfoArr[i].split("/");
 				adminService.updateClsSecondDecisionReject(Integer.parseInt(getClsNo[0]));
 				adminService.updateClsSecondDecisionHistoryRedject(Integer.parseInt(getClsNo[0]));
+				result = 2;
 			}
 		}
-		return "redirect:seconddecision?pc=t";
+		return "redirect:seconddecision?pc=t&deci=" + result;
 	}
 	
 	@PostMapping("adminSingIn")
@@ -796,16 +805,12 @@ public class AdminController {
 	
 	@GetMapping("logout")
 	public String teacherLogout(HttpSession session) {
-		
 		session.invalidate();
-		
 		return "admin/adminLogin";
 	}
 	
 	@GetMapping("issueCouponSpecificIndividual")
 	public String issueCouponSpecificIndividual(@RequestParam("id")String id, Model model) {
-		
-		System.out.println("여기입니다 경찰아조씨 잡아주셍 : " + id);
 		model.addAttribute("id" ,id);
 		return "admin/couponIssue";
 	}
