@@ -106,7 +106,7 @@
 	                                            		<td>강사</td>
 	                                            	</c:when>
 	                                            	<c:when test="${ questionDetail.questionType eq 'USER'}">
-	                                            		<td>수강생강</td>
+	                                            		<td>수강생</td>
 	                                            	</c:when>
 	                                            </c:choose>
 	                                        </tr>
