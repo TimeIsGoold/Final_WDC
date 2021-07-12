@@ -143,34 +143,6 @@
 			          </div>
 			        </div>
 			      </div>
-			      
-			            <div class="modal fade" id="classView" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body p-0">
-              <div class="row align-items-stretch">
-                <div class="col-lg-6 p-lg-0"><a class="product-view d-block h-100 bg-cover bg-center" style="background: url(img/class-sport.png)" href="img/class-sport.png" data-lightbox="productview" title="Red digital smartwatch"></a><a class="d-none" href="img/class-sport2.png" title="Red digital smartwatch" data-lightbox="productview"></a><a class="d-none" href="img/class-sport3.png" title="Red digital smartwatch" data-lightbox="productview"></a></div>
-                <div class="col-lg-6">
-                  <button class="close p-4" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                  <div class="p-5 my-md-4">
-                    <h2 class="h4">스포츠 클래스</h2>
-                    <p class="text-muted">42,500 원</p>
-                    <p class="text-small mb-4">
-                      이런 분들을 위한 클래스예요<br>
-                      내몸의 상태 점검이 필요한 분들<br>
-                      어깨와 목이 항상 뻐근한 분들<br>
-                      고관절, 골반통, 허리통증을 달고 사시는 분<br>
-                      체중감량이 필요한 분, 몸에 탄력을 찾고 싶은 분들<br>
-                    </p>
-                    <div class="col-sm-5 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="detail.html">클래스 보기</a></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-                 
                   <div class="col-lg-4 col-sm-6">
                     <div class="product text-center">
                      <c:choose>
@@ -189,7 +161,7 @@
                           <c:choose>
                            <c:when test="${ classList.dicsionStatus eq 'S' }">
                           <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart"></i></a></li>
+                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark"><i class="far fa-heart icon1" id="like${i}"></i></a></li>
                             <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview${i}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                           </ul>
                            </c:when>
@@ -265,7 +237,47 @@
 			         return;
 			        });
 				
-			</script>
+					//찜 스크립트
+		            $("#like" + ${i}).click(function(){
+						if ("${ sessionScope.userNo }" == "") { //로그인 안했을 경우
+			  				
+							if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
+			  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
+			  				} else { 
+			  					// 거부하면 해당 페이지 새로고침 
+			  					//location.reload(); 
+			  				}
+						} else{ //로그인 한 경우
+							
+					        const clsNo = document.getElementById('clsNo' + ${i}).value;
+					        
+					        $.ajax({
+					            url:"${pageContext.servletContext.contextPath}/user/mypage/likeClass",
+					            type:"post",
+					            data:{
+					         		clsNo : clsNo	
+					            },
+					            success:function(data, textStatus, xhr){
+					            	if(data == '0'){
+						            	if (confirm("클래스 찜♡\n찜 목록으로 이동하시겠어요?")) { //승낙하면 찜 목록으로 이동 
+						    				location.href = '${ pageContext.servletContext.contextPath }/user/mypage/likeClassList'; 
+						    			} else { 
+						    				//거부하면 해당 페이지 새로고침 
+						    				location.reload();
+						    				//return;
+						    			} 
+						            } else if(data == '1'){
+					         			alert("찜 목록에서 삭제되었습니다.");
+						  	   			location.reload();
+					         		}
+					        	},
+					            error:function(xhr,status,error){
+					            	console.log(error);
+					       		}
+			        		});  
+						}
+					});
+				  </script>
                   </c:forEach>
                   
                 </div>

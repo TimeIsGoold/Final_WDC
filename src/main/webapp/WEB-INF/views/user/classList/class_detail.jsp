@@ -981,7 +981,7 @@ String strDate = formats.format(now); %>
                               alert("이미 응원하신 클래스 입니다.");
                            }else if(data == '1'){
                               alert("응원에 성공 했습니다.\n해당 클래스가 오픈될 수 있게 응원해주세요!!")
-                             location.reload();
+                              location.reload();
                            }else if(data == '2'){
                               alert("오늘 이미 응원하셨습니다.\n응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요.")
                            }

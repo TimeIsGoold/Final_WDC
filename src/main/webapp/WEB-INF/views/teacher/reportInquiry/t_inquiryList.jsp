@@ -102,9 +102,10 @@
           <div class="col-sm-12" id="content-formatting" style="float: left;">
         <form action="${pageContext.servletContext.contextPath }/teacher/teacherInquiryList" method="get">
             <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-              <P style="font-size: 20px; font-weight: bold;" >문의내역<P>
+              <P style="font-size: 20px; font-weight: bold; margin-top: 25px;" >문의내역<P>
+            <hr>
             </div>
-            <div class="row" style="margin-left: 20px;">
+            <div class="row" style="margin-left: 30px;">
               <div class='col-sm-2'>
                 <select class="custom-select mr-sm-2" id="inquiryReply" name="inquiryReply">
                 	<option value="none" selected>전체</option>
@@ -126,8 +127,8 @@
               </div> -->
             </div>
           </form>
-            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 900px">
-              <table class="table table-hover" style="text-align: center; margin-bottom: 30px">
+            <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 25px; height: 800px; margin-left: 25px;">
+              <table class="table table-hover" style="text-align: center; margin-bottom: 30px; font-size: 15px;">
                 <thead>
                   <tr>
                     <th>번호</th>

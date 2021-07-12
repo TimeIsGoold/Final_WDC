@@ -215,7 +215,7 @@
 		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
 		  				} else { 
 		  					// 거부하면 해당 페이지 새로고침 
-		  					location.reload(); 
+		  					//location.reload(); 
 		  				}
 					} else{ //로그인 한 경우
 						
@@ -313,7 +313,7 @@
 		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
 		  				} else { 
 		  					// 거부하면 해당 페이지 새로고침 
-		  					location.reload(); 
+		  					//location.reload(); 
 		  				}
 					} else{ //로그인 한 경우
 						
@@ -411,7 +411,7 @@
 		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
 		  				} else { 
 		  					// 거부하면 해당 페이지 새로고침 
-		  					location.reload(); 
+		  					//location.reload(); 
 		  				}
 					} else{ //로그인 한 경우
 						

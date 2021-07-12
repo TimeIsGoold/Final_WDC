@@ -57,7 +57,32 @@
       border-color: #fef0ae !important;
     }
     
-
+	.nowStep {
+	    text-align: center;
+	    background-color: #fef0ae;
+	    font-weight: bolder;
+	    border-bottom: 1px solid #fef0ae;
+	    height: 35px;
+	    font-size: 16px;
+	}
+	
+	.allStep{
+		height: 45px;
+   		padding-top: 10px;
+   		border-radius: 20px 20px 0px 0px;
+	}
+	
+	.owl-carousel .owl-item img {
+	    display: block;
+	    width: 85% !important;
+	}
+	h1, .h1 {
+	    font-size: 1.7rem !important;
+	}
+	
+	hr{
+		margin-left: -55px !important;
+	}
   </style>
 
 
@@ -81,20 +106,21 @@
      <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
      <%-- <%@ include file="../commons/sidebar.jsp" %> --%>
-      <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
+      <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">
         
+      <div class="row" style="width:1000px">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="#" style="font-size: 15; color: black" ><b>상세정보</b></a>
+        <div class="col-sm-3 nowStep allStep" id="content-formatting" style="float: left; margin: auto;">
+          <a href="#" style="color: black" ><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a id="review" style="font-size: 15; color: black" onclick="disicionCheck(this);" ><b>후기</b></a>          
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+          <a id="review" style="color: black" onclick="disicionCheck(this);" ><b>후기</b></a>          
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a id="inquiry"style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>고객문의</b></a>
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+          <a id="inquiry"style=" color: black" onclick="disicionCheck(this);"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a id="studentManage"  style="font-size: 15; color: black" onclick="disicionCheck(this);"><b>출석 관리</b></a>
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+          <a id="studentManage"  style="color: black" onclick="disicionCheck(this);"><b>출석 관리</b></a>
         </div>
         <script>
           function disicionCheck(p){
@@ -111,7 +137,7 @@
         </script>        
       </div>
     <!-- 문의 게시판 -->
-    <div class="col-sm-12" id="content-formatting" style="float: left;">
+    <div class="col-sm-12" id="content-formatting" style="float: left; margin-top: 25px;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
       <c:choose>
         <c:when test="${ classDetail.dicsionStatus eq 'W' }">
@@ -120,7 +146,7 @@
         </c:when>
         <c:when test="${ classDetail.dicsionStatus eq 'F' }">
         <h4>상세정보</h4>
-        <p style="color: #fef0ae;">응원진행 중(현재 응원 수 : ${ cheeringCount })</p>
+        <p style="color: cornflowerblue;">응원진행 중(현재 응원 수 : ${ cheeringCount })</p>
         </c:when>
         <c:when test="${ classDetail.dicsionStatus eq 'L' }">
         <h4>상세정보</h4>
@@ -139,7 +165,7 @@
 
       <div class="col-sm-12">
         <!-- PRODUCT SLIDER-->
-        <div class="row">
+        <div class="row" style="margin-left: 130px;">
           <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
             <div class="owl-thumbs d-flex flex-row flex-sm-column" data-slider-id="1">
             <c:forEach var="classPic" items="${ titlePicture }">
@@ -167,8 +193,7 @@
           </div>
         </div>
       </div>
-	<hr>
-      <div class="col-lg-10" >
+      <div class="col-lg-10" style="margin-left: 80px;" >
         <ul class="list-inline mb-2">
 <!--           <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
           <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
@@ -219,7 +244,6 @@
             <!-- DETAILS TABS-->
             <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
             </ul>
-            <hr>
   
             <!-- 상세보기 탭 -->
             <div class="tab-content mb-5" id="myTabContent">
@@ -229,8 +253,9 @@
                     <div style="text-align:left; height: 2100px;">
                     <h4> <b style="font-size: 13px; ">●</b> 간단소개글</h4>
                     <pre style="font-size: 16px;">${ classDetail.simpleIntro }</pre>
-                    
-                    <hr style="margin: 15px 0px 15px 0px">
+                    <br><br>
+                    <hr>
+                    <br><br>
                     <h4> <b style="font-size: 13px; ">●</b> 클래스소개</h4>
                       <!-- <div style="width: 550px; height: 70px; margin-top: 20px;">
                       </div> -->
@@ -352,6 +377,7 @@ ${ classDetail.intro }
           </ul>
         </div>
       </div>
+    </div>
     </div>
 
 

@@ -43,6 +43,7 @@
       bottom: 0;
       width: 100%;
       text-align: center;
+      display: inline-block;
     }
 
     .footer-link {

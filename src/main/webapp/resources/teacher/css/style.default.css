@@ -316,7 +316,7 @@ button:focus, button:active {
 */
 .text-uppercase {
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }
 
 .text-sm {
