@@ -179,6 +179,7 @@ public class TeacherMyPageController {
 		model.addAttribute("scheduleNo",info.get("scheduleNo"));
 		model.addAttribute("classType", info.get("classType"));
 		model.addAttribute("clsNo", info.get("clsNo"));
+		model.addAttribute("classDate", info.get("classDate"));
 		return "teacher/classManage/t_classAttendanceDetail";
 	}
 	
@@ -198,7 +199,7 @@ public class TeacherMyPageController {
 		applyNoList.put("checkedApplyNo", checkedNo);
 		classManage.modifyOndeDayAttendanceStatus(applyNoList);
 		
-		return "redirect:/teacher/oneDayAttendanceList/" + scheduleNo;
+		return "redirect:/teacher/oneDayAttendanceList?scheduleNo=" + scheduleNo;
 	}
 	
 	
@@ -371,13 +372,14 @@ public class TeacherMyPageController {
 	 */
 	@GetMapping("/userInquiry")
 	public String userInquiryList(Model model,@RequestParam HashMap<String,Object> classInfo, @RequestParam(defaultValue = "1") int currentPage) {
-		
-		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectUserInquiryCount((String)classInfo.get("clsNo")), 10, 5);
+		System.out.println(classInfo);
+		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectUserInquiryCount(classInfo), 10, 5);
 		classInfo.put("pageInfo", pageInfo);
 		model.addAttribute("inquiryList", boardService.selectinquiryList(classInfo));
 		model.addAttribute("classType", classInfo.get("classType"));
 		model.addAttribute("pageInfo",pageInfo);
 		model.addAttribute("clsNo",classInfo.get("clsNo"));
+		model.addAttribute("replyStatus", classInfo.get("replyStatus"));
 
 		return "teacher/classManage/t_classInquiry";
 	}

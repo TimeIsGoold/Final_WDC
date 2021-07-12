@@ -229,11 +229,18 @@
           FROM NOTICE A
          WHERE NOTICE_NO = #{ noticeNo }         
     </select>
-    <select id="selectUserInquiryCount" resultType="_int" parameterType="string">
+    <select id="selectUserInquiryCount" resultType="_int" parameterType="hashmap">
         SELECT 
                 COUNT(A.QUESTION_NO)
           FROM USER_TO_TEACHER_Q A
-         WHERE CLS_NO  = #{ clsNo }  
+          LEFT JOIN TE_ANSWER B ON (A.QUESTION_NO = B.QUESTION_NO)
+         WHERE A.CLS_NO  = #{ clsNo }
+         <if test="replyStatus == 'yet'">
+           AND B.ANSWER_CONTENT IS NULL
+         </if>
+         <if test="replyStatus == 'complete'">
+           AND B.ANSWER_CONTENT IS NOT NULL
+         </if>
     </select>
     <select id="selectinquiryList" resultMap="inquiry" parameterType="hashmap">
         SELECT 
@@ -251,6 +258,12 @@
                           LEFT JOIN TE_ANSWER D ON (C.QUESTION_NO = D.QUESTION_NO)
                           JOIN USER_INFO E ON (C.USER_NO = E.USER_NO)
                          WHERE C.CLS_NO  = #{ clsNo }
+                         <if test="replyStatus == 'yet'">
+                           AND D.ANSWER_CONTENT IS NULL
+                         </if>
+                         <if test="replyStatus == 'complete'">
+                           AND D.ANSWER_CONTENT IS NOT NULL
+                         </if>                         
                          ORDER BY C.QUESTION_NO DESC
                         ) B
                ) A

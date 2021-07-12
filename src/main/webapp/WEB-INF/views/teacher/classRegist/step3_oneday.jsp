@@ -300,19 +300,19 @@ input[name="dayName"] {
 										<div class="col-md-12">
 											<p>강의요일</p>
 											<div class="btn-group" data-toggle="buttons">
-												<label class="btn btn-default day" > 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="0" />일</label> 
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="1" />월</label>
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="2" />화</label> 
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="3" />수</label> 
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="4" />목</label> 
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="5" />금</label> 
-												<label class="btn btn-default day"> 
+												<label class="btn btn-default day" style="border: 1px solid; border-radius: 3px;"> 
 												<input type="checkbox" name="dayName" value="6" />토</label>
 											</div>
 										</div>

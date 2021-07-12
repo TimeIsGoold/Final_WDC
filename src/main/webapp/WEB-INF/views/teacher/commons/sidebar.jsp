@@ -70,7 +70,6 @@
     <ul class="list-unstyled small text-muted pl-lg-4 font-weight-normal mb-5">
       <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherInquiry">관리자 문의</a></li>
       <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherInquiryList">문의내역 관리</a></li>
-      <li class="mb-2 side-body"><a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/teacher/teacherFAQ">자주 묻는 질문</a></li>
       <li class="mb-2 side-body"style="padding-bottom: 50px;"><a class="reset-anchor" href="#"></a></li>
     </ul>
   </div>

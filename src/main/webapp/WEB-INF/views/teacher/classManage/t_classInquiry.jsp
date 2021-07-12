@@ -63,6 +63,32 @@
       background-color: #fef0ae;
       border-color: #fef0ae;
     }
+    .nowStep {
+	  text-align: center;
+	  background-color: #fef0ae;
+	  font-weight: bolder;
+	  border-bottom: 1px solid #fef0ae;
+	  height: 35px;
+	  font-size: 16px;
+	}
+	.allStep{
+	  height: 45px;
+   	  padding-top: 10px;
+   	  border-radius: 20px 20px 0px 0px;
+   	  cursor: pointer;
+	}
+		h1, .h1 {
+	    font-size: 1.7rem !important;
+	}
+	
+	hr{
+		margin-left: -55px !important;
+	}
+	.pagingArea button {
+	  background-color: #fef0ae;
+	  border: 1px solid #fef0ae;
+	  border-radius: 5px;
+	}
   </style>
 
 
@@ -82,35 +108,37 @@
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
         
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
         <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
-    <form>
+    <form method="get" action="${pageContext.servletContext.contextPath }/teacher/userInquiry">
         <div class='col-sm-10' >
           <div class="form-group">
             <div class="row">
               <div class='col-sm-3'>
-                <select class="form-control" name="답변 상태" id="reply">
-                	<option value="notyet">답변 대기</option>
-                	<option value="completed">답변 완료</option>
+                <select class="form-control" name="replyStatus" id="replyStatus">
+                	<option value="A">선택</option>
+                	<option value="yet">답변 대기</option>
+                	<option value="complete">답변 완료</option>
                 </select>
               </div>
               <div class='col-sm-6'>
-                <button type="submit" class="btn btn-primary">검색</button>   
-                <button type="reset" class="btn btn-primary" onclick="${pageContext.servletContext.contextPath }/teacher/userInquiry">초기화</button>   
+                <button type="submit" class="btn btn-primary">검색</button>
+                <input type="hidden" name="clsNo" value="${ clsNo }">   
+                <button type="button" class="btn btn-primary" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/userInquiry?clsNo=${ clsNo }&replyStatus=A'">초기화</button>   
               </div>
             </div>
             </div>
@@ -131,7 +159,7 @@
           <c:choose>
           <c:when test="${ empty inquiryList }">
           <tr>
-            <td colspan="5">등록된 문의가 없습니다.</td>
+            <td colspan="5">조회된 결과 없음.</td>
           </tr>
           </c:when>
           <c:otherwise>
@@ -152,58 +180,83 @@
             </c:forEach>
           </c:otherwise>
           </c:choose>
-<!--             <tr>
-              <td>1</td>
-              <td><a href="t_classInquiryDetail.html">클래스 재료는 준비 안해도 되나요?</a></td>
-              <td>유승제</td>
-              <td>2021-06-20</td>
-              <td>답변 중</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td><a href="t_classInquiryDetail.html">둘이서 같이 신청해도 되나요?</a></td>
-              <td>김인식</td>
-              <td>2021-06-02</td>
-              <td>답변 중</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td><a href="t_classInquiryReply.html">클래스 리뷰 수정</a></td>
-              <td>김인식</td>
-              <td>2021-06-01</td>
-              <td>답변 완료</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td><a href="t_classInquiryReply.html">환불하고 싶어요</a></td>
-              <td>하동운</td>
-              <td>2021-05-02</td>
-              <td>답변 완료</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td><a href="t_classInquiryReply.html">할인 쿠폰은 어디있나요</a></td>
-              <td>조준형</td>
-              <td>2021-04-02</td>
-              <td>답변 완료</td>
-            </tr> -->
           </tbody>
         </table><br><br>
-        <nav aria-label="...">
-          <ul class="pagination" style="justify-content: center;">
-            <li class="page-item"><span class="page-link"><</span></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">5</a></li>
-            <li class="page-item"><a class="page-link" href="#">></a></li>
-          </ul>
-        </nav>
+                <nav aria-label="...">
+						<div class="pagingArea" align="center">
+							<c:choose>
+								<c:when test="${ empty requestScope.searchValue }">
+									<button id="startPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled ><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="prevPage"><</button>
+									</c:if>
+
+									<c:forEach var="p" begin="${ requestScope.pageInfo.startPage }"	end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button onclick="pageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if
+										test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled >></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="nextPage">></button>
+									</c:if>
+
+									<button id="maxPage">>></button>
+								</c:when>
+								<c:otherwise>
+									<button id="searchStartPage"><<</button>
+
+									<c:if test="${ requestScope.pageInfo.pageNo <= 1 }">
+										<button  disabled><</button>
+									</c:if>
+									<c:if test="${ requestScope.pageInfo.pageNo > 1 }">
+										<button id="searchPrevPage" ><</button>
+									</c:if>
+
+									<c:forEach var="p"	begin="${ requestScope.pageInfo.startPage }" end="${ requestScope.pageInfo.endPage }" step="1">
+										<c:if test="${ requestScope.pageInfo.pageNo eq p }">
+											<button disabled>
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+										<c:if test="${ requestScope.pageInfo.pageNo ne p }">
+											<button  onclick="seachPageButtonAction(this.innerText);">
+												<c:out value="${ p }" />
+											</button>
+										</c:if>
+									</c:forEach>
+
+									<c:if test="${ requestScope.pageInfo.pageNo >= requestScope.pageInfo.maxPage }">
+										<button disabled>></button>
+									</c:if>
+									<c:if
+										test="${ requestScope.pageInfo.pageNo < requestScope.pageInfo.maxPage }">
+										<button id="searchNextPage" >></button>
+									</c:if>
+
+									<button id="searchMaxPage" >>></button>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</nav>
       </div>
     </div>
-
-
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -217,5 +270,70 @@
   </div>
   
   <jsp:include page="../commons/footer.jsp"/>
+  <script>
+    const link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";
+	if(document.getElementById("startPage")) {
+		const $startPage = document.getElementById("startPage");
+		$startPage.onclick = function() {
+    		let replyStatus = document.getElementById("replyStatus").value;
+			location.href = link + "?currentPage=1" + "&replyStatus="+replyStatus;
+		}
+	}
+	
+	if(document.getElementById("prevPage")) {
+		const $prevPage = document.getElementById("prevPage");
+		$prevPage.onclick = function() {
+			let classType = document.getElementById("classType").value;
+			let proceed = document.getElementById("proceed").value;
+			let decision = document.getElementById("decision").value;
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo - 1 }" + "&replyStatus="+replyStatus;
+		}
+	}
+	
+	if(document.getElementById("nextPage")) {
+		const $nextPage = document.getElementById("nextPage");
+		$nextPage.onclick = function() {
+			let classType = document.getElementById("classType").value;
+			let proceed = document.getElementById("proceed").value;
+			let decision = document.getElementById("decision").value;
+			location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }" + "&replyStatus="+replyStatus;
+		}
+	}
+	
+	if(document.getElementById("maxPage")) {
+		const $maxPage = document.getElementById("maxPage");
+		$maxPage.onclick = function() {
+			let classType = document.getElementById("classType").value;
+			let proceed = document.getElementById("proceed").value;
+			let decision = document.getElementById("decision").value;
+			location.href = link + "?currentPage=${ requestScope.pageInfo.maxPage }" + "&replyStatus="+replyStatus;
+		}
+	}
+	
+	function pageButtonAction(text) {
+   		
+		let classType = document.getElementById("classType").value;
+		let proceed = document.getElementById("proceed").value;
+		let decision = document.getElementById("decision").value;
+
+   		location.href = link + "?currentPage=" + text  + "&replyStatus="+replyStatus;
+	}
+  </script>  
+  <script>
+	  window.onload = function(){
+		  let beforeReplyStatus = "${ replyStatus }";
+		  console.log(beforeReplyStatus)
+		  if(beforeReplyStatus != null && beforeReplyStatus.length > 0){
+		  
+			  let replyStatus = document.getElementById("replyStatus");
+			  
+			  for(var i = 0; i < replyStatus.length; i++){
+				  if(replyStatus[i].value == beforeReplyStatus){
+					  replyStatus[i].selected = true;					  
+				  }
+			  }
+		  }
+	  }
+	</script>    
 </body>
 <html>

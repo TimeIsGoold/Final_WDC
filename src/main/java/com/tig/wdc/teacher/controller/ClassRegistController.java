@@ -124,18 +124,16 @@ public class ClassRegistController {
 		//클래스 대표사진 출력
 		/* 3. 완성작 INSERT*/
 		String[] pieceTitle = pieceInfo.getPieceTitle().split(",");
-//		int pieceTitleIndex = 0;
+		int index = 0;
 		for(int i = 4; i < 6; i++) {
 
 			if(!pictures.get("thumbnailImg" + i).isEmpty()) {
-//				totalCount++;
 
 				MultipartFile img = pictures.get("thumbnailImg" + i);
 				String ext = img.getOriginalFilename().substring(img.getOriginalFilename().lastIndexOf("."));
 				classPiece.setPiecePicture(UUID.randomUUID().toString().replace("-", "") + ext);
-				classPiece.setPieceTitle(pieceTitle[0]);
-//				pieceTitleIndex++;
-
+				classPiece.setPieceTitle(pieceTitle[index]);
+				index++;
 				try {
 					img.transferTo(new File(filePath + "\\" + classPiece.getPiecePicture()));
 					insertCount += classService.insertCompletePiece(classPiece);

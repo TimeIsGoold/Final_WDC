@@ -669,7 +669,7 @@
 	    UPDATE CLASS
            SET CLS_STATUS = 'P'
          WHERE CLS_DICSION_STATUS = 'S'
-           AND CLS_STATUS = 'W'
+           AND CLS_STATUS = 'Y'
            AND CLS_START_D = #{ today }	
 	</update>
 	<insert id="insertUpdateClass" parameterType="hashmap">

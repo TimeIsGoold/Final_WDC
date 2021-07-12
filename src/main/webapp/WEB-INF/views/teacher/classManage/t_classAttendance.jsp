@@ -121,7 +121,7 @@
             <c:forEach var="schedule" items="${ onedayInfo }" varStatus="status">
             <tr>
               <td>${ pageInfo.startRow + status.index }</td>
-              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList?scheduleNo=${ schedule.scheduleNo}&classType=${classType}&clsNo=${ clsNo }">${ schedule.classTitle}</a></td>
+              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList?scheduleNo=${ schedule.scheduleNo}&classType=${classType}&clsNo=${ clsNo }&classDate=${ schedule.start }">${ schedule.classTitle}</a></td>
               <td>${ pageInfo.startRow + status.index }회차</td>
               <td>${ schedule.start }</td>
               <td>${ schedule.applyCount}/${ schedule.maxPeople}</td>

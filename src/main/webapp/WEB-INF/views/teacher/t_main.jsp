@@ -242,7 +242,7 @@
 			              <p class="text">등록된 소개글이 없습니다.</p>
 	                  </c:when>
 	                  <c:otherwise>
-			              <p class="text">${ teacherInfo.teacherIntro }</p>
+			              <pre class="text" align="left">${ teacherInfo.teacherIntro }</pre>
 	                  </c:otherwise>
 	              </c:choose>
 	              <p class="text-primary"></p>
@@ -287,7 +287,7 @@
 	                    <hr>
 	                    <div class="form-group">
 	                      <p>소개글 작성</p>
-	                      <textarea class="form-control" rows="7" name="teacherIntro">${ teacherInfo.teacherIntro }</textarea>
+	                      <textarea class="form-control" rows="7" name="teacherIntro" style="resize: none;">${ teacherInfo.teacherIntro }</textarea>
 	                    </div>
 	
 	                  </div>

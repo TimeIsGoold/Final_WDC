@@ -105,7 +105,7 @@ public interface BoardAndQnAService {
 	 * @param parseInt
 	 * @return
 	 */
-	public int selectUserInquiryCount(String string);
+	public int selectUserInquiryCount(HashMap<String, Object> classInfo);
 
 	/**
 	 * 이용자문의 상세보기

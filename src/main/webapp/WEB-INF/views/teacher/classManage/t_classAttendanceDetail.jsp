@@ -94,7 +94,7 @@
     <!-- 문의 게시판 -->
     <div class="col-sm-10" id="content-formatting" style="float: left;">
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-        <p style="font-size: 18px; float: right;">진행일자 : 2021년 6월 1일</p>
+        <p style="font-size: 18px; float: right;">${ classDate }</p>
       </div>
       <div align="right">
         <button id="attendanceButton"type="button" class="btn btn-primary" style="margin-right: 50px" onclick="attendanceChange(this);" value="0">전체출석</button>

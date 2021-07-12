@@ -38,7 +38,7 @@ public interface BoardAndQnAMapper {
 
 	List<UserInquiryDTO> selectinquiryList(HashMap<String, Object> classInfo);
 
-	int selectUserInquiryCount(String clsNo);
+	int selectUserInquiryCount(HashMap<String, Object> clsNo);
 
 	UserInquiryDTO selectOneInquiry(HashMap<String, Object> inquiryInfo);
 

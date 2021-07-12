@@ -108,9 +108,11 @@
 
         	<!-- main page -->
 		   <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; height: 1000px">
+		   <br>
 			<h3>공지사항</h3>
+			<br><br>
 		     <div class="col-sm-12" id="content-formatting" style="float: left; margin: auto; ">
-		       <table class="table table-hover">
+		       <table class="table table-hover" style="border-bottom: 1px solid rgba(0,0,0,0.08);">
 		         <thead>
 		           <tr>
 		             <th>공지 번호</th>
@@ -123,15 +125,15 @@
 		             <td colspan="3">${ noticeDetail.title } </td>
 		           </tr>
 		         </thead>
-		         <tbody>
+		         <tbody style="padding: 15px 15px 15px 15px">
 		           <tr>
-		             <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px; ">
+		             <td colspan="6" rowspan="" style="padding-top: 20px; padding-bottom: 20px; " align="left">
 					               ${ noticeDetail.content }     
 		             </td>
 		           </tr>
 		         </tbody>
 		       </table><br><br><br><br>
-		       <button class="btn btn-primary" type="button" style="margin-left: 40%;" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/main'">확인</button>
+		       <button class="btn btn-primary" type="button" style="margin-left: 40%;" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/main'">목록으로</button>
 		     </div>           
 		   </div>
     	</div>

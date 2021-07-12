@@ -84,7 +84,7 @@ public class BoardAndQnAServiceImpl implements BoardAndQnAService {
 	}
 
 	@Override
-	public int selectUserInquiryCount(String clsNo) {
+	public int selectUserInquiryCount(HashMap<String, Object> clsNo) {
 		return mapper.selectUserInquiryCount(clsNo);
 	}
 
