@@ -101,7 +101,14 @@
 	                                            <th>회원번호</th>
 	                                            <td>${ questionDetail.userNo }</td>
 	                                            <th>분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류</th>
-	                                            <td>${ questionDetail.questionType }</td>
+	                                            <c:choose>
+	                                            	<c:when test="${ questionDetail.questionType eq 'TEACHER'}">
+	                                            		<td>강사</td>
+	                                            	</c:when>
+	                                            	<c:when test="${ questionDetail.questionType eq 'USER'}">
+	                                            		<td>수강생강</td>
+	                                            	</c:when>
+	                                            </c:choose>
 	                                        </tr>
 	                                        <tr>
 	                                            <th>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름</th>
