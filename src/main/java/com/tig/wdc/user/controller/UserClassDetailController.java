@@ -524,6 +524,11 @@ public class UserClassDetailController {
 			e.printStackTrace();
 		}
 		
+		// 5. 해당 신청 ppl 0으로 초기화
+		System.out.println("userClassDTO : " + userClassDTO);
+		int resultUpdatePpl = classService.updatePplZero(userClassDTO.getAplNo());
+		
+		
 		// payment cancel 테이블 인서트
 		int result = classService.inserRefund(userRefundDTO);
 		

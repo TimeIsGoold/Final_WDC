@@ -763,7 +763,7 @@ String strDate = formats.format(now); %>
                            <div style="font-size: 16px;">
                            <h3>※ 추가 제공사항 및 유의사항</h3>
                               <br>
-                              ${ requestScope.classDetail.addInfo }
+                              ${ requestScope.classDetail.addSup }
                            </div>
                            <br><br><br>
                            <hr>
@@ -774,7 +774,7 @@ String strDate = formats.format(now); %>
                            <img src="${pageContext.servletContext.contextPath }/resources/user/img/stayhome.png" alt="home"
                                  width="23px" height="23px;">
                               <div style="font-size: 16px;">&nbsp;&nbsp;&nbsp;
-                                 ${ requestScope.classDetail.addSup }</div>
+                                 ${ requestScope.classDetail.addInfo }</div>
                            </div>
                            <br>
                            <div style="display: flex; width: 550px;">

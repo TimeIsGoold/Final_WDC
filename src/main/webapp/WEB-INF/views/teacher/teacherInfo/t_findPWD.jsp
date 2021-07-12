@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Boutique | Ecommerce bootstrap template</title>
+<title>우리 동네 클래스 | W.D.C </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -28,12 +28,25 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
+    <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>      
   </head>
+  <style>
+  
+   .btn {
+      border-radius: 5px !important;
+      background-color: #fef0ae !important;
+      border-color: #fef0ae !important;
+    }
+    
+    .btn-primary:hover {
+      background-color: #fef0ae;
+      border-color: #fef0ae;
+    }
+  </style>
   <body>
     <!-- header -->
     <div class="page-holder">
@@ -62,7 +75,7 @@
                 </div>
                 <br>
                 <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                <button style="width:100%; height: 38px;" id="authentication" type="button">휴대폰 번호로 인증번호 전송</button>
+                <button style="width:100%; height: 38px;" id="authentication" type="button" class="btn">휴대폰 번호로 인증번호 전송</button>
                 </div>
                 <br>
                 <div class="form-group row" style="display: none;" id="phoneNumberInput">
@@ -74,7 +87,7 @@
                 </div><br><br>
                 <div class="form-group row">
                   <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                    <button style="width:100%; height: 38px;" type="submit" class="btn btn-primary" onclick="location.href='t_findPWDsetting.html'">비밀번호 재설정하러 가기</button>
+                    <button style="width:97%; height: 38px;" type="submit" class="btn btn-primary" onclick="location.href='t_findPWDsetting.html'">비밀번호 재설정하러 가기</button>
                   </div>
                 </div>
             </div>

@@ -292,6 +292,15 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.insertUpdateClass(searchDate);
 	}
 
+	@Override
+	public int updateStartClass(HashMap<String, String> searchDate) {
+		return mapper.updateStartClass(searchDate);
+	}
+
+	@Override
+	public int updatePplZero(int aplNo) {
+		return mapper.updatePplZero(aplNo);
+	}
 
 
 

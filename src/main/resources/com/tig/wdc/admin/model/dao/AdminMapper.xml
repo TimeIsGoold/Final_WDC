@@ -1174,8 +1174,7 @@
 	 
 	 <update id="updateClsSecondDecision" parameterType="_int">
 	 	UPDATE CLASS
-	 	   SET CLS_DICSION_STATUS = 'S',
-	 	       CLS_STATUS = 'P'
+	 	   SET CLS_DICSION_STATUS = 'S'
 	 	 WHERE CLS_NO = #{clsNo}
 	 </update>
 	 
