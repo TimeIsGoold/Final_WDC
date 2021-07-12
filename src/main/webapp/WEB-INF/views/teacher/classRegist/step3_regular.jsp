@@ -48,7 +48,11 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <div class="container" style="width: 90%; margin :0 auto; display: none;" id="regular">
+=======
+    <div class="container" style="width: 90%; margin :0 auto; display:none;" id="regular">
+>>>>>>> refs/remotes/Final_WDC/HB
         <!-- 정규클래스등록1-->
         <div class="row">
             <div class="col-md-2 step" >클래스 기본정보</div>
