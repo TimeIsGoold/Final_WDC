@@ -115,7 +115,7 @@
               <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
                 <div class="row">
                   <div class="col-xl-10 col-lg-4 col-sm-6" style="margin-left: 30px; ">
-	                  <div class="row" style="height: 200px;">
+           	       <div class="row" style="height: 200px;  width: 1500px;">
 	                  	<img class="w-100" src="${pageContext.servletContext.contextPath }/${complateDetailUserClassDTO.titlePic}"  alt="..." style="width: 200px !important; height: 150px !important; margin-right: 30px; border-radius: 2px;">
 		                <ul class="list-inline mb-2">
 		                	<li class="list-inline-item m-0">
@@ -151,8 +151,8 @@
                     <hr>
                     <li>결제 날짜 : ${ requestScope.complateDetailUserClassDTO.clsAplDate }</li>
                     <hr>
-                    <li>신청 인원 : ${ requestScope.complateDetailUserClassDTO.ppl } 명 </li>
-                    <hr>
+<%--                     <li>신청 인원 : ${ requestScope.complateDetailUserClassDTO.ppl } 명 </li>
+                    <hr> --%>
                     <c:if test="${ requestScope.complateDetailUserClassDTO.payStatus eq '완료' }">
                     <li>결제 금액 : <fmt:formatNumber value="${ requestScope.complateDetailUserClassDTO.payPrice }" pattern="#,###"/></li>
                     </c:if>

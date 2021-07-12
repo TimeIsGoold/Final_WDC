@@ -204,7 +204,7 @@ String strDate = formats.format(now); %>
                       &nbsp;&nbsp;&nbsp;&nbsp;이름
                     </th>
                     <td style="border-top: 0px !important">
-                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name" class="refunderInfo" value="${ userDTO.userName }" disabled>
+                      <input type="text" placeholder="신청자 이름을 입력해 주세요" style="width: 250px;" id="name" class="refunderInfo" value="${ userDTO.userName }" disabled>                      
                     </td>
                   </tr>
                   <tr>
@@ -389,6 +389,7 @@ String strDate = formats.format(now); %>
                             <input type="hidden" value="${ requestScope.userClassDTO.payNo}" name="payNo">
                             <input type="hidden" value="${ requestScope.userClassDTO.payPrice}" name="payPrice">
                             <input type="hidden" value="${ requestScope.userClassDTO.clsType}" name="clsType">
+                            <input type="hidden" value="${ requestScope.userClassDTO.aplNo }" name="aplNo">
                             <button class="btn btn-dark btn-sm btn-block" onclick="checkContent();" data-toggle="modal" type="button"><b>환불 신청하기</b></button>
                           </div>
                       </li>
