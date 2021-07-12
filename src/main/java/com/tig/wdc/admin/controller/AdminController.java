@@ -715,7 +715,7 @@ public class AdminController {
 	      if(result.equals("p")) {
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
 	            // 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) < today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	               List<Integer> userNoArr = null;
 	               for(int j = 0; j < refinedCheeringClassList.size(); j ++) {
