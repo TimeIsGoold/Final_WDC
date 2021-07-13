@@ -25,11 +25,11 @@ import com.tig.wdc.user.model.dto.UserReviewDTO;
  */
 public interface UserClassMapper {
 
-	public List<UserClassDTO> selectNewClassList();
+	public List<UserClassDTO> selectNewClassList(int userNo);
 
-	public List<UserClassDTO> selectTopClassList();
+	public List<UserClassDTO> selectTopClassList(int userNo);
 
-	public List<UserClassDTO> selectCheerClassList();
+	public List<UserClassDTO> selectCheerClassList(int userNo);
 
 	public UserClassDTO selectClassDetail(int clsNo);
 
@@ -118,6 +118,8 @@ public interface UserClassMapper {
 	public int updateStartClass(HashMap<String, String> searchDate);
 	
 	public int updatePplZero(int aplNo);
+
+	public String selectLikeStatus(UserClassDTO userClassDTO);
 
 
 

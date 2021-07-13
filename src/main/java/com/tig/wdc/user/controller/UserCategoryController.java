@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class UserCategoryController {
 	 * @return
 	 */
 	@GetMapping("all")
-	public String ClassCategoryAllSelect(Model model, HttpServletRequest request , UserClassDTO userClassDTO) {
+	public String ClassCategoryAllSelect(Model model, HttpServletRequest request , UserClassDTO userClassDTO, HttpSession session) {
 		
 		//String searchContent = request.getParameter("searchContent");
 		String searchContent = userClassDTO.getSearchContent();
@@ -44,7 +45,14 @@ public class UserCategoryController {
 		System.out.println("searchContent : " + searchContent);
 		System.out.println("searchCheckBox :" + userClassDTO.getSearchCheckBox());
 
+		int userNo = 0;
+		
 		List<UserClassDTO> allClassList = new ArrayList<UserClassDTO>();
+		
+		if(((Integer) session.getAttribute("userNo")) != null) {
+			userNo = (Integer) session.getAttribute("userNo"); //로그인 했으면 유저번호 넘기기
+			userClassDTO.setUserNo(userNo);
+		}
 		
 		allClassList = categoryService.selectClassCategory(userClassDTO);			
 		

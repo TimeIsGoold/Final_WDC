@@ -36,7 +36,6 @@ public class MainController {
 	@GetMapping(value= {"/"})
 	public String main(Model model, HttpSession session) {
 
-		
 		Calendar date = Calendar.getInstance();
 		date.add(Calendar.DATE, 0);
 		String today = new SimpleDateFormat("yyyy-MM-dd").format(date.getTime());
@@ -54,20 +53,34 @@ public class MainController {
 			classService.insertUpdateClass(searchDate);
 		}
 		
+		int userNo = 0;
+		
+		//신규 클래스 select
 		List<UserClassDTO> newClassList = new ArrayList<UserClassDTO>();
-		newClassList = classService.selectNewClassList();
-		model.addAttribute("newClassList",newClassList);
 		
-		for (UserClassDTO userClassDTO : newClassList) {
-			System.out.println(userClassDTO);
+		if(((Integer) session.getAttribute("userNo")) != null) {
+			userNo = (Integer) session.getAttribute("userNo"); //로그인 했으면 유저번호 넘기기
 		}
-		
+		newClassList = classService.selectNewClassList(userNo);//안했으면 그냥 0 넘기기
+		model.addAttribute("newClassList",newClassList);
+
+		//인기 클래스 select
 		List<UserClassDTO> topClassList = new ArrayList<UserClassDTO>();
-		topClassList = classService.selectTopClassList();
+		
+		if(((Integer) session.getAttribute("userNo")) != null) {
+			userNo = (Integer) session.getAttribute("userNo");
+		}
+		topClassList = classService.selectTopClassList(userNo);
 		model.addAttribute("topClassList",topClassList);
 		
+		
+		//응원 클래스 select
 		List<UserClassDTO> cheerClassList = new ArrayList<UserClassDTO>();
-		cheerClassList = classService.selectCheerClassList();
+		
+		if(((Integer) session.getAttribute("userNo")) != null) {
+			userNo = (Integer) session.getAttribute("userNo"); //로그인 했으면 유저번호 넘기기
+		}
+		cheerClassList = classService.selectCheerClassList(userNo);
 		model.addAttribute("cheerClassList",cheerClassList);
 		
 		return "user/main/main";

@@ -40,21 +40,21 @@ public class UserClassServiceImpl implements UserClassService{
 	}
 
 	@Override
-	public List<UserClassDTO> selectNewClassList() {
+	public List<UserClassDTO> selectNewClassList(int userNo) {
 
-		return mapper.selectNewClassList();
+		return mapper.selectNewClassList(userNo);
 	}
 
 	@Override
-	public List<UserClassDTO> selectTopClassList() {
+	public List<UserClassDTO> selectTopClassList(int userNo) {
 		
-		return mapper.selectTopClassList();
+		return mapper.selectTopClassList(userNo);
 	}
 
 	@Override
-	public List<UserClassDTO> selectCheerClassList() {
+	public List<UserClassDTO> selectCheerClassList(int userNo) {
 
-		return mapper.selectCheerClassList();
+		return mapper.selectCheerClassList(userNo);
 	}
 
 	@Override
@@ -300,6 +300,11 @@ public class UserClassServiceImpl implements UserClassService{
 	@Override
 	public int updatePplZero(int aplNo) {
 		return mapper.updatePplZero(aplNo);
+	}
+
+	@Override
+	public String selectLikeStatus(UserClassDTO userClassDTO) {
+		return mapper.selectLikeStatus(userClassDTO);
 	}
 
 

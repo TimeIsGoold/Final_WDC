@@ -30,54 +30,78 @@
     </resultMap>
 
 	<select id="selectNewClassList" parameterType="UserClassDTO" resultMap="ClassResult">
-		SELECT 
-		       *
-		  FROM (SELECT
-		              *
-		         FROM CLASS C
-		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
-		        WHERE C.CLS_DICSION_STATUS = 'S'
-                  AND (C.CLS_STATUS = 'P'
-                   OR C.CLS_STATUS = 'Y')
- 		          AND A.TYPE = 'TITLE'
-		        ORDER BY C.CLS_NO DESC)
-		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
+		  SELECT 
+                  NVL((SELECT LH.LIKE_STATUS FROM LIKE_HISTORY LH WHERE LH.USER_NO = #{ userNo } AND LH.CLS_NO = X.CLS_NO),'N') AS LIKE_STATUS
+                , X.CLS_TITLE
+                , X.CLS_INTRO
+                , X.CLS_SIMPLE_INTRO
+                , X.CLS_NO
+                , X.CLS_PRICE
+                , X.CLS_TYPE
+                , X.SAVE_PATH
+             FROM (SELECT
+                          C.CLS_TITLE
+                        , C.CLS_INTRO
+                        , C.CLS_SIMPLE_INTRO
+                        , C.CLS_NO
+                        , C.CLS_PRICE
+                        , C.CLS_TYPE
+                        , A.SAVE_PATH
+                     FROM CLASS C
+                     JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+                    WHERE C.CLS_DICSION_STATUS = 'S'
+                      AND (C.CLS_STATUS = 'P'
+                       OR C.CLS_STATUS = 'Y')
+                      AND A.TYPE = 'TITLE'
+                    ORDER BY C.CLS_NO DESC) X
+  <![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
 	
 	<select id="selectTopClassList" parameterType="UserClassDTO" resultMap="ClassResult">
-		SELECT
-		       *
-		 FROM (SELECT
-		              COUNT(LIKE_NO) AS RANKING
-		            , CLS_NO
-		         FROM LIKE_HISTORY
-		        WHERE LIKE_STATUS = 'Y'
-		        GROUP BY CLS_NO
-		        ORDER BY RANKING DESC)L
-		 JOIN CLASS C ON (L.CLS_NO = C.CLS_NO)
-		 JOIN ATTACHMENT A ON(C.CLS_NO = A.CLS_NO)
-		WHERE A.TYPE = 'TITLE'
-		  AND C.CLS_DICSION_STATUS = 'S'
-		  AND (C.CLS_STATUS = 'P'
-		   OR C.CLS_STATUS = 'Y')
-		  AND ROWNUM <![CDATA[ <= ]]>4 
-		ORDER BY RANKING DESC
+	     SELECT 
+	            ROWNUM,
+	            X.* 
+	       FROM (SELECT  
+	                  	NVL((SELECT LH.LIKE_STATUS FROM LIKE_HISTORY LH WHERE LH.USER_NO = #{ userNo } AND LH.CLS_NO = L.CLS_NO),'N') AS LIKE_STATUS
+	                  , C.CLS_TITLE
+	                  , C.CLS_INTRO
+	                  , C.CLS_SIMPLE_INTRO
+	                  , L.RANKING
+	                  , C.CLS_NO
+	                  , C.CLS_PRICE
+	                  , C.CLS_TYPE
+	                  , A.SAVE_PATH
+	               FROM (SELECT
+	                            COUNT(LIKE_NO) AS RANKING
+		                      , CLS_NO
+		                   FROM LIKE_HISTORY
+		                  WHERE LIKE_STATUS = 'Y'
+		                  GROUP BY CLS_NO) L
+		           JOIN CLASS C ON (L.CLS_NO = C.CLS_NO)
+		           JOIN ATTACHMENT A ON(C.CLS_NO = A.CLS_NO)
+		          WHERE A.TYPE = 'TITLE'
+		            AND C.CLS_DICSION_STATUS = 'S'
+		            AND (C.CLS_STATUS = 'P'
+		             OR C.CLS_STATUS = 'Y')
+          		  ORDER BY RANKING DESC) X
+          WHERE ROWNUM <![CDATA[ <= ]]>4 
 	</select>
 	
 	<select id="selectCheerClassList" parameterType="UserClassDTO" resultMap="ClassResult">
 		SELECT 
 		       X.*
+             , NVL((SELECT LH.LIKE_STATUS FROM LIKE_HISTORY LH WHERE LH.USER_NO = #{ userNo } AND LH.CLS_NO = X.CLS_NO),'N') AS LIKE_STATUS
 		     , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
 		  FROM (SELECT
-		              *
-		         FROM CLASS C
-		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
-		         JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
-		        WHERE C.CLS_DICSION_STATUS = 'F'
-		          AND A.TYPE = 'TITLE'
-		          AND (C.CLS_STATUS = 'P'
-                   OR C.CLS_STATUS = 'Y')
-		        ORDER BY C.CLS_NO DESC) X
+		               *
+		          FROM CLASS C
+		          JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		          JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
+		         WHERE C.CLS_DICSION_STATUS = 'F'
+		           AND A.TYPE = 'TITLE'
+		           AND (C.CLS_STATUS = 'P'
+                    OR C.CLS_STATUS = 'Y')
+		         ORDER BY C.CLS_NO DESC) X
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
 	
@@ -689,4 +713,12 @@
 	      SET CLS_PPL = 0
 	    WHERE CLS_APL_NO = #{ aplNo } 
 	</update>
+	
+	<select id="selectLikeStatus" parameterType="UserClassDTO" resultType="String">
+		SELECT
+		       LIKE_STATUS
+		  FROM LIKE_HISTORY
+		 WHERE USER_NO = #{ userNo }
+		   AND CLS_NO = #{ clsNo }
+	</select>
 </mapper>

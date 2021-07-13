@@ -29,18 +29,20 @@ public class ClassDTO {
 	private int categoryNo;
 	private String simpleIntro;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private java.util.Date startDay;  //매개변수 받기 위한 필드
+	private java.util.Date startDay; // 매개변수 받기 위한 필드
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private java.util.Date endDay; //매개변수 받기 위한 필드
+	private java.util.Date endDay; // 매개변수 받기 위한 필드
 	PageInfoDTO pageInfo;
 	private ScheduleDTO schedule;
-	
-	public ClassDTO() {}
-	
+	private int userNo;
+
+	public ClassDTO() {
+	}
+
 	public ClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time, Date startDate,
 			Date endDate, int price, String addInfo, String addSup, String dicsionStatus, String clsType,
 			Date dateAplct, String status, int teNo, int categoryNo, String simpleIntro, java.util.Date startDay,
-			java.util.Date endDay, PageInfoDTO pageInfo, ScheduleDTO schedule) {
+			java.util.Date endDay, PageInfoDTO pageInfo, ScheduleDTO schedule, int userNo) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -64,14 +66,7 @@ public class ClassDTO {
 		this.endDay = endDay;
 		this.pageInfo = pageInfo;
 		this.schedule = schedule;
-	}
-
-	public ScheduleDTO getSchedule() {
-		return schedule;
-	}
-
-	public void setSchedule(ScheduleDTO schedule) {
-		this.schedule = schedule;
+		this.userNo = userNo;
 	}
 
 	public int getClsNo() {
@@ -242,6 +237,22 @@ public class ClassDTO {
 		this.pageInfo = pageInfo;
 	}
 
+	public ScheduleDTO getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(ScheduleDTO schedule) {
+		this.schedule = schedule;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
 	@Override
 	public String toString() {
 		return "ClassDTO [clsNo=" + clsNo + ", title=" + title + ", address=" + address + ", intro=" + intro
@@ -249,11 +260,8 @@ public class ClassDTO {
 				+ ", price=" + price + ", addInfo=" + addInfo + ", addSup=" + addSup + ", dicsionStatus="
 				+ dicsionStatus + ", clsType=" + clsType + ", dateAplct=" + dateAplct + ", status=" + status + ", teNo="
 				+ teNo + ", categoryNo=" + categoryNo + ", simpleIntro=" + simpleIntro + ", startDay=" + startDay
-				+ ", endDay=" + endDay + ", pageInfo=" + pageInfo + ", schedule=" + schedule + "]";
+				+ ", endDay=" + endDay + ", pageInfo=" + pageInfo + ", schedule=" + schedule + ", userNo=" + userNo
+				+ "]";
 	}
 
-
-	
-	
-	
 }

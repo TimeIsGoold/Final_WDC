@@ -196,7 +196,12 @@
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <input type="hidden" value="${ newClassList.clsNo }" id="clsNo${i}">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark"><i class="far fa-heart icon1" id="like${i}"></i></a></li>
+                      <c:if test="${ newClassList.likeStatus eq 'Y' }">
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae"><i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
+                      </c:if>
+                      <c:if test="${ newClassList.likeStatus ne 'Y' }">
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      </c:if>
                       <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#classView${i}"><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
@@ -294,7 +299,12 @@
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <input type="hidden" value="${ topClassList.clsNo }" id="clsNo${i}">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <c:if test="${ topClassList.likeStatus eq 'Y' }">
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae"><i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
+                      </c:if>
+                      <c:if test="${ topClassList.likeStatus ne 'Y' }">
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      </c:if>
                       <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${i}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
@@ -393,7 +403,12 @@
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <input type="hidden" value="${ cheerClassList.clsNo }" id="clsNo${i}">
-                                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <c:if test="${ cheerClassList.likeStatus eq 'Y' }">
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae"><i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
+                      </c:if>
+                      <c:if test="${ cheerClassList.likeStatus ne 'Y' }">
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      </c:if>
                       <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="cheerUp${i}">응원하기</a></li>
                       <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${i}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
@@ -447,39 +462,10 @@
 				});
 	        </script>
 	        <script>
-				$("#cheerUp" + ${i}).click(function(){
-					
-			        if (confirm('응원 하시겠습니까? ')){
-			             // Yes click
-			        const clsNo = document.getElementById('clsNo' + ${i}).value;
- 			        $.ajax({
-			               url:"${pageContext.servletContext.contextPath}/user/cheerUp",
-			               type:"post",
-			               data:{
-			            	  clsNo : clsNo			
-			               },
-			               success:function(data, textStatus, xhr){
-			            	   if(data == '0'){
-			            		   alert("이미 응원하신 클래스 입니다");
-			            	   }else if(data == '1'){
-			            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
-							  	   location.reload();
-			            	   }else if(data == '2'){
-			            		   alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
-			            	   }
-			               },
-			               error:function(xhr,status,error){
-			                  console.log(error);
-			               }
-			        	});  
-			             
-			        } else {
-						return;
-			        } 
-					alert(clsNo);
-			        
-			         return;
-			        });
+	        
+	        //연준추가
+	        
+	        
 			</script>
            </c:forEach>
           </div>
