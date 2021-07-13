@@ -82,6 +82,21 @@
 	border: 1px solid #fef0ae;
 	border-radius: 5px;
 	}
+	
+    .thisStep {
+	  text-align: center;
+	  background-color: #fef0ae;
+	  font-weight: bolder;
+	  border-bottom: 1px solid #fef0ae;
+	  height: 35px;
+	  font-size: 16px;
+	}
+	
+	.allStep{
+	  height: 45px;
+   	  padding-top: 10px;
+   	  border-radius: 20px 20px 0px 0px;
+	}	
   </style>
 
 
@@ -98,18 +113,19 @@
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 0px;">
-        
+                <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">
+        <div class="row" style="width:1000px; margin-bottom : 25px;">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 thisStep allStep"  id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>수강생 관리</b></a>
         </div>            
       </div>  
@@ -121,6 +137,7 @@
     </script>
     </c:if>
     <div class="col-sm-10" id="content-formatting" style="float: left;">
+    <h4>후기</h4>
         <!-- 리뷰 탭 -->
           <div class="p-4 p-lg-5 bg-white">
           <div style="display: flex;">
@@ -137,7 +154,7 @@
           </div>
           <hr>
           <br>
-            <div class="row" style="height: 2700px">
+            <div class="row" style="min-height: 800px">
               <div class="col-lg-12">
                 <div style="display:flex;">
                 </div>
@@ -166,7 +183,7 @@
                       <li style="margin-left: 10px"><p>${ review.reviewScore }</p></li>
                       </ul>
                       <img class="review-img" width="150px" height="150px" style="border-radius: 10%; margin-top: 8px" src="${pageContext.servletContext.contextPath }/resources/upload/${ review.reviewPic }">
-                      <p class="text-small mb-0 text-muted" style="margin-top: 15px">${ review.reviewContent }</p>
+                      <pre class="text-small mb-0 text-muted" style="margin-top: 15px">${ review.reviewContent }</pre>
                       <br>
                       <c:choose>
                       <c:when test="${ empty review.answer.ansContent }">
@@ -189,10 +206,10 @@
                         <div class="media-body ml-3">
                           <div class="col-sm-12">
                             <p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
-                            <p class="text-small mb-0 text-muted">
+                            <pre class="text-small mb-0 text-muted" align="left">
                             ${ review.answer.ansContent }
+                            </pre>
                           </div>
-                          <div class="col-sm-12" style="padding: 20px; text-align: center;">
                              
                           </div>   
                         </div>
@@ -308,7 +325,7 @@
             </div>
           </div>
     </div>
-
+  </div>
 
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
@@ -390,4 +407,4 @@
   
   <jsp:include page="../commons/footer.jsp"/>
 </body>
-<html>
+</html>

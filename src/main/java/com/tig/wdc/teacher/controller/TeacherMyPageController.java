@@ -191,15 +191,16 @@ public class TeacherMyPageController {
 	 * @return
 	 */
 	@PostMapping("/oneDayAttendanceUpdate")
-	public String oneDayAttendanceUpdate(Model model,@RequestParam("allApplyNo") int[] allNo, @RequestParam("checkedApplyNo") @Nullable int[] checkedNo, @RequestParam int scheduleNo) {
+	public String oneDayAttendanceUpdate(Model model,@RequestParam("allApplyNo") int[] allNo, @RequestParam("checkedApplyNo") @Nullable int[] checkedNo, @RequestParam int scheduleNo,@RequestParam HashMap<String,String> info) {
 		
 		HashMap<String, Object> applyNoList= new HashMap<>();
 		
 		applyNoList.put("allApplyNo", allNo);
 		applyNoList.put("checkedApplyNo", checkedNo);
 		classManage.modifyOndeDayAttendanceStatus(applyNoList);
+		System.out.println(info.get("classDate"));
 		
-		return "redirect:/teacher/oneDayAttendanceList?scheduleNo=" + scheduleNo;
+		return "redirect:/teacher/oneDayAttendanceList?scheduleNo=" + scheduleNo + "&clsNo="+info.get("clsNo")+"&classType="+info.get("classType") + "&classDate="+info.get("classDate");
 	}
 	
 	
@@ -501,7 +502,7 @@ public class TeacherMyPageController {
 	@PostMapping("/reviewAnswer")
 	public String reviewAnswer(HttpSession session, RedirectAttributes rttr,Model model, @ModelAttribute ReviewAnswerDTO reviewInfo, @RequestParam HashMap<String, String> info) {
 		
-		
+		System.out.println(info);
 		reviewInfo.setTeNo((Integer)session.getAttribute("teacherNo"));
 		int result = classManage.insertReviewAnswer(reviewInfo);
 		
@@ -516,6 +517,6 @@ public class TeacherMyPageController {
 		model.addAttribute("classType", info.get("classType"));
 		model.addAttribute("currentPage", info.get("currentPage"));
 		
-		return "redirect:/teacher/classReviewList";
+		return "redirect:/teacher/classReviewList?clsNo="+info.get("clsNo")+"&classType="+info.get("classType")+"&currentPage="+info.get("currentPage");
 	}
 }

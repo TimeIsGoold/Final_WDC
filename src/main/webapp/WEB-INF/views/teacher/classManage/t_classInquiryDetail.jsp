@@ -80,6 +80,20 @@
       background-color: #fef0ae;
       border-color: #fef0ae;
     }
+    .thisStep {
+	  text-align: center;
+	  background-color: #fef0ae;
+	  font-weight: bolder;
+	  border-bottom: 1px solid #fef0ae;
+	  height: 35px;
+	  font-size: 16px;
+	}
+	
+	.allStep{
+	  height: 45px;
+   		padding-top: 10px;
+   		border-radius: 20px 20px 0px 0px;
+	}
   </style>
 
 
@@ -102,24 +116,26 @@
       </c:if>      
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
-        
+        <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">
+        <div class="row" style="width:1000px; margin-bottom : 25px;">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ info.clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
-          <a href="t_classReview.html" style="font-size: 15; color: black"><b>후기</b></a>          
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+          <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ info.clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 thisStep allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${info.classType}&clsNo=${ info.clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${info.classType}&clsNo=${ info.clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
+    <div class="col-sm-12" id="content-formatting" style="float: left; height: 700px">
+    <h4>고객문의</h4>
         <div class="sol-sm-2" style="text-align: right;">
           <a href="${pageContext.servletContext.contextPath }/teacher/reportUser?userNo=${ inquiry.userNo }&clsNo=${ info.clsNo }" style="color: white; background-color: red; border-radius: 5px; padding: 3px 5px 3px 5px;">신고하기</a>
         </div>
@@ -201,7 +217,7 @@ ${ inquiry.queContent }
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
-  
+  </div>
   <jsp:include page="../commons/footer.jsp"/>
 </body>
-<html>
+</html>

@@ -74,6 +74,20 @@
       background-color: #fef0ae;
       border-color: #fef0ae;
     }
+	.thisStep {
+      text-align: center;
+	  background-color: #fef0ae;
+	  font-weight: bolder;
+	  border-bottom: 1px solid #fef0ae;
+	  height: 35px;
+	  font-size: 16px;
+	}
+	
+	.allStep{
+	  height: 45px;
+   	  padding-top: 10px;
+   	  border-radius: 20px 20px 0px 0px;
+	}        
   </style>
 
 </head>
@@ -88,25 +102,27 @@
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
-        
+       <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">   
+       <div class="row" style="width:1000px; margin-bottom : 25px;">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep"  id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 thisStep allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 클래스 정보 -->
     <form method="post" action="${ pageContext.servletContext.contextPath }/teacher/regularAttendance">
-    <div class="col-sm-10" id="content-formatting" style="float: left;">
+    <div class="col-sm-12" id="content-formatting" style="float: left;">
+    <h4>출석관리</h4><br><br>
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
         <div class="row" style="padding-bottom: 15px;">
           <div class="col-sm-9">
@@ -131,7 +147,7 @@
       </div>
 
       <!-- 출석표1 -->
-      <div class="col-sm-12" id="content-formatting" style="float: left; height: 600px; overflow: auto;">
+      <div class="col-sm-12" id="content-formatting" style="float: left; height: 400px; overflow: auto;">
         <table class="table table-hover" style="text-align: center;">
           <thead>
             <tr>
@@ -169,12 +185,11 @@
       </div>
       <div class="col-sm-12" id="content-formatting" style="float: left;">
         <div class='col-sm0-2' style="float:right; text-align: right; margin-top: 30px;">
-          <p><b>총 인원 : 3명</b></p>
         </div>
         <div class='col-sm-3' style="margin:auto; padding-top: 70px; padding-bottom: 50px;">
         <input type="hidden" value="${ regularInfo.scheduleNo }" name="scheduleNo">
         <input type="hidden" value="${ clsNo }" name="clsNo">
-                    <c:choose>
+          <c:choose>
             <c:when test="${ empty applyUserInfoList }">
             
      	     <button type="submit" class="btn btn-primary" disabled="disabled">출석체크</button>
@@ -188,9 +203,9 @@
     </div>
     <input type="hidden" name="lastCount" id="lastCount" value="0">
     </form>
-	<script>
+   <script>
     window.onload = function(){
-    	
+       
       if ("${ existingInfo }" != null && "${ existingInfo }".length > 0) {
         let existStep = [];
         let existApplyNo = [];
@@ -206,27 +221,28 @@
             </c:when>
             <c:otherwise>
               existStep.push(${list.classStep});
-              existMemberNo.push(${list.attendanceUser});
-              existApplyNo.push(${list.attendanceApply});
-              existApplyNo.push("/");
-              existMemberNo.push("/");
+              existMemberNo.push(${list.attendanceUser}+"/");
+              existApplyNo.push(${list.attendanceApply}+"/");
+           /*    existApplyNo.push("/");
+              existMemberNo.push("/"); */
             </c:otherwise>
           </c:choose>
         </c:forEach>
 
         existApplyNo = existApplyNo.toString().split("/");
         existMemberNo = existMemberNo.toString().split("/");
-
+		
         for (var i = 0; i < existApplyNo.length; i++) {
           if (i == 0) {
-            existApplyNo[i] = existApplyNo[i].slice(0, existApplyNo[i].length - 1);
-            existMemberNo[i] = existMemberNo[i].slice(0, existMemberNo[i].length - 1);
+ /*            existApplyNo[i] = existApplyNo[i].slice(0, existApplyNo[i].length - 1);
+            existMemberNo[i] = existMemberNo[i].slice(0, existMemberNo[i].length - 1); */
+            
           } else if (i == existApplyNo.length - 1) {
             existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length);
             existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length);
           } else {
-            existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length - 1);
-            existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length - 1);
+            existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length);
+            existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length);
           }
         };
         let applyNoList = [];
@@ -240,15 +256,19 @@
           var allClass = document.getElementsByClassName("attendAllCheck" + i);
           var userClass = document.getElementsByClassName("checkUser" + i);
           allClass[0].disabled = true;
-
-
+		
+          var index = []; 
+          index = applyNoList[i-1].length;
+			
           var existValue = "";
           for (var j = 0; j < userClass.length; j++) {
 
             userClass[j].disabled = "true";
             userClass[j].name = "";
-            for (var k = 0; k <= applyNoList.length; k++) {
+            for (var k = 0; k < applyNoList[i-1].length; k++) {
+            	console.log("k의횟수 : " + applyNoList.length);
               existValue = i + "/" + applyNoList[i - 1][k] + "/" + memberNoList[i - 1][k];
+              console.log("value : " + existValue);
               if (userClass[j].value == existValue) {
                 userClass[j].checked = true;
               }
@@ -272,23 +292,23 @@
       }
 
     }
-	</script>
-	<script>
-	function allAttend(p){
-		let id = document.getElementById(p.id);
-		let className = "checkUser" + p.value;
-		let classUser = document.getElementsByClassName(className);
-		if(id.checked){
-			for(var i = 0; i < classUser.length; i++){
-				classUser[i].checked = true;
-			} 
-		} else {
-			for(var i = 0; i < classUser.length; i++){
-				classUser[i].checked = false;
-			}
-		}
-	}
-	</script>
+   </script>
+   <script>
+   function allAttend(p){
+      let id = document.getElementById(p.id);
+      let className = "checkUser" + p.value;
+      let classUser = document.getElementsByClassName(className);
+      if(id.checked){
+         for(var i = 0; i < classUser.length; i++){
+            classUser[i].checked = true;
+         } 
+      } else {
+         for(var i = 0; i < classUser.length; i++){
+            classUser[i].checked = false;
+         }
+      }
+   }
+   </script>
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -300,6 +320,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
-   <%--  <jsp:include page="../commons/footer.jsp"/> --%>
+  </div>
+     <jsp:include page="../commons/footer.jsp"/> 
 </body>
 </html>

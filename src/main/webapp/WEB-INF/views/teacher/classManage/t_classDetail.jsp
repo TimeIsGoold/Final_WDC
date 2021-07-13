@@ -57,7 +57,7 @@
       border-color: #fef0ae !important;
     }
     
-	.nowStep {
+	.thisStep {
 	    text-align: center;
 	    background-color: #fef0ae;
 	    font-weight: bolder;
@@ -110,7 +110,7 @@
         
       <div class="row" style="width:1000px">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 nowStep allStep" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 thisStep allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="color: black" ><b>상세정보</b></a>
         </div>
         <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
