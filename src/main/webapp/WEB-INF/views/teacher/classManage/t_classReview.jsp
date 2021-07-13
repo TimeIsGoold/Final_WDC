@@ -154,7 +154,7 @@
           </div>
           <hr>
           <br>
-            <div class="row" style="height: 2700px">
+            <div class="row" style="min-height: 800px">
               <div class="col-lg-12">
                 <div style="display:flex;">
                 </div>
@@ -183,7 +183,7 @@
                       <li style="margin-left: 10px"><p>${ review.reviewScore }</p></li>
                       </ul>
                       <img class="review-img" width="150px" height="150px" style="border-radius: 10%; margin-top: 8px" src="${pageContext.servletContext.contextPath }/resources/upload/${ review.reviewPic }">
-                      <p class="text-small mb-0 text-muted" style="margin-top: 15px">${ review.reviewContent }</p>
+                      <pre class="text-small mb-0 text-muted" style="margin-top: 15px">${ review.reviewContent }</pre>
                       <br>
                       <c:choose>
                       <c:when test="${ empty review.answer.ansContent }">
@@ -206,10 +206,10 @@
                         <div class="media-body ml-3">
                           <div class="col-sm-12">
                             <p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
-                            <p class="text-small mb-0 text-muted">
+                            <pre class="text-small mb-0 text-muted" align="left">
                             ${ review.answer.ansContent }
+                            </pre>
                           </div>
-                          <div class="col-sm-12" style="padding: 20px; text-align: center;">
                              
                           </div>   
                         </div>
@@ -325,7 +325,7 @@
             </div>
           </div>
     </div>
-
+  </div>
 
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
@@ -407,4 +407,4 @@
   
   <jsp:include page="../commons/footer.jsp"/>
 </body>
-<html>
+</html>

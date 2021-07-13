@@ -166,7 +166,10 @@
           </tfoot> -->
         </table><br><br>
         <div class='col-sm-12' style="margin:auto; padding-bottom: 50px; ">
-        <input type="hidden" name="scheduleNo" value=${scheduleNo }>
+        <input type="hidden" name="clsNo" value=${ clsNo }>
+        <input type="hidden" name="classType" value=${ classType }>
+        <input type="hidden" name="scheduleNo" value=${ scheduleNo }>
+        <input type="hidden" name="classDate" value= ${ classDate }>
         <c:choose>
           <c:when test="${ empty applyInfoList }">
           <button type="button" class="btn btn-primary" style="margin-left: 0px" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classType}&clsNo=${ clsNo }'">목록으로</button>   
