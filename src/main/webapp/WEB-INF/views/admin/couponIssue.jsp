@@ -85,7 +85,7 @@
                         <div class="card mb-4">
 
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>쿠폰 상세
+                                <i class="fas fa-table me-1"></i>쿠폰 발급
                             </div>
 
                             <form id="area" method="POST" action="/wdc/admin/couponIssue">
