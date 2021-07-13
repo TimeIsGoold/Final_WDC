@@ -36,7 +36,7 @@
 	        }
 	        
 	        .moveReturnPageBtn {
-	        	 margin-left: 93%;
+	        	 margin-left: 92%;
 	        }
 	        
 	        .returnBtn {
