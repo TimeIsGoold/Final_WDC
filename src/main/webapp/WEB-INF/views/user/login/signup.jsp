@@ -73,6 +73,13 @@
       }
 
     *{font-family:'Cafe24SsurroundAir' !important;}
+    
+    .sign-up{
+    	display: flex;
+	    justify-content: space-around;
+	    width: 400px;
+	    margin-left: 26%;
+    }
     </style>
   </head>
   <body>
@@ -192,9 +199,9 @@
                   </div>
                 </div>
                 <br><br>
-                <div class="sign-btn">
+                <div class="sign-btn sign-up">
+                  <button class="btn btn-primary" type="submit" onclick="location.href='${ pageContext.servletContext.contextPath }/user/login'">취소</button>
                   <button class="btn btn-primary" type="submit">회원가입</button>
-                  <button class="btn btn-primary" type="submit" onclick="location.href='index.html'">취소</button>
                 </div>
               </form>
                 <br><br>
