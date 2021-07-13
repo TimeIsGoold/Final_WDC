@@ -68,6 +68,20 @@
 	  border: 1px solid #fef0ae;
 	  border-radius: 5px;
     }
+	.thisStep {
+	    text-align: center;
+	    background-color: #fef0ae;
+	    font-weight: bolder;
+	    border-bottom: 1px solid #fef0ae;
+	    height: 35px;
+	    font-size: 16px;
+	}
+	
+	.allStep{
+		height: 45px;
+   		padding-top: 10px;
+   		border-radius: 20px 20px 0px 0px;
+	}    
   </style>
 
 
@@ -87,26 +101,26 @@
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 5px; ">
-        
+        <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">   
+        <div class="row" style="width:1000px; margin-bottom : 25px;">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${clsNo}" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;" >
+        <div class="col-sm-3 thisStep allStep"  id="content-formatting" style="float: left; margin: auto;" >
           <a href="#" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left;">
-
-
-      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 1000px">
+    <div class="col-sm-12" id="content-formatting" style="float: left;">
+      <h4>출석관리</h4>
+      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 50px; height: 700px">
         <table class="table table-hover" style="text-align: center;" >
           <thead>
             <tr>
@@ -121,9 +135,9 @@
             <c:forEach var="schedule" items="${ onedayInfo }" varStatus="status">
             <tr>
               <td>${ pageInfo.startRow + status.index }</td>
-              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList?scheduleNo=${ schedule.scheduleNo}&classType=${classType}&clsNo=${ clsNo }&classDate=${ schedule.start }">${ schedule.classTitle}</a></td>
+              <td><a href="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceList?scheduleNo=${ schedule.scheduleNo}&classType=${classType}&clsNo=${ clsNo }&classDate=${ schedule.start }  ${ schedule.startTime }">${ schedule.classTitle}</a></td>
               <td>${ pageInfo.startRow + status.index }회차</td>
-              <td>${ schedule.start }</td>
+              <td>${ schedule.start }  ${ schedule.startTime }</td>
               <td>${ schedule.applyCount}/${ schedule.maxPeople}</td>
             </tr>
             
@@ -217,6 +231,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2/owl.carousel.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
+  </div>
   </div>
   </div>
   
