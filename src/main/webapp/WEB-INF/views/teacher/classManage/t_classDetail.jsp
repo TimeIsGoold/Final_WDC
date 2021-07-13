@@ -114,13 +114,13 @@
           <a href="#" style="color: black" ><b>상세정보</b></a>
         </div>
         <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
-          <a id="review" style="color: black" onclick="disicionCheck(this);" ><b>후기</b></a>          
+          <a id="review" style="color: black;cursor: pointer;" onclick="disicionCheck(this);" ><b>후기</b></a>          
         </div>
         <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
-          <a id="inquiry"style=" color: black" onclick="disicionCheck(this);"><b>고객문의</b></a>
+          <a id="inquiry"style=" color: black; cursor: pointer;" onclick="disicionCheck(this);"><b>고객문의</b></a>
         </div>
         <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
-          <a id="studentManage"  style="color: black" onclick="disicionCheck(this);"><b>출석 관리</b></a>
+          <a id="studentManage"  style="color: black; cursor: pointer;" onclick="disicionCheck(this);"><b>출석 관리</b></a>
         </div>
         <script>
           function disicionCheck(p){
@@ -288,45 +288,6 @@ ${ classDetail.intro }
                         </div>
                         <br><br>
                         </c:forEach>
-<!--                         <div style="display: flex;">
-                          <img src="img/gradation10.png" width="25px" height="25px">
-                          <div style="font-size: large;">2단계 : 계량하기</div>
-                        </div>
-                        <div style="margin-left: 30px;">
-                          <small>저울 사용법 등을 소개하고 레시피 대로 직접 계량합니다.</small>
-                        </div>
-                        <br><br>
-                        <div style="display: flex;">
-                          <img src="img/gradation10.png" width="25px" height="25px">
-                          <div style="font-size: large;">3단계 : 반죽 작업</div>
-                        </div>
-                        <div style="margin-left: 30px;">
-                          <small>완성된 반죽합니다.</small>
-                        </div>
-                        <br><br>
-                        <div style="display: flex;">
-                          <img src="img/gradation10.png" width="25px" height="25px">
-                          <div style="font-size: large;">4단계 : 반죽 팬닝</div>
-                        </div>
-                        <div style="margin-left: 30px;">
-                          <small>완성된 반죽을 컷팅 하고 모양을 만듭니다.</small>
-                        </div>
-                        <br><br>
-                        <div style="display: flex;">
-                          <img src="img/gradation10.png" width="25px" height="25px">
-                          <div style="font-size: large;">5단계 : 굽기</div>
-                        </div>
-                        <div style="margin-left: 30px;">
-                          <small>계란물을 발라 바로 굽습니다.</small>
-                        </div>
-                        <br><br>
-                        <div style="display: flex;">
-                          <img src="img/gradation10.png" width="25px" height="25px">
-                          <div style="font-size: large;">6단계 : 포장</div>
-                        </div>
-                        <div style="margin-left: 30px;">
-                          <small>식힌 후 시식 후 포장합니다.</small>
-                        </div>-->
                       </div>
                       <br><br> 
                       <hr>
@@ -335,6 +296,9 @@ ${ classDetail.intro }
                       <div style="font-size: large;">
                         <h3>※ 추가 제공사항 및 유의사항</h3>
                         <br>
+                      <div style="display: flex; width: 550px;">
+                        <div style="font-size: large;">&nbsp;&nbsp;&nbsp; ${ classDetail.addInfo }</div>
+                      </div>
                         <c:forEach items="${classDetail.addSup}" var="item" varStatus="status">
                           ${ status.count }. ${ item }<br>
                         </c:forEach>
@@ -347,27 +311,63 @@ ${ classDetail.intro }
                       <hr>
                       <br>
                       <h3>※ 편의사항</h3>
+                      
+                      <div style="display: flex; width: 550px;">
+                      <c:if test="${ empty  classDetail.addSup}">
+                        <div style="font-size: large;">&nbsp;&nbsp;&nbsp; 등록된 정보 없음</div>
+                      </c:if>
+                      <c:if test="${ not empty  classDetail.addSup}">
+                        <div style="font-size: large;">&nbsp;&nbsp;&nbsp; ${classDetail.addSup}</div>
+                      </c:if>
+                      </div>                      
                       <br><br>
-                      ${ classDetail.addInfo }
-                      <div style="display: flex; width: 550px;">
-                        <img src="img/stayhome (1).png" alt="home" width="23px" height="23px;">
-                        <div style="font-size: large;">&nbsp;&nbsp;&nbsp;아늑한 공방에서 수업합니다.</div>
-                      </div>
                       <br>
-                      <div style="display: flex; width: 550px;">
-                        <img src="img/wifi.png" alt="home" width="23px" height="23px">
-                        <div style="font-size: large;">&nbsp;&nbsp;&nbsp;와이파이 가능합니다.</div>
-                      </div>
-                      <br>
-                      <div style="display: flex; width: 550px;">
-                        <img src="img/no-coffee.png" alt="home" width="23px" height="23px">
-                        <div style="font-size: large;">&nbsp;&nbsp;&nbsp;커피/음료는 별도 구매하셔야합니다.</div>
-                      </div>
                       <!-- 지도 보기 -->
-                      <div style="display: block; text-align: left;">
+                      <hr>
+                      <h3>※ 위치</h3>
                         <br><br>
-                        <img src="img/map.png">
-                      </div>
+					  <div id="map" style="width:100%;height:400px;"></div>
+                           <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f9c32f3d7241ef20de4f8c2703db2c7&libraries=services"></script>
+                           <script>
+                           var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                               mapOption = {
+                                   center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                   level: 3 // 지도의 확대 레벨
+                               };  
+                           
+                           // 지도를 생성합니다    
+                           var map = new kakao.maps.Map(mapContainer, mapOption); 
+                           
+                           // 주소-좌표 변환 객체를 생성합니다
+                           var geocoder = new kakao.maps.services.Geocoder();
+                           
+                           //주소 저장
+                           var classAdress = '${ requestScope.classDetail.address }';
+                           // 주소로 좌표를 검색합니다
+                           geocoder.addressSearch(classAdress, function(result, status) {
+                           
+                               // 정상적으로 검색이 완료됐으면 
+                                if (status === kakao.maps.services.Status.OK) {
+                                 
+                                   var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                           
+                                   // 결과값으로 받은 위치를 마커로 표시합니다
+                                   var marker = new kakao.maps.Marker({
+                                       map: map,
+                                       position: coords
+                                   });
+                           
+                                   // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                   var infowindow = new kakao.maps.InfoWindow({
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 동네 클래스</div>'
+                                   });
+                                   infowindow.open(map, marker);
+                           
+                                   // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                   map.setCenter(coords);
+                               } 
+                           });    
+                           </script>                      
                     </div>
                   </ul>
                 </div>

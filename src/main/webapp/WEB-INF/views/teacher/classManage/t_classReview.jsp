@@ -224,43 +224,9 @@
                     	
                     }
                 </script>
-                <!-- 삭제예정(테스트용)  -->
-
-<!--                 <div class="media mb-3">
-                  <div class="media-body ml-3">
-                    <div class="col-sm-12">
-                      <div style="display: flex;">
-                      <h6 class="mb-0 text-uppercase"> 수강생</h6>
-                      <p class="small text-muted mb-0 text-uppercase" style="margin-left: 20px;">aa</p>
-                      </div>
-					  <ul class="list-inline mb-2" style="margin: 10px 0px 0px 0px; display: flex;">
-                      <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
-                      <li class="list-inline-item m-0"><i class="fas fa-star-half-alt text-warning"></i></li>
-                      <li style="margin-left: 10px"><p>별좀</p></li>
-                      </ul>
-                      <img class="review-img" width="150px" height="150px" style="border-radius: 10%; margin-top: 8px" >
-                      <p class="text-small mb-0 text-muted" style="margin-top: 15px">내용내용</p>
-                      <br>
-                      <div class="media mb-3" style="border: 1px solid rgba(0,0,0,0.08); padding: 10px 10px 10px 10px">
-                          <img class="review-img" width="50px" height="50px">
-                        <div class="media-body ml-3">
-                          <div class="col-sm-12">
-                            <p class="small text-muted mb-0 text-uppercase">작성일</p>
-                            <p class="text-small mb-0 text-muted">
-                            답변애용
-                          </div>
-                          <div class="col-sm-12" style="padding: 20px; text-align: center;">
-                             
-                          </div>   
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <hr>    -->  
-                <!-- //삭제예정  -->           
+          
                 <!-- 리뷰2 -->
-					<nav aria-label="...">
+<%-- 					<nav aria-label="...">
 						<div class="pagingArea" align="center">
 							<c:choose>
 								<c:when test="${ empty requestScope.searchValue }">
@@ -337,7 +303,7 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
-					</nav>
+					</nav> --%>
               </div>
             </div>
           </div>
@@ -356,7 +322,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   </div>
   </div>
-  <script>
+ <!--  <script>
 	const link = "${pageContext.servletContext.contextPath }/teacher/classReviewList";
 		
 	if(document.getElementById("startPage")) {
@@ -420,7 +386,7 @@
 		location.href = link + "?currentPage=" + text + "&classType=${ classType }&clsNo=${ clsNo }";
 	}
 
-	</script>  	
+	</script>  	 -->
   
   <jsp:include page="../commons/footer.jsp"/>
 </body>

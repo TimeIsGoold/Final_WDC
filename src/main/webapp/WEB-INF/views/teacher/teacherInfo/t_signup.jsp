@@ -345,7 +345,6 @@
              });
              //휴대폰번호 유효성검사
              $("#tutorPhone").keyup(function(){
-                // var regPhone = /^(?=.{12,13}$)(\d{3,3})+[-]+(\d{3,4})+[-]+(\d{4,4})/
                 var regPhone = /^[0-9]{10,11}$/
                 if(regPhone.test(document.getElementById("tutorPhone").value)){
                   document.getElementById("phoneMent").value = 1;
@@ -363,25 +362,7 @@
                 }
              });
 
-             //계좌번호 유효성검사
-/*              $("#accomoNo").keyup(function(){
-                // var regAccount = /^(\d{1,})(-(\d{1,})){1,}/;
-                //var regAccount = /^(\d{1,})+[-]+(\d{1,})+[-]+(\d{1,})/;
-                if(regPhone.test(document.getElementById("accomoNo").value)){
-                  document.getElementById("accountMent").value = 1;
-                  document.getElementById("accountMent").innerHTML = ""; 
-                  document.getElementById("accountMent").display = "none"; 
-                } else {
-                  document.getElementById("accountMent").value = 0;
-                  document.getElementById("accountMent").style.display = "";
-                  document.getElementById("accountMent").innerHTML = "숫자또는 '-' 만 입력가능합니다.";
-                }
-                
-                if(document.getElementById("accountMent").value==""){
-                  document.getElementById("accountMent").value = 0;
-                  document.getElementById("accountMent").style.display = "none";
-                }
-             }); */
+
           });   
           </script>
           <script>
@@ -466,14 +447,11 @@
                 alert("휴대폰번호를 확인해주세요");
                 return false;
               }
-/*               if(document.getElementById("authenticationCheck").value != 1){
+             if(document.getElementById("authenticationCheck").value != 1){
                 alert("휴대폰인증을 해주세요");
                 return false;
-              } */
-/*               if(document.getElementById("accountMent").value != 1){
-                alert("계좌번호를 확인해주세요");
-                return false;
-              } */
+              }
+
             }
           </script>
 

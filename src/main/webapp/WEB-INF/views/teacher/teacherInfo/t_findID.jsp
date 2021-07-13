@@ -181,10 +181,10 @@
               let phoneNumber = document.getElementById("phoneNumber").value;
               let tutorName = document.getElementById("tutorId").value;
               alert("주석해제하고 if문 지우기");
-              // if(document.getElementById("authenticationCheck").value != 1){
-              //   alert("휴대폰 인증을 해주세요"); 
-              //   return;
-              // }
+              if(document.getElementById("authenticationCheck").value != 1){
+                alert("휴대폰 인증을 해주세요"); 
+                 return;
+              }
               if(phoneNumber.length < 1 || tutorName.length < 1){
                 alert("값은 입력해야지");
                 return;

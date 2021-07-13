@@ -202,6 +202,7 @@ function resetCurriculum(){
     if(confirm("등록된 커리큘럼이 모두 사라집니다.\n초기화 하시겠습니까?")){
         let curriTable = document.getElementById("curriculum");
         curriTable.innerHTML = "<tr><th>순서</th><th>제목</th><th style='width: 60%;'>내용</th></tr><tr><td colspan='3'align='center' id='noneCurri' value='0' name='curriStep'>등록된 커리큘럼이 없습니다.</td></tr>"
+        document.getElementById("selectStep").value = 1;
     } else {
         return;
     }
@@ -216,9 +217,10 @@ function addSchedule(){
     let hiddenStartT = "<input type='hidden' value='" + addInfo[1].value+":"+ addInfo[2].value + "' name='scheduleStart'>";
     let minP = "<input type='hidden' value='" + addInfo[3].value + "' name='inputMin'>";
     let maxP = "<input type='hidden' value='" + addInfo[4].value + "' name='inputMax'>";
+    let Id = addInfo[0].value + addInfo[1].value;
     scheduleTable.innerHTML += "<tr><td name='scheduleTable1'>"+addInfo[0].value + "(" + dayOfWeek + ")"
                              + "</td><td name='scheduleTable2'>"+addInfo[1].value + " : "+ addInfo[2].value 
-                             + "</td><td name='scheduleTable3'> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button' >삭제</button></td></tr>"
+                             + "</td><td name='scheduleTable3'> 최소 "+ addInfo[3].value + "명 ~ 최대 " + addInfo[4].value + "명 </td></td><td><button type='button' id='"+Id +"'style='color:white; background-color:red; border-radius:5px; border:0px;' onclick='removeSchedule(this);'>삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP
 };
 
@@ -265,10 +267,10 @@ function addDayRepeat(){
                 let hiddenStartT = "<input type='hidden' value='" + inputData[0].value+":"+ inputData[1].value + "' name='scheduleStart'>";
                 let minP = "<input type='hidden' value='" + inputData[2].value + "' name='inputMin'>";
                 let maxP = "<input type='hidden' value='" + inputData[3].value + "' name='inputMax'>";            
-                
+                let Id = purchaseDay + inputData[0].value +":"+ inputData[1].value;
                 repeatTable.innerHTML += "<tr><td name='scheduleTable1'>"+ purchaseDay + "(" + dayOfWeek + ")"
                              + "</td><td name='scheduleTable2'>"+inputData[0].value + " : "+ inputData[1].value 
-                             + "</td><td name='scheduleTable3'> 최소 "+ inputData[2].value + "명 ~ 최대 " + inputData[3].value + "명 </td></td><td><button class='addbtn' type='button' >삭제</button></td></tr>"
+                             + "</td><td name='scheduleTable3'> 최소 "+ inputData[2].value + "명 ~ 최대 " + inputData[3].value + "명 </td></td><td><button type='button' id='"+Id+"'style='color:white; background-color:red; border-radius:5px; border:0px;' onclick='removeSchedule(this);'>삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP;
             }
         }
@@ -307,7 +309,7 @@ function regularScheduleAdd(){
     regulsrScheduleTable.innerHTML += "<tr><td name='regularTable1'>"+startDate + "(" + dayOfWeekStart + ")  ~  " + endDate +"(" + dayOfWeekEnd + ")" 
                              + "</td><td name='regularTable2'>"+regurlaScheduleInfo[0].value + " : "+ regurlaScheduleInfo[1].value 
                              + "</td><td name='regularTable3'> 최소 "+ regurlaScheduleInfo[2].value + "명 ~ 최대 " + regurlaScheduleInfo[3].value 
-                             + "명 </td><td name='regularTable4'>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button' onclick='deleteSchedule();' style='background-color: red; color : white;border-color : red;border-radius:5px;' class='btn1'>삭제</button></td></tr>"
+                             + "명 </td><td name='regularTable4'>"+ regurlaScheduleInfo[4].value +"회</td><td><button type='button' onclick='deleteSchedule();' style='color:white; background-color:red; border-radius:5px; border:0px;' >삭제</button></td></tr>"
                              + hiddenDay + hiddenStartT + minP + maxP + expectCount;
 
 }
@@ -332,5 +334,13 @@ function deleteSchedule(){
     }
 }
 
+function removeSchedule(p){
+    if(confirm("선택한 스케쥴이 삭제 됩니다.")){
+        var child = document.getElementById(p.id);
 
+        child.parentElement.parentElement.remove();
+    } else {
+        return;
+    }
+}
 
