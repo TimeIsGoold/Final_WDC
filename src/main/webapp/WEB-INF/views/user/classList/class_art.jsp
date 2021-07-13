@@ -178,38 +178,50 @@
                     </div>
                   </div>
 			<script>
-				$("#cheerUp" + ${i}).click(function(){
+			$("#cheerUp" + ${i}).click(function(){
+				
+ 				if ("${ sessionScope.userNo }" == "") { //로그인 안했을 경우
+	  				
+					if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
+	  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
+	  				} else { 
+	  					// 거부하면 해당 페이지 새로고침 
+	  					//location.reload(); 
+	  				}
+				}else{ 
 					
-			        
 			        if (confirm('응원 하시겠습니까? ')){
 			             // Yes click
-			        const clsNo = document.getElementById('clsNo' + ${i}).value;
-
- 			        $.ajax({
-			               url:"${pageContext.servletContext.contextPath}/user/cheerUp",
-			               type:"post",
-			               data:{
-			            	  clsNo : clsNo			
-			               },
-			               success:function(data, textStatus, xhr){
-			            	   if(data == '0'){
-			            		   alert("이미 응원하신 클래스 입니다");
-			            	   }else if(data == '1'){
-			            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
-							  	   location.reload();
-			            	   } 
-			               },
-			               error:function(xhr,status,error){
-			                  console.log(error);
-			               }
-			        	});  
+				        const clsNo = document.getElementById('clsNo' + ${i}).value;
 			             
-			        } else {
-						return;
-			        } 
-			        
-			         return;
-			        });
+	 			        $.ajax({
+				               url:"${pageContext.servletContext.contextPath}/user/cheerUp",
+				               type:"post",
+				               data:{
+				            	  clsNo : clsNo			
+				               },
+				               success:function(data, textStatus, xhr){
+				            	   if(data == '0'){
+				            		   alert("이미 응원하신 클래스 입니다");
+				            	   }else if(data == '1'){
+				            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
+								  	   location.reload();
+				            	   }else if(data == '2'){
+				            		   alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
+				            	   }
+				               },
+				               error:function(xhr,status,error){
+				                  console.log(error);
+				               }
+				        	});  
+				             
+				        } else {
+							return;
+				        } 
+				 }
+
+			    }); 
+				
 				
 			</script>
               </c:forEach>
@@ -218,15 +230,7 @@
 				
                 
                 <!-- PAGINATION-->
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center justify-content-lg-end">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                  </ul>
-                </nav>
+
               </div>
             </div>
           </div>

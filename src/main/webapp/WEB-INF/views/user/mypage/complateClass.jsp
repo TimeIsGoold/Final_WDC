@@ -126,43 +126,23 @@
                         </c:if>                        
                        </a>
                       </h6>
+                      <c:if test="${ classList.payStatus eq '취소' }">                      
+                      <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 </p>
+                      </c:if>
+                      <c:if test="${ classList.payStatus eq '완료' }">                      
                       <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
+                      </c:if>
                     </div>
                   </div>
                   </c:forEach>
 				<!-- 취소 클래스 -->
-<%-- 				<c:forEach  var="classList" items="${ requestScope.refundClassList }">
-                  <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="productNoneOpacity text-center">
-                    <c:if test="${classList.clsType eq 'O' }">                    
-                      <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
-                    </c:if>
-                    <c:if test="${classList.clsType eq 'R' }">                    
-                      <div class="badge text-white badge-primary">${fn:substring(classList.startDate,5,10)} ~ ${fn:substring(classList.endDate,5,10)}</div>
-                    </c:if>
-                      <div class="position-relative mb-3">
-                       <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }/${ classList.payStatus 
-                       }"><img class="img-fluid w-100 refundImg" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
-                      </div>
-                      <h6> 
-                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyComplateDetail/${ classList.aplNo }">
-                        <c:if test="${ classList.clsType eq 'O' }">
-                        [취소][원데이] ${classList.title}
-                        </c:if>
-                        <c:if test="${ classList.clsType eq 'R' }">
-                        [취소][정규] ${classList.title}
-                        </c:if>
-                       </a>
-                      </h6>
-                      <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
-                    </div>
-                  </div>
-                  </c:forEach> --%>
+                </div>
+                <br><br>
                   
                   
                   		        <!-- 페이지 처리 -->
 				<div class="pagingArea" align="center">
-		 	       <nav aria-label="Page navigation example" style="margin-left: 300px; margin-top: 50px;">
+		 	       <nav aria-label="Page navigation example" style="margin-left: 10px; margin-top: 10px;">
 		           		<ul class="pagination justify-content-center justify-content-lg-end">
 							<c:choose>
 							    <c:when test="${ empty requestScope.searchValue }">
@@ -296,8 +276,7 @@
 					}
 				</script>
                   
-                </div>
-                <br><br>
+
 
               </div>
             </div>

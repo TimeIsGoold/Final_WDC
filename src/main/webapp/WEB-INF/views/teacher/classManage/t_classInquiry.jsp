@@ -63,19 +63,19 @@
       background-color: #fef0ae;
       border-color: #fef0ae;
     }
-    .nowStep {
-	  text-align: center;
-	  background-color: #fef0ae;
-	  font-weight: bolder;
-	  border-bottom: 1px solid #fef0ae;
-	  height: 35px;
-	  font-size: 16px;
+	.thisStep {
+	    text-align: center;
+	    background-color: #fef0ae;
+	    font-weight: bolder;
+	    border-bottom: 1px solid #fef0ae;
+	    height: 35px;
+	    font-size: 16px;
 	}
+	
 	.allStep{
-	  height: 45px;
-   	  padding-top: 10px;
-   	  border-radius: 20px 20px 0px 0px;
-   	  cursor: pointer;
+		height: 45px;
+   		padding-top: 10px;
+   		border-radius: 20px 20px 0px 0px;
 	}
 		h1, .h1 {
 	    font-size: 1.7rem !important;
@@ -106,26 +106,28 @@
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
-        
+        <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">
+          <div class="row" style="width:1000px; margin-bottom : 25px;">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 allStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
-        </div>
-        <div class="col-sm-3 allStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
-        </div>
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="#" style="font-size: 15; color: black"><b>고객문의</b></a>
-        </div>
-        <div class="col-sm-3 allStep" id="content-formatting" style="float: left; margin: auto;">
-          <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
-        </div>            
-      </div>  
+            <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+              <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
+            </div>
+            <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+              <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
+            </div>
+            <div class="col-sm-3 thisStep allStep" id="content-formatting" style="float: left; margin: auto;">
+              <a href="#" style="font-size: 15; color: black"><b>고객문의</b></a>
+            </div>
+            <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
+              <a href="${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${ classType }&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>출석 관리</b></a>
+            </div>            
+        </div>  
     
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left; height: 1000px">
+    <div class="col-sm-12" id="content-formatting" style="float: left; height: 800px">
+    <h4 style="margin-bottom: 25px">고객문의</h4>
     <form method="get" action="${pageContext.servletContext.contextPath }/teacher/userInquiry">
-        <div class='col-sm-10' >
+        <div class='col-sm-12' >
           <div class="form-group">
             <div class="row">
               <div class='col-sm-3'>
@@ -268,7 +270,7 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
-  
+ </div>
   <jsp:include page="../commons/footer.jsp"/>
   <script>
     const link = "${pageContext.servletContext.contextPath }/teacher/teacherClassManagement";
@@ -336,4 +338,4 @@
 	  }
 	</script>    
 </body>
-<html>
+</html>

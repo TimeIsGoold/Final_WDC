@@ -170,7 +170,7 @@
 	                                		<tr>
 	                                            <td>
 	                                                <div class="detailCalculate">총 매출</div>
-	                                                <div class="detailCalculate">${ calculateInfoDetail.totalSales }</div>
+	                                                <div class="detailCalculate">${ calculateInfoDetail.totalSalesString }</div>
 	                                            </td>
 	                                            <td class="signCalculate">
 	                                                <div>-</div>
@@ -185,7 +185,7 @@
 	                                            </td>
 	                                            <td>
 	                                                <div class="detailCalculate">사용 수수료(10%)</div>
-	                                                <div class="detailCalculate">${ calculateInfoDetail.useFees }</div>
+	                                                <div class="detailCalculate">${ calculateInfoDetail.useFeesString }</div>
 	                                            	<input type="hidden" name="useFees" value="${ calculateInfoDetail.useFees }">
 	                                            </td>
 	                                            <td class="signCalculate">
@@ -193,7 +193,7 @@
 	                                            </td>
 	                                            <td>
 	                                                <div class="detailCalculate">카드 수수료(2.1%)</div>
-	                                                <div class="detailCalculate">${ calculateInfoDetail.cardFees }</div>
+	                                                <div class="detailCalculate">${ calculateInfoDetail.cardFeesString }</div>
 	                                            	<input type="hidden" name="cardFees" value="${ calculateInfoDetail.cardFees }">
 	                                            </td>
 	                                            <td class="signCalculate">
@@ -201,7 +201,7 @@
 	                                            </td>
 	                                            <td>
 	                                                <div class="detailCalculate">최종 금액</div>
-	                                                <div class="detailCalculate">${ calculateInfoDetail.calcAmount }</div>
+	                                                <div class="detailCalculate">${ calculateInfoDetail.calcAmountString }</div>
 	                                                <input type="hidden" name="calcAmount" value="${ calculateInfoDetail.calcAmount }">
 	                                                <input type="hidden" name="tuitionMNo" value="${ calculateInfoDetail.tuitionMNo }">
 	                                            </td>

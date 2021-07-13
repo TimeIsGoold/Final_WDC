@@ -93,7 +93,14 @@
              (
                SEQ_SCHEDULE_NO.NEXTVAL
              , #{ scheduleType }
+             <choose>
+               <when test='scheduleType == "R"'>
+             , null  
+               </when>
+               <otherwise>
              , #{ inputDate }
+               </otherwise>
+             </choose>
              , #{ scheduleStart }
              , #{ inputMin }
              , #{ inputMax }
@@ -109,6 +116,7 @@
         <result column="시작일" property="start"/>
         <result column="CLS_END_D" property="end"/>
         <result column="CLS_TITLE" property="classTitle"/>
+        <result column="시작시간" property="startTime"/>
     </resultMap>
 <!--     <select id="selectRegularScheduleinfo" parameterType="_int" resultMap="scheduleInfo">
         SELECT 
@@ -167,14 +175,17 @@
              , A.시작일 
              , A.CLS_TITLE
              , A.MAX_PEOPLE
+             , A.시작시간
           FROM (SELECT ROWNUM RNUM
                      , B.SCHEDULE_NO
                      , B.시작일
                      , B.CLS_TITLE
                      , B.MAX_PEOPLE
+                     , B.시작시간
                   FROM (SELECT C.SCHEDULE_NO
                              , C.SCHEDULE_DATE 시작일
                              , C.MAX_PEOPLE
+                             , C.SCHEDULE_START 시작시간
                              , D.CLS_TITLE
                           FROM SCHEDULE  C
                           JOIN CLASS D ON (C.CLS_NO = D.CLS_NO)
@@ -227,6 +238,7 @@
                *
           FROM REGULAR_CLASS
          WHERE SCHEDULE_NO = #{ scheduleNo } 
+         ORDER BY CLASS_STEP 
     </select>
     <select id="selectOnedayApplyCount" resultMap="scheduleInfo" parameterType="java.util.List">
         SELECT

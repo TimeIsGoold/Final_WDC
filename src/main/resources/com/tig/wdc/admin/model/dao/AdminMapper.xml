@@ -153,10 +153,14 @@
 		<result column="TE_ACNT_HOLDER" property="teAcntHolder"/>
 		<result column="CLS_NO" property="classNo"/>
 		<result column="정산여부" property="calcYN"/>
+		<result column="TOTAL_AMOUNT_CHAR" property="totalSalesString"/>
 		<result column="TOTAL_AMOUNT" property="totalSales"/>
+		<result column="USE_FEE_CHAR" property="useFeesString"/>
 		<result column="USE_FEE" property="useFees"/>
+		<result column="CARD_FEE_CHAR" property="cardFeesString"/>
 		<result column="CARD_FEE" property="cardFees"/>
 		<result column="TAX" property="tax"/>
+		<result column="CALC_AMOUNT_CHAR" property="calcAmountString"/>	
 		<result column="CALC_AMOUNT" property="calcAmount"/>		
 		<result column="CLS_TYPE" property="classType"/>		
 		<result column="CLS_TITLE" property="className"/>
@@ -741,11 +745,15 @@
             , C.TE_ACNT_HOLDER
             , A.CLS_NO
 	        , A.CALCUL_STATUS 정산여부
-	        , TO_CHAR(A.TOTAL_AMOUNT, 'FM999,999,999,999') AS TOTAL_AMOUNT
-            , TO_CHAR(A.TOTAL_AMOUNT * 0.1, 'FM999,999,999,999') AS USE_FEE
-            , TO_CHAR(A.TOTAL_AMOUNT * 0.021, 'FM999,999,999,999') AS CARD_FEE
+	        , TO_CHAR(A.TOTAL_AMOUNT, 'FM999,999,999,999') AS TOTAL_AMOUNT_CHAR
+	        , A.TOTAL_AMOUNT
+            , TO_CHAR(A.TOTAL_AMOUNT * 0.1, 'FM999,999,999,999') AS USE_FEE_CHAR
+            , (A.TOTAL_AMOUNT * 0.1) AS USE_FEE
+            , TO_CHAR(A.TOTAL_AMOUNT * 0.021, 'FM999,999,999,999') AS CARD_FEE_CHAR
+            , (A.TOTAL_AMOUNT * 0.021) AS CARD_FEE
             , A.TOTAL_AMOUNT * 0 AS TAX
-            , TO_CHAR(A.TOTAL_AMOUNT - (A.TOTAL_AMOUNT * 0.1) - (A.TOTAL_AMOUNT * 0.021), 'FM999,999,999,999') AS CALC_AMOUNT
+            , TO_CHAR(A.TOTAL_AMOUNT - (A.TOTAL_AMOUNT * 0.1) - (A.TOTAL_AMOUNT * 0.021), 'FM999,999,999,999') AS CALC_AMOUNT_CHAR
+	        , (A.TOTAL_AMOUNT - (A.TOTAL_AMOUNT * 0.1) - (A.TOTAL_AMOUNT * 0.021)) AS CALC_AMOUNT
 	        , B.CLS_TYPE
             , B.CLS_TITLE
             <if test="cday lte 3">
@@ -776,11 +784,15 @@
 			 , B.TE_ACNT_HOLDER
 			 , C.CLS_NO
 			 , 'Y' AS 정산여부
-			 , TO_CHAR((A.CALC_AMOUNT + A.USE_FEE + A.CARD_FEE + A.TAX), 'FM999,999,999,999') AS TOTAL_AMOUNT
-             , TO_CHAR(A.USE_FEE, 'FM999,999,999,999') AS USE_FEE
-             , TO_CHAR(A.CARD_FEE, 'FM999,999,999,999') AS CARD_FEE
+			 , TO_CHAR((A.CALC_AMOUNT + A.USE_FEE + A.CARD_FEE + A.TAX), 'FM999,999,999,999') AS TOTAL_AMOUNT_CHAR
+			 , (A.CALC_AMOUNT + A.USE_FEE + A.CARD_FEE + A.TAX) AS TOTAL_AMOUNT
+             , TO_CHAR(A.USE_FEE, 'FM999,999,999,999') AS USE_FEE_CHAR
+             , A.USE_FEE
+             , TO_CHAR(A.CARD_FEE, 'FM999,999,999,999') AS CARD_FEE_CHAR
+             , A.CARD_FEE
              , A.TAX
-			 , TO_CHAR(A.CALC_AMOUNT, 'FM999,999,999,999') AS CALC_AMOUNT
+			 , TO_CHAR(A.CALC_AMOUNT, 'FM999,999,999,999') AS CALC_AMOUNT_CHAR
+			 , A.CALC_AMOUNT
              , D.CLS_TYPE
              , D.CLS_TITLE
              , A.CALC_MONTH AS 정산날짜

@@ -12,11 +12,15 @@ public class CalculateDTO {
 	private String bank;
 	private String teAcntNo;
 	private String teAcntHolder;
-	private String totalSales;
+	private String totalSalesString;
+	private int totalSales;
 	private int tax;
-	private String useFees;
-	private String cardFees;
-	private String calcAmount;
+	private String useFeesString;
+	private int useFees;
+	private String cardFeesString;
+	private int cardFees;
+	private String calcAmountString;
+	private int calcAmount;
 	private int classNo;
 	private String className;
 	private String classType;
@@ -30,9 +34,10 @@ public class CalculateDTO {
 	}
 
 	public CalculateDTO(int calcNo, int teNo, String teType, String teName, String teId, String calcMonth,
-			String calcYN, String bank, String teAcntNo, String teAcntHolder, String totalSales, int tax,
-			String useFees, String cardFees, String calcAmount, int classNo, String className, String classType,
-			int countStudent, int cday, String today, int tuitionMNo) {
+			String calcYN, String bank, String teAcntNo, String teAcntHolder, String totalSalesString, int totalSales,
+			int tax, String useFeesString, int useFees, String cardFeesString, int cardFees, String calcAmountString,
+			int calcAmount, int classNo, String className, String classType, int countStudent, int cday, String today,
+			int tuitionMNo) {
 		super();
 		this.calcNo = calcNo;
 		this.teNo = teNo;
@@ -44,10 +49,14 @@ public class CalculateDTO {
 		this.bank = bank;
 		this.teAcntNo = teAcntNo;
 		this.teAcntHolder = teAcntHolder;
+		this.totalSalesString = totalSalesString;
 		this.totalSales = totalSales;
 		this.tax = tax;
+		this.useFeesString = useFeesString;
 		this.useFees = useFees;
+		this.cardFeesString = cardFeesString;
 		this.cardFees = cardFees;
+		this.calcAmountString = calcAmountString;
 		this.calcAmount = calcAmount;
 		this.classNo = classNo;
 		this.className = className;
@@ -138,11 +147,19 @@ public class CalculateDTO {
 		this.teAcntHolder = teAcntHolder;
 	}
 
-	public String getTotalSales() {
+	public String getTotalSalesString() {
+		return totalSalesString;
+	}
+
+	public void setTotalSalesString(String totalSalesString) {
+		this.totalSalesString = totalSalesString;
+	}
+
+	public int getTotalSales() {
 		return totalSales;
 	}
 
-	public void setTotalSales(String totalSales) {
+	public void setTotalSales(int totalSales) {
 		this.totalSales = totalSales;
 	}
 
@@ -154,27 +171,51 @@ public class CalculateDTO {
 		this.tax = tax;
 	}
 
-	public String getUseFees() {
+	public String getUseFeesString() {
+		return useFeesString;
+	}
+
+	public void setUseFeesString(String useFeesString) {
+		this.useFeesString = useFeesString;
+	}
+
+	public int getUseFees() {
 		return useFees;
 	}
 
-	public void setUseFees(String useFees) {
+	public void setUseFees(int useFees) {
 		this.useFees = useFees;
 	}
 
-	public String getCardFees() {
+	public String getCardFeesString() {
+		return cardFeesString;
+	}
+
+	public void setCardFeesString(String cardFeesString) {
+		this.cardFeesString = cardFeesString;
+	}
+
+	public int getCardFees() {
 		return cardFees;
 	}
 
-	public void setCardFees(String cardFees) {
+	public void setCardFees(int cardFees) {
 		this.cardFees = cardFees;
 	}
 
-	public String getCalcAmount() {
+	public String getCalcAmountString() {
+		return calcAmountString;
+	}
+
+	public void setCalcAmountString(String calcAmountString) {
+		this.calcAmountString = calcAmountString;
+	}
+
+	public int getCalcAmount() {
 		return calcAmount;
 	}
 
-	public void setCalcAmount(String calcAmount) {
+	public void setCalcAmount(int calcAmount) {
 		this.calcAmount = calcAmount;
 	}
 
@@ -238,10 +279,12 @@ public class CalculateDTO {
 	public String toString() {
 		return "CalculateDTO [calcNo=" + calcNo + ", teNo=" + teNo + ", teType=" + teType + ", teName=" + teName
 				+ ", teId=" + teId + ", calcMonth=" + calcMonth + ", calcYN=" + calcYN + ", bank=" + bank
-				+ ", teAcntNo=" + teAcntNo + ", teAcntHolder=" + teAcntHolder + ", totalSales=" + totalSales + ", tax="
-				+ tax + ", useFees=" + useFees + ", cardFees=" + cardFees + ", calcAmount=" + calcAmount + ", classNo="
-				+ classNo + ", className=" + className + ", classType=" + classType + ", countStudent=" + countStudent
-				+ ", cday=" + cday + ", today=" + today + ", tuitionMNo=" + tuitionMNo + "]";
+				+ ", teAcntNo=" + teAcntNo + ", teAcntHolder=" + teAcntHolder + ", totalSalesString=" + totalSalesString
+				+ ", totalSales=" + totalSales + ", tax=" + tax + ", useFeesString=" + useFeesString + ", useFees="
+				+ useFees + ", cardFeesString=" + cardFeesString + ", cardFees=" + cardFees + ", calcAmountString="
+				+ calcAmountString + ", calcAmount=" + calcAmount + ", classNo=" + classNo + ", className=" + className
+				+ ", classType=" + classType + ", countStudent=" + countStudent + ", cday=" + cday + ", today=" + today
+				+ ", tuitionMNo=" + tuitionMNo + "]";
 	}
 
 }

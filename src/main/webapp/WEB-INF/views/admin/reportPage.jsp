@@ -57,7 +57,7 @@
                         <div class="card mb-4" align="center">
                             <div class="card-header" style="font-size: x-large;">
                                 <i class="fas fa-table me-1"></i>신고 상세 페이지</div>
-		                          <div id="wrap">
+		                          <div id="wrap" style="width: 1300px">
 								    <br><br>
 								    <div id="board">
 								        <table id="detailBoard" width="800" border="3" bordercolor="lightgray" class="table">
@@ -116,7 +116,7 @@
 								            </tr>
 								            <tr>
 								                <th id="title">내 용 </th>
-								                <td><c:choose>
+								                <td colspan="3"><c:choose>
 								                		<c:when test="${not empty reportDetail.imgPath}">
 								                			<img src="${ pageContext.servletContext.contextPath }/resources/upload/${reportDetail.imgPath}" width="400" height="400"/>
 								                		</c:when>

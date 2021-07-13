@@ -59,7 +59,20 @@
       background-color: #fef0ae;
       border-color: #fef0ae;
     }
-
+	.thisStep {
+      text-align: center;
+	  background-color: #fef0ae;
+	  font-weight: bolder;
+	  border-bottom: 1px solid #fef0ae;
+	  height: 35px;
+	  font-size: 16px;
+	}
+	
+	.allStep{
+	  height: 45px;
+   	  padding-top: 10px;
+   	  border-radius: 20px 20px 0px 0px;
+	}  
   </style>
 
 </head>
@@ -75,26 +88,28 @@
       
       <!-- main page -->
       <div class="col-lg-10 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px;">
-        
+        <div class="col-lg-12 order-1 order-lg-1 mb-5 mb-lg-0" style="float: left; padding-bottom: 50px; margin-top: 30px;">
+        <div class="row" style="width:1000px; margin-bottom : 25px;">
         <!-- 상단 메뉴바 -->
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classDetail/${ clsNo }" style="font-size: 15; color: black"><b>상세정보</b></a>
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/classReviewList?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>후기</b></a>          
         </div>
-        <div class="col-sm-3 step" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 step allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="${pageContext.servletContext.contextPath }/teacher/userInquiry?classType=${classType}&clsNo=${ clsNo }" style="font-size: 15; color: black"><b>고객문의</b></a>
         </div>
-        <div class="col-sm-3 nowStep" id="content-formatting" style="float: left; margin: auto;">
+        <div class="col-sm-3 thisStep allStep" id="content-formatting" style="float: left; margin: auto;">
           <a href="#" style="font-size: 15; color: black"><b>출석 관리</b></a>
         </div>            
       </div>  
     
     <!-- 문의 게시판 -->
-    <div class="col-sm-10" id="content-formatting" style="float: left;">
+    <div class="col-sm-12" id="content-formatting" style="float: left; margin-left: 70px">
+    <h4>출석관리</h4>
       <div class="page-header" style="margin-bottom: 50px; margin-left: 40px;">
-        <p style="font-size: 18px; float: right;">${ classDate }</p>
+        <p style="font-size: 18px; float: right;">수업일 : ${ classDate }</p>
       </div>
       <div align="right">
         <button id="attendanceButton"type="button" class="btn btn-primary" style="margin-right: 50px" onclick="attendanceChange(this);" value="0">전체출석</button>
@@ -151,7 +166,10 @@
           </tfoot> -->
         </table><br><br>
         <div class='col-sm-12' style="margin:auto; padding-bottom: 50px; ">
-        <input type="hidden" name="scheduleNo" value=${scheduleNo }>
+        <input type="hidden" name="clsNo" value=${ clsNo }>
+        <input type="hidden" name="classType" value=${ classType }>
+        <input type="hidden" name="scheduleNo" value=${ scheduleNo }>
+        <input type="hidden" name="classDate" value= ${ classDate }>
         <c:choose>
           <c:when test="${ empty applyInfoList }">
           <button type="button" class="btn btn-primary" style="margin-left: 0px" onclick="location.href='${pageContext.servletContext.contextPath }/teacher/studentManagement?classType=${classType}&clsNo=${ clsNo }'">목록으로</button>   
@@ -197,7 +215,8 @@
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/js/front.js"></script>
   </div>
   </div>
-
+  </div>
+  </div>
   <jsp:include page="../commons/footer.jsp"/>
 </body>
-<html>
+</html>

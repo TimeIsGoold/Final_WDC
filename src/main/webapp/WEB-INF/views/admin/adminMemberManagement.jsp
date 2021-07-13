@@ -69,7 +69,7 @@
                                     </thead>
                                     <tbody>
                          				<c:forEach items="${totalList}" var="totalList">
-				                            <tr style="cursor:pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/memberInfoDetail?memberType=${totalList.userType}&memberNo=${totalList.userNo}'">
+				                            <tr style="cursor:pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/memberInfoDetail?currentMenu=member&memberType=${totalList.userType}&memberNo=${totalList.userNo}'">
 				                                <td><c:choose>
 				                                	<c:when test="${ totalList.userType eq 'T'}">강사</c:when>
 				                                	<c:when test="${ totalList.userType eq 'U'}">수강생</c:when>
