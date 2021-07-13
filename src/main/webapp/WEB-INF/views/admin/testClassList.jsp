@@ -117,11 +117,13 @@
 									<c:when test="${t eq 't'}">
 									</c:when>
 									<c:when test="${t eq 'p'}">
-										<input type="button" class="btn btn-primary" value="전체선택" id="allcheck" onclick="check(this)"/>
+										<!-- <input type="button" class="btn btn-primary" value="전체선택" id="allcheck" onclick="check(this)"/> -->
+										<button type="button" class="btn btn-primary" value="0" id="allcheck" onclick="changeValue(this)">전체 선택</button>
 										<button class="btn btn-primary" type="submit" value="1" name="submit">승인</button>
 									</c:when>
 									<c:otherwise>
-										<input type="button" class="btn btn-danger" value="전체선택" id="allcheck" onclick="check(this)"/>
+<!-- 										<input type="button" class="btn btn-danger" value="전체선택" id="allcheck" onclick="check(this)"/> -->
+										<button type="button" class="btn btn-danger" value="0" id="allcheck" onclick="changeValue(this)">전체 선택</button>
 										<button class="btn btn-danger" type="submit" value="2" name="submit">거절</button>
 									</c:otherwise>
 								</c:choose>
@@ -150,8 +152,46 @@
          		case 'l' : tab3.className = 'nav-link active'; tab1.className = 'nav-link'; tab2.className = 'nav-link'; break;
          		}
          	 }
+         	 
+         	 function changeValue(p){
+         		 
+         		 var allcheck = document.getElementById('allcheck');
+         		 var list = document.getElementsByName('cheeringInfo');
+         		 
+         		 
+         		 if(p.id == "allcheck"){
+         			 
+         			 if(allcheck.value == 0){
+         				for(var i = 0; i < list.length; i++) {
+							list[i].checked = true;
+         				}
+						allcheck.value = 1;
+         				 
+         			 } else {
+						for(var i = 0; i < list.length; i++) {
+							list[i].checked = false;
+						}
+						allcheck.value = 0;
+         			 }
+         		 } else {
+					var cnt = 0;
+					for(var i = 0; i < list.length; i++) {
+						if(list[i].checked) {
+							cnt++;
+						}
+					}
+/* 						if(cnt == list.length) {
+							allcheck.checked = true;
+						} else {
+							allcheck.checked = false;
+						} */
+				}
+         	 }
+         	 
+         	 
+         	 
 			
-         	 function check(p){
+         	/*  function check(p){
          		 var allcheck = document.getElementById('allcheck');
          		 var list = document.getElementsByName('cheeringInfo');
 				console.log(allcheck);
@@ -182,7 +222,7 @@
 							allcheck.checked = false;
 						}
 				}
-         	 }
+         	 } */
         </script>
         <script>
     		function drawColor(){
