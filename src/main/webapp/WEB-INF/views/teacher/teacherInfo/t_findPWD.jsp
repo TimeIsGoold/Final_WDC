@@ -97,75 +97,75 @@
       </div>
       <script>
       //본인인증
-        // $("#authentication").click(function(){
-        //   let tutorId = document.getElementById("tutorId").value;
-        //   let phoneNumber = document.getElementById("phoneNumber").value;
-        //   if(tutorId.length < 1 || phoneNumber.length <1 ){
-        //     alert(" 정보를 정확히 입력해주세요")
-        //     return;
-        //   }
-        //   $.ajax({
-        //     url: "${ pageContext.servletContext.contextPath }/teacher/certification",
-        //     type:"post",
-        //     data: {
-        //             type : "pwd",
-        //             phoneNumber : phoneNumber,
-        //             id : tutorId
-        //           }, 
-        //     success:function(data, textStatus, xhr){
+        $("#authentication").click(function(){
+          let tutorId = document.getElementById("tutorId").value;
+          let phoneNumber = document.getElementById("phoneNumber").value;
+          if(tutorId.length < 1 || phoneNumber.length <1 ){
+            alert(" 정보를 정확히 입력해주세요")
+            return;
+          }
+          $.ajax({
+            url: "${ pageContext.servletContext.contextPath }/teacher/certification",
+            type:"post",
+            data: {
+                    type : "pwd",
+                    phoneNumber : phoneNumber,
+                    id : tutorId
+                  }, 
+            success:function(data, textStatus, xhr){
 
-        //       if(data == "no"){
-        //         alert("인증번호 전송에 실패했습니다. 입력한 정보를 확인해주세요."); 
-        //       } else {
-        //         alert("인증번호 전송에 성공했습니다.")
-        //         document.getElementById("phoneNumberInput").style.display=""; 
-        //       }
-        //     },error:function(xhr, status, error){
-        //       console.log(error);
-        //     }
-        //   });
-        // });
+              if(data == "no"){
+                alert("인증번호 전송에 실패했습니다. 입력한 정보를 확인해주세요."); 
+              } else {
+                alert("인증번호 전송에 성공했습니다.")
+                document.getElementById("phoneNumberInput").style.display=""; 
+              }
+            },error:function(xhr, status, error){
+              console.log(error);
+            }
+          });
+        });
       </script>
       <script>
-        // $("#authenticationCheck").click(function(){
-        //   let checkNum = document.getElementById("checkNum").value;
-        //   if(checkNum == "" || checkNum.length != 6){
-        //     alert("인증번호 6자리를 입력해주세요.");
-        //     return;
-        //   }
-        //   document.getElementById("authentication").value = Number(document.getElementById("authentication").value)+1;
-        //   let checkCount = document.getElementById("authentication").value;
-        //   $.ajax({
-        //     url : "${ pageContext.servletContext.contextPath }/teacher/messageCertification",
-        //     type : "post",
-        //     data : {
-        //     	     checkNum : checkNum,
-        //     	     checkCount : checkCount
-        //     	    },
-        //     success:function(data, textStatus, xhr){
-        //       switch(data){
-        //         case "초과" : alert("실패횟수 5회 초과. 인증번호를 재요청 해주세요."); break;
-        //         case "불일치" : alert("인증번호와 일치하지 않습니다.\n인증번호를 확인해주세요\n" + checkCount + " / 5회\n(5회초과시 인증번호를 다시 요청해야 합니다.)");break;
-        //         case "일치" : alert("인증번호와 일치합니다");
-        //                       document.getElementById("authenticationCheck").value=1;
-        //                       document.getElementById("authentication").disabled = true;
-        //                       document.getElementById("authenticationCheck").disabled = true;break;
-        //       }
-        //     },error:function(xhr, status, error){
-        //     }
-        //   });
-        //  });
+        $("#authenticationCheck").click(function(){
+          let checkNum = document.getElementById("checkNum").value;
+          if(checkNum == "" || checkNum.length != 6){
+            alert("인증번호 6자리를 입력해주세요.");
+            return;
+          }
+          document.getElementById("authentication").value = Number(document.getElementById("authentication").value)+1;
+          let checkCount = document.getElementById("authentication").value;
+          $.ajax({
+            url : "${ pageContext.servletContext.contextPath }/teacher/messageCertification",
+            type : "post",
+            data : {
+            	     checkNum : checkNum,
+            	     checkCount : checkCount
+            	    },
+            success:function(data, textStatus, xhr){
+              switch(data){
+                case "초과" : alert("실패횟수 5회 초과. 인증번호를 재요청 해주세요."); break;
+                case "불일치" : alert("인증번호와 일치하지 않습니다.\n인증번호를 확인해주세요\n" + checkCount + " / 5회\n(5회초과시 인증번호를 다시 요청해야 합니다.)");break;
+                case "일치" : alert("인증번호와 일치합니다");
+                              document.getElementById("authenticationCheck").value=1;
+                              document.getElementById("authentication").disabled = true;
+                              document.getElementById("authenticationCheck").disabled = true;break;
+              }
+            },error:function(xhr, status, error){
+            }
+          });
+         });
         </script>
       <script>
         function checkAuthentication(){
           alert("인증번호 풀고 주석풀기")
           return true;
-          // if(document.getElementById("authenticationCheck").value != 1){
-          //   alert("휴대폰번호 인증 해주세요");
-          //   return false;
-          // } else {
-          //   return true;
-          // }
+          if(document.getElementById("authenticationCheck").value != 1){
+            alert("휴대폰번호 인증 해주세요");
+            return false;
+          } else {
+            return true;
+          }
         }
       </script>
       <!-- footer -->
