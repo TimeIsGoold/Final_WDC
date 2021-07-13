@@ -203,9 +203,9 @@
     </div>
     <input type="hidden" name="lastCount" id="lastCount" value="0">
     </form>
-	<script>
+   <script>
     window.onload = function(){
-    	
+       
       if ("${ existingInfo }" != null && "${ existingInfo }".length > 0) {
         let existStep = [];
         let existApplyNo = [];
@@ -221,27 +221,28 @@
             </c:when>
             <c:otherwise>
               existStep.push(${list.classStep});
-              existMemberNo.push(${list.attendanceUser});
-              existApplyNo.push(${list.attendanceApply});
-              existApplyNo.push("/");
-              existMemberNo.push("/");
+              existMemberNo.push(${list.attendanceUser}+"/");
+              existApplyNo.push(${list.attendanceApply}+"/");
+           /*    existApplyNo.push("/");
+              existMemberNo.push("/"); */
             </c:otherwise>
           </c:choose>
         </c:forEach>
 
         existApplyNo = existApplyNo.toString().split("/");
         existMemberNo = existMemberNo.toString().split("/");
-
+		
         for (var i = 0; i < existApplyNo.length; i++) {
           if (i == 0) {
-            existApplyNo[i] = existApplyNo[i].slice(0, existApplyNo[i].length - 1);
-            existMemberNo[i] = existMemberNo[i].slice(0, existMemberNo[i].length - 1);
+ /*            existApplyNo[i] = existApplyNo[i].slice(0, existApplyNo[i].length - 1);
+            existMemberNo[i] = existMemberNo[i].slice(0, existMemberNo[i].length - 1); */
+            
           } else if (i == existApplyNo.length - 1) {
             existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length);
             existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length);
           } else {
-            existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length - 1);
-            existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length - 1);
+            existApplyNo[i] = existApplyNo[i].slice(1, existApplyNo[i].length);
+            existMemberNo[i] = existMemberNo[i].slice(1, existMemberNo[i].length);
           }
         };
         let applyNoList = [];
@@ -255,15 +256,19 @@
           var allClass = document.getElementsByClassName("attendAllCheck" + i);
           var userClass = document.getElementsByClassName("checkUser" + i);
           allClass[0].disabled = true;
-
-
+		
+          var index = []; 
+          index = applyNoList[i-1].length;
+			
           var existValue = "";
           for (var j = 0; j < userClass.length; j++) {
 
             userClass[j].disabled = "true";
             userClass[j].name = "";
-            for (var k = 0; k <= applyNoList.length; k++) {
+            for (var k = 0; k < applyNoList[i-1].length; k++) {
+            	console.log("k의횟수 : " + applyNoList.length);
               existValue = i + "/" + applyNoList[i - 1][k] + "/" + memberNoList[i - 1][k];
+              console.log("value : " + existValue);
               if (userClass[j].value == existValue) {
                 userClass[j].checked = true;
               }
@@ -287,23 +292,23 @@
       }
 
     }
-	</script>
-	<script>
-	function allAttend(p){
-		let id = document.getElementById(p.id);
-		let className = "checkUser" + p.value;
-		let classUser = document.getElementsByClassName(className);
-		if(id.checked){
-			for(var i = 0; i < classUser.length; i++){
-				classUser[i].checked = true;
-			} 
-		} else {
-			for(var i = 0; i < classUser.length; i++){
-				classUser[i].checked = false;
-			}
-		}
-	}
-	</script>
+   </script>
+   <script>
+   function allAttend(p){
+      let id = document.getElementById(p.id);
+      let className = "checkUser" + p.value;
+      let classUser = document.getElementsByClassName(className);
+      if(id.checked){
+         for(var i = 0; i < classUser.length; i++){
+            classUser[i].checked = true;
+         } 
+      } else {
+         for(var i = 0; i < classUser.length; i++){
+            classUser[i].checked = false;
+         }
+      }
+   }
+   </script>
     <!-- JavaScript files-->
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.servletContext.contextPath }/resources/teacher/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -93,7 +93,14 @@
              (
                SEQ_SCHEDULE_NO.NEXTVAL
              , #{ scheduleType }
+             <choose>
+               <when test='scheduleType == "R"'>
+             , null  
+               </when>
+               <otherwise>
              , #{ inputDate }
+               </otherwise>
+             </choose>
              , #{ scheduleStart }
              , #{ inputMin }
              , #{ inputMax }
@@ -231,6 +238,7 @@
                *
           FROM REGULAR_CLASS
          WHERE SCHEDULE_NO = #{ scheduleNo } 
+         ORDER BY CLASS_STEP 
     </select>
     <select id="selectOnedayApplyCount" resultMap="scheduleInfo" parameterType="java.util.List">
         SELECT
