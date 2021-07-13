@@ -112,6 +112,8 @@ public interface UserClassService {
 	
 	int updatePplZero(int aplNo);
 
+	String selectLikeStatus(UserClassDTO userClassDTO);
+
 
 
 }

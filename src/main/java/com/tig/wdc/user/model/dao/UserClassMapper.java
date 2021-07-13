@@ -119,6 +119,8 @@ public interface UserClassMapper {
 	
 	public int updatePplZero(int aplNo);
 
+	public String selectLikeStatus(UserClassDTO userClassDTO);
+
 
 
 

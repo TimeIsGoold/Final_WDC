@@ -92,6 +92,21 @@ public class UserClassDetailController {
 		UserClassDTO classStar = new UserClassDTO();
 		classStar = classService.selectClassStar(clsNo);
 		model.addAttribute("classStar", classStar);
+		
+		//로그인 세션 값이 있으면 찜 상태 select
+		if((Integer) session.getAttribute("userNo") != null) {
+			
+			int userNo = (Integer) session.getAttribute("userNo");
+			
+			//찜 상태 select
+			UserClassDTO likeStatus = new UserClassDTO();
+			likeStatus.setClsNo(clsNo);
+			likeStatus.setUserNo(userNo);
+			
+			String likeYn = classService.selectLikeStatus(likeStatus);
+			model.addAttribute("likeYn", likeYn);
+			
+		}
 
 		// 완성작 select
 		List<ClassPieceDTO> classPiece = new ArrayList<ClassPieceDTO>();
@@ -118,10 +133,9 @@ public class UserClassDetailController {
 		schedule = classService.selectSchedule(clsNo);
 		model.addAttribute("schedule", schedule);
 		
+		//원데이 클래스 스케줄의 최대 인원 select
 		int oneDayMax = classService.selectOneDayMax(clsNo);
 		model.addAttribute("oneDayMax", oneDayMax);
-		
-		System.out.println("무슨클래스?????????????????????????" + classDetail.getClsType());
 		
 		//정규 클래스인 경우, 클래스 스케줄 select 
 		if(classDetail.getClsType().equals("R")) {

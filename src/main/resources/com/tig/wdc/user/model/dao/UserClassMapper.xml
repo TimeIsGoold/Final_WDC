@@ -689,4 +689,12 @@
 	      SET CLS_PPL = 0
 	    WHERE CLS_APL_NO = #{ aplNo } 
 	</update>
+	
+	<select id="selectLikeStatus" parameterType="UserClassDTO" resultType="String">
+		SELECT
+		       LIKE_STATUS
+		  FROM LIKE_HISTORY
+		 WHERE USER_NO = #{ userNo }
+		   AND CLS_NO = #{ clsNo }
+	</select>
 </mapper>

@@ -302,6 +302,11 @@ public class UserClassServiceImpl implements UserClassService{
 		return mapper.updatePplZero(aplNo);
 	}
 
+	@Override
+	public String selectLikeStatus(UserClassDTO userClassDTO) {
+		return mapper.selectLikeStatus(userClassDTO);
+	}
+
 
 
 

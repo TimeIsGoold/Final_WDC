@@ -312,8 +312,14 @@ String strDate = formats.format(now); %>
                      </div>
                      <div class="class-icon" style="padding-inline: 10px;">
                         <div>
+                        <c:if test="${ requestScope.likeYn eq 'Y' }">
+                           <li class="list-inline-item m-0 p-0">
+                           <a class="btn btn-sm btn-outline-dark" id="like" style="background-color: #fef0ae;"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart3.png" width="18px">&nbsp;&nbsp;찜</a></li>
+                        </c:if>
+                        <c:if test="${ requestScope.likeYn ne 'Y' }">
                            <li class="list-inline-item m-0 p-0">
                            <a class="btn btn-sm btn-outline-dark" id="like"><img src="${pageContext.servletContext.contextPath }/resources/user/img/heart.png" width="18px">&nbsp;&nbsp;찜</a></li>
+                        </c:if>
                         </div>
                         <div>
                            <li class="list-inline-item m-0 p-0">
