@@ -168,9 +168,9 @@
                     <input class="form-control" id="tutorPhone" type="text" placeholder="특수문자(-) 없이 11자리를 입력해주세요." name="phone" required="required">
                     <small id="phoneMent" style="color: red; display: none;" value="0"></small>
                   </div>
-                  <div class="col-sm-2">
+<!--                   <div class="col-sm-2">
                     <button style="margin-left: -15px;" class="btn btn-sm btn-primary" type="button" onclick="request_verNo()">인증번호 요청</button>
-                  </div>
+                  </div> -->
                 </div><br>
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label" for="verNo">인증번호</label>
@@ -323,7 +323,7 @@
 
           });   
           </script>
-          <script>
+<!--           <script>
           //본인인증
           $("#authentication").click(function(){
             let phoneNumber = document.getElementById("tutorPhone").value;
@@ -377,7 +377,7 @@
                 }
               });
              });
-          </script>
+          </script> -->
           <script>
             function signUpCheck(){
               if(document.getElementById("idMent").value != 1){

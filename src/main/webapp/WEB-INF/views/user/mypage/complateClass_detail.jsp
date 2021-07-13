@@ -123,7 +123,9 @@
 		                          <p style="margin-left: 10px; margin-top: 2px;"> 강의명</p>
 		                    	</i>
 		                	</li> 
-		                	<h4><a href="detail.html" style="color: black;">${ requestScope.complateDetailUserClassDTO.title }</a></h4>
+		                	<h4>
+		                	<a href="${ pageContext.servletContext.contextPath }/user/classDetail/${ complateDetailUserClassDTO.clsNo }" style="color: black;">
+		                	${ requestScope.complateDetailUserClassDTO.title }</a></h4>
 		                	<br>  
 		                	<li class="list-inline-item m-0">
 		                    	<i class="fas fa-caret-right small text-dark" style="display: flex; margin-left: 3px; ">
@@ -196,6 +198,7 @@
                           <input type="hidden" name="clsType" value="${ requestScope.complateDetailUserClassDTO.clsType }">
                           <input type="hidden" name="startDate" value="${ requestScope.complateDetailUserClassDTO.startDate }">
                           <input type="hidden" name="endDate" value="${ requestScope.complateDetailUserClassDTO.endDate }">
+                          <input type="hidden" name="clsNo" value="${ requestScope.complateDetailUserClassDTO.clsNo }">
                           
                         </form>
                       </div>
