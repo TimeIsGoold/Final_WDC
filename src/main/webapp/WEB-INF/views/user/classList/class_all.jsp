@@ -161,12 +161,23 @@
                           <c:choose>
                            <c:when test="${ classList.dicsionStatus eq 'S' }">
                           <ul class="mb-0 list-inline">
-                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark"><i class="far fa-heart icon1" id="like${i}"></i></a></li>
+                          <c:if test="${ classList.likeStatus eq 'Y' }">
+	                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae"><i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
+	                      </c:if>
+	                      <c:if test="${ classList.likeStatus ne 'Y' }">
+	                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+	                      </c:if>
                             <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview${i}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                           </ul>
                            </c:when>
                            <c:when test="${ classList.dicsionStatus eq 'F' }">
                            <ul class="mb-0 list-inline">
+                           <c:if test="${ classList.likeStatus eq 'Y' }">
+	                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae"><i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
+	                       </c:if>
+	                       <c:if test="${ classList.likeStatus ne 'Y' }">
+	                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+	                       </c:if>
                             <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="cheerUp${i}">응원하기</a></li>
                             <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" href="#classPreview${i}" data-toggle="modal"><i class="fas fa-expand"></i></a></li>
                             </ul>
@@ -230,10 +241,10 @@
 				            	   if(data == '0'){
 				            		   alert("이미 응원하신 클래스 입니다");
 				            	   }else if(data == '1'){
-				            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
+				            		   alert("응원에 성공 했습니다.\n해당 클래스가 오픈될 수 있게 응원해 주세요!!")
 								  	   location.reload();
 				            	   }else if(data == '2'){
-				            		   alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
+				            		   alert("오늘 이미 응원하셨습니다.\n응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
 				            	   }
 				               },
 				               error:function(xhr,status,error){

@@ -40,21 +40,21 @@ public class UserClassServiceImpl implements UserClassService{
 	}
 
 	@Override
-	public List<UserClassDTO> selectNewClassList() {
+	public List<UserClassDTO> selectNewClassList(int userNo) {
 
-		return mapper.selectNewClassList();
+		return mapper.selectNewClassList(userNo);
 	}
 
 	@Override
-	public List<UserClassDTO> selectTopClassList() {
+	public List<UserClassDTO> selectTopClassList(int userNo) {
 		
-		return mapper.selectTopClassList();
+		return mapper.selectTopClassList(userNo);
 	}
 
 	@Override
-	public List<UserClassDTO> selectCheerClassList() {
+	public List<UserClassDTO> selectCheerClassList(int userNo) {
 
-		return mapper.selectCheerClassList();
+		return mapper.selectCheerClassList(userNo);
 	}
 
 	@Override

@@ -24,11 +24,11 @@ import com.tig.wdc.user.model.dto.UserReviewDTO;
  */
 public interface UserClassService {
 
-	List<UserClassDTO> selectNewClassList();
+	List<UserClassDTO> selectNewClassList(int userNo);
 
-	List<UserClassDTO> selectTopClassList();
+	List<UserClassDTO> selectTopClassList(int userNo);
 	
-	List<UserClassDTO> selectCheerClassList();
+	List<UserClassDTO> selectCheerClassList(int userNo);
 
 	UserClassDTO selectClassDtail(int clsNo);
 

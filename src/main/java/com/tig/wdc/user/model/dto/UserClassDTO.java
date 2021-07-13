@@ -3,8 +3,7 @@ package com.tig.wdc.user.model.dto;
 import java.sql.Date;
 
 /**
- * @author SORA 
- * 클래스 정보 DTO
+ * @author SORA 클래스 정보 DTO
  */
 public class UserClassDTO {
 
@@ -44,17 +43,20 @@ public class UserClassDTO {
 	private String refundStatus;
 	private int payNo;
 	private int scheduleNo;
-	
+
 	// 검색용
 	private String searchContent;
 	private int minPrice;
 	private int maxPrice;
 	private String searchCheckBox;
 
-	private String titlePic1; // 페이먼트 용 
-	private int userNo; // 페이먼트 용 
-	
-	public UserClassDTO() {}
+	private String titlePic1; // 페이먼트 용
+	private int userNo; // 페이먼트 용
+
+	private String likeStatus; // 찜 상태 조회
+
+	public UserClassDTO() {
+	}
 
 	public UserClassDTO(int clsNo, String title, String address, String intro, String cExpl, String time,
 			Date startDate, Date endDate, int price, String addInfo, String addSup, String dicsionStatus,
@@ -62,7 +64,7 @@ public class UserClassDTO {
 			String titlePic, double avgScore, String dDay, Date scheduleDate, String scheduleStart, int clsPplAmount,
 			int payPrice, int aplNo, String teName, Date clsAplDate, int ppl, String payStatus, int refundAmount,
 			String refundStatus, int payNo, int scheduleNo, String searchContent, int minPrice, int maxPrice,
-			String searchCheckBox, String titlePic1, int userNo) {
+			String searchCheckBox, String titlePic1, int userNo, String likeStatus) {
 		super();
 		this.clsNo = clsNo;
 		this.title = title;
@@ -104,6 +106,7 @@ public class UserClassDTO {
 		this.searchCheckBox = searchCheckBox;
 		this.titlePic1 = titlePic1;
 		this.userNo = userNo;
+		this.likeStatus = likeStatus;
 	}
 
 	public int getClsNo() {
@@ -426,6 +429,14 @@ public class UserClassDTO {
 		this.userNo = userNo;
 	}
 
+	public String getLikeStatus() {
+		return likeStatus;
+	}
+
+	public void setLikeStatus(String likeStatus) {
+		this.likeStatus = likeStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "UserClassDTO [clsNo=" + clsNo + ", title=" + title + ", address=" + address + ", intro=" + intro
@@ -439,10 +450,7 @@ public class UserClassDTO {
 				+ ", refundAmount=" + refundAmount + ", refundStatus=" + refundStatus + ", payNo=" + payNo
 				+ ", scheduleNo=" + scheduleNo + ", searchContent=" + searchContent + ", minPrice=" + minPrice
 				+ ", maxPrice=" + maxPrice + ", searchCheckBox=" + searchCheckBox + ", titlePic1=" + titlePic1
-				+ ", userNo=" + userNo + "]";
+				+ ", userNo=" + userNo + ", likeStatus=" + likeStatus + "]";
 	}
-
-
-
 
 }

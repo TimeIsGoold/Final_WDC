@@ -25,11 +25,13 @@
         <result column="CLS_SIMPLE_INTRO" property="simpleIntro"/>
         <result column="SAVE_PATH" property="titlePic"/>
         <result column="D_DAY" property="dDay"/>
+        <result column="LIKE_STATUS" property="likeStatus"/>
     </resultMap>
 
 	<select id="selectClassCategory" resultMap="UserCategoryResult" parameterType="UserClassDTO">
        SELECT
-              A.*
+              NVL((SELECT LH.LIKE_STATUS FROM LIKE_HISTORY LH WHERE LH.USER_NO = #{ userNo } AND LH.CLS_NO = A.CLS_NO),'N') AS LIKE_STATUS
+            , A.*
             , T.* 
             , DH.*
             , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
