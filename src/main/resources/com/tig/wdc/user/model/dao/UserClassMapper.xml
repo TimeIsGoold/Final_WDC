@@ -66,16 +66,18 @@
 	
 	<select id="selectCheerClassList" parameterType="UserClassDTO" resultMap="ClassResult">
 		SELECT 
-		       *
+		       X.*
+		     , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
 		  FROM (SELECT
 		              *
 		         FROM CLASS C
 		         JOIN ATTACHMENT A ON(A.CLS_NO = C.CLS_NO)
+		         JOIN DISICION_HISTORY DH ON (DH.CLS_NO = C.CLS_NO)
 		        WHERE C.CLS_DICSION_STATUS = 'F'
 		          AND A.TYPE = 'TITLE'
 		          AND (C.CLS_STATUS = 'P'
                    OR C.CLS_STATUS = 'Y')
-		        ORDER BY C.CLS_NO DESC)
+		        ORDER BY C.CLS_NO DESC) X
 		<![CDATA[ WHERE ROWNUM  <= 4 ]]>
 	</select>
 	

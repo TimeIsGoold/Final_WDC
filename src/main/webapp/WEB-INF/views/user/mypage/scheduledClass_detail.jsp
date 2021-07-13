@@ -126,7 +126,8 @@
                           <p style="margin-left: 10px; margin-top: 2px;"> 강의명</p>
                         </i>
                       </li> 
-                      <h4 style="overflow: hidden;"><a href="detail.html" style="color: black;">${ requestScope.scheduleDetailUserClassDTO.title }</a></h4>
+                      <h4 style="overflow: hidden;">
+                      <a href="${ pageContext.servletContext.contextPath }/user/classDetail/${ scheduleDetailUserClassDTO.clsNo }" style="color: black;">${ requestScope.scheduleDetailUserClassDTO.title }</a></h4>
                       <br>  
                       <li class="list-inline-item m-0">
                         <i class="fas fa-caret-right small text-dark" style="display: flex; margin-left: 3px; ">
@@ -217,6 +218,7 @@
                           <input type="hidden" name="startDate" value="${ requestScope.scheduleDetailUserClassDTO.startDate }">
                           <input type="hidden" name="endDate" value="${ requestScope.scheduleDetailUserClassDTO.endDate }">
                           <input type="hidden" name="aplNo" value="${ requestScope.scheduleDetailUserClassDTO.aplNo }">
+                          <input type="hidden" name="clsNo" value="${ requestScope.scheduleDetailUserClassDTO.clsNo }">
                         </form>
                       </div>
                     </div>
