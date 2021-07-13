@@ -24,10 +24,7 @@
     		}
     		
     		#navbarDropdown {
-    			 background-color: gray;
-    			 float: right;
-    			 width: 35px; 
-    			 height: 31px; 
+    			 height: 35px; 
     		}
     		
     		#logoutIcon1 {
