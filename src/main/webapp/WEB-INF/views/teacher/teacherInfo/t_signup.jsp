@@ -73,7 +73,7 @@
                     <small id="idMent" style="color: red;" value="0";>아이디는 4자이상 15자이하의 영문과 숫자만 입력가능합니다.</small>
                   </div>
                   <div class="col-sm-2">
-                    <button class="btn btn-sm btn-primary" type="button" id="doubleCheck" value="0">중복확인</button>
+                    <button class="btn btn-sm btn-primary" type="button" id="doubleCheck" value="0" style="width:109px">중복확인</button>
                   </div>
                 </div>
                 <div class="form-group row">

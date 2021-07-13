@@ -87,7 +87,7 @@
                 </div><br><br>
                 <div class="form-group row">
                   <div class="col-sm-12" align="center" style="padding: 0px 0px 0px 0px;">
-                    <button style="width:97%; height: 38px;" type="submit" class="btn btn-primary" onclick="location.href='t_findPWDsetting.html'">비밀번호 재설정하러 가기</button>
+                    <button style="width:97%; height: 38px;" type="submit" class="btn btn-primary">비밀번호 재설정하러 가기</button>
                   </div>
                 </div>
             </div>
