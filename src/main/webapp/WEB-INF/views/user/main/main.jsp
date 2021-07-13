@@ -387,12 +387,14 @@
 		      </div>      
 			<div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
+               <div class="badge text-white badge-danger">D - ${cheerClassList.dDay} </div>
                 <div class="position-relative mb-3">
                   <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <input type="hidden" value="${ cheerClassList.clsNo }" id="clsNo${i}">
-                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" href="#"><i class="far fa-heart icon1"></i></a></li>
+                                            <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="cheerUp${i}">응원하기</a></li>
                       <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target=#classView${i}><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
                   </div>
@@ -444,6 +446,41 @@
 					}
 				});
 	        </script>
+	        <script>
+				$("#cheerUp" + ${i}).click(function(){
+					
+			        if (confirm('응원 하시겠습니까? ')){
+			             // Yes click
+			        const clsNo = document.getElementById('clsNo' + ${i}).value;
+ 			        $.ajax({
+			               url:"${pageContext.servletContext.contextPath}/user/cheerUp",
+			               type:"post",
+			               data:{
+			            	  clsNo : clsNo			
+			               },
+			               success:function(data, textStatus, xhr){
+			            	   if(data == '0'){
+			            		   alert("이미 응원하신 클래스 입니다");
+			            	   }else if(data == '1'){
+			            		   alert("응원에 성공 했습니다.\n 해당 클래스가 오픈될 수 있게 응원해주새요!!")
+							  	   location.reload();
+			            	   }else if(data == '2'){
+			            		   alert("오늘 이미 응원하셨습니다 \n 응원권은 하루에 하나씩 충전됩니다. 신중히 응원해 주세요")
+			            	   }
+			               },
+			               error:function(xhr,status,error){
+			                  console.log(error);
+			               }
+			        	});  
+			             
+			        } else {
+						return;
+			        } 
+					alert(clsNo);
+			        
+			         return;
+			        });
+			</script>
            </c:forEach>
           </div>
          </section>

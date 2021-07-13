@@ -139,10 +139,10 @@
                           <th>${i}</th>
                           <th><button class="coupon-modal" type="button" data-toggle="modal" data-target="#coupon_detail${i}">${couponList.cpnName}</button></th>
                           <c:if test="${couponList.userNo ne '0'}">
-                          <td onclick="location.href='detail.html'" style="cursor:pointer;">${couponList.couponClassName}</td>
+                          <td onclick="location.href='${pageContext.servletContext.contextPath}/user/classDetail/${ couponList.clsNo }'" style="cursor:pointer;">${couponList.couponClassName}</td>
                           </c:if>                          
                           <c:if test="${couponList.userNo eq '0'}">
-                          <td onclick="location.href='detail.html'" style="cursor:pointer;">전체 강의</td>
+                          <td onclick="location.href='${pageContext.servletContext.contextPath}/user/classDetail/${ couponList.clsNo }'" style="cursor:pointer;">전체 강의</td>
                           </c:if>                          
                           <td>${couponList.cpnEnd}</td>
                         </tr>   

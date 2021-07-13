@@ -15,11 +15,12 @@ public class UserCouponDTO {
 	private int userNo;
 	private java.sql.Date issuedDate;
 	private String couponClassName;
+	private int clsNo;
 	
 	public UserCouponDTO() {}
 
 	public UserCouponDTO(int cpnNo, String cpnName, int disAmount, int disCondition, Date cpnStart, Date cpnEnd,
-			String cpnUseYn, int cheeringNo, int userNo, Date issuedDate, String couponClassName) {
+			String cpnUseYn, int cheeringNo, int userNo, Date issuedDate, String couponClassName, int clsNo) {
 		super();
 		this.cpnNo = cpnNo;
 		this.cpnName = cpnName;
@@ -32,6 +33,7 @@ public class UserCouponDTO {
 		this.userNo = userNo;
 		this.issuedDate = issuedDate;
 		this.couponClassName = couponClassName;
+		this.clsNo = clsNo;
 	}
 
 	public int getCpnNo() {
@@ -122,14 +124,21 @@ public class UserCouponDTO {
 		this.couponClassName = couponClassName;
 	}
 
+	public int getClsNo() {
+		return clsNo;
+	}
+
+	public void setClsNo(int clsNo) {
+		this.clsNo = clsNo;
+	}
+
 	@Override
 	public String toString() {
 		return "UserCouponDTO [cpnNo=" + cpnNo + ", cpnName=" + cpnName + ", disAmount=" + disAmount + ", disCondition="
 				+ disCondition + ", cpnStart=" + cpnStart + ", cpnEnd=" + cpnEnd + ", cpnUseYn=" + cpnUseYn
 				+ ", cheeringNo=" + cheeringNo + ", userNo=" + userNo + ", issuedDate=" + issuedDate
-				+ ", couponClassName=" + couponClassName + "]";
+				+ ", couponClassName=" + couponClassName + ", clsNo=" + clsNo + "]";
 	}
-	
 
 	
 }

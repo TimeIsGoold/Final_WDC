@@ -28,6 +28,7 @@
         <result column="USER_NO" property="userNo"/>
         <result column="CPN_ISSUE_DATE" property="issuedDate"/>
         <result column="CLS_TITLE" property="couponClassName"/>
+        <result column="CLS_NO" property="clsNo"/>
     </resultMap>
     
     <resultMap type="UserClassDTO" id="UserClassResult">

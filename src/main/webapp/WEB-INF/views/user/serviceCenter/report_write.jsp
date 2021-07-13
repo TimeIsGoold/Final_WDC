@@ -87,31 +87,30 @@
                     <tr>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">강의 이름</strong></th>
                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase" style="margin-left: 15px;">강사 명</strong></th>
-                      <th class="border-0" scope="col"> <strong class="text-small text-uppercase">신청 인원</strong></th>
-                    </tr>
+<!--                       <th class="border-0" scope="col"> <strong class="text-small text-uppercase">신청 인원</strong></th>
+ -->                    </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <th class="pl-0 border-0" scope="row">
-                        <div class="media align-items-center"><a class="reset-anchor d-block animsition-link" href="detail.html"><img src="${pageContext.servletContext.contextPath }/${userClassDTO.titlePic}" alt="..." width="70" height="60px" style="border-radius: 5px;"/></a>
-                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="detail.html">${ requestScope.userClassDTO.title }</a></strong></div>
+                        <div class="media align-items-center">
+                        <a class="reset-anchor d-block animsition-link" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ requestScope.userClassDTO.clsNo }">
+                        <img src="${pageContext.servletContext.contextPath }/${userClassDTO.titlePic}" alt="..." width="70" height="60px" 
+                        style="border-radius: 5px;"/></a>
+                          <div class="media-body ml-3"><strong class="h6"><a class="reset-anchor animsition-link" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ requestScope.userClassDTO.clsNo }">${ requestScope.userClassDTO.title }</a></strong></div>
                         </div>
                       </th>
                       <td class="align-middle border-0">
                         <div class="quantity">
-                          <button class="dec-btn p-0"><i class="fas"></i></button>
                           <p style="width: 50px; margin-top: 15px;">${ requestScope.userClassDTO.teName } </p>                         
-                           <button class="inc-btn p-0"><i class="fas"></i></button>
                         </div>
                     </td>
 
-                      <td class="align-middle border-0">
+<%--                       <td class="align-middle border-0">
                           <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas"></i></button>
                             <p style="margin-top: 15px; font-size: 17px;">${ requestScope.userClassDTO.ppl } 명</p>
-                            <button class="inc-btn p-0"><i class="fas"></i></button>
                           </div>
-                      </td>
+                      </td> --%>
 
                     </tr>
                 </tbody>

@@ -153,7 +153,7 @@
                       <c:choose>
                       <c:when test="${ classList.dicsionStatus eq 'S' }">                      
                         <h6 style="margin-top: 15px;"> 
-                        <a class="reset-anchor" href="detail.html" style="margin-top: -20px;">
+                         <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [원데이] ${classList.title}
                         </c:if>
@@ -164,7 +164,8 @@
                         </h6>
                       </c:when>
                       <c:when test="${ classList.dicsionStatus eq 'F' }">
-                        <h6 style="margin-top: 15px;"> <a class="reset-anchor" href="detail.html">
+                        <h6 style="margin-top: 15px;"> 
+                         <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }">
                         <c:if test="${ classList.clsType eq 'O' }">
                         [오픈예정][원데이] ${classList.title}
                         </c:if>
