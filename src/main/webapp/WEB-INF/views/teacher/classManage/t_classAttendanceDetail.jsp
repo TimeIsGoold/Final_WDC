@@ -30,7 +30,7 @@
   <!-- Custom stylesheet - for your changes-->
   <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
   <!-- Favicon-->
-  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
+  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png">
   <!-- Tweaks for older IEs--><!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -115,13 +115,14 @@
         <button id="attendanceButton"type="button" class="btn btn-primary" style="margin-right: 50px" onclick="attendanceChange(this);" value="0">전체출석</button>
       </div>
       <form method="post" action="${pageContext.servletContext.contextPath }/teacher/oneDayAttendanceUpdate">
-      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; height: 1000px">
+      <div class="col-sm-12" id="content-formatting" style="float: left; padding-top: 20px; min-height: 500px">
         <table class="table table-hover" style="text-align: center;">
           <thead>
             <tr>
               <th>번호</th>
               <th>이름</th>
               <th>연락처</th>
+              <th>신청인원</th>
               <th>참석 여부</th>
               <th>출석 확인</th>
             </tr>
@@ -138,6 +139,7 @@
               <td>${ status.count }</td>
               <td>${ applyUser.userName }</td>
               <td>${ applyUser.userPhone }</td>
+              <td>${ applyUser.ppl }</td>
               <c:choose>
                 <c:when test="${ applyUser.attStatus eq 'Y'}">
                 <td>참석</td>

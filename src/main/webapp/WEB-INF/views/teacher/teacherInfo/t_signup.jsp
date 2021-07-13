@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>우리 동네 클래스 | W.D.C </title>
+<title>우리 동네 클래스 - 강사 | W.D.C</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
@@ -143,7 +143,9 @@
                   <div class="col-sm-8">
                     <input class="form-control"  type="password" placeholder="인증번호 6자리를 입력하세요." id="checkNum">
                   </div>
+                  <div class="col-sm-2">
                   <button class="btn btn-sm btn-primary" type="button" id="authenticationCheck" value="0">인증번호 확인</button>
+                  </div>
                 </div>
                 
                 <div class="form-group row">
