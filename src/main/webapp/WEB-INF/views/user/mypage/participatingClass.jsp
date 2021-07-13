@@ -90,6 +90,8 @@
                 
                   <!-- PRODUCT-->
                 <c:forEach  var="classList" items="${ requestScope.participatingClassList }">
+                                  <div class="col-xl-3 col-lg-4 col-sm-6">
+                
                     <div class="productNoneOpacity text-center">
                       <c:if test="${ classList.clsType eq 'O' }">
                       <div class="badge text-white badge-primary">${fn:substring(classList.scheduleDate,5,10)} / ${classList.scheduleStart} </div>
@@ -103,7 +105,8 @@
                       <h6> 
                       <c:if test="${ classList.clsType eq 'O' }">
                       <a class="reset-anchor" href="${ pageContext.servletContext.contextPath }/user/mypage/userApplyClassDetail/${ classList.aplNo} ">
-                        [원데이] ${classList.title}
+                        [원데이] ${classList.title}/  ${ classList.aplNo }
+                        
                       </a>
                       </c:if>
                       <c:if test="${ classList.clsType eq 'R' }">
@@ -114,20 +117,13 @@
                       </h6>
                       <p class="small text-muted"><fmt:formatNumber value="${classList.payPrice}" pattern="#,###"/> 원 / ${classList.clsPplAmount}명</p>
                     </div>
+                    </div>
                  </c:forEach>
                   
                 </div>
                 <br><br>
                 <!-- PAGINATION-->
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center justify-content-lg-end">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                  </ul>
-                </nav>
+
               </div>
             </div>
           </div>

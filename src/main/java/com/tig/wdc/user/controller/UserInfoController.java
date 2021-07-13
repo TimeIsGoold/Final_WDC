@@ -64,8 +64,6 @@ public class UserInfoController {
 	private final BCryptPasswordEncoder passwordEncoder;
 	private PageInfoDTO pageInfo;
 
-	@Autowired
-	private Encryption aes;
 
 	@Autowired
 	public UserInfoController(UserInfoService infoService, UserClassService classService,
@@ -392,6 +390,7 @@ public class UserInfoController {
 		participatingClassList = infoService.selectparticipatingClassList(userNo);
 		
 		model.addAttribute("participatingClassList",participatingClassList);
+		System.out.println("participatingClassList : " + participatingClassList);
 		
 		return "user/mypage/participatingClass";
 	}
