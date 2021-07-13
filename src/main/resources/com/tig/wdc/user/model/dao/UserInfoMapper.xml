@@ -150,14 +150,18 @@
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
            AND CLS_TYPE = 'R'  
-           <![CDATA[
+<!--            <![CDATA[   
            AND (L.CLS_START_D > SYSDATE)
-           ]]>
+           ]]> --> -- 정규는 수업 시작일이 오늘날짜이지만 , 출석 안찍혔을떄 아무대도 안보이기 때문에 참석여부로 결정 
 	</select>
 
 	<select id="selectparticipatingClassList" parameterType="_int" resultMap="UserClassResult">
         SELECT 
-		       *
+               C.*
+             , S.*
+             , L.*
+             , A.*
+             , P.*
 		  FROM CLASS_APPLY C
 		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
 		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
@@ -172,8 +176,12 @@
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
          UNION ALL
-         SELECT 
-		       *
+        SELECT 
+               C.*
+             , S.*
+             , L.*
+             , A.*
+             , P.*
 		  FROM CLASS_APPLY C
 		  JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
 		  JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
@@ -185,7 +193,7 @@
            AND P.PAY_STATUS = '완료'
            AND CLS_TYPE = 'R'  
            <![CDATA[
-           AND (L.CLS_START_D < SYSDATE)
+           AND (L.CLS_START_D <= SYSDATE)
            AND (L.CLS_END_D >= SYSDATE)
            ]]>
 	</select>
@@ -211,12 +219,23 @@
 			                    WHERE C.USER_NO = #{ userNo }
 			                      AND A.TYPE = 'TITLE'
 			                      AND C.ATT_STATUS = 'Y'
-			   	            <![CDATA[
-			                      AND (S.SCHEDULE_DATE <= SYSDATE
-			                       OR L.CLS_END_D <= SYSDATE)
-			            			]]>
+			                      AND L.CLS_TYPE = 'O'
 			                      AND P.PAY_STATUS = '완료'
-			                    UNION ALL   
+			                    UNION ALL  
+                               SELECT 
+			                          *
+			                     FROM CLASS_APPLY C
+			                     JOIN SCHEDULE S ON(C.SCHEDULE_NO = S.SCHEDULE_NO)
+			                     JOIN CLASS L ON(S.CLS_NO = L.CLS_NO)
+			                     JOIN ATTACHMENT A ON(L.CLS_NO = A.CLS_NO)
+			                     JOIN PAYMENT P ON(P.CLS_APL_NO = C.CLS_APL_NO)
+			                    WHERE C.USER_NO = #{ userNo }
+			                      AND A.TYPE = 'TITLE'
+			                      AND C.ATT_STATUS = 'Y'
+			                      AND L.CLS_STATUS = 'E'
+                                  AND L.CLS_TYPE = 'R'
+			                      AND P.PAY_STATUS = '완료'
+                            UNION ALL
 			                   SELECT 
 			                          *
 			                     FROM CLASS_APPLY C
