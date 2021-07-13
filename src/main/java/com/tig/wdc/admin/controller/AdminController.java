@@ -292,11 +292,7 @@ public class AdminController {
 	 */
 	@RequestMapping("noticeReWrite")
 	public String noticeReWrite(@ModelAttribute NoticeDTO notice, Model model) {
-
-		
-		System.out.println("notice dto : " + notice);
 		model.addAttribute("noticeRewrite", adminService.updateNoticeReWrite(notice));
-		
 		return "redirect:/admin/noticeManagement?currentMenu=notice";
 	}
 	
@@ -340,8 +336,6 @@ public class AdminController {
 			model.addAttribute("calculateInfoDetail", calculate);
 			
 			try {
-				 System.out.println(aes.encrypt("1002-011-111111"));
-				
 				calculate.setTeAcntNo(aes.decrypt(calculate.getTeAcntNo()));
 			} catch (UnsupportedEncodingException | GeneralSecurityException e) {
 				e.printStackTrace();
@@ -416,8 +410,6 @@ public class AdminController {
 		model.addAttribute("refundTotalAmount", adminService.selectRefundTotalAmount(refundDetailMap));
 		
 		try {
-			System.out.println("아현 : " + refund.getRefundAccount());
-			System.out.println("확인 : " + aes.decrypt(refund.getRefundAccount()));
 			
 			refund.setRefundAccount(aes.decrypt(refund.getRefundAccount()));
 		} catch (UnsupportedEncodingException | GeneralSecurityException e) {
@@ -438,7 +430,6 @@ public class AdminController {
 	@RequestMapping("refundDetail")
 	public String refundApprove(@ModelAttribute RefundDTO refund, Model model) {
 		
-		System.out.println("refund : " + refund);
 		
 		Map<String, Object> refundMap = new HashMap<String, Object>();
 		refundMap.put("finalPrice", (refund.getTotalAmount() - refund.getRefundAmount()));
@@ -479,7 +470,6 @@ public class AdminController {
 	 */
 	@GetMapping("selectMemberBycategory")
 	public String selectMemberBycategory(@RequestParam("ut")String type, Model model) {
-		System.out.println("type : " + type);
 		if(type.equals("tc")) {
 			model.addAttribute("totalList", adminService.selectTeacherList());
 		} else if (type.equals("st")) {
@@ -515,18 +505,14 @@ public class AdminController {
 	@GetMapping("procsAcceptStatus")
 	public String procsAcceptStatus(@RequestParam("rn")int no, @RequestParam("type")String type, @RequestParam("un")int userNo, Model model) {
 		Map<String, Object> blackMap = new HashMap<>();
-		System.out.println("넘어오는 타입이 뭔지 알수 있을까요???" + type);
-		System.out.println("넘어오는 유저 넘버는요????" + userNo);
 		adminService.updateReportStatus(no);
 		Map<String, Object> getCnt = new HashMap<>();
 		getCnt.put("type", type);
 		getCnt.put("userNo", userNo);
 		int i = adminService.selectReportCnt(getCnt);
-		System.out.println("여기요 카운트가 몇개인지 보세요  : "   + i);
 		int chkCnt = 0;
 		blackMap.put("type", type);
 		blackMap.put("userNo", userNo);
-		System.out.println(blackMap);
 		if(i > 2) {
 			adminService.insertBlackListByThreeCnt(blackMap);
 			adminService.updateBlackListOnUSerTableByCnt(blackMap);
@@ -603,7 +589,7 @@ public class AdminController {
 				model.addAttribute("oneDayMax", oneDayMax);	
 				path = "admin/BeforeDicision";	
 				// 2차 심사 완료  진행중인 클래스(클래스 승인 완료)
-		}  else if(type.equals("S") && decision.equals("P")) {
+		}  else if(type.equals("S") && (decision.equals("P") || decision.equals("Y"))) {
 				UserClassDTO classDetail = new UserClassDTO();
 				classDetail = classService.selectClassDtail(clsNo);
 				model.addAttribute("classDetail",classDetail);
@@ -705,10 +691,10 @@ public class AdminController {
 
 	@GetMapping("seconddecision")
 	   public String selectCheeringClass(@RequestParam("pc")String result, @RequestParam(value="deci", defaultValue="0")int num,Model model) {
-		System.out.println("asdgmkdangi;adgopdsfdmlsagmadngkjdsanfkdnkcasdnvkdsanjknvdjklvnjsdk;ndsmfkdlsn"+num);
 	      long today = System.currentTimeMillis();
 	      List<CheeringClassDTO> refinedCheeringClassList = new ArrayList<>();
 	      List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
+	      int weekByMillis = 604800000;
 	      if(result.equals("t")) {
 	         model.addAttribute("classList", cheeringClassList);
 	         model.addAttribute("t", "t");
@@ -716,7 +702,7 @@ public class AdminController {
 	      if(result.equals("p")) {
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
 	            // 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + weekByMillis) <= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	               List<Integer> userNoArr = null;
 	               for(int j = 0; j < refinedCheeringClassList.size(); j ++) {
@@ -732,15 +718,18 @@ public class AdminController {
 	            	   cheeringClassList.get(i).setCheeringUserNo(userNoString);
 	               }
 	            } 
-	            
 	         }
 	         model.addAttribute("classList", refinedCheeringClassList);
 	         model.addAttribute("t", "p");
 	      }
 	      // 응원수가 미달인 2차심사 대기중 인 클래스
 	      if(result.equals("l")) {
+	    	  
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + 604800000) > today && cheeringClassList.get(i).getCheeringCnt() < 5) {
+	        	 System.out.println("1차심사 + 7 일 값 ="  + cheeringClassList.get(i).getFirstDecision().getTime());
+	        	 System.out.println("오늘 날짜 = " + today);
+	        	 
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + weekByMillis) <= today && cheeringClassList.get(i).getCheeringCnt() < 5) {
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	            } 
 	            model.addAttribute("classList", refinedCheeringClassList);
@@ -789,7 +778,6 @@ public class AdminController {
 	@PostMapping("adminSingIn")
 	public String adminSingIn(Model model, @ModelAttribute AdminDTO loginInfo, RedirectAttributes rttr) {
 		AdminDTO adminInfo = adminService.selectAdminInfo(loginInfo);
-		System.out.println(adminInfo);
 		// 로그인 정보 불일치시 로그인 페이지도 다시 이동
 		String returnPage = "redirect:/admin/login";
 		if(adminInfo == null) {

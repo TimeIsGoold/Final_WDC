@@ -14,7 +14,11 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet"/>
         <link href="${ pageContext.servletContext.contextPath }/resources/admin/css/styles.css" rel="stylesheet"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-        
+        <style>
+            table td{
+                font-size: small;
+            }
+        </style>  
     </head>
     <body class="sb-nav-fixed">
               	<!-- header -->
@@ -26,27 +30,26 @@
 			<%@ include file="commons/sideBarAndFooter.jsp" %>
 
             <div id="layoutSidenav_content">
-                <main>
                     <div class="container-fluid px-4" style="margin-top: 30px;">
                         <div class="card mb-4">
-
                             <div class="card-header" style="font-size: x-large;">
                                 <i class="fas fa-table me-1"></i>
                                 회원관리(수강생) 상세 페이지
                             </div>
-                            <br><br><br><br>
-                            <div class="row">
-                                <div class="col-md-2" style="font-size: xx-large; padding-left: 150px;">${memberInfo.studentName}
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="row" align="center" style="margin-left: 140px; margin-bottom: 60px;">
+                                <div class="col-md-4" style="font-size: xx-large; padding-left: 150px;">${memberInfo.studentName}
                                 <c:choose>
 				                   	<c:when test="${ memberInfo.type eq 'T'}">강사님</c:when>
 				                  	<c:when test="${ memberInfo.type eq 'U'}">수강생</c:when>
 				                </c:choose>
                                 </div>
-                                <div class="col-md-2" href="#" style="padding-top: 20px; cursor: pointer;" >클래스 바로가기</div>
-                            </div>
+
                             <br><br>
-                            <div class="row" align="center" >
-                                <div class="col-sm-6" style="margin-left: 40px;">
+                                <div class="col-sm-10" style="margin-left: 40px;" align="center">
                                     <br><br><br>
                                     <table class="table table-striped">
                                         <tr>
@@ -93,22 +96,25 @@
 											</button>
                                             </c:when><c:otherwise><button class="btn btn-danger" disabled>BlackList</button></c:otherwise></c:choose></td>
                                         </tr>
-                                        <tr>
-                                            <td>쿠폰 발급하기</td>
-                                            <td colspan="" align="right"><c:choose><c:when test="${memberInfo.blockYn eq 'N'}">
-                                            <button class="btn btn-primary" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/issueCouponSpecificIndividual?id=${ memberInfo.id }'">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                                            </c:when><c:otherwise></c:otherwise></c:choose></td>
-                                            <td></td>
-                                        </tr>				
                                     </table>
+                                            <c:choose>
+                                                <c:when test="${memberInfo.blockYn eq 'N'}">
+                                                    <button class="btn btn-secondary" style="margin-top: 30px; margin-right: 50px;" type="button" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/issueCouponSpecificIndividual?id=${ memberInfo.id }'">&nbsp;&nbsp;&nbsp;&nbsp;쿠폰&nbsp;&nbsp;발급&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                                    <button class="btn btn-primary" style="margin-top: 30px;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st'">&nbsp;&nbsp;&nbsp;&nbsp;뒤로&nbsp;&nbsp;가기&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn btn-primary" style="margin-top: 30px;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st'">&nbsp;&nbsp;&nbsp;&nbsp;뒤로&nbsp;&nbsp;가기&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                                </c:otherwise>
+                                            </c:choose>
+				
+                                        </div>
                                 </div>
                                  <div>
-                                 <button class="btn btn-primary" style="margin-left: 90%;width: 96px;margin-top: 51px;" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectMemberBycategory?currentMenu=member&ut=st'">뒤로 가기</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </main>
+
             </div>
 
 										<!-- 블랙리스트 등록 -->
@@ -133,7 +139,6 @@
 										    </div>
 										  </div>
 										</div>
-        </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/admin/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"  crossorigin="anonymous"></script>

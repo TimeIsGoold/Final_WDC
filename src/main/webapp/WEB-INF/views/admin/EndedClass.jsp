@@ -101,6 +101,133 @@
                             <div style="background-color: #f5f5f5; width: 1200px; height: 200px; margin: auto;font-size: xx-large; padding: 5%;">
                                 이미 종료된 클래스 입니다.
                             </div>
+                                                            <!-- 상세보기 탭 -->
+                                <div class="tab-content mb-5" id="myTabContent">
+                                  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    <div class="p-4 p-lg-5 bg-white" style="text-align: center;">
+                                      <ul class="list-unstyled small d-inline-block" style="width: 900px;margin-left: 0px;">
+                                        <div style="text-align:left">
+						                    <h4> <b style="font-size: 13px; ">●</b> 간단소개글</h4>
+						                    <pre style="font-size: 16px;">${ classDetail.simpleIntro }</pre>
+						                    
+						                    <hr style="margin: 15px 0px 15px 0px">
+						                    <h4> <b style="font-size: 13px;">●</b> 클래스소개</h4>
+						                      
+						                      <pre style="font-size: 16px;">
+${ classDetail.intro }
+                                          </pre>
+                                          <br><br>
+                                          <hr><br>
+                                          <!-- 완성작 사진 -->
+                                          <h3 style="padding-bottom: 20px;"> <b style="font-size: 13px; ">●</b> 클래스소개</h3><br>
+                                          <div style="width: 550px; display: flex; margin: auto; text-align: center; justify-content: space-between; font-size: 16px;">
+                                            <c:forEach var="piece" items="${ classPiece }">
+	                                            <div><img src="${ pageContext.servletContext.contextPath }/resources/upload/${ piece.piecePic}" alt="완성작" style="width: 300px; height:270px;"><br>${ piece.pieceTitle }</div>
+	                                        </c:forEach>
+                                          </div>
+                                          <br><br><br><hr>
+                                          <!-- 커리큘럼 -->
+                                          <div>
+					                        <br><h4><b style="font-size: 13px; ">●</b> 커리큘럼</h4><br><br>
+					                        <c:forEach var="curriculum" items="${ curriculum }">
+					                        <div style="display: flex;">
+					                          <img src="${pageContext.servletContext.contextPath }/resources/teacher/img/gradation10.png" width="25px" height="25px">
+					                          <div style="font-size: large;">${ curriculum.curriStep } 단계 : ${ curriculum.curriTitle }</div>
+					                        </div>
+					                        <div style="margin-left: 30px;">
+					                          <p style="font-size: 20px; font-weight: lighter;">${ curriculum.curriContent }.</p>
+					                        </div>
+					                        <br><br>
+                                            </c:forEach>
+                                          </div>
+                                          <br><br>
+                                          <hr>
+                                          <br>
+                                          <!-- 추가 제공사항 및 유의사항 -->
+                                          <div style="font-size: large;">
+                                            <h3>※ 추가 제공사항 및 유의사항</h3>
+                                            <br>
+<!--                                               1. 주차는 불가하며 근처 공영 주차장 이용 부탁드립니다.<br>
+                                              2. 여러분들과 함께 하는 수업으로 시작을 꼭 지켜주세요.<br>
+                                              3. 10분전 입실 부탁드립니다.<br>
+                                              4. 최소인원 1인 최대 6인 입니다.<br> -->
+                                                <c:forEach items="${classDetail.addSup}" var="item" varStatus="status">
+						                          ${ status.count }. ${ item }<br>
+						                        </c:forEach>
+                                            <br><br>
+                                          </div>
+                                          <hr>
+                                          <br>
+                                          <h3>※ 편의사항</h3>
+                                          <br><br>
+                                          <div style="display: flex; width: 550px;">
+                                            <div style="font-size: large;">&nbsp;&nbsp;&nbsp;아늑한 공방에서 수업합니다.</div>
+                                          </div>
+                                          <br>
+                                          <div style="display: flex; width: 550px;">
+                                            <div style="font-size: large;">&nbsp;&nbsp;&nbsp;와이파이 가능합니다.</div>
+                                          </div>
+                                          <br>
+                                          <div style="display: flex; width: 550px;">
+                                            <div style="font-size: large;">&nbsp;&nbsp;&nbsp;커피/음료는 별도 구매하셔야합니다.</div>
+                                          </div>
+                           <!-- 지도 보기 -->
+                           <div id="map" style="width:100%;height:400px;"></div>
+                           <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4f9c32f3d7241ef20de4f8c2703db2c7&libraries=services"></script>
+                           <script>
+                           var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                               mapOption = {
+                                   center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                   level: 3 // 지도의 확대 레벨
+                               };  
+                           
+                           // 지도를 생성합니다    
+                           var map = new kakao.maps.Map(mapContainer, mapOption); 
+                           
+                           // 주소-좌표 변환 객체를 생성합니다
+                           var geocoder = new kakao.maps.services.Geocoder();
+                           
+                           //주소 저장
+                           var classAdress = '${ requestScope.classDetail.address }';
+                           // 주소로 좌표를 검색합니다
+                           geocoder.addressSearch(classAdress, function(result, status) {
+                           
+                               // 정상적으로 검색이 완료됐으면 
+                                if (status === kakao.maps.services.Status.OK) {
+                                 
+                                   var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                           
+                                   // 결과값으로 받은 위치를 마커로 표시합니다
+                                   var marker = new kakao.maps.Marker({
+                                       map: map,
+                                       position: coords
+                                   });
+                           
+                                   // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                   var infowindow = new kakao.maps.InfoWindow({
+                                       content: '<div style="width:150px;text-align:center;padding:6px 0;">우리 동네 클래스</div>'
+                                   });
+                                   infowindow.open(map, marker);
+                           
+                                   // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                   map.setCenter(coords);
+                               } 
+                           });    
+                           </script>
+                                        </div>
+                                      </ul>
+                                      <br><br><br><br><br>
+                                      <div class="row">
+                                      <div class="col-md-2" style="height: 100px;"></div>
+                                      <div class="col-md-8" style="height: 100px;">
+                 
+                                      <button class="btn btn-primary"" onclick="location.href='location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=complate'">뒤로 가기</button>                                     
+                                      </div>
+                                      <div class="col-md-2" style=" height: 100px;"></div>
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
                               </section>
                         </div>
                     </div>
