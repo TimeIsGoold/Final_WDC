@@ -152,17 +152,14 @@ ${ classDetail.intro }
                                           <h3>※ 편의사항</h3>
                                           <br><br>
                                           <div style="display: flex; width: 550px;">
-                                            <img src="../관리자/img/stayhome (1).png" alt="home" width="23px" height="23px;">
                                             <div style="font-size: large;">&nbsp;&nbsp;&nbsp;아늑한 공방에서 수업합니다.</div>
                                           </div>
                                           <br>
                                           <div style="display: flex; width: 550px;">
-                                            <img src="../관리자/img/wifi.png" alt="home" width="23px" height="23px">
                                             <div style="font-size: large;">&nbsp;&nbsp;&nbsp;와이파이 가능합니다.</div>
                                           </div>
                                           <br>
                                           <div style="display: flex; width: 550px;">
-                                            <img src="../관리자/img/no-coffee.png" alt="home" width="23px" height="23px">
                                             <div style="font-size: large;">&nbsp;&nbsp;&nbsp;커피/음료는 별도 구매하셔야합니다.</div>
                                           </div>
                            <!-- 지도 보기 -->

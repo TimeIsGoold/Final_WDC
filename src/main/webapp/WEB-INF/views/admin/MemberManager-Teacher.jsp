@@ -110,11 +110,11 @@
 						<c:choose>
 							<c:when test="${not empty memberInfo.imgPath}">
 							<img src="${ pageContext.servletContext.contextPath }/resources/upload/${memberInfo.imgPath}"
-							alt="강사 프로필" width="400" height="400"/>
+							alt="강사 프로필" width="400" height="400" style="border-radius: 100%;"/>
 							</c:when>
 							<c:otherwise>
 							<img src="${ pageContext.servletContext.contextPath }/resources/teacher/img/user.png"
-							alt="강사 프로필" width="400" height="400"/>
+							alt="강사 프로필" width="400" height="400" style="border-radius: 100%;" />
 							</c:otherwise>
 						</c:choose>
 						<br>
