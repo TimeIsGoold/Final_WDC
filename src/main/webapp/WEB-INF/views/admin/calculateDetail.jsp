@@ -57,7 +57,7 @@
         }
         
         .submitBtn {
-        	margin-left: 85%;
+        	margin-left: 84%;
         }
         
         .returnPageBtn {
@@ -212,7 +212,7 @@
 	                                <div class="submitBtn">
 	                                	<c:choose>
 	                                		<c:when test="${ calculateInfoDetail.calcYN eq 'N'}">
-	                                			<c:if test="${ calculateInfoDetail.today eq '03'}">
+	                                			<c:if test="${ calculateInfoDetail.today eq '14'}">
 				                                	<input type="button" id="calculateBtn" class="returnPageBtn" value="정산하기">
 	                                			</c:if>
 	                                		</c:when>
