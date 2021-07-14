@@ -166,7 +166,7 @@
           <tbody>
             <c:choose>
             <c:when test="${ empty applyUserInfoList }">
-              <td colspan="3">신청인원이 없음</td>
+              <td>신청인원이 없음</td>
             </c:when>
             <c:otherwise>
             <c:forEach var="applyUserInfo" items="${ applyUserInfoList }" varStatus="status">
