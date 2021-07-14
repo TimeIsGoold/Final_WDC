@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Boutique | Ecommerce bootstrap template</title>
+  <title>우리 동네 클래스 - 강사 | W.D.C</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -30,7 +30,7 @@
   <!-- Custom stylesheet - for your changes-->
   <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
   <!-- Favicon-->
-  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
+  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png">
   <!-- Tweaks for older IEs--><!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -202,27 +202,29 @@
                       </c:when>
                       <c:otherwise>
                       <div class="media mb-3" style="border: 1px solid rgba(0,0,0,0.08); padding: 10px 10px 10px 10px">
-                          <img class="review-img" width="50px" height="50px" src="${pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }">
+                          <img class="review-img" width="50px" height="50px" style="border-radius: 50px;" src="${pageContext.servletContext.contextPath }/resources/upload/${ review.answer.tePic }">
                         <div class="media-body ml-3">
                           <div class="col-sm-12">
                             <p class="small text-muted mb-0 text-uppercase">${ review.answer.ansDate }</p>
                             <pre class="text-small mb-0 text-muted" align="left">
-                            ${ review.answer.ansContent }
+${ review.answer.ansContent }
                             </pre>
                           </div>
                              
                           </div>   
                         </div>
-                      </div>
                       </c:otherwise>
                       </c:choose>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <hr>
                 </c:forEach>
                 </c:otherwise>
                  </c:choose>
+                </div>
+                </div>
+                </div>
+                <hr>
                 <script>
                     function contentCheck(p){
                     	

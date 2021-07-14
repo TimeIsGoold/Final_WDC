@@ -154,6 +154,7 @@
         <result column="SCHEDULE_NO" property="scheduleNo"/>
         <result column="USER_NAME" property="userName"/>
         <result column="USER_PHONE" property="userPhone"/>
+        <result column="CLS_PPL" property="ppl"/>
     </resultMap>
     <select id="selectApplyUserInfo" resultMap="applyInfo" parameterType="string">
         SELECT
@@ -163,6 +164,7 @@
              , A.USER_NO 
              , B.USER_NAME
              , B.USER_PHONE
+             , A.CLS_PPL
           FROM CLASS_APPLY A
           JOIN USER_INFO B ON (A.USER_NO = B.USER_NO)
           JOIN PAYMENT C ON (A.CLS_APL_NO = C.CLS_APL_NO)

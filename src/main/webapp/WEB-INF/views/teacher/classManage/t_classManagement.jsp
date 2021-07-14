@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png">
   <style>
   	 html {
 

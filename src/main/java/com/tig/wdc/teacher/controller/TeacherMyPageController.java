@@ -65,7 +65,6 @@ public class TeacherMyPageController {
 		
 		int teacherNo = (Integer) session.getAttribute("teacherNo");
 		searchInfo.put("teacherNo", teacherNo);
-		System.out.println(searchInfo);
 		pageInfo = PageNation.getPageInfo(currentPage, boardService.selectClassCount(searchInfo), 10, 5);
 		searchInfo.put("pageInfo", pageInfo);
 		
@@ -79,8 +78,10 @@ public class TeacherMyPageController {
 			model.addAttribute("proceed", searchInfo.get("proceed"));
 		}
 		
-		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("classList",boardService.selectClassList(searchInfo));
+
+		model.addAttribute("pageInfo", pageInfo);
+		
 	
 		return "teacher/classManage/t_classManagement";
 	}
@@ -198,7 +199,6 @@ public class TeacherMyPageController {
 		applyNoList.put("allApplyNo", allNo);
 		applyNoList.put("checkedApplyNo", checkedNo);
 		classManage.modifyOndeDayAttendanceStatus(applyNoList);
-		System.out.println(info.get("classDate"));
 		
 		return "redirect:/teacher/oneDayAttendanceList?scheduleNo=" + scheduleNo + "&clsNo="+info.get("clsNo")+"&classType="+info.get("classType") + "&classDate="+info.get("classDate");
 	}
@@ -228,7 +228,7 @@ public class TeacherMyPageController {
 			classStep = lastCount + 1;
 			
 		} else if(attendanceInfo != null && attendanceInfo.length() >0) {
-			/*2. 출석인원이 있는경우*/
+			/*2. 출석인원이 있는경우*/ 
 			String[] infoList = attendanceInfo.split(",");
 			for(int i = 0; i < infoList.length; i++) {
 			
@@ -243,7 +243,6 @@ public class TeacherMyPageController {
 					userNo += oneInfo[2];
 				}
 			}
-		
 			String[] updateList = applyNo.split(",");
 		
 			classManage.updateRegularApplyStatus(updateList);
