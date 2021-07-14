@@ -121,7 +121,12 @@
                     <div class="product text-center">
                      <c:choose>
                      <c:when test="${ classList.dicsionStatus eq 'F' }">
-                     <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+		              <c:if test="${classList.dDay ne '-' && cheerClassList.dDay ne '.'}">
+		               <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+		              </c:if>
+		              <c:if test="${classList.dDay eq '-' || classList.dDay eq '.'}">
+		               <div class="badge text-white badge-danger">D - DAY </div>
+		              </c:if>
                      </c:when>
                      </c:choose>
                       <div class="mb-3 position-relative">

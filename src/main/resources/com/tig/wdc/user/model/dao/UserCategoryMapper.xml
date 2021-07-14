@@ -34,7 +34,7 @@
             , A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -77,7 +77,6 @@
           AND A.CLS_PRICE <= #{ maxPrice }
           ]]>
          </if> 
-         
     </select>
     
     <select id="selectSportsClassCategory" resultMap="UserCategoryResult">
@@ -85,7 +84,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -104,7 +103,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -123,7 +122,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -142,7 +141,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -162,7 +161,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -182,7 +181,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)
@@ -201,7 +200,7 @@
               A.*
             , T.* 
             , DH.*
-            , SUBSTR(((DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
+            , SUBSTR((ROUND(DICISION_DATE + INTERVAL '7' DAY)- SYSDATE),0,1) D_DAY
          FROM CLASS A
          JOIN ATTACHMENT T ON(A.CLS_NO = T.CLS_NO)
          LEFT JOIN DISICION_HISTORY DH ON (DH.CLS_NO = A.CLS_NO)

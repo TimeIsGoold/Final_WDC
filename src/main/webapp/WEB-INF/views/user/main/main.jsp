@@ -397,7 +397,12 @@
 		      </div>      
 			<div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
+              <c:if test="${cheerClassList.dDay ne '-' && cheerClassList.dDay ne '.'}">
                <div class="badge text-white badge-danger">D - ${cheerClassList.dDay} </div>
+              </c:if>
+              <c:if test="${cheerClassList.dDay eq '-' || cheerClassList.dDay eq '.'}">
+               <div class="badge text-white badge-danger">D - DAY </div>
+              </c:if>
                 <div class="position-relative mb-3">
                   <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">

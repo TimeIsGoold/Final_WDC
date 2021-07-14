@@ -211,13 +211,10 @@ public class UserClassServiceImpl implements UserClassService{
 			// 리펀드 디티오  맥스값과 카운트가 들어옴
 			if(userRefundDTO.getMaxStep() < ((userRefundDTO.getScheduleCount() / 3))) {
 				userRefundDTO.setRefundAmount((int) (payPrice / 1.5));
-				System.out.println("삼분의 이");
 			}else if(userRefundDTO.getMaxStep() < ((userRefundDTO.getScheduleCount() / 2))) {
 				userRefundDTO.setRefundAmount((int) (payPrice / 2));
-				System.out.println("절반");
 			}else {
 				userRefundDTO.setRefundAmount(0);
-				System.out.println("빵원");
 			}
 		}else {
 			userRefundDTO.setRefundAmount((int) (payPrice / 1.5));
