@@ -139,6 +139,9 @@
       <!-- HERO SECTION-->
       <div class="container">
       <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(${pageContext.servletContext.contextPath }/resources/user/img/TIGmainPic.jpg)">
+      <%-- 원래 배너 이미지
+      <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(${pageContext.servletContext.contextPath }/resources/user/img/hero-banner-alt.jpg)"> 
+      --%>
           <div class="container py-5">
             <div class="row px-4 px-lg-5">
               <div class="col-lg-6" style="margin-bottom: 400px;">
