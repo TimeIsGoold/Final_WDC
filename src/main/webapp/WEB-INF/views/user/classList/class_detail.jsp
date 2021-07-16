@@ -449,12 +449,12 @@ String strDate = formats.format(now); %>
                      </div>
                   </div>
                      <script>
-                     var check;   
+                     	var check;   
                      
                         $("#checkPpl").on("mouseenter",function(e){
                            //클래스번호, 스케쥴번호, 날짜, 시간넘기기 
                            //두번째 에이작스
-                                var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
+                             var pickDay2 = $("#datetimepicker").val(); //선택한 날짜를 담아줌
                              var dayArray2 = pickDay2.split(' '); //선택한 날짜와 시간을 공백을 기준으로 잘라 배열에 담아줌
    
                              $.ajax({
@@ -490,7 +490,6 @@ String strDate = formats.format(now); %>
                         let days = new Array();
                         
                         <c:forEach var="schedule" items="${ requestScope.schedule }">
-                           // times.push("${schedule.scheduleStart}");
                           days.push("${schedule.scheduleDate}");
                         </c:forEach>
                         
@@ -558,11 +557,7 @@ String strDate = formats.format(now); %>
                                      let pArr = new Array();
                                      for(var idx in data){
                                         tArr.push(data[idx].scheduleStart);
-                                        //pArr[idx] = data[idx].minPeople;
-                                        //pArr.push(data[idx].scheduleStart + " /남은인원 : " + data[idx].minPeople);
                                      }
-                                     
-                                     //console.log(timeValues);
                                      
                                      if(tArr.length > 0){
                                        test1.setOptions({
@@ -573,7 +568,6 @@ String strDate = formats.format(now); %>
                                          scrollTime : false,
                                          autoClose: false
                                        });
-                                       
                                     } else {
                                        test1.setOptions({
                                           allowDates : days,
@@ -589,7 +583,6 @@ String strDate = formats.format(now); %>
                               });
                            }
                         });
-                        
                      </script>
                 </c:if>
                 

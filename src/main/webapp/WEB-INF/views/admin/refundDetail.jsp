@@ -52,7 +52,7 @@
         }
         
         .submitBtn {
-        	margin-left: 85%;
+        	margin-left: 84%;
         }
         
         .returnPageBtn {

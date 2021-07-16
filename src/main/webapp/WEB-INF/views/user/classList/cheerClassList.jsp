@@ -103,7 +103,12 @@
                   <c:set var="num" value="1"/>
                   <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="productNoneOpacity text-center">
-                      <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+		              <c:if test="${classList.dDay ne '-' && cheerClassList.dDay ne '.'}">
+		               <div class="badge text-white badge-danger">D - ${classList.dDay} </div>
+		              </c:if>
+		              <c:if test="${classList.dDay eq '-' || classList.dDay eq '.'}">
+		               <div class="badge text-white badge-danger">D - DAY </div>
+		              </c:if>
                       <div class="position-relative mb-3" style="max-width: 184px; max-height: 180px;">
                         <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ classList.clsNo }"><img class="img-fluid w-100" src="${pageContext.servletContext.contextPath }/${classList.titlePic}" alt="..."></a>
                       </div>

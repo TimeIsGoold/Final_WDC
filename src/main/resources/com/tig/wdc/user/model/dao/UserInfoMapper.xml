@@ -150,9 +150,6 @@
 		   AND A.TYPE = 'TITLE'
            AND P.PAY_STATUS = '완료'
            AND CLS_TYPE = 'R'  
-<!--            <![CDATA[   
-           AND (L.CLS_START_D > SYSDATE)
-           ]]> --> -- 정규는 수업 시작일이 오늘날짜이지만 , 출석 안찍혔을떄 아무대도 안보이기 때문에 참석여부로 결정 
 	</select>
 
 	<select id="selectparticipatingClassList" parameterType="_int" resultMap="UserClassResult">

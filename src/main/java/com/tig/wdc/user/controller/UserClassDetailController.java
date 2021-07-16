@@ -197,11 +197,9 @@ public class UserClassDetailController {
 		
 		//최대 인원 select
 		int maxUserSize = classService.selectMaxUserSize(scheduleDTO);
-		System.out.println("출력????????????????" + maxUserSize);
 		
 		//스케쥴 신청 인원 select
 		ScheduleDTO applyPeople = classService.selectPeople(scheduleDTO);
-		System.out.println("출력????????????????" + applyPeople);
 		
 		if(applyPeople == null) {
 			

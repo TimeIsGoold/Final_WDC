@@ -1,47 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<<style>
+.pt-5, .py-5 {
+    padding-top: 1rem!important;
+}
+.box{
+	font-size:14px;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+}
+.copyright{
+	margin-left: 700px;
+    width: 420px;
+}
+</style>
 
       <footer class="bg-dark text-white">
-        <div class="container py-4">
-          <div class="row py-5">
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h6 class="text-uppercase mb-3">Customer services</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">Help &amp; Contact Us</a></li>
-                <li><a class="footer-link" href="#">Returns &amp; Refunds</a></li>
-                <li><a class="footer-link" href="#">Online Stores</a></li>
-                <li><a class="footer-link" href="#">Terms &amp; Conditions</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-              <h6 class="text-uppercase mb-3">Company</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">What We Do</a></li>
-                <li><a class="footer-link" href="#">Available Services</a></li>
-                <li><a class="footer-link" href="#">Latest Posts</a></li>
-                <li><a class="footer-link" href="#">FAQs</a></li>
-              </ul>
-            </div>
-            <div class="col-md-4">
-              <h6 class="text-uppercase mb-3">Social media</h6>
-              <ul class="list-unstyled mb-0">
-                <li><a class="footer-link" href="#">Twitter</a></li>
-                <li><a class="footer-link" href="#">Instagram</a></li>
-                <li><a class="footer-link" href="#">Tumblr</a></li>
-                <li><a class="footer-link" href="#">Pinterest</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="border-top pt-4" style="border-color: #1d1d1d !important">
-            <div class="row">
-              <div class="col-lg-6">
-                <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
-              </div>
-              <div class="col-lg-6 text-lg-right">
-                <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
-              </div>
-            </div>
-          </div>
+         <div class="container py-4">
+           <div class="row py-3">
+	           <div class="col-md-2 mb-3 mb-md-0">
+	       		<img src="${pageContext.servletContext.contextPath }/resources/user/img/wdcicon.png" width="100px" height="100px">
+	           </div>
+	            <div class="col-md-4 mb-3 mb-md-0" style="margin-left: -50px;">
+			        <div class="contents">
+						<div class="footer-info">
+							<div class="box">
+								<p><b>(주)우리 동네 클래스</b></p>
+							</div>
+							<div class="box">
+								<p><span>사업자등록번호 : 2021-0208-0714</span></p>
+								<p><span>대표 : Time is Gold</span></p>
+							</div>
+							<div class="box">
+								<p><span>서울특별시 서초구 서초동 1305 서산빌딩</span></p>
+							</div>
+							<div class="copyright box">Copyright 2021. WDC. All rights reserved.</div>
+						</div>
+					</div>
+	            </div>
+        	</div>
         </div>
       </footer>
       <!-- JavaScript files-->

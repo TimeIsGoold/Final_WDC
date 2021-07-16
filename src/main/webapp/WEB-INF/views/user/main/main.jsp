@@ -197,10 +197,12 @@
                     <ul class="mb-0 list-inline" style="font-family: Libre Franklin !important;">
                       <input type="hidden" value="${ newClassList.clsNo }" id="clsNo${i}">
                       <c:if test="${ newClassList.likeStatus eq 'Y' }">
-                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae"><i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" style="background-color:#fef0ae">
+                      	<i class="fas fa-heart" style="color:#ff5e5e;"></i></a></li>
                       </c:if>
                       <c:if test="${ newClassList.likeStatus ne 'Y' }">
-                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#"><i class="far fa-heart icon1"></i></a></li>
+                      	<li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-outline-dark" id="like${i}" href="#">
+                      	<i class="far fa-heart icon1"></i></a></li>
                       </c:if>
                       <li class="list-inline-item mr-0"><a class="btn btn-sm btn-outline-dark" data-toggle="modal" data-target="#classView${i}"><i class="fas fa-expand icon1"></i></a></li>
                     </ul>
@@ -219,7 +221,7 @@
 						if (confirm("우리 동네 클래스 회원만 이용 가능합니다. 로그인 하시겠습니까?")) { // 승낙하면 로그인 페이지로 이동 
 		  					location.href = '${ pageContext.servletContext.contextPath }/user/login'; 
 		  				} else { 
-		  					// 거부하면 해당 페이지 새로고침 
+		  					//거부하면 해당 페이지 새로고침 
 		  					//location.reload(); 
 		  				}
 					} else{ //로그인 한 경우
@@ -397,7 +399,12 @@
 		      </div>      
 			<div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="product text-center">
+              <c:if test="${cheerClassList.dDay ne '-' && cheerClassList.dDay ne '.'}">
                <div class="badge text-white badge-danger">D - ${cheerClassList.dDay} </div>
+              </c:if>
+              <c:if test="${cheerClassList.dDay eq '-' || cheerClassList.dDay eq '.'}">
+               <div class="badge text-white badge-danger">D - DAY </div>
+              </c:if>
                 <div class="position-relative mb-3">
                   <a class="d-block" href="${ pageContext.servletContext.contextPath }/user/classDetail/${ cheerClassList.clsNo }"><img class="img-fluid w-100" src="${ pageContext.servletContext.contextPath }/${ cheerClassList.titlePic }" alt="..."></a>
                   <div class="product-overlay">
@@ -510,53 +517,7 @@
           </div>
          </section>
          <br><br>
- 		
-        <!-- SERVICES-->
-        <section class="py-5 bg-light" style="padding-bottom: 3rem!important;">
-          <div class="container">
-            <div class="row text-center">
-              <div class="col-lg-4 mb-3 mb-lg-0">
-                <div class="d-inline-block">
-                  <div class="media align-items-end">
-                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                      <use xlink:href="#delivery-time-1"> </use>
-                    </svg>
-                    <div class="media-body text-left ml-3">
-                      <h6 class="text-uppercase mb-1">Free shipping</h6>
-                      <p class="text-small mb-0 text-muted">Free shipping worlwide</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 mb-3 mb-lg-0">
-                <div class="d-inline-block">
-                  <div class="media align-items-end">
-                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                      <use xlink:href="#helpline-24h-1"> </use>
-                    </svg>
-                    <div class="media-body text-left ml-3">
-                      <h6 class="text-uppercase mb-1">24 x 7 service</h6>
-                      <p class="text-small mb-0 text-muted">Free shipping worlwide</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="d-inline-block">
-                  <div class="media align-items-end">
-                    <svg class="svg-icon svg-icon-big svg-icon-light">
-                      <use xlink:href="#label-tag-1"> </use>
-                    </svg>
-                    <div class="media-body text-left ml-3">
-                      <h6 class="text-uppercase mb-1">Festival offer</h6>
-                      <p class="text-small mb-0 text-muted">Free shipping worlwide</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>        
+      
       </div>
       <br><br><br>
 

@@ -96,30 +96,49 @@
               <div id="cont_area" style="margin-top: -50px;"><!-- 본문 콘텐츠-->
                 <div class="cont_inner" id="policy_page" style="min-height: 435px; text-align: left; float: left; width: 850px;">
                     <br><br>
-                    <div style="font-weight: bold;">Q. 회원 가입 이후에 객실등록은 어떻게 하나요?</div>
+                    <div style="font-weight: bold;">Q. 클래스를 다 들으면 수강완료증을 발급해주실 수 있나요?</div>
                     <p class="faq-box" style="background: #dee2e657;">
                         <br>
-                        (1) 회원 가입은 별도의 가입비용 발생 없이 가입자의 이메일, 비밀번호만 입력하면 누구나 가입이 가능합니다.<br>
-                        (2) 가입 이후 4단계 (마이페이지 작성, 소개 작성, 정책 작성, 객실 등록)을 모두 완료하시면 등록 요청이 완료 됩니다.
+						수강생 정보, 클래스 정보가 간략하게 기재된 수강증을 드려요.<br>
+						수강 후 완료 클래스 카테고리에서 발급해드립니다.       
+						<br><br>
+                    </p>
+                    <br>
+                    <div style="font-weight: bold;">Q. 앱으로 볼 수 있나요?</div>
+                    <p class="faq-box" style="background: #dee2e657;">
+                        <br>
+				                  현재 모바일/PC로 이용 가능한 점 안내해드립니다.<br>
+						열심히 앱 개발중이니 조금만 더 기다려주세요!
                         <br><br>
                     </p>
                     <br>
-                    <div style="font-weight: bold;">Q. 숙소 소개 작성시 주의사항이 궁금해요.</div>
+                    <div style="font-weight: bold;">Q. 회원 정보를 수정하고 싶어요.</div>
                     <p class="faq-box" style="background: #dee2e657;">
                         <br>
-                        (1) 정보 등록 항목은 필수 정보와 부가 정보로 나뉘며 부가 정보 항목은는 기입할 내용이 없으면 작성하지 않으셔도 됩니다.<br>
-                        (2) 우측 끝 “?” 아이콘은 화면 뷰가 어떻게 앱에서 표시되는지 미리 볼 수 있는 화면 이미지 입니다.<br>
-                        (3) 작성시 어려움이 있으실 경우, ‘예시 문구 및 화면보기’를 클릭하여 알맞은 예시를 확인할 수 있습니다.
+						마이페이지 > 내 정보 관리 > 회원정보 수정 에서 변경할 수 있습니다.<br>
+						비밀번호 변경을 원하실 경우 마이페이지 > 내 정보 관리 > 비밀번호 변경 페이지에서 가능합니다.<br>
+						<br>
+						단, SNS계정으로 간편로그인 하신 경우 사이트 내 로그인하기 > 비밀번호 찾기를 통해 임시 비밀번호를 먼저 발급 받으셔야 합니다.<br>
+						발급받으신 비밀번호로 로그인 후 마이페이지에서 비밀번호 변경 바랍니다.
                         <br><br>
                     </p>
                     <br>
-                    <div style="font-weight: bold;">Q. 숙소 정책 설정 시 주의사항이 궁금해요.</div>
+                    <div style="font-weight: bold;">Q. 쿠폰은 어떻게 쓰나요?</div>
                     <p class="faq-box" style="background: #dee2e657;">
                         <br>
-                        (1) 이용시간, 예약 유형, 예약 마감 시간 설정, 성수기 설정, 연박 할인 등 주요 정책(규칙)을 설정할 수 있습니다.<br>
-                        (2) 예약 유형, 예약 마감 시간 설정, 연박 할인 설정은 11/15일 등록 및 변경이 가능합니다.
+				                 결제단계에서 원하시는 쿠폰 선택해주시면 됩니다.<br>
+					        사이트 내 마이페이지 > 내 쿠폰 페이지에서 보유한 쿠폰 확인 가능합니다.
                         <br><br>
                     </p>
+                    <br>
+                    <div style="font-weight: bold;">Q. 결제수단 종류는 어떤 것들이 있나요?</div>
+                    <p class="faq-box" style="background: #dee2e657;">
+                        <br>
+				                  현재는 카카오페이로만 결제 가능합니다.<br>
+						무통장입금 및 실시간 계좌이체는 제공이 어려운 점 양해 부탁드립니다.
+                        <br><br>
+                    </p>
+                    <br>
                 </div>
             </div>
 

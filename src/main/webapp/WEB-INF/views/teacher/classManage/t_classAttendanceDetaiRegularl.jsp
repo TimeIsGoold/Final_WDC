@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Boutique | Ecommerce bootstrap template</title>
+  <title>우리 동네 클래스 - 강사 | W.D.C</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
@@ -31,7 +31,7 @@
   <!-- Custom stylesheet - for your changes-->
   <link rel="stylesheet" href="${pageContext.servletContext.contextPath }/resources/teacher/css/custom.css">
   <!-- Favicon-->
-  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon.png">
+  <link rel="shortcut icon" href="${pageContext.servletContext.contextPath }/resources/teacher/img/favicon2.png">
   <!-- Tweaks for older IEs--><!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -166,7 +166,7 @@
           <tbody>
             <c:choose>
             <c:when test="${ empty applyUserInfoList }">
-              <td colspan="3">신청인원이 없음</td>
+              <td>신청인원이 없음</td>
             </c:when>
             <c:otherwise>
             <c:forEach var="applyUserInfo" items="${ applyUserInfoList }" varStatus="status">

@@ -397,7 +397,8 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("refundDetail") 
-	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no, @RequestParam("classNo")int clsno, @ModelAttribute RefundDTO refund, Model model) {
+	public String refundInfoDetail(@RequestParam("status")String status, @RequestParam("no")String no, 
+			@RequestParam("classNo")int clsno, @ModelAttribute RefundDTO refund, Model model) {
 	
 		Map<String, Object> refundDetailMap = new HashMap<>();
 		refundDetailMap.put("status", status);

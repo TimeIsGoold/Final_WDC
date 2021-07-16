@@ -537,7 +537,6 @@ public class UserInfoController {
 	@PostMapping("likeClass")
 	@ResponseBody
 	public String likeClass(Model model, HttpSession session, HttpServletRequest request) {
-		System.out.println("들어오니??????????????????????");
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		int clsNo = Integer.parseInt(request.getParameter("clsNo"));

@@ -227,7 +227,7 @@
 	            <div class="card-body" >
 	            <c:choose>
 	            	<c:when test="${empty teacherInfo.teacherPicture }">
-	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/customer-2.png" alt="Card image" style="height: 150px; width: 150px; border-radius: 100px"" ><br><br>
+	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/teacher/img/user.png" alt="Card image" style="height: 150px; width: 150px; border-radius: 100px"" ><br><br>
 	            	</c:when>
 	            	<c:otherwise>
 	              		<img class="card-img-top" src="${pageContext.servletContext.contextPath }/resources/upload/${ teacherInfo.teacherPicture }" alt="Card image" style="height: 150px; width: 150px; border-radius: 100px"><br><br>

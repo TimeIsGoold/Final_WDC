@@ -115,7 +115,7 @@
                   </c:forEach>
 
                 </div>
-                <br><br>
+                <br><br><br>
                 <!-- PAGINATION-->
 
               </div>
@@ -123,6 +123,7 @@
           </div>
         </section>
       </div>
+      <br><br><br><br><br><br><br>
       	<%@include file="../commons/footer.jsp" %>
  </div>
   </body>

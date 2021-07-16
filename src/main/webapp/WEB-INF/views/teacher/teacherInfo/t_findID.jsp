@@ -79,7 +79,7 @@
                   <label class="col-sm-3 col-form-label" for="tutorPwd">인증번호</label>
                   <div class="col-sm-12 form-inline" >
                     <input class="form-control"style="width: 440px;" type="text" placeholder="인증번호를 입력하세요" id="checkNum">
-                    <button style="margin-left: 20px; height: 36px;" id="authenticationCheck">인증번호확인</button>
+                    <button style="margin-left: 20px; height: 36px;  background-color: #fef0ae; border-radius: 5px; border: 1px;" id="authenticationCheck">인증번호확인</button>
                   </div>
                 </div><br><br>
                 <div class="form-group row">
