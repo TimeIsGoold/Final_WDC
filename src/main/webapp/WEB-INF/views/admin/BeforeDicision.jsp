@@ -21,6 +21,7 @@
            	<!-- header -->
 		<%@ include file="commons/header.jsp" %>
 		
+		
         <div id="layoutSidenav">
         
         	<!-- sideBar & footer -->
@@ -219,7 +220,7 @@ ${ classDetail.intro }
 	                                        <input type="button"  style="margin-right: 100px;" data-bs-toggle="modal" data-bs-target="#insertReason" value="&nbsp;반&nbsp;&nbsp;려&nbsp;" class="btn btn-danger"/>
 	                                        <input type="hidden" name="clsNo" value="${classDetail.clsNo }"/>
 	                                        <input type="hidden" name="status" value="accept"/>
-	                                        <button class="btn btn-primary" onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">뒤로 가기</button>
+	                                        <button class="btn btn-primary" type="button"onclick="location.href='${ pageContext.servletContext.contextPath }/admin/selectClassBycategory?currentMenu=class&ct=one'">뒤로 가기</button>
                                         </form>
                                       </div>
                                       <div class="col-md-2" style=" height: 100px;"></div>

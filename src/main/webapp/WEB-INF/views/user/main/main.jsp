@@ -138,10 +138,10 @@
 		
       <!-- HERO SECTION-->
       <div class="container">
-      <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(${pageContext.servletContext.contextPath }/resources/user/img/hero-banner-alt.jpg)">
+      <section class="hero pb-3 bg-cover bg-center d-flex align-items-center" style="background: url(${pageContext.servletContext.contextPath }/resources/user/img/TIGmainPic.jpg)">
           <div class="container py-5">
             <div class="row px-4 px-lg-5">
-              <div class="col-lg-6">
+              <div class="col-lg-6" style="margin-bottom: 400px;">
                 <p class="text-muted small text-uppercase mb-2">WDC 2021 EVENT</p>
                 <h1 class="h2 text-uppercase mb-3">응원한 클래스가 개설되면 파격 할인 쿠폰 제공!!</h1>
                  <form action="${ pageContext.servletContext.contextPath }/user/category/all" method="get">
