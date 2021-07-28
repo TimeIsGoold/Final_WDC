@@ -503,6 +503,14 @@ public class AdminController {
 		return "admin/reportPage";
 	}
 
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 신고 승인 메소드
+	 * </pre> 
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("procsAcceptStatus")
 	public String procsAcceptStatus(@RequestParam("rn")int no, @RequestParam("type")String type, @RequestParam("un")int userNo, Model model) {
 		Map<String, Object> blackMap = new HashMap<>();
@@ -524,6 +532,16 @@ public class AdminController {
 		}
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 신고 반려 메소드
+	 * </pre>
+	 * @param no
+	 * @param type
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("procsDenyStatus")
 	public String procsDenyStatus(@RequestParam("rn")int no, @RequestParam("type")String type, Model model) {
 		adminService.updateReportStatus2(no);
@@ -542,6 +560,16 @@ public class AdminController {
 		return "admin/BlackListManagement";
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 클래스 목록 조회 메소드
+	 * </pre>
+	 * @param type
+	 * @param result
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("selectClassBycategory")
 	public String selectClassBycategory(@RequestParam(value="ct", defaultValue="total")String type,@RequestParam(value="cnt", defaultValue="0")int result, Model model) {
 		Map<String, String> map = new HashMap<>();
@@ -552,6 +580,15 @@ public class AdminController {
 		return "admin/adminClassManagement";
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 블랙리스트 등록 메소드
+	 * </pre>
+	 * @param black
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("blackListInsert")
 	public String blackListInsert(@ModelAttribute BlackListDTO black, Model model) {
 		Map<String, Object> blackMap = new HashMap<>();
@@ -561,6 +598,17 @@ public class AdminController {
 		return "redirect:blackListMenagement?&ut=to";
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 클래스 상세보기 조회 메소드
+	 * </pre>
+	 * @param model
+	 * @param clsNo
+	 * @param type
+	 * @param decision
+	 * @return
+	 */
 	@GetMapping("classDetail")
 	public String classDetail(Model model, @RequestParam("cn")int clsNo, @RequestParam("ct")String type, @RequestParam("cd")String decision) {
 		String path = "";
@@ -683,6 +731,16 @@ public class AdminController {
 		return path;
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 클래스 1차 심사 메소드
+	 * </pre>
+	 * @param clsDecisionDTO
+	 * @param no
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("firstDecision")
 	public String firstDecicsion(@ModelAttribute ClsDecisionDTO clsDecisionDTO,@RequestParam(value="yn", defaultValue="0")int no, Model model) {
 		 int result = adminService.updateFirstDecision(clsDecisionDTO);
@@ -690,8 +748,19 @@ public class AdminController {
 		return "redirect:selectClassBycategory?ct=tw&cnt=" + no;
 	}
 
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 2차 심사 클래스중인 클래스 조회 메소드
+	 * </pre>
+	 * @param result
+	 * @param num
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("seconddecision")
-	   public String selectCheeringClass(@RequestParam("pc")String result, @RequestParam(value="deci", defaultValue="0")int num,Model model) {
+	   public String selectCheeringClass(@RequestParam("pc")String result,
+			                             @RequestParam(value="deci", defaultValue="0")int num,Model model) {
 	      long today = System.currentTimeMillis();
 	      List<CheeringClassDTO> refinedCheeringClassList = new ArrayList<>();
 	      List<CheeringClassDTO> cheeringClassList = adminService.selectCheeringClass();
@@ -703,7 +772,9 @@ public class AdminController {
 	      if(result.equals("p")) {
 	         for(int i = 0; i < cheeringClassList.size(); i++ ) {
 	            // 클래스 1차 심사일 + 7일이 오늘 보다 값이 크면 리스트에 뜨워줌
-	            if((cheeringClassList.get(i).getFirstDecision().getTime() + weekByMillis) <= today && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+	            if((cheeringClassList.get(i).getFirstDecision().getTime() + weekByMillis) <= today 
+	             && cheeringClassList.get(i).getCheeringCnt() >= 5) {
+	            	
 	               refinedCheeringClassList.add(cheeringClassList.get(i));
 	               List<Integer> userNoArr = null;
 	               for(int j = 0; j < refinedCheeringClassList.size(); j ++) {
@@ -743,6 +814,16 @@ public class AdminController {
 	      return "admin/testClassList";
 	   }
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 2차 심사 승인 / 반려 메소드
+	 * </pre>
+	 * @param cheeringInfo
+	 * @param num
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("acceptSecondDecision")
 	public String acceptSecondDecision(@RequestParam("cheeringInfo")String cheeringInfo, @RequestParam("submit")int num,  Model model) {
 		String[] cheeringInfoArr = cheeringInfo.split(",");
@@ -776,6 +857,16 @@ public class AdminController {
 		return "redirect:seconddecision?pc=t&deci=" + result;
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 관리자 로그인 메소드
+	 * </pre>
+	 * @param model
+	 * @param loginInfo
+	 * @param rttr
+	 * @return
+	 */
 	@PostMapping("adminSingIn")
 	public String adminSingIn(Model model, @ModelAttribute AdminDTO loginInfo, RedirectAttributes rttr) {
 		AdminDTO adminInfo = adminService.selectAdminInfo(loginInfo);
@@ -792,6 +883,14 @@ public class AdminController {
 		return returnPage;
 	}
 	
+	/**
+	 * @author 김현빈
+	 * <pre>
+	 * 관리자 로그아웃 메소드
+	 * </pre>
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("logout")
 	public String teacherLogout(HttpSession session) {
 		session.invalidate();
